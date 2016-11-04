@@ -2,3 +2,8 @@ C:\Workspace\Hangout\Hangouts.DataAccess\bin\Debug\Hangouts.DataAccess.dll
 C:\Workspace\Hangout\Hangouts.DataAccess\bin\Debug\Hangouts.DataAccess.pdb
 C:\Workspace\Hangout\Hangouts.DataAccess\obj\Debug\Hangouts.DataAccess.dll
 C:\Workspace\Hangout\Hangouts.DataAccess\obj\Debug\Hangouts.DataAccess.pdb
+E:\Sample\WineHangoutz\Services\Hangouts.DataAccess\bin\Debug\Hangouts.DataAccess.dll
+E:\Sample\WineHangoutz\Services\Hangouts.DataAccess\bin\Debug\Hangouts.DataAccess.pdb
+E:\Sample\WineHangoutz\Services\Hangouts.DataAccess\obj\Debug\Hangout.DataAccess.csprojResolveAssemblyReference.cache
+E:\Sample\WineHangoutz\Services\Hangouts.DataAccess\obj\Debug\Hangouts.DataAccess.dll
+E:\Sample\WineHangoutz\Services\Hangouts.DataAccess\obj\Debug\Hangouts.DataAccess.pdb

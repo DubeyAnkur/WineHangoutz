@@ -81,8 +81,8 @@ namespace Phoneword
 			// aapt resource value: 0x7f050025
 			public const int btnFoorPair = 2131034149;
 			
-			// aapt resource value: 0x7f05002c
-			public const int btnPP = 2131034156;
+			// aapt resource value: 0x7f05002d
+			public const int btnPP = 2131034157;
 			
 			// aapt resource value: 0x7f050027
 			public const int btnProducer = 2131034151;
@@ -90,8 +90,8 @@ namespace Phoneword
 			// aapt resource value: 0x7f050028
 			public const int btnReview = 2131034152;
 			
-			// aapt resource value: 0x7f05002d
-			public const int btnSec = 2131034157;
+			// aapt resource value: 0x7f05002e
+			public const int btnSec = 2131034158;
 			
 			// aapt resource value: 0x7f05001c
 			public const int btnSubmitReview = 2131034140;
@@ -99,11 +99,14 @@ namespace Phoneword
 			// aapt resource value: 0x7f050024
 			public const int btnTechNotes = 2131034148;
 			
-			// aapt resource value: 0x7f05002b
-			public const int btnWall = 2131034155;
+			// aapt resource value: 0x7f05002c
+			public const int btnWall = 2131034156;
 			
 			// aapt resource value: 0x7f050023
 			public const int btnWineNotes = 2131034147;
+			
+			// aapt resource value: 0x7f05002a
+			public const int fragmentContainer = 2131034154;
 			
 			// aapt resource value: 0x7f05001e
 			public const int imgBigWine = 2131034142;
@@ -117,8 +120,8 @@ namespace Phoneword
 			// aapt resource value: 0x7f050029
 			public const int lstWineReviews = 2131034153;
 			
-			// aapt resource value: 0x7f05002a
-			public const int storePickText = 2131034154;
+			// aapt resource value: 0x7f05002b
+			public const int storePickText = 2131034155;
 			
 			// aapt resource value: 0x7f050002
 			public const int tableLayout1 = 2131034114;
@@ -227,10 +230,13 @@ namespace Phoneword
 			public const int ReviewPopup = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int WineDetailAndReview = 2130903045;
+			public const int Tab = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int WineStores = 2130903046;
+			public const int WineDetailAndReview = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int WineStores = 2130903047;
 			
 			static Layout()
 			{

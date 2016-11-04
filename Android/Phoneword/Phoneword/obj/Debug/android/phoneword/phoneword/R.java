@@ -21,19 +21,20 @@ public final class R {
         public static final int TranslateButton=0x7f050010;
         public static final int btnDesc=0x7f050021;
         public static final int btnFoorPair=0x7f050025;
-        public static final int btnPP=0x7f05002c;
+        public static final int btnPP=0x7f05002d;
         public static final int btnProducer=0x7f050027;
         public static final int btnReview=0x7f050028;
-        public static final int btnSec=0x7f05002d;
+        public static final int btnSec=0x7f05002e;
         public static final int btnSubmitReview=0x7f05001c;
         public static final int btnTechNotes=0x7f050024;
-        public static final int btnWall=0x7f05002b;
+        public static final int btnWall=0x7f05002c;
         public static final int btnWineNotes=0x7f050023;
+        public static final int fragmentContainer=0x7f05002a;
         public static final int imgBigWine=0x7f05001e;
         public static final int imgWine=0x7f050004;
         public static final int lstRatingBar=0x7f050013;
         public static final int lstWineReviews=0x7f050029;
-        public static final int storePickText=0x7f05002a;
+        public static final int storePickText=0x7f05002b;
         public static final int tableLayout1=0x7f050002;
         public static final int tableLayout2=0x7f05001f;
         public static final int tableRow1=0x7f050003;
@@ -67,8 +68,9 @@ public final class R {
         public static final int main=0x7f030002;
         public static final int reviewlist=0x7f030003;
         public static final int reviewpopup=0x7f030004;
-        public static final int winedetailandreview=0x7f030005;
-        public static final int winestores=0x7f030006;
+        public static final int tab=0x7f030005;
+        public static final int winedetailandreview=0x7f030006;
+        public static final int winestores=0x7f030007;
     }
     public static final class string {
         public static final int ApplicationName=0x7f040001;

@@ -106,4 +106,6 @@ E:\Sumanth_WorkSp\New Folder\HelloSwipeViewWithTabs\obj\Debug\res\drawable\sfond
 E:\Sumanth_WorkSp\New Folder\HelloSwipeViewWithTabs\obj\Debug\res\drawable\sfondo_selezioni.png
 E:\Sumanth_WorkSp\New Folder\HelloSwipeViewWithTabs\obj\Debug\res\drawable\sumanth.jpg
 E:\Sumanth_WorkSp\New Folder\HelloSwipeViewWithTabs\obj\Debug\HelloSwipeViewWithTabs.dll.mdb
-E:\Sumanth_WorkSp\New Folder\HelloSwipeViewWithTabs\bin\Debug\HelloSwipeViewWithTabs.dll.mdb
+E:\Sample\WineHangoutz\Android\New Folder\HelloSwipeViewWithTabs\obj\Debug\HelloSwipeViewWithTabs.csprojResolveAssemblyReference.cache
+E:\Sample\WineHangoutz\Android\New Folder\HelloSwipeViewWithTabs\obj\Debug\HelloSwipeViewWithTabs.dll
+E:\Sample\WineHangoutz\Android\New Folder\HelloSwipeViewWithTabs\obj\Debug\HelloSwipeViewWithTabs.pdb
