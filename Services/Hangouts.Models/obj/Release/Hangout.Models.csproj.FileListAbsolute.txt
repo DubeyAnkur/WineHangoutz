@@ -1,0 +1,4 @@
+E:\Sample\WineHangoutz\Services\Hangouts.Models\bin\Release\Hangouts.Models.dll
+E:\Sample\WineHangoutz\Services\Hangouts.Models\bin\Release\Hangouts.Models.pdb
+E:\Sample\WineHangoutz\Services\Hangouts.Models\obj\Release\Hangouts.Models.dll
+E:\Sample\WineHangoutz\Services\Hangouts.Models\obj\Release\Hangouts.Models.pdb

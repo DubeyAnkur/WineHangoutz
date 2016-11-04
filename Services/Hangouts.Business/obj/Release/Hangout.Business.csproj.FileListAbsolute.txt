@@ -1,0 +1,5 @@
+E:\Sample\WineHangoutz\Services\Hangouts.Business\bin\Release\Hangouts.Business.dll
+E:\Sample\WineHangoutz\Services\Hangouts.Business\bin\Release\Hangouts.Business.pdb
+E:\Sample\WineHangoutz\Services\Hangouts.Business\obj\Release\Hangout.Business.csprojResolveAssemblyReference.cache
+E:\Sample\WineHangoutz\Services\Hangouts.Business\obj\Release\Hangouts.Business.dll
+E:\Sample\WineHangoutz\Services\Hangouts.Business\obj\Release\Hangouts.Business.pdb
