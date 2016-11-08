@@ -83,10 +83,8 @@ namespace Ui
 			
 			// aapt resource value: 0x7f050004
 			public const int txtNameVintage = 2131034116;
-
-            public const int wineList = 2131034113;
-
-            static Id()
+			
+			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 			}

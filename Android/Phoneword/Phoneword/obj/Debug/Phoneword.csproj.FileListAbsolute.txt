@@ -36,6 +36,8 @@ E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\layout\reviewpo
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\layout\tab.xml
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\layout\main.xml
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\values\strings.xml
+E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\values\styles.xml
+E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\values\colors.xml
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\R.cs.flag
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\uploadflags.txt
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\bin\Debug\Phoneword.dll.mdb
@@ -62,8 +64,5 @@ E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\android\assets\Syst
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\android\assets\System.ServiceModel.Internals.dll.mdb
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\android\assets\System.Xml.dll.mdb
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
-E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\Phoneword.csprojResolveAssemblyReference.cache
-E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\values\styles.xml
-E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\res\values\colors.xml
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\Phoneword.dll.mdb
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\bin\Debug\Phoneword.dll.mdb
