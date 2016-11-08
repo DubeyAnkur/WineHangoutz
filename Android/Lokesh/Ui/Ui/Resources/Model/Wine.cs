@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +10,15 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Phoneword
+namespace Ui
 {
     public class Wine
     {
         public string Name { get; set; }
         public string Vintage { get; set; }
-   
         public string Price { get; set; }
-        public string imageURL { get; set; 
+        public string imageURL { get; set; }
+        
+
     }
 }
