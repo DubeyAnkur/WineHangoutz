@@ -21,16 +21,14 @@ namespace Ui
             base.OnCreate(savedInstanceState);
 
             // Create your application here
-            SetContentView(Resource.Layout.listView_row);
+            SetContentView(Resource.Layout.EnoListing);
             ListView wineList = FindViewById<ListView>(Resource.Id.wineList);
             myArr = SampleData();
 
             ListViewAdapter adapter = new ListViewAdapter(this, myArr);
             wineList.Adapter = adapter;
         }
-
-           
-
+        
         public List<Wine> SampleData()
         {
             List<Wine> myArr = new List<Wine>();
