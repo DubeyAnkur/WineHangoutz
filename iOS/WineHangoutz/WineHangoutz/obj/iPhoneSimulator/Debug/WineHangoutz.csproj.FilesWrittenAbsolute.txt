@@ -33,3 +33,4 @@
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/PDRating.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/actool/_PartialAppManifest.items
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/actool/_BundleResourceWithLogicalName.items
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll

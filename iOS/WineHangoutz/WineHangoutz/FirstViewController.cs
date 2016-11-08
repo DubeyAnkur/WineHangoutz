@@ -38,14 +38,14 @@ namespace WineHangoutz
 			View.AddSubview(btnSec);
 			View.AddSubview(btnPP);
 
-			BindClicks(btnMan, btnSec);
+			BindClicks(btnMan, btnSec, btnPP);
 			//TabBarItem.Image = new UIImage("Star4.png");
 			//btnNavigate.TouchUpInside += (sender, e) => {
 			//	NavigationController.PushViewController(new IsolatedView(), false);
 			//};
 		}
 
-		public void BindClicks(UIButton btnMan, UIButton btnSec)
+		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP)
 		{
 			btnMan.TouchUpInside += (sender, e) =>
 			{
@@ -69,12 +69,25 @@ namespace WineHangoutz
 			btnSec.TouchUpInside += (sender, e) => { 
 				NavigationController.PushViewController(new DetailViewController(), false);
 			};
+			btnPP.TouchUpInside += async (sender, e) =>
+			{
+				//NavigationController.PushViewController(new DetailViewController(), false);
+				ServiceWrapper sev = new ServiceWrapper();
+				string name = await sev.GetDataAsync();
+				btnPP.SetTitle(name, UIControlState.Normal);
+			};
 		}
 
 		public override void DidReceiveMemoryWarning()
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
+		}
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			NavigationController.NavigationBar.TopItem.Title = "Locations";
+
 		}
 	}
 }

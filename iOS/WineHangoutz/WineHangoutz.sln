@@ -20,4 +20,31 @@ Global
 		{19967747-2AC6-49DA-8AE0-0DB0454C4F52}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{19967747-2AC6-49DA-8AE0-0DB0454C4F52}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = application/json
+		$0.StandardHeader = $3
+		$3.Text = 
+		$3.IncludeInNewFiles = True
+		$0.NameConventionPolicy = $4
+		$4.Rules = $5
+		$5.NamingRule = $6
+		$6.Name = Type Parameters
+		$6.AffectedEntity = TypeParameter
+		$6.VisibilityMask = VisibilityMask
+		$6.NamingStyle = PascalCase
+		$6.IncludeInstanceMembers = True
+		$6.IncludeStaticEntities = True
+		$6.RequiredPrefixes = $7
+		$7.String = T
+		$6.RequiredSuffixes = $8
+		$8.String = Exception
+		$0.VersionControlPolicy = $9
+		$9.inheritsSet = Mono
+	EndGlobalSection
 EndGlobal

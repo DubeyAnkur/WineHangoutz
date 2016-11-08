@@ -49,5 +49,11 @@ namespace WineHangoutz
 			NavigationController.PushViewController(new PopupView(), false);
 		}
 
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			NavigationController.NavigationBar.TopItem.Title = "Eno Listing";
+
+		}
 	}
 }

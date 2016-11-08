@@ -39,5 +39,11 @@ namespace WineHangoutz
 			View.AddSubview(btnWineries);
 			View.AddSubview(btnRegions);
 		}
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			NavigationController.NavigationBar.TopItem.Title = "Explore";
+
+		}
 	}
 }
