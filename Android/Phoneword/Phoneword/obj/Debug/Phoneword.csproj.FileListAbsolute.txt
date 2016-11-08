@@ -19,7 +19,6 @@ E:\Sample\Phoneword\Phoneword\obj\Debug\uploadflags.txt
 E:\Sample\Phoneword\Phoneword\obj\Debug\Phoneword.csprojResolveAssemblyReference.cache
 E:\Sample\Phoneword\Phoneword\obj\Debug\Phoneword.dll.mdb
 E:\Sample\Phoneword\Phoneword\bin\Debug\Phoneword.dll.mdb
-E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\obj\Debug\Phoneword.csprojResolveAssemblyReference.cache
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\bin\Debug\Phoneword.dll
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\bin\Debug\Phoneword.pdb
 E:\Sample\WineHangoutz\Android\Phoneword\Phoneword\bin\Debug\Phoneword.Phoneword.apk
