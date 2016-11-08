@@ -23,9 +23,9 @@ namespace Phoneword
             var view = inflater.Inflate(
                 Resource.Layout.Tab, container, false);
 
-            var sampleTextView =
-                view.FindViewById<TextView>(Resource.Id.sampleTextView);
-            sampleTextView.Text = "sample fragment text";
+            //var sampleTextView =
+            //    view.FindViewById<TextView>(Resource.Id.sampleTextView);
+            //sampleTextView.Text = "sample fragment text";
 
 
             return view;
