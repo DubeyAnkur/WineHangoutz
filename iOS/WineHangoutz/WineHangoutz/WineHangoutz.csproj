@@ -193,6 +193,7 @@
     <BundleResource Include="Images\Sec.jpg" />
     <BundleResource Include="Images\Top.jpg" />
     <BundleResource Include="Images\Wineries.jpg" />
+    <BundleResource Include="Resources\profile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

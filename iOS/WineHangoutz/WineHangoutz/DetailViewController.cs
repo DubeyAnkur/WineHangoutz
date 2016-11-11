@@ -88,11 +88,13 @@ namespace WineHangoutz
 
 			ratingView = new PDRatingView(new CGRect(View.Bounds.Width * 2 / 8, Y+82, View.Bounds.Width / 2, 36f), ratingConfig, 0m);
 			// [Optional] Do something when the user selects a rating.
+			UIViewController that = this;
 			ratingView.RatingChosen += (sender, e) =>
 			{
 				//(new UIAlertView("Rated!", e.Rating.ToString() + " stars", null, "Ok")).Show();
 				PopupView yourController = new PopupView();
-
+				yourController.NavController = NavigationController;
+				yourController.parent = that;
 				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 				//this.PresentViewController(yourController, true, null);
 				this.PresentModalViewController(yourController, false);

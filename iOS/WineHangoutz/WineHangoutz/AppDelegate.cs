@@ -25,6 +25,16 @@ namespace WineHangoutz
 			nav = new UINavigationController(Window.RootViewController);
 			Window.RootViewController = nav;
 
+			UIImage profile = UIImage.FromFile("profile.png");
+			profile = ResizeImage(profile, 25, 25);
+			var topBtn = new UIBarButtonItem(profile
+			, UIBarButtonItemStyle.Plain
+			, (sender, args) =>
+			{
+				// button was clicked
+			});
+			nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+
 			ManageTabBar(RootTab);
 
 			return true;
