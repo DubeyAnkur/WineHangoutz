@@ -21,6 +21,9 @@ namespace Tabs
 
             SetContentView(Resource.Layout.Main);
 
+            //Android.Support.V7.Widget.Toolbar myToolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.my_toolbar);
+            //SetSupportActionBar(myToolbar);
+
             _pager = FindViewById<ViewPager>(Resource.Id.pager);
             _tabs = FindViewById<PagerSlidingTabStrip>(Resource.Id.tabs);
                 
