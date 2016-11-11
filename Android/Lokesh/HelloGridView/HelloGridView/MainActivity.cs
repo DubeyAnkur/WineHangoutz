@@ -26,6 +26,7 @@ namespace HelloGridView
             gridview.Adapter = adapter;
 
 
+            
             //var gridview = FindViewById<GridView>(Resource.Id.gridview);
             //gridview.Adapter = new ImageAdapter(this);
            gridview.SetColumnWidth(1);
@@ -34,8 +35,9 @@ namespace HelloGridView
             //gridview.SetVerticalSpacing(2);
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
-            Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
-            };
+                          Toast.MakeText(this, args.Position.ToString(), ToastLength.Short);
+                int x = args.Position;
+                 };
         }
         public class ImageAdapter : BaseAdapter
         {
@@ -100,6 +102,8 @@ namespace HelloGridView
             List<Wine> myArr = new List<Wine>();
             Wine w1 = new Wine();
             w1.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
+            w1.Ratings = "15";
+            w1.UserRatings = "12";
             w1.Price = "$15.99";
             w1.Vintage = "WS: TOP 100";
             w1.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
@@ -108,12 +112,16 @@ namespace HelloGridView
             Wine w2 = new Wine();
             w2.Name = "Bodega Norton Reserve Malbec 2013";
             w2.Price = "$19.99";
+            w2.Ratings = "15";
+            w2.UserRatings = "12";
             w2.Vintage = "WS: TOP 100";
             w2.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
 
             Wine w3 = new Wine();
             w3.Name = "Bodega Norton Reserve Malbec 2013";
+            w3.Ratings = "15";
+            w3.UserRatings = "12";
             w3.Price = "$19.99";
             w3.Vintage = "WS: TOP 100";
             w3.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
@@ -121,12 +129,16 @@ namespace HelloGridView
             Wine w4 = new Wine();
             w4.Name = "Bodega Norton Reserve Malbec 2013";
             w4.Price = "$19.99";
+            w4.Ratings = "15";
+            w4.UserRatings = "12";
             w4.Vintage = "WS: TOP 100";
             w4.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
             Wine w5 = new Wine();
             w5.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
             w5.Price = "$15.99";
+            w5.Ratings = "15";
+            w5.UserRatings = "12";
             w5.Vintage = "WS: TOP 100";
             w5.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
@@ -134,6 +146,8 @@ namespace HelloGridView
             Wine w6 = new Wine();
             w6.Name = "Bodega Norton Reserve Malbec 2013";
             w6.Price = "$19.99";
+            w6.Ratings = "15";
+            w6.UserRatings = "12";
             w6.Vintage = "WS: TOP 100";
             w6.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
@@ -141,12 +155,16 @@ namespace HelloGridView
             Wine w7 = new Wine();
             w7.Name = "Bodega Norton Reserve Malbec 2013";
             w7.Price = "$19.99";
+            w7.Ratings = "15";
+            w7.UserRatings = "12";
             w7.Vintage = "WS: TOP 100";
             w7.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
             Wine w8 = new Wine();
             w8.Name = "Bodega Norton Reserve Malbec 2013";
             w8.Price = "$19.99";
+            w8.Ratings = "15";
+            w8.UserRatings = "12";
             w8.Vintage = "WS: TOP 100";
             w8.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
@@ -172,6 +190,15 @@ namespace HelloGridView
         public string SKU { get; set; }
         public string Ratings { get; set; }
         public string UserRatings { get; set; }
+        public string Description { get; set; }
+        public string Classification { get; set; }
+        public string Grapetype { get; set; }
+        public string Alcohol { get; set; }
+        public string Aramas { get; set; }
+        public string FoodPairings { get; set; }
+        public string Bottlesize { get; set; }
+        public string ServingAt { get; set; }
+
     }
 }
 
