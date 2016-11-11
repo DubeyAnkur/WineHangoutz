@@ -16,23 +16,90 @@ namespace Tabs
 {
     public class Fragment1 : Android.Support.V4.App.Fragment
     {
+        static readonly List<string> storeName = new List<string>();
+        Button _button;
+        void StartNewActivity(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this.Activity, typeof(EnoListing));
+            storeName.Add("Wall");
+                intent.PutStringArrayListExtra("storeName", storeName);
+        
+            StartActivity(intent);
+
+
+            //Intent intent1 = new Intent(this.Activity, typeof(EnoListing));
+            //storeName.Add("Point Pleasant");
+            //intent.PutStringArrayListExtra("storeName", storeName);
+
+            //StartActivity(intent1);
+
+            //Intent intent2 = new Intent(this.Activity, typeof(EnoListing));
+            //storeName.Add("Secaucas");
+            //intent.PutStringArrayListExtra("storeName", storeName);
+
+            //StartActivity(intent2);
+
+        }
+
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
-            var view = inflater.Inflate(Resource.Layout.Fragment1Layout, null);
-            Button txtName = view.FindViewById<Button>(Resource.Id.button);
-            Button txtName1 = view.FindViewById<Button>(Resource.Id.button1);
-            Button txtName2 = view.FindViewById<Button>(Resource.Id.button2);
-
-
-            var param = txtName.LayoutParameters;
-            var param1 = txtName1.LayoutParameters;
-            var param2 = txtName2.LayoutParameters;
+          //  var view = inflater.Inflate(Resource.Layout.Fragment1Layout, null);
+            View view = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
+            _button = view.FindViewById<Button>(Resource.Id.btnWall);
+            var param =_button.LayoutParameters;
             param.Height = PixelsToDp(160);
-            param1.Height = PixelsToDp(160);
-            param2.Height = PixelsToDp(160);
+            _button.Click += StartNewActivity;
             return view;
+            //View view1 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
+            //Button _button1 = view.FindViewById<Button>(Resource.Id.btnPP);
+            //var param1 = _button.LayoutParameters;
+            //param1.Height = PixelsToDp(160);
+            //_button1.Click += StartNewActivity;
+            //return view;
+            //View view2 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
+            //Button _button2 = view.FindViewById<Button>(Resource.Id.btnSec);
+            //var param2 = _button.LayoutParameters;
+            //param2.Height = PixelsToDp(160);
+            //_button2.Click += StartNewActivity;
+            //return view;
+
+            ////Button btnWall = view.FindViewById<Button>(Resource.Id.btnWall);
+            ////Button btnPP = view.FindViewById<Button>(Resource.Id.btnPP);
+            ////Button btnSec = view.FindViewById<Button>(Resource.Id.btnSec);
+
+
+            ////var param = btnWall.LayoutParameters;
+            ////var param1 = btnPP.LayoutParameters;
+            ////var param2 = btnSec.LayoutParameters;
+            ////param.Height = PixelsToDp(160);
+            ////param1.Height = PixelsToDp(160);
+            ////param2.Height = PixelsToDp(160);
+            ////return view;
+            ////btnWall.Click += (sender, e) =>
+
+            ////    {
+            ////        var intent = new Intent(this.Activity, typeof(EnoListing));
+            ////        storeName.Add("Wall");
+            ////        intent.PutStringArrayListExtra("storeName", storeName);
+            ////        StartActivity(intent);
+            ////    };
+            ////btnPP.Click += (sender, e) =>
+            ////{
+            ////    var intent = new Intent(this.Activity, typeof(EnoListing));
+            ////    storeName.Add("Secaucas");
+            ////    intent.PutStringArrayListExtra("storeName", storeName);
+            ////    StartActivity(intent);
+            ////};
+            ////btnPP.Click += (sender, e) =>
+            //// {
+            ////     var intent = new Intent(this.Activity, typeof(EnoListing));
+            ////     storeName.Add("Point Pleasant");
+            ////     intent.PutStringArrayListExtra("storeName", storeName);
+            ////     StartActivity(intent);
+            //// };
         }
         private int PixelsToDp(int pixels)
         {
