@@ -38,14 +38,14 @@ namespace WineHangoutz
 			View.AddSubview(btnSec);
 			View.AddSubview(btnPP);
 
-			BindClicks(btnMan, btnSec);
+			BindClicks(btnMan, btnSec, btnPP);
 			//TabBarItem.Image = new UIImage("Star4.png");
 			//btnNavigate.TouchUpInside += (sender, e) => {
 			//	NavigationController.PushViewController(new IsolatedView(), false);
 			//};
 		}
 
-		public void BindClicks(UIButton btnMan, UIButton btnSec)
+		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP)
 		{
 			btnMan.TouchUpInside += (sender, e) =>
 			{
@@ -68,6 +68,13 @@ namespace WineHangoutz
 			};
 			btnSec.TouchUpInside += (sender, e) => { 
 				NavigationController.PushViewController(new DetailViewController(), false);
+			};
+
+			btnPP.TouchUpInside += async (sender, e) =>
+			{
+				ServiceWrapper svc = new ServiceWrapper();
+				string ret = await svc.GetDataAsync();
+				((UIButton)sender).SetTitle(ret, UIControlState.Normal);
 			};
 		}
 

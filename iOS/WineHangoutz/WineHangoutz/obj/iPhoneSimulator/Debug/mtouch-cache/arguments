@@ -1,6 +1,6 @@
-# Version: 10.0.1.10 (cycle8-sr0-xi: ad1cd42)
-# [first argument, ignore] # /Library/Frameworks/Xamarin.iOS.framework/Versions/10.0.1.10/lib/mtouch/mtouch.exe
-/Library/Frameworks/Xamarin.iOS.framework/Versions/10.0.1.10/lib/mtouch/mtouch.exe \
+# Version: 10.2.0.4 (xcode8.1: b638977)
+# [first argument, ignore] # /Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.0.4/lib/mtouch/mtouch.exe
+/Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.0.4/lib/mtouch/mtouch.exe \
 	--cache \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/mtouch-cache \
 	--sim \
@@ -13,7 +13,7 @@
 	--sdkroot \
 	/Applications/Xcode.app/Contents/Developer \
 	--sdk \
-	10.0 \
+	10.1 \
 	--targetver \
 	8.0 \
 	--http-message-handler=HttpClientHandler \
@@ -33,9 +33,15 @@
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/PDRating.dll \
 	-r \
+	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Newtonsoft.Json.7.0.1/lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll \
+	-r \
+	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Net.Http.dll \
+	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/PDRating.dll \
+	-r \
+	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Newtonsoft.Json.7.0.1/lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll \
 	--target-framework \
 	"Xamarin.iOS,v1.0" \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug//WineHangoutz.exe \

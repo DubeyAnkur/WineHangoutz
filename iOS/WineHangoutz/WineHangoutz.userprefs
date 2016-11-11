@@ -1,32 +1,16 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/PopupView.cs">
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/APLCollectionViewCell.cs">
->>>>>>> origin/master
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/FirstViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="14" Column="34" />
-      <File FileName="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.0.1.10/lib/mono/2.1/Xamarin.iOS.Common.targets" Line="838" Column="11" />
-      <File FileName="WineHangoutz/Info.plist" />
-<<<<<<< HEAD
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="150" Column="34" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="41" Column="22" />
-      <File FileName="WineHangoutz/FirstViewController.cs" Line="71" Column="6" />
-      <File FileName="WineHangoutz/SecondViewController.cs" Line="57" Column="4" />
-      <File FileName="WineHangoutz/ExploreViewController.cs" Line="47" Column="4" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="97" Column="34" />
-      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="54" Column="34" />
-      <File FileName="WineHangoutz/PopupView.cs" Line="35" Column="4" />
-=======
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="16" Column="7" />
->>>>>>> origin/master
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="6" Column="18" />
+      <File FileName="WineHangoutz/FirstViewController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
-              <Node name="APLCollectionViewCell.cs" selected="True" />
+              <Node name="References" expanded="True" />
+              <Node name="FirstViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -35,8 +19,10 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" line="36" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.2A844B85-A428-4BBE-B393-E8F713ECE782" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.571191DB-9BB8-49ED-95A0-652E823BFC21" />
 </Properties>
