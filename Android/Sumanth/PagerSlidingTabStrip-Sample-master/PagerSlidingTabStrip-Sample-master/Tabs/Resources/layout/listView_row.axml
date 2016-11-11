@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:weightSum="100">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="1"
+        android:id="@+id/tableLayout1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <ImageView
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgWine"
+                android:layout_marginRight="0.0dp"
+                android:layout_marginBottom="0.0dp" />
+            <TableLayout
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tableLayout1">
+                <TableRow
+                    android:id="@+id/tableRow1">
+                    <TextView
+                        android:text="Name:"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/imgWine"
+                        android:id="@+id/txtNameLabel" />
+                    <TextView
+                        android:text="Silver Oak Napa Valley Cabernet Sauvignon 2011"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/txtNameLabel"
+                        android:singleLine="false"
+                        android:inputType="textMultiLine"
+                        android:maxLines="2"
+                        android:lines="2"
+                        android:ellipsize="none"
+                        android:scrollHorizontally="false"
+                        android:id="@+id/txtName" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow1">
+                    <TextView
+                        android:text="Ratings:"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="120.0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/imgWine"
+                        android:id="@+id/txtRatingLabel" />
+                    <TextView
+                        android:text="WS: 95 Points"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/txtRatingLabel"
+                        android:id="@+id/txtRatings" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow1">
+                    <TextView
+                        android:text="User Ratings:"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/imgWine"
+                        android:id="@+id/txtUserRatingLabel" />
+                    <TextView
+                        android:text="4.5"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:layout_toRightOf="@id/txtUserRatingLabel"
+                        android:id="@+id/txtUserRatings" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow1">
+                    <TextView
+                        android:text="Price:"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/imgWine"
+                        android:id="@+id/txtPriceLabel" />
+                    <TextView
+                        android:text="$19.99"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/txtPriceLabel"
+                        android:id="@+id/txtPrice" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

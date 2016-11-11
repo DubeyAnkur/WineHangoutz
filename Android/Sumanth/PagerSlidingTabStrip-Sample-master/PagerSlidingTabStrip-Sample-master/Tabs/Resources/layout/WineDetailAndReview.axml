@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="Wine Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtWineName" />
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:id="@+id/tableLayout1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <ImageView
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:id="@+id/imgBigWine" />
+            <TableLayout
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:id="@+id/tableLayout2">
+                <TableRow
+                    android:id="@+id/tableRow2">
+                    <Button
+                        android:text="Description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnDesc" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow4">
+                    <Button
+                        android:text="Wine maker Notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnWineNotes" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow4">
+                    <Button
+                        android:text="Technical Notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnTechNotes" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow4">
+                    <Button
+                        android:text="Food Pairing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnFoorPair" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow3">
+                    <Button
+                        android:text="Producer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnProducer" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:text="Write a Review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnReview" />
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lstWineReviews" />
+</LinearLayout>
