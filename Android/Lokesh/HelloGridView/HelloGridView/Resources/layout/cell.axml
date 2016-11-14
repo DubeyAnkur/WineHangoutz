@@ -14,7 +14,7 @@
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="@drawable/placeholder_bottiglia_lista.jpeg">
             <ImageView
                 android:src="@android:drawable/ic_menu_gallery"
                 android:layout_width="45dp"

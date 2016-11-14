@@ -52,13 +52,13 @@ namespace Tabs
             var param =_button.LayoutParameters;
             param.Height = PixelsToDp(160);
             _button.Click += StartNewActivity;
-            return view;
+            //return view;
             //View view1 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
-            //Button _button1 = view.FindViewById<Button>(Resource.Id.btnPP);
+            Button _button1 = view.FindViewById<Button>(Resource.Id.btnPP);
             //var param1 = _button.LayoutParameters;
             //param1.Height = PixelsToDp(160);
-            //_button1.Click += StartNewActivity;
-            //return view;
+            _button1.Click += StartNewActivity;
+            return view;
             //View view2 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
             //Button _button2 = view.FindViewById<Button>(Resource.Id.btnSec);
             //var param2 = _button.LayoutParameters;
