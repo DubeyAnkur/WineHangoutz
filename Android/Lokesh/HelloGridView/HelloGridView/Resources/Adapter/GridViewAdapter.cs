@@ -53,14 +53,14 @@ namespace HelloGridView
             TextView txtName = row.FindViewById<TextView>(Resource.Id.txtName);
             TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
             TextView txtVintage = row.FindViewById<TextView>(Resource.Id.txtVintage);
-            TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
+            //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
 
 
             txtName.Text = myItems[position].Name;
             txtRatings.Text = myItems[position].Ratings;
-            txtUserRatings.Text = myItems[position].UserRatings;
+            //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
@@ -70,7 +70,7 @@ namespace HelloGridView
 
             txtName.Focusable = false;
             txtRatings.Focusable = false;
-            txtUserRatings.Focusable = false;
+            //txtUserRatings.Focusable = false;
             txtVintage.Focusable = false;
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
