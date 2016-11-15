@@ -18,7 +18,7 @@
             <ImageView
                 android:src="@android:drawable/ic_menu_gallery"
                 android:layout_width="45dp"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:id="@+id/imgWine"
                 android:layout_marginRight="0.0dp"
                 android:layout_marginBottom="0.0dp"
@@ -28,95 +28,93 @@
             android:id="@+id/tableRow1"
             android:background="#ffffff">
             <TextView
-                android:text="Name:"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/imgWine"
-                android:id="@+id/txtNameLabel"
-                android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
-            <TextView
                 android:text="Silver Oak Napa Valley Cabernet Sauvignon 2011"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/txtNameLabel"
                 android:singleLine="false"
                 android:inputType="textMultiLine"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:lines="2"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
                 android:id="@+id/txtName"
-                android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
+                android:textColor="#720e77"
+                android:textStyle="bold"
+                android:layout_column="1"
+                android:gravity="center" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
             android:background="#ffffff">
             <TextView
-                android:text="Ratings:"
+                android:text="Vintage"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/imgWine"
-                android:id="@+id/txtRatingLabel"
+                android:id="@+id/txtVintage"
                 android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal" />
+        </TableRow>
+        <TableRow>
+            <View
+                android:id="@+id/separator"
+                android:background="#ffffff"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_centerVertical="true"
+                android:layout_alignParentTop="true" />
+            <ImageView
+                android:id="@+id/widget39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator"
+                android:layout_alignParentRight="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:background="#ffffff">
             <TextView
                 android:text="WS: 95 Points"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/txtRatingLabel"
                 android:id="@+id/txtRatings"
                 android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
             android:background="#ffffff">
-            <TextView
-                android:text="User Ratings:"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/imgWine"
-                android:id="@+id/txtUserRatingLabel"
-                android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
             <TextView
                 android:text="4.5"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:layout_toRightOf="@id/txtUserRatingLabel"
                 android:id="@+id/txtUserRatings"
                 android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
             android:background="#ffffff">
             <TextView
-                android:text="Price:"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/imgWine"
-                android:id="@+id/txtPriceLabel"
-                android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
-            <TextView
                 android:text="$19.99"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/txtPriceLabel"
                 android:id="@+id/txtPrice"
                 android:textColor="@android:color/holo_purple"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

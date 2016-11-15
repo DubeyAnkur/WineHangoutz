@@ -56,7 +56,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Large Text"
+                android:text="Rate The Wine"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_column="0"
                 android:id="@+id/textView19"
@@ -64,7 +64,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Slide Your Finger to vote"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView20"
@@ -82,7 +82,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Name:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView34" />
@@ -94,7 +94,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Grape Type"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView36" />
@@ -106,7 +106,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Alcohol"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView59" />
@@ -118,7 +118,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Vintage"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView60" />
@@ -130,7 +130,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Aromas"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView61" />
@@ -142,7 +142,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Food Pairings"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView62" />
@@ -154,7 +154,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Bottle Size"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView63" />
@@ -166,7 +166,7 @@
         </TableRow>
         <TableRow>
             <TextView
-                android:text="Medium Text"
+                android:text="Serving at"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView64" />
@@ -182,11 +182,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
                 android:id="@+id/textView65" />
-            <TextView
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="1"
-                android:id="@+id/textView72" />
         </TableRow>
         <TableRow>
             <TextView

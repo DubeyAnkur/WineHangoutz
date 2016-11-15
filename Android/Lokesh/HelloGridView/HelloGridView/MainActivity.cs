@@ -102,12 +102,11 @@ namespace HelloGridView
             List<Wine> myArr = new List<Wine>();
             Wine w1 = new Wine();
             w1.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
-            w1.Ratings = "15";
-            w1.UserRatings = "12";
-            w1.Price = "$15.99";
+            w1.Ratings = "Ratings";
+            w1.UserRatings = "User Ratings";
+            w1.Price = "Prise$";
             w1.Vintage = "WS: TOP 100";
             w1.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
-
 
             Wine w2 = new Wine();
             w2.Name = "Bodega Norton Reserve Malbec 2013";
@@ -124,7 +123,7 @@ namespace HelloGridView
             w3.UserRatings = "12";
             w3.Price = "$19.99";
             w3.Vintage = "WS: TOP 100";
-            w3.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w3.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             Wine w4 = new Wine();
             w4.Name = "Bodega Norton Reserve Malbec 2013";
@@ -132,7 +131,7 @@ namespace HelloGridView
             w4.Ratings = "15";
             w4.UserRatings = "12";
             w4.Vintage = "WS: TOP 100";
-            w4.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w4.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             Wine w5 = new Wine();
             w5.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
@@ -140,7 +139,7 @@ namespace HelloGridView
             w5.Ratings = "15";
             w5.UserRatings = "12";
             w5.Vintage = "WS: TOP 100";
-            w5.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w5.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
 
             Wine w6 = new Wine();
@@ -149,7 +148,7 @@ namespace HelloGridView
             w6.Ratings = "15";
             w6.UserRatings = "12";
             w6.Vintage = "WS: TOP 100";
-            w6.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w6.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
 
             Wine w7 = new Wine();
@@ -158,7 +157,7 @@ namespace HelloGridView
             w7.Ratings = "15";
             w7.UserRatings = "12";
             w7.Vintage = "WS: TOP 100";
-            w7.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w7.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             Wine w8 = new Wine();
             w8.Name = "Bodega Norton Reserve Malbec 2013";
@@ -166,7 +165,7 @@ namespace HelloGridView
             w8.Ratings = "15";
             w8.UserRatings = "12";
             w8.Vintage = "WS: TOP 100";
-            w8.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w8.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             myArr.Add(w1);
             myArr.Add(w2);
