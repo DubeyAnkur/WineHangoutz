@@ -83,18 +83,21 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff"
+            android:background="#5b4d4d"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RatingBar
                 android:id="@+id/rtbProductRating"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:numStars="5"
                 android:max="5"
-                android:background="#000000"
                 android:stepSize="1.0"
-                android:layout_span="2" />
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:isIndicator="false"
+                android:layout_span="3" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
