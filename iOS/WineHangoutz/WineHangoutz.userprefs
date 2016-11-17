@@ -1,16 +1,19 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/FirstViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/SecondViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="6" Column="18" />
-      <File FileName="WineHangoutz/FirstViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="48" Column="2" />
+      <File FileName="WineHangoutz/FirstViewController.cs" Line="35" Column="49" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="21" Column="13" />
+      <File FileName="WineHangoutz/SecondViewController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
-              <Node name="References" expanded="True" />
-              <Node name="FirstViewController.cs" selected="True" />
+              <Node name="Images" expanded="True" />
+              <Node name="SecondViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -19,9 +22,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" line="36" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.571191DB-9BB8-49ED-95A0-652E823BFC21" />

@@ -43,6 +43,7 @@ namespace WineHangoutz
 			//btnNavigate.TouchUpInside += (sender, e) => {
 			//	NavigationController.PushViewController(new IsolatedView(), false);
 			//};
+
 		}
 
 		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP)
@@ -82,6 +83,12 @@ namespace WineHangoutz
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			NavigationController.Title = "Locations";
 		}
 	}
 }
