@@ -49,5 +49,11 @@ namespace WineHangoutz
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			//NavigationController.Title = "Locations";
+			NavigationController.NavigationBar.TopItem.Title = "Taste";
+		}
 	}
 }

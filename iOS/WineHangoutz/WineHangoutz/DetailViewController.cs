@@ -9,6 +9,12 @@ namespace WineHangoutz
 {
 	public class DetailViewController : UIViewController
 	{
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			//NavigationController.Title = "Locations";
+			NavigationController.NavigationBar.TopItem.Title = "List";
+		}
 		public DetailViewController() : base ()
 		{
 			this.Title = "Details";

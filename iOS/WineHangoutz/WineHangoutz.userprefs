@@ -1,19 +1,19 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/SecondViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ExploreViewController.cs">
     <Files>
       <File FileName="WineHangoutz/ServiceWrapper.cs" Line="48" Column="2" />
-      <File FileName="WineHangoutz/FirstViewController.cs" Line="35" Column="49" />
+      <File FileName="WineHangoutz/FirstViewController.cs" Line="93" Column="4" />
       <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
       <File FileName="WineHangoutz/PopupView.cs" Line="21" Column="13" />
-      <File FileName="WineHangoutz/SecondViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/SecondViewController.cs" Line="56" Column="61" />
+      <File FileName="WineHangoutz/ExploreViewController.cs" Line="46" Column="65" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
-              <Node name="Images" expanded="True" />
-              <Node name="SecondViewController.cs" selected="True" />
+              <Node name="ExploreViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>

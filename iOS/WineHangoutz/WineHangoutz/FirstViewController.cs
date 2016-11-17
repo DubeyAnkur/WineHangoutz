@@ -88,7 +88,8 @@ namespace WineHangoutz
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-			NavigationController.Title = "Locations";
+			//NavigationController.Title = "Locations";
+			NavigationController.NavigationBar.TopItem.Title = "Locations";
 		}
 	}
 }
