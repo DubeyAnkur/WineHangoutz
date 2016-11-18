@@ -1,19 +1,22 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ExploreViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
     <Files>
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="48" Column="2" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="10" Column="8" />
       <File FileName="WineHangoutz/FirstViewController.cs" Line="93" Column="4" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="12" Column="3" />
       <File FileName="WineHangoutz/PopupView.cs" Line="21" Column="13" />
       <File FileName="WineHangoutz/SecondViewController.cs" Line="56" Column="61" />
-      <File FileName="WineHangoutz/ExploreViewController.cs" Line="46" Column="65" />
+      <File FileName="WineHangoutz/ExploreViewController.cs" Line="38" Column="29" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="27" Column="16" />
+      <File FileName="WineHangoutz/Entitlements.plist" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
-              <Node name="ExploreViewController.cs" selected="True" />
+              <Node name="References" expanded="True" />
+              <Node name="ServiceWrapper.cs" selected="True" />
             </Node>
           </Node>
         </State>

@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+//using Xamarin.iOS;
 
 namespace WineHangoutz
 {
@@ -15,6 +16,13 @@ namespace WineHangoutz
 		{
 			client = new HttpClient();
 			client.MaxResponseContentBufferSize = 256000;
+		}
+
+		public bool ServiceEnabled { 
+			get {
+				return true;
+			}
+
 		}
 
 		public async Task<List<string>> RefreshDataAsync()
@@ -36,6 +44,19 @@ namespace WineHangoutz
 			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/TestService/1");
 			var response = await client.GetAsync(uri);
 			string output = ""; 
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				output = JsonConvert.DeserializeObject<string>(content);
+			}
+			return output;
+		}
+
+		public async Task<string> GetEnoList()
+		{
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/TestService/1");
+			var response = await client.GetAsync(uri);
+			string output = "";
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
