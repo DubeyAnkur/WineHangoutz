@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
-//using Xamarin.iOS;
+using Hangout.Models;
 
 namespace WineHangoutz
 {
@@ -52,15 +52,54 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<string> GetEnoList()
+		public async Task<ItemListResponse> GetItemList(int storeId)
 		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/TestService/1");
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemList/" + storeId);
 			var response = await client.GetAsync(uri);
-			string output = "";
+			ItemListResponse output = null;
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
-				output = JsonConvert.DeserializeObject<string>(content);
+				output = JsonConvert.DeserializeObject<ItemListResponse>(content);
+			}
+			return output;
+		}
+
+		public async Task<ItemDetailsResponse> GetItemDetails(int sku)
+		{
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemDetails/" + sku);
+			var response = await client.GetAsync(uri);
+			ItemDetailsResponse output = null;
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(content);
+			}
+			return output;
+		}
+
+		public async Task<ItemRatingResponse> GetItemRatingsSKU(int sku)
+		{
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemRatingsSKU/" + sku);
+			var response = await client.GetAsync(uri);
+			ItemRatingResponse output = null;
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				output = JsonConvert.DeserializeObject<ItemRatingResponse>(content);
+			}
+			return output;
+		}
+
+		public async Task<ItemRatingResponse> GetItemRatingsUID(int userId)
+		{
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemRatingsUID/" + userId);
+			var response = await client.GetAsync(uri);
+			ItemRatingResponse output = null;
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				output = JsonConvert.DeserializeObject<ItemRatingResponse>(content);
 			}
 			return output;
 		}
