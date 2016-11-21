@@ -17,11 +17,12 @@ namespace Tabs
     public class Fragment1 : Android.Support.V4.App.Fragment
     {
         static readonly List<string> storeName = new List<string>();
-        Button _button;
+        Button _button, _button1, _button2;
         void StartNewActivity(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this.Activity, typeof(EnoListing));
+            Intent intent = new Intent(this.Activity, typeof(GridViewActivity));
             storeName.Add("Wall");
+            storeName.Add("Point Pleasent");
                 intent.PutStringArrayListExtra("storeName", storeName);
         
             StartActivity(intent);
@@ -52,15 +53,18 @@ namespace Tabs
             var param =_button.LayoutParameters;
             param.Height = PixelsToDp(160);
             _button.Click += StartNewActivity;
-            //return view;
-            //View view1 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
-            Button _button1 = view.FindViewById<Button>(Resource.Id.btnPP);
-            //var param1 = _button.LayoutParameters;
-            //param1.Height = PixelsToDp(160);
+            return view;
+          // View view1 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
+            _button1 = view.FindViewById<Button>(Resource.Id.btnPP);
+           // var param1 = _button.LayoutParameters;
+           // param1.Height = PixelsToDp(160);
             _button1.Click += StartNewActivity;
             return view;
+             _button2 = view.FindViewById<Button>(Resource.Id.btnSec);
+            _button2.Click += StartNewActivity;
+            return view;
             //View view2 = inflater.Inflate(Resource.Layout.Fragment1Layout, container, false);
-            //Button _button2 = view.FindViewById<Button>(Resource.Id.btnSec);
+            // Button _button2 = view.FindViewById<Button>(Resource.Id.btnSec);
             //var param2 = _button.LayoutParameters;
             //param2.Height = PixelsToDp(160);
             //_button2.Click += StartNewActivity;

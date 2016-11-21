@@ -31,7 +31,7 @@ namespace Phoneword
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.ReviewPopup, container, false);
 
-            userRatingBar = view.FindViewById<RatingBar>(Resource.Id.userRatingBar);
+            userRatingBar = view.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             txtRatingTitle = view.FindViewById<EditText>(Resource.Id.txtRatingTitle);
             txtReviewComments = view.FindViewById<EditText>(Resource.Id.txtReviewComments);
             Button btnSubmitReview = view.FindViewById<Button>(Resource.Id.btnSubmitReview);

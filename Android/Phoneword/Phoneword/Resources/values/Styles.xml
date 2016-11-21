@@ -7,4 +7,7 @@
   <style name="ActionBarTheme" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
       <item name="android:background">@color/color_action_bar</item>
   </style>
+  <style name="foodRatingBar" parent="android:Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+  </style>
 </resources>

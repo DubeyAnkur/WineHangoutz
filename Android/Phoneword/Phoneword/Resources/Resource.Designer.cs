@@ -136,6 +136,9 @@ namespace Phoneword
 			// aapt resource value: 0x7f070029
 			public const int lstWineReviews = 2131165225;
 			
+			// aapt resource value: 0x7f070017
+			public const int rtbProductRating = 2131165207;
+			
 			// aapt resource value: 0x7f07002b
 			public const int storePickText = 2131165227;
 			
@@ -210,9 +213,6 @@ namespace Phoneword
 			
 			// aapt resource value: 0x7f07001d
 			public const int txtWineName = 2131165213;
-			
-			// aapt resource value: 0x7f070017
-			public const int userRatingBar = 2131165207;
 			
 			// aapt resource value: 0x7f070001
 			public const int wineList = 2131165185;
@@ -294,6 +294,9 @@ namespace Phoneword
 			
 			// aapt resource value: 0x7f060000
 			public const int AppTheme = 2131099648;
+			
+			// aapt resource value: 0x7f060002
+			public const int foodRatingBar = 2131099650;
 			
 			static Style()
 			{

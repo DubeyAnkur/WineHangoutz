@@ -37,6 +37,7 @@ public final class R {
         public static final int imgWine=0x7f070004;
         public static final int lstRatingBar=0x7f070013;
         public static final int lstWineReviews=0x7f070029;
+        public static final int rtbProductRating=0x7f070017;
         public static final int storePickText=0x7f07002b;
         public static final int tableLayout1=0x7f070002;
         public static final int tableLayout2=0x7f07001f;
@@ -62,7 +63,6 @@ public final class R {
         public static final int txtUserRatingLabel=0x7f070009;
         public static final int txtUserRatings=0x7f07000a;
         public static final int txtWineName=0x7f07001d;
-        public static final int userRatingBar=0x7f070017;
         public static final int wineList=0x7f070001;
     }
     public static final class layout {
@@ -83,5 +83,6 @@ public final class R {
     public static final class style {
         public static final int ActionBarTheme=0x7f060001;
         public static final int AppTheme=0x7f060000;
+        public static final int foodRatingBar=0x7f060002;
     }
 }
