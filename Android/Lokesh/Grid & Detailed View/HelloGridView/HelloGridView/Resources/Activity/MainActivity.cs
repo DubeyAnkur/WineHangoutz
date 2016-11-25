@@ -33,7 +33,7 @@ namespace HelloGridView
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+                //Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
                 x = args.Position;
 
                 if (x == 0 || x==1 || x==2|| x==3) {
@@ -120,7 +120,7 @@ namespace HelloGridView
             w1.Ratings = "Ratings";
             w1.UserRatings = "User Ratings";
             w1.Price = "Prise$";
-            w1.Vintage = "WS: TOP 100";
+            w1.Vintage = "2001";
             w1.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
             Wine w2 = new Wine();
@@ -128,7 +128,7 @@ namespace HelloGridView
             w2.Price = "$19.99";
             w2.Ratings = "15";
             w2.UserRatings = "12";
-            w2.Vintage = "WS: TOP 100";
+            w2.Vintage = "2001";
             w2.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
 
@@ -137,7 +137,7 @@ namespace HelloGridView
             w3.Ratings = "15";
             w3.UserRatings = "12";
             w3.Price = "$19.99";
-            w3.Vintage = "WS: TOP 100";
+            w3.Vintage = "2001";
             w3.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             Wine w4 = new Wine();
@@ -145,7 +145,7 @@ namespace HelloGridView
             w4.Price = "$19.99";
             w4.Ratings = "15";
             w4.UserRatings = "12";
-            w4.Vintage = "WS: TOP 100";
+            w4.Vintage = "2001";
             w4.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             Wine w5 = new Wine();
@@ -153,7 +153,7 @@ namespace HelloGridView
             w5.Price = "$15.99";
             w5.Ratings = "15";
             w5.UserRatings = "12";
-            w5.Vintage = "WS: TOP 100";
+            w5.Vintage = "2001";
             w5.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
 
@@ -162,7 +162,7 @@ namespace HelloGridView
             w6.Price = "$19.99";
             w6.Ratings = "15";
             w6.UserRatings = "12";
-            w6.Vintage = "WS: TOP 100";
+            w6.Vintage = "2001";
             w6.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
 
@@ -171,7 +171,7 @@ namespace HelloGridView
             w7.Price = "$19.99";
             w7.Ratings = "15";
             w7.UserRatings = "12";
-            w7.Vintage = "WS: TOP 100";
+            w7.Vintage = "2001";
             w7.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             Wine w8 = new Wine();
@@ -179,7 +179,7 @@ namespace HelloGridView
             w8.Price = "$19.99";
             w8.Ratings = "15";
             w8.UserRatings = "12";
-            w8.Vintage = "WS: TOP 100";
+            w8.Vintage = "2001";
             w8.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
             myArr.Add(w1);

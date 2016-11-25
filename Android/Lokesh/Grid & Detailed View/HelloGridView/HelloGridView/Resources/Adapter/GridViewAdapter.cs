@@ -63,10 +63,11 @@ namespace HelloGridView
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
+            imgWine.SetImageResource(Resource.Drawable.placeholder);
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
-            var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
-            imgWine.SetImageBitmap(imageBitmap);
+            //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
+            //imgWine.SetImageBitmap(imageBitmap);
 
             txtName.Focusable = false;
             txtRatings.Focusable = false;
