@@ -1512,8 +1512,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f020046
 			public const int logo = 2130837574;
 			
-			// aapt resource value: 0x7f020054
-			public const int notification_template_icon_bg = 2130837588;
+			// aapt resource value: 0x7f020057
+			public const int notification_template_icon_bg = 2130837591;
 			
 			// aapt resource value: 0x7f020047
 			public const int placeholder = 2130837575;
@@ -1534,25 +1534,34 @@ namespace HelloGridView
 			public const int sfondo_cantine = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public const int sfondo_mierecensioni = 2130837581;
+			public const int sfondo_catalogo_vini = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int sfondo_nuoverecensioni = 2130837582;
+			public const int sfondo_mierecensioni = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int sfondo_regioni = 2130837583;
+			public const int sfondo_nuoverecensioni = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int sfondo_topvini = 2130837584;
+			public const int sfondo_promozioni = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int sfondo_wineprofile = 2130837585;
+			public const int sfondo_regioni = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int star = 2130837586;
+			public const int sfondo_selezioni = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int star_empty = 2130837587;
+			public const int sfondo_topvini = 2130837587;
+			
+			// aapt resource value: 0x7f020054
+			public const int sfondo_wineprofile = 2130837588;
+			
+			// aapt resource value: 0x7f020055
+			public const int star = 2130837589;
+			
+			// aapt resource value: 0x7f020056
+			public const int star_empty = 2130837590;
 			
 			static Drawable()
 			{
@@ -1567,8 +1576,8 @@ namespace HelloGridView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0b0072
-			public const int action0 = 2131427442;
+			// aapt resource value: 0x7f0b0075
+			public const int action0 = 2131427445;
 			
 			// aapt resource value: 0x7f0b0043
 			public const int action_bar = 2131427395;
@@ -1594,8 +1603,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0044
 			public const int action_context_bar = 2131427396;
 			
-			// aapt resource value: 0x7f0b0076
-			public const int action_divider = 2131427446;
+			// aapt resource value: 0x7f0b0079
+			public const int action_divider = 2131427449;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int action_menu_divider = 2131427330;
@@ -1627,29 +1636,44 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0021
 			public const int bold = 2131427361;
 			
-			// aapt resource value: 0x7f0b006f
-			public const int btnPP = 2131427439;
+			// aapt resource value: 0x7f0b0072
+			public const int btnPP = 2131427442;
 			
-			// aapt resource value: 0x7f0b0070
-			public const int btnSec = 2131427440;
+			// aapt resource value: 0x7f0b0073
+			public const int btnSec = 2131427443;
 			
-			// aapt resource value: 0x7f0b006e
-			public const int btnWall = 2131427438;
+			// aapt resource value: 0x7f0b0071
+			public const int btnWall = 2131427441;
+			
+			// aapt resource value: 0x7f0b0085
+			public const int button = 2131427461;
 			
 			// aapt resource value: 0x7f0b006d
 			public const int button1 = 2131427437;
 			
+			// aapt resource value: 0x7f0b0086
+			public const int button2 = 2131427462;
+			
+			// aapt resource value: 0x7f0b006e
+			public const int button3 = 2131427438;
+			
+			// aapt resource value: 0x7f0b006f
+			public const int button4 = 2131427439;
+			
+			// aapt resource value: 0x7f0b0070
+			public const int button5 = 2131427440;
+			
 			// aapt resource value: 0x7f0b002d
 			public const int buttonPanel = 2131427373;
 			
-			// aapt resource value: 0x7f0b0073
-			public const int cancel_action = 2131427443;
+			// aapt resource value: 0x7f0b0076
+			public const int cancel_action = 2131427446;
 			
 			// aapt resource value: 0x7f0b003b
 			public const int checkbox = 2131427387;
 			
-			// aapt resource value: 0x7f0b0079
-			public const int chronometer = 2131427449;
+			// aapt resource value: 0x7f0b007c
+			public const int chronometer = 2131427452;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int collapseActionView = 2131427356;
@@ -1681,8 +1705,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0019
 			public const int end = 2131427353;
 			
-			// aapt resource value: 0x7f0b007e
-			public const int end_padder = 2131427454;
+			// aapt resource value: 0x7f0b0081
+			public const int end_padder = 2131427457;
 			
 			// aapt resource value: 0x7f0b0027
 			public const int expand_activities_button = 2131427367;
@@ -1690,8 +1714,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b003a
 			public const int expanded_menu = 2131427386;
 			
-			// aapt resource value: 0x7f0b0071
-			public const int gridview = 2131427441;
+			// aapt resource value: 0x7f0b0074
+			public const int gridview = 2131427444;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;
@@ -1717,17 +1741,17 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0054
 			public const int imgWine = 2131427412;
 			
-			// aapt resource value: 0x7f0b007d
-			public const int info = 2131427453;
+			// aapt resource value: 0x7f0b0080
+			public const int info = 2131427456;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int italic = 2131427362;
 			
-			// aapt resource value: 0x7f0b0077
-			public const int line1 = 2131427447;
+			// aapt resource value: 0x7f0b007a
+			public const int line1 = 2131427450;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int line3 = 2131427451;
+			// aapt resource value: 0x7f0b007e
+			public const int line3 = 2131427454;
 			
 			// aapt resource value: 0x7f0b0009
 			public const int listMode = 2131427337;
@@ -1735,8 +1759,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b002a
 			public const int list_item = 2131427370;
 			
-			// aapt resource value: 0x7f0b0075
-			public const int media_actions = 2131427445;
+			// aapt resource value: 0x7f0b0078
+			public const int media_actions = 2131427448;
 			
 			// aapt resource value: 0x7f0b001a
 			public const int middle = 2131427354;
@@ -1753,8 +1777,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b000a
 			public const int normal = 2131427338;
 			
-			// aapt resource value: 0x7f0b0081
-			public const int pager = 2131427457;
+			// aapt resource value: 0x7f0b0084
+			public const int pager = 2131427460;
 			
 			// aapt resource value: 0x7f0b002f
 			public const int parentPanel = 2131427375;
@@ -1765,8 +1789,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0006
 			public const int progress_horizontal = 2131427334;
 			
-			// aapt resource value: 0x7f0b007f
-			public const int psts_tab_title = 2131427455;
+			// aapt resource value: 0x7f0b0082
+			public const int psts_tab_title = 2131427458;
 			
 			// aapt resource value: 0x7f0b003d
 			public const int radio = 2131427389;
@@ -1846,8 +1870,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0017
 			public const int src_over = 2131427351;
 			
-			// aapt resource value: 0x7f0b0074
-			public const int status_bar_latest_event_content = 2131427444;
+			// aapt resource value: 0x7f0b0077
+			public const int status_bar_latest_event_content = 2131427447;
 			
 			// aapt resource value: 0x7f0b004e
 			public const int submit_area = 2131427406;
@@ -1885,14 +1909,14 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0069
 			public const int tableRow8 = 2131427433;
 			
-			// aapt resource value: 0x7f0b0080
-			public const int tabs = 2131427456;
+			// aapt resource value: 0x7f0b0083
+			public const int tabs = 2131427459;
 			
-			// aapt resource value: 0x7f0b007c
-			public const int text = 2131427452;
+			// aapt resource value: 0x7f0b007f
+			public const int text = 2131427455;
 			
-			// aapt resource value: 0x7f0b007a
-			public const int text2 = 2131427450;
+			// aapt resource value: 0x7f0b007d
+			public const int text2 = 2131427453;
 			
 			// aapt resource value: 0x7f0b0036
 			public const int textSpacerNoButtons = 2131427382;
@@ -1918,8 +1942,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b005f
 			public const int textView8 = 2131427423;
 			
-			// aapt resource value: 0x7f0b0078
-			public const int time = 2131427448;
+			// aapt resource value: 0x7f0b007b
+			public const int time = 2131427451;
 			
 			// aapt resource value: 0x7f0b002c
 			public const int title = 2131427372;
@@ -2086,52 +2110,58 @@ namespace HelloGridView
 			public const int Example = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int LayoutFtagment = 2130903069;
+			public const int ExploreFragment = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int Main = 2130903070;
+			public const int LayoutFtagment = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int notification_media_action = 2130903071;
+			public const int Main = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int notification_media_cancel_action = 2130903072;
+			public const int notification_media_action = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int notification_template_big_media = 2130903073;
+			public const int notification_media_cancel_action = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int notification_template_big_media_narrow = 2130903074;
+			public const int notification_template_big_media = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int notification_template_lines = 2130903075;
+			public const int notification_template_big_media_narrow = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int notification_template_media = 2130903076;
+			public const int notification_template_lines = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int notification_template_part_chronometer = 2130903077;
+			public const int notification_template_media = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int notification_template_part_time = 2130903078;
+			public const int notification_template_part_chronometer = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int psts_tab = 2130903079;
+			public const int notification_template_part_time = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int select_dialog_item_material = 2130903080;
+			public const int psts_tab = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int select_dialog_multichoice_material = 2130903081;
+			public const int select_dialog_item_material = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int select_dialog_singlechoice_material = 2130903082;
+			public const int select_dialog_multichoice_material = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int support_simple_spinner_dropdown_item = 2130903083;
+			public const int select_dialog_singlechoice_material = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int Tabs = 2130903084;
+			public const int support_simple_spinner_dropdown_item = 2130903084;
+			
+			// aapt resource value: 0x7f03002d
+			public const int Tabs = 2130903085;
+			
+			// aapt resource value: 0x7f03002e
+			public const int TasteFragment = 2130903086;
 			
 			static Layout()
 			{

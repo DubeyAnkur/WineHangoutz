@@ -4,29 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
-        android:id="@+id/btnWall"
-        android:text="Wall"
+        android:id="@+id/button3"
+        android:text="Blog"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/sfondo_catalogo_vini"
+        android:background="@drawable/sfondo_blog"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp" />
     <Button
-        android:id="@+id/btnPP"
-        android:text="PointPleasent"
+        android:id="@+id/button4"
+        android:text="Wineries"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/sfondo_promozioni"
+        android:background="@drawable/sfondo_cantine"
         android:layout_marginBottom="0.0dp"
         android:layout_marginLeft="0dp" />
     <Button
-        android:id="@+id/btnSec"
-        android:text="Seacucas"
+        android:id="@+id/button5"
+        android:text="Regions"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/sfondo_selezioni"
+        android:background="@drawable/sfondo_regioni"
         android:layout_marginBottom="0dp" />
 </LinearLayout>

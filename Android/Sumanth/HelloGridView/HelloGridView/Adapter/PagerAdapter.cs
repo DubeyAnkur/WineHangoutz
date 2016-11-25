@@ -37,20 +37,20 @@ namespace HelloGridView
 
         public override Fragment GetItem(int position)
         {
-            return new LocationFragment();
 
-            //switch (position)
-            //{
-            //    case 0:
-            //        return new Fragment1();
-            //    case 1:
-            //        return new Fragment2();
-            //    case 2:
-            //        return new Fragment3();
-            //    case 3:
-            //    default:
-            //        return new Fragment1();
-            //}
+
+            switch (position)
+            {
+                case 0:
+                    return new LocationFragment();
+                case 1:
+                    return new TasteFrag();
+                case 2:
+                    return new ExploreFrag();
+                case 3:
+                default:
+                    return new LocationFragment();
+            }
         }
     }
 }

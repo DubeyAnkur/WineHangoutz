@@ -59,8 +59,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ExploreFrag.cs" />
     <Compile Include="Activities\LocationFragment.cs" />
     <Compile Include="Activities\TabsActivity.cs" />
+    <Compile Include="Activities\TasteFrag.cs" />
     <Compile Include="Adapter\PagerAdapter.cs" />
     <Compile Include="Infrastructure.cs" />
     <Compile Include="Activities\MainActivity.cs" />
@@ -93,6 +95,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LayoutFtagment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TasteFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ExploreFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -155,6 +163,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\sfondo_wineprofile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sfondo_catalogo_vini.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sfondo_promozioni.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sfondo_selezioni.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
