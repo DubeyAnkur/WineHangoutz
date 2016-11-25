@@ -34,6 +34,8 @@ namespace HelloWine
                 case 1:
                     return new Fragment2();
                 case 2:
+                    return new Fragment3();
+                case 3:
                 default:
                     return new Fragment1();
             }
