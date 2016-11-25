@@ -60,11 +60,14 @@
                 <ImageView
                     android:src="@drawable/icon"
                     android:id="@+id/imageView1"
-                    android:layout_gravity="center" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="fitCenter" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow5"
-                android:background="#1066ef">
+                android:background="#1066ef"
+                android:layout_width="match_parent">
                 <ImageView
                     android:src="@drawable/icon"
                     android:id="@+id/imageView2" />
@@ -109,17 +112,11 @@
                 android:gravity="center"
                 android:layout_margin="10px">
                 <RatingBar
-                    android:id="@+id/rtbProductRating"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_height="wrap_content"
-                    android:layout_width="100dp"
-                    android:numStars="5"
-                    android:max="5"
-                    android:stepSize="1.0"
-                    android:scaleX="0.5"
-                    android:scaleY="0.5"
-                    android:isIndicator="false"
-                    android:clickable="true" />
+                    android:id="@+id/rating"
+                    android:layout_width="50dp"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:stepSize="0.5"
+                    android:isIndicator="false" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"
@@ -155,6 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="Description Wine"
+                    android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
         </TableLayout>

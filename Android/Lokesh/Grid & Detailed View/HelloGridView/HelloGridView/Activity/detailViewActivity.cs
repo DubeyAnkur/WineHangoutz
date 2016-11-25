@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
 
 namespace HelloGridView
 {
@@ -22,7 +23,7 @@ namespace HelloGridView
             SetContentView(Resource.Layout.detailedView);
             //var listview = FindViewById<ListView>(Resource.Id.listView1);
             //myArr = SampleData();
-            string[] arr1 = new string[] { "Silver Oak Napa Valley", "Cabernet ", "2011"," This is the description about wine" };
+            string[] arr1 = new string[] { "Silver Oak Napa Valley", "Cabernet ", "2011", " This is the description about wine,This is the description about wine,This is the description about wine" };
             TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
             TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
@@ -30,17 +31,19 @@ namespace HelloGridView
             ImageView placeholder = FindViewById<ImageView>(Resource.Id.imageView2);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
 
+            RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
+
             //placeholder.SetScaleType(ImageView.ScaleType.FitCenter);
             //placeholder.SetPadding(8, 8, 8, 8);
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
             //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
-            //tr5.Layout(0, 0, widthInDp, widthInDp);
-            placeholder.Layout(0, 0, widthInDp, widthInDp);
+            //tr5.Layout(0, 0, 100,100 );
+            //placeholder.Layout(0, 0, widthInDp, widthInDp);
             //placeholder.LayoutParameters.Width = widthInDp;
             //Java.Lang.ClassCastException: android.widget.TableLayout$LayoutParams cannot be cast to android.widget.TableRow$LayoutParams
-
+            rb.NumStars = 5;
 
             placeholder.Visibility = ViewStates.Visible;
 
@@ -55,8 +58,25 @@ namespace HelloGridView
             TopBrand.Text = arr1[1];
             TopVintage.Text = arr1[2];
             WineDescription.Text = arr1[3];
-            placeholder.SetImageResource(Resource.Drawable.placeholder);
+            //placeholder.SetImageResource(Resource.Drawable.respon);
+            //placeholder.SetMaxHeight(75);
+            //placeholder.SetMaxWidth(75);
+            //placeholder.SetMinimumWidth(5);
+            //placeholder.SetMinimumHeight(5);
 
+
+            BitmapFactory.Options options = new BitmapFactory.Options
+            {
+                InJustDecodeBounds = false,
+                OutHeight = 75,
+                OutWidth = 75
+
+            };
+
+            // The result will be null because InJustDecodeBounds == true.
+            Bitmap result =  BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_11, options);
+
+            placeholder.SetImageBitmap(result);
         }
         private int ConvertPixelsToDp(float pixelValue)
         {
