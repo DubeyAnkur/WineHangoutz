@@ -27,44 +27,20 @@ namespace HelloGridView
             TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
-            ImageView placeholder = FindViewById<ImageView>(Resource.Id.imageView2);
-            TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-
-            //placeholder.SetScaleType(ImageView.ScaleType.FitCenter);
-            //placeholder.SetPadding(8, 8, 8, 8);
-            var metrics = Resources.DisplayMetrics;
-            var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
-            //tr5.Layout(0, 0, widthInDp, widthInDp);
-            placeholder.Layout(0, 0, widthInDp, widthInDp);
-            //placeholder.LayoutParameters.Width = widthInDp;
-            //Java.Lang.ClassCastException: android.widget.TableLayout$LayoutParams cannot be cast to android.widget.TableRow$LayoutParams
-
-
-            placeholder.Visibility = ViewStates.Visible;
-
 
             TopName.Focusable = false;
             TopBrand.Focusable = false;
             TopVintage.Focusable = false;
             WineDescription.Focusable = false;
-            placeholder.Focusable = false;
 
             TopName.Text = arr1[0]; //Assigning value
             TopBrand.Text = arr1[1];
             TopVintage.Text = arr1[2];
             WineDescription.Text = arr1[3];
-            placeholder.SetImageResource(Resource.Drawable.placeholder);
 
         }
-        private int ConvertPixelsToDp(float pixelValue)
-        {
-            var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
-            return dp;
-        }
-
-        public List<Wine> SampleData()
+          
+    public List<Wine> SampleData()
     {
         List<Wine> myArr = new List<Wine>();
         Wine w1 = new Wine();
