@@ -15,7 +15,7 @@ namespace HelloGridView
     [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
     public class detailViewActivity : Activity
     {
-        List<Wine> myArr;
+        //List<Wine> myArr;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
