@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:weightSum="100">
+  <TableLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:shrinkColumns="1"
+      android:background="#ff0000"
+      android:id="@+id/tableLayout1">
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:background="#ffffff">
+      <ImageView
+          android:src="@android:drawable/ic_menu_gallery"
+          android:layout_width="45dp"
+          android:layout_height="250dp"
+          android:id="@+id/imgWine"
+          android:layout_marginRight="0.0dp"
+          android:layout_marginBottom="0.0dp"
+          android:layout_span="3" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:background="#5b4d4d">
+      <TextView
+          android:text="Silver Oak Napa "
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:layout_height="wrap_content"
+          android:singleLine="true"
+          android:inputType="textMultiLine"
+          android:maxLines="3"
+          android:lines="2"
+          android:ellipsize="none"
+          android:scrollHorizontally="false"
+          android:id="@+id/txtName"
+          android:textColor="#0f0e0e"
+          android:textStyle="bold"
+          android:layout_column="1"
+          android:gravity="center" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:background="#5b4d4d">
+      <View
+          android:id="@+id/topDivider"
+          android:layout_width="50dp"
+          android:layout_height="3dp"
+          android:background="#ffffff"
+          android:layout_gravity="center" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:text="Vintage"
+          android:id="@+id/txtVintage"
+          android:layout_gravity="center"/>
+      <View
+          android:id="@+id/topDivider"
+          android:layout_width="50dp"
+          android:layout_height="3dp"
+          android:background="#ffffff"
+          android:paddingLeft="0.5px"
+          android:layout_gravity="center_vertical"/>
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:background="#5b4d4d">
+      <TextView
+          android:text="WS: 95 Points"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/txtRatings"
+          android:textColor="@android:color/holo_purple"
+          android:textStyle="bold"
+          android:layout_column="1"
+          android:layout_gravity="center_horizontal" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:background="#5b4d4d"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+      <RatingBar
+          android:id="@+id/rtbProductRating"
+          style="?android:attr/ratingBarStyleIndicator"
+          android:layout_height="wrap_content"
+          android:layout_width="100dp"
+          android:numStars="5"
+          android:max="5"
+          android:stepSize="1.0"
+          android:scaleX="0.5"
+          android:scaleY="0.5"
+          android:isIndicator="false"
+          android:layout_span="3" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:background="#5b4d4d">
+      <TextView
+          android:text="$19.99"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/txtPrice"
+          android:textColor="@android:color/holo_purple"
+          android:textStyle="bold"
+          android:layout_column="1"
+          android:layout_gravity="center_horizontal" />
+    </TableRow>
+  </TableLayout>
+</LinearLayout>

@@ -5,24 +5,23 @@
     android:layout_height="match_parent">
     <Button
         android:id="@+id/button"
-        android:text="My Tastings"
+        android:text="Blog"
         android:textColor="#ffffff"
-        android:height="180dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/sfondo_mierecensioni" />
+        android:background="@drawable/sfondo_blog" />
     <Button
         android:id="@+id/button1"
-        android:text="New Tastings"
+        android:text="Wineries"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/sfondo_nuoverecensioni" />
+        android:background="@drawable/sfondo_cantine" />
     <Button
         android:id="@+id/button2"
-        android:text="Top Wines"
+        android:text="Regions"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/sfondo_topvini" />
+        android:background="@drawable/sfondo_regioni" />
 </LinearLayout>
