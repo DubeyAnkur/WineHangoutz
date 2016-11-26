@@ -1,6 +1,6 @@
-# Version: 10.2.0.4 (xcode8.1: b638977)
-# [first argument, ignore] # /Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.0.4/lib/mtouch/mtouch.exe
-/Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.0.4/lib/mtouch/mtouch.exe \
+# Version: 10.2.1.5 (xcode8.1: 44931ae)
+# [first argument, ignore] # /Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.1.5/lib/mtouch/mtouch.exe
+/Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.1.5/lib/mtouch/mtouch.exe \
 	--cache \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/mtouch-cache \
 	--sim \

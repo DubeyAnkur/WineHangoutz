@@ -4,6 +4,8 @@ using UIKit;
 using PatridgeDev;
 using CoreGraphics;
 using System.Collections.Generic;
+using Hangout.Models;
+
 namespace WineHangoutz
 {
     public partial class MyTastingViewController : UITableViewController
@@ -20,27 +22,27 @@ namespace WineHangoutz
 			//table = new UITableView(View.Bounds); // defaults to Plain style
 			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
 			//List<Reviews> tableItems = new List<Reviews>();>
-			List<Reviews> tableItems = new List<Reviews>();
-			var review = new Reviews();
-			review.RatingStars = 4;
+
+			List<Rating> tableItems = new List<Rating>();
+			var review = new Rating();
+			review.RatingStars = "4";
 			review.Country = "France";
 			review.Date = DateTime.Now;
 			review.Name = "Amarcord D'un Ross";
 			review.RatingText = "Seems like a good wine. I opened it two hours before serving. It was deep ruby red in color.";
-			review.Vintage = 2014;
+			review.Vintage = "2014";
 			tableItems.Add(review);
 			TableView.Source = new MyTastingTableSource(tableItems);
-			//Add(table);
 		}
     }
 
 	public class MyTastingTableSource : UITableViewSource
 	{
 
-		List<Reviews> TableItems;
+		List<Rating> TableItems;
 		string CellIdentifier = "TableCell";
 
-		public MyTastingTableSource(List<Reviews>  items)
+		public MyTastingTableSource(List<Rating>  items)
 		{
 			TableItems = items;
 		}
@@ -53,7 +55,7 @@ namespace WineHangoutz
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			MyTastingCellView cell = tableView.DequeueReusableCell(CellIdentifier) as MyTastingCellView;
-			Reviews item = TableItems[indexPath.Row];
+			Rating item = TableItems[indexPath.Row];
 
 			//---- if there are no cells to reuse, create a new one
 			NSString name = new NSString(CellIdentifier);
@@ -127,7 +129,7 @@ namespace WineHangoutz
 			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
 
 		}
-		public void UpdateCell(Reviews review)
+		public void UpdateCell(Rating review)
 		{
 			imageView.Image = new UIImage("Wines/wine0.png");
 			separator.Image = UIImage.FromFile("separator.png");
@@ -137,7 +139,7 @@ namespace WineHangoutz
 			Vintage.Text = review.Vintage.ToString();
 			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 			//ContentView.Bounds.Height = 90;
-			stars.AverageRating = review.RatingStars;
+			stars.AverageRating = Convert.ToDecimal(review.RatingStars);
 			btnEdit.SetBackgroundImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
 			btnDelete.SetBackgroundImage(UIImage.FromFile("delete.png"), UIControlState.Normal);
 		}
@@ -157,16 +159,16 @@ namespace WineHangoutz
 		}
 	}
 
-	public class Reviews
-	{
-		public decimal RatingStars;
-		public string RatingText;
-		public DateTime Date;
-		public string UserName;
-		public int SKU;
-		public string Name;
-		public int Vintage;
-		public string Region;
-		public string Country;
-	}
+	//public class Reviews
+	//{
+	//	public decimal RatingStars;
+	//	public string RatingText;
+	//	public DateTime Date;
+	//	public string UserName;
+	//	public int SKU;
+	//	public string Name;
+	//	public int Vintage;
+	//	public string Region;
+	//	public string Country;
+	//}
 }
