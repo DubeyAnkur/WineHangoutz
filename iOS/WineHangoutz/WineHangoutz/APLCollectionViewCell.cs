@@ -37,7 +37,6 @@ namespace WineHangoutz {
 				NavigationController.PushViewController(new DetailViewController(), false);
 			};
 
-
 			box.Width = (box.Width/ 240) * 92; //box.Width / 2;
 			box.X = (Bounds.Width-box.Width) / 2;
 			btlImage = new UIButton(box);

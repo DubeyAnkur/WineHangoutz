@@ -59,7 +59,7 @@ namespace WineHangoutz
 			cell.NavigationController = NavigationController;
 			cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
 
-			int index = (int)indexPath.Item;
+			//int index = (int)indexPath.Item;
 
 			//Data from Model
 			//cell.lblName.Text = myData.ItemList[index].Name;

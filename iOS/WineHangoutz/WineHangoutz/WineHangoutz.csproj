@@ -120,6 +120,8 @@
     <Folder Include="Stars\" />
     <Folder Include="Wines\" />
     <Folder Include="Images\" />
+    <Folder Include="Tabs\" />
+    <Folder Include="RnD\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -133,14 +135,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="FirstViewController.cs" />
-    <Compile Include="SecondViewController.cs" />
-    <Compile Include="FirstViewController.designer.cs">
-      <DependentUpon>FirstViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SecondViewController.designer.cs">
-      <DependentUpon>SecondViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="PopupView.cs" />
     <Compile Include="CollectionViewCtrl.cs" />
     <Compile Include="CollectionViewCell.cs" />
@@ -154,11 +148,6 @@
     </Compile>
     <Compile Include="APLCollectionViewCell.cs" />
     <Compile Include="DetailViewController.cs" />
-    <Compile Include="ExploreViewController.cs" />
-    <Compile Include="ExploreViewController_.cs" />
-    <Compile Include="ExploreViewController_.designer.cs">
-      <DependentUpon>ExploreViewController_.cs</DependentUpon>
-    </Compile>
     <Compile Include="WineInfoTableSource.cs" />
     <Compile Include="RatingCellView.cs" />
     <Compile Include="MyTastingViewController.cs" />
@@ -166,6 +155,20 @@
       <DependentUpon>MyTastingViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ServiceWrapper.cs" />
+    <Compile Include="Tabs\FirstViewController.cs" />
+    <Compile Include="Tabs\FirstViewController.designer.cs">
+      <DependentUpon>FirstViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\SecondViewController.cs" />
+    <Compile Include="Tabs\SecondViewController.designer.cs">
+      <DependentUpon>SecondViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\ExploreViewController.cs" />
+    <Compile Include="Tabs\ExploreViewController_.cs" />
+    <Compile Include="Tabs\ExploreViewController_.designer.cs">
+      <DependentUpon>ExploreViewController_.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SKUDetailView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />

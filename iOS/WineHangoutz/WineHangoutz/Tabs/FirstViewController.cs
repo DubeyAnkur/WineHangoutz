@@ -68,7 +68,7 @@ namespace WineHangoutz
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout), false);
 			};
 			btnSec.TouchUpInside += (sender, e) => { 
-				NavigationController.PushViewController(new DetailViewController(), false);
+				NavigationController.PushViewController(new SKUDetailView(), false);
 			};
 
 			btnPP.TouchUpInside += async (sender, e) =>
