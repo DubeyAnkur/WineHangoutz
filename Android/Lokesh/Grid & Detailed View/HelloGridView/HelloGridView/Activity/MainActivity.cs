@@ -198,21 +198,11 @@ namespace HelloGridView
     {
         public string Name { get; set; }
         public string Vintage { get; set; }
-
         public string Price { get; set; }
-        public string imageURL { get; set; }
-        public string SKU { get; set; }
-        public string Ratings { get; set; }
         public string UserRatings { get; set; }
-        public string Description { get; set; }
-        public string Classification { get; set; }
-        public string Grapetype { get; set; }
-        public string Alcohol { get; set; }
-        public string Aramas { get; set; }
-        public string FoodPairings { get; set; }
-        public string Bottlesize { get; set; }
-        public string ServingAt { get; set; }
-
+        public string imageURL { get; set; }
+        public string Ratings { get; set; }
+          
     }
 }
 

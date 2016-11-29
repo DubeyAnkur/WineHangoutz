@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tableLayout1"
-            android:background="#ffffff">
+            android:background="@android:color/background_light">
             <TableRow
                 android:id="@+id/tableRow1"
                 android:gravity="center"
@@ -54,23 +54,13 @@
                     android:textColor="@android:color/background_dark" />
             </TableRow>
             <TableRow
-                android:id="@+id/tableRow4"
-                android:gravity="center"
-                android:layout_margin="10px">
-                <ImageView
-                    android:src="@drawable/icon"
-                    android:id="@+id/imageView1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:scaleType="fitCenter" />
-            </TableRow>
-            <TableRow
                 android:id="@+id/tableRow5"
                 android:background="#1066ef"
                 android:layout_width="match_parent">
                 <ImageView
                     android:src="@drawable/icon"
-                    android:id="@+id/imageView2" />
+                    android:id="@+id/imageView2"
+                    android:layout_gravity="left" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow6"
@@ -115,7 +105,6 @@
                     android:id="@+id/rating"
                     android:layout_width="50dp"
                     style="?android:attr/ratingBarStyleSmall"
-                    android:stepSize="0.5"
                     android:isIndicator="false" />
             </TableRow>
             <TableRow
@@ -154,6 +143,21 @@
                     android:text="Description Wine"
                     android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow14"
+                android:gravity="left"
+                android:background="@android:color/background_dark">
+                <TextView
+                    android:text="Food Pairings"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/textView62"
+                    android:gravity="left" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/textView69"
+                    android:layout_gravity="left" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

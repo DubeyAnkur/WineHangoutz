@@ -49,9 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\WineDetails.cs" />
     <Compile Include="Infrastructure.cs" />
     <Compile Include="Activity\MainActivity.cs" />
-    <Compile Include="Adapter\DetailedViewAdapter.cs" />
     <Compile Include="Adapter\GridViewAdapter.cs" />
     <Compile Include="Activity\detailViewActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
