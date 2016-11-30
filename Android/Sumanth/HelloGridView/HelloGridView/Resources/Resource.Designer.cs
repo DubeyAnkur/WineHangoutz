@@ -835,32 +835,32 @@ namespace HelloGridView
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0a003b
-			public const int abc_background_cache_hint_selector_material_dark = 2131361851;
-			
-			// aapt resource value: 0x7f0a003c
-			public const int abc_background_cache_hint_selector_material_light = 2131361852;
-			
 			// aapt resource value: 0x7f0a003d
-			public const int abc_color_highlight_material = 2131361853;
+			public const int abc_background_cache_hint_selector_material_dark = 2131361853;
+			
+			// aapt resource value: 0x7f0a003e
+			public const int abc_background_cache_hint_selector_material_light = 2131361854;
+			
+			// aapt resource value: 0x7f0a003f
+			public const int abc_color_highlight_material = 2131361855;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int abc_input_method_navigation_guard = 2131361792;
 			
-			// aapt resource value: 0x7f0a003e
-			public const int abc_primary_text_disable_only_material_dark = 2131361854;
-			
-			// aapt resource value: 0x7f0a003f
-			public const int abc_primary_text_disable_only_material_light = 2131361855;
-			
 			// aapt resource value: 0x7f0a0040
-			public const int abc_primary_text_material_dark = 2131361856;
+			public const int abc_primary_text_disable_only_material_dark = 2131361856;
 			
 			// aapt resource value: 0x7f0a0041
-			public const int abc_primary_text_material_light = 2131361857;
+			public const int abc_primary_text_disable_only_material_light = 2131361857;
 			
 			// aapt resource value: 0x7f0a0042
-			public const int abc_search_url_text = 2131361858;
+			public const int abc_primary_text_material_dark = 2131361858;
+			
+			// aapt resource value: 0x7f0a0043
+			public const int abc_primary_text_material_light = 2131361859;
+			
+			// aapt resource value: 0x7f0a0044
+			public const int abc_search_url_text = 2131361860;
 			
 			// aapt resource value: 0x7f0a0001
 			public const int abc_search_url_text_normal = 2131361793;
@@ -871,11 +871,11 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0a0003
 			public const int abc_search_url_text_selected = 2131361795;
 			
-			// aapt resource value: 0x7f0a0043
-			public const int abc_secondary_text_material_dark = 2131361859;
+			// aapt resource value: 0x7f0a0045
+			public const int abc_secondary_text_material_dark = 2131361861;
 			
-			// aapt resource value: 0x7f0a0044
-			public const int abc_secondary_text_material_light = 2131361860;
+			// aapt resource value: 0x7f0a0046
+			public const int abc_secondary_text_material_light = 2131361862;
 			
 			// aapt resource value: 0x7f0a0004
 			public const int accent_material_dark = 2131361796;
@@ -918,6 +918,12 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f0a0011
 			public const int button_material_light = 2131361809;
+			
+			// aapt resource value: 0x7f0a003b
+			public const int color_action_bar = 2131361851;
+			
+			// aapt resource value: 0x7f0a003c
+			public const int color_bar = 2131361852;
 			
 			// aapt resource value: 0x7f0a0012
 			public const int dim_foreground_disabled_material_dark = 2131361810;
@@ -1036,11 +1042,11 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0a0037
 			public const int switch_thumb_disabled_material_light = 2131361847;
 			
-			// aapt resource value: 0x7f0a0045
-			public const int switch_thumb_material_dark = 2131361861;
+			// aapt resource value: 0x7f0a0047
+			public const int switch_thumb_material_dark = 2131361863;
 			
-			// aapt resource value: 0x7f0a0046
-			public const int switch_thumb_material_light = 2131361862;
+			// aapt resource value: 0x7f0a0048
+			public const int switch_thumb_material_light = 2131361864;
 			
 			// aapt resource value: 0x7f0a0038
 			public const int switch_thumb_normal_material_dark = 2131361848;
@@ -1642,17 +1648,20 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0073
 			public const int btnSec = 2131427443;
 			
+			// aapt resource value: 0x7f0b0086
+			public const int btnSubmitReview = 2131427462;
+			
 			// aapt resource value: 0x7f0b0071
 			public const int btnWall = 2131427441;
 			
-			// aapt resource value: 0x7f0b0085
-			public const int button = 2131427461;
+			// aapt resource value: 0x7f0b0089
+			public const int button = 2131427465;
 			
 			// aapt resource value: 0x7f0b006d
 			public const int button1 = 2131427437;
 			
-			// aapt resource value: 0x7f0b0086
-			public const int button2 = 2131427462;
+			// aapt resource value: 0x7f0b008a
+			public const int button2 = 2131427466;
 			
 			// aapt resource value: 0x7f0b006e
 			public const int button3 = 2131427438;
@@ -1777,8 +1786,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b000a
 			public const int normal = 2131427338;
 			
-			// aapt resource value: 0x7f0b0084
-			public const int pager = 2131427460;
+			// aapt resource value: 0x7f0b0088
+			public const int pager = 2131427464;
 			
 			// aapt resource value: 0x7f0b002f
 			public const int parentPanel = 2131427375;
@@ -1909,8 +1918,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f0b0069
 			public const int tableRow8 = 2131427433;
 			
-			// aapt resource value: 0x7f0b0083
-			public const int tabs = 2131427459;
+			// aapt resource value: 0x7f0b0087
+			public const int tabs = 2131427463;
 			
 			// aapt resource value: 0x7f0b007f
 			public const int text = 2131427455;
@@ -1920,6 +1929,9 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f0b0036
 			public const int textSpacerNoButtons = 2131427382;
+			
+			// aapt resource value: 0x7f0b0083
+			public const int textView1 = 2131427459;
 			
 			// aapt resource value: 0x7f0b0065
 			public const int textView19 = 2131427429;
@@ -1965,6 +1977,12 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f0b0058
 			public const int txtRatings = 2131427416;
+			
+			// aapt resource value: 0x7f0b0085
+			public const int txtReviewComments = 2131427461;
+			
+			// aapt resource value: 0x7f0b0084
+			public const int txtReviewCommentsLabel = 2131427460;
 			
 			// aapt resource value: 0x7f0b0057
 			public const int txtVintage = 2131427415;
@@ -2146,22 +2164,25 @@ namespace HelloGridView
 			public const int psts_tab = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int select_dialog_item_material = 2130903081;
+			public const int ReviewPopup = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int select_dialog_multichoice_material = 2130903082;
+			public const int select_dialog_item_material = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int select_dialog_singlechoice_material = 2130903083;
+			public const int select_dialog_multichoice_material = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int support_simple_spinner_dropdown_item = 2130903084;
+			public const int select_dialog_singlechoice_material = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int Tabs = 2130903085;
+			public const int support_simple_spinner_dropdown_item = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int TasteFragment = 2130903086;
+			public const int Tabs = 2130903086;
+			
+			// aapt resource value: 0x7f03002f
+			public const int TasteFragment = 2130903087;
 			
 			static Layout()
 			{
@@ -2255,6 +2276,9 @@ namespace HelloGridView
 		public partial class Style
 		{
 			
+			// aapt resource value: 0x7f080135
+			public const int ActionBarTheme = 2131231029;
+			
 			// aapt resource value: 0x7f08007d
 			public const int AlertDialog_AppCompat = 2131230845;
 			
@@ -2266,6 +2290,12 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f080080
 			public const int Animation_AppCompat_DropDownUp = 2131230848;
+			
+			// aapt resource value: 0x7f080134
+			public const int AppTheme = 2131231028;
+			
+			// aapt resource value: 0x7f080137
+			public const int AppThemes = 2131231031;
 			
 			// aapt resource value: 0x7f080081
 			public const int Base_AlertDialog_AppCompat = 2131230849;
@@ -3175,6 +3205,9 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f080132
 			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131231026;
+			
+			// aapt resource value: 0x7f080136
+			public const int foodRatingBar = 2131231030;
 			
 			// aapt resource value: 0x7f080133
 			public const int rtbProductRating = 2131231027;

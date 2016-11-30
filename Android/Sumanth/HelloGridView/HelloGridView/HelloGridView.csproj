@@ -45,17 +45,17 @@
     <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="Refractored.PagerSlidingTabStrip">
-      <HintPath>..\..\..\..\..\..\Users\Savvy IT\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Refractored.PagerSlidingTabStrip.1.0.9\lib\MonoAndroid10\Refractored.PagerSlidingTabStrip.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Downloads\monodroid-samples-master\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Refractored.PagerSlidingTabStrip.1.0.9\lib\MonoAndroid10\Refractored.PagerSlidingTabStrip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\..\..\..\..\..\Users\Savvy IT\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v4.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v4.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\..\..\..\..\..\Users\Savvy IT\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v7.AppCompat.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v7.AppCompat.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +64,7 @@
     <Compile Include="Activities\TabsActivity.cs" />
     <Compile Include="Activities\TasteFrag.cs" />
     <Compile Include="Adapter\PagerAdapter.cs" />
+    <Compile Include="DialogReview.cs" />
     <Compile Include="Infrastructure.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Adapter\DetailedViewAdapter.cs" />
@@ -101,6 +102,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ExploreFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ReviewPopup.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -172,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\sfondo_selezioni.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Colors.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,6 +27,8 @@ namespace HelloGridView
             TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
+            RatingBar Rating = FindViewById<RatingBar>(Resource.Id.rtbProductRating);
+            Rating.RatingBarChange += Rating_RatingBarChange;
 
             TopName.Focusable = false;
             TopBrand.Focusable = false;
@@ -39,8 +41,16 @@ namespace HelloGridView
             WineDescription.Text = arr1[3];
 
         }
-          
-    public List<Wine> SampleData()
+
+        private void Rating_RatingBarChange(object sender, RatingBar.RatingBarChangeEventArgs e)
+        {
+            // throw new NotImplementedException();
+            FragmentTransaction trans = FragmentManager.BeginTransaction();
+            DialogReview dr = new DialogReview();
+            dr.Show(trans, "Wine Review");
+        }
+
+        public List<Wine> SampleData()
     {
         List<Wine> myArr = new List<Wine>();
         Wine w1 = new Wine();

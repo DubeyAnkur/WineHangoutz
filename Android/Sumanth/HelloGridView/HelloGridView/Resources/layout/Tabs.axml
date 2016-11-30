@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#660066">
+    android:background="#EA330C">
     <com.refractored.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"

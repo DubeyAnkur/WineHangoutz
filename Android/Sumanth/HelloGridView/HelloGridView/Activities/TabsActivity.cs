@@ -8,7 +8,7 @@ using Android.Support.V7.App;
 
 namespace HelloGridView
 {
-    [Activity(Label = "TabsActivity", MainLauncher = true, Theme = "@style/Theme.AppCompat.Light")]
+    [Activity(Label = "WineHAngOuts", MainLauncher = true, Theme = "@style/Theme.AppCompat.Light")]
     public class TabsActivity : AppCompatActivity
     {
         // int count = 1;
