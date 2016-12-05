@@ -17,16 +17,11 @@
         android:numStars="5"
         android:rating="3.5"
         android:isIndicator="false" />
-    <TextView
-        android:text="DESCRIPTION"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtReviewCommentsLabel" />
     <EditText
         android:inputType="textMultiLine"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:hint="Rate The Wine"
+        android:layout_height="100dp"
         android:id="@+id/txtReviewComments" />
     <Button
         android:text="Submit"
