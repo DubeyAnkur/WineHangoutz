@@ -63,16 +63,22 @@ namespace HelloGridView
 			public const int ratingstars = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int Reimage = 2130837510;
+			public const int regione_lombardia = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int respon = 2130837511;
+			public const int Reimage = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int star = 2130837512;
+			public const int respon = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int star_empty = 2130837513;
+			public const int sfondo_cantine = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int star = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int star_empty = 2130837515;
 			
 			static Drawable()
 			{
@@ -87,11 +93,11 @@ namespace HelloGridView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06001e
-			public const int gridview = 2131099678;
+			// aapt resource value: 0x7f06001c
+			public const int gridview = 2131099676;
 			
 			// aapt resource value: 0x7f06000f
-			public const int imageView2 = 2131099663;
+			public const int imageButton1 = 2131099663;
 			
 			// aapt resource value: 0x7f060002
 			public const int imgWine = 2131099650;
@@ -131,12 +137,6 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f060016
 			public const int tableRow8 = 2131099670;
-			
-			// aapt resource value: 0x7f06001c
-			public const int textView14 = 2131099676;
-			
-			// aapt resource value: 0x7f06001d
-			public const int textView15 = 2131099677;
 			
 			// aapt resource value: 0x7f060011
 			public const int textView19 = 2131099665;

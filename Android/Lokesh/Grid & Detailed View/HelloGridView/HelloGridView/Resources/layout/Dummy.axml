@@ -13,16 +13,17 @@
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1">
-            <TextView
-                android:text="Name"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_column="0"
-                android:id="@+id/textView14" />
-            <TextView
-                android:text="Value"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_column="1"
-                android:id="@+id/textView15" />
+          <Button
+            
+            
+            
+            />
         </TableRow>
-          </TableLayout>
+        <TableRow
+            android:id="@+id/tableRow2">
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

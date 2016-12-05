@@ -23,12 +23,12 @@ namespace HelloGridView
             SetContentView(Resource.Layout.detailedView);
             //var listview = FindViewById<ListView>(Resource.Id.listView1);
                         
-            string[] arr1 = new string[] { "Silver Oak Napa Valley", "Cabernet ", "2011", " This is the description about wine,This is the description about wine,This is the description about wine" };
+            string[] arr1 = new string[] { "Silver napa valley", "Cabernet ", "2011", " This is the description about wine,This is the description about wine,This is the description about wine" };
             TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
             TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
-            ImageView placeholder = FindViewById<ImageView>(Resource.Id.imageView2);
+            //ImageView placeholder = FindViewById<ImageView>(Resource.Id.imageView2);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
 
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
@@ -37,22 +37,29 @@ namespace HelloGridView
             //placeholder.SetPadding(8, 8, 8, 8);
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
-            //tr5.Layout(0, 0, 100,100 );
-            //placeholder.Layout(0, 0, widthInDp, widthInDp);
-            //placeholder.LayoutParameters.Width = widthInDp;
-            //Java.Lang.ClassCastException: android.widget.TableLayout$LayoutParams cannot be cast to android.widget.TableRow$LayoutParams
-            rb.NumStars = 5;
+            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+            //ImageView iv = new ImageView(this);
+            //iv.LayoutParameters = new LinearLayout.LayoutParams(widthInDp, widthInDp);
+            ImageButton ib = FindViewById<ImageButton>(Resource.Id.imageButton1);
+            var pa = ib.LayoutParameters;
+            //pa.Width = 7000;
+           // pa.Height = 1000;                   //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
+                    //tr5.Layout(0, 0, 100,100 );
+                    //placeholder.Layout(0, 0, widthInDp, widthInDp);
+                    //placeholder.LayoutParameters.Width = widthInDp;
+                    //Java.Lang.ClassCastException: android.widget.TableLayout$LayoutParams cannot be cast to android.widget.TableRow$LayoutParams
+                    //rb.NumStars = 5;
 
-            placeholder.Visibility = ViewStates.Visible;
-
-
+            //placeholder.Visibility = ViewStates.Visible;
+           // iv.SetImageResource(Resource.Drawable.placeholder_bottiglia_lista);
+           
+            //tr5.AddView(iv);
+          
             TopName.Focusable = false;
             TopBrand.Focusable = false;
             TopVintage.Focusable = false;
             WineDescription.Focusable = false;
-            placeholder.Focusable = false;
+            //placeholder.Focusable = false;
 
             TopName.Text = arr1[0]; //Assigning value
             TopBrand.Text = arr1[1];
@@ -70,9 +77,9 @@ namespace HelloGridView
             };
 
             // The result will be null because InJustDecodeBounds == true.
-            Bitmap result =  BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder, options);
+            Bitmap result =  BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_11, options);
 
-            placeholder.SetImageBitmap(result);
+            //placeholder.SetImageBitmap(result);
         }
         private int ConvertPixelsToDp(float pixelValue)
         {

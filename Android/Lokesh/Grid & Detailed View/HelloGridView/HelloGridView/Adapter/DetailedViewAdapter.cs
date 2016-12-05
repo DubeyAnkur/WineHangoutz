@@ -14,11 +14,11 @@ using System.Net;
 
 namespace HelloGridView
 {
-    class ListViewAdapter : BaseAdapter<Wine>
+    class DetailedViewAdapter : BaseAdapter<WineDetails>
     {
-        private List<Wine> myItems;
+        private List<WineDetails> myItems;
         private Context myContext;
-        public override Wine this[int position]
+        public override WineDetails this[int position]
         {
             get
             {
@@ -26,7 +26,7 @@ namespace HelloGridView
             }
         }
 
-        public ListViewAdapter(Context con, List<Wine> strArr)
+        public DetailedViewAdapter(Context con, List<WineDetails> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -39,38 +39,40 @@ namespace HelloGridView
             }
         }
 
+        public static DetailedViewAdapter Adapter { get; internal set; }
+
         public override long GetItemId(int position)
         {
             return position;
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override View GetView(int position, View convertView1, ViewGroup parent)
         {
-            View row = convertView;
+            View row = convertView1;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.detailedView, null, false);
 
-            TextView txtName = row.FindViewById<TextView>(Resource.Id.textView6);
-            TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
-            TextView description = row.FindViewById<TextView>(Resource.Id.textView33);
-            TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
-            ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imageView2);
+            TextView Value = row.FindViewById<TextView>(Resource.Id.textView15);
+            //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.textView15);
+            //TextView description = row.FindViewById<TextView>(Resource.Id.textView33);
+            //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
+            //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imageView2);
 
 
-            txtName.Text = myItems[position].Name;
-            txtRatings.Text = myItems[position].Ratings;
-            description.Text = myItems[position].UserRatings;
-            txtPrice.Text = myItems[position].Price;
+            Value.Text = myItems[position].Name;
+            //txtRatings.Text = myItems[position].Ratings;
+            //description.Text = myItems[position].UserRatings;
+            //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
-            var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
-            imgWine.SetImageBitmap(imageBitmap);
+            //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
+            //imgWine.SetImageBitmap(imageBitmap);
 
-            txtName.Focusable = false;
-            txtRatings.Focusable = false;
-            description.Focusable = false;
-            txtPrice.Focusable = false;
-            imgWine.Focusable = false;
+            Value.Focusable = false;
+            //txtRatings.Focusable = false;
+            //description.Focusable = false;
+            //txtPrice.Focusable = false;
+            //imgWine.Focusable = false;
 
 
             return row;
