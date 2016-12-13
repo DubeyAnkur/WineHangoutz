@@ -22,7 +22,8 @@
                 android:id="@+id/imgWine"
                 android:layout_marginRight="0.0dp"
                 android:layout_marginBottom="0.0dp"
-                android:layout_span="3" />
+                android:layout_span="3"
+                android:clickable="false" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
@@ -58,14 +59,14 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Vintage"
                 android:id="@+id/txtVintage"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
             <View
                 android:id="@+id/topDivider"
                 android:layout_width="50dp"
                 android:layout_height="3dp"
                 android:background="#ffffff"
                 android:paddingLeft="0.5px"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
@@ -90,13 +91,12 @@
                 android:id="@+id/rtbProductRating"
                 style="?android:attr/ratingBarStyleIndicator"
                 android:layout_height="wrap_content"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:numStars="5"
-                android:max="5"
-                android:stepSize="1.0"
+                android:stepSize="0.1"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                android:isIndicator="false"
+                android:isIndicator="true"
                 android:layout_span="3" />
         </TableRow>
         <TableRow

@@ -93,14 +93,17 @@ namespace HelloGridView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06001c
-			public const int gridview = 2131099676;
+			// aapt resource value: 0x7f06001f
+			public const int gridview = 2131099679;
 			
 			// aapt resource value: 0x7f06000f
 			public const int imageButton1 = 2131099663;
 			
 			// aapt resource value: 0x7f060002
 			public const int imgWine = 2131099650;
+			
+			// aapt resource value: 0x7f060019
+			public const int listView1 = 2131099673;
 			
 			// aapt resource value: 0x7f060015
 			public const int rating = 2131099669;
@@ -114,8 +117,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060001
 			public const int tableRow1 = 2131099649;
 			
-			// aapt resource value: 0x7f060019
-			public const int tableRow14 = 2131099673;
+			// aapt resource value: 0x7f06001a
+			public const int tableRow14 = 2131099674;
 			
 			// aapt resource value: 0x7f06000a
 			public const int tableRow2 = 2131099658;
@@ -138,6 +141,12 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060016
 			public const int tableRow8 = 2131099670;
 			
+			// aapt resource value: 0x7f06001d
+			public const int textView12 = 2131099677;
+			
+			// aapt resource value: 0x7f06001e
+			public const int textView13 = 2131099678;
+			
 			// aapt resource value: 0x7f060011
 			public const int textView19 = 2131099665;
 			
@@ -153,11 +162,11 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060009
 			public const int textView6 = 2131099657;
 			
-			// aapt resource value: 0x7f06001a
-			public const int textView62 = 2131099674;
-			
 			// aapt resource value: 0x7f06001b
-			public const int textView69 = 2131099675;
+			public const int textView62 = 2131099675;
+			
+			// aapt resource value: 0x7f06001c
+			public const int textView69 = 2131099676;
 			
 			// aapt resource value: 0x7f06000b
 			public const int textView7 = 2131099659;
@@ -203,7 +212,10 @@ namespace HelloGridView
 			public const int Dummy = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Main = 2130903043;
+			public const int ListView = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int Main = 2130903044;
 			
 			static Layout()
 			{

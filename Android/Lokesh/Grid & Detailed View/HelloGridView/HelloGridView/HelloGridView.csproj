@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\DummyActivity.cs" />
+    <Compile Include="Adapter\ListViewAdapter.cs" />
     <Compile Include="Classes\WineDetails.cs" />
     <Compile Include="Infrastructure.cs" />
     <Compile Include="Activity\MainActivity.cs" />
@@ -71,6 +72,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Dummy.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

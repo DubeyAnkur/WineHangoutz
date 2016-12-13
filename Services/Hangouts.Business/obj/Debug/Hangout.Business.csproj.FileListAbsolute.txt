@@ -3,3 +3,8 @@ E:\Sample\WineHangoutz\Services\Hangouts.Business\bin\Debug\Hangouts.Business.pd
 E:\Sample\WineHangoutz\Services\Hangouts.Business\obj\Debug\Hangout.Business.csprojResolveAssemblyReference.cache
 E:\Sample\WineHangoutz\Services\Hangouts.Business\obj\Debug\Hangouts.Business.dll
 E:\Sample\WineHangoutz\Services\Hangouts.Business\obj\Debug\Hangouts.Business.pdb
+E:\GitHub\WineHangoutz\Services\Hangouts.Business\bin\Debug\Hangouts.Business.dll
+E:\GitHub\WineHangoutz\Services\Hangouts.Business\bin\Debug\Hangouts.Business.pdb
+E:\GitHub\WineHangoutz\Services\Hangouts.Business\obj\Debug\Hangout.Business.csprojResolveAssemblyReference.cache
+E:\GitHub\WineHangoutz\Services\Hangouts.Business\obj\Debug\Hangouts.Business.dll
+E:\GitHub\WineHangoutz\Services\Hangouts.Business\obj\Debug\Hangouts.Business.pdb

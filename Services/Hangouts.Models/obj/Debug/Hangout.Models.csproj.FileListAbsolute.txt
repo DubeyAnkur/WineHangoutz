@@ -6,3 +6,8 @@ E:\Sample\WineHangoutz\Services\Hangouts.Models\bin\Debug\Hangouts.Models.dll
 E:\Sample\WineHangoutz\Services\Hangouts.Models\bin\Debug\Hangouts.Models.pdb
 E:\Sample\WineHangoutz\Services\Hangouts.Models\obj\Debug\Hangouts.Models.dll
 E:\Sample\WineHangoutz\Services\Hangouts.Models\obj\Debug\Hangouts.Models.pdb
+E:\GitHub\WineHangoutz\Services\Hangouts.Models\bin\Debug\Hangouts.Models.dll
+E:\GitHub\WineHangoutz\Services\Hangouts.Models\bin\Debug\Hangouts.Models.pdb
+E:\GitHub\WineHangoutz\Services\Hangouts.Models\obj\Debug\Hangout.Models.csprojResolveAssemblyReference.cache
+E:\GitHub\WineHangoutz\Services\Hangouts.Models\obj\Debug\Hangouts.Models.dll
+E:\GitHub\WineHangoutz\Services\Hangouts.Models\obj\Debug\Hangouts.Models.pdb
