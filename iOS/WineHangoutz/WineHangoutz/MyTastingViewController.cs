@@ -32,7 +32,7 @@ namespace WineHangoutz
 			review.RatingText = "Seems like a good wine. I opened it two hours before serving. It was deep ruby red in color.";
 			review.Vintage = "2014";
 			tableItems.Add(review);
-			TableView.Source = new MyTastingTableSource(tableItems);
+			TableView.Source = new MyTastingTableSource(tableItems, NavigationController, this);
 		}
     }
 
@@ -41,10 +41,14 @@ namespace WineHangoutz
 
 		List<Rating> TableItems;
 		string CellIdentifier = "TableCell";
+		UINavigationController NavController;
+		UIViewController Parent;
 
-		public MyTastingTableSource(List<Rating>  items)
+		public MyTastingTableSource(List<Rating>  items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
+			NavController = NavigationController;
+			Parent = parent;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)
@@ -57,10 +61,15 @@ namespace WineHangoutz
 			MyTastingCellView cell = tableView.DequeueReusableCell(CellIdentifier) as MyTastingCellView;
 			Rating item = TableItems[indexPath.Row];
 
+
 			//---- if there are no cells to reuse, create a new one
 			NSString name = new NSString(CellIdentifier);
 			if (cell == null)
 				cell = new MyTastingCellView(name);
+
+			cell.NavController = NavController;
+			cell.Parent = Parent;
+
 			cell.UpdateCell(item);
 			cell.SetNeedsDisplay();
 
@@ -83,6 +92,9 @@ namespace WineHangoutz
 		PDRatingView stars;
 		UIButton btnEdit;
 		UIButton btnDelete;
+
+		public UINavigationController NavController;
+		public UIViewController Parent;
 
 		public MyTastingCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
@@ -116,14 +128,30 @@ namespace WineHangoutz
 				TextColor = UIColor.FromRGB(127, 51, 100),
 				BackgroundColor = UIColor.Clear
 			};
-			                            
+
+			decimal averageRating = 4.0m;
 			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
 												filledImage: UIImage.FromBundle("Stars/filled.png"),
 												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
 
-			stars = new PDRatingView(new CGRect(60, 50, 60, 20), ratingConfig, 5.0m);
+			stars = new PDRatingView(new CGRect(60, 50, 60, 20), ratingConfig, averageRating);
 
 			btnEdit = new UIButton();
+			//UIViewController that = Parent;
+
+			btnEdit.TouchUpInside += (sender, e) =>
+			{
+				
+				PopupView yourController = new PopupView();
+				yourController.NavController = NavController;
+				yourController.parent = Parent;
+				yourController.StartsSelected = averageRating;
+				yourController.Comments = Comments.Text;
+				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+				//this.PresentViewController(yourController, true, null);
+				Parent.PresentModalViewController(yourController, false);
+
+			};
 			btnDelete = new UIButton();
 
 			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });

@@ -11,9 +11,13 @@ namespace WineHangoutz
 		public UINavigationController NavController;
 		public UIViewController parent;
 
+		//Possible Inputss
+		public decimal StartsSelected;
+		public string Comments="";
+
 		public PopupView() : base ()
 		{
-			this.Title = "Isolated";
+			this.Title = "Popup";
 			//this.TabBarItem.Image = UIImage.FromBundle("Images/first");
 		}
 		public override void ViewDidLoad()
@@ -70,30 +74,39 @@ namespace WineHangoutz
 			this.View.AddSubview(lblStarBack);
 
 			// Create the view.
-			decimal averageRating = 3.25m;
+			decimal averageRating = StartsSelected;
 			PDRatingView ratingView = new PDRatingView(new CGRect(View.Bounds.Width * 3 / 8, 210, View.Bounds.Width / 4, 35f), ratingConfig, averageRating);
-			ratingView.UserInteractionEnabled = false;
+			//ratingView.UserInteractionEnabled = false;
 			ratingView.BackgroundColor = UIColor.White;
 			this.View.AddSubview(ratingView);
 
 			var txtComments = new UITextView();
 			txtComments.Frame = new CGRect(14, 240, View.Frame.Width-28, 130);
-			txtComments.Text = "Describe your testing";
+			//txtComments.Text = "Describe your testing";
 			//txtComments.TextAlignment = UITextAlignment.Justified;
 			//txtComments.BackgroundColor = UIColor.LightGray;
-			txtComments.Text = "Describe your testing";
+			txtComments.Text = Comments.Length > 0 ? Comments : "Describe your testing";
 			txtComments.Started += (sender, e) => {
-				((UITextView)sender).Text = "";
+				if (((UITextView)sender).Text == "Describe your testing")
+				{
+					((UITextView)sender).Text = "";
+				}
 			}; 
 			this.View.AddSubview(txtComments);
-
 
 			UIButton btnSave = new UIButton(new CGRect(14, 370, View.Frame.Width - 28, 20));
 			//btnSave.SetBackgroundImage(new UIImage("Close.png"), UIControlState.Normal);
 			btnSave.SetTitle("SAVE", UIControlState.Normal);
 			btnSave.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 			btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+
 			this.View.AddSubview(btnSave);
+			btnSave.TouchUpInside += (sender, e) =>
+			{
+				NavController.DismissViewController(true, null);
+				//Save Service Call.
+				//txtComments
+			};
 		}
 	}
 }

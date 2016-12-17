@@ -36,3 +36,4 @@
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/PDRating.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Hangouts.Models.dll
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Line.png

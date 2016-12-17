@@ -22,8 +22,8 @@ namespace WineHangoutz
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-			nav = new UINavigationController(Window.RootViewController);
-			Window.RootViewController = nav;
+
+
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
@@ -33,10 +33,22 @@ namespace WineHangoutz
 			{
 				// button was clicked
 			});
-			nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+
 
 			ManageTabBar(RootTab);
 
+			int x = 1;
+			if (x == 1)
+			{
+				nav = new UINavigationController(Window.RootViewController);
+				nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+			}
+			else
+			{
+				var login = new LoginViewController();
+				nav = new UINavigationController(login);
+			}
+			Window.RootViewController = nav;
 			return true;
 		}
 

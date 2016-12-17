@@ -169,6 +169,7 @@
       <DependentUpon>ExploreViewController_.cs</DependentUpon>
     </Compile>
     <Compile Include="SKUDetailView.cs" />
+    <Compile Include="LoginViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
@@ -206,6 +207,7 @@
     <BundleResource Include="Images\Top.jpg" />
     <BundleResource Include="Images\Wineries.jpg" />
     <BundleResource Include="Resources\profile.png" />
+    <BundleResource Include="Resources\Line.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">

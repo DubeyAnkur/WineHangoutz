@@ -12,6 +12,10 @@ namespace WineHangoutz {
 
 		public static readonly NSString Key = new NSString ("APLCollectionViewCell");
 		public UINavigationController NavigationController;
+		public string WineName = "Wine Name";
+		public string Vintage = "2012";
+		public string RegPrice = "$9.99";
+		public decimal averageRating = 3.3m;
 
 		[Export ("initWithFrame:")]
 		public APLCollectionViewCell (CGRect frame) : base (frame)
@@ -34,7 +38,8 @@ namespace WineHangoutz {
 
 			ImageView.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				NavigationController.PushViewController(new DetailViewController(), false);
+				//NavigationController.PushViewController(new DetailViewController(), false);
+				NavigationController.PushViewController(new SKUDetailView(), false);
 			};
 
 			box.Width = (box.Width/ 240) * 92; //box.Width / 2;
@@ -50,7 +55,8 @@ namespace WineHangoutz {
 			//btlImage.InsertSubviewAbove()
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				NavigationController.PushViewController(new DetailViewController(), false);
+				//NavigationController.PushViewController(new DetailViewController(), false);
+				NavigationController.PushViewController(new SKUDetailView(), false);
 			};
 
 			box.Height = 20;
@@ -87,7 +93,7 @@ namespace WineHangoutz {
 			CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
 			lower.Y = 35; //lower.Y + (ratio)*(Bounds.Height);
             lblName = new UILabel(lower);
-            lblName.Text = "Wine Name";
+            lblName.Text = WineName;
             lblName.TextAlignment = UITextAlignment.Center;
 
             lower.Y = 225;
@@ -109,13 +115,13 @@ namespace WineHangoutz {
             year.Height = 30;
             year.Width = 50;
             lblYear = new UILabel(year);
-            lblYear.Text = "2012";
+            lblYear.Text = Vintage;
             lblYear.TextAlignment = UITextAlignment.Center;
 			lblYear.BackgroundColor = UIColor.DarkGray;
 
 
 			lblRegPrice = new UILabel(new CGRect(0, Bounds.Height - 60, Bounds.Width, 12f));
-			lblRegPrice.Text = "$9.99";
+			lblRegPrice.Text = RegPrice;
 			lblRegPrice.Font = UIFont.FromName("Verdana", 13f);
 			lblRegPrice.TextAlignment = UITextAlignment.Center;
 
@@ -123,7 +129,6 @@ namespace WineHangoutz {
 						filledImage: UIImage.FromBundle("Stars/filled.png"),
 						chosenImage: UIImage.FromBundle("Stars/chosen.png"));
 
-			decimal averageRating = 0;
 			ratingView = new PDRatingView(new CGRect(Bounds.Width * 1 / 4, Bounds.Height - 40, Bounds.Width / 2, 14f), ratingConfig, averageRating);
 			ratingView.UserInteractionEnabled = false;
 			//ratingView.BackgroundColor = UIColor.White;

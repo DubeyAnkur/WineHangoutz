@@ -36,7 +36,8 @@ namespace WineHangoutz
 
 			btnMy.TouchUpInside += (sender, e) =>
 			{
-				NavigationController.PushViewController(new MyTastingViewController(), false);
+				var MyTaste = new MyTastingViewController();
+				NavigationController.PushViewController(MyTaste, false);
 			};
 
 			View.AddSubview(btnMy);
