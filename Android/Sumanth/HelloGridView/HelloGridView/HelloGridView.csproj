@@ -45,17 +45,17 @@
     <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="Refractored.PagerSlidingTabStrip">
-      <HintPath>..\..\..\..\..\..\..\Downloads\monodroid-samples-master\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Refractored.PagerSlidingTabStrip.1.0.9\lib\MonoAndroid10\Refractored.PagerSlidingTabStrip.dll</HintPath>
+      <HintPath>C:\Users\Savvy IT\Downloads\monodroid-samples-master\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Refractored.PagerSlidingTabStrip.1.0.9\lib\MonoAndroid10\Refractored.PagerSlidingTabStrip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\..\..\..\..\..\..\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v4.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+      <HintPath>C:\Users\Savvy IT\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v4.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\..\..\..\..\..\..\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v7.AppCompat.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+      <HintPath>C:\Users\Savvy IT\Downloads\PagerSlidingTabStrip-Sample-master\PagerSlidingTabStrip-Sample-master\packages\Xamarin.Android.Support.v7.AppCompat.23.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +181,9 @@
     <AndroidResource Include="Resources\values\Colors.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\placeholder_11.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

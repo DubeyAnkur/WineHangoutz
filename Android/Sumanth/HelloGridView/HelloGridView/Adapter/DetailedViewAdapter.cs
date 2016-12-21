@@ -54,7 +54,7 @@ namespace HelloGridView
             TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
             TextView description = row.FindViewById<TextView>(Resource.Id.textView33);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
-            ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imageView2);
+            ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imageButton1);
 
 
             txtName.Text = myItems[position].Name;
