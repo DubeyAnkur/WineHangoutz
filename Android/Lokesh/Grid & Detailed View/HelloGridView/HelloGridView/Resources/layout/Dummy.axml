@@ -13,11 +13,19 @@
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1">
-          <Button
-            
-            
-            
-            />
+            <TextView
+                android:text="Text"
+                android:layout_column="0"
+                android:id="@+id/textView12" />
+            <TableRow
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_column="1"
+                android:id="@+id/tableRow4">
+                <TextView
+                    android:text="Text"
+                    android:id="@+id/textView13" />
+            </TableRow>
         </TableRow>
         <TableRow
             android:id="@+id/tableRow2">

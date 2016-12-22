@@ -49,13 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity\DummyActivity.cs" />
     <Compile Include="Adapter\ListViewAdapter.cs" />
-    <Compile Include="Classes\WineDetails.cs" />
+    <Compile Include="Model\Wine.cs" />
+    <Compile Include="Model\WineDetails.cs" />
     <Compile Include="Infrastructure.cs" />
-    <Compile Include="Activity\MainActivity.cs" />
+    <Compile Include="Activity1\MainActivity.cs" />
     <Compile Include="Adapter\GridViewAdapter.cs" />
-    <Compile Include="Activity\detailViewActivity.cs" />
+    <Compile Include="Activity1\detailViewActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -132,6 +132,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\sfondo_cantine.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

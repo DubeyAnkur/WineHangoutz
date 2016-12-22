@@ -152,26 +152,141 @@
                     android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
-           
-            <ListView
-                android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-                android:id="@+id/listView1" />
-           <TableRow
-                android:id="@+id/tableRow14"
-                android:background="@android:color/background_dark">
+        </TableLayout>
+        <TableLayout
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout2">
+            <TableRow
+                android:id="@+id/tableRow79"
+                android:gravity="center">
                 <TextView
-                    android:text="Food Pairings"
+                    android:text="Name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/textView62"
-                    android:gravity="left" />
+                    android:layout_column="0"
+                    android:id="@+id/textView46"
+                    android:layout_gravity="left" />
                 <TextView
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/textView69"
-                    android:layout_gravity="left" />
+                    android:layout_column="1"
+                    android:id="@+id/textView47"
+                    android:layout_gravity="center" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow80"
+                android:gravity="center">
+                <TextView
+                    android:text="Classifcation"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView48" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView49" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow81"
+                android:gravity="center">
+                <TextView
+                    android:text="Grape type"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView50" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView51" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow82"
+                android:gravity="center">
+                <TextView
+                    android:text="Alcohol"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView52" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView53" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow83"
+                android:gravity="center">
+                <TextView
+                    android:text="Vintage year"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView54" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView55" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow84"
+                android:gravity="center">
+                <TextView
+                    android:text="Aromas"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView56" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView57" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow85"
+                android:gravity="center">
+                <TextView
+                    android:text="Food pairings"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView58" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView59" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow86"
+                android:gravity="center">
+                <TextView
+                    android:text="Bottle size"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView60" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView61" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow87"
+                android:gravity="center">
+                <TextView
+                    android:text="Serving at"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView62" />
+                <TextView
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="1"
+                    android:id="@+id/textView63" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

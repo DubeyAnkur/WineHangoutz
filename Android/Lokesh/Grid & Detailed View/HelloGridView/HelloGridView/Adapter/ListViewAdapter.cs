@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 
 using Android.App;
-using Android.Widget;
-using Android.Graphics;
-using System.Net;
-
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Widget;
+using Android.Graphics;
+using System.Net;
+
 namespace HelloGridView
 {
-    class ListViewAdapter : BaseAdapter<WineDetails>
+    class ListViewAdapter : BaseAdapter<Wine>
     {
-        private List<WineDetails> myItems;
+        private List<Wine> myItems;
         private Context myContext;
-        public override WineDetails this[int position]
+        public override Wine this[int position]
         {
             get
             {
@@ -26,7 +26,7 @@ namespace HelloGridView
             }
         }
 
-        public ListViewAdapter(Context con, List<WineDetails> strArr)
+        public ListViewAdapter(Context con, List<Wine> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -48,19 +48,18 @@ namespace HelloGridView
         {
             View row = convertView;
             if (row == null)
-                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.ListView, null, false);
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.Dummy, null, false);
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.textView12);
-            
-            TextView txtName1 = row.FindViewById<TextView>(Resource.Id.textView13);
-            //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
-            //TextView description = row.FindViewById<TextView>(Resource.Id.textView33);
+            TextView txtRatings = row.FindViewById<TextView>(Resource.Id.textView13);
+            //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
+            //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
 
 
             txtName.Text = myItems[position].Name;
-            txtName1.Text = myItems[position].Price;
-            //description.Text = myItems[position].UserRatings;
+            txtRatings.Text = myItems[position].Ratings;
+            //txtUserRatings.Text = myItems[position].UserRatings;
             //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
@@ -68,13 +67,12 @@ namespace HelloGridView
             //imgWine.SetImageBitmap(imageBitmap);
 
             txtName.Focusable = false;
-          txtName1.Focusable = false;
             //txtRatings.Focusable = false;
-            //description.Focusable = false;
+            //txtUserRatings.Focusable = false;
             //txtPrice.Focusable = false;
             //imgWine.Focusable = false;
 
-
+            
             return row;
         }
         private Bitmap GetImageBitmapFromUrl(string url)
