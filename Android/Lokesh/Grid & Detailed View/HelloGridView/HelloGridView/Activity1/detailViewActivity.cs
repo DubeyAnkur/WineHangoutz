@@ -44,7 +44,6 @@ namespace HelloGridView
             TextView FoodPairings = FindViewById<TextView>(Resource.Id.textView59);
             TextView BottleSize = FindViewById<TextView>(Resource.Id.textView61);
             TextView Serving = FindViewById<TextView>(Resource.Id.textView63);
-            //ImageView placeholder = FindViewById<ImageView>(Resource.Id.imageView2);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
             String x;
@@ -53,8 +52,7 @@ namespace HelloGridView
                 Toast.MakeText(this, "You have selected " + rb.Rating.ToString() + " Stars", ToastLength.Short).Show();
                 x = rb.Rating.ToString();
             };
-            //placeholder.SetScaleType(ImageView.ScaleType.FitCenter);
-            //placeholder.SetPadding(8, 8, 8, 8);
+          
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
@@ -100,6 +98,7 @@ namespace HelloGridView
             Aramos.Text = arr1[1];
             FoodPairings.Text = arr1[1];
             Serving.Text = arr1[1];
+            BottleSize.Text = arr1[1];
 
             BitmapFactory.Options options = new BitmapFactory.Options
             {

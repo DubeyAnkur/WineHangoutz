@@ -93,17 +93,23 @@ namespace HelloGridView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060038
-			public const int gridview = 2131099704;
+			// aapt resource value: 0x7f060041
+			public const int gridview = 2131099713;
 			
 			// aapt resource value: 0x7f06000f
 			public const int imageButton1 = 2131099663;
+			
+			// aapt resource value: 0x7f060037
+			public const int imageButton2 = 2131099703;
 			
 			// aapt resource value: 0x7f060002
 			public const int imgWine = 2131099650;
 			
 			// aapt resource value: 0x7f060015
 			public const int rating = 2131099669;
+			
+			// aapt resource value: 0x7f06003d
+			public const int ratingBar2 = 2131099709;
 			
 			// aapt resource value: 0x7f060007
 			public const int rtbProductRating = 2131099655;
@@ -114,6 +120,12 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060019
 			public const int tableLayout2 = 2131099673;
 			
+			// aapt resource value: 0x7f060035
+			public const int tableLayout3 = 2131099701;
+			
+			// aapt resource value: 0x7f060038
+			public const int tableLayout4 = 2131099704;
+			
 			// aapt resource value: 0x7f060001
 			public const int tableRow1 = 2131099649;
 			
@@ -123,8 +135,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f06000c
 			public const int tableRow3 = 2131099660;
 			
-			// aapt resource value: 0x7f060036
-			public const int tableRow4 = 2131099702;
+			// aapt resource value: 0x7f06003f
+			public const int tableRow4 = 2131099711;
 			
 			// aapt resource value: 0x7f06000e
 			public const int tableRow5 = 2131099662;
@@ -168,11 +180,20 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060032
 			public const int tableRow87 = 2131099698;
 			
-			// aapt resource value: 0x7f060035
-			public const int textView12 = 2131099701;
+			// aapt resource value: 0x7f060036
+			public const int tableRow88 = 2131099702;
 			
-			// aapt resource value: 0x7f060037
-			public const int textView13 = 2131099703;
+			// aapt resource value: 0x7f06003a
+			public const int tableRow89 = 2131099706;
+			
+			// aapt resource value: 0x7f06003c
+			public const int tableRow90 = 2131099708;
+			
+			// aapt resource value: 0x7f06003e
+			public const int textView12 = 2131099710;
+			
+			// aapt resource value: 0x7f060040
+			public const int textView13 = 2131099712;
 			
 			// aapt resource value: 0x7f060011
 			public const int textView19 = 2131099665;
@@ -242,6 +263,12 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f060034
 			public const int textView63 = 2131099700;
+			
+			// aapt resource value: 0x7f060039
+			public const int textView64 = 2131099705;
+			
+			// aapt resource value: 0x7f06003b
+			public const int textView65 = 2131099707;
 			
 			// aapt resource value: 0x7f06000b
 			public const int textView7 = 2131099659;
