@@ -1,17 +1,25 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/SKUDetailView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
     <Files>
       <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
       <File FileName="WineHangoutz/PopupView.cs" Line="46" Column="5" />
       <File FileName="WineHangoutz/AppDelegate.cs" Line="43" Column="64" />
       <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="39" Column="5" />
-      <File FileName="WineHangoutz/SKUDetailView.cs" Line="27" Column="1" />
-      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="149" Column="45" />
+      <File FileName="WineHangoutz/SKUDetailView.cs" Line="41" Column="22" />
+      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="189" Column="2" />
+      <File FileName="WineHangoutz/RatingCellView.cs" Line="129" Column="2" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="15" Column="1" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="63" Column="34" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="57" Column="1" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="25" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PhyCollectionView.cs" line="65" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" line="65" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.571191DB-9BB8-49ED-95A0-652E823BFC21" />

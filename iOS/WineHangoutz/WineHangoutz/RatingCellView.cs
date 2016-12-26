@@ -16,7 +16,7 @@ namespace WineHangoutz
 		PDRatingView stars;
 
 		public ReviewCellView(NSString cellId) : base (UITableViewCellStyle.Default, cellId)
-    {
+    	{
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
 			imageView = new UIImageView();
@@ -70,8 +70,6 @@ namespace WineHangoutz
 			stars.UserInteractionEnabled = false;
 			Comments.Frame = new CGRect(45, 30, ContentView.Bounds.Width - 35, 40);
 		}
-
-
 	}
 
 	public class ReviewTableSource : UITableViewSource

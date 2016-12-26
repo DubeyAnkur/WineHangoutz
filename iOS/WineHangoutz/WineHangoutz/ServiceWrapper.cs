@@ -54,7 +54,7 @@ namespace WineHangoutz
 
 		public async Task<ItemListResponse> GetItemList(int storeId)
 		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemList/" + storeId);
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/item/GetItemList/" + storeId);
 			var response = await client.GetAsync(uri);
 			ItemListResponse output = null;
 			if (response.IsSuccessStatusCode)

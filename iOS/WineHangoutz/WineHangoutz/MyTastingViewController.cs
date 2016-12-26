@@ -186,17 +186,4 @@ namespace WineHangoutz
 			btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
 		}
 	}
-
-	//public class Reviews
-	//{
-	//	public decimal RatingStars;
-	//	public string RatingText;
-	//	public DateTime Date;
-	//	public string UserName;
-	//	public int SKU;
-	//	public string Name;
-	//	public int Vintage;
-	//	public string Region;
-	//	public string Country;
-	//}
 }
