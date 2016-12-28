@@ -29,7 +29,7 @@ namespace HelloGridView
             string[] arr1 = new string[] { "Silver napa valley",
                                            "Cabernet ",
                                            "2011",
-                                           " This is the description about wine,This is the description about wine,This is the description about wine" };
+                                          " This is the description about wine,This is the description about wine,This is the description about wine" };
             var detailView = FindViewById<ListView>(Resource.Id.listView1);
             DetailsArray = DetailsData();
             DetailsViewAdapter Details = new DetailsViewAdapter(this, DetailsArray);
@@ -43,6 +43,8 @@ namespace HelloGridView
 
             DetailsArray = DetailsData();
             ReviewArray = ReviewData();
+            setListViewHeightBasedOnChildren(detailView);
+            setListViewHeightBasedOnChildren1(commentsView);
             TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
             TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
@@ -58,7 +60,7 @@ namespace HelloGridView
           
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+            //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
             //ImageView iv = new ImageView(this);
             //iv.LayoutParameters = new LinearLayout.LayoutParams(widthInDp, widthInDp);
             ImageButton ib = FindViewById<ImageButton>(Resource.Id.imageButton1);
@@ -96,7 +98,7 @@ namespace HelloGridView
             };
 
             // The result will be null because InJustDecodeBounds == true.
-            Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_11, options);
+            Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
 
             //placeholder.SetImageBitmap(result);
         }
@@ -104,6 +106,52 @@ namespace HelloGridView
         {
             var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
             return dp;
+        }
+        public void setListViewHeightBasedOnChildren(ListView listView)
+        {
+            DetailsViewAdapter listAdapter = (DetailsViewAdapter)listView.Adapter;
+            if (listAdapter == null)
+                return;
+
+            int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView.Width, MeasureSpecMode.Unspecified);
+            int heightMeasureSpec = View.MeasureSpec.MakeMeasureSpec(ViewGroup.LayoutParams.WrapContent, MeasureSpecMode.Exactly);
+            int totalHeight = 0;
+            View view = null;
+            for (int i = 0; i < listAdapter.Count; i++)
+            {
+                view = listAdapter.GetView(i, view, listView);
+                if (i == 0)
+                    view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, WindowManagerLayoutParams.WrapContent);
+
+                view.Measure(desiredWidth, heightMeasureSpec);
+                totalHeight += view.MeasuredHeight;
+            }
+            ViewGroup.LayoutParams params1 = listView.LayoutParameters;
+            params1.Height = totalHeight + (listView.DividerHeight * (listAdapter.Count - 1));
+            listView.LayoutParameters = params1;
+        }
+        public void setListViewHeightBasedOnChildren1(ListView listView1)
+        {
+            reviewAdapter listAdapter = (reviewAdapter)listView1.Adapter;
+            if (listAdapter == null)
+                return;
+
+            int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView1.Width, MeasureSpecMode.Unspecified);
+            int heightMeasureSpec = View.MeasureSpec.MakeMeasureSpec(ViewGroup.LayoutParams.WrapContent, MeasureSpecMode.Exactly);
+            int totalHeight = 0;
+            View view = null;
+            for (int i = 0; i < listAdapter.Count; i++)
+            {
+                view = listAdapter.GetView(i, view, listView1);
+                if (i == 0)
+                    view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, WindowManagerLayoutParams.WrapContent);
+
+                view.Measure(desiredWidth, heightMeasureSpec);
+                totalHeight += view.MeasuredHeight;
+            }
+            ViewGroup.LayoutParams params1 = listView1.LayoutParameters;
+            params1.Height = totalHeight + (listView1.DividerHeight * (listAdapter.Count - 1));
+            listView1.LayoutParameters = params1;
         }
 
         private int PixelsToDp(int pixels)
@@ -114,26 +162,54 @@ namespace HelloGridView
         {
             List<WineDetails> DetailsArray = new List<WineDetails>();
             WineDetails w1 = new WineDetails();
-            w1.Name = "Name";
-            w1.NameValue = "Napa Valley";
-            w1.Classification = "Classification";
-            w1.ClassificationValue = "Extra Extra ";
-            w1.Grapetype = "Grapetype";
-            w1.GrapeTypeValue = "Erbaluce";
-            w1.Alcohol = "Alcohol";
-            w1.AlcoholValue = "70%";
-            w1.Vintage = "Vintage";
-            w1.VintageValue = "2011";
-            w1.Aromas = "Aromas";
-            w1.AromasValue = "Floral";
-            w1.FoodPairings = "FoodPairings";
-            w1.FoodPairingsValue = "fish";
-            w1.Bottlesize = "Bottlesize";
-            w1.BottleSizeValue = "750ml";
-            w1.ServingAt = "ServingAt";
-            w1.ServingAtValue = "10C";
+            w1.Type = "Name";
+            w1.Value = "Napa";
+            WineDetails w3 = new WineDetails();
+            w3.Type = "Grapetype";
+            w3.Value = "Erbaluce";
+            //w1.Type = "Grapetype";
+            //w1.Value = "Erbaluce";
+            //w1.Type = "Alcohol";
+            //w1.Value = "70%";
+            //w1.Type = "Vintage";
+            //w1.Value = "2011";
+            //w1.Type = "Aromas";
+            //w1.Value = "Floral";
+            //w1.Type = "FoodPairings";
+            //w1.Value = "fish";
+            //w1.Type = "Bottlesize";
+            //w1.Value = "750ml";
+            //w1.Type = "ServingAt";
+            //w1.Value = "10C";
+
+            WineDetails w2 = new WineDetails();
+             w2.Type = "Alcohol";
+            w2.Value = "Extra";
+            WineDetails w4 = new WineDetails();
+            w4.Type = "Vintage";
+            w4.Value = "2011";
+            WineDetails w5 = new WineDetails();
+            w5.Type = "Classification";
+            w5.Value = "Extra";
+            WineDetails w6 = new WineDetails();
+            w6.Type = "Classification";
+            w6.Value = "Extra";
+            WineDetails w7 = new WineDetails();
+            w7.Type = "Classification";
+            w7.Value = "Extra";
+            WineDetails w8 = new WineDetails();
+            w8.Type = "Classification";
+            w8.Value = "Extra";
+
 
             DetailsArray.Add(w1);
+            DetailsArray.Add(w2);
+            DetailsArray.Add(w3);
+            DetailsArray.Add(w4);
+            DetailsArray.Add(w5);
+            DetailsArray.Add(w6);
+            DetailsArray.Add(w7);
+            DetailsArray.Add(w8);
             return DetailsArray;
         }
         public List<Review> ReviewData()

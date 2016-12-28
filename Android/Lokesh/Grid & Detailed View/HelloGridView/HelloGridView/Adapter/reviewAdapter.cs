@@ -48,8 +48,13 @@ namespace HelloGridView
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.CommentsCell, null, false);
+            TextView Name = row.FindViewById<TextView>(Resource.Id.textView64);
+            TextView Comments = row.FindViewById<TextView>(Resource.Id.textView66);
+            ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
 
-            
+            Name.Text = myItems[position].Name;
+            Comments.Text = myItems[position].Comments;
+            Image.SetImageResource(Resource.Drawable.star_empty);
 
 
             return row;

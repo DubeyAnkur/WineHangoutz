@@ -56,7 +56,7 @@ namespace HelloGridView
         {
             View row = convertView;
             if (row == null)
-                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.Dummy, null, false);
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.WinePropertiesCell, null, false);
 
             TextView Type = row.FindViewById<TextView>(Resource.Id.textView12);
             TextView Value = row.FindViewById<TextView>(Resource.Id.textView13);
@@ -65,24 +65,24 @@ namespace HelloGridView
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
 
 
-            Type.Text = myItems[position].Name;
-            Value.Text = myItems[position].NameValue;
-            Type.Text = myItems[position].Classification;
-            Value.Text = myItems[position].ClassificationValue;
-            Type.Text = myItems[position].Grapetype;
-            Value.Text = myItems[position].GrapeTypeValue;
-            Type.Text = myItems[position].Alcohol;
-            Value.Text = myItems[position].AlcoholValue;
-            Type.Text = myItems[position].Vintage;
-            Value.Text = myItems[position].VintageValue;
-            Type.Text = myItems[position].Aromas;
-            Value.Text = myItems[position].AromasValue;
-            Type.Text = myItems[position].FoodPairings;
-            Value.Text = myItems[position].FoodPairingsValue;
-            Type.Text = myItems[position].Bottlesize;
-            Value.Text = myItems[position].BottleSizeValue;
-            Type.Text = myItems[position].ServingAt;
-            Value.Text = myItems[position].ServingAtValue;
+            Type.Text = myItems[position].Type;
+            Value.Text = myItems[position].Value;
+            //Type.Text = myItems[position].Classification;
+            //Value.Text = myItems[position].ClassificationValue;
+            //Type.Text = myItems[position].Grapetype;
+            //Value.Text = myItems[position].GrapeTypeValue;
+            //Type.Text = myItems[position].Alcohol;
+            //Value.Text = myItems[position].AlcoholValue;
+            //Type.Text = myItems[position].Vintage;
+            //Value.Text = myItems[position].VintageValue;
+            //Type.Text = myItems[position].Aromas;
+            //Value.Text = myItems[position].AromasValue;
+            //Type.Text = myItems[position].FoodPairings;
+            //Value.Text = myItems[position].FoodPairingsValue;
+            //Type.Text = myItems[position].Bottlesize;
+            //Value.Text = myItems[position].BottleSizeValue;
+            //Type.Text = myItems[position].ServingAt;
+            //Value.Text = myItems[position].ServingAtValue;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
             //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);

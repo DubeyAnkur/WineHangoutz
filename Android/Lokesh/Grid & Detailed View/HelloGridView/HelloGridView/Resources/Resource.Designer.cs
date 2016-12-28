@@ -60,28 +60,31 @@ namespace HelloGridView
 			public const int placeholder_bottiglia_lista = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ratingstars = 2130837509;
+			public const int placeholder_re = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int regione_lombardia = 2130837510;
+			public const int ratingstars = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int Reimage = 2130837511;
+			public const int regione_lombardia = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int respon = 2130837512;
+			public const int Reimage = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int sfondo_cantine = 2130837513;
+			public const int respon = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int star = 2130837514;
+			public const int sfondo_cantine = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int star_empty = 2130837515;
+			public const int star = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int Tes = 2130837516;
+			public const int star_empty = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int Tes = 2130837517;
 			
 			static Drawable()
 			{
@@ -96,11 +99,8 @@ namespace HelloGridView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060012
-			public const int fragmentContainer = 2131099666;
-			
-			// aapt resource value: 0x7f06002a
-			public const int gridview = 2131099690;
+			// aapt resource value: 0x7f060026
+			public const int gridview = 2131099686;
 			
 			// aapt resource value: 0x7f060019
 			public const int imageButton1 = 2131099673;
@@ -114,14 +114,11 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060024
 			public const int listView1 = 2131099684;
 			
-			// aapt resource value: 0x7f060026
-			public const int listView2 = 2131099686;
+			// aapt resource value: 0x7f060025
+			public const int listView2 = 2131099685;
 			
 			// aapt resource value: 0x7f06001f
 			public const int rating = 2131099679;
-			
-			// aapt resource value: 0x7f060011
-			public const int ratingBar2 = 2131099665;
 			
 			// aapt resource value: 0x7f060007
 			public const int rtbProductRating = 2131099655;
@@ -137,9 +134,6 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f060001
 			public const int tableRow1 = 2131099649;
-			
-			// aapt resource value: 0x7f060025
-			public const int tableRow10 = 2131099685;
 			
 			// aapt resource value: 0x7f060014
 			public const int tableRow2 = 2131099668;
@@ -168,14 +162,17 @@ namespace HelloGridView
 			// aapt resource value: 0x7f06000a
 			public const int tableRow88 = 2131099658;
 			
-			// aapt resource value: 0x7f06000e
-			public const int tableRow89 = 2131099662;
-			
 			// aapt resource value: 0x7f060023
 			public const int tableRow9 = 2131099683;
 			
-			// aapt resource value: 0x7f060010
-			public const int tableRow90 = 2131099664;
+			// aapt resource value: 0x7f06000f
+			public const int tableRow90 = 2131099663;
+			
+			// aapt resource value: 0x7f060011
+			public const int tableRow91 = 2131099665;
+			
+			// aapt resource value: 0x7f06000e
+			public const int tableRow95 = 2131099662;
 			
 			// aapt resource value: 0x7f060027
 			public const int textView12 = 2131099687;
@@ -201,8 +198,11 @@ namespace HelloGridView
 			// aapt resource value: 0x7f06000d
 			public const int textView64 = 2131099661;
 			
-			// aapt resource value: 0x7f06000f
-			public const int textView65 = 2131099663;
+			// aapt resource value: 0x7f060012
+			public const int textView66 = 2131099666;
+			
+			// aapt resource value: 0x7f060010
+			public const int textView67 = 2131099664;
 			
 			// aapt resource value: 0x7f060015
 			public const int textView7 = 2131099669;
@@ -248,13 +248,10 @@ namespace HelloGridView
 			public const int detailedView = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Dummy = 2130903043;
+			public const int Main = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Main = 2130903044;
-			
-			// aapt resource value: 0x7f030005
-			public const int WineDetailsCell = 2130903045;
+			public const int WinePropertiesCell = 2130903044;
 			
 			static Layout()
 			{

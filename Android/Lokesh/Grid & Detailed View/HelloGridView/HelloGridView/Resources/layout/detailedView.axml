@@ -10,11 +10,6 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:background="@android:color/background_dark">
-        <FrameLayout
-            android:id="@+id/fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" />
         <TableLayout
             android:minWidth="25px"
             android:minHeight="25px"
@@ -63,7 +58,6 @@
             <TableRow
                 android:id="@+id/tableRow5"
                 android:background="#d5f200"
-                android:layout_height="match_parent"
                 android:minWidth="25px"
                 android:minHeight="25px">
                 <ImageButton
@@ -159,9 +153,8 @@
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow9"
-                android:layout_margin="10px"
-                android:minWidth="25px"
-                android:minHeight="25px">
+                android:gravity="left"
+                android:layout_margin="10px">
                 <ListView
                     android:minWidth="25px"
                     android:minHeight="25px"
@@ -169,10 +162,9 @@
                     android:id="@+id/listView1" />
             </TableRow>
             <TableRow
-                android:id="@+id/tableRow10"
-                android:layout_margin="10px"
-                android:minWidth="25px"
-                android:minHeight="25px">
+                android:id="@+id/tableRow9"
+                android:gravity="left"
+                android:layout_margin="5dp">
                 <ListView
                     android:minWidth="25px"
                     android:minHeight="25px"

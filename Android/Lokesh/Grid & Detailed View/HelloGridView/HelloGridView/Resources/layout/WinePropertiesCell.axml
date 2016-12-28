@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout1"
+        android:gravity="center">
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_span="2"
+            android:gravity="center">
+            <TextView
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_column="0"
+                android:id="@+id/textView12"
+                android:gravity="left"
+                android:textColor="@android:color/background_dark" />
+            <TableRow
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_column="1"
+                android:id="@+id/tableRow4">
+                <TextView
+                    android:text="Large Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_column="0"
+                    android:id="@+id/textView13"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@android:color/background_dark" />
+            </TableRow>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
