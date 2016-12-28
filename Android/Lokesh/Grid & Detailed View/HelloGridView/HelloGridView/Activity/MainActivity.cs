@@ -194,15 +194,6 @@ namespace HelloGridView
         }
     }
 
-    public class Wine
-    {
-        public string Name { get; set; }
-        public string Vintage { get; set; }
-        public string Price { get; set; }
-        public string UserRatings { get; set; }
-        public string imageURL { get; set; }
-        public string Ratings { get; set; }
-          
-    }
+   
 }
 

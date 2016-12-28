@@ -49,13 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter\ListViewAdapter.cs" />
+    <Compile Include="Adapter\DetailsViewAdapter.cs" />
+    <Compile Include="Adapter\reviewAdapter.cs" />
+    <Compile Include="Model\Review.cs" />
     <Compile Include="Model\Wine.cs" />
     <Compile Include="Model\WineDetails.cs" />
     <Compile Include="Infrastructure.cs" />
-    <Compile Include="Activity1\MainActivity.cs" />
+    <Compile Include="Activity\MainActivity.cs" />
     <Compile Include="Adapter\GridViewAdapter.cs" />
-    <Compile Include="Activity1\detailViewActivity.cs" />
+    <Compile Include="Activity\detailViewActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -74,7 +76,10 @@
     <AndroidResource Include="Resources\layout\Dummy.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ListView.axml">
+    <AndroidResource Include="Resources\layout\WineDetailsCell.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CommentsCell.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -132,7 +137,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\sfondo_cantine.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Tes.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

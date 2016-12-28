@@ -10,6 +10,11 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:background="@android:color/background_dark">
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
         <TableLayout
             android:minWidth="25px"
             android:minHeight="25px"
@@ -152,223 +157,27 @@
                     android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
-        </TableLayout>
-        <TableLayout
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:paddingLeft="25px"
-            android:gravity="center"
-            android:background="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tableLayout2">
             <TableRow
-                android:id="@+id/tableRow79"
-                android:gravity="left">
-                <TextView
-                    android:text="Name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView46"
-                    android:layout_gravity="left"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView47"
-                    android:layout_gravity="center"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow80"
-                android:gravity="left">
-                <TextView
-                    android:text="Classifcation"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView48"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView49"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow81"
-                android:gravity="left">
-                <TextView
-                    android:text="Grape type"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView50"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView51"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow82"
-                android:gravity="left">
-                <TextView
-                    android:text="Alcohol"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView52"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView53"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow83"
-                android:gravity="left">
-                <TextView
-                    android:text="Vintage year"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView54"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView55"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow84"
-                android:gravity="left">
-                <TextView
-                    android:text="Aromas"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView56"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView57"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow85"
-                android:gravity="left">
-                <TextView
-                    android:text="Food pairings"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView58"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView59"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow86"
-                android:gravity="left">
-                <TextView
-                    android:text="Bottle size"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView60"
-                    android:textColor="@android:color/background_dark" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView61"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow87"
-                android:gravity="left">
-                <TextView
-                    android:text="Serving at"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="0"
-                    android:id="@+id/textView62"
-                    android:textColor="@android:color/background_dark"
-                    android:layout_marginRight="110.0dp" />
-                <TextView
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_column="1"
-                    android:id="@+id/textView63"
-                    android:textColor="@android:color/background_dark" />
-            </TableRow>
-        </TableLayout>
-        <TableLayout
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:paddingLeft="25px"
-            android:gravity="center"
-            android:background="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tableLayout3">
-            <TableRow
+                android:id="@+id/tableRow9"
+                android:layout_margin="10px"
                 android:minWidth="25px"
-                android:minHeight="25px"
-                android:id="@+id/tableRow88"
-                android:layout_rowSpan="2">
-                <ImageButton
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_column="0"
-                    android:id="@+id/imageButton2" />
-                <TableLayout
+                android:minHeight="25px">
+                <ListView
                     android:minWidth="25px"
                     android:minHeight="25px"
-                    android:id="@+id/tableLayout4">
-                    <TableRow
-                        android:id="@+id/tableRow88"
-                        android:minWidth="25px"
-                        android:minHeight="25px">
-                        <TextView
-                            android:text="Name"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:layout_column="0"
-                            android:id="@+id/textView64"
-                            android:textColor="@android:color/background_dark"
-                            android:paddingLeft="30px" />
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tableRow89"
-                        android:minWidth="25px"
-                        android:minHeight="25px">
-                        <TextView
-                            android:text="Comments"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:layout_column="0"
-                            android:id="@+id/textView65"
-                            android:textColor="@android:color/background_dark"
-                            android:paddingLeft="30px" />
-                    </TableRow>
-                    <TableRow
-                        android:id="@+id/tableRow90"
-                        android:minWidth="25px"
-                        android:minHeight="25px"
-                        android:paddingLeft="30px">
-                        <RatingBar
-                            android:layout_column="0"
-                            android:id="@+id/ratingBar2"
-                            android:isIndicator="true"
-                            android:background="@android:color/background_dark"
-                            android:rating="2.5" />
-                    </TableRow>
-                </TableLayout>
+                    android:layout_column="0"
+                    android:id="@+id/listView1" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow10"
+                android:layout_margin="10px"
+                android:minWidth="25px"
+                android:minHeight="25px">
+                <ListView
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_column="0"
+                    android:id="@+id/listView2" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

@@ -97,8 +97,8 @@ namespace Phoneword
 			// aapt resource value: 0x7f070025
 			public const int btnFoorPair = 2131165221;
 			
-			// aapt resource value: 0x7f07002d
-			public const int btnPP = 2131165229;
+			// aapt resource value: 0x7f070060
+			public const int btnPP = 2131165280;
 			
 			// aapt resource value: 0x7f070027
 			public const int btnProducer = 2131165223;
@@ -106,8 +106,8 @@ namespace Phoneword
 			// aapt resource value: 0x7f070028
 			public const int btnReview = 2131165224;
 			
-			// aapt resource value: 0x7f07002e
-			public const int btnSec = 2131165230;
+			// aapt resource value: 0x7f070061
+			public const int btnSec = 2131165281;
 			
 			// aapt resource value: 0x7f07001c
 			public const int btnSubmitReview = 2131165212;
@@ -115,14 +115,20 @@ namespace Phoneword
 			// aapt resource value: 0x7f070024
 			public const int btnTechNotes = 2131165220;
 			
-			// aapt resource value: 0x7f07002c
-			public const int btnWall = 2131165228;
+			// aapt resource value: 0x7f07005f
+			public const int btnWall = 2131165279;
 			
 			// aapt resource value: 0x7f070023
 			public const int btnWineNotes = 2131165219;
 			
 			// aapt resource value: 0x7f07002a
 			public const int fragmentContainer = 2131165226;
+			
+			// aapt resource value: 0x7f07002f
+			public const int imageButton1 = 2131165231;
+			
+			// aapt resource value: 0x7f070057
+			public const int imageButton2 = 2131165271;
 			
 			// aapt resource value: 0x7f07001e
 			public const int imgBigWine = 2131165214;
@@ -136,17 +142,29 @@ namespace Phoneword
 			// aapt resource value: 0x7f070029
 			public const int lstWineReviews = 2131165225;
 			
+			// aapt resource value: 0x7f070036
+			public const int rating = 2131165238;
+			
+			// aapt resource value: 0x7f07005d
+			public const int ratingBar2 = 2131165277;
+			
 			// aapt resource value: 0x7f070017
 			public const int rtbProductRating = 2131165207;
 			
-			// aapt resource value: 0x7f07002b
-			public const int storePickText = 2131165227;
+			// aapt resource value: 0x7f07005e
+			public const int storePickText = 2131165278;
 			
 			// aapt resource value: 0x7f070002
 			public const int tableLayout1 = 2131165186;
 			
 			// aapt resource value: 0x7f07001f
 			public const int tableLayout2 = 2131165215;
+			
+			// aapt resource value: 0x7f070055
+			public const int tableLayout3 = 2131165269;
+			
+			// aapt resource value: 0x7f070058
+			public const int tableLayout4 = 2131165272;
 			
 			// aapt resource value: 0x7f070003
 			public const int tableRow1 = 2131165187;
@@ -160,8 +178,143 @@ namespace Phoneword
 			// aapt resource value: 0x7f070022
 			public const int tableRow4 = 2131165218;
 			
+			// aapt resource value: 0x7f07002e
+			public const int tableRow5 = 2131165230;
+			
+			// aapt resource value: 0x7f070030
+			public const int tableRow6 = 2131165232;
+			
+			// aapt resource value: 0x7f070032
+			public const int tableRow7 = 2131165234;
+			
+			// aapt resource value: 0x7f070034
+			public const int tableRow78 = 2131165236;
+			
+			// aapt resource value: 0x7f07003a
+			public const int tableRow79 = 2131165242;
+			
+			// aapt resource value: 0x7f070037
+			public const int tableRow8 = 2131165239;
+			
+			// aapt resource value: 0x7f07003d
+			public const int tableRow80 = 2131165245;
+			
+			// aapt resource value: 0x7f070040
+			public const int tableRow81 = 2131165248;
+			
+			// aapt resource value: 0x7f070043
+			public const int tableRow82 = 2131165251;
+			
+			// aapt resource value: 0x7f070046
+			public const int tableRow83 = 2131165254;
+			
+			// aapt resource value: 0x7f070049
+			public const int tableRow84 = 2131165257;
+			
+			// aapt resource value: 0x7f07004c
+			public const int tableRow85 = 2131165260;
+			
+			// aapt resource value: 0x7f07004f
+			public const int tableRow86 = 2131165263;
+			
+			// aapt resource value: 0x7f070052
+			public const int tableRow87 = 2131165266;
+			
+			// aapt resource value: 0x7f070056
+			public const int tableRow88 = 2131165270;
+			
+			// aapt resource value: 0x7f07005a
+			public const int tableRow89 = 2131165274;
+			
+			// aapt resource value: 0x7f07005c
+			public const int tableRow90 = 2131165276;
+			
 			// aapt resource value: 0x7f07000e
 			public const int textView1 = 2131165198;
+			
+			// aapt resource value: 0x7f070031
+			public const int textView19 = 2131165233;
+			
+			// aapt resource value: 0x7f070033
+			public const int textView20 = 2131165235;
+			
+			// aapt resource value: 0x7f070038
+			public const int textView33 = 2131165240;
+			
+			// aapt resource value: 0x7f070039
+			public const int textView36 = 2131165241;
+			
+			// aapt resource value: 0x7f07003b
+			public const int textView46 = 2131165243;
+			
+			// aapt resource value: 0x7f07003c
+			public const int textView47 = 2131165244;
+			
+			// aapt resource value: 0x7f07003e
+			public const int textView48 = 2131165246;
+			
+			// aapt resource value: 0x7f07003f
+			public const int textView49 = 2131165247;
+			
+			// aapt resource value: 0x7f070041
+			public const int textView50 = 2131165249;
+			
+			// aapt resource value: 0x7f070042
+			public const int textView51 = 2131165250;
+			
+			// aapt resource value: 0x7f070044
+			public const int textView52 = 2131165252;
+			
+			// aapt resource value: 0x7f070045
+			public const int textView53 = 2131165253;
+			
+			// aapt resource value: 0x7f070047
+			public const int textView54 = 2131165255;
+			
+			// aapt resource value: 0x7f070048
+			public const int textView55 = 2131165256;
+			
+			// aapt resource value: 0x7f07004a
+			public const int textView56 = 2131165258;
+			
+			// aapt resource value: 0x7f07004b
+			public const int textView57 = 2131165259;
+			
+			// aapt resource value: 0x7f07004d
+			public const int textView58 = 2131165261;
+			
+			// aapt resource value: 0x7f07004e
+			public const int textView59 = 2131165262;
+			
+			// aapt resource value: 0x7f07002b
+			public const int textView6 = 2131165227;
+			
+			// aapt resource value: 0x7f070050
+			public const int textView60 = 2131165264;
+			
+			// aapt resource value: 0x7f070051
+			public const int textView61 = 2131165265;
+			
+			// aapt resource value: 0x7f070053
+			public const int textView62 = 2131165267;
+			
+			// aapt resource value: 0x7f070054
+			public const int textView63 = 2131165268;
+			
+			// aapt resource value: 0x7f070059
+			public const int textView64 = 2131165273;
+			
+			// aapt resource value: 0x7f07005b
+			public const int textView65 = 2131165275;
+			
+			// aapt resource value: 0x7f07002c
+			public const int textView7 = 2131165228;
+			
+			// aapt resource value: 0x7f07002d
+			public const int textView8 = 2131165229;
+			
+			// aapt resource value: 0x7f070035
+			public const int topDivider = 2131165237;
 			
 			// aapt resource value: 0x7f070006
 			public const int txtName = 2131165190;

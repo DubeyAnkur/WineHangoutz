@@ -17,43 +17,45 @@ namespace HelloGridView
     [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
     public class detailViewActivity : Activity
     {
-
-        List<WineDetails> myArr1;
-        
+        List<WineDetails> DetailsArray;
+        List<Review> ReviewArray;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.detailedView);
 
+            //Top detailed view
+            string[] arr1 = new string[] { "Silver napa valley",
+                                           "Cabernet ",
+                                           "2011",
+                                           " This is the description about wine,This is the description about wine,This is the description about wine" };
+            var detailView = FindViewById<ListView>(Resource.Id.listView1);
+            DetailsArray = DetailsData();
+            DetailsViewAdapter Details = new DetailsViewAdapter(this, DetailsArray);
+            detailView.Adapter = Details;
 
-            ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
-            myArr1 = SampleData1();
-
-            ListViewAdapter adapter = new ListViewAdapter(this, myArr1);
-            wineList.Adapter = adapter;
-
+            var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+            ReviewArray = ReviewData();
+            reviewAdapter comments = new reviewAdapter(this, ReviewArray);
+            commentsView.Adapter = comments;
 
 
-
-
-            string[] arr1 = new string[] { "Silver napa valley", "Cabernet ", "2011", " This is the description about wine,This is the description about wine,This is the description about wine" };
+            DetailsArray = DetailsData();
+            ReviewArray = ReviewData();
             TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
             TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
-            //ImageView placeholder = FindViewById<ImageView>(Resource.Id.imageView2);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
             String x;
-
-            rb.RatingBarChange += (o, e) => {
-                Toast.MakeText(this, "You have selected " + rb.Rating.ToString()+" Stars", ToastLength.Short).Show();
+            rb.RatingBarChange += (o, e) =>
+            {
+                Toast.MakeText(this, "You have selected " + rb.Rating.ToString() + " Stars", ToastLength.Short).Show();
                 x = rb.Rating.ToString();
             };
-            //placeholder.SetScaleType(ImageView.ScaleType.FitCenter);
-            //placeholder.SetPadding(8, 8, 8, 8);
+          
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
@@ -61,33 +63,29 @@ namespace HelloGridView
             //iv.LayoutParameters = new LinearLayout.LayoutParams(widthInDp, widthInDp);
             ImageButton ib = FindViewById<ImageButton>(Resource.Id.imageButton1);
             var pa = ib.LayoutParameters;
-           pa.Height = PixelsToDp(widthInDp);
-            pa.Width= PixelsToDp(widthInDp);
-            
+            pa.Height = PixelsToDp(widthInDp);
+            pa.Width = PixelsToDp(widthInDp);
             //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
             //tr5.Layout(0, 0, 100,100 );
             //placeholder.Layout(0, 0, widthInDp, widthInDp);
             //placeholder.LayoutParameters.Width = widthInDp;
             //Java.Lang.ClassCastException: android.widget.TableLayout$LayoutParams cannot be cast to android.widget.TableRow$LayoutParams
             //rb.NumStars = 5;
-
             //placeholder.Visibility = ViewStates.Visible;
             // iv.SetImageResource(Resource.Drawable.placeholder_bottiglia_lista);
-
             //tr5.AddView(iv);
-
             TopName.Focusable = false;
             TopBrand.Focusable = false;
             TopVintage.Focusable = false;
             WineDescription.Focusable = false;
-            //placeholder.Focusable = false;
+            
 
+            //placeholder.Focusable = false;
             TopName.Text = arr1[0]; //Assigning value
             TopBrand.Text = arr1[1];
             TopVintage.Text = arr1[2];
             WineDescription.Text = arr1[3];
- 
-
+           
 
             BitmapFactory.Options options = new BitmapFactory.Options
             {
@@ -98,7 +96,7 @@ namespace HelloGridView
             };
 
             // The result will be null because InJustDecodeBounds == true.
-            Bitmap result =  BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_11, options);
+            Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_11, options);
 
             //placeholder.SetImageBitmap(result);
         }
@@ -112,88 +110,65 @@ namespace HelloGridView
         {
             return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
         }
-        public List<WineDetails> SampleData1()
+        public List<WineDetails> DetailsData()
         {
-            List<WineDetails> myArr1 = new List<WineDetails>();
+            List<WineDetails> DetailsArray = new List<WineDetails>();
             WineDetails w1 = new WineDetails();
-            w1.Name = "Silver ";
-            w1.Ratings = "Ratings";
-            w1.UserRatings = "User Ratings";
-            w1.Price = "Prise$";
-            w1.Vintage = "2001";
-           // w1.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            w1.Name = "Name";
+            w1.NameValue = "Napa Valley";
+            w1.Classification = "Classification";
+            w1.ClassificationValue = "Extra Extra ";
+            w1.Grapetype = "Grapetype";
+            w1.GrapeTypeValue = "Erbaluce";
+            w1.Alcohol = "Alcohol";
+            w1.AlcoholValue = "70%";
+            w1.Vintage = "Vintage";
+            w1.VintageValue = "2011";
+            w1.Aromas = "Aromas";
+            w1.AromasValue = "Floral";
+            w1.FoodPairings = "FoodPairings";
+            w1.FoodPairingsValue = "fish";
+            w1.Bottlesize = "Bottlesize";
+            w1.BottleSizeValue = "750ml";
+            w1.ServingAt = "ServingAt";
+            w1.ServingAtValue = "10C";
 
-            WineDetails w2 = new WineDetails();
-            w2.Name = "Bodega Norton Reserve Malbec 2013";
-            w2.Price = "$19.99";
-            w2.Ratings = "15";
-            w2.UserRatings = "12";
-            w2.Vintage = "2001";
-           // w2.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
+            DetailsArray.Add(w1);
+            return DetailsArray;
+        }
+        public List<Review> ReviewData()
+        {
+            List<Review> ReviewArray = new List<Review>();
+            Review w1 = new Review();
+            w1.Name = "Person X";
+            w1.Comments = "This wine is taste good as like grape juice.";
+            w1.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
-
-            WineDetails w3 = new WineDetails();
-            w3.Name = "Bodega Norton Reserve Malbec 2013";
-            w3.Ratings = "15";
-            w3.UserRatings = "12";
-            w3.Price = "$19.99";
-            w3.Vintage = "2001";
-           // w3.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
-
-            WineDetails w4 = new WineDetails();
-            w4.Name = "Bodega Norton Reserve Malbec 2013";
-            w4.Price = "$19.99";
-            w4.Ratings = "15";
-            w4.UserRatings = "12";
-            w4.Vintage = "2001";
-           // w4.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
-
-            //Wine w5 = new Wine();
-            //w5.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
-            //w5.Price = "$15.99";
-            //w5.Ratings = "15";
-            //w5.UserRatings = "12";
-            //w5.Vintage = "2001";
-            //w5.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
+            Review w2 = new Review();
+            w2.Name = "Person X";
+            w2.Comments = "This wine is taste good as like grape juice.";
+            w2.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
 
 
-            //Wine w6 = new Wine();
-            //w6.Name = "Bodega Norton Reserve Malbec 2013";
-            //w6.Price = "$19.99";
-            //w6.Ratings = "15";
-            //w6.UserRatings = "12";
-            //w6.Vintage = "2001";
-            //w6.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
+            Review w3 = new Review();
+            w3.Name = "Person X";
+            w3.Comments = "This wine is taste good as like grape juice.";
+            w3.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
+
+            Review w4 = new Review();
+            w4.Name = "Person X";
+            w4.Comments = "This wine is taste good as like grape juice.";
+            w4.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
 
-            //Wine w7 = new Wine();
-            //w7.Name = "Bodega Norton Reserve Malbec 2013";
-            //w7.Price = "$19.99";
-            //w7.Ratings = "15";
-            //w7.UserRatings = "12";
-            //w7.Vintage = "2001";
-            //w7.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
 
-            //Wine w8 = new Wine();
-            //w8.Name = "Bodega Norton Reserve Malbec 2013";
-            //w8.Price = "$19.99";
-            //w8.Ratings = "15";
-            //w8.UserRatings = "12";
-            //w8.Vintage = "2001";
-            //w8.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
-
-            myArr1.Add(w1);
-            myArr1.Add(w2);
-            myArr1.Add(w3);
-            myArr1.Add(w4);
-            //myArr.Add(w5);
-            //myArr.Add(w6);
-            //myArr.Add(w7);
-            //myArr.Add(w8);
-            return myArr1;
+            ReviewArray.Add(w1);
+            ReviewArray.Add(w2);
+            ReviewArray.Add(w3);
+            ReviewArray.Add(w4);
+            return ReviewArray;
         }
     }
-   
 
 }
 
