@@ -18,7 +18,7 @@ namespace HelloGridView
     {
         void StartNewActivity(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this.Activity, typeof(MainActivity));
+            Intent intent = new Intent(this.Activity, typeof(TastingActivity));
 
 
             StartActivity(intent);
