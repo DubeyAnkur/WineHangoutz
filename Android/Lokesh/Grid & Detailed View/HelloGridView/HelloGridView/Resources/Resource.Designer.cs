@@ -45,46 +45,85 @@ namespace HelloGridView
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int edit = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int logo = 2130837505;
+			public const int ic_tab_white = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int placeholder = 2130837506;
+			public const int ic_tab_white1 = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int placeholder_11 = 2130837507;
+			public const int Icon = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int placeholder_bottiglia_lista = 2130837508;
+			public const int logo = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int placeholder_re = 2130837509;
+			public const int placeholder = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int ratingstars = 2130837510;
+			public const int placeholder_11 = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int regione_lombardia = 2130837511;
+			public const int placeholder_bottiglia_lista = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int Reimage = 2130837512;
+			public const int placeholder_re = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int respon = 2130837513;
+			public const int ratingstars = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int sfondo_cantine = 2130837514;
+			public const int regione_lombardia = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int star = 2130837515;
+			public const int Reimage = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int star_empty = 2130837516;
+			public const int respon = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int Tes = 2130837517;
+			public const int sfondo_blog = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int sfondo_cantine = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int sfondo_catalogo_vini = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int sfondo_mierecensioni = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int sfondo_nuoverecensioni = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int sfondo_promozioni = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int sfondo_regioni = 2130837523;
+			
+			// aapt resource value: 0x7f020014
+			public const int sfondo_selezioni = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int sfondo_topvini = 2130837525;
+			
+			// aapt resource value: 0x7f020016
+			public const int sfondo_wineprofile = 2130837526;
+			
+			// aapt resource value: 0x7f020017
+			public const int star = 2130837527;
+			
+			// aapt resource value: 0x7f020018
+			public const int star_empty = 2130837528;
+			
+			// aapt resource value: 0x7f020019
+			public const int Tes = 2130837529;
+			
+			// aapt resource value: 0x7f02001a
+			public const int trash = 2130837530;
 			
 			static Drawable()
 			{
@@ -99,14 +138,32 @@ namespace HelloGridView
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060027
+			public const int button = 2131099687;
+			
+			// aapt resource value: 0x7f060028
+			public const int button1 = 2131099688;
+			
+			// aapt resource value: 0x7f060029
+			public const int button2 = 2131099689;
+			
 			// aapt resource value: 0x7f060026
-			public const int gridview = 2131099686;
+			public const int fragmentContainer = 2131099686;
+			
+			// aapt resource value: 0x7f06002a
+			public const int gridview = 2131099690;
 			
 			// aapt resource value: 0x7f060019
 			public const int imageButton1 = 2131099673;
 			
 			// aapt resource value: 0x7f06000b
 			public const int imageButton2 = 2131099659;
+			
+			// aapt resource value: 0x7f06002b
+			public const int imageButton3 = 2131099691;
+			
+			// aapt resource value: 0x7f06002c
+			public const int imageButton4 = 2131099692;
 			
 			// aapt resource value: 0x7f060002
 			public const int imgWine = 2131099650;
@@ -141,8 +198,8 @@ namespace HelloGridView
 			// aapt resource value: 0x7f060016
 			public const int tableRow3 = 2131099670;
 			
-			// aapt resource value: 0x7f060028
-			public const int tableRow4 = 2131099688;
+			// aapt resource value: 0x7f060030
+			public const int tableRow4 = 2131099696;
 			
 			// aapt resource value: 0x7f060018
 			public const int tableRow5 = 2131099672;
@@ -162,6 +219,9 @@ namespace HelloGridView
 			// aapt resource value: 0x7f06000a
 			public const int tableRow88 = 2131099658;
 			
+			// aapt resource value: 0x7f06002d
+			public const int tableRow89 = 2131099693;
+			
 			// aapt resource value: 0x7f060023
 			public const int tableRow9 = 2131099683;
 			
@@ -174,11 +234,11 @@ namespace HelloGridView
 			// aapt resource value: 0x7f06000e
 			public const int tableRow95 = 2131099662;
 			
-			// aapt resource value: 0x7f060027
-			public const int textView12 = 2131099687;
+			// aapt resource value: 0x7f06002f
+			public const int textView12 = 2131099695;
 			
-			// aapt resource value: 0x7f060029
-			public const int textView13 = 2131099689;
+			// aapt resource value: 0x7f060031
+			public const int textView13 = 2131099697;
 			
 			// aapt resource value: 0x7f06001b
 			public const int textView19 = 2131099675;
@@ -197,6 +257,9 @@ namespace HelloGridView
 			
 			// aapt resource value: 0x7f06000d
 			public const int textView64 = 2131099661;
+			
+			// aapt resource value: 0x7f06002e
+			public const int textView65 = 2131099694;
 			
 			// aapt resource value: 0x7f060012
 			public const int textView66 = 2131099666;
@@ -248,10 +311,22 @@ namespace HelloGridView
 			public const int detailedView = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Main = 2130903043;
+			public const int Fragment = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int WinePropertiesCell = 2130903044;
+			public const int Fragment1Layout = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int Main = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int Tasting = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int TastingListview = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int WinePropertiesCell = 2130903048;
 			
 			static Layout()
 			{
