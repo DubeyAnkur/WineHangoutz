@@ -16,6 +16,7 @@ namespace HelloGridView
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            this.Title = Intent.GetStringExtra("MyData") ?? "Data not available";
             SetContentView(Resource.Layout.Main);
             //var listview = FindViewById<ListView>(Resource.Id.gridview);
             List<Wine> myArr;

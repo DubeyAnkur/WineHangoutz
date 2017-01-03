@@ -50,7 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\Activity1.cs" />
+<<<<<<< HEAD
     <Compile Include="Activity\ReviewDeletePopup.cs" />
+=======
+>>>>>>> origin/master
     <Compile Include="Activity\DialogReview.cs" />
     <Compile Include="Activity\TastingActivity.cs" />
     <Compile Include="Adapter\DetailsViewAdapter.cs" />
@@ -92,7 +95,10 @@
     <AndroidResource Include="Resources\layout\Tasting.axml" />
     <AndroidResource Include="Resources\layout\TastingListview.axml" />
     <AndroidResource Include="Resources\layout\ReviewPopup.axml" />
+<<<<<<< HEAD
     <AndroidResource Include="Resources\layout\ReviewDelete.axml" />
+=======
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
