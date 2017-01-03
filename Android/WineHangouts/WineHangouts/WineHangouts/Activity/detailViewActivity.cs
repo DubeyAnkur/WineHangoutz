@@ -68,6 +68,7 @@ namespace WineHangouts
             var pa = ib.LayoutParameters;
             pa.Height = PixelsToDp(widthInDp);
             pa.Width = PixelsToDp(widthInDp);
+            ib.SetImageResource(Resource.Drawable.wine1);
             //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
             //tr5.Layout(0, 0, 100,100 );
             //placeholder.Layout(0, 0, widthInDp, widthInDp);
@@ -163,7 +164,7 @@ namespace WineHangouts
             listView1.LayoutParameters = params1;
         }
 
-        private int PixelsToDp(int pixels)
+        public int PixelsToDp(int pixels)
         {
             return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
         }

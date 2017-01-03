@@ -57,6 +57,8 @@ namespace WineHangouts
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.textView67);
             ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
             ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
+            edit.SetScaleType(ImageView.ScaleType.Center);
+            delete.SetScaleType(ImageView.ScaleType.Center);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             edit.Click += Edit_Click;

@@ -112,7 +112,7 @@
                     android:numStars="5"
                     android:max="5"
                     android:layout_gravity="center_horizontal"
-                    android:background="@android:color/holo_blue_light" />
+                     />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"

@@ -70,6 +70,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\cell_shape.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\border.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
@@ -84,7 +90,6 @@
     <AndroidResource Include="Resources\layout\EditReviewPopup.axml" />
     <AndroidResource Include="Resources\layout\Tasting.axml" />
     <AndroidResource Include="Resources\layout\TastingListview.axml" />
-    <AndroidResource Include="Resources\layout\WineDetailsCell.axml" />
     <AndroidResource Include="Resources\layout\WinePropertiesCell.axml" />
     <AndroidResource Include="Resources\layout\DeleteReviewPop.axml" />
   </ItemGroup>
@@ -178,10 +183,16 @@
     <AndroidResource Include="Resources\drawable\Tes.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\trash.png" />
+    <AndroidResource Include="Resources\values\style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\style.xml" />
+    <AndroidResource Include="Resources\drawable\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\wine1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

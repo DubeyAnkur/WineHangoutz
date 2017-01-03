@@ -64,6 +64,7 @@ namespace WineHangouts
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
             imgWine.SetImageResource(Resource.Drawable.placeholder);
+            imgWine.SetImageResource(Resource.Drawable.wine1);
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
             //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);

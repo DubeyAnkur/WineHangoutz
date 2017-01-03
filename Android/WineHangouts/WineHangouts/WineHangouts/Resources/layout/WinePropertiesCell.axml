@@ -11,31 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@drawable/border">
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_span="2"
-            android:gravity="center">
+            android:gravity="left">
             <TextView
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_column="0"
                 android:id="@+id/textView12"
-                android:gravity="left"
-                android:textColor="@android:color/background_dark" />
+                android:textColor="@android:color/background_dark"
+                android:layout_margin="2dp" />
             <TableRow
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:layout_column="1"
+                android:id="@+id/tableRow5">
+                <TextView
+                    android:text=":"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_column="0"
+                    android:id="@+id/textView14"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="2dp" />
+            </TableRow>
+            <TableRow
+                android:minWidth="25px"
+                android:minHeight="25px"
                 android:id="@+id/tableRow4">
                 <TextView
                     android:text="Large Text"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_column="0"
                     android:id="@+id/textView13"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="2dp" />
             </TableRow>
         </TableRow>
     </TableLayout>

@@ -54,9 +54,8 @@ namespace WineHangouts
 
             Name.Text = myItems[position].Name;
             Comments.Text = myItems[position].Comments;
-            Image.SetImageResource(Resource.Drawable.star_empty);
-
-
+            Image.SetImageResource(Resource.Drawable.user);
+            Image.SetScaleType(ImageView.ScaleType.CenterCrop);
             return row;
         }
     }

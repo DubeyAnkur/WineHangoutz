@@ -10,10 +10,10 @@
         android:minHeight="25px"
         android:paddingLeft="25px"
         android:gravity="center"
-        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tableLayout3">
+        android:id="@+id/tableLayout3"
+        android:background="@drawable/cell_shape">
         <TableRow
             android:minWidth="25px"
             android:minHeight="25px"
@@ -22,12 +22,11 @@
             <ImageButton
                 android:layout_column="0"
                 android:id="@+id/imageButton2"
-                android:layout_height="139.5dp"
+                android:layout_height="50.0dp"
                 android:layout_marginBottom="0.0dp"
-                android:layout_width="48.0dp"
-                android:layout_marginTop="0.0dp"
-                android:src="@drawable/tes"
-                android:background="@android:color/background_light" />
+                android:layout_width="50.0dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/cell_shape" />
             <TableLayout
                 android:minWidth="25px"
                 android:minHeight="25px"

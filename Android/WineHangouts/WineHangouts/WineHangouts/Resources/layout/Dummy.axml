@@ -24,7 +24,8 @@
                 android:id="@+id/tableRow4">
                 <TextView
                     android:text="Text"
-                    android:id="@+id/textView13" />
+                    android:id="@+id/textView13"
+                    android:layout_gravity="right" />
             </TableRow>
         </TableRow>
         <TableRow

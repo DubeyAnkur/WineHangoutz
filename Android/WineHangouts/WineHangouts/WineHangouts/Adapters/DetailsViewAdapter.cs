@@ -11,6 +11,9 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using System.Net;
+using Android.Content.Res;
+using Android.Util;
+using static Android.Text.BoringLayout;
 
 namespace WineHangouts
 {
@@ -57,9 +60,10 @@ namespace WineHangouts
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.WinePropertiesCell, null, false);
-
+            
             TextView Type = row.FindViewById<TextView>(Resource.Id.textView12);
             TextView Value = row.FindViewById<TextView>(Resource.Id.textView13);
+            Type.LayoutParameters.Width = 550;
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
@@ -97,6 +101,7 @@ namespace WineHangouts
 
             return row;
         }
-        
+
+       
     }
 }
