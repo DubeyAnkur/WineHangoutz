@@ -65,20 +65,7 @@ namespace HelloGridView
         class SampleTabFragment : Fragment
         {
             string tabName;
-            void StartNewActivity(object sender, EventArgs e)
-            {
-                Intent intent = new Intent(this.Activity, typeof(MainActivity));
-
-
-                StartActivity(intent);
-            }
-            void StartNewActivity1(object sender, EventArgs e)
-            {
-                Intent intent = new Intent(this.Activity, typeof(TastingActivity));
-
-
-                StartActivity(intent);
-            }
+            
             public SampleTabFragment(string Name)
             {
                 tabName = Name;
@@ -95,7 +82,14 @@ namespace HelloGridView
                 Button txtName = view.FindViewById<Button>(Resource.Id.button);
                 Button txtName1 = view.FindViewById<Button>(Resource.Id.button1);
                 Button txtName2 = view.FindViewById<Button>(Resource.Id.button2);
-
+                var metrics = Resources.DisplayMetrics;
+                int height = metrics.HeightPixels; // ConvertPixelsToDp(metrics.HeightPixels);
+                ////int heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+                height = height - (int)((380 * metrics.Density) / 3);
+                height = height / 3;
+                txtName1.LayoutParameters.Height = height;
+                txtName2.LayoutParameters.Height = height;
+                txtName.LayoutParameters.Height = height;
 
 
                 if (tabName == "Location")
@@ -108,13 +102,30 @@ namespace HelloGridView
                     txtName1.Text = "PointPleasent";
                     txtName2.SetBackgroundResource(Resource.Drawable.sfondo_selezioni);
                     txtName2.Text = "Seacucas";
-                    var param = txtName.LayoutParameters;
-                    var param1 = txtName1.LayoutParameters;
-                    var param2 = txtName2.LayoutParameters;
-                    param.Height = PixelsToDp(160);
-                    param1.Height = PixelsToDp(160);
-                    param2.Height = PixelsToDp(160);
-                    txtName.Click += StartNewActivity;
+                    //var param = txtName.LayoutParameters;
+                    //var param1 = txtName1.LayoutParameters;
+                    //var param2 = txtName2.LayoutParameters;
+                    //param.Height = PixelsToDp(160);
+                    //param1.Height = PixelsToDp(160);
+                    //param2.Height = PixelsToDp(160);
+                    txtName.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(MainActivity));
+                        intent.PutExtra("MyData", "Wall Store");
+                        StartActivity(intent);
+                    };
+                    txtName1.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(MainActivity));
+                        intent.PutExtra("MyData", "Point Pleasent Store");
+                        StartActivity(intent);
+                    };
+                    txtName2.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(MainActivity));
+                        intent.PutExtra("MyData", "Seacucas Store");
+                        StartActivity(intent);
+                    };
                 }
                 if (tabName == "TASTE")
                 {
@@ -125,27 +136,31 @@ namespace HelloGridView
                     txtName1.Text = "New Tastings";
                     txtName2.SetBackgroundResource(Resource.Drawable.sfondo_topvini);
                     txtName2.Text = "Top Wines";
-                    var param = txtName.LayoutParameters;
-                    var param1 = txtName1.LayoutParameters;
-                    var param2 = txtName2.LayoutParameters;
-                    param.Height = PixelsToDp(160);
-                    param1.Height = PixelsToDp(160);
-                    param2.Height = PixelsToDp(160);
-                    txtName.Click += StartNewActivity1;
-                    //txtName.Click += (sender, e) =>
-                    //{
-                    //    var intent = new Intent(this, typeof(EnoListing));
-                    //    StartActivity(intent);
-                    //};
-                    //txtName1.Click += (sender, e) =>
-                    //{
-                    //    var intent = new Intent(this, typeof(EnoListing));
-                    //    StartActivity(intent);
-                    //};
-                    //txtName2.Click += (sender, e) =>
-                    //{
-                    //    var intent = new Intent(this, typeof(EnoListing));
-                    //    StartActivity(intent);
+                    //var param = txtName.LayoutParameters;
+                    //var param1 = txtName1.LayoutParameters;
+                    //var param2 = txtName2.LayoutParameters;
+                    //param.Height = PixelsToDp(160);
+                    //param1.Height = PixelsToDp(160);
+                    //param2.Height = PixelsToDp(160);
+                    txtName.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(TastingActivity));
+                       
+                        StartActivity(intent);
+                    };
+                    txtName1.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(TastingActivity));
+                       
+                        StartActivity(intent);
+                    };
+                    txtName2.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(TastingActivity));
+                       
+                        StartActivity(intent);
+                    };
+                 
                     //};
                 }
                 if (tabName == "EXPLORE")
@@ -160,27 +175,27 @@ namespace HelloGridView
                     txtName2.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
                     txtName2.Text = "Regions";
 
-                    var param = txtName.LayoutParameters;
-                    var param1 = txtName1.LayoutParameters;
-                    var param2 = txtName2.LayoutParameters;
-                    param.Height = PixelsToDp(160);
-                    param1.Height = PixelsToDp(160);
-                    param2.Height = PixelsToDp(160);
-                    //txtName.Click += (sender, e) =>
-                    //{
-                    //    var intent = new Intent(this, typeof(EnoListing));
-                    //    StartActivity(intent);
-                    //};
-                    //txtName1.Click += (sender, e) =>
-                    //{
-                    //    var intent = new Intent(this, typeof(EnoListing));
-                    //    StartActivity(intent);
-                    //};
-                    //txtName2.Click += (sender, e) =>
-                    //{
-                    //    var intent = new Intent(this, typeof(EnoListing));
-                    //    StartActivity(intent);
-                    //};
+                    //var param = txtName.LayoutParameters;
+                    //var param1 = txtName1.LayoutParameters;
+                    //var param2 = txtName2.LayoutParameters;
+                    //param.Height = PixelsToDp(160);
+                    //param1.Height = PixelsToDp(160);
+                    //param2.Height = PixelsToDp(160);
+                    txtName.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        StartActivity(intent);
+                    };
+                    txtName1.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        StartActivity(intent);
+                    };
+                    txtName2.Click += (sender, e) =>
+                    {
+                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        StartActivity(intent);
+                    };
                 }
 
                 return view;

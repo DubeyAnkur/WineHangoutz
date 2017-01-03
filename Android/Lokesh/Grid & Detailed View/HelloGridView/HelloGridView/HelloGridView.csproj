@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\Activity1.cs" />
+    <Compile Include="Activity\DialogReview.cs" />
     <Compile Include="Activity\TastingActivity.cs" />
     <Compile Include="Adapter\DetailsViewAdapter.cs" />
     <Compile Include="Adapter\reviewAdapter.cs" />
@@ -89,6 +90,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Tasting.axml" />
     <AndroidResource Include="Resources\layout\TastingListview.axml" />
+    <AndroidResource Include="Resources\layout\ReviewPopup.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

@@ -10,12 +10,13 @@ using System.Collections.Generic;
 namespace HelloGridView
 {
 
-    [Activity(Label = "HelloGridView", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            this.Title = Intent.GetStringExtra("MyData") ?? "Data not available";
             SetContentView(Resource.Layout.Main);
             //var listview = FindViewById<ListView>(Resource.Id.gridview);
             List<Wine> myArr;

@@ -51,12 +51,13 @@ namespace HelloGridView
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
-            String x;
-            rb.RatingBarChange += (o, e) =>
-            {
-                Toast.MakeText(this, "You have selected " + rb.Rating.ToString() + " Stars", ToastLength.Short).Show();
-                x = rb.Rating.ToString();
-            };
+            rb.RatingBarChange += Rb_RatingBarChange;
+            //String x;
+            //rb.RatingBarChange += (o, e) =>
+            //{
+            //    Toast.MakeText(this, "You have selected " + rb.Rating.ToString() + " Stars", ToastLength.Short).Show();
+            //    x = rb.Rating.ToString();
+            //};
           
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
@@ -102,6 +103,14 @@ namespace HelloGridView
 
             //placeholder.SetImageBitmap(result);
         }
+
+        private void Rb_RatingBarChange(object sender, RatingBar.RatingBarChangeEventArgs e)
+        {
+            FragmentTransaction trans = FragmentManager.BeginTransaction();
+            DialogReview dr = new DialogReview();
+            dr.Show(trans, "Wine Review");
+        }
+
         private int ConvertPixelsToDp(float pixelValue)
         {
             var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
