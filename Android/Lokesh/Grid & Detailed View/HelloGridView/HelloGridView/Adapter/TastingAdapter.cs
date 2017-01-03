@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Graphics;
 using System.Net;
 
+
 namespace HelloGridView
 {
     class ListViewAdapter1 : BaseAdapter<Wine1>
@@ -26,6 +27,8 @@ namespace HelloGridView
             }
         }
 
+        public EventHandler EditClick;
+        public EventHandler Delete_Click;
         public ListViewAdapter1(Context con, List<Wine1> strArr)
         {
             myContext = con;
@@ -54,10 +57,12 @@ namespace HelloGridView
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.textView65);
             TextView txtDescription = row.FindViewById<TextView>(Resource.Id.textView66);
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.textView67);
-
+            ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
+            ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-
+            edit.Click += EditClick;
+            delete.Click += Delete_Click;
 
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;
@@ -81,6 +86,9 @@ namespace HelloGridView
 
             return row;
         }
+
+        
+
         private Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
@@ -96,5 +104,7 @@ namespace HelloGridView
 
             return imageBitmap;
         }
+       
     }
+    
 }

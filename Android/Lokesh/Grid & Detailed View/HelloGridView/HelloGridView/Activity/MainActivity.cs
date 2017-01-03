@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace HelloGridView
 {
 
-    [Activity(Label = "HelloGridView", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
