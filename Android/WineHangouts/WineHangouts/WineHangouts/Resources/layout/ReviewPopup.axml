@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Rate And Comment"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
+    <RatingBar
+        android:id="@+id/rtbProductRating"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:stepSize="1.0"
+        android:numStars="5"
+        android:rating="3.5"
+        android:isIndicator="false" />
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:hint="Rate The Wine"
+        android:layout_height="100dp"
+        android:id="@+id/txtReviewComments" />
+    <Button
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSubmitReview"
+        android:layout_gravity="right"
+        android:background="?android:attr/selectableItemBackground" />
+  
+</LinearLayout>

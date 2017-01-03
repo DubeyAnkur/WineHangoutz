@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <TextView
+                android:text="Are you sure to delete ?"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_column="0"
+                android:id="@+id/textView10" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2">
+            <Button
+                android:text="Yes"
+                android:layout_column="0"
+                android:id="@+id/button1"
+                android:layout_width="wrap_content" />
+            <Button
+                android:text="No"
+                android:layout_column="1"
+                android:id="@+id/button2" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
