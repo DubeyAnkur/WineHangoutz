@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1"
-        android:background="#cc007a">
+        android:background="@null">
         <TableRow
             android:id="@+id/tableRow1"
             android:background="@null">
@@ -29,20 +29,24 @@
                 android:background="#cc007a"
                 android:gravity="center"
                 android:layout_gravity="bottom" />
-                <TableRow />
+            <ImageButton
+                android:src="@android:drawable/ic_menu_gallery"
+                android:id="@+id/imageButton1"
+                android:layout_gravity="bottom"
+                android:background="@null"/>
+            <TableRow />
         </TableRow>
     </TableLayout>
-
-      <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rating"
-                    android:isIndicator="false"
-                    android:stepSize="1.0"
-                    android:numStars="5"
-                    android:max="5"
-                    android:layout_gravity="center" />
-     <EditText
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating"
+        android:isIndicator="false"
+        android:stepSize="1.0"
+        android:numStars="5"
+        android:max="5"
+        android:layout_gravity="center" />
+    <EditText
         android:inputType="textMultiLine"
         android:layout_width="match_parent"
         android:hint="Rate The Wine"

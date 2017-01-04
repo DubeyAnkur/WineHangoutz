@@ -89,7 +89,9 @@
     <AndroidResource Include="Resources\layout\Fragment.axml" />
     <AndroidResource Include="Resources\layout\Fragment1Layout.axml" />
     <AndroidResource Include="Resources\layout\ListView.axml" />
-    <AndroidResource Include="Resources\layout\EditReviewPopup.axml" />
+    <AndroidResource Include="Resources\layout\EditReviewPopup.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\Tasting.axml" />
     <AndroidResource Include="Resources\layout\TastingListview.axml" />
     <AndroidResource Include="Resources\layout\WinePropertiesCell.axml" />
