@@ -14,17 +14,32 @@
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
-            <ImageView
-                android:src="@android:drawable/ic_menu_gallery"
-                android:layout_width="45dp"
-                android:layout_height="250dp"
-                android:id="@+id/imgWine"
-                android:layout_marginRight="0.0dp"
-                android:layout_marginBottom="0.0dp"
-                android:layout_span="3"
-                android:clickable="false" />
+            android:background="#ffffff"
+            android:layout_column="3">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="250dp"
+                    android:id="@+id/placeholder"
+                    android:src="@android:drawable/ic_menu_gallery" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="45dp"
+                    android:layout_height="250dp"
+                    android:id="@+id/imgWine"
+                    android:clickable="false" />
+            </RelativeLayout>
         </TableRow>
+    </TableLayout>
+  <TableLayout
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:shrinkColumns="1"
+    android:background="#ff0000"
+    android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
             android:background="#5b4d4d">
