@@ -15,7 +15,7 @@ namespace WineHangoutz
   		public ServiceWrapper()
 		{
 			client = new HttpClient();
-			client.MaxResponseContentBufferSize = 256000;
+			//client.MaxResponseContentBufferSize = 256000;
 		}
 
 		public bool ServiceEnabled { 
@@ -52,7 +52,7 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemListResponse> GetItemList(int storeId)
+		public async Task<ItemListResponse> GetItemListOld(int storeId)
 		{
 			var uri = new Uri("http://hangoutz.azurewebsites.net/api/item/GetItemList/" + storeId);
 			var response = await client.GetAsync(uri);
@@ -63,6 +63,44 @@ namespace WineHangoutz
 				output = JsonConvert.DeserializeObject<ItemListResponse>(content);
 			}
 			return output;
+		}
+
+		public async Task<ItemListResponse> GetItemList(int storeId)
+		{
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/item/GetItemList/" + storeId);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			//ItemListResponse output = null;
+			//if (response.IsSuccessStatusCode)
+			//{
+			//	var content = await response.Content.ReadAsStringAsync();
+			var	output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+			//}
+			return output;
+		}
+
+		public async Task<ItemListResponse> GetItemListPast(int storeId)
+		{
+			List<string> time = await RefreshDataAsync();
+			if (time.Count > 0)
+			{
+				//Do Nothing
+			}
+			client.BaseAddress = new Uri("http://handoutz.azurewebsites.net/");
+			client.DefaultRequestHeaders.Accept.Clear();
+			client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+			HttpResponseMessage response = await client.GetAsync("api/item/GetItemList/2");
+			if (response.IsSuccessStatusCode)
+			{
+				//ItemListResponse output = await response.Content.ReadAsAsync<ItemListResponse>();
+				var content = await response.Content.ReadAsStringAsync();
+				ItemListResponse output = JsonConvert.DeserializeObject<ItemListResponse>(content);
+				return output;
+			}
+			else
+			{ 
+				return null;
+			}
 		}
 
 		public async Task<ItemDetailsResponse> GetItemDetails(int sku)
