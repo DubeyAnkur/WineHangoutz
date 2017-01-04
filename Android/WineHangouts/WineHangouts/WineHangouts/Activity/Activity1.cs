@@ -11,7 +11,7 @@ using Android.Graphics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "WineHangOuts", MainLauncher = true)]
+    [Activity(Label = "Wine Hangouts", MainLauncher = true , Icon = "@drawable/logo"  )]
     public class Activity1 : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -22,9 +22,9 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Fragment);
 
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-
-
-            AddTab("Location", Resource.Drawable.ic_tab_white1, new SampleTabFragment("Location"));
+            //Fragment.getView().setBackgroundColor(Color.WHITE);
+           
+            AddTab("Location", Resource.Drawable.ic_tab_white, new SampleTabFragment("Location"));
             AddTab("TASTE", Resource.Drawable.ic_tab_white, new SampleTabFragment("TASTE"));
             AddTab("EXPLORE", Resource.Drawable.ic_tab_white, new SampleTabFragment("EXPLORE"));
 
@@ -44,12 +44,14 @@ namespace WineHangouts
         {
             var tab = this.ActionBar.NewTab();
             tab.SetText(tabText);
+          
 
 
             // must set event handler before adding tab
             tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
             {
                 var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+
                 if (fragment != null)
                     e.FragmentTransaction.Remove(fragment);
                 e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
@@ -85,11 +87,14 @@ namespace WineHangouts
                 var metrics = Resources.DisplayMetrics;
                 int height = metrics.HeightPixels; // ConvertPixelsToDp(metrics.HeightPixels);
                 ////int heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-                height = height - (int)((380 * metrics.Density) / 3);
+                height = height - (int)((350 * metrics.Density) / 3);
                 height = height / 3;
                 txtName1.LayoutParameters.Height = height;
                 txtName2.LayoutParameters.Height = height;
                 txtName.LayoutParameters.Height = height;
+                txtName.SetTextColor(Color.White);
+                txtName1.SetTextColor(Color.White);
+                txtName2.SetTextColor(Color.White);
 
 
                 if (tabName == "Location")
@@ -98,6 +103,8 @@ namespace WineHangouts
                    
                     txtName.SetBackgroundResource(Resource.Drawable.sfondo_catalogo_vini);
                     txtName.Text = "Wall";
+                   
+
                     txtName1.SetBackgroundResource(Resource.Drawable.sfondo_promozioni);
                     txtName1.Text = "PointPleasent";
                     txtName2.SetBackgroundResource(Resource.Drawable.sfondo_selezioni);

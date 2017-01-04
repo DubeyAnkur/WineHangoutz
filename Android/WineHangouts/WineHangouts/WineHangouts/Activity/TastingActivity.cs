@@ -13,7 +13,7 @@ using Android.Util;
 
 namespace WineHangouts
 {
-    [Activity(Label = "TastingActivity")]
+    [Activity(Label = "TastingActivity",  Icon = "@drawable/logo")]
     public class TastingActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)

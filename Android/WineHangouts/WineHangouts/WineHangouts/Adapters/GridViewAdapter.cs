@@ -43,7 +43,7 @@ namespace WineHangouts
         {
             return position;
         }
-
+        
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View row = convertView;
@@ -55,16 +55,34 @@ namespace WineHangouts
             TextView txtVintage = row.FindViewById<TextView>(Resource.Id.txtVintage);
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
-            ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-
+            //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
+            //ImageView imgWine1 = row.FindViewById<ImageView>(Resource.Id.imgWine1);
 
             txtName.Text = myItems[position].Name;
             txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
-            imgWine.SetImageResource(Resource.Drawable.placeholder);
-            imgWine.SetImageResource(Resource.Drawable.wine1);
+            //imgWine.SetImageResource(Resource.Drawable.wine1);
+            //imgWine.SetImageResource(Resource.Drawable.placeholder);
+            //imgWine.SetImageResource(Resource.Drawable.wine1);
+
+
+            RelativeLayout layout = row.FindViewById<RelativeLayout>(Resource.Id.relLayout);
+            //ImageView Setup
+            ImageView imageView = new ImageView(this.myContext);
+            ImageView imageView2 = new ImageView(this.myContext);
+            imageView.SetImageResource(Resource.Drawable.placeholder);
+            imageView2.SetImageResource(Resource.Drawable.wine1);
+            imageView.SetPadding(1,2,3,4);
+            //imageView.SetMaxHeight(250);
+            //imageView.SetMaxWidth(45);
+
+            layout.AddView(imageView);
+            layout.AddView(imageView2);
+
+
+
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
             //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
@@ -75,11 +93,20 @@ namespace WineHangouts
             //txtUserRatings.Focusable = false;
             txtVintage.Focusable = false;
             txtPrice.Focusable = false;
-            imgWine.Focusable = false;
+            imageView.Focusable = false;
+            imageView2.Focusable = false;
+            // imgWine1.Focusable = false;
 
-            
+
             return row;
         }
+
+
+        private int PixelsToDp(object widthInDp)
+        {
+            throw new NotImplementedException();
+        }
+
         private Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;

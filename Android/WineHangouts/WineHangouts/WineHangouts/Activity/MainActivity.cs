@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace WineHangouts
 {
 
-    [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/logo")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -18,6 +18,7 @@ namespace WineHangouts
             base.OnCreate(bundle);
             this.Title = Intent.GetStringExtra("MyData") ?? "Data not available";
             SetContentView(Resource.Layout.Main);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
             //var listview = FindViewById<ListView>(Resource.Id.gridview);
             List<Wine> myArr;
             myArr = SampleData();
@@ -53,6 +54,8 @@ namespace WineHangouts
 
 
         }
+       
+
         public class ImageAdapter : BaseAdapter
         {
             Context context;

@@ -14,7 +14,7 @@ using Android.Util;
 
 namespace WineHangouts
 {
-    [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/logo")]
     public class detailViewActivity : Activity
     {
         List<WineDetails> DetailsArray;

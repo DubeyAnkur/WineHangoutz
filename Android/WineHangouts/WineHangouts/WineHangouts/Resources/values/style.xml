@@ -5,4 +5,59 @@
     <item name="android:maxHeight">32dp</item>
      <item name="android:maxWidth">32dp</item>
   </style>
+  <style name="AppTheme" parent="android:Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+    
+  </style>
+
+  <style name="ActionBarTheme" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <item name="android:background">@color/DarkBlue</item>
+  </style>
+  <style name="v_actionBarItemBackground" parent="@android:style/Widget.Holo.ActionBar">
+    <item name="android:background">@color/actionbar_background</item>
+
+
+
+
+
+
+
+
+    <!-- ActionBar styles -->  
+  </style>
+  <style name="AgrippaTheme"
+         parent="@android:style/Theme.Holo.Light.DarkActionBar">
+    <item name="android:actionBarStyle">@style/MyActionBar</item>
+  </style>
+  
+  <!-- ActionBar styles -->
+  <style name="MyActionBar"
+         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <item name="android:background">@color/actionbar_background</item>
+    <item name="android:titleTextStyle">@style/AgrippaTheme.TitleTextStyle</item>
+  </style>
+
+  <!-- ActionBar TitleTextStyle styles -->
+  <style name="AgrippaTheme.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <item name="android:textColor">@color/DarkBlue</item>
+    <item name="android:gravity">center</item>
+  </style>
+
+
+
+
+  <!-- ActionBar styles111 -->
+
+  <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+  </style>
+  <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+    <item name="android:background">@color/actionbar_background</item>
+    <item name="android:windowActionBar">true</item>
+    <item name="android:windowNoTitle">false</item>
+  </style>
+  <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <item name="android:textColor">@color/DarkBlue</item>
+  </style>
 </resources>
