@@ -12,7 +12,7 @@ namespace WineHangoutz
     {
 
 		public ItemListResponse myData;
-		public int storeId = 1;
+		public int storeId = 2;
         public PhyCollectionView (UICollectionViewLayout layout) : base (layout)
         {
 
@@ -45,8 +45,7 @@ namespace WineHangoutz
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section)
 		{
-			//return myData.ItemList.Count;
-			return 20;
+			return myData.ItemList.Count;
 		}
 		public override void PerformAction(UICollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender)
 		{
@@ -62,14 +61,15 @@ namespace WineHangoutz
 			int index = (int)indexPath.Item;
 
 			//Data from Model
-			cell.WineName = myData.ItemList[index].Name;
+			//cell.WineName = myData.ItemList[index].Name;
 			cell.Vintage = myData.ItemList[index].Vintage.ToString();
 			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-			//cell.lblName.Text = myData.ItemList[indexs].Name;
-			////cell.lblYear.Text= myData.ItemList[index].Vintage;
-			//cell.lblRegPrice.Text= myData.ItemList[index].SalePrice.ToString();
-			//cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
+
+			cell.lblName.Text = myData.ItemList[index].Name;
+			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
+			cell.lblRegPrice.Text= myData.ItemList[index].SalePrice.ToString();
+			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 		}
 	}
 }

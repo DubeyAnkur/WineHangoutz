@@ -15,15 +15,9 @@
         <TableRow
             android:id="@+id/tableRow1"
             android:background="#ffffff">
-            <ImageView
-                android:src="@android:drawable/ic_menu_gallery"
-                android:layout_width="45dp"
-                android:layout_height="250dp"
-                android:id="@+id/imgWine"
-                android:layout_marginRight="0.0dp"
-                android:layout_marginBottom="0.0dp"
-                android:layout_span="3"
-                android:clickable="false" />
+            <RelativeLayout
+                android:background="@null"
+                android:id="@+id/relLayout" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
