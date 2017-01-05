@@ -72,76 +72,79 @@ namespace WineHangouts
 			public const int logo = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int placeholder = 2130837513;
+			public const int place = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int placeholder_11 = 2130837514;
+			public const int placeholder = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int placeholder_bottiglia_lista = 2130837515;
+			public const int placeholder_11 = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int placeholder_re = 2130837516;
+			public const int placeholder_bottiglia_lista = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int ratingstars = 2130837517;
+			public const int placeholder_re = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int regione_lombardia = 2130837518;
+			public const int ratingstars = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int Reimage = 2130837519;
+			public const int regione_lombardia = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int respon = 2130837520;
+			public const int Reimage = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int sfondo_blog = 2130837521;
+			public const int respon = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int sfondo_cantine = 2130837522;
+			public const int sfondo_blog = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int sfondo_catalogo_vini = 2130837523;
+			public const int sfondo_cantine = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int sfondo_mierecensioni = 2130837524;
+			public const int sfondo_catalogo_vini = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int sfondo_nuoverecensioni = 2130837525;
+			public const int sfondo_mierecensioni = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int sfondo_promozioni = 2130837526;
+			public const int sfondo_nuoverecensioni = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int sfondo_regioni = 2130837527;
+			public const int sfondo_promozioni = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int sfondo_selezioni = 2130837528;
+			public const int sfondo_regioni = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int sfondo_topvini = 2130837529;
+			public const int sfondo_selezioni = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int sfondo_wineprofile = 2130837530;
+			public const int sfondo_topvini = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int star = 2130837531;
+			public const int sfondo_wineprofile = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int star_empty = 2130837532;
+			public const int star = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int Tes = 2130837533;
+			public const int star_empty = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int user = 2130837534;
+			public const int Tes = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int wine1 = 2130837535;
+			public const int user = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int wine_review = 2130837536;
+			public const int wine1 = 2130837536;
+			
+			// aapt resource value: 0x7f020021
+			public const int wine_review = 2130837537;
 			
 			static Drawable()
 			{

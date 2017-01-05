@@ -111,6 +111,8 @@
                     android:stepSize="1.0"
                     android:numStars="5"
                     android:max="5"
+                    android:progressTint="@android:color/holo_green_dark"
+                    android:progressBackgroundTint="@android:color/holo_blue_dark"
                     android:layout_gravity="center_horizontal" />
             </TableRow>
             <TableRow
@@ -150,7 +152,7 @@
                     android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
-            <!--<TableRow
+        <!--<TableRow
                 android:id="@+id/tableRow9"
                 android:gravity="left"
                 android:layout_margin="10px">

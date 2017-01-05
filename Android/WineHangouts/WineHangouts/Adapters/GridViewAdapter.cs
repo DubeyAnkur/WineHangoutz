@@ -58,17 +58,18 @@ namespace WineHangouts
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
 
-
+            //var metrics = Resources.DisplayMetrics;
+            //var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             txtName.Text = myItems[position].Name;
             txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
-            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
+            imgPlaceHolder.SetImageResource(Resource.Drawable.place);
             imgWine.SetImageResource(Resource.Drawable.wine1);
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
-            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(500, 500);
-            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(500, 500);
+            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(600, 600);
+            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(600, 600);
             //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
             //imgWine.SetImageBitmap(imageBitmap);
 

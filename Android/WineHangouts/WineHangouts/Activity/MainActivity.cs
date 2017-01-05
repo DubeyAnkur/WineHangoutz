@@ -30,8 +30,8 @@ namespace WineHangouts
             gridview.Adapter = adapter;
             //gridview.SetColumnWidth(1);
             gridview.SetNumColumns(2);
-            gridview.SetVerticalSpacing(2);
-            gridview.SetHorizontalSpacing(1);
+            //gridview.SetVerticalSpacing(2);
+            //gridview.SetHorizontalSpacing(2);
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {

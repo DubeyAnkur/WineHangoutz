@@ -4,9 +4,8 @@
     android:background="@null"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:verticalSpacing="10dp"
-    android:horizontalSpacing="10dp"
     android:stretchMode="columnWidth"
+    android:verticalSpacing="5dp"
+    android:horizontalSpacing="5dp"
     android:gravity="center"
-    android:layout_margin="10px"
-     />
+    android:layout_margin="10px" />
