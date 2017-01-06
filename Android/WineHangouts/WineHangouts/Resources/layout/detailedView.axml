@@ -59,10 +59,26 @@
                 android:id="@+id/tableRow5"
                 android:minWidth="25px"
                 android:minHeight="25px">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <!--
                 <ImageButton
                     android:src="@drawable/placeholder_11"
                     android:id="@+id/imageButton1"
-                    android:background="@null" />
+                    android:background="@null" />-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        android:id="@+id/placeholder1"
+                        android:src="@drawable/placeholder_11" />
+                    <ImageView
+                        android:src="@drawable/placeholder_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        android:id="@+id/imgWine12"
+                        android:clickable="false" />
+                </RelativeLayout>
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow6"
@@ -150,7 +166,7 @@
                     android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
-            <!--<TableRow
+        <!--<TableRow
                 android:id="@+id/tableRow9"
                 android:gravity="left"
                 android:layout_margin="10px">

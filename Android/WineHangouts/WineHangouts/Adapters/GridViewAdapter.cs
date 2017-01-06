@@ -67,8 +67,8 @@ namespace WineHangouts
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
-            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(500, 500);
-            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(500, 500);
+            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
+            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
             //imgWine.SetImageBitmap(imageBitmap);
 

@@ -61,14 +61,26 @@ namespace WineHangouts
           
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
             //ImageView iv = new ImageView(this);
             //iv.LayoutParameters = new LinearLayout.LayoutParams(widthInDp, widthInDp);
-            ImageButton ib = FindViewById<ImageButton>(Resource.Id.imageButton1);
-            var pa = ib.LayoutParameters;
-            pa.Height = PixelsToDp(widthInDp);
-            pa.Width = PixelsToDp(widthInDp);
-            ib.SetImageResource(Resource.Drawable.wine1);
+
+
+
+            ////ImageButton ib = FindViewById<ImageButton>(Resource.Id.imageButton1);
+            ////var pa = ib.LayoutParameters;
+            ////pa.Height = PixelsToDp(widthInDp);
+            ////pa.Width = PixelsToDp(widthInDp);
+            ////ib.SetImageResource(Resource.Drawable.wine1);
+
+            ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
+            ImageView imgPlaceHolder =FindViewById<ImageView>(Resource.Id.placeholder1);
+            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
+            imgWine.SetImageResource(Resource.Drawable.wine1);
+            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
+            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
+
+
             //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
             //tr5.Layout(0, 0, 100,100 );
             //placeholder.Layout(0, 0, widthInDp, widthInDp);
