@@ -31,6 +31,15 @@
                     android:layout_height="250dp"
                     android:id="@+id/imgWine"
                     android:clickable="false" />
+              <ImageView
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgHeart"
+                android:clickable="true"
+                android:paddingLeft="120dp"
+                android:background="@null"
+                />
             </RelativeLayout>
         </TableRow>
     </TableLayout>
@@ -65,7 +74,7 @@
             <View
                 android:id="@+id/topDivider"
                 android:layout_width="50dp"
-                android:layout_height="3dp"
+                android:layout_height="1dp"
                 android:background="#ffffff"
                 android:layout_gravity="center" />
             <TextView
@@ -78,24 +87,10 @@
             <View
                 android:id="@+id/topDivider"
                 android:layout_width="50dp"
-                android:layout_height="3dp"
+                android:layout_height="1dp"
                 android:background="#ffffff"
                 android:paddingLeft="0.5px"
                 android:layout_gravity="center_vertical" />
-        </TableRow>
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:background="#5b4d4d">
-            <TextView
-                android:text="WS: 95 Points"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtRatings"
-                android:textColor="@android:color/holo_purple"
-                android:textStyle="bold"
-                android:layout_column="1"
-                android:layout_gravity="center_horizontal" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"

@@ -51,19 +51,33 @@ namespace WineHangouts
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.cell, null, false);
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.txtName);
-            TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
+            //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
             TextView txtVintage = row.FindViewById<TextView>(Resource.Id.txtVintage);
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
-
+            ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
 
             txtName.Text = myItems[position].Name;
-            txtRatings.Text = myItems[position].Ratings;
+            //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
+            heartImg.SetImageResource(Resource.Drawable.heart_empty);
+            int count=0;
+            heartImg.Click += delegate
+            {
+                if ((count % 2) == 0)
+                {
+                    heartImg.SetImageResource(Resource.Drawable.heart_full);
+                }
+                else
+                {
+                    heartImg.SetImageResource(Resource.Drawable.heart_empty);
+                }
+                count++;
+            };             
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
@@ -73,7 +87,7 @@ namespace WineHangouts
             //imgWine.SetImageBitmap(imageBitmap);
 
             txtName.Focusable = false;
-            txtRatings.Focusable = false;
+            //txtRatings.Focusable = false;
             //txtUserRatings.Focusable = false;
             txtVintage.Focusable = false;
             txtPrice.Focusable = false;

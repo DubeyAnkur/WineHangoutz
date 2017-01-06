@@ -24,6 +24,8 @@ namespace WineHangouts
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.detailedView);
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             //Top detailed view
             string[] arr1 = new string[] { "Silver napa valley",
@@ -51,7 +53,8 @@ namespace WineHangouts
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
-            rb.RatingBarChange += Rb_RatingBarChange;
+            ReviewPopup editPopup = new ReviewPopup(this);
+            rb.RatingBarChange += editPopup.CreatePopup;
             //String x;
             //rb.RatingBarChange += (o, e) =>
             //{
@@ -117,22 +120,42 @@ namespace WineHangouts
             //placeholder.SetImageBitmap(result);
         }
 
-        private void Rb_RatingBarChange(object sender, RatingBar.RatingBarChangeEventArgs e)
+        //private void Rb_RatingBarChange(object sender, RatingBar.RatingBarChangeEventArgs e)
+        //{
+        //    Dialog editDialog = new Dialog(this);
+
+        //    //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
+        //    //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
+        //    editDialog.SetContentView(Resource.Layout.EditReviewPopup);
+        //    //editDialog.SetTitle();
+
+        //    ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton1);
+        //    ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton2);
+        //    TextView blanktxt = editDialog.FindViewById<TextView>(Resource.Id.textView2);
+        //    ibs.SetImageResource(Resource.Drawable.wine_review);
+        //    ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
+
+        //    close.SetImageResource(Resource.Drawable.Close);
+        //    close.SetScaleType(ImageView.ScaleType.CenterCrop);
+
+        //    editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
+        //    editDialog.Show();
+
+
+        //    close.Click += delegate
+        //    {
+        //        editDialog.Dismiss();
+        //    };
+
+        //}
+        public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Dialog editDialog = new Dialog(this);
-
-            //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
-            //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
-            editDialog.SetContentView(Resource.Layout.EditReviewPopup);
-            //editDialog.SetTitle();
-
-            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton1);
-            ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton2);
-            ibs.SetImageResource(Resource.Drawable.wine_review);
-            ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-            close.SetImageResource(Resource.Drawable.Close);
-            close.SetScaleType(ImageView.ScaleType.CenterCrop);
-            editDialog.Show();
+            if (item.ItemId == Android.Resource.Id.Home)
+            {
+                Finish();
+                StartActivity(typeof(MainActivity));
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
         private int ConvertPixelsToDp(float pixelValue)
@@ -278,6 +301,6 @@ namespace WineHangouts
             return ReviewArray;
         }
     }
-
+    
 }
 

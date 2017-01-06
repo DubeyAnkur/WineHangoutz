@@ -51,14 +51,14 @@ namespace WineHangouts
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.Dummy, null, false);
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.textView12);
-            TextView txtRatings = row.FindViewById<TextView>(Resource.Id.textView13);
+            //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.textView13);
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
 
 
             txtName.Text = myItems[position].Name;
-            txtRatings.Text = myItems[position].Ratings;
+            //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));

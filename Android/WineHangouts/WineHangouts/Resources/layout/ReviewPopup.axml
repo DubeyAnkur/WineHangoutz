@@ -30,5 +30,4 @@
         android:id="@+id/btnSubmitReview"
         android:layout_gravity="right"
         android:background="?android:attr/selectableItemBackground" />
-  
 </LinearLayout>

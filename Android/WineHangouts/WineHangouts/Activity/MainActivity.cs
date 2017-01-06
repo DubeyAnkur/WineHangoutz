@@ -18,6 +18,8 @@ namespace WineHangouts
             base.OnCreate(bundle);
             this.Title = Intent.GetStringExtra("MyData") ?? "Data not available";
             SetContentView(Resource.Layout.Main);
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
             //var listview = FindViewById<ListView>(Resource.Id.gridview);
             List<Wine> myArr;
             myArr = SampleData();
@@ -30,6 +32,7 @@ namespace WineHangouts
             gridview.Adapter = adapter;
             //gridview.SetColumnWidth(1);
             gridview.SetNumColumns(2);
+            //gridview.SetBackgroundColor(new Android.Graphics.Color(255,255,255));
             //gridview.SetVerticalSpacing(2);
             //gridview.SetHorizontalSpacing(1);
 
@@ -48,11 +51,20 @@ namespace WineHangouts
 
             };
 
-            
-            
+        
 
 
 
+
+    }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Android.Resource.Id.Home)
+            {
+                Finish();
+                StartActivity(typeof(Activity1));
+            }
+            return base.OnOptionsItemSelected(item);
         }
         public class ImageAdapter : BaseAdapter
         {
@@ -119,7 +131,7 @@ namespace WineHangouts
             List<Wine> myArr = new List<Wine>();
             Wine w1 = new Wine();
             w1.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
-            w1.Ratings = "Ratings";
+            //w1.Ratings = "Ratings";
             w1.UserRatings = "User Ratings";
             w1.Price = "Prise$";
             w1.Vintage = "2001";
@@ -128,7 +140,7 @@ namespace WineHangouts
             Wine w2 = new Wine();
             w2.Name = "Bodega Norton Reserve Malbec 2013";
             w2.Price = "$19.99";
-            w2.Ratings = "15";
+            //w2.Ratings = "15";
             w2.UserRatings = "12";
             w2.Vintage = "2001";
             w2.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
@@ -136,7 +148,7 @@ namespace WineHangouts
 
             Wine w3 = new Wine();
             w3.Name = "Bodega Norton Reserve Malbec 2013";
-            w3.Ratings = "15";
+            //w3.Ratings = "15";
             w3.UserRatings = "12";
             w3.Price = "$19.99";
             w3.Vintage = "2001";
@@ -145,7 +157,7 @@ namespace WineHangouts
             Wine w4 = new Wine();
             w4.Name = "Bodega Norton Reserve Malbec 2013";
             w4.Price = "$19.99";
-            w4.Ratings = "15";
+            //w4.Ratings = "15";
             w4.UserRatings = "12";
             w4.Vintage = "2001";
             w4.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
@@ -153,7 +165,7 @@ namespace WineHangouts
             Wine w5 = new Wine();
             w5.Name = "Silver Oak Napa Valley Cabernet Sauvignon 2011";
             w5.Price = "$15.99";
-            w5.Ratings = "15";
+            //w5.Ratings = "15";
             w5.UserRatings = "12";
             w5.Vintage = "2001";
             w5.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
@@ -162,7 +174,7 @@ namespace WineHangouts
             Wine w6 = new Wine();
             w6.Name = "Bodega Norton Reserve Malbec 2013";
             w6.Price = "$19.99";
-            w6.Ratings = "15";
+            //w6.Ratings = "15";
             w6.UserRatings = "12";
             w6.Vintage = "2001";
             w6.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
@@ -171,7 +183,7 @@ namespace WineHangouts
             Wine w7 = new Wine();
             w7.Name = "Bodega Norton Reserve Malbec 2013";
             w7.Price = "$19.99";
-            w7.Ratings = "15";
+            //w7.Ratings = "15";
             w7.UserRatings = "12";
             w7.Vintage = "2001";
             w7.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
@@ -179,7 +191,7 @@ namespace WineHangouts
             Wine w8 = new Wine();
             w8.Name = "Bodega Norton Reserve Malbec 2013";
             w8.Price = "$19.99";
-            w8.Ratings = "15";
+            //w8.Ratings = "15";
             w8.UserRatings = "12";
             w8.Vintage = "2001";
             w8.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
