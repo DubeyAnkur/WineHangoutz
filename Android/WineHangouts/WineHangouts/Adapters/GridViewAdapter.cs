@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using System.Net;
+using Android.Util;
 
 namespace WineHangouts
 {
@@ -46,6 +47,8 @@ namespace WineHangouts
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            RelativeLayout.LayoutParams _layoutParamsPortrait;
+            RelativeLayout.LayoutParams _layoutParamsLandscape;
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.cell, null, false);
@@ -73,7 +76,7 @@ namespace WineHangouts
             var metrics = myContext.Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2 - 110 ;
+            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2;
             heartImg.LayoutParameters = heartLP;
             
             //heartImg.Layout(50, 50, 50, 50);
@@ -92,12 +95,44 @@ namespace WineHangouts
             };             
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
-            var place = new RelativeLayout.LayoutParams(520, 520);
-           // var place = new RelativeLayout.LayoutParams(520, 620);
+
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //var pa = imgPlaceHolder.LayoutParameters;
+            //pa.Height = PixelsToDp(heightInDp);
+            //pa.Width = PixelsToDp(heightInDp);
+
+            //var pa1 = imgWine.LayoutParameters;
+            //pa1.Height = PixelsToDp(heightInDp);
+
+            //pa1.Width = PixelsToDp(heightInDp);
+
+            var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+            // var place = new RelativeLayout.LayoutParams(520, 620);
             place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
             imgWine.LayoutParameters = place;
 
-            var place1 = new RelativeLayout.LayoutParams(520, 520);
+            var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
             place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
             imgPlaceHolder.LayoutParameters = place1;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
@@ -114,6 +149,12 @@ namespace WineHangouts
             
             return row;
         }
+
+
+
+
+
+
         private Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
@@ -128,6 +169,13 @@ namespace WineHangouts
             }
 
             return imageBitmap;
+        }
+
+
+
+        public int PixelsToDp(int pixels)
+        {
+            return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, myContext.Resources.DisplayMetrics);
         }
 
         private int ConvertPixelsToDp(float pixelValue)

@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-      android:background="#ffffff"
+      android:background="#00ffff"
   >
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/gridview"
-    android:background="#ffffff"
+    android:background="#00ffff"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:verticalSpacing="5dp"
