@@ -80,23 +80,23 @@
                         android:clickable="false" />
                 </RelativeLayout>
             </TableRow>
-          <TableRow
-             android:id="@+id/tableRow1"
-             android:background="#5b4d4d"
-             android:layout_width="wrap_content"
-             android:layout_height="match_parent">
-            <RatingBar
-                android:id="@+id/rtbProductRating"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:numStars="5"
-                android:stepSize="0.1"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:isIndicator="true"
-                android:layout_span="3" />
-          </TableRow>
+            <TableRow
+                android:id="@+id/tableRow78"
+                android:gravity="left"
+                android:layout_margin="10px">
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rating3"
+                    android:isIndicator="true"
+                    android:stepSize="1.0"
+                    android:numStars="5"
+                    android:max="5"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:progressBackgroundTint="@android:color/holo_green_dark"
+                    android:layout_gravity="center_horizontal" />
+            </TableRow>
             <TableRow
                 android:id="@+id/tableRow6"
                 android:gravity="left"
@@ -167,6 +167,7 @@
                 android:id="@+id/tableRow8"
                 android:layout_margin="10px">
                 <TextView
+                    android:textStyle="bold"
                     android:singleLine="false"
                     android:id="@+id/textView33"
                     android:layout_height="wrap_content"
@@ -193,6 +194,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:text="Reviews"
+                android:textStyle="bold"
+                android:textSize="30dp"
                 android:gravity="center"
                 android:textColor="@android:color/background_dark" />
         <!--<TableRow

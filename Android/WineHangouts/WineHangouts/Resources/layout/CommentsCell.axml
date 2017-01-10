@@ -50,8 +50,8 @@
                     android:layout_width="320.0dp">
                     <View
                         android:id="@+id/topDivider"
-                        android:layout_width="170.0dp"
-                        android:layout_height="2dp"
+                        android:layout_width="180.0dp"
+                        android:layout_height="1dp"
                         android:background="#000000"
                         android:layout_gravity="center"
                         android:layout_margin="2dp" />
@@ -61,7 +61,7 @@
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:paddingLeft="30px"
-                    android:layout_width="245.0dp">
+                    android:layout_width="200dp">
                     <RatingBar
                         android:id="@+id/rtbProductRating"
                         style="?android:attr/ratingBarStyleIndicator"
@@ -87,22 +87,24 @@
                         android:textColor="@android:color/holo_blue_bright"
                         android:layout_margin="2dp" />
                 </TableRow>
-                <TableRow
-                    android:id="@+id/tableRow91"
-                    android:minWidth="25px"
-                    android:minHeight="25px"
-                    android:paddingLeft="30px">
-                    <TextView
-                        android:singleLine="false"
-                        android:inputType="textMultiLine"
-                        android:id="@+id/textView66"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:text="Description Wine"
-                        android:layout_span="2"
-                        android:textColor="@android:color/holo_green_dark" />
-                </TableRow>
             </TableLayout>
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow91"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:paddingLeft="50dp">
+            <TextView
+                android:singleLine="false"
+                android:inputType="textMultiLine"
+                android:id="@+id/textView66"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Description Wine"
+                android:layout_span="2"
+                android:textColor="@android:color/holo_green_dark"
+                android:paddingLeft="30px"
+                android:layout_margin="2dp" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

@@ -8,12 +8,8 @@
     android:layout_marginRight="25dp"
     android:layout_marginTop="25dp"
     android:minWidth="25px"
-                
     android:minHeight="25px"
     android:weightSum="100">
-
-     
-     
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,20 +22,20 @@
             android:layout_column="3">
             <RelativeLayout
                 android:id="@+id/relative"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="3">
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="45dp"
                     android:layout_height="450dp"
                     android:id="@+id/placeholder"
-                   
+                    android:layout_alignParentRight="true"
                     android:src="@android:drawable/ic_menu_gallery" />
                 <ImageView
                     android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="match_parent"
+                    android:layout_width="45dp"
                     android:layout_height="250dp"
-                   
+                    android:layout_alignParentRight="true"
                     android:id="@+id/imgWine"
                     android:clickable="false" />
                 <ImageView
@@ -57,18 +53,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shrinkColumns="1"
-        android:background="#ffffff"
+        android:background="@drawable/border"
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
-           android:background="#ffffff">
+            android:background="@drawable/border">
             <TextView
                 android:text="Silver Oak Napa "
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:inputType="textMultiLine"
-                
                 android:maxLines="3"
                 android:lines="2"
                 android:ellipsize="none"
@@ -81,7 +76,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="@drawable/border">
             <View
                 android:id="@+id/topDivider"
                 android:layout_width="50dp"
@@ -106,7 +101,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-          android:background="#ffffff"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RatingBar
@@ -123,7 +118,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-         android:background="#ffffff">
+            android:background="@drawable/border">
             <TextView
                 android:text="$19.99"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -136,5 +131,4 @@
                 android:layout_gravity="center_horizontal" />
         </TableRow>
     </TableLayout>
-
 </LinearLayout>

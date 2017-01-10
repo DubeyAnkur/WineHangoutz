@@ -30,6 +30,9 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow2">
+            <RatingBar
+                android:layout_column="0"
+                android:id="@+id/ratingBar1" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow3">
