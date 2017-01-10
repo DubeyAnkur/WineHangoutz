@@ -32,9 +32,9 @@ namespace WineHangouts
             gridview.Adapter = adapter;
             //gridview.SetColumnWidth(1);
             gridview.SetNumColumns(2);
-            //gridview.SetBackgroundColor(new Android.Graphics.Color(255,255,255));
-            //gridview.SetVerticalSpacing(2);
-            //gridview.SetHorizontalSpacing(1);
+            //gridview.SetBackgroundColor(new Android.Graphics.Color(110, 145, 141));
+            //gridview.SetVerticalSpacing(5);
+            //gridview.SetHorizontalSpacing(5);
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {

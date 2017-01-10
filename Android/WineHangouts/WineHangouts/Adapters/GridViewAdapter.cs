@@ -58,13 +58,25 @@ namespace WineHangouts
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
-
+            //RelativeLayout rel = row.FindViewById<RelativeLayout>(Resource.Id.relative);
+            //var place11 = new RelativeLayout.LayoutParams(520, 620)
+            //rel.LayoutParameters = place11;
+            //rel.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             txtName.Text = myItems[position].Name;
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].Price;
             txtVintage.Text = myItems[position].Vintage;
             heartImg.SetImageResource(Resource.Drawable.heart_empty);
+            var heartLP = new RelativeLayout.LayoutParams(80, 80);
+
+            var metrics = myContext.Resources.DisplayMetrics;
+            var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
+            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2 - 110 ;
+            heartImg.LayoutParameters = heartLP;
+            
+            //heartImg.Layout(50, 50, 50, 50);
             int count=0;
             heartImg.Click += delegate
             {
@@ -80,11 +92,17 @@ namespace WineHangouts
             };             
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
-            //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
-            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
-            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
-            //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
-            //imgWine.SetImageBitmap(imageBitmap);
+            var place = new RelativeLayout.LayoutParams(520, 520);
+           // var place = new RelativeLayout.LayoutParams(520, 620);
+            place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            imgWine.LayoutParameters = place;
+
+            var place1 = new RelativeLayout.LayoutParams(520, 520);
+            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            imgPlaceHolder.LayoutParameters = place1;
+            //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
+            //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
+
 
             txtName.Focusable = false;
             //txtRatings.Focusable = false;
@@ -110,6 +128,12 @@ namespace WineHangouts
             }
 
             return imageBitmap;
+        }
+
+        private int ConvertPixelsToDp(float pixelValue)
+        {
+            var dp = (int)((pixelValue) / myContext.Resources.DisplayMetrics.Density);
+            return dp;
         }
     }
 }
