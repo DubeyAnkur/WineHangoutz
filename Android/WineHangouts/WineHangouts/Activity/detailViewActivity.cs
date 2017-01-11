@@ -83,14 +83,7 @@ namespace WineHangouts
             imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
-            //////var place = new RelativeLayout.LayoutParams(widthInDp, widthInDp);
-            //////// var place = new RelativeLayout.LayoutParams(520, 620);
-            //////place.LeftMargin = Resources.DisplayMetrics.WidthPixels / 4 ;
-            //////imgWine.LayoutParameters = place;
 
-            //////var place1 = new RelativeLayout.LayoutParams(widthInDp, widthInDp);
-            //////place1.LeftMargin = Resources.DisplayMetrics.WidthPixels / 4;
-            //////imgPlaceHolder.LayoutParameters = place1;
             //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
             //tr5.Layout(0, 0, 100,100 );
             //placeholder.Layout(0, 0, widthInDp, widthInDp);
@@ -291,7 +284,7 @@ namespace WineHangouts
 
             Review w3 = new Review();
             w3.Name = "Person X";
-            w3.Comments = "klcgnodnsskvbsducSDFLDSFDJDSSKDOJNSDNJFKSNIUSDCNUDSFBISCCISDIDVBIIDBIDSBVUZZBOUDBIDBVDSBDIVBIDNSDNU:jcbbds9uvniuqHDFJFDSPIUBC";
+            w3.Comments = "This wine is taste good as like grape juice.This wine is taste good as like grape";
             w3.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
             w3.Date = "01/04/2017";
             Review w4 = new Review();

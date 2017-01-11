@@ -86,7 +86,7 @@
                 android:layout_margin="10px">
                 <RatingBar
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42.5dp"
                     android:id="@+id/rating3"
                     android:isIndicator="true"
                     android:stepSize="1.0"

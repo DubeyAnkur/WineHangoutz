@@ -14,11 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shrinkColumns="1"
-        android:background="#ffffff"
+        android:background="@drawable/border"
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff"
+            android:background="@drawable/border"
             android:layout_column="3">
             <RelativeLayout
                 android:id="@+id/relative"
@@ -49,17 +49,15 @@
             </RelativeLayout>
         </TableRow>
     </TableLayout>
-  
-     <TableLayout
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shrinkColumns="1"
         android:background="@drawable/border"
         android:id="@+id/tableLayout1">
-      
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="@drawable/border">
             <TextView
                 android:text="Silver Oak Napa "
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -78,7 +76,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="@drawable/border">
             <View
                 android:id="@+id/topDivider"
                 android:layout_width="50dp"
@@ -103,7 +101,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RatingBar
@@ -120,7 +118,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="@drawable/border">
             <TextView
                 android:text="$19.99"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -133,5 +131,4 @@
                 android:layout_gravity="center_horizontal" />
         </TableRow>
     </TableLayout>
-     
 </LinearLayout>
