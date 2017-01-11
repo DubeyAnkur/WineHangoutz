@@ -73,9 +73,11 @@ namespace WineHangouts
             var metrics = myContext.Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2 - 110 ;
+            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2  ;
             heartImg.LayoutParameters = heartLP;
-            
+
+
+        
             //heartImg.Layout(50, 50, 50, 50);
             int count=0;
             heartImg.Click += delegate
@@ -92,13 +94,13 @@ namespace WineHangouts
             };             
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
-            var place = new RelativeLayout.LayoutParams(520, 520);
+            var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
            // var place = new RelativeLayout.LayoutParams(520, 620);
-            place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 540;
             imgWine.LayoutParameters = place;
 
-            var place1 = new RelativeLayout.LayoutParams(520, 520);
-            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 540;
             imgPlaceHolder.LayoutParameters = place1;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);

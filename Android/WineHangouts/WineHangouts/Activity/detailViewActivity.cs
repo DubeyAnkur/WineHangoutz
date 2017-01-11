@@ -83,7 +83,14 @@ namespace WineHangouts
             imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
+            //////var place = new RelativeLayout.LayoutParams(widthInDp, widthInDp);
+            //////// var place = new RelativeLayout.LayoutParams(520, 620);
+            //////place.LeftMargin = Resources.DisplayMetrics.WidthPixels / 4 ;
+            //////imgWine.LayoutParameters = place;
 
+            //////var place1 = new RelativeLayout.LayoutParams(widthInDp, widthInDp);
+            //////place1.LeftMargin = Resources.DisplayMetrics.WidthPixels / 4;
+            //////imgPlaceHolder.LayoutParameters = place1;
             //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
             //tr5.Layout(0, 0, 100,100 );
             //placeholder.Layout(0, 0, widthInDp, widthInDp);
