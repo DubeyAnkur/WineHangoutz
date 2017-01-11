@@ -52,7 +52,7 @@ namespace WineHangouts
             TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
             TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-            RatingBar rb = FindViewById<RatingBar>(Resource.Id.rating);
+            RatingBar rb = FindViewById<RatingBar>(Resource.Id.ratingBar1);
             ReviewPopup editPopup = new ReviewPopup(this);
             rb.RatingBarChange += editPopup.CreatePopup;
             //String x;

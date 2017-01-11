@@ -68,9 +68,10 @@
                     <RatingBar
                         android:id="@+id/rtbProductRating"
                         style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_height="25.5dp"
+                        android:layout_height="33.0dp"
                         android:layout_width="wrap_content"
                         android:numStars="5"
+                        android:rating="2.5"
                         android:stepSize="0.1"
                         android:scaleX="0.5"
                         android:scaleY="0.5"

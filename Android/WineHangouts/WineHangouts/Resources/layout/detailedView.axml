@@ -134,20 +134,18 @@
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"
-                android:gravity="left"
-                android:layout_margin="10px">
+                android:gravity="center"
+                android:layout_margin="10px"
+                android:minWidth="25px"
+                android:minHeight="25px">
                 <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rating"
-                    android:isIndicator="false"
+                    android:id="@+id/ratingBar1"
                     android:stepSize="1.0"
+                    android:layout_width="wrap_content"
                     android:numStars="5"
                     android:max="5"
-                    android:scaleX="0.5"
-                    android:scaleY="0.5"
-                    android:progressTint="@android:color/holo_green_dark"
-                    android:progressBackgroundTint="@android:color/holo_blue_dark"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
                     android:layout_gravity="center_horizontal" />
             </TableRow>
             <TableRow
