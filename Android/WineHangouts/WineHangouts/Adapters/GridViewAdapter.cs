@@ -11,14 +11,15 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using System.Net;
+using Hangout.Models;
 
 namespace WineHangouts
 {
-    class GridViewAdapter : BaseAdapter<Wine>
+    class GridViewAdapter : BaseAdapter<Item>
     {
-        private List<Wine> myItems;
+        private List<Item> myItems;
         private Context myContext;
-        public override Wine this[int position]
+        public override Item this[int position]
         {
             get
             {
@@ -26,7 +27,7 @@ namespace WineHangouts
             }
         }
 
-        public GridViewAdapter(Context con, List<Wine> strArr)
+        public GridViewAdapter(Context con, List<Item> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -65,8 +66,8 @@ namespace WineHangouts
             txtName.Text = myItems[position].Name;
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
-            txtPrice.Text = myItems[position].Price;
-            txtVintage.Text = myItems[position].Vintage;
+            txtPrice.Text = myItems[position].RegPrice.ToString();
+            txtVintage.Text = myItems[position].Vintage.ToString();
             heartImg.SetImageResource(Resource.Drawable.heart_empty);
             var heartLP = new RelativeLayout.LayoutParams(80, 80);
 

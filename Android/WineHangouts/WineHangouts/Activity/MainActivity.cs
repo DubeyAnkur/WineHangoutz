@@ -6,6 +6,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
+using Hangout.Models;
+using System.Linq;
 
 namespace WineHangouts
 {
@@ -13,20 +15,36 @@ namespace WineHangouts
     [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        public string StoreName="";
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            this.Title = Intent.GetStringExtra("MyData") ?? "Data not available";
+            if(StoreName == "")
+                StoreName = Intent.GetStringExtra("MyData");
+            this.Title = StoreName;
+
+            int StoreId = 0;
+            if (StoreName == "Wall Store")
+                StoreId = 1;
+            else if (StoreName == "Point Pleasent Store")
+                StoreId = 2;
+            else
+                StoreId = 3;
+
+            ServiceWrapper sw = new ServiceWrapper();
+            var output = sw.GetItemList(StoreId).Result;
+            
             SetContentView(Resource.Layout.Main);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             //var listview = FindViewById<ListView>(Resource.Id.gridview);
-            List<Wine> myArr;
-            myArr = SampleData();
+            List<Item> myArr;
+            //myArr = SampleData();
+            myArr = output.ItemList.ToList();
             int x;
 
             var gridview = FindViewById<GridView>(Resource.Id.gridview);
-            myArr = SampleData();
+            //myArr = SampleData();
 
             GridViewAdapter adapter = new GridViewAdapter(this, myArr);
             gridview.Adapter = adapter;

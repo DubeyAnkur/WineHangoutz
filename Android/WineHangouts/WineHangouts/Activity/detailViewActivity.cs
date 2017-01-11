@@ -11,13 +11,16 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Util;
+using Hangout.Models;
+using System.Linq;
 
 namespace WineHangouts
 {
     [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
     public class detailViewActivity : Activity
     {
-        List<WineDetails> DetailsArray;
+        public int sku;
+        List<ItemDetails> DetailsArray;
         List<Review> ReviewArray;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,7 +29,10 @@ namespace WineHangouts
             SetContentView(Resource.Layout.detailedView);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-
+            ServiceWrapper svc = new ServiceWrapper();
+            ItemDetailsResponse myData = svc.GetItemDetails(5747).Result;
+            this.Title = "Details";
+           
             //Top detailed view
             string[] arr1 = new string[] { "Silver napa valley",
                                            "Cabernet ",
@@ -43,7 +49,7 @@ namespace WineHangouts
             commentsView.Adapter = comments;
 
 
-            DetailsArray = DetailsData();
+            DetailsArray = myData.ItemDetails.ToList();
             ReviewArray = ReviewData();
             //setListViewHeightBasedOnChildren(detailView);
             setListViewHeightBasedOnChildren1(commentsView);

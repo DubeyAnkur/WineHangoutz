@@ -73,88 +73,94 @@ namespace WineHangouts
             public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
             {
                 base.OnCreateView(inflater, container, savedInstanceState);
-                var view = inflater.Inflate(Resource.Layout.Fragment1Layout, null);
+                var view = inflater.Inflate(Resource.Layout.LocationLayout, null);
 
 
                 // The result will be null because InJustDecodeBounds == true.
 
 
-                Button txtName = view.FindViewById<Button>(Resource.Id.button);
-                Button txtName1 = view.FindViewById<Button>(Resource.Id.button1);
-                Button txtName2 = view.FindViewById<Button>(Resource.Id.button2);
+                Button Top = view.FindViewById<Button>(Resource.Id.btnTop);
+                Button Middle = view.FindViewById<Button>(Resource.Id.btnMiddle);
+                Button Bottom = view.FindViewById<Button>(Resource.Id.btnBottom);
                 var metrics = Resources.DisplayMetrics;
                 int height = metrics.HeightPixels; // ConvertPixelsToDp(metrics.HeightPixels);
                 ////int heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
                 height = height - (int)((380 * metrics.Density) / 3);
                 height = height / 3;
-                txtName1.LayoutParameters.Height = height;
-                txtName2.LayoutParameters.Height = height;
-                txtName.LayoutParameters.Height = height;
+                Top.LayoutParameters.Height = height;
+                Middle.LayoutParameters.Height = height;
+                Bottom.LayoutParameters.Height = height;
 
 
                 if (tabName == "Location")
                 {
                    
                    
-                    txtName.SetBackgroundResource(Resource.Drawable.sfondo_catalogo_vini);
-                    txtName.Text = "Wall";
-                    txtName1.SetBackgroundResource(Resource.Drawable.sfondo_promozioni);
-                    txtName1.Text = "PointPleasent";
-                    txtName2.SetBackgroundResource(Resource.Drawable.sfondo_selezioni);
-                    txtName2.Text = "Seacucas";
-                    //var param = txtName.LayoutParameters;
-                    //var param1 = txtName1.LayoutParameters;
-                    //var param2 = txtName2.LayoutParameters;
+                    Top.SetBackgroundResource(Resource.Drawable.sfondo_catalogo_vini);
+                    Top.Text = "Wall";
+                    Middle.SetBackgroundResource(Resource.Drawable.sfondo_promozioni);
+                    Middle.Text = "PointPleasent";
+                    Bottom.SetBackgroundResource(Resource.Drawable.sfondo_selezioni);
+                    Bottom.Text = "Seacucas";
+                    //var param = Top.LayoutParameters;
+                    //var param1 = Middle.LayoutParameters;
+                    //var param2 = Bottom.LayoutParameters;
                     //param.Height = PixelsToDp(160);
                     //param1.Height = PixelsToDp(160);
                     //param2.Height = PixelsToDp(160);
-                    txtName.Click += (sender, e) =>
+                    Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(MainActivity));
                         intent.PutExtra("MyData", "Wall Store");
                         StartActivity(intent);
                     };
-                    txtName1.Click += (sender, e) =>
+                    Middle.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(MainActivity));
                         intent.PutExtra("MyData", "Point Pleasent Store");
                         StartActivity(intent);
                     };
-                    txtName2.Click += (sender, e) =>
+                    Bottom.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(MainActivity));
-                        intent.PutExtra("MyData", "Seacucas Store");
-                        StartActivity(intent);
+                        // var intent = new Intent(Activity, typeof(MainActivity));
+                        //intent.PutExtra("MyData", "Seacucas Store");
+                        // StartActivity(intent);
+                        AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                        aler.SetTitle("Secacus Store");
+                        aler.SetMessage("Coming Soon");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog = aler.Create();
+                        dialog.Show();
                     };
                 }
                 if (tabName == "TASTE")
                 {
                   
-                    txtName.SetBackgroundResource(Resource.Drawable.sfondo_mierecensioni);
-                    txtName.Text = "My Tastings";
-                    txtName1.SetBackgroundResource(Resource.Drawable.sfondo_nuoverecensioni);
-                    txtName1.Text = "New Tastings";
-                    txtName2.SetBackgroundResource(Resource.Drawable.sfondo_topvini);
-                    txtName2.Text = "Top Wines";
-                    //var param = txtName.LayoutParameters;
-                    //var param1 = txtName1.LayoutParameters;
-                    //var param2 = txtName2.LayoutParameters;
+                    Top.SetBackgroundResource(Resource.Drawable.sfondo_mierecensioni);
+                    Top.Text = "My Tastings";
+                    Middle.SetBackgroundResource(Resource.Drawable.sfondo_nuoverecensioni);
+                    Middle.Text = "New Tastings";
+                    Bottom.SetBackgroundResource(Resource.Drawable.sfondo_topvini);
+                    Bottom.Text = "Top Wines";
+                    //var param = Top.LayoutParameters;
+                    //var param1 = Middle.LayoutParameters;
+                    //var param2 = Bottom.LayoutParameters;
                     //param.Height = PixelsToDp(160);
                     //param1.Height = PixelsToDp(160);
                     //param2.Height = PixelsToDp(160);
-                    txtName.Click += (sender, e) =>
+                    Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
                        
                         StartActivity(intent);
                     };
-                    txtName1.Click += (sender, e) =>
+                    Middle.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
                        
                         StartActivity(intent);
                     };
-                    txtName2.Click += (sender, e) =>
+                    Bottom.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
                        
@@ -166,32 +172,32 @@ namespace WineHangouts
                 if (tabName == "EXPLORE")
                 {
                   
-                    txtName.SetBackgroundResource(Resource.Drawable.sfondo_blog);
-                    txtName.Text = "Blog";
-                    //txtName.SetTextColor(Color.Red);
+                    Top.SetBackgroundResource(Resource.Drawable.sfondo_blog);
+                    Top.Text = "Blog";
+                    //Top.SetTextColor(Color.Red);
 
-                    txtName1.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
-                    txtName1.Text = "Wineries";
-                    txtName2.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
-                    txtName2.Text = "Regions";
+                    Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
+                    Middle.Text = "Wineries";
+                    Bottom.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
+                    Bottom.Text = "Regions";
 
-                    //var param = txtName.LayoutParameters;
-                    //var param1 = txtName1.LayoutParameters;
-                    //var param2 = txtName2.LayoutParameters;
+                    //var param = Top.LayoutParameters;
+                    //var param1 = Middle.LayoutParameters;
+                    //var param2 = Bottom.LayoutParameters;
                     //param.Height = PixelsToDp(160);
                     //param1.Height = PixelsToDp(160);
                     //param2.Height = PixelsToDp(160);
-                    txtName.Click += (sender, e) =>
+                    Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
                         StartActivity(intent);
                     };
-                    txtName1.Click += (sender, e) =>
+                    Middle.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
                         StartActivity(intent);
                     };
-                    txtName2.Click += (sender, e) =>
+                    Bottom.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
                         StartActivity(intent);
@@ -228,14 +234,14 @@ namespace WineHangouts
 
         //        return view;*/
         //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout2, null);
-        //        Button txtName = view.FindViewById<Button>(Resource.Id.button);
-        //        Button txtName1 = view.FindViewById<Button>(Resource.Id.button1);
-        //        Button txtName2 = view.FindViewById<Button>(Resource.Id.button2);
+        //        Button Top = view.FindViewById<Button>(Resource.Id.button);
+        //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
+        //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
 
 
-        //        var param = txtName.LayoutParameters;
-        //        var param1 = txtName1.LayoutParameters;
-        //        var param2 = txtName2.LayoutParameters;
+        //        var param = Top.LayoutParameters;
+        //        var param1 = Middle.LayoutParameters;
+        //        var param2 = Bottom.LayoutParameters;
         //        param.Height = PixelsToDp(160);
         //        param1.Height = PixelsToDp(160);
         //        param2.Height = PixelsToDp(160);
@@ -258,19 +264,19 @@ namespace WineHangouts
 
         //                        return view;*/
         //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout3, null);
-        //        Button txtName = view.FindViewById<Button>(Resource.Id.button);
-        //        Button txtName1 = view.FindViewById<Button>(Resource.Id.button1);
-        //        Button txtName2 = view.FindViewById<Button>(Resource.Id.button2);
+        //        Button Top = view.FindViewById<Button>(Resource.Id.button);
+        //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
+        //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
 
 
-        //        var param = txtName.LayoutParameters;
-        //        var param1 = txtName1.LayoutParameters;
-        //        var param2 = txtName2.LayoutParameters;
+        //        var param = Top.LayoutParameters;
+        //        var param1 = Middle.LayoutParameters;
+        //        var param2 = Bottom.LayoutParameters;
         //        param.Height = PixelsToDp(160);
         //        param1.Height = PixelsToDp(160);
         //        param2.Height = PixelsToDp(160);
 
-        //        //txtName.wei = 100;
+        //        //Top.wei = 100;
 
         //        return view;
         //    }
