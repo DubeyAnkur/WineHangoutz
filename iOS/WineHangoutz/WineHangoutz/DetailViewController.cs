@@ -120,13 +120,13 @@ namespace WineHangoutz
 			//lblDescText.SizeToFit();
 
 			var table = new UITableView();
-			string[,] tableItems = new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012"}, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat"}, { "Bottle size", "750ml"}, {"Serving at:","15 °C"} };
-			table.Frame = new CGRect(0, Y + 140, View.Frame.Width, tableItems.Length * 22);
-			table.Source = new WineInfoTableSource(tableItems);
-			table.AllowsSelection = false;
+			//string[,] tableItems = new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012"}, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat"}, { "Bottle size", "750ml"}, {"Serving at:","15 °C"} };
+			//table.Frame = new CGRect(0, Y + 140, View.Frame.Width, tableItems.Length * 22);
+			//table.Source = new WineInfoTableSource(tableItems);
+			//table.AllowsSelection = false;
 
 
-			Y = Y + 160 + tableItems.Length * 22;
+			//Y = Y + 160 + tableItems.Length * 22;
 			var lblProducer = new UILabel();
 			lblProducer.Frame = new CGRect(4, Y, View.Frame.Width, 20);
 			lblProducer.Text = "Producer: ";
@@ -189,7 +189,7 @@ namespace WineHangoutz
 			reviewData.Add(review2);
 
 			reviewTable.Frame = new CGRect(0, 1300, View.Frame.Width, (reviewData.Count * 90) + 35);
-			reviewTable.Source = new ReviewTableSource(reviewData);
+			//reviewTable.Source = new ReviewTableSource(reviewData);
 			reviewTable.AllowsSelection = false;
 
 			return reviewTable;

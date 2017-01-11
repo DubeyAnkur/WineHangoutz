@@ -18,7 +18,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: bittu83@yahoo.com (ZSA4V6B9H2)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchUseSGen>true</MtouchUseSGen>
@@ -28,6 +28,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignEntitlements></CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -69,7 +70,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: bittu83@yahoo.com (ZSA4V6B9H2)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
@@ -98,6 +99,9 @@
     <Reference Include="Hangouts.Models">
       <HintPath>..\..\..\..\Services\Hangouts.Models\bin\Debug\Hangouts.Models.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Auth.iOS">
+      <HintPath>..\Components\xamarin.auth-1.2.3.1\lib\ios-unified\Xamarin.Auth.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -106,14 +110,14 @@
     <ImageAsset Include="Assets.xcassets\Second.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Second.imageset\vector.pdf" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo29.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo58.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo87.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo80.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo120.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo57.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo114.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29X29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57X57.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -212,6 +216,10 @@
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
       <Version>7.0.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamarin.auth">
+      <Version>1.2.3.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

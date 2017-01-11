@@ -16,6 +16,8 @@ namespace WineHangoutz {
 		public string Vintage = "2012";
 		public string RegPrice = "$9.99";
 		public decimal averageRating = 3.3m;
+		public string SKU = "0";
+
 
 		[Export ("initWithFrame:")]
 		public APLCollectionViewCell (CGRect frame) : base (frame)
@@ -25,12 +27,12 @@ namespace WineHangoutz {
             CGRect box = new CGRect(Bounds.Location, Bounds.Size);
 			box.X = 0;
 			box.Y = 0;
-            box.Height = box.Height - 150;
-			BackgroundColor = UIColor.DarkGray;
+            box.Height = box.Height - 140;
+			BackgroundColor = UIColor.White;
 			ImageView = new UIButton(box);
 			ImageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
-			ImageView.Layer.BorderWidth = 3.0f;
+			//ImageView.Layer.BorderWidth = 3.0f;
 			ImageView.ClipsToBounds = true;
 			ImageView.Layer.BorderColor = UIColor.White.CGColor;
 			ImageView.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
@@ -39,7 +41,7 @@ namespace WineHangoutz {
 			ImageView.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavigationController.PushViewController(new SKUDetailView(), false);
+				NavigationController.PushViewController(new SKUDetailView(SKU), false);
 			};
 
 			box.Width = (box.Width/ 240) * 92; //box.Width / 2;
@@ -56,7 +58,7 @@ namespace WineHangoutz {
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavigationController.PushViewController(new SKUDetailView(), false);
+				NavigationController.PushViewController(new SKUDetailView(SKU), false);
 			};
 
 			box.Height = 20;
@@ -91,12 +93,18 @@ namespace WineHangoutz {
 			};
 
 			CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
-			lower.Y = 35; //lower.Y + (ratio)*(Bounds.Height);
+			lower.Y = 50; //lower.Y + (ratio)*(Bounds.Height);
             lblName = new UILabel(lower);
+			lblName.Font = UIFont.FromName("Verdana-Bold", 13f);
+			lblName.TextColor = UIColor.Purple;
             lblName.Text = WineName;
             lblName.TextAlignment = UITextAlignment.Center;
+			lblName.LineBreakMode = UILineBreakMode.WordWrap;
+			lblName.Lines = 0;
 
-            lower.Y = 225;
+
+
+			lower.Y = 245;
             lower.Height = 1;
             lower.Width = lower.Width - 20;
             lower.X = lower.X + 10;
@@ -115,9 +123,10 @@ namespace WineHangoutz {
             year.Height = 30;
             year.Width = 50;
             lblYear = new UILabel(year);
+			lblYear.Font = UIFont.FromName("Verdana", 12f);
             lblYear.Text = Vintage;
             lblYear.TextAlignment = UITextAlignment.Center;
-			lblYear.BackgroundColor = UIColor.DarkGray;
+			lblYear.BackgroundColor = UIColor.White;
 
 
 			lblRegPrice = new UILabel(new CGRect(0, Bounds.Height - 60, Bounds.Width, 12f));

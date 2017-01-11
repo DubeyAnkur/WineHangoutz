@@ -13,9 +13,9 @@ namespace WineHangoutz
 
 		public ItemListResponse myData;
 		public int storeId = 2;
-        public PhyCollectionView (UICollectionViewLayout layout) : base (layout)
+        public PhyCollectionView (UICollectionViewLayout layout, int StoreId) : base (layout)
         {
-
+			storeId = StoreId;
         }
 
 		public override void ViewDidLoad()
@@ -25,15 +25,20 @@ namespace WineHangoutz
 			//Uncomment below lines once services are fixed.
 			ServiceWrapper svc = new ServiceWrapper();
 			myData = svc.GetItemList(storeId).Result;
-
+			//View.BackgroundColor = UIColor.White;
+			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
+			this.CollectionView.BackgroundColor = UIColor.White;
 			CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
-
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = collectionView.DequeueReusableCell(APLCollectionViewCell.Key, indexPath) as APLCollectionViewCell;
 			BindData(cell, indexPath);
+
+			cell.Layer.BorderWidth = 1;
+			cell.Layer.BorderColor = new CGColor(0.768f, 0.768f, 0.768f);
+
 			return cell;
 		}
 
@@ -65,10 +70,10 @@ namespace WineHangoutz
 			cell.Vintage = myData.ItemList[index].Vintage.ToString();
 			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-
+			cell.SKU = myData.ItemList[index].SKU;
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
-			cell.lblRegPrice.Text= myData.ItemList[index].SalePrice.ToString();
+			cell.lblRegPrice.Text= "$" + myData.ItemList[index].SalePrice.ToString();
 			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 		}
 	}

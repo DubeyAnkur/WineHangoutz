@@ -19,7 +19,7 @@ namespace WineHangoutz
 
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
-			nfloat margin = 2;
+			nfloat margin = 1;
 			nfloat start = 50;
 			UIButton btnBlog = new UIButton();
 			UIButton btnWineries = new UIButton();

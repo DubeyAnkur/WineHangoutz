@@ -4,6 +4,7 @@ using Foundation;
 using CoreGraphics;
 using System.Collections.Generic;
 using PatridgeDev;
+using Hangout.Models;
 
 namespace WineHangoutz
 {
@@ -50,15 +51,15 @@ namespace WineHangoutz
 			ContentView.AddSubviews(new UIView[] { userName, ReviewDate, Comments, stars, imageView});
 
 		}
-		public void UpdateCell(ReviewModel review)
+		public void UpdateCell(Rating review)
 		{
 			imageView.Image = new UIImage("user.png");
-			userName.Text = review.userName;
-			ReviewDate.Text = review.reviewDate.ToString("d");
-			Comments.Text = review.Comments;
+			userName.Text = review.Username;
+			ReviewDate.Text = review.Date.ToString("d");
+			Comments.Text = review.RatingText;
 			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 			//ContentView.Bounds.Height = 90;
-			stars.AverageRating = review.Stars;
+			stars.AverageRating = review.RatingStars;
 		}
 		public override void LayoutSubviews()
 		{
@@ -75,10 +76,10 @@ namespace WineHangoutz
 	public class ReviewTableSource : UITableViewSource
 	{
 		//string CellIdentifier = "TableCell";
-		List<ReviewModel> Reviews;
+		List<Rating> Reviews;
 
 
-		public ReviewTableSource(List<ReviewModel> reviewes)
+		public ReviewTableSource(List<Rating> reviewes)
 		{
 			Reviews = reviewes;
 		}
@@ -108,9 +109,9 @@ namespace WineHangoutz
 		public override UIView GetViewForHeader(UITableView tableView, nint section)
 		{
 			UILabel headerLabel = new UILabel(); // Set the frame size you need
-			headerLabel.TextColor = UIColor.Red; // Set your color
+			headerLabel.TextColor = UIColor.Purple; // Set your color
 			headerLabel.Text = "Reviews";
-			headerLabel.BackgroundColor = UIColor.Green;
+			headerLabel.BackgroundColor = UIColor.White;
 			headerLabel.TextAlignment = UITextAlignment.Center;
 			return headerLabel;
 		}

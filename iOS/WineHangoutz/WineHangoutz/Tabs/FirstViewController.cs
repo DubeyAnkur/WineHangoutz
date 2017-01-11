@@ -18,15 +18,15 @@ namespace WineHangoutz
 			// Perform any additional setup after loading the view, typically from a nib.
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
-			nfloat margin = 2;
+			nfloat margin = 1;
 			nfloat start = 50;
 			UIButton btnMan = new UIButton();
 			UIButton btnSec = new UIButton();
 			UIButton btnPP = new UIButton();
 
 			btnMan.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnSec.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnPP.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+			btnPP.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+			btnSec.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnMan.SetTitle("Manasquan",UIControlState.Normal);
 			btnSec.SetTitle("Secacus", UIControlState.Normal);
 			btnPP.SetTitle("Point Pleasant", UIControlState.Normal);
@@ -65,17 +65,40 @@ namespace WineHangoutz
 					//MinimumInteritemSpacing = 50, // minimum spacing between cells
 					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
 				};
-				NavigationController.PushViewController(new PhyCollectionView(flowLayout), false);
+				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 			};
 			btnSec.TouchUpInside += (sender, e) => { 
-				NavigationController.PushViewController(new SKUDetailView(), false);
+				//NavigationController.PushViewController(new SKUDetailView(), false);
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Secacaus Store",
+					Message = "Comming Soon..."
+				};
+				alert.AddButton("OK");
+				alert.Show();
 			};
 
-			btnPP.TouchUpInside += async (sender, e) =>
+			btnPP.TouchUpInside += (sender, e) =>
 			{
-				ServiceWrapper svc = new ServiceWrapper();
-				string ret = await svc.GetDataAsync();
-				((UIButton)sender).SetTitle(ret, UIControlState.Normal);
+				//async (sender, e)
+				//ServiceWrapper svc = new ServiceWrapper();
+				//string ret = await svc.GetDataAsync();
+				//((UIButton)sender).SetTitle(ret, UIControlState.Normal);
+				nfloat width = UIScreen.MainScreen.Bounds.Width;
+				width = width / 2 - 15;
+
+				UICollectionViewFlowLayout flowLayout;
+				flowLayout = new UICollectionViewFlowLayout()
+				{
+					//HeaderReferenceSize = new CGSize(width, 275.0f),
+					ItemSize = new CGSize(width, 325.0f),
+					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+					//SectionInset = new UIEdgeInsets(20, 20, 20, 20),
+					ScrollDirection = UICollectionViewScrollDirection.Vertical
+					//MinimumInteritemSpacing = 50, // minimum spacing between cells
+					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
+				};
+				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
 			};
 		}
 

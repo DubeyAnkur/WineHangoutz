@@ -25,7 +25,7 @@ namespace WineHangoutz
 
 			List<Rating> tableItems = new List<Rating>();
 			var review = new Rating();
-			review.RatingStars = "4";
+			review.RatingStars = 4.0m;
 			review.Country = "France";
 			review.Date = DateTime.Now;
 			review.Name = "Amarcord D'un Ross";

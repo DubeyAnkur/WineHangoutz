@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 using CoreGraphics;
+using System.Collections.Generic;
 
 namespace WineHangoutz
 {
@@ -38,6 +39,14 @@ namespace WineHangoutz
 			ManageTabBar(RootTab);
 
 			int x = 1;
+			IOSSecuredDataProvider user = new IOSSecuredDataProvider();
+			Dictionary<string, string> validUser = user.Retreive("com.wineoutlet.wine-hangoutz");
+			if (validUser.Count == 1)
+				x = 1;
+			else
+				x = 0;
+
+			x = 1; // For testing.
 			if (x == 1)
 			{
 				nav = new UINavigationController(Window.RootViewController);
