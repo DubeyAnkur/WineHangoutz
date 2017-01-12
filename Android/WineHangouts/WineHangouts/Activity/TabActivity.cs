@@ -12,7 +12,7 @@ using Android.Graphics;
 namespace WineHangouts
 {
     [Activity(Label = "WineHangOuts", MainLauncher = false)]
-    public class Activity1 : Activity
+    public class TabActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -220,73 +220,78 @@ namespace WineHangouts
 
             
         }
-    
-
-        //class SampleTabFragment2 : Fragment
-        //{
-        //    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        //    {
-        //        base.OnCreateView(inflater, container, savedInstanceState);
-
-        //        /*var view = inflater.Inflate(Resource.Layout.Tab, container, false);
-        //        var sampleTextView = view.FindViewById<TextView>(Resource.Id.sampleTextView);
-        //        sampleTextView.Text = "sample fragment text 2";
-
-        //        return view;*/
-        //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout2, null);
-        //        Button Top = view.FindViewById<Button>(Resource.Id.button);
-        //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
-        //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
+        public override void OnBackPressed()
+        {
+            MoveTaskToBack(true);
+        }
 
 
-        //        var param = Top.LayoutParameters;
-        //        var param1 = Middle.LayoutParameters;
-        //        var param2 = Bottom.LayoutParameters;
-        //        param.Height = PixelsToDp(160);
-        //        param1.Height = PixelsToDp(160);
-        //        param2.Height = PixelsToDp(160);
-        //        return view;
-        //    }
-        //    private int PixelsToDp(int pixels)
-        //    {
-        //        return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
-        //    }
-        //}
-        //class SampleTabFragment3 : Fragment
-        //{
-        //    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        //    {
-        //        base.OnCreateView(inflater, container, savedInstanceState);
-        //        /*
-        //                        var view = inflater.Inflate(Resource.Layout.Tab, container, false);
-        //                        var sampleTextView = view.FindViewById<TextView>(Resource.Id.sampleTextView);
-        //                        sampleTextView.Text = "sample fragment text 2";
+            //class SampleTabFragment2 : Fragment
+            //{
+            //    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+            //    {
+            //        base.OnCreateView(inflater, container, savedInstanceState);
 
-        //                        return view;*/
-        //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout3, null);
-        //        Button Top = view.FindViewById<Button>(Resource.Id.button);
-        //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
-        //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
+            //        /*var view = inflater.Inflate(Resource.Layout.Tab, container, false);
+            //        var sampleTextView = view.FindViewById<TextView>(Resource.Id.sampleTextView);
+            //        sampleTextView.Text = "sample fragment text 2";
+
+            //        return view;*/
+            //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout2, null);
+            //        Button Top = view.FindViewById<Button>(Resource.Id.button);
+            //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
+            //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
 
 
-        //        var param = Top.LayoutParameters;
-        //        var param1 = Middle.LayoutParameters;
-        //        var param2 = Bottom.LayoutParameters;
-        //        param.Height = PixelsToDp(160);
-        //        param1.Height = PixelsToDp(160);
-        //        param2.Height = PixelsToDp(160);
+            //        var param = Top.LayoutParameters;
+            //        var param1 = Middle.LayoutParameters;
+            //        var param2 = Bottom.LayoutParameters;
+            //        param.Height = PixelsToDp(160);
+            //        param1.Height = PixelsToDp(160);
+            //        param2.Height = PixelsToDp(160);
+            //        return view;
+            //    }
+            //    private int PixelsToDp(int pixels)
+            //    {
+            //        return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
+            //    }
+            //}
+            //class SampleTabFragment3 : Fragment
+            //{
+            //    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+            //    {
+            //        base.OnCreateView(inflater, container, savedInstanceState);
+            //        /*
+            //                        var view = inflater.Inflate(Resource.Layout.Tab, container, false);
+            //                        var sampleTextView = view.FindViewById<TextView>(Resource.Id.sampleTextView);
+            //                        sampleTextView.Text = "sample fragment text 2";
 
-        //        //Top.wei = 100;
+            //                        return view;*/
+            //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout3, null);
+            //        Button Top = view.FindViewById<Button>(Resource.Id.button);
+            //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
+            //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
 
-        //        return view;
-        //    }
-        //    private int PixelsToDp(int pixels)
-        //    {
-        //        return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
-        //    }
 
-        //}
-    }
+            //        var param = Top.LayoutParameters;
+            //        var param1 = Middle.LayoutParameters;
+            //        var param2 = Bottom.LayoutParameters;
+            //        param.Height = PixelsToDp(160);
+            //        param1.Height = PixelsToDp(160);
+            //        param2.Height = PixelsToDp(160);
+
+            //        //Top.wei = 100;
+
+            //        return view;
+            //    }
+            //    private int PixelsToDp(int pixels)
+            //    {
+            //        return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
+            //    }
+
+            //}
+        }
+
 }
 
 

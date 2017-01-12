@@ -91,7 +91,7 @@ namespace WineHangouts
                 }
                 count++;
             };             
-            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
+           imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
             var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
            // var place = new RelativeLayout.LayoutParams(520, 620);
@@ -100,7 +100,7 @@ namespace WineHangouts
 
             var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
             place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
-            imgPlaceHolder.LayoutParameters = place1;
+           imgPlaceHolder.LayoutParameters = place1;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 

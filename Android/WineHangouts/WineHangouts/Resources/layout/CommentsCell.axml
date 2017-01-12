@@ -70,6 +70,7 @@
                         style="?android:attr/ratingBarStyleIndicator"
                         android:layout_height="33.0dp"
                         android:layout_width="wrap_content"
+                        android:layout_gravity="left"
                         android:numStars="5"
                         android:rating="2.5"
                         android:stepSize="0.1"
@@ -87,6 +88,7 @@
                         android:text="Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_column="0"
+                        android:textSize="35px"
                         android:id="@+id/textView67"
                         android:textColor="@android:color/holo_blue_bright"
                         android:layout_margin="2dp" />
@@ -107,7 +109,7 @@
                 android:layout_weight="1"
                 android:text="Wine description"
                 android:textColor="@android:color/holo_green_dark"
-                android:paddingLeft="30px"
+                android:paddingLeft="25px"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
                 android:layout_span="2" />

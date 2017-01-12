@@ -56,7 +56,8 @@ namespace WineHangouts
 
             Name.Text = myItems[position].Username;
             Comments.Text = myItems[position].RatingText;
-            date.Text = myItems[position].Date.ToString();
+            date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
+
             Image.SetImageResource(Resource.Drawable.user);
             Image.SetScaleType(ImageView.ScaleType.CenterCrop);
             return row;

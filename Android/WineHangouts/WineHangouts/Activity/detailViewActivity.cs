@@ -47,12 +47,12 @@ namespace WineHangouts
 
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
             //ReviewArray = ReviewData();
-            reviewAdapter comments = new reviewAdapter(this, ReviewArray);
+            reviewAdapter comments = new reviewAdapter(this, SkuRating.Ratings.ToList());
             commentsView.Adapter = comments;
 
 
             //DetailsArray = myData.ItemDetails.ToList();
-            ReviewArray = SkuRating.Ratings.ToList();
+            //ReviewArray = SkuRating.Ratings.ToList();
             //setListViewHeightBasedOnChildren(detailView);
             setListViewHeightBasedOnChildren1(commentsView);
             TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
@@ -160,8 +160,10 @@ namespace WineHangouts
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
-                Finish();
-                StartActivity(typeof(MainActivity));
+                //    Finish();
+                //    StartActivity(typeof(MainActivity));
+                base.OnBackPressed();
+                return false;
             }
             return base.OnOptionsItemSelected(item);
         }

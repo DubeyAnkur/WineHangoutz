@@ -79,7 +79,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                StartActivity(typeof(Activity1));
+                StartActivity(typeof(TabActivity));
             }
             return base.OnOptionsItemSelected(item);
         }

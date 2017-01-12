@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity\Activity1.cs" />
+    <Compile Include="Activity\TabActivity.cs" />
     <Compile Include="Activity\detailViewActivity.cs" />
     <Compile Include="Activity\DeleteReview.cs" />
     <Compile Include="Activity\DialogReview.cs" />
