@@ -49,7 +49,7 @@ namespace WineHangouts
             commentsView.Adapter = comments;
 
 
-            DetailsArray = myData.ItemDetails.ToList();
+          DetailsArray = myData.ItemDetails.ToList();
             ReviewArray = ReviewData();
             //setListViewHeightBasedOnChildren(detailView);
             setListViewHeightBasedOnChildren1(commentsView);
