@@ -5,6 +5,7 @@ using Foundation;
 using PatridgeDev;
 using System.Collections.Generic;
 using Hangout.Models;
+using System.Linq;
 
 namespace WineHangoutz
 {
@@ -72,7 +73,9 @@ namespace WineHangoutz
 			data.AverageRating = Data.AverageRating;// 4.25m;
 			data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
 
-			data.Ratings = new List<Rating>();
+			ServiceWrapper sw = new ServiceWrapper();
+			ItemRatingResponse ratings = sw.GetItemRatingsSKU(Convert.ToInt32(data.SKU)).Result;
+			data.Ratings = ratings.Ratings.ToList();
 			//var review1 = new Rating();
 			//review1.RatingText = "Comments";
 			//review1.Date = DateTime.Now;
@@ -134,7 +137,7 @@ namespace WineHangoutz
 					break;
 				case 4:
 					var btlBack = new UIImageView();
-					btlBack.Frame = new CGRect(0, 0, this.Width, this.Width);
+					btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
 					btlBack.Image = UIImage.FromFile("placeholder.jpeg");
 
 					nfloat height = this.Width;
@@ -147,7 +150,7 @@ namespace WineHangoutz
 					vw.AddSubview(btlImage);
 					break;
 				case 5:
-					ratingView = new PDRatingView(new CGRect(this.Width * 3 / 8 + 2, 0, this.Width / 4, 20f), ratingConfig, data.AverageRating);
+					ratingView = new PDRatingView(new CGRect(this.Width * 3 / 8 + 2, 10, this.Width / 4, 20f), ratingConfig, data.AverageRating);
 					ratingView.UserInteractionEnabled = false;
 					vw = ratingView;
 					break;
@@ -208,7 +211,7 @@ namespace WineHangoutz
 					break;
 				case 11:
 					var lblDesc = new UILabel();
-					lblDesc.Frame = new CGRect(4, 0, this.Width, 20);
+					lblDesc.Frame = new CGRect(4, 10, this.Width, 20);
 					lblDesc.Text = "Description: ";
 					lblDesc.TextAlignment = UITextAlignment.Left;
 					vw = lblDesc;
@@ -283,7 +286,7 @@ namespace WineHangoutz
 				return (nfloat)(data.WineProperties.Count * 22)+10;// 22 is hard coded height of rows
 
 			if (indexPath.Item == 16) // Reviews
-				return (nfloat)(data.WineProperties.Count * 90)+35;// 90 is hard coded height of rows
+				return (nfloat)(data.Ratings.Count * 90)+35;// 90 is hard coded height of rows
 
 			return (nfloat)Math.Min(height, this.Width);
 			//var viewCell = uiCell.GetPropertyValue<ViewCell>(uiCell.GetType(), "ViewCell");

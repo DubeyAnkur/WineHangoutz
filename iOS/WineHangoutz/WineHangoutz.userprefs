@@ -1,16 +1,21 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/MyTastingViewController.cs">
     <Files>
       <File FileName="WineHangoutz/PopupView.cs" Line="109" Column="6" />
       <File FileName="WineHangoutz/AppDelegate.cs" Line="50" Column="15" />
       <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="21" Column="21" />
       <File FileName="WineHangoutz/MyTastingViewController.cs" Line="29" Column="30" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="113" Column="3" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="126" Column="4" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="81" Column="84" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="1" Column="1" />
       <File FileName="WineHangoutz/LoginViewController.cs" Line="82" Column="1" />
       <File FileName="WineHangoutz/Main.cs" Line="16" Column="1" />
-      <File FileName="WineHangoutz/SKUDetailView.cs" Line="298" Column="59" />
+      <File FileName="WineHangoutz/SKUDetailView.cs" Line="153" Column="72" />
       <File FileName="WineHangoutz/Entitlements.plist" />
+      <File FileName="WineHangoutz/RatingCellView.cs" Line="113" Column="33" />
+      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="81" Column="9" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="73" Column="42" />
+      <File FileName="WineHangoutz/CollectionViewCell.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/WineInfoTableSource.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />

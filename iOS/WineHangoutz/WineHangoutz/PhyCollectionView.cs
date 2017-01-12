@@ -73,7 +73,7 @@ namespace WineHangoutz
 			cell.SKU = myData.ItemList[index].SKU;
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
-			cell.lblRegPrice.Text= "$" + myData.ItemList[index].SalePrice.ToString();
+			cell.lblRegPrice.Text= "$" + myData.ItemList[index].RegPrice.ToString();
 			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 		}
 	}

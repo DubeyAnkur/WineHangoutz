@@ -52,29 +52,11 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemListResponse> GetItemListOld(int storeId)
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/item/GetItemList/" + storeId);
-			var response = await client.GetAsync(uri);
-			ItemListResponse output = null;
-			if (response.IsSuccessStatusCode)
-			{
-				var content = await response.Content.ReadAsStringAsync();
-				output = JsonConvert.DeserializeObject<ItemListResponse>(content);
-			}
-			return output;
-		}
-
 		public async Task<ItemListResponse> GetItemList(int storeId)
 		{
 			var uri = new Uri("http://hangoutz.azurewebsites.net/api/item/GetItemList/" + storeId);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			//ItemListResponse output = null;
-			//if (response.IsSuccessStatusCode)
-			//{
-			//	var content = await response.Content.ReadAsStringAsync();
 			var	output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-			//}
 			return output;
 		}
 
@@ -97,26 +79,16 @@ namespace WineHangoutz
 		public async Task<ItemRatingResponse> GetItemRatingsSKU(int sku)
 		{
 			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemRatingsSKU/" + sku);
-			var response = await client.GetAsync(uri);
-			ItemRatingResponse output = null;
-			if (response.IsSuccessStatusCode)
-			{
-				var content = await response.Content.ReadAsStringAsync();
-				output = JsonConvert.DeserializeObject<ItemRatingResponse>(content);
-			}
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
 			return output;
 		}
 
 		public async Task<ItemRatingResponse> GetItemRatingsUID(int userId)
 		{
 			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemRatingsUID/" + userId);
-			var response = await client.GetAsync(uri);
-			ItemRatingResponse output = null;
-			if (response.IsSuccessStatusCode)
-			{
-				var content = await response.Content.ReadAsStringAsync();
-				output = JsonConvert.DeserializeObject<ItemRatingResponse>(content);
-			}
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
 			return output;
 		}
 
