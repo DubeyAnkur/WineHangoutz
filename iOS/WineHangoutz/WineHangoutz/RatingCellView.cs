@@ -111,7 +111,7 @@ namespace WineHangoutz
 			UILabel headerLabel = new UILabel(); // Set the frame size you need
 			headerLabel.TextColor = UIColor.Purple; // Set your color
 			headerLabel.Text = "Reviews";
-			headerLabel.BackgroundColor = UIColor.White;
+			headerLabel.BackgroundColor = UIColor.LightGray;
 			headerLabel.TextAlignment = UITextAlignment.Center;
 			return headerLabel;
 		}
