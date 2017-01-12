@@ -14,7 +14,6 @@ using Android.Util;
 using Hangout.Models;
 using System.Linq;
 
-
 namespace WineHangouts
 {
     [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
@@ -31,8 +30,9 @@ namespace WineHangouts
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ServiceWrapper svc = new ServiceWrapper();
-            ItemDetailsResponse myData = svc.GetItemDetails(5747).Result;
-            var RatingData = svc.GetItemRatingsSKU(5757).Result;
+            ItemDetailsResponse myData = svc.GetItemDetails(5757).Result;
+            var SkuRating = svc.GetItemRatingsSKU(5757).Result;
+            
             this.Title = "Details";
            
             //Top detailed view
@@ -46,13 +46,13 @@ namespace WineHangouts
             //detailView.Adapter = Details;
 
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-           // ReviewArray = ReviewData();
+            //ReviewArray = ReviewData();
             reviewAdapter comments = new reviewAdapter(this, ReviewArray);
             commentsView.Adapter = comments;
 
 
-            //  DetailsArray = myData.ItemDetails.ToList();
-            ReviewArray = RatingData.Ratings.ToList(); 
+            //DetailsArray = myData.ItemDetails.ToList();
+            ReviewArray = SkuRating.Ratings.ToList();
             //setListViewHeightBasedOnChildren(detailView);
             setListViewHeightBasedOnChildren1(commentsView);
             TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
@@ -108,10 +108,10 @@ namespace WineHangouts
             
 
             //placeholder.Focusable = false;
-            TopName.Text = arr1[0]; //Assigning value
+            TopName.Text = myData.ItemDetails.Name; //Assigning value
             TopBrand.Text = arr1[1];
-            TopVintage.Text = arr1[2];
-            WineDescription.Text = arr1[3];
+            TopVintage.Text = myData.ItemDetails.Vintage.ToString();
+            WineDescription.Text = myData.ItemDetails.Description;
            
 
             BitmapFactory.Options options = new BitmapFactory.Options

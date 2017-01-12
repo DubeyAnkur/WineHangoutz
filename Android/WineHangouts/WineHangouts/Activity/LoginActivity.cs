@@ -24,13 +24,8 @@ namespace WineHangouts
             Button cancel = FindViewById<Button>(Resource.Id.btnClearLL);
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
             EditText password = FindViewById<EditText>(Resource.Id.txtPassword);
-
-            ISharedPreferences pref = Application.Context.GetSharedPreferences("userInfo", FileCreationMode.Private);
-            ISharedPreferencesEditor edit = pref.Edit();
-            edit.PutString("user", username.Text);
-            edit.PutString("pass", password.Text);
-            edit.Apply();
-
+            ServiceWrapper svc = new ServiceWrapper();
+            //int authen = svc.AuthencateUser(username.Text).Result;
             username.Text = CurrentUser.getUserName();
 
             //string value1 = pref.GetString("user", null);
@@ -43,7 +38,7 @@ namespace WineHangouts
 
                 string cmp = CurrentUser.getPassword();
 
-                if (password.Text == cmp)
+                if (password.Text!=null && password.Text == cmp)
 
 
 
