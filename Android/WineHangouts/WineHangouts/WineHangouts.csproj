@@ -61,6 +61,7 @@
     <Compile Include="Activity\detailViewActivity.cs" />
     <Compile Include="Activity\DeleteReview.cs" />
     <Compile Include="Activity\DialogReview.cs" />
+    <Compile Include="Activity\LoginActivity.cs" />
     <Compile Include="Activity\PopupActivity.cs" />
     <Compile Include="Activity\DummyActivity.cs" />
     <Compile Include="Activity\MainActivity.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Classes\Wine.cs" />
     <Compile Include="Classes\Wine1.cs" />
     <Compile Include="Classes\WineDetails.cs" />
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceWrapper.cs" />
@@ -86,6 +88,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="packages.config" />
+    <AndroidResource Include="Resources\layout\login.axml" />
     <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />

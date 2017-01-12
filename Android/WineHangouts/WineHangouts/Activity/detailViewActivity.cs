@@ -20,8 +20,8 @@ namespace WineHangouts
     public class detailViewActivity : Activity
     {
         public int sku;
-        List<ItemDetails> DetailsArray;
-        List<Review> ReviewArray;
+       // List<ItemDetails> DetailsArray;
+        List<Rating> ReviewArray;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -30,8 +30,9 @@ namespace WineHangouts
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ServiceWrapper svc = new ServiceWrapper();
-            ItemDetailsResponse myData = svc.GetItemDetails(5747).Result;
-            this.Title = "Details";
+            ItemDetailsResponse myData = svc.GetItemDetails(4512).Result;
+            var RatingData = svc.GetItemRatingsSKU(5757).Result;
+            this.Title = "Details of wine";
            
             //Top detailed view
             string[] arr1 = new string[] { "Silver napa valley",
@@ -44,19 +45,18 @@ namespace WineHangouts
             //detailView.Adapter = Details;
 
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-            ReviewArray = ReviewData();
+           // ReviewArray = 
             reviewAdapter comments = new reviewAdapter(this, ReviewArray);
             commentsView.Adapter = comments;
 
 
-            DetailsArray = myData.ItemDetails.ToList();
-            ReviewArray = ReviewData();
+            //DetailsArray = DetailsData();
+            ReviewArray = RatingData.Ratings.ToList();
             //setListViewHeightBasedOnChildren(detailView);
             setListViewHeightBasedOnChildren1(commentsView);
-            TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
-            TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
-            TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
-            TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
+            TextView txtName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
+            TextView txtVintage = FindViewById<TextView>(Resource.Id.textView8);
+            TextView txtWineDescription = FindViewById<TextView>(Resource.Id.textView36);
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.ratingBar1);
             ReviewPopup editPopup = new ReviewPopup(this);
@@ -99,17 +99,15 @@ namespace WineHangouts
             //placeholder.Visibility = ViewStates.Visible;
             // iv.SetImageResource(Resource.Drawable.placeholder_bottiglia_lista);
             //tr5.AddView(iv);
-            TopName.Focusable = false;
-            TopBrand.Focusable = false;
-            TopVintage.Focusable = false;
-            WineDescription.Focusable = false;
+            txtName.Focusable = false;
+           txtVintage.Focusable = false;
+            txtWineDescription.Focusable = false;
             
 
             //placeholder.Focusable = false;
-            TopName.Text = arr1[0]; //Assigning value
-            TopBrand.Text = arr1[1];
-            TopVintage.Text = arr1[2];
-            WineDescription.Text = arr1[3];
+            txtName.Text = myData.ItemDetails.Name; //Assigning values 
+            txtVintage.Text = myData.ItemDetails.Vintage.ToString();
+            txtWineDescription.Text = myData.ItemDetails.Description;
            
 
             BitmapFactory.Options options = new BitmapFactory.Options

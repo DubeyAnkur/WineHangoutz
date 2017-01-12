@@ -9,15 +9,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Hangout.Models;
 
 namespace WineHangouts
 {
     [Activity(Label = "reviewAdapter")]
-    public class reviewAdapter : BaseAdapter<Review>
+    public class reviewAdapter : BaseAdapter<Rating>
     {
-        private List<Review> myItems;
+        private List<Rating> myItems;
         private Context myContext;
-        public override Review this[int position]
+        public override Rating this[int position]
         {
             get
             {
@@ -25,7 +26,7 @@ namespace WineHangouts
             }
         }
 
-        public reviewAdapter(Context con, List<Review> strArr)
+        public reviewAdapter(Context con, List<Rating> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -53,9 +54,9 @@ namespace WineHangouts
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
 
-            Name.Text = myItems[position].Name;
-            Comments.Text = myItems[position].Comments;
-            date.Text = myItems[position].Date;
+            Name.Text = myItems[position].Username;
+            Comments.Text = myItems[position].RatingText;
+            date.Text = myItems[position].Date.ToString();
             Image.SetImageResource(Resource.Drawable.user);
             Image.SetScaleType(ImageView.ScaleType.CenterCrop);
             return row;

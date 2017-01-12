@@ -11,7 +11,7 @@ using Android.Graphics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "WineHangOuts", MainLauncher = true)]
+    [Activity(Label = "WineHangOuts", MainLauncher = false)]
     public class Activity1 : Activity
     {
         protected override void OnCreate(Bundle bundle)

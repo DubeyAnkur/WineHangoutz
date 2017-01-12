@@ -34,6 +34,7 @@ namespace WineHangouts
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId).Result;
             
+            
             SetContentView(Resource.Layout.Main);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
