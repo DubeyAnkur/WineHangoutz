@@ -40,13 +40,14 @@ namespace WineHangoutz
 
 			int x = 1;
 			IOSSecuredDataProvider user = new IOSSecuredDataProvider();
-			Dictionary<string, string> validUser = user.Retreive("com.wineoutlet.wine-hangoutz");
-			if (validUser.Count == 1)
-				x = 1;
-			else
+			user.Clear();
+			string validUser = user.Retreive();
+			if (validUser== ""||validUser== null)
 				x = 0;
+			else
+				x = 1;
 
-			x = 1; // For testing.
+			//x = 1; // For testing.
 			if (x == 1)
 			{
 				nav = new UINavigationController(Window.RootViewController);
@@ -55,6 +56,8 @@ namespace WineHangoutz
 			else
 			{
 				var login = new LoginViewController();
+				login.root = Window.RootViewController;
+				login.nav = new UINavigationController(Window.RootViewController);
 				nav = new UINavigationController(login);
 			}
 			Window.RootViewController = nav;

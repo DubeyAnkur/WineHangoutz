@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Hangout.Models;
+using System.Text;
 
 namespace WineHangoutz
 {
@@ -90,6 +91,19 @@ namespace WineHangoutz
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
 			return output;
+		}
+
+		public async Task<int> InsertUpdateLike(SKULike skuLike)
+		{
+			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/InsertUpdateLike/");
+
+			var content = JsonConvert.SerializeObject(skuLike);
+
+			var response = await client.PostAsync(
+				uri,
+				new StringContent(content)).ConfigureAwait(false);
+
+			return 1;
 		}
 
 	}

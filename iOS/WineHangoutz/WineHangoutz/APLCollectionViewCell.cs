@@ -5,6 +5,7 @@ using Foundation;
 using UIKit;
 using ObjCRuntime;
 using PatridgeDev;
+using Hangout.Models;
 
 namespace WineHangoutz {
 
@@ -75,7 +76,7 @@ namespace WineHangoutz {
 			heartImage.SetImage(UIImage.FromFile("heart_empty.png"),UIControlState.Normal);
 			heartImage.Tag = 0; // Empty;
 
-			heartImage.TouchUpInside += (object sender, EventArgs e) =>
+			heartImage.TouchUpInside += async (object sender, EventArgs e) =>
 			{
 				//Do some actionn
 				UIButton temp = (UIButton)sender;
@@ -90,6 +91,13 @@ namespace WineHangoutz {
 					temp.Tag = 0;
 				}
 				//NavigationController.PushViewController(new DetailViewController(), false);
+				SKULike like = new SKULike();
+				like.UserID = 2;
+				like.SKU = 5757;
+				like.Liked = true;
+				ServiceWrapper sw = new ServiceWrapper();
+				await sw.InsertUpdateLike(like);
+
 			};
 
 			CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
