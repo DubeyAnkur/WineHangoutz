@@ -24,11 +24,11 @@ namespace WineHangouts
 
         }
 
-        public static void SaveUserName(string x, string y)
+        public static void SaveUserName(string UserName, string UserId)
         {
 
-            _edit.PutString("user", x);
-            _edit.PutString("pass", y);
+            _edit.PutString("UserName", UserName);
+            _edit.PutString("UserId", UserId);
             _edit.Apply();
         }
 
@@ -36,14 +36,14 @@ namespace WineHangouts
         {
 
 
-            string value1 = _pref.GetString("user", null);
+            string value1 = _pref.GetString("UserName", null);
             return value1;
 
         }
-        public static string getPassword()
+        public static string getUserId()
         {
 
-            string value1 = _pref.GetString("pass", null);
+            string value1 = _pref.GetString("UserId", null);
             return value1;
         }
     }

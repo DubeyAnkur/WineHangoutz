@@ -45,11 +45,14 @@ namespace WineHangouts
             return position;
         }
 
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.cell, null, false);
+            else
+                return row;
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.txtName);
             //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
@@ -67,40 +70,68 @@ namespace WineHangouts
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].RegPrice.ToString();
+            txtPrice.Text = "$" + txtPrice.Text;
             txtVintage.Text = myItems[position].Vintage.ToString();
+            //heartImg.t = myItems[position].s;
+
             heartImg.SetImageResource(Resource.Drawable.heart_empty);
             var heartLP = new RelativeLayout.LayoutParams(80, 80);
 
             var metrics = myContext.Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2 ;
+            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
             heartImg.LayoutParameters = heartLP;
-            
+
+
+
+
+
             //heartImg.Layout(50, 50, 50, 50);
-            int count=0;
-            heartImg.Click += delegate
+            bool count = Convert.ToBoolean(myItems[position].IsLike);
+            if (count == true)
             {
-                if ((count % 2) == 0)
-                {
-                    heartImg.SetImageResource(Resource.Drawable.heart_full);
-                }
-                else
-                {
-                    heartImg.SetImageResource(Resource.Drawable.heart_empty);
-                }
-                count++;
-            };             
-           imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
+                heartImg.SetImageResource(Resource.Drawable.heart_full);
+            }
+            else
+            {
+                heartImg.SetImageResource(Resource.Drawable.heart_empty);
+            }
+
+            heartImg.Click += async delegate
+             {
+                 bool x;
+                 if (count == false)
+                 {
+                     heartImg.SetImageResource(Resource.Drawable.heart_full);
+                     x = true;
+                     count = true;
+                 }
+                 else
+                 {
+                     heartImg.SetImageResource(Resource.Drawable.heart_empty);
+                     x = false;
+                     count = false;
+                 }
+                 SKULike like = new SKULike();
+                 like.UserID = Convert.ToInt32(CurrentUser.getUserId());
+                 like.SKU = Convert.ToInt32(myItems[position].SKU);
+                 like.Liked = x;
+                 ServiceWrapper sw = new ServiceWrapper();
+                 await sw.InsertUpdateLike(like);
+             };
+
+
+            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
             var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
-           // var place = new RelativeLayout.LayoutParams(520, 620);
+            // var place = new RelativeLayout.LayoutParams(520, 620);
             place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
             imgWine.LayoutParameters = place;
 
             var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
             place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
-           imgPlaceHolder.LayoutParameters = place1;
+            imgPlaceHolder.LayoutParameters = place1;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 
@@ -112,9 +143,10 @@ namespace WineHangouts
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
 
-            
+
             return row;
         }
+
         private Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;

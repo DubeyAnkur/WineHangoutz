@@ -65,7 +65,11 @@ namespace WineHangouts
         class SampleTabFragment : Fragment
         {
             string tabName;
-            
+
+            public SampleTabFragment()
+            {
+                tabName = "Location";
+            }
             public SampleTabFragment(string Name)
             {
                 tabName = Name;

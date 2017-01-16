@@ -278,38 +278,7 @@ namespace WineHangouts
             DetailsArray.Add(w8);
             return DetailsArray;
         }
-        public List<Review> ReviewData()
-        {
-            List<Review> ReviewArray = new List<Review>();
-            Review w1 = new Review();
-            w1.Name = "Lokesh X";
-            w1.Comments = "This wine is taste good as like grape juice.This wine is taste good as like grape juice.This wine is taste good as like grape juice.This wine is taste good as like grape juice.This wine is taste good as like grape juice.";
-            w1.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
-            w1.Date = "01/04/2017";
-            Review w2 = new Review();
-            w2.Name = "Person X";
-            w2.Comments = "This wine is taste good as like grape juice.This wine is taste good as like grape juice.This wine is taste good as like grape juice.This wine is taste good as like grape juice.";
-            w2.imageURL = "http://cdn.fluidretail.net/customers/c1477/13/97/48/_s/pi/n/139748_spin_spin2/main_variation_na_view_01_204x400.jpg";
-            w2.Date = "01/04/2017";
-
-            Review w3 = new Review();
-            w3.Name = "Person X";
-            w3.Comments = "This wine is taste good as like grape juice.This wine is taste good as like grape";
-            w3.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
-            w3.Date = "01/04/2017";
-            Review w4 = new Review();
-            w4.Name = "Person X";
-            w4.Comments = "This wine is taste good as like grape juice.";
-            w4.imageURL = "http://www.savvyitsol.com/placeholder.jpeg";
-            w4.Date = "01/04/2017";
-
-
-            ReviewArray.Add(w1);
-            ReviewArray.Add(w2);
-            ReviewArray.Add(w3);
-            ReviewArray.Add(w4);
-            return ReviewArray;
-        }
+     
     }
     
 }

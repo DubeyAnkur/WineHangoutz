@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Util;
+using Hangout.Models;
 
 namespace WineHangouts
 {
@@ -83,8 +84,11 @@ namespace WineHangouts
             editDialog.SetContentView(Resource.Layout.EditReviewPopup);
             //editDialog.SetTitle();
 
-            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton1);
-            ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton2);
+            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
+            ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.close);
+            Button btnSubmitReview = editDialog.FindViewById<Button>(Resource.Id.btnSubmitReview);
+            TextView Comments = editDialog.FindViewById<TextView>(Resource.Id.txtReviewComments);
+            RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
             ibs.SetImageResource(Resource.Drawable.wine_review);
             ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
             close.SetImageResource(Resource.Drawable.Close);
@@ -94,6 +98,18 @@ namespace WineHangouts
             close.Click += delegate
             {
                 editDialog.Dismiss();
+            };
+            btnSubmitReview.Click += async delegate
+            {
+                ServiceWrapper sw = new ServiceWrapper();
+                Review review = new Review();
+                review.ReviewDate = DateTime.Now;
+                review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
+                review.RatingText = Comments.Text;
+                review.RatingStars = Convert.ToInt32( custRating.Rating);
+                review.IsActive = true;
+                review.SKU = 5757;
+                await sw.InsertUpdateReview(review);
             };
 
         }
@@ -105,9 +121,12 @@ namespace WineHangouts
             //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
             editDialog.SetContentView(Resource.Layout.EditReviewPopup);
             //editDialog.SetTitle();
+           
 
-            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton1);
-            ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton2);
+            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
+            ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.close);
+           
+
             ibs.SetImageResource(Resource.Drawable.wine_review);
             ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
             close.SetImageResource(Resource.Drawable.Close);
@@ -118,6 +137,7 @@ namespace WineHangouts
             {
                 editDialog.Dismiss();
             };
+           
         }
     }
 }

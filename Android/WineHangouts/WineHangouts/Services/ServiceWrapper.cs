@@ -9,88 +9,111 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-	public class ServiceWrapper
-	{
-		HttpClient client;
-  		public ServiceWrapper()
-		{
-			client = new HttpClient();
-			//client.MaxResponseContentBufferSize = 256000;
-		}
+    public class ServiceWrapper
+    {
+        HttpClient client;
+        public ServiceWrapper()
+        {
+            client = new HttpClient();
+            //client.MaxResponseContentBufferSize = 256000;
+        }
 
-		public bool ServiceEnabled { 
-			get {
-				return true;
-			}
+        public string ServiceURL
+        {
+            get
+            {
+                //string host = "http://localhost:65442/";
+                string host = "http://hangoutz.azurewebsites.net/";
+                return host + "api/Item/";
+            }
 
-		}
+        }
 
-		public async Task<List<string>> RefreshDataAsync()
-		{
-  			var uri = new Uri(string.Format("http://developer.xamarin.com:8081/api/todoitems{0}", string.Empty));
-			List<string> Items = new List<string>();
-  			var response = await client.GetAsync(uri);
+        public async Task<string> GetDataAsync()
+        {
+            var uri = new Uri(ServiceURL + "TestService/1");
+            var response = await client.GetAsync(uri);
+            string output = "";
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                output = JsonConvert.DeserializeObject<string>(content);
+            }
+            return output;
+        }
 
-			if (response.IsSuccessStatusCode)
-			{
-				var content = await response.Content.ReadAsStringAsync();
-				Items = JsonConvert.DeserializeObject<List<string>>(content);
-			}
-			return Items;
-		}
+        public async Task<ItemListResponse> GetItemList(int storeId)
+        {
+            var uri = new Uri(ServiceURL + "GetItemList/" + storeId);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+            return output;
+        }
 
-		public async Task<string> GetDataAsync()
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/TestService/1");
-			var response = await client.GetAsync(uri);
-			string output = ""; 
-			if (response.IsSuccessStatusCode)
-			{
-				var content = await response.Content.ReadAsStringAsync();
-				output = JsonConvert.DeserializeObject<string>(content);
-			}
-			return output;
-		}
+        public async Task<ItemDetailsResponse> GetItemDetails(int sku)
+        {
+            var uri = new Uri(ServiceURL + "GetItemDetails/" + sku);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
+            return output;
+        }
+        public async Task<int> InsertUpdateLike(SKULike skuLike)
+        {
+            try
+            {
 
-		public async Task<ItemListResponse> GetItemList(int storeId)
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/item/GetItemList/" + storeId);
-			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var	output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-			return output;
-		}
+                var uri = new Uri(ServiceURL + "InsertUpdateLike/");
+                var content = JsonConvert.SerializeObject(skuLike);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+                //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 1;
+        }
 
-		public async Task<ItemDetailsResponse> GetItemDetails(int sku)
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemDetails/" + sku);
-			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
-			return output;
-		}
+        public async Task<UserResponse> AuthencateUser(string UserName)
+        {
+            var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<UserResponse>(response);
+            return output;
+        }
 
-		public async Task<int> AuthencateUser(string UserName)
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/AuthenticateUser/" + UserName);
-			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<int>(response);
-			return output;
-		}
+        public async Task<ItemRatingResponse> GetItemRatingsSKU(int sku)
+        {
+            var uri = new Uri(ServiceURL + "/GetItemRatingsSKU/" + sku);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
+            return output;
+        }
 
-		public async Task<ItemRatingResponse> GetItemRatingsSKU(int sku)
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemRatingsSKU/" + sku);
-			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
-			return output;
-		}
+        public async Task<ItemRatingResponse> GetItemRatingsUID(int userId)
+        {
+            var uri = new Uri(ServiceURL + "GetItemRatingsUID/" + userId);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
+            return output;
+        }
 
-		public async Task<ItemRatingResponse> GetItemRatingsUID(int userId)
-		{
-			var uri = new Uri("http://hangoutz.azurewebsites.net/api/Item/GetItemRatingsUID/" + userId);
-			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
-			return output;
-		}
-
-	}
+        public async Task<int> InsertUpdateReview(Review review)
+        {
+            try
+            {
+                var uri = new Uri(ServiceURL + "InsertUpdateReview/");
+                var content = JsonConvert.SerializeObject(review);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+                //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 1;
+        }
+    }
 }

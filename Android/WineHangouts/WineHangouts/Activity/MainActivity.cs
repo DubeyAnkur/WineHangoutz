@@ -15,11 +15,11 @@ namespace WineHangouts
     [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        public string StoreName="";
+        public string StoreName = "";
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            if(StoreName == "")
+            if (StoreName == "")
                 StoreName = Intent.GetStringExtra("MyData");
             this.Title = StoreName;
 
@@ -33,8 +33,8 @@ namespace WineHangouts
 
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId).Result;
-            
-            
+
+
             SetContentView(Resource.Layout.Main);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -42,40 +42,27 @@ namespace WineHangouts
             List<Item> myArr;
             //myArr = SampleData();
             myArr = output.ItemList.ToList();
-            int x;
 
             var gridview = FindViewById<GridView>(Resource.Id.gridview);
             //myArr = SampleData();
 
             GridViewAdapter adapter = new GridViewAdapter(this, myArr);
+            gridview.SetNumColumns(2);
             gridview.Adapter = adapter;
             //gridview.SetColumnWidth(1);
-            gridview.SetNumColumns(2);
+           
             //gridview.SetBackgroundColor(new Android.Graphics.Color(110, 145, 141));
             //gridview.SetVerticalSpacing(5);
             //gridview.SetHorizontalSpacing(5);
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                //Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
-                x = args.Position;
-
-                if (x == 0 || x==1 || x==2|| x==3) {
-
-                  
-                        var intent = new Intent(this, typeof(detailViewActivity));
-                        StartActivity(intent);
-                   
-                }
-
+                var intent = new Intent(this, typeof(detailViewActivity));
+                StartActivity(intent);
             };
+            
 
-        
-
-
-
-
-    }
+        }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
@@ -137,12 +124,12 @@ namespace WineHangouts
         Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
         Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
         Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
-       
+
     };
-    
-          
+
+
         }
-    
+
 
 
         public List<Wine> SampleData()
@@ -227,6 +214,6 @@ namespace WineHangouts
         }
     }
 
-   
+
 }
 
