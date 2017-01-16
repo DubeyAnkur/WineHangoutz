@@ -14,7 +14,7 @@ using System.Net;
 
 namespace WineHangouts
 {
-    class ListViewAdapter : BaseAdapter<Wine>
+    class TasteViewAdapter : BaseAdapter<Wine>
     {
         private List<Wine> myItems;
         private Context myContext;
@@ -26,7 +26,7 @@ namespace WineHangouts
             }
         }
 
-        public ListViewAdapter(Context con, List<Wine> strArr)
+        public TasteViewAdapter(Context con, List<Wine> strArr)
         {
             myContext = con;
             myItems = strArr;

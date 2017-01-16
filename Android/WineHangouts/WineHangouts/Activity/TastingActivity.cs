@@ -30,7 +30,7 @@ namespace WineHangouts
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
             myArr1 = SampleData1();
             ReviewPopup editPopup = new ReviewPopup(this);
-            ListViewAdapter1 adapter = new ListViewAdapter1(this, myArr1);
+            TastingAdapter adapter = new TastingAdapter(this, myArr1);
             adapter.Edit_Click += editPopup.EditPopup;
             //{
             //    //Pull up Dialog

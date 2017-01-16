@@ -30,8 +30,9 @@ namespace WineHangouts
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ServiceWrapper svc = new ServiceWrapper();
-            ItemDetailsResponse myData = svc.GetItemDetails(5757).Result;
-            var SkuRating = svc.GetItemRatingsSKU(5757).Result;
+            sku = 5757;
+            ItemDetailsResponse myData = svc.GetItemDetails(sku).Result;
+            var SkuRating = svc.GetItemRatingsSKU(sku).Result;
             
             this.Title = "Details";
            
@@ -62,6 +63,7 @@ namespace WineHangouts
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             RatingBar rb = FindViewById<RatingBar>(Resource.Id.ratingBar1);
             ReviewPopup editPopup = new ReviewPopup(this);
+            editPopup.SKU = sku;
             rb.RatingBarChange += editPopup.CreatePopup;
             //String x;
             //rb.RatingBarChange += (o, e) =>

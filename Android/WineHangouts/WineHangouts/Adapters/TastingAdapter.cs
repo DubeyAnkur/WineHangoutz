@@ -14,7 +14,7 @@ using System.Net;
 
 namespace WineHangouts
 {
-    class ListViewAdapter1 : BaseAdapter<Wine1>
+    class TastingAdapter : BaseAdapter<Wine1>
     {
         private List<Wine1> myItems;
         private Context myContext;
@@ -26,7 +26,7 @@ namespace WineHangouts
             }
         }
 
-        public ListViewAdapter1(Context con, List<Wine1> strArr)
+        public TastingAdapter(Context con, List<Wine1> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -50,6 +50,8 @@ namespace WineHangouts
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.TastingListview, null, false);
+            else
+                return convertView;
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.textView64);
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.textView65);
@@ -61,7 +63,10 @@ namespace WineHangouts
             delete.SetScaleType(ImageView.ScaleType.Center);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-            edit.Click += Edit_Click;
+            //edit.SetTag(1, 5757);
+            edit.Click +=  (sender, args) => {
+                PerformItemClick(sender, args, position, 5757);
+            };
             delete.Click += Delete_Click;
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;
@@ -86,7 +91,12 @@ namespace WineHangouts
             return row;
         }
 
-      
+        public void PerformItemClick(object sender, EventArgs e, int position, int SKU)
+        {
+            ReviewPopup editPopup = new ReviewPopup(myContext);
+            editPopup.SKU = SKU;
+            editPopup.EditPopup(sender, e);
+        }
 
         private Bitmap GetImageBitmapFromUrl(string url)
         {

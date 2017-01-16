@@ -71,10 +71,12 @@ namespace WineHangouts
     {
 
         Context Parent;
+        public int SKU;
         public ReviewPopup(Context parent)
         {
             Parent = parent;
         }
+
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
         {
             Dialog editDialog = new Dialog(Parent);
@@ -108,7 +110,7 @@ namespace WineHangouts
                 review.RatingText = Comments.Text;
                 review.RatingStars = Convert.ToInt32( custRating.Rating);
                 review.IsActive = true;
-                review.SKU = 5757;
+                review.SKU = SKU;
                 await sw.InsertUpdateReview(review);
             };
 
@@ -116,7 +118,7 @@ namespace WineHangouts
         public void EditPopup(object sender, EventArgs e)
         {
             Dialog editDialog = new Dialog(Parent);
-
+            
             //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
             editDialog.SetContentView(Resource.Layout.EditReviewPopup);
