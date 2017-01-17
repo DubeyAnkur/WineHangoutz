@@ -112,6 +112,7 @@ namespace WineHangouts
                 review.IsActive = true;
                 review.SKU = SKU;
                 await sw.InsertUpdateReview(review);
+                editDialog.Dismiss();
             };
 
         }
@@ -127,8 +128,9 @@ namespace WineHangouts
 
             ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
             ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.close);
-           
-
+            Button btnSubmitReview = editDialog.FindViewById<Button>(Resource.Id.btnSubmitReview);
+            TextView Comments = editDialog.FindViewById<TextView>(Resource.Id.txtReviewComments);
+            RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
             ibs.SetImageResource(Resource.Drawable.wine_review);
             ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
             close.SetImageResource(Resource.Drawable.Close);
@@ -139,7 +141,20 @@ namespace WineHangouts
             {
                 editDialog.Dismiss();
             };
-           
+            btnSubmitReview.Click += async delegate
+            {
+                ServiceWrapper sw = new ServiceWrapper();
+                Review review = new Review();
+                review.ReviewDate = DateTime.Now;
+                review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
+                review.RatingText = Comments.Text;
+                review.RatingStars = Convert.ToInt32(custRating.Rating);
+                review.IsActive = true;
+                review.SKU = SKU;
+                await sw.InsertUpdateReview(review);
+                editDialog.Dismiss();
+            };
+
         }
     }
 }

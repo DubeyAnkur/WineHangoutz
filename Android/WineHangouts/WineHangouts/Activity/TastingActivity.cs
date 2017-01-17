@@ -10,27 +10,34 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Hangout.Models;
 
 namespace WineHangouts
 {
     [Activity(Label = "TastingActivity")]
     public class TastingActivity : Activity
     {
+        public int uid;
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
+            uid = 4;//checking purpose
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Tasting);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            List<Wine1> myArr1;
-            myArr1 = SampleData1();
+
+            ServiceWrapper svc = new ServiceWrapper();
+           // ItemRatingResponse irr = svc.GetItemRatingsUID(uid).Result;
+            var uidrating = svc.GetItemRatingsUID(uid).Result;
+            List<Rating> myArr1;
+          //  myArr1 = SampleData1();
 
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
-            myArr1 = SampleData1();
+           // myArr1 = SampleData1();
             ReviewPopup editPopup = new ReviewPopup(this);
-            TastingAdapter adapter = new TastingAdapter(this, myArr1);
+            TastingAdapter adapter = new TastingAdapter(this, uidrating.Ratings.ToList());
             adapter.Edit_Click += editPopup.EditPopup;
             //{
             //    //Pull up Dialog

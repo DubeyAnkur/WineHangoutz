@@ -11,14 +11,15 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using System.Net;
+using Hangout.Models;
 
 namespace WineHangouts
 {
-    class TastingAdapter : BaseAdapter<Wine1>
+    class TastingAdapter : BaseAdapter<Rating>
     {
-        private List<Wine1> myItems;
+        private List<Rating> myItems;
         private Context myContext;
-        public override Wine1 this[int position]
+        public override Rating this[int position]
         {
             get
             {
@@ -26,7 +27,7 @@ namespace WineHangouts
             }
         }
 
-        public TastingAdapter(Context con, List<Wine1> strArr)
+        public TastingAdapter(Context con, List<Rating> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -70,8 +71,8 @@ namespace WineHangouts
             delete.Click += Delete_Click;
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;
-            txtDescription.Text = myItems[position].UserRatings;
-            txtDate.Text = myItems[position].Date;
+            txtDescription.Text = myItems[position].RatingText;
+            txtDate.Text = myItems[position].Date.ToString();
             //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 
