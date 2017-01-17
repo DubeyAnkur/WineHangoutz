@@ -30,7 +30,7 @@ namespace WineHangouts
 
             ServiceWrapper svc = new ServiceWrapper();
           // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
-            var uidreviews = svc.GetItemReviewUID(uid).Result;
+             var uidreviews = svc.GetItemReviewUID(uid).Result;
             List<Review> myArr1;
           //  myArr1 = SampleData1();
 

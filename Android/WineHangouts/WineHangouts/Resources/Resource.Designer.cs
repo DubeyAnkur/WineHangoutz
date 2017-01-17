@@ -155,6 +155,9 @@ namespace WineHangouts
 			// aapt resource value: 0x7f020024
 			public const int wine_review = 2130837540;
 			
+			// aapt resource value: 0x7f020025
+			public const int wine_review_70 = 2130837541;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
