@@ -60,6 +60,7 @@ namespace WineHangouts
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.textView67);
             ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
             ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
+            RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
             edit.SetScaleType(ImageView.ScaleType.Center);
             delete.SetScaleType(ImageView.ScaleType.Center);
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
@@ -72,7 +73,8 @@ namespace WineHangouts
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;
             txtDescription.Text = myItems[position].RatingText;
-            txtDate.Text = myItems[position].Date.ToString();
+            txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
+            rb.Rating = myItems[position].RatingStars;
             //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 

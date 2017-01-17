@@ -52,12 +52,13 @@ namespace WineHangouts
             TextView Name = row.FindViewById<TextView>(Resource.Id.textView64);
             TextView Comments = row.FindViewById<TextView>(Resource.Id.textView66);
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
+            RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
 
             Name.Text = myItems[position].Username;
             Comments.Text = myItems[position].RatingText;
             date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
-
+            rb.Rating = myItems[position].RatingStars;
             Image.SetImageResource(Resource.Drawable.user);
             Image.SetScaleType(ImageView.ScaleType.CenterCrop);
             return row;
