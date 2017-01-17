@@ -15,11 +15,11 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    class TastingAdapter : BaseAdapter<Rating>
+    class TastingAdapter : BaseAdapter<Review>
     {
-        private List<Rating> myItems;
+        private List<Review> myItems;
         private Context myContext;
-        public override Rating this[int position]
+        public override Review this[int position]
         {
             get
             {
@@ -27,7 +27,7 @@ namespace WineHangouts
             }
         }
 
-        public TastingAdapter(Context con, List<Rating> strArr)
+        public TastingAdapter(Context con, List<Review> strArr)
         {
             myContext = con;
             myItems = strArr;

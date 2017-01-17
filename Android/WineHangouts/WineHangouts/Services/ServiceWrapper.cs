@@ -83,19 +83,19 @@ namespace WineHangouts
             return output;
         }
 
-        public async Task<ItemRatingResponse> GetItemRatingsSKU(int sku)
+        public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
         {
-            var uri = new Uri(ServiceURL + "/GetItemRatingsSKU/" + sku);
+            var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
+            var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             return output;
         }
 
-        public async Task<ItemRatingResponse> GetItemRatingsUID(int userId)
+        public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
         {
-            var uri = new Uri(ServiceURL + "GetItemRatingsUID/" + userId);
+            var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
+            var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             return output;
         }
 

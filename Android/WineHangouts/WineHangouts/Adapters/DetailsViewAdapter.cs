@@ -14,6 +14,7 @@ using System.Net;
 using Android.Content.Res;
 using Android.Util;
 using static Android.Text.BoringLayout;
+using Hangout.Models;
 
 namespace WineHangouts
 {

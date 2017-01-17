@@ -14,11 +14,11 @@ using Android.Widget;
 namespace WineHangouts
 {
     [Activity(Label = "reviewAdapter")]
-    public class reviewAdapter : BaseAdapter<Rating>
+    public class reviewAdapter : BaseAdapter<Review>
     {
-        private List<Rating> myItems;
+        private List<Review> myItems;
         private Context myContext;
-        public override Rating this[int position]
+        public override Review this[int position]
         {
             get
             {
@@ -26,7 +26,7 @@ namespace WineHangouts
             }
         }
 
-        public reviewAdapter(Context con, List<Rating> strArr)
+        public reviewAdapter(Context con, List<Review> strArr)
         {
             myContext = con;
             myItems = strArr;

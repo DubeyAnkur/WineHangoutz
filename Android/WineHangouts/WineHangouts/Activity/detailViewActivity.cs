@@ -21,7 +21,7 @@ namespace WineHangouts
     {
         public int sku;
         List<ItemDetails> DetailsArray;
-        List<Rating> ReviewArray;
+        List<Review> ReviewArray;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,7 +32,7 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
             sku = 5757;
             ItemDetailsResponse myData = svc.GetItemDetails(sku).Result;
-            var SkuRating = svc.GetItemRatingsSKU(sku).Result;
+            var SkuRating = svc.GetItemReviewSKU(sku).Result;
             
             this.Title = "Details";
            
@@ -48,7 +48,7 @@ namespace WineHangouts
 
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
             //ReviewArray = ReviewData();
-            reviewAdapter comments = new reviewAdapter(this, SkuRating.Ratings.ToList());
+            reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
             commentsView.Adapter = comments;
 
 

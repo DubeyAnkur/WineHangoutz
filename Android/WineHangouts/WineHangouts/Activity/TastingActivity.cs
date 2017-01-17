@@ -29,15 +29,15 @@ namespace WineHangouts
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             ServiceWrapper svc = new ServiceWrapper();
-           // ItemRatingResponse irr = svc.GetItemRatingsUID(uid).Result;
-            var uidrating = svc.GetItemRatingsUID(uid).Result;
-            List<Rating> myArr1;
+          // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
+            var uidreviews = svc.GetItemReviewUID(uid).Result;
+            List<Review> myArr1;
           //  myArr1 = SampleData1();
 
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
            // myArr1 = SampleData1();
             ReviewPopup editPopup = new ReviewPopup(this);
-            TastingAdapter adapter = new TastingAdapter(this, uidrating.Ratings.ToList());
+            TastingAdapter adapter = new TastingAdapter(this, uidreviews.Reviews.ToList());
             adapter.Edit_Click += editPopup.EditPopup;
             //{
             //    //Pull up Dialog
