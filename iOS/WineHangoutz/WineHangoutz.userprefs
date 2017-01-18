@@ -1,16 +1,17 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/RatingCellView.cs">
     <Files>
       <File FileName="WineHangoutz/PopupView.cs" Line="1" Column="1" />
       <File FileName="WineHangoutz/AppDelegate.cs" Line="1" Column="1" />
       <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="21" Column="21" />
       <File FileName="WineHangoutz/MyTastingViewController.cs" Line="42" Column="14" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="101" Column="4" />
       <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="146" Column="48" />
       <File FileName="WineHangoutz/LoginViewController.cs" Line="1" Column="1" />
       <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
-      <File FileName="WineHangoutz/SKUDetailView.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/SKUDetailView.cs" Line="289" Column="40" />
       <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/RatingCellView.cs" Line="81" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,9 +19,7 @@
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
               <Node name="References" expanded="True" />
-              <Node name="Assets.xcassets" selected="True" />
-              <Node name="Stars" expanded="True" />
-              <Node name="Tabs" expanded="True" />
+              <Node name="RatingCellView.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -31,6 +30,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/APLCollectionViewCell.cs" line="94" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/SKUDetailView.cs" line="66" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

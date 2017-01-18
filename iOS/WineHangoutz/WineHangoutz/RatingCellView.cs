@@ -51,7 +51,7 @@ namespace WineHangoutz
 			ContentView.AddSubviews(new UIView[] { userName, ReviewDate, Comments, stars, imageView});
 
 		}
-		public void UpdateCell(Rating review)
+		public void UpdateCell(Review review)
 		{
 			imageView.Image = new UIImage("user.png");
 			userName.Text = review.Username;
@@ -76,12 +76,12 @@ namespace WineHangoutz
 	public class ReviewTableSource : UITableViewSource
 	{
 		//string CellIdentifier = "TableCell";
-		List<Rating> Reviews;
+		List<Review> Reviews;
 
 
-		public ReviewTableSource(List<Rating> reviewes)
+		public ReviewTableSource(List<Review> reviews)
 		{
-			Reviews = reviewes;
+			Reviews = reviews;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)

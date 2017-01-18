@@ -66,8 +66,8 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateLike/");
 				var content = JsonConvert.SerializeObject(skuLike);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-																  //var result = response.Content.ReadAsStringAsync().Result;
+				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				//var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)
 			{
@@ -84,19 +84,19 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemRatingResponse> GetItemRatingsSKU(int sku)
+		public async Task<ItemReviewResponse> GetItemRatingsSKU(int sku)
 		{
-			var uri = new Uri(ServiceURL + "/GetItemRatingsSKU/" + sku);
+			var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
+			var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
 			return output;
 		}
 
-		public async Task<ItemRatingResponse> GetItemRatingsUID(int userId)
+		public async Task<ItemReviewResponse> GetItemRatingsUID(int userId)
 		{
-			var uri = new Uri(ServiceURL + "GetItemRatingsUID/" + userId);
+			var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<ItemRatingResponse>(response);
+			var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
 			return output;
 		}
 
@@ -107,8 +107,8 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateReview/");
 				var content = JsonConvert.SerializeObject(review);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-																  //var result = response.Content.ReadAsStringAsync().Result;
+				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				//var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)
 			{

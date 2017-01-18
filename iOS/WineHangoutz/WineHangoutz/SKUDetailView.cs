@@ -36,18 +36,6 @@ namespace WineHangoutz
 		}
 	}
 
-	public class WineDetails
-	{
-		public string Name;
-		public string Vintage;
-		public string imageURL;
-		public string WineDesc;
-		public string Producer;
-		public decimal averageRating;
-		public string[,] tableItems;
-		public List<ReviewModel> reviewData;
-	}
-
 	public class SKUDetailTableSource : UITableViewSource
 	{
 
@@ -74,8 +62,8 @@ namespace WineHangoutz
 			data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
 
 			ServiceWrapper sw = new ServiceWrapper();
-			ItemRatingResponse ratings = sw.GetItemRatingsSKU(Convert.ToInt32(data.SKU)).Result;
-			data.Ratings = ratings.Ratings.ToList();
+			ItemReviewResponse ratings = sw.GetItemRatingsSKU(Convert.ToInt32(data.SKU)).Result;
+			data.Reviews = ratings.Reviews.ToList();
 			//var review1 = new Rating();
 			//review1.RatingText = "Comments";
 			//review1.Date = DateTime.Now;
@@ -286,7 +274,7 @@ namespace WineHangoutz
 				return (nfloat)(data.WineProperties.Count * 22)+10;// 22 is hard coded height of rows
 
 			if (indexPath.Item == 16) // Reviews
-				return (nfloat)(data.Ratings.Count * 90)+35;// 90 is hard coded height of rows
+				return (nfloat)(data.Reviews.Count * 90)+35;// 90 is hard coded height of rows
 
 			return (nfloat)Math.Min(height, this.Width);
 			//var viewCell = uiCell.GetPropertyValue<ViewCell>(uiCell.GetType(), "ViewCell");
@@ -297,8 +285,8 @@ namespace WineHangoutz
 			var reviewTable = new UITableView();
 
 
-			reviewTable.Frame = new CGRect(0, 0, this.Width, (data.Ratings.Count * 90) + 35);
-			reviewTable.Source = new ReviewTableSource(data.Ratings);
+			reviewTable.Frame = new CGRect(0, 0, this.Width, (data.Reviews.Count * 90) + 35);
+			reviewTable.Source = new ReviewTableSource(data.Reviews);
 			reviewTable.AllowsSelection = false;
 			reviewTable.ScrollEnabled = false;
 
