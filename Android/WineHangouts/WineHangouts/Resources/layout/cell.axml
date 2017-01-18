@@ -85,10 +85,10 @@
                 android:layout_height="1dp"
                 android:background="#919695"
                 android:layout_gravity="center"
-                 android:paddingLeft="0.5px"
-                />
+                android:paddingLeft="0.5px"
+                android:layout_marginLeft="8dp" />
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Vintage"
@@ -102,8 +102,8 @@
                 android:layout_weight="1"
                 android:layout_height="1dp"
                 android:background="#919695"
-                android:paddingLeft="0.5px"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="8dp" />
         </TableRow>
     </TableLayout>
     <TableLayout
@@ -138,7 +138,7 @@
                 android:textColor="@android:color/holo_purple"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
         </TableRow>
     </TableLayout>
 </LinearLayout>
