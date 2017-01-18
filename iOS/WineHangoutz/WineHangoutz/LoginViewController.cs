@@ -22,7 +22,7 @@ namespace WineHangoutz
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			this.NavigationItem.SetHidesBackButton(true, false);
+
 			UITextField usernameField;
 
 			nfloat h = 31.0f;
@@ -56,14 +56,11 @@ namespace WineHangoutz
 			btnSave.TouchUpInside += (sender, e) =>
 			{
 				SaveUserDetails(usernameField.Text);
-				//root = nav;
-				NavigationController.PushViewController(root, true);
+				nav.DismissViewController(true, null);
 			};
 
 			View.BackgroundColor = UIColor.White;
 			View.AddSubview(lblError);
-			//View.AddSubview(lblName);
-			//View.AddSubview(txtUserName);
 			View.AddSubview(btnSave);
 			View.AddSubview(usernameField);
 		}
@@ -71,15 +68,11 @@ namespace WineHangoutz
 		public void SaveUserDetails(string userName)
 		{
 			ServiceWrapper svc = new ServiceWrapper();
-			int myData = svc.AuthencateUser(userName).Result;
-			if (myData == 1)
+			var myData = svc.AuthencateUser(userName).Result;
+			if (myData.user.UserId != 0)
 			{
 				lblError.Text = "";
-				Dictionary<string, string> data = new Dictionary<string, string>();
-				data.Add("User Name", userName);
-
-				IOSSecuredDataProvider provider = new IOSSecuredDataProvider();
-				provider.Store(userName, "com.wineoutlet.wine-hangoutz", data);
+				CurrentUser.Store(myData.user.UserId.ToString(), userName);
 			}
 			else
 			{
@@ -88,45 +81,37 @@ namespace WineHangoutz
 		}
 	}
 
-	public class IOSSecuredDataProvider //: ISecuredDataProvider
+	public static class CurrentUser //: ISecuredDataProvider
 	{
-		NSUserDefaults plist;// = NSUserDefaults.StandardUserDefaults;
+		static NSUserDefaults plist;// = NSUserDefaults.StandardUserDefaults;
 
-		public IOSSecuredDataProvider()
+		static CurrentUser()
 		{
 			plist = NSUserDefaults.StandardUserDefaults;
 		}
-		public void Store(string userId, string providerName, IDictionary<string, string> data)
+		public static void Store(string userId, string userName)
 		{
-			Clear();
-
-			plist.SetString(userId, "username");
-
-			//plist.SetString(passwordField.Text.ToString(), "password");
-			//var accountStore = AccountStore.Create();
-			//var account = new Account(userId, data);
-			//accountStore.Save(account, providerName);
+			//Clear();
+			plist.SetString(userName, "userName");
+			plist.SetString(userId, "userId");
 		}
 
-		public void Clear()
+		public static void Clear()
 		{
-			plist.RemoveObject("username");
-			//var accountStore = AccountStore.Create();
-			//var accounts = accountStore.FindAccountsForService(providerName);
-			//foreach (var account in accounts)
-			//{
-		//		accountStore.Delete(account, providerName);
-		//	}
+			plist.RemoveObject("userName");
+			plist.RemoveObject("userId");
 		}
 
-		public string Retreive()
+		public static string RetreiveUserName()
 		{
-			string SavedUserId = plist.StringForKey("username");
-			//var accountStore = AccountStore.Create();
-			//var accounts = accountStore.FindAccountsForService(providerName).FirstOrDefault();
+			string savedUserName = plist.StringForKey("userName");
+			return savedUserName;
+		}
 
-			//return (accounts != null) ? accounts.Properties : new Dictionary<string, string>();
-			return SavedUserId;
+		public static string RetreiveUserId()
+		{
+			string savedUserId = plist.StringForKey("userId");
+			return savedUserId;
 		}
 	}
 }

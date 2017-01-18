@@ -63,9 +63,9 @@ namespace WineHangoutz
 			this.View.AddSubview(Separator);
 
 
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/filled.png"),
-												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star2_empty.png"),
+												filledImage: UIImage.FromBundle("Stars/star.png"),
+												chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 			var lblStarBack = new UILabel();
 			lblStarBack.Frame = new CGRect(View.Bounds.Width * 3 / 9, 210, View.Bounds.Width / 3, 35f);

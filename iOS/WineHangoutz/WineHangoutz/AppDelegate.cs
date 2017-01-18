@@ -24,7 +24,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-
+			//CurrentUser.Clear();
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
@@ -38,28 +38,9 @@ namespace WineHangoutz
 
 			ManageTabBar(RootTab);
 
-			int x = 1;
-			IOSSecuredDataProvider user = new IOSSecuredDataProvider();
-			user.Clear();
-			string validUser = user.Retreive();
-			if (validUser== ""||validUser== null)
-				x = 0;
-			else
-				x = 1;
+			nav = new UINavigationController(Window.RootViewController);
+			nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
 
-			//x = 1; // For testing.
-			if (x == 1)
-			{
-				nav = new UINavigationController(Window.RootViewController);
-				nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
-			}
-			else
-			{
-				var login = new LoginViewController();
-				login.root = Window.RootViewController;
-				login.nav = new UINavigationController(Window.RootViewController);
-				nav = new UINavigationController(login);
-			}
 			Window.RootViewController = nav;
 			return true;
 		}

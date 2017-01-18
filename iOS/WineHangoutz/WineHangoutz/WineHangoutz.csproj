@@ -212,6 +212,13 @@
     <BundleResource Include="Images\Wineries.jpg" />
     <BundleResource Include="Resources\profile.png" />
     <BundleResource Include="Resources\Line.png" />
+    <BundleResource Include="Stars\star_empty.png" />
+    <BundleResource Include="Stars\star.png" />
+    <BundleResource Include="Stars\star2_empty.png" />
+    <BundleResource Include="Stars\star2.png" />
+    <BundleResource Include="Stars\star-silver.png" />
+    <BundleResource Include="Stars\star-silver1.png" />
+    <BundleResource Include="Stars\star-silver2.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">

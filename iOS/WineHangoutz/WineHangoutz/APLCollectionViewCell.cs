@@ -92,9 +92,9 @@ namespace WineHangoutz {
 				}
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				SKULike like = new SKULike();
-				like.UserID = 2;
-				like.SKU = 5757;
-				like.Liked = true;
+				like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				like.SKU = Convert.ToInt32(SKU);
+				like.Liked = Convert.ToBoolean(temp.Tag);
 				ServiceWrapper sw = new ServiceWrapper();
 				await sw.InsertUpdateLike(like);
 
@@ -142,9 +142,9 @@ namespace WineHangoutz {
 			lblRegPrice.Font = UIFont.FromName("Verdana", 13f);
 			lblRegPrice.TextAlignment = UITextAlignment.Center;
 
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-						filledImage: UIImage.FromBundle("Stars/filled.png"),
-						chosenImage: UIImage.FromBundle("Stars/chosen.png"));
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver1.png"),
+						filledImage: UIImage.FromBundle("Stars/star-silver.png"),
+						chosenImage: UIImage.FromBundle("Stars/star-silver.png"));
 
 			ratingView = new PDRatingView(new CGRect(Bounds.Width * 1 / 4, Bounds.Height - 40, Bounds.Width / 2, 14f), ratingConfig, averageRating);
 			ratingView.UserInteractionEnabled = false;

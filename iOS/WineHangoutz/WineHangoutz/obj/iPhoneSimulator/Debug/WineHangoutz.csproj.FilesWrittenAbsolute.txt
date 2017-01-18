@@ -38,3 +38,10 @@
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Hangouts.Models.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Xamarin.Auth.iOS.dll
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star_empty.png
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star.png
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star2_empty.png
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star2.png
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star-silver.png
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star-silver1.png
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/optimized/Stars/star-silver2.png

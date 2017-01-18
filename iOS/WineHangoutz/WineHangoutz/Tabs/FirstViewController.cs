@@ -15,6 +15,9 @@ namespace WineHangoutz
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+
+
 			// Perform any additional setup after loading the view, typically from a nib.
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
@@ -69,13 +72,20 @@ namespace WineHangoutz
 			};
 			btnSec.TouchUpInside += (sender, e) => { 
 				//NavigationController.PushViewController(new SKUDetailView(), false);
-				UIAlertView alert = new UIAlertView()
-				{
-					Title = "Secacaus Store",
-					Message = "Comming Soon..."
-				};
-				alert.AddButton("OK");
-				alert.Show();
+				//UIAlertView alert = new UIAlertView()
+				//{
+				//	Title = "Secacaus Store",
+				//	Message = "Comming Soon..."
+				//};
+				//alert.AddButton("OK");
+				//alert.Show();
+
+				LoginViewController yourController = new LoginViewController();
+				//yourController.NavController = NavigationController;
+				//yourController.parent = this;
+				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+				this.PresentModalViewController(yourController, false);
+
 			};
 
 			btnPP.TouchUpInside += (sender, e) =>
@@ -113,6 +123,21 @@ namespace WineHangoutz
 			base.ViewDidAppear(animated);
 			//NavigationController.Title = "Locations";
 			NavigationController.NavigationBar.TopItem.Title = "Locations";
+
+
+			//Login Check Start
+			//user.Clear();
+			string validUser = CurrentUser.RetreiveUserName();
+			if (validUser == "" || validUser == null)
+			{
+				LoginViewController yourController = new LoginViewController();
+				yourController.nav = NavigationController;
+				yourController.root = this;
+				yourController.ModalPresentationStyle = UIModalPresentationStyle.FormSheet;
+				this.PresentModalViewController(yourController, false);
+			}
+			//Login Check End
+
 		}
 	}
 }
