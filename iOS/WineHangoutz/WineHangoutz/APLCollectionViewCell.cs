@@ -142,9 +142,9 @@ namespace WineHangoutz {
 			lblRegPrice.Font = UIFont.FromName("Verdana", 13f);
 			lblRegPrice.TextAlignment = UITextAlignment.Center;
 
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver1.png"),
-						filledImage: UIImage.FromBundle("Stars/star-silver.png"),
-						chosenImage: UIImage.FromBundle("Stars/star-silver.png"));
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
+						filledImage: UIImage.FromBundle("Stars/star-silver2.png"),
+						chosenImage: UIImage.FromBundle("Stars/star-silver2.png"));
 
 			ratingView = new PDRatingView(new CGRect(Bounds.Width * 1 / 4, Bounds.Height - 40, Bounds.Width / 2, 14f), ratingConfig, averageRating);
 			ratingView.UserInteractionEnabled = false;

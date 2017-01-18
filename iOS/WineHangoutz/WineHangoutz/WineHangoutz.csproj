@@ -110,14 +110,14 @@
     <ImageAsset Include="Assets.xcassets\Second.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Second.imageset\vector.pdf" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo58.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo87.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo80.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo120.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo114.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\logo180.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29X29.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57X57.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58X58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87X87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80X80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120X120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\114X114.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180X180.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
