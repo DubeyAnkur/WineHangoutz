@@ -232,7 +232,9 @@
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:layout_column="0"
-                    android:id="@+id/listView2" />
+                    android:id="@+id/listView2"
+                    android:divider="#FFCC00"
+                    android:dividerHeight="4px"/>
             </TableRow>
         </TableLayout>
     </LinearLayout>

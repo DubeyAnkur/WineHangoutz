@@ -84,7 +84,9 @@
                 android:layout_weight="1"
                 android:layout_height="1dp"
                 android:background="#919695"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                 android:paddingLeft="0.5px"
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,7 +137,8 @@
                 android:id="@+id/txtPrice"
                 android:textColor="@android:color/holo_purple"
                 android:textStyle="bold"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"/>
         </TableRow>
     </TableLayout>
 </LinearLayout>

@@ -100,8 +100,8 @@
         android:hint="Rate The Wine"
         android:layout_height="100dp"
         android:id="@+id/txtReviewComments"
-        android:background="#0000ff"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:background="#ffffff" />
     <Button
         android:text="Submit"
         android:layout_width="match_parent"
