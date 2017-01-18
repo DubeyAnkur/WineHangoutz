@@ -60,6 +60,7 @@ namespace WineHangouts
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.textView67);
             ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
             ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
+            ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
             edit.SetScaleType(ImageView.ScaleType.Center);
             delete.SetScaleType(ImageView.ScaleType.Center);
@@ -70,11 +71,14 @@ namespace WineHangouts
                 PerformItemClick(sender, args, position, 5757);
             };
             delete.Click += Delete_Click;
+            txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;
             txtDescription.Text = myItems[position].RatingText;
             txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
+            wineimage.SetImageResource(Resource.Drawable.wine7);
+            wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
             //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
 

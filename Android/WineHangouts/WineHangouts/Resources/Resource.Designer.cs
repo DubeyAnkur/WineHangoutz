@@ -75,7 +75,7 @@ namespace WineHangouts
 			public const int Icon = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int logo = 2130837514;
+			public const int Icon2 = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
 			public const int placeholder = 2130837515;
@@ -154,9 +154,6 @@ namespace WineHangouts
 			
 			// aapt resource value: 0x7f020024
 			public const int wine_review = 2130837540;
-			
-			// aapt resource value: 0x7f020025
-			public const int wine_review_70 = 2130837541;
 			
 			static Drawable()
 			{

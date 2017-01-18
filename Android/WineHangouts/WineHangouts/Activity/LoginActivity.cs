@@ -13,7 +13,7 @@ using Android.Widget;
 namespace WineHangouts
 
 {
-    [Activity(Label = "WineHangouts",MainLauncher =true)]
+    [Activity(Label = "WineHangouts",MainLauncher =true,Icon ="@drawable/Icon")]
     public class LoginActivity : Activity
 
     {
@@ -21,6 +21,7 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             Button cancel = FindViewById<Button>(Resource.Id.btnClearLL);

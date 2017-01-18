@@ -12,7 +12,7 @@ using System.Linq;
 namespace WineHangouts
 {
 
-    [Activity(Label = "HelloGridView", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "WineHagoutS", MainLauncher = false)]
     public class MainActivity : Activity
     {
         public string StoreName = "";
@@ -30,9 +30,9 @@ namespace WineHangouts
                 StoreId = 2;
             else
                 StoreId = 3;
-
+            int userId = 4;//just te
             ServiceWrapper sw = new ServiceWrapper();
-            var output = sw.GetItemList(StoreId).Result;
+            var output = sw.GetItemList(StoreId,userId).Result;
 
 
             SetContentView(Resource.Layout.Main);

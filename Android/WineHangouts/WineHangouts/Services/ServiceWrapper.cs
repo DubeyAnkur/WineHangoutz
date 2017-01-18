@@ -42,9 +42,9 @@ namespace WineHangouts
             return output;
         }
 
-        public async Task<ItemListResponse> GetItemList(int storeId)
+        public async Task<ItemListResponse> GetItemList(int storeId,int userId)
         {
-            var uri = new Uri(ServiceURL + "GetItemList/" + storeId);
+            var uri = new Uri(ServiceURL + "GetItemList?objectid=" + storeId+"&userid="+userId);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
             return output;
