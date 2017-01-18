@@ -12,30 +12,36 @@
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1">
         <TableRow
-            android:id="@+id/tableRow1">
-            <TextView
-                android:text="Text"
-                android:layout_column="0"
-                android:id="@+id/textView12" />
-            <TableRow
-                android:minWidth="25px"
-                android:minHeight="25px"
-                android:layout_column="1"
-                android:id="@+id/tableRow4">
-                <TextView
-                    android:text="Text"
-                    android:id="@+id/textView13"
-                    android:layout_gravity="right" />
-            </TableRow>
+            android:id="@+id/tableRow78"
+            android:gravity="center"
+            android:layout_margin="5px"
+            android:layout_width="match_parent">
+            <View
+                android:id="@+id/topDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ffffff"
+                android:layout_gravity="fill_horizontal" />
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow2">
-            <RatingBar
-                android:layout_column="0"
-                android:id="@+id/ratingBar1" />
+            android:id="@+id/tableRow78"
+            android:gravity="center"
+            android:layout_margin="10px"
+            android:minWidth="25px"
+            android:minHeight="25px">
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow3">
+            android:id="@+id/tableRow78"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_margin="4px">
+            <View
+                android:id="@+id/topDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ffffff"
+                android:paddingLeft="0.5px"
+                android:layout_gravity="fill_horizontal" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

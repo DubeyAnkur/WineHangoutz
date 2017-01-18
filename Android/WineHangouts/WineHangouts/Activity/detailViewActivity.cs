@@ -56,36 +56,36 @@ namespace WineHangouts
             //ReviewArray = SkuRating.Ratings.ToList();
             //setListViewHeightBasedOnChildren(detailView);
             setListViewHeightBasedOnChildren1(commentsView);
-            TextView TopName = FindViewById<TextView>(Resource.Id.textView6); //Assigning to respected Textfield
-            TextView TopBrand = FindViewById<TextView>(Resource.Id.textView7);
-            TextView TopVintage = FindViewById<TextView>(Resource.Id.textView8);
-            TextView WineDescription = FindViewById<TextView>(Resource.Id.textView36);
+            TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
+            WineName.Focusable = false;
+            WineName.Text = myData.ItemDetails.Name;
+            
+            TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
+            Vintage.Focusable = false;
+            Vintage.Text = myData.ItemDetails.Vintage.ToString();
+
+            TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
+            WineProducer.Focusable = false;
+            WineProducer.Text = myData.ItemDetails.Producer;
+
+            TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
+            WineDescription.Focusable = false;
+            WineDescription.Text = myData.ItemDetails.Description;
+
+            
+            
+            RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
+
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-            RatingBar rb = FindViewById<RatingBar>(Resource.Id.ratingBar1);
             ReviewPopup editPopup = new ReviewPopup(this);
             editPopup.SKU = sku;
-            rb.RatingBarChange += editPopup.CreatePopup;
-            //String x;
-            //rb.RatingBarChange += (o, e) =>
-            //{
-            //    Toast.MakeText(this, "You have selected " + rb.Rating.ToString() + " Stars", ToastLength.Short).Show();
-            //    x = rb.Rating.ToString();
-            //};
-          
+            RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
+            RatingInput.RatingBarChange += editPopup.CreatePopup;
+                      
             var metrics = Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            //ImageView iv = new ImageView(this);
-            //iv.LayoutParameters = new LinearLayout.LayoutParams(widthInDp, widthInDp);
-
-
-
-            ////ImageButton ib = FindViewById<ImageButton>(Resource.Id.imageButton1);
-            ////var pa = ib.LayoutParameters;
-            ////pa.Height = PixelsToDp(widthInDp);
-            ////pa.Width = PixelsToDp(widthInDp);
-            ////ib.SetImageResource(Resource.Drawable.wine1);
-
+           
             ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
             ImageView imgPlaceHolder =FindViewById<ImageView>(Resource.Id.placeholder1);
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
@@ -94,27 +94,7 @@ namespace WineHangouts
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
 
-            //placeholder.LayoutParameters = new TableRow.LayoutParams(heightInDp, widthInDp);
-            //tr5.Layout(0, 0, 100,100 );
-            //placeholder.Layout(0, 0, widthInDp, widthInDp);
-            //placeholder.LayoutParameters.Width = widthInDp;
-            //Java.Lang.ClassCastException: android.widget.TableLayout$LayoutParams cannot be cast to android.widget.TableRow$LayoutParams
-            //rb.NumStars = 5;
-            //placeholder.Visibility = ViewStates.Visible;
-            // iv.SetImageResource(Resource.Drawable.placeholder_bottiglia_lista);
-            //tr5.AddView(iv);
-            TopName.Focusable = false;
-            TopBrand.Focusable = false;
-            TopVintage.Focusable = false;
-            WineDescription.Focusable = false;
-            
-
-            //placeholder.Focusable = false;
-            TopName.Text = myData.ItemDetails.Name; //Assigning value
-            TopBrand.Text = arr1[1];
-            TopVintage.Text = myData.ItemDetails.Vintage.ToString();
-            WineDescription.Text = myData.ItemDetails.Description;
-           
+                      
 
             BitmapFactory.Options options = new BitmapFactory.Options
             {
@@ -130,35 +110,7 @@ namespace WineHangouts
             //placeholder.SetImageBitmap(result);
         }
 
-        //private void Rb_RatingBarChange(object sender, RatingBar.RatingBarChangeEventArgs e)
-        //{
-        //    Dialog editDialog = new Dialog(this);
-
-        //    //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
-        //    //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
-        //    editDialog.SetContentView(Resource.Layout.EditReviewPopup);
-        //    //editDialog.SetTitle();
-
-        //    ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton1);
-        //    ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.imageButton2);
-        //    TextView blanktxt = editDialog.FindViewById<TextView>(Resource.Id.textView2);
-        //    ibs.SetImageResource(Resource.Drawable.wine_review);
-        //    ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-
-        //    close.SetImageResource(Resource.Drawable.Close);
-        //    close.SetScaleType(ImageView.ScaleType.CenterCrop);
-
-        //    editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
-        //    editDialog.Show();
-
-
-        //    close.Click += delegate
-        //    {
-        //        editDialog.Dismiss();
-        //    };
-
-        //}
-        public override bool OnOptionsItemSelected(IMenuItem item)
+         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
