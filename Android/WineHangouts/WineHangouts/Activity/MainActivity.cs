@@ -30,7 +30,7 @@ namespace WineHangouts
                 StoreId = 2;
             else
                 StoreId = 3;
-            int userId = 4;//just te
+            int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId,userId).Result;
 

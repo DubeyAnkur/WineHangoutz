@@ -75,7 +75,8 @@ namespace WineHangouts
             
             
             RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
-
+            AvgRating.Focusable =false;
+            AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             ReviewPopup editPopup = new ReviewPopup(this);
             editPopup.SKU = sku;
