@@ -177,7 +177,7 @@ namespace WineHangouts
                 {
                   
                     Top.SetBackgroundResource(Resource.Drawable.sfondo_blog);
-                    Top.Text = "Blog";
+                    Top.Text = "My Profile";
                     //Top.SetTextColor(Color.Red);
 
                     Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
@@ -193,7 +193,7 @@ namespace WineHangouts
                     //param2.Height = PixelsToDp(160);
                     Top.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        var intent = new Intent(Activity, typeof(ProfileActivity));
                         StartActivity(intent);
                     };
                     Middle.Click += (sender, e) =>

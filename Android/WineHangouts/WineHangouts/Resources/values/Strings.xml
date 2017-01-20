@@ -2,4 +2,6 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">WineHangoutS</string>
+  <string name="openCamera">Click from camera</string>
+  <string name="openGallery">pick from gallery</string>
 </resources>
