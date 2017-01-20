@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Activity\BitmapHelpers.cs" />
     <Compile Include="Activity\ProfileActivity.cs" />
+    <Compile Include="Activity\ProfilePicturePickDialog.cs" />
     <Compile Include="Activity\TabActivity.cs" />
     <Compile Include="Activity\detailViewActivity.cs" />
     <Compile Include="Activity\DeleteReview.cs" />
@@ -92,6 +93,9 @@
     <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\login.axml" />
     <AndroidResource Include="Resources\layout\Profile.axml" />
+    <AndroidResource Include="Resources\layout\ProfilePickLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
