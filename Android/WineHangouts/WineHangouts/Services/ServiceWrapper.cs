@@ -115,5 +115,12 @@ namespace WineHangouts
             }
             return 1;
         }
+        public async Task<ItemDetailsResponse> GetItemFavsUID(int userId)
+        {
+            var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
+            return output;
+        }
     }
 }

@@ -141,11 +141,11 @@ namespace WineHangouts
                 {
                   
                     Top.SetBackgroundResource(Resource.Drawable.sfondo_mierecensioni);
-                    Top.Text = "My Tastings";
+                    Top.Text = "My Reviews";
                     Middle.SetBackgroundResource(Resource.Drawable.sfondo_nuoverecensioni);
-                    Middle.Text = "New Tastings";
+                    Middle.Text = "My Tastings";
                     Bottom.SetBackgroundResource(Resource.Drawable.sfondo_topvini);
-                    Bottom.Text = "Top Wines";
+                    Bottom.Text = "My Favorite";
                     //var param = Top.LayoutParameters;
                     //var param1 = Middle.LayoutParameters;
                     //var param2 = Bottom.LayoutParameters;
@@ -155,22 +155,22 @@ namespace WineHangouts
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
-                       
+                        intent.PutExtra("MyData", "My Reviews");
                         StartActivity(intent);
                     };
                     Middle.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
-                       
+                        intent.PutExtra("MyData", "My Tastings");
                         StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(TastingActivity));
-                       
+                        var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
+                        intent.PutExtra("MyData", "My Favorite");
                         StartActivity(intent);
                     };
-                 
+
                     //};
                 }
                 if (tabName == "EXPLORE")
