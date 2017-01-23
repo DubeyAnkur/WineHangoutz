@@ -65,11 +65,15 @@ namespace WineHangouts
             {
                 CreateDirectoryForPictures();
 
-                Button button = FindViewById<Button>(Resource.Id.btnCamera);
+                ImageButton button = FindViewById<ImageButton>(Resource.Id.btnCamera);
+                button.SetImageResource(Resource.Drawable.camera);
+                button.SetScaleType(ImageView.ScaleType.CenterCrop);
                 _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
                 button.Click += TakeAPicture;
             }
-            Button btnGallery = FindViewById<Button>(Resource.Id.btnGallery);
+            ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.btnGallery);
+            btnGallery.SetImageResource(Resource.Drawable.Gallery);
+            btnGallery.SetScaleType(ImageView.ScaleType.CenterCrop);
             btnGallery.Click += delegate {
                 var imageIntent = new Intent();
                 imageIntent.SetType("image/*");

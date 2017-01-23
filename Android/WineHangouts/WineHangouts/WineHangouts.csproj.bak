@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,12 +43,12 @@
   <ItemGroup>
     <Reference Include="Hangouts.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
+      <HintPath>C:\Users\Savvy IT\Desktop\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\BitmapHelpers.cs" />
+    <Compile Include="Activity\MyFavoriteAvtivity.cs" />
+    <Compile Include="Activity\MyTastingActivity.cs" />
     <Compile Include="Activity\ProfileActivity.cs" />
     <Compile Include="Activity\ProfilePicturePickDialog.cs" />
     <Compile Include="Activity\TabActivity.cs" />
@@ -73,6 +75,8 @@
     <Compile Include="Adapters\DetailsViewAdapter.cs" />
     <Compile Include="Adapters\GridViewAdapter.cs" />
     <Compile Include="Adapters\ListViewAdapter.cs" />
+    <Compile Include="Adapters\MyFavoriteAdapter.cs" />
+    <Compile Include="Adapters\MyTastingAdapter.cs" />
     <Compile Include="Adapters\reviewAdapter.cs" />
     <Compile Include="Adapters\TastingAdapter.cs" />
     <Compile Include="Classes\Wine.cs" />
@@ -94,6 +98,14 @@
     <AndroidResource Include="Resources\layout\login.axml" />
     <AndroidResource Include="Resources\layout\Profile.axml" />
     <AndroidResource Include="Resources\layout\ProfilePickLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MyFavorite.axml" />
+    <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
+    <AndroidResource Include="Resources\layout\MyTastingView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MyTasting.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Resources\layout\ReviewPopup.axml" />

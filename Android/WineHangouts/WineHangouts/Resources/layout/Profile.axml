@@ -2,32 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-  <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-    
-    <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/propicview"
-        android:adjustViewBounds="true" />
-    <ImageButton
-        android:src="@android:drawable/ic_menu_gallery"
+    android:layout_height="fill_parent"
+    android:background="@android:color/background_light">
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnChangePropic" />
-  
-  </LinearLayout>
-  <LinearLayout
-     android:layout_width="fill_parent"
-      android:layout_height="fill_parent">
-  <FrameLayout
-     android:id="@+id/fragmentContainer1"
-     android:layout_width="match_parent"
-     android:layout_height="0dip"
-     android:layout_weight="1"
-     android:background="@android:color/white" />
-</LinearLayout>
+        android:id="@+id/relativeLayout1">
+        <ImageView
+            android:src="@android:drawable/ic_menu_gallery"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/propicview"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center" />
+        <ImageButton
+            android:src="@android:drawable/ic_menu_gallery"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:id="@+id/btnChangePropic"
+            android:layout_marginLeft="65dp"
+            android:layout_alignBottom="@+id/propicview" />
+        <TextView
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btnChangePropic"
+            android:id="@+id/txtUsername"
+            android:textColor="@android:color/holo_orange_light" />
+    </RelativeLayout>
 </LinearLayout>
