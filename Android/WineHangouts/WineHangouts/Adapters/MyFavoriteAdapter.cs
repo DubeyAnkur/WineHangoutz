@@ -52,47 +52,52 @@ namespace WineHangouts
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View gridView;
-            if (convertView == null)
-            {
-                gridView = new View(myContext);
-            gridView = LayoutInflater.From(myContext).Inflate(Resource.Layout.MyFavorite, null, false);
-                
-            }
-            else {
-                gridView = (View)convertView;
-            }
+            View row = convertView;
+            if (row == null)
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.MyFavorite, null, false);
+            else
+                return row;
 
-            TextView txtName = convertView.FindViewById<TextView>(Resource.Id.txtNamefav);
-            //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
-            TextView txtVintage = convertView.FindViewById<TextView>(Resource.Id.txtVintagefav);
-            //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
-            TextView txtPrice = convertView.FindViewById<TextView>(Resource.Id.txtPricefav);
-            ImageView imgWine = convertView.FindViewById<ImageView>(Resource.Id.imgWinefav);
-            RatingBar avgrating = convertView.FindViewById<RatingBar>(Resource.Id.rtbProductRatingfav);
-            ImageView imgPlaceHolder = convertView.FindViewById<ImageView>(Resource.Id.placeholdefavr);
-            ImageView heartImg = convertView.FindViewById<ImageView>(Resource.Id.imgHeartfav);
+          
+            TextView Name = row.FindViewById<TextView>(Resource.Id.txtNamefav);
+            TextView Vintage = row.FindViewById<TextView>(Resource.Id.txtVintagefav);
+            ImageView Wine = row.FindViewById<ImageView>(Resource.Id.imgWinefav);
+            TextView Price = row.FindViewById<TextView>(Resource.Id.txtPricefav);
+            RatingBar Avgrating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRatingfav);
+            ImageView place = row.FindViewById<ImageView>(Resource.Id.placeholdefavr);
+            ImageView Heart = row.FindViewById<ImageView>(Resource.Id.imgHeartfav);
+
+
+            //////TextView txtVintage1 = row.FindViewById<TextView>(Resource.Id.txtVintagefav);
+
+            //////TextView txtPrice1 = row.FindViewById<TextView>(Resource.Id.txtPricefav);
+            //////ImageView imgWine1 = row.FindViewById<ImageView>(Resource.Id.imgWinefav);
+            //////RatingBar avgrating1 = row.FindViewById<RatingBar>(Resource.Id.rtbProductRatingfav);
+            //////ImageView imgPlaceHolder1 = row.FindViewById<ImageView>(Resource.Id.placeholdefavr);
+            //////ImageView heartImg1 = row.FindViewById<ImageView>(Resource.Id.imgHeartfav);
             //RelativeLayout rel = row.FindViewById<RelativeLayout>(Resource.Id.relative);
             //var place11 = new RelativeLayout.LayoutParams(520, 620)
             //rel.LayoutParameters = place11;
             //rel.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
-            txtName.Text = myItems[position].Name;
+            //txtName1.Text = myItems[position].RegPrice.ToString();\
+            String str = "lokesh";
+            Name.Text = myItems[position].Name;
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
-            txtPrice.Text = myItems[position].RegPrice.ToString();
-            txtPrice.Text = "$ " + txtPrice.Text;
-            avgrating.Rating = (float)myItems[position].AverageRating;
-            txtVintage.Text = myItems[position].Vintage.ToString();
+            Price.Text = myItems[position].RegPrice.ToString();
+            Price.Text = "$ " + Price.Text;
+            Avgrating.Rating = (float)myItems[position].AverageRating;
+            Vintage.Text = myItems[position].Vintage.ToString();
             //heartImg.t = myItems[position].s;
 
-            heartImg.SetImageResource(Resource.Drawable.heart_empty);
+            Heart.SetImageResource(Resource.Drawable.heart_empty);
             var heartLP = new RelativeLayout.LayoutParams(80, 80);
 
             var metrics = myContext.Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
             heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
-            heartImg.LayoutParameters = heartLP;
+            Heart.LayoutParameters = heartLP;
 
 
 
@@ -102,25 +107,25 @@ namespace WineHangouts
             bool count = Convert.ToBoolean(myItems[position].IsLike);
             if (count == true)
             {
-                heartImg.SetImageResource(Resource.Drawable.heart_full);
+                Heart.SetImageResource(Resource.Drawable.heart_full);
             }
             else
             {
-                heartImg.SetImageResource(Resource.Drawable.heart_empty);
+                Heart.SetImageResource(Resource.Drawable.heart_empty);
             }
 
-            heartImg.Click += async delegate
+            Heart.Click += async delegate
             {
                 bool x;
                 if (count == false)
                 {
-                    heartImg.SetImageResource(Resource.Drawable.heart_full);
+                    Heart.SetImageResource(Resource.Drawable.heart_full);
                     x = true;
                     count = true;
                 }
                 else
                 {
-                    heartImg.SetImageResource(Resource.Drawable.heart_empty);
+                    Heart.SetImageResource(Resource.Drawable.heart_empty);
                     x = false;
                     count = false;
                 }
@@ -133,29 +138,30 @@ namespace WineHangouts
             };
 
 
-            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
-            imgWine.SetImageResource(Resource.Drawable.wine1);
-            var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
-            // var place = new RelativeLayout.LayoutParams(520, 620);
-            place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
-            imgWine.LayoutParameters = place;
-
+            place.SetImageResource(Resource.Drawable.placeholder);
+            Wine.SetImageResource(Resource.Drawable.wine1);
             var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+            // var place = new RelativeLayout.LayoutParams(520, 620);
             place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
-            imgPlaceHolder.LayoutParameters = place1;
+            Wine.LayoutParameters = place1;
+
+            var place2 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+            place2.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            place.LayoutParameters = place2;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 
 
-            txtName.Focusable = false;
+            //  txtName1.Focusable = false;
+            Name.Focusable = false;
             //txtRatings.Focusable = false;
             //txtUserRatings.Focusable = false;
-            txtVintage.Focusable = false;
-            txtPrice.Focusable = false;
-            imgWine.Focusable = false;
+            Vintage.Focusable = false;
+            Price.Focusable = false;
+            Wine.Focusable = false;
             
             NotifyDataSetChanged();
-            return gridView;
+            return row;
         }
 
         private Bitmap GetImageBitmapFromUrl(string url)

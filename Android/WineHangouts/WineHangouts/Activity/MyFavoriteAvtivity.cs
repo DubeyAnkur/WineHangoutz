@@ -31,7 +31,7 @@ namespace WineHangouts
                 StoreId = 3;
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
-            var output = sw.GetItemList(StoreId, userId).Result;
+            var output = sw.GetItemFavsUID(userId).Result;
 
 
             SetContentView(Resource.Layout.MyFavoriteGridView);
@@ -45,7 +45,7 @@ namespace WineHangouts
             var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
             //myArr = SampleData();
 
-            GridViewAdapter adapter = new GridViewAdapter(this, output.ItemList.ToList());
+            MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, output.ItemList.ToList());
             gridview.SetNumColumns(2);
             gridview.Adapter = adapter;
             //gridview.SetColumnWidth(1);
