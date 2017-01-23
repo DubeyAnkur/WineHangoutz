@@ -160,7 +160,7 @@ namespace WineHangouts
                     };
                     Middle.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        var intent = new Intent(Activity, typeof(MyTastingActivity));
                         intent.PutExtra("MyData", "My Tastings");
                         StartActivity(intent);
                     };

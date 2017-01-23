@@ -168,23 +168,41 @@ namespace WineHangouts
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060053
+			public const int AvgRating = 2131099731;
+			
+			// aapt resource value: 0x7f060054
+			public const int Date = 2131099732;
+			
+			// aapt resource value: 0x7f06004d
+			public const int MyTasting = 2131099725;
+			
+			// aapt resource value: 0x7f06004e
+			public const int SkuName = 2131099726;
+			
+			// aapt resource value: 0x7f060055
+			public const int TastingNotes = 2131099733;
+			
+			// aapt resource value: 0x7f060052
+			public const int Vintage = 2131099730;
+			
 			// aapt resource value: 0x7f06001f
 			public const int avgrating = 2131099679;
 			
 			// aapt resource value: 0x7f06003a
 			public const int btnBottom = 2131099706;
 			
-			// aapt resource value: 0x7f060052
-			public const int btnCamera = 2131099730;
+			// aapt resource value: 0x7f06005b
+			public const int btnCamera = 2131099739;
 			
-			// aapt resource value: 0x7f06004e
-			public const int btnChangePropic = 2131099726;
+			// aapt resource value: 0x7f060057
+			public const int btnChangePropic = 2131099735;
 			
 			// aapt resource value: 0x7f060042
 			public const int btnClearLL = 2131099714;
 			
-			// aapt resource value: 0x7f060051
-			public const int btnGallery = 2131099729;
+			// aapt resource value: 0x7f06005a
+			public const int btnGallery = 2131099738;
 			
 			// aapt resource value: 0x7f060041
 			public const int btnLoginLL = 2131099713;
@@ -210,8 +228,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060035
 			public const int fragmentContainer = 2131099701;
 			
-			// aapt resource value: 0x7f06004f
-			public const int fragmentContainer1 = 2131099727;
+			// aapt resource value: 0x7f060058
+			public const int fragmentContainer1 = 2131099736;
 			
 			// aapt resource value: 0x7f060043
 			public const int gridview = 2131099715;
@@ -222,14 +240,14 @@ namespace WineHangouts
 			// aapt resource value: 0x7f06000d
 			public const int imageButton2 = 2131099661;
 			
-			// aapt resource value: 0x7f060054
-			public const int imageButton3 = 2131099732;
-			
-			// aapt resource value: 0x7f060055
-			public const int imageButton4 = 2131099733;
+			// aapt resource value: 0x7f06004f
+			public const int imageButton3 = 2131099727;
 			
 			// aapt resource value: 0x7f060050
-			public const int imageView1 = 2131099728;
+			public const int imageButton4 = 2131099728;
+			
+			// aapt resource value: 0x7f060059
+			public const int imageView1 = 2131099737;
 			
 			// aapt resource value: 0x7f060005
 			public const int imgHeart = 2131099653;
@@ -255,8 +273,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060040
 			public const int linearLayoutBtns = 2131099712;
 			
-			// aapt resource value: 0x7f060053
-			public const int listView1 = 2131099731;
+			// aapt resource value: 0x7f06005c
+			public const int listView1 = 2131099740;
 			
 			// aapt resource value: 0x7f06002c
 			public const int listView2 = 2131099692;
@@ -270,8 +288,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f06001c
 			public const int placeholder1 = 2131099676;
 			
-			// aapt resource value: 0x7f06004d
-			public const int propicview = 2131099725;
+			// aapt resource value: 0x7f060056
+			public const int propicview = 2131099734;
 			
 			// aapt resource value: 0x7f060032
 			public const int rating = 2131099698;
@@ -315,8 +333,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060019
 			public const int tableRow3 = 2131099673;
 			
-			// aapt resource value: 0x7f060059
-			public const int tableRow4 = 2131099737;
+			// aapt resource value: 0x7f06005f
+			public const int tableRow4 = 2131099743;
 			
 			// aapt resource value: 0x7f06001b
 			public const int tableRow5 = 2131099675;
@@ -336,8 +354,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f06000c
 			public const int tableRow88 = 2131099660;
 			
-			// aapt resource value: 0x7f060056
-			public const int tableRow89 = 2131099734;
+			// aapt resource value: 0x7f060051
+			public const int tableRow89 = 2131099729;
 			
 			// aapt resource value: 0x7f06002b
 			public const int tableRow9 = 2131099691;
@@ -363,8 +381,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060037
 			public const int textView13 = 2131099703;
 			
-			// aapt resource value: 0x7f060058
-			public const int textView14 = 2131099736;
+			// aapt resource value: 0x7f06005e
+			public const int textView14 = 2131099742;
 			
 			// aapt resource value: 0x7f060021
 			public const int textView19 = 2131099681;
@@ -384,8 +402,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f06000f
 			public const int textView64 = 2131099663;
 			
-			// aapt resource value: 0x7f060057
-			public const int textView65 = 2131099735;
+			// aapt resource value: 0x7f06005d
+			public const int textView65 = 2131099741;
 			
 			// aapt resource value: 0x7f060014
 			public const int textView66 = 2131099668;
@@ -494,19 +512,25 @@ namespace WineHangouts
 			public const int MyFavoriteGridView = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int Profile = 2130903054;
+			public const int MyTasting = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int ProfilePickLayout = 2130903055;
+			public const int MyTastingView = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int Tasting = 2130903056;
+			public const int Profile = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int TastingListview = 2130903057;
+			public const int ProfilePickLayout = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int WinePropertiesCell = 2130903058;
+			public const int Tasting = 2130903058;
+			
+			// aapt resource value: 0x7f030013
+			public const int TastingListview = 2130903059;
+			
+			// aapt resource value: 0x7f030014
+			public const int WinePropertiesCell = 2130903060;
 			
 			static Layout()
 			{
