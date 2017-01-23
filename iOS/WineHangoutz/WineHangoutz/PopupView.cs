@@ -3,6 +3,7 @@ using UIKit;
 using CoreGraphics;
 using Foundation;
 using PatridgeDev;
+using Hangout.Models;
 
 namespace WineHangoutz
 {
@@ -14,6 +15,7 @@ namespace WineHangoutz
 		//Possible Inputss
 		public decimal StartsSelected;
 		public string Comments="";
+		public int SKU;
 
 		public PopupView() : base ()
 		{
@@ -101,8 +103,18 @@ namespace WineHangoutz
 			btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
 			this.View.AddSubview(btnSave);
-			btnSave.TouchUpInside += (sender, e) =>
+			btnSave.TouchUpInside += async (sender, e) =>
 			{
+				ServiceWrapper sw = new ServiceWrapper();
+				Review review = new Review();
+				review.ReviewDate = DateTime.Now;
+				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				review.RatingText = "";
+				review.IsActive = true;
+				review.SKU = SKU;
+
+				await sw.InsertUpdateReview(review);
+
 				NavController.DismissViewController(true, null);
 				//Save Service Call.
 				//txtComments

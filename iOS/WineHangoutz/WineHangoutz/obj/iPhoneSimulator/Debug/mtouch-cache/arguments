@@ -37,9 +37,9 @@
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Net.Http.dll \
 	-r \
-	/Users/ankurdubey/Projects/Services/Hangouts.Models/bin/Debug/Hangouts.Models.dll \
-	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/Components/xamarin.auth-1.2.3.1/lib/ios-unified/Xamarin.Auth.iOS.dll \
+	-r \
+	/Users/ankurdubey/Projects/Services/Hangouts.Models/bin/Debug/Hangouts.Models.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
 	-r \
@@ -47,9 +47,9 @@
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Newtonsoft.Json.7.0.1/lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll \
 	-r \
-	/Users/ankurdubey/Projects/Services/Hangouts.Models/bin/Debug/Hangouts.Models.dll \
-	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/Components/xamarin.auth-1.2.3.1/lib/ios-unified/Xamarin.Auth.iOS.dll \
+	-r \
+	/Users/ankurdubey/Projects/Services/Hangouts.Models/bin/Debug/Hangouts.Models.dll \
 	--target-framework \
 	"Xamarin.iOS,v1.0" \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug//WineHangoutz.exe \

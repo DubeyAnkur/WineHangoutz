@@ -13,6 +13,7 @@ namespace WineHangoutz
 
 		public ItemListResponse myData;
 		public int storeId = 2;
+		public int userId = 2;
         public PhyCollectionView (UICollectionViewLayout layout, int StoreId) : base (layout)
         {
 			storeId = StoreId;
@@ -23,8 +24,9 @@ namespace WineHangoutz
 			base.ViewDidLoad();
 
 			//Uncomment below lines once services are fixed.
+
 			ServiceWrapper svc = new ServiceWrapper();
-			myData = svc.GetItemList(storeId).Result;
+			myData = svc.GetItemList(storeId,userId).Result;
 			//View.BackgroundColor = UIColor.White;
 			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 			this.CollectionView.BackgroundColor = UIColor.White;

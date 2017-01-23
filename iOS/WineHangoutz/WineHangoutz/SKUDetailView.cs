@@ -94,8 +94,8 @@ namespace WineHangoutz
 
 		public UIView GetViewForSKUCell(nint index)
 		{
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver1.png"),
-												filledImage: UIImage.FromBundle("Stars/star-silver.png"),
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
+												filledImage: UIImage.FromBundle("Stars/star-silver1.png"),
 												chosenImage: UIImage.FromBundle("Stars/star-silver.png"));
 
 			UIView vw = new UIView();
