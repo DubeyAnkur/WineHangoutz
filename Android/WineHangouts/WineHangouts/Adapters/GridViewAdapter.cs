@@ -51,8 +51,8 @@ namespace WineHangouts
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.cell, null, false);
-            else
-                return row;
+            //else
+            //    return row;
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.txtName);
             //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
@@ -97,30 +97,31 @@ namespace WineHangouts
             {
                 heartImg.SetImageResource(Resource.Drawable.heart_empty);
             }
-
-            heartImg.Click += async delegate
-             {
-                 bool x;
-                 if (count == false)
-                 {
-                     heartImg.SetImageResource(Resource.Drawable.heart_full);
-                     x = true;
-                     count = true;
-                 }
-                 else
-                 {
-                     heartImg.SetImageResource(Resource.Drawable.heart_empty);
-                     x = false;
-                     count = false;
-                 }
-                 SKULike like = new SKULike();
-                 like.UserID = Convert.ToInt32(CurrentUser.getUserId());
-                 like.SKU = Convert.ToInt32(myItems[position].SKU);
-                 like.Liked = x;
-                 ServiceWrapper sw = new ServiceWrapper();
-                 await sw.InsertUpdateLike(like);
-             };
-
+            if (convertView == null)
+            {
+                heartImg.Click += async delegate
+                {
+                    bool x;
+                    if (count == false)
+                    {
+                        heartImg.SetImageResource(Resource.Drawable.heart_full);
+                        x = true;
+                        count = true;
+                    }
+                    else
+                    {
+                        heartImg.SetImageResource(Resource.Drawable.heart_empty);
+                        x = false;
+                        count = false;
+                    }
+                    SKULike like = new SKULike();
+                    like.UserID = Convert.ToInt32(CurrentUser.getUserId());
+                    like.SKU = Convert.ToInt32(myItems[position].SKU);
+                    like.Liked = x;
+                    ServiceWrapper sw = new ServiceWrapper();
+                    await sw.InsertUpdateLike(like);
+                };
+            }
 
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
