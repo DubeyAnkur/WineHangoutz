@@ -20,7 +20,7 @@ using System.IO;
 
 namespace WineHangouts
 { 
-    [Activity(Label = "ProfileActivity")]
+    [Activity(Label = "Profile")]
     public class ProfileActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -33,7 +33,6 @@ namespace WineHangouts
             ///var imageBitmap = GetImageBitmapFromUrl("http://xamarin.com/resources/design/home/devices.png");
             //propicimage.SetImageBitmap(imageBitmap);
             propicimage.SetImageResource(Resource.Drawable.user);
-            TextView Username = FindViewById<TextView>(Resource.Id.txtUsername);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
             changepropic.SetImageResource(Resource.Drawable.dpreplacer);
             changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
@@ -42,9 +41,14 @@ namespace WineHangouts
                 Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
                 StartActivity(intent);
             };
-            TextView username = FindViewById<TextView>(Resource.Id.txtUsername);
-            String user = "Development Savvyitsol";
-            username.Text = user;
+            string[] user_data = new string[] { "Development Savvy",
+                                           "1234567891 ",
+                                           "2011",
+                                          " card no" };
+            EditText username = FindViewById<EditText>(Resource.Id.txtProfileName);
+            username.Text = user_data[0];
+            //TextView CardNo = FindViewById<TextView>(Resource.Id.txtCardNo);
+            //CardNo.Text = user_data[1];
             //ActionBar.Tab tab = ActionBar.NewTab();
 
             //tab.SetIcon(Resource.Drawable.user);

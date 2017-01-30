@@ -7,27 +7,15 @@
     android:minHeight="40px"
     android:background="#e6f9ff">
     <TextView
-        android:id="@+id/titleLogin"
-        android:layout_height="57.0dp"
-        android:layout_width="match_parent"
-        android:text="Hi!"
-        android:textSize="25dp"
-        android:textColor="#FFFFFF"
-        android:paddingTop="4dp"
-        android:background="#33cfff"
-        android:typeface="sans"
-        android:textStyle="bold"
-        android:gravity="center" />
-    <TextView
         android:id="@+id/lblUsername"
         android:layout_below="@+id/titleLogin"
         android:layout_height="wrap_content"
-        android:layout_width="170dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:text="Username"
+        android:text="Enter Your Name"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="23dp"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:typeface="sans" />
@@ -38,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginLeft="20.0dp"
-        android:hint="Username"
+        android:hint="Enter your name here"
         android:textColor="@android:color/black"
         android:paddingLeft="5dp"
         android:paddingTop="1dp"
@@ -53,12 +41,12 @@
         android:id="@+id/lblPassword"
         android:layout_below="@+id/txtUsername"
         android:layout_height="wrap_content"
-        android:layout_width="170dp"
+        android:layout_width="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="Password"
+        android:text="Enter Mobile No/Card No/Email ID"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="23dp"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:typeface="sans" />
@@ -69,7 +57,7 @@
         android:layout_height="30.5dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
-        android:hint="Password"
+        android:hint="Enter here"
         android:textColor="@android:color/black"
         android:paddingLeft="5dp"
         android:paddingTop="1dp"
@@ -89,35 +77,67 @@
         android:layout_marginBottom="20dp">
         <Button
             android:id="@+id/btnLoginLL"
-            android:layout_width="175.0dp"
+            android:layout_width="178.0dp"
             android:layout_height="35dp"
             android:textSize="25dp"
             android:text="Login"
             android:typeface="sans"
             android:background="#33cfff"
+            android:layout_marginLeft="20dp"
             android:textColor="#ffffffff"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="5dp" />
-        <Button
-            android:id="@+id/btnClearLL"
-            android:layout_width="178.0dp"
-            android:layout_height="35dp"
-            android:textSize="25dp"
-            android:text="Cancel"
-            android:typeface="sans"
-            android:background="#33cfff"
-            android:layout_marginLeft="5dp"
-            android:textColor="#ffffffff"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="5dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutBtns"
+        android:layout_below="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="20dp">
         <TextView
-            android:text="Text"
-            android:layout_width="0.0dp"
-            android:layout_height="120.5dp"
+            android:text="Instructions"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/textView1"
-            android:layout_marginTop="0.0dp"
-            android:layout_marginBottom="93.0dp" />
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutBtns"
+        android:layout_below="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:text="*Please enter registered mobile number only"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutBtns"
+        android:layout_below="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:text="*Please enter registered email id only"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="55dp" />
     </LinearLayout>
 </RelativeLayout>

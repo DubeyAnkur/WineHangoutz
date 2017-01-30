@@ -24,9 +24,9 @@ namespace WineHangouts
             
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
-            Button cancel = FindViewById<Button>(Resource.Id.btnClearLL);
+            //Button cancel = FindViewById<Button>(Resource.Id.btnClearLL);
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
-            EditText password = FindViewById<EditText>(Resource.Id.txtPassword);
+            //EditText password = FindViewById<EditText>(Resource.Id.txtPassword);
             ServiceWrapper svc = new ServiceWrapper();
             //int authen = svc.AuthencateUser(username.Text).Result;
             //username.Text = CurrentUser.getUserName();

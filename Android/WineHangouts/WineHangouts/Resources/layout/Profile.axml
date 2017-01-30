@@ -25,13 +25,36 @@
             android:id="@+id/btnChangePropic"
             android:layout_marginLeft="65dp"
             android:layout_alignBottom="@+id/propicview" />
-        <TextView
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+    </RelativeLayout>
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2"
+        android:layout_alignBottom="@+id/relativeLayout1">
+        <EditText
+            android:id="@+id/txtProfileName"
+            android:layout_below="@+id/lblPassword"
+            android:inputType="text"
+            android:layout_height="30.5dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:paddingLeft="5dp"
+            android:paddingTop="1dp"
+            android:textSize="25dp"
+            android:paddingBottom="1dp"
+            android:typeface="sans"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4.0dp"
+            android:layout_marginBottom="4dp"
+            android:textColorHint="#aaa" />
+        <Button
+            android:text="Save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnChangePropic"
-            android:id="@+id/txtUsername"
-            android:textColor="@android:color/holo_orange_light" />
+            android:layout_toRightOf="@id/txtProfileName"
+            android:id="@+id/save" />
     </RelativeLayout>
 </LinearLayout>
