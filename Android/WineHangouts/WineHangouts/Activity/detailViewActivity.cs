@@ -90,7 +90,7 @@ namespace WineHangouts
             ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
             ImageView imgPlaceHolder =FindViewById<ImageView>(Resource.Id.placeholder1);
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
-            imgWine.SetImageResource(Resource.Drawable.wine1);
+            imgWine.SetImageResource(Resource.Drawable.finca1);
             imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 

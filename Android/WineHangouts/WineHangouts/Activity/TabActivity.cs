@@ -194,16 +194,19 @@ namespace WineHangouts
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(ProfileActivity));
+                        intent.PutExtra("MyData", "My Profile");
                         StartActivity(intent);
                     };
                     Middle.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(TastingActivity));
+                        intent.PutExtra("MyData", "Wineries");
                         StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        var intent = new Intent(Activity, typeof(PotraitActivity));
+                        intent.PutExtra("MyData", "Regions");
                         StartActivity(intent);
                     };
                 }

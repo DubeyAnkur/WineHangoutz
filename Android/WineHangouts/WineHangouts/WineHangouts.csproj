@@ -59,8 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\BitmapHelpers.cs" />
+    <Compile Include="Activity\LocationItems.cs" />
     <Compile Include="Activity\MyFavoriteAvtivity.cs" />
     <Compile Include="Activity\MyTastingActivity.cs" />
+    <Compile Include="Activity\PotraitActivity.cs" />
     <Compile Include="Activity\ProfileActivity.cs" />
     <Compile Include="Activity\ProfilePicturePickDialog.cs" />
     <Compile Include="Activity\TabActivity.cs" />
@@ -75,8 +77,10 @@
     <Compile Include="Adapters\DetailsViewAdapter.cs" />
     <Compile Include="Adapters\GridViewAdapter.cs" />
     <Compile Include="Adapters\ListViewAdapter.cs" />
+    <Compile Include="Adapters\LocationAdapter.cs" />
     <Compile Include="Adapters\MyFavoriteAdapter.cs" />
     <Compile Include="Adapters\MyTastingAdapter.cs" />
+    <Compile Include="Adapters\PotraitAdapter.cs" />
     <Compile Include="Adapters\reviewAdapter.cs" />
     <Compile Include="Adapters\TastingAdapter.cs" />
     <Compile Include="Classes\Wine.cs" />
@@ -108,6 +112,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MyTasting.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Potrait.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PotraitListView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Resources\layout\ReviewPopup.axml" />
@@ -271,6 +281,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Gallery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\finca1.30.JPG" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
