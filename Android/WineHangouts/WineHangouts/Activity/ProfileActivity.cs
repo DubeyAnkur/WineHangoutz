@@ -50,13 +50,33 @@ namespace WineHangouts
             EditText Lastname = FindViewById<EditText>(Resource.Id.txtLastName);
             Lastname.Text = output.customer.LastName;
             EditText Mobilenumber = FindViewById<EditText>(Resource.Id.txtMobileNumber);
-            Mobilenumber.Text = output.customer.PhoneNumber;
+            string phno1 = output.customer.PhoneNumber;
+            string phno2 = output.customer.Phone2;
+            if (phno1 != null)
+            {
+                Mobilenumber.Text = phno1;
+            }
+            else
+            Mobilenumber.Text = phno2;
             EditText Email = FindViewById<EditText>(Resource.Id.txtEmail);
             Email.Text = output.customer.Email;
-            EditText Addres = FindViewById<EditText>(Resource.Id.txtAddress);
+            EditText Address = FindViewById<EditText>(Resource.Id.txtAddress);
             string Addres2 = output.customer.Address2;
             string Addres1 = output.customer.Address1;           
-            Addres.Text=string.Concat(Addres1, Addres2);
+            Address.Text=string.Concat(Addres1, Addres2);
+            //Button update = FindViewById<Button>(Resource.Id.insert);
+            ImageButton updatebtn = FindViewById<ImageButton>(Resource.Id.UpdateButton);
+            updatebtn.SetImageResource(Resource.Drawable.Update);
+            updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
+            updatebtn.Click += async delegate
+            {
+                Customer customer = new Customer();
+                customer.FirstName = Firstname.Text;
+                customer.LastName = Lastname.Text;
+                customer.PhoneNumber = Mobilenumber.Text;
+                customer.Address1 = Address.Text;
+                await sw.UpdateCustomer(customer);
+            };
         }
         
     }
