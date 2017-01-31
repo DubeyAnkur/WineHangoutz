@@ -20,29 +20,29 @@ namespace WineHangoutz
 			ScreenHeight = (ScreenHeight - 100) / 3;
 			nfloat margin = 1;
 			nfloat start = 50;
-			UIButton btnMy = new UIButton();
-			UIButton btnNew = new UIButton();
-			UIButton btnTop = new UIButton();
+			UIButton btnReviews = new UIButton();
+			UIButton btnTastings = new UIButton();
+			UIButton btnFavourites = new UIButton();
 
-			btnMy.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnNew.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnTop.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnMy.SetTitle("My Tasting", UIControlState.Normal);
-			btnNew.SetTitle("New Tasting", UIControlState.Normal);
-			btnTop.SetTitle("Top Wines", UIControlState.Normal);
-			btnMy.SetBackgroundImage(new UIImage("Images/My.png"), UIControlState.Normal);
-			btnNew.SetBackgroundImage(new UIImage("Images/New.jpg"), UIControlState.Normal);
-			btnTop.SetBackgroundImage(new UIImage("Images/Top.jpg"), UIControlState.Normal);
+			btnReviews.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+			btnTastings.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+			btnFavourites.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+			btnReviews.SetTitle("My Reviews", UIControlState.Normal);
+			btnTastings.SetTitle("My Tastings", UIControlState.Normal);
+			btnFavourites.SetTitle("My Favourites", UIControlState.Normal);
+			btnReviews.SetBackgroundImage(new UIImage("Images/My.png"), UIControlState.Normal);
+			btnTastings.SetBackgroundImage(new UIImage("Images/New.jpg"), UIControlState.Normal);
+			btnFavourites.SetBackgroundImage(new UIImage("Images/Top.jpg"), UIControlState.Normal);
 
-			btnMy.TouchUpInside += (sender, e) =>
+			btnReviews.TouchUpInside += (sender, e) =>
 			{
 				var MyTaste = new MyTastingViewController();
 				NavigationController.PushViewController(MyTaste, false);
 			};
 
-			View.AddSubview(btnMy);
-			View.AddSubview(btnNew);
-			View.AddSubview(btnTop);
+			View.AddSubview(btnReviews);
+			View.AddSubview(btnTastings);
+			View.AddSubview(btnFavourites);
 		}
 
 		public override void DidReceiveMemoryWarning()

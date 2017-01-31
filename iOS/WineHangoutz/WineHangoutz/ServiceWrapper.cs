@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Hangout.Models;
-using System.Text;
 
 namespace WineHangoutz
 {
@@ -43,9 +42,9 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemListResponse> GetItemList(int storeId ,int userId)
+		public async Task<ItemListResponse> GetItemList(int storeId, int userId)
 		{
-			var uri = new Uri(ServiceURL + "GetItemList?objectid=" + storeId + "&userId=" + userId);
+			var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 			var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
 			return output;
@@ -66,8 +65,8 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateLike/");
 				var content = JsonConvert.SerializeObject(skuLike);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-				//var result = response.Content.ReadAsStringAsync().Result;
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+																  //var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)
 			{
@@ -84,7 +83,7 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemReviewResponse> GetItemRatingsSKU(int sku)
+		public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
 		{
 			var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
@@ -92,7 +91,7 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemReviewResponse> GetItemRatingsUID(int userId)
+		public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
 		{
 			var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
@@ -107,14 +106,21 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateReview/");
 				var content = JsonConvert.SerializeObject(review);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-				//var result = response.Content.ReadAsStringAsync().Result;
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+																  //var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)
 			{
 				throw ex;
 			}
 			return 1;
+		}
+		public async Task<ItemListResponse> GetItemFavsUID(int userId)
+		{
+			var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+			return output;
 		}
 	}
 }

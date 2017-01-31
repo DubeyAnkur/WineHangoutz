@@ -109,7 +109,7 @@ namespace WineHangoutz
 				Review review = new Review();
 				review.ReviewDate = DateTime.Now;
 				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-				review.RatingText = "";
+				review.RatingText = txtComments.Text;
 				review.IsActive = true;
 				review.SKU = SKU;
 
