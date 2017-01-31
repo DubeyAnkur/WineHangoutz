@@ -71,20 +71,17 @@ namespace WineHangoutz
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 			};
 			btnSec.TouchUpInside += (sender, e) => { 
-				//NavigationController.PushViewController(new SKUDetailView(), false);
-				//UIAlertView alert = new UIAlertView()
-				//{
-				//	Title = "Secacaus Store",
-				//	Message = "Comming Soon..."
-				//};
-				//alert.AddButton("OK");
-				//alert.Show();
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Secacaus Store",
+					Message = "Comming Soon..."
+				};
+				alert.AddButton("OK");
+				alert.Show();
 
-				LoginViewController yourController = new LoginViewController();
-				//yourController.NavController = NavigationController;
-				//yourController.parent = this;
-				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-				this.PresentModalViewController(yourController, false);
+				//LoginViewController yourController = new LoginViewController();
+				//yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+				//this.PresentModalViewController(yourController, false);
 
 			};
 
