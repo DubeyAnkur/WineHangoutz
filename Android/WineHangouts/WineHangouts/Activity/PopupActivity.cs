@@ -112,10 +112,15 @@ namespace WineHangouts
                 review.IsActive = true;
                 review.SKU = SKU;
                 await sw.InsertUpdateReview(review);
+                
                 editDialog.Dismiss();
+                
             };
 
         }
+
+      
+
         public void EditPopup(object sender, EventArgs e)
         {
             Dialog editDialog = new Dialog(Parent);

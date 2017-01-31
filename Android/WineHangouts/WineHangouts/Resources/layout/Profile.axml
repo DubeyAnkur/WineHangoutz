@@ -125,7 +125,8 @@
     </TableLayout>
   <ImageButton
         android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
         android:id="@+id/UpdateButton" />
 </LinearLayout>

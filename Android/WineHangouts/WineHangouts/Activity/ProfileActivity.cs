@@ -28,6 +28,8 @@ namespace WineHangouts
             base.OnCreate(bundle);
             //ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             SetContentView(Resource.Layout.Profile);
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
             int userId = Convert.ToInt32(CurrentUser.getUserId()); ;
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetCustomerDetails(userId).Result;
@@ -78,7 +80,16 @@ namespace WineHangouts
                 await sw.UpdateCustomer(customer);
             };
         }
-        
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Android.Resource.Id.Home)
+            {
+                base.OnBackPressed();
+                return false;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
     }
    
 }
