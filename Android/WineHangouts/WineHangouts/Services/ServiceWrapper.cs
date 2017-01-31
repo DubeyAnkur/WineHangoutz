@@ -115,11 +115,34 @@ namespace WineHangouts
             }
             return 1;
         }
+        public async Task<int> UpdateCustomer(Customer customer)
+        {
+            try
+            {
+                var uri = new Uri(ServiceURL + "UpdateCustomer/");
+                var content = JsonConvert.SerializeObject(customer);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+                //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 1;
+        }
         public async Task<ItemListResponse> GetItemFavsUID(int userId)
         {
             var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+            return output;
+        }
+        public async Task<CustomerResponse> GetCustomerDetails(int userID)
+        {
+            var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
             return output;
         }
     }

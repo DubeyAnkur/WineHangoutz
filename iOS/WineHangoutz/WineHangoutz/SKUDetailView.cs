@@ -62,7 +62,7 @@ namespace WineHangoutz
 			data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
 
 			ServiceWrapper sw = new ServiceWrapper();
-			ItemReviewResponse ratings = sw.GetItemRatingsSKU(Convert.ToInt32(data.SKU)).Result;
+			ItemReviewResponse ratings = sw.GetItemReviewSKU(Convert.ToInt32(data.SKU)).Result;
 			data.Reviews = ratings.Reviews.ToList();
 			//var review1 = new Rating();
 			//review1.RatingText = "Comments";

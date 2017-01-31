@@ -5,6 +5,7 @@ using PatridgeDev;
 using CoreGraphics;
 using System.Collections.Generic;
 using Hangout.Models;
+using System.Linq;
 
 namespace WineHangoutz
 {
@@ -23,28 +24,23 @@ namespace WineHangoutz
 			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
 			//List<Reviews> tableItems = new List<Reviews>();>
 
-			List<Rating> tableItems = new List<Rating>();
-			var review = new Rating();
-			review.RatingStars = 4.0m;
-			review.Country = "France";
-			review.Date = DateTime.Now;
-			review.Name = "Amarcord D'un Ross";
-			review.RatingText = "Seems like a good wine. I opened it two hours before serving. It was deep ruby red in color.";
-			review.Vintage = "2014";
-			tableItems.Add(review);
-			TableView.Source = new MyTastingTableSource(tableItems, NavigationController, this);
+			ServiceWrapper svc = new ServiceWrapper();
+			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+			var myData = svc.GetItemReviewUID(userId).Result;
+
+			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
 		}
     }
 
 	public class MyTastingTableSource : UITableViewSource
 	{
 
-		List<Rating> TableItems;
+		List<Review> TableItems;
 		string CellIdentifier = "TableCell";
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyTastingTableSource(List<Rating>  items, UINavigationController NavigationController, UIViewController parent)
+		public MyTastingTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -59,7 +55,7 @@ namespace WineHangoutz
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			MyTastingCellView cell = tableView.DequeueReusableCell(CellIdentifier) as MyTastingCellView;
-			Rating item = TableItems[indexPath.Row];
+			Review item = TableItems[indexPath.Row];
 
 
 			//---- if there are no cells to reuse, create a new one
@@ -92,6 +88,7 @@ namespace WineHangoutz
 		PDRatingView stars;
 		UIButton btnEdit;
 		UIButton btnDelete;
+		UILabel SKU;
 
 		public UINavigationController NavController;
 		public UIViewController Parent;
@@ -129,7 +126,7 @@ namespace WineHangoutz
 				BackgroundColor = UIColor.Clear
 			};
 
-			decimal averageRating = 4.0m;
+			decimal averageRating = 0.0m;
 			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
 												filledImage: UIImage.FromBundle("Stars/filled.png"),
 												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
@@ -141,23 +138,23 @@ namespace WineHangoutz
 
 			btnEdit.TouchUpInside += (sender, e) =>
 			{
-				
 				PopupView yourController = new PopupView();
 				yourController.NavController = NavController;
 				yourController.parent = Parent;
-				yourController.StartsSelected = averageRating;
+				yourController.StartsSelected = stars.AverageRating;
 				yourController.Comments = Comments.Text;
+				yourController.SKU = Convert.ToInt32(SKU.Text);
 				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 				//this.PresentViewController(yourController, true, null);
 				Parent.PresentModalViewController(yourController, false);
 
 			};
 			btnDelete = new UIButton();
-
+			SKU = new UILabel();
 			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
 
 		}
-		public void UpdateCell(Rating review)
+		public void UpdateCell(Review review)
 		{
 			imageView.Image = new UIImage("Wines/wine0.png");
 			separator.Image = UIImage.FromFile("separator.png");
@@ -165,6 +162,7 @@ namespace WineHangoutz
 			ReviewDate.Text = review.Date.ToString("d");
 			Comments.Text = review.RatingText;
 			Vintage.Text = review.Vintage.ToString();
+			SKU.Text = review.SKU.ToString();
 			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 			//ContentView.Bounds.Height = 90;
 			stars.AverageRating = Convert.ToDecimal(review.RatingStars);
