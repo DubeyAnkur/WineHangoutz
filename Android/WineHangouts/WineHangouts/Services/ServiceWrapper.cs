@@ -122,5 +122,12 @@ namespace WineHangouts
             var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
             return output;
         }
+        public async Task<CustomerResponse> GetCustomerDetails(int userID)
+        {
+            var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+            return output;
+        }
     }
 }
