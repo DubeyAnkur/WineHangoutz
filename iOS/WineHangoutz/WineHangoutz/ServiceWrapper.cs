@@ -65,7 +65,7 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateLike/");
 				var content = JsonConvert.SerializeObject(skuLike);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
 																  //var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)
@@ -106,7 +106,7 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateReview/");
 				var content = JsonConvert.SerializeObject(review);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
 																  //var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)

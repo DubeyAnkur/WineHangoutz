@@ -13,7 +13,7 @@ namespace WineHangoutz
 
 		public ItemListResponse myData;
 		public int storeId = 2;
-		public int userId = 2;
+		//public int userId = 2;
 		public bool FaviouriteView = false;
         public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
         {
@@ -27,9 +27,9 @@ namespace WineHangoutz
 
 			ServiceWrapper svc = new ServiceWrapper();
 			if(FaviouriteView)
-				myData = svc.GetItemFavsUID(userId).Result;
+				myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
 			else
-				myData = svc.GetItemList(storeId,userId).Result;
+				myData = svc.GetItemList(storeId,CurrentUser.RetreiveUserId()).Result;
 
 			//View.BackgroundColor = UIColor.White;
 			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);

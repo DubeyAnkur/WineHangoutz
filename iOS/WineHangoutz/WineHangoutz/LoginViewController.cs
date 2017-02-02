@@ -108,10 +108,10 @@ namespace WineHangoutz
 			return savedUserName;
 		}
 
-		public static string RetreiveUserId()
+		public static int RetreiveUserId()
 		{
 			string savedUserId = plist.StringForKey("userId");
-			return savedUserId;
+			return Convert.ToInt32(savedUserId);
 		}
 	}
 }
