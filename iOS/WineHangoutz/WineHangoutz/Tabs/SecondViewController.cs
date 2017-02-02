@@ -36,8 +36,29 @@ namespace WineHangoutz
 
 			btnReviews.TouchUpInside += (sender, e) =>
 			{
+				var MyReview = new MyTastingViewController();
+				NavigationController.PushViewController(MyReview, false);
+			};
+
+			btnTastings.TouchUpInside += (sender, e) =>
+			{
 				var MyTaste = new MyTastingViewController();
 				NavigationController.PushViewController(MyTaste, false);
+			};
+
+			btnFavourites.TouchUpInside += (sender, e) =>
+			{
+				nfloat width = UIScreen.MainScreen.Bounds.Width;
+				width = width / 2 - 15;
+
+				UICollectionViewFlowLayout flowLayout;
+				flowLayout = new UICollectionViewFlowLayout()
+				{
+					ItemSize = new CGSize(width, 325.0f),
+					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+					ScrollDirection = UICollectionViewScrollDirection.Vertical
+				};
+				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1, true), false);
 			};
 
 			View.AddSubview(btnReviews);
