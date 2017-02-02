@@ -41,8 +41,9 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hangouts.Models">
-      <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
+    <Reference Include="Hangouts.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Savvy IT\Desktop\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />

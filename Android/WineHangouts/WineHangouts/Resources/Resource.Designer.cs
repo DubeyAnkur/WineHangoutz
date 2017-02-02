@@ -195,6 +195,9 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060055
 			public const int TastingNotes = 2131099733;
 			
+			// aapt resource value: 0x7f060061
+			public const int UpdateButton = 2131099745;
+			
 			// aapt resource value: 0x7f060052
 			public const int Vintage = 2131099730;
 			
@@ -204,14 +207,14 @@ namespace WineHangouts
 			// aapt resource value: 0x7f06003b
 			public const int btnBottom = 2131099707;
 			
-			// aapt resource value: 0x7f06005d
-			public const int btnCamera = 2131099741;
+			// aapt resource value: 0x7f060063
+			public const int btnCamera = 2131099747;
 			
 			// aapt resource value: 0x7f060058
 			public const int btnChangePropic = 2131099736;
 			
-			// aapt resource value: 0x7f06005e
-			public const int btnGallery = 2131099742;
+			// aapt resource value: 0x7f060064
+			public const int btnGallery = 2131099748;
 			
 			// aapt resource value: 0x7f060042
 			public const int btnLoginLL = 2131099714;
@@ -255,8 +258,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060050
 			public const int imageButton4 = 2131099728;
 			
-			// aapt resource value: 0x7f06005c
-			public const int imageView1 = 2131099740;
+			// aapt resource value: 0x7f060062
+			public const int imageView1 = 2131099746;
 			
 			// aapt resource value: 0x7f060005
 			public const int imgHeart = 2131099653;
@@ -315,9 +318,6 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060030
 			public const int relativeLayout1 = 2131099696;
 			
-			// aapt resource value: 0x7f060059
-			public const int relativeLayout2 = 2131099737;
-			
 			// aapt resource value: 0x7f060044
 			public const int relativefav = 2131099716;
 			
@@ -326,9 +326,6 @@ namespace WineHangouts
 			
 			// aapt resource value: 0x7f06004a
 			public const int rtbProductRatingfav = 2131099722;
-			
-			// aapt resource value: 0x7f06005b
-			public const int save = 2131099739;
 			
 			// aapt resource value: 0x7f060000
 			public const int tableLayout1 = 2131099648;
@@ -348,8 +345,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060019
 			public const int tableRow3 = 2131099673;
 			
-			// aapt resource value: 0x7f060061
-			public const int tableRow4 = 2131099745;
+			// aapt resource value: 0x7f06005d
+			public const int tableRow4 = 2131099741;
 			
 			// aapt resource value: 0x7f06001b
 			public const int tableRow5 = 2131099675;
@@ -396,8 +393,11 @@ namespace WineHangouts
 			// aapt resource value: 0x7f060038
 			public const int textView13 = 2131099704;
 			
-			// aapt resource value: 0x7f060060
-			public const int textView14 = 2131099744;
+			// aapt resource value: 0x7f06005b
+			public const int textView14 = 2131099739;
+			
+			// aapt resource value: 0x7f06005f
+			public const int textView17 = 2131099743;
 			
 			// aapt resource value: 0x7f060021
 			public const int textView19 = 2131099681;
@@ -417,8 +417,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f06000f
 			public const int textView64 = 2131099663;
 			
-			// aapt resource value: 0x7f06005f
-			public const int textView65 = 2131099743;
+			// aapt resource value: 0x7f060065
+			public const int textView65 = 2131099749;
 			
 			// aapt resource value: 0x7f060014
 			public const int textView66 = 2131099668;
@@ -434,6 +434,21 @@ namespace WineHangouts
 			
 			// aapt resource value: 0x7f060007
 			public const int topDivider = 2131099655;
+			
+			// aapt resource value: 0x7f060060
+			public const int txtAddress = 2131099744;
+			
+			// aapt resource value: 0x7f06005c
+			public const int txtEmail = 2131099740;
+			
+			// aapt resource value: 0x7f060059
+			public const int txtFirstName = 2131099737;
+			
+			// aapt resource value: 0x7f06005a
+			public const int txtLastName = 2131099738;
+			
+			// aapt resource value: 0x7f06005e
+			public const int txtMobileNumber = 2131099742;
 			
 			// aapt resource value: 0x7f060006
 			public const int txtName = 2131099654;
@@ -452,9 +467,6 @@ namespace WineHangouts
 			
 			// aapt resource value: 0x7f060029
 			public const int txtProducer = 2131099689;
-			
-			// aapt resource value: 0x7f06005a
-			public const int txtProfileName = 2131099738;
 			
 			// aapt resource value: 0x7f060034
 			public const int txtReviewComments = 2131099700;

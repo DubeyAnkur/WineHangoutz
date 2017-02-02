@@ -68,7 +68,7 @@ namespace WineHangouts
             Address.Text=string.Concat(Addres1, Addres2);
             //Button update = FindViewById<Button>(Resource.Id.insert);
             ImageButton updatebtn = FindViewById<ImageButton>(Resource.Id.UpdateButton);
-            updatebtn.SetImageResource(Resource.Drawable.Update);
+           // updatebtn.SetImageResource(Resource.Drawable.Update);
             updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
             updatebtn.Click += async delegate
             {

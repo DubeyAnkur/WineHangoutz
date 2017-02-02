@@ -15,11 +15,11 @@ using System.Collections.Generic;
 namespace WineHangouts
 {
     [Activity(Label = "MyTastingAdapter")]
-    public class MyTastingAdapter : BaseAdapter<Review>
+    public class MyTastingAdapter : BaseAdapter<Item>
     {
-        private List<Review> myItems;
+        private List<Item> myItems;
         private Context myContext;
-        public override Review this[int position]
+        public override Item this[int position]
         {
             get
             {
@@ -27,7 +27,7 @@ namespace WineHangouts
             }
         }
 
-        public MyTastingAdapter(Context con, List<Review> strArr)
+        public MyTastingAdapter(Context con, List<Item> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -73,10 +73,10 @@ namespace WineHangouts
             delete.Click += Delete_Click;
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
-            txtYear.Text = myItems[position].Vintage;
-            txtDescription.Text = myItems[position].RatingText;
-            txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
-            rb.Rating = myItems[position].RatingStars;
+            txtYear.Text = myItems[position].Vintage.ToString();
+            txtDescription.Text = myItems[position].Description;
+            txtDate.Text = myItems[position].RegPrice.ToString();
+            rb.Rating = (float)myItems[position].AverageRating;
             wineimage.SetImageResource(Resource.Drawable.wine7);
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
             //txtPrice.Text = myItems[position].Price;
