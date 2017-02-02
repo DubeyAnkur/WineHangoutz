@@ -75,11 +75,11 @@ namespace WineHangouts
             return 1;
         }
 
-        public async Task<UserResponse> AuthencateUser(string UserName)
+        public async Task<CustomerResponse> AuthencateUser(string UserName)
         {
             var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<UserResponse>(response);
+            var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
             return output;
         }
 
