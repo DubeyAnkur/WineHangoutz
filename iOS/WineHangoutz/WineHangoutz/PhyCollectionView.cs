@@ -13,20 +13,24 @@ namespace WineHangoutz
 
 		public ItemListResponse myData;
 		public int storeId = 2;
-		public int userId = 2;
-        public PhyCollectionView (UICollectionViewLayout layout, int StoreId) : base (layout)
+		//public int userId = 2;
+		public bool FaviouriteView = false;
+        public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
         {
 			storeId = StoreId;
+			FaviouriteView = favView;
         }
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
-			//Uncomment below lines once services are fixed.
-
 			ServiceWrapper svc = new ServiceWrapper();
-			myData = svc.GetItemList(storeId,userId).Result;
+			if(FaviouriteView)
+				myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+			else
+				myData = svc.GetItemList(storeId,CurrentUser.RetreiveUserId()).Result;
+
 			//View.BackgroundColor = UIColor.White;
 			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 			this.CollectionView.BackgroundColor = UIColor.White;
@@ -75,8 +79,17 @@ namespace WineHangoutz
 			cell.SKU = myData.ItemList[index].SKU;
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
-			cell.lblRegPrice.Text= "$" + myData.ItemList[index].RegPrice.ToString();
+			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C");
 			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
+
+			if (myData.ItemList[index].IsLike == true)
+			{
+				cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+			}
+			else
+			{
+				cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+			}
 		}
 	}
 }

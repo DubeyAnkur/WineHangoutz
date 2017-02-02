@@ -11,12 +11,13 @@ using Android.Graphics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "WineHangouts", MainLauncher = false)]
+    [Activity(Label = "Wine Hangouts", MainLauncher = false)]
     public class TabActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            this.TitleColor=Color.LightGray;
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Fragment);
@@ -100,12 +101,18 @@ namespace WineHangouts
                 {
                    
                    
-                    Top.SetBackgroundResource(Resource.Drawable.sfondo_catalogo_vini);
+                    Top.SetBackgroundResource(Resource.Drawable.city);
                     Top.Text = "Wall";
-                    Middle.SetBackgroundResource(Resource.Drawable.sfondo_promozioni);
-                    Middle.Text = "PointPleasent";
-                    Bottom.SetBackgroundResource(Resource.Drawable.sfondo_selezioni);
+                    Top.SetTextColor(Color.White);
+                    Top.TextSize = 20;
+                    Middle.SetBackgroundResource(Resource.Drawable.beach );
+                    Middle.Text = "Point Pleasent";
+                    Middle.SetTextColor(Color.White);
+                    Middle.TextSize = 20;
+                    Bottom.SetBackgroundResource(Resource.Drawable.city1);
                     Bottom.Text = "Seacucas";
+                    Bottom.SetTextColor(Color.White);
+                    Bottom.TextSize = 20;
                     //var param = Top.LayoutParameters;
                     //var param1 = Middle.LayoutParameters;
                     //var param2 = Bottom.LayoutParameters;
@@ -140,12 +147,18 @@ namespace WineHangouts
                 if (tabName == "TASTE")
                 {
                   
-                    Top.SetBackgroundResource(Resource.Drawable.sfondo_mierecensioni);
+                    Top.SetBackgroundResource(Resource.Drawable.winereviews);
                     Top.Text = "My Reviews";
-                    Middle.SetBackgroundResource(Resource.Drawable.sfondo_nuoverecensioni);
+                    Top.SetTextColor(Color.White);
+                    Top.TextSize = 20;
+                    Middle.SetBackgroundResource(Resource.Drawable.winetasting);
                     Middle.Text = "My Tastings";
-                    Bottom.SetBackgroundResource(Resource.Drawable.sfondo_topvini);
+                    Middle.SetTextColor(Color.White);
+                    Middle.TextSize = 20;
+                    Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
                     Bottom.Text = "My Favorite";
+                    Bottom.SetTextColor(Color.White);
+                    Bottom.TextSize = 20;
                     //var param = Top.LayoutParameters;
                     //var param1 = Middle.LayoutParameters;
                     //var param2 = Bottom.LayoutParameters;
@@ -176,14 +189,20 @@ namespace WineHangouts
                 if (tabName == "EXPLORE")
                 {
                   
-                    Top.SetBackgroundResource(Resource.Drawable.sfondo_blog);
+                    Top.SetBackgroundResource(Resource.Drawable.myprofile);
                     Top.Text = "My Profile";
+                    Top.SetTextColor(Color.White);
+                    Top.TextSize = 20;
                     //Top.SetTextColor(Color.Red);
 
                     Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
                     Middle.Text = "Wineries";
+                    Middle.SetTextColor(Color.White);
+                    Middle.TextSize = 20;
                     Bottom.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
                     Bottom.Text = "Regions";
+                    Bottom.SetTextColor(Color.White);
+                    Bottom.TextSize = 20;
 
                     //var param = Top.LayoutParameters;
                     //var param1 = Middle.LayoutParameters;

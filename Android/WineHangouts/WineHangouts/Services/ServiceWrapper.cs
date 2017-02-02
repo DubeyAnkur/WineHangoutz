@@ -75,11 +75,11 @@ namespace WineHangouts
             return 1;
         }
 
-        public async Task<UserResponse> AuthencateUser(string UserName)
+        public async Task<CustomerResponse> AuthencateUser(string UserName)
         {
             var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<UserResponse>(response);
+            var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
             return output;
         }
 
@@ -143,6 +143,14 @@ namespace WineHangouts
             var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+            return output;
+        }
+        public async Task<ItemListResponse> GetMyTastingsList(int customerid)
+        {
+            customerid = 38691;
+            var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
+            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
             return output;
         }
     }

@@ -35,51 +35,22 @@ namespace WineHangouts
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId, userId).Result;
             base.OnCreate(bundle);
-           // uid = 4;//checking purpose
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Potrait);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            List<Item> myArr;
-            //myArr = SampleData();
+            List<Item> myArr;      
             myArr = output.ItemList.ToList();
-
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
-            // myArr1 = SampleData1();
-           
-            ReviewPopup editPopup = new ReviewPopup(this);
             PotraitAdapter adapter = new PotraitAdapter(this, myArr);
-          
-            adapter.Edit_Click += editPopup.EditPopup;
-         
-            adapter.Delete_Click += (object sender, EventArgs e) =>
-            {
-                //Pull up Dialog
-                FragmentTransaction trans = FragmentManager.BeginTransaction();
-                DeleteReview dr = new DeleteReview();
-                dr.Show(trans, "Wine Review");
-                //Dialog DeleteDialog = new Dialog(this);
-                //DeleteDialog.SetContentView(Resource.Layout.DeleteReviewPop);
-                //DeleteDialog.Window.RequestFeature(WindowFeatures.NoTitle);
-                //DeleteDialog.Show();
-            };
             wineList.Adapter = adapter;
+            wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+            {
+                var intent = new Intent(this, typeof(detailViewActivity));
+                StartActivity(intent);
 
-            ////wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-            ////{
-            ////    //var intent = new Intent(this, typeof(detailViewActivity));
-            ////    //StartActivity(intent);
-            ////    Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
-            ////    x = args.Position;
-            ////};
-            //  wineList.ItemClick += WineList_ItemClick;
+            };
+           
         }
-
-        //private void WineList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        //{
-        //    var intent = new Intent(this,typeof(detailViewActivity));
-        //    StartActivity(intent);
-        //}
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -90,11 +61,7 @@ namespace WineHangouts
             }
             return base.OnOptionsItemSelected(item);
         }
-        private void Close_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         private int ConvertPixelsToDp(float pixelValue)
         {
             var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);

@@ -51,9 +51,6 @@ namespace WineHangouts
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.PotraitListView, null, false);
-            else
-                return convertView;
-
             TextView txtName = row.FindViewById<TextView>(Resource.Id.SkuName);
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.Vintage);
            

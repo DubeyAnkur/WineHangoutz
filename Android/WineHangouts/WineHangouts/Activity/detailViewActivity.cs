@@ -16,12 +16,13 @@ using System.Linq;
 
 namespace WineHangouts
 {
-    [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon" )]
     public class detailViewActivity : Activity
     {
         public int sku;
         List<ItemDetails> DetailsArray;
         List<Review> ReviewArray;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

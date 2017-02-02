@@ -11,32 +11,36 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Hangout.Models;
+using System.Linq;
 namespace WineHangouts
 {
     [Activity(Label = "MyTastingActivity")]
     public class MyTastingActivity : Activity
     {
-        public int uid;
+        public int customerid;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            uid = 4;//checking purpose
+          //  int customerid = Convert.ToInt32(CurrentUser.getUserId());
+            //   uid = 4;//checking purpose
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.MyTasting);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            ServiceWrapper svc = new ServiceWrapper();
+            customerid = 38691;
+                        ServiceWrapper svc = new ServiceWrapper();
             // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
-            var uidreviews = svc.GetItemReviewUID(uid).Result;
-            List<Review> myArr1;
+            var MYtastings = svc.GetMyTastingsList(customerid).Result;
+
+            List<Item> myArr;
+          
             //  myArr1 = SampleData1();
 
             ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
             // myArr1 = SampleData1();
             ReviewPopup editPopup = new ReviewPopup(this);
-            TastingAdapter adapter = new TastingAdapter(this, uidreviews.Reviews.ToList());
+            MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.ItemList.ToList());
             adapter.Edit_Click += editPopup.EditPopup;
 
             adapter.Delete_Click += (object sender, EventArgs e) =>
