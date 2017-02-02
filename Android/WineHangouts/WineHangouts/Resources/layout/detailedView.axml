@@ -30,19 +30,17 @@
                     android:layout_gravity="center_horizontal"
                     android:textColor="#510239" />
             </TableRow>
-          
-          <TableRow
-            android:id="@+id/tableRow1"
-            android:background="#ffffff">
-                        <TextView
-                     android:text="Vintage"
-                     android:textAppearance="?android:attr/textAppearanceMedium"
-                     android:id="@+id/txtVintage"
-                     android:layout_gravity="center"
-                     android:textColor="@android:color/background_dark" />
-           
-          </TableRow>
-                        <TableRow
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:background="#ffffff">
+                <TextView
+                    android:text="Vintage"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/txtVintage"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/background_dark" />
+            </TableRow>
+            <TableRow
                 android:id="@+id/tableRow5"
                 android:minWidth="25px"
                 android:minHeight="25px">
@@ -134,7 +132,6 @@
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:progressTint="@android:color/holo_blue_dark"
-                   
                     android:layout_gravity="center_horizontal" />
             </TableRow>
             <TableRow
@@ -162,8 +159,7 @@
                     android:text="Description Wine"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
-             
-               <TableRow
+            <TableRow
                 android:id="@+id/tableRow8"
                 android:layout_margin="10px">
                 <TextView
@@ -175,45 +171,43 @@
                     android:text="Description Wine"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
-          <TableRow
-               android:id="@+id/tableRow8"
-               android:layout_margin="10px">
-            <TextView
-                android:textStyle="bold"
-                android:id="@+id/textView36"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="Producer:"
-                android:layout_span="2"
-                android:textColor="@android:color/background_dark" />
-          </TableRow>
-          <TableRow
-           android:id="@+id/tableRow8"
-           android:layout_margin="10px">
-            <TextView
-                android:singleLine="false"
-                android:id="@+id/txtProducer"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="Producer"
-                android:textColor="@android:color/background_dark" />
-          </TableRow>
-          <TableRow
-           android:id="@+id/tableRow8"
-           android:layout_margin="10px"
-           android:background="#00ff00"
-          >
-            <TextView
-                android:singleLine="false"
-                android:id="@+id/textView99"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Reviews"
-                android:textStyle="bold"
-                android:textSize="30dp"
-                
-                android:textColor="@android:color/background_dark" />
-          </TableRow>
+            <TableRow
+                android:id="@+id/tableRow8"
+                android:layout_margin="10px">
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/textView36"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Producer:"
+                    android:layout_span="2"
+                    android:textColor="@android:color/background_dark" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow8"
+                android:layout_margin="10px">
+                <TextView
+                    android:singleLine="false"
+                    android:id="@+id/txtProducer"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Producer"
+                    android:textColor="@android:color/background_dark" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow8"
+                android:layout_margin="10px"
+                android:background="#00ff00">
+                <TextView
+                    android:singleLine="false"
+                    android:id="@+id/textView99"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Reviews"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:textColor="@android:color/background_dark" />
+            </TableRow>
         <!--<TableRow
                 android:id="@+id/tableRow9"
                 android:gravity="left"
@@ -234,7 +228,7 @@
                     android:layout_column="0"
                     android:id="@+id/listView2"
                     android:divider="#FFCC00"
-                    android:dividerHeight="4px"/>
+                    android:dividerHeight="4px" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

@@ -77,6 +77,8 @@ namespace WineHangouts
                 customer.LastName = Lastname.Text;
                 customer.PhoneNumber = Mobilenumber.Text;
                 customer.Address1 = Address.Text;
+                customer.Email = Email.Text;
+                customer.CustomerID = userId;
                 await sw.UpdateCustomer(customer);
             };
         }

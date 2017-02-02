@@ -9,18 +9,21 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "DummyActivity", MainLauncher =false, Icon = "@drawable/placeholder")]
+    [Activity(Label = "Testing App", MainLauncher =false, Icon = "@drawable/update")]
     public class DummyActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Dummy);
-            EditText ed = FindViewById<EditText>(Resource.Id.edittext);
-            ed.Text = "lokesh";
+            
+            //RelativeLayout ll1 = FindViewById<RelativeLayout>(Resource.Id.linearLayout_gridtableLayout);
+            //ll1.LayoutParameters = new RelativeLayout.LayoutParams(1500, 1500);
+            //EditText ed = FindViewById<EditText>(Resource.Id.edittext);
+            //ed.Text = "lokesh";
 
             //ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             //ActionBar.Tab tab = ActionBar.NewTab();
