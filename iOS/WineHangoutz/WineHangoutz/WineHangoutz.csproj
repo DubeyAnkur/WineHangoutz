@@ -130,6 +130,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="SimpleControllerViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -174,6 +175,11 @@
     </Compile>
     <Compile Include="SKUDetailView.cs" />
     <Compile Include="LoginViewController.cs" />
+    <Compile Include="SimpleControllerViewController.cs" />
+    <Compile Include="SimpleControllerViewController.designer.cs">
+      <DependentUpon>SimpleControllerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LineLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
@@ -219,6 +225,7 @@
     <BundleResource Include="Stars\star-silver.png" />
     <BundleResource Include="Stars\star-silver1.png" />
     <BundleResource Include="Stars\star-silver2.png" />
+    <BundleResource Include="Resources\eno.jpg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">

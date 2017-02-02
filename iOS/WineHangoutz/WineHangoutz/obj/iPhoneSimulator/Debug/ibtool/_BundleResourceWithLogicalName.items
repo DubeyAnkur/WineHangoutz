@@ -33,5 +33,9 @@
       <LogicalName>Main.storyboardc/UITabBarController-49e-Tb-3d3.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/SimpleControllerViewController.nib">
+      <LogicalName>SimpleControllerViewController.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
   </ItemGroup>
 </Project>

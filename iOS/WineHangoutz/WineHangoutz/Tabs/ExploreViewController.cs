@@ -38,6 +38,22 @@ namespace WineHangoutz
 			View.AddSubview(btnBlog);
 			View.AddSubview(btnWineries);
 			View.AddSubview(btnRegions);
+
+			btnBlog.TouchUpInside += (sender, e) =>
+			{
+				
+			};
+			btnWineries.TouchUpInside += (sender, e) =>
+			{
+				var lineLayout = new LineLayout()
+				{
+					ItemSize = new CGSize(120, 300),
+					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+					ScrollDirection = UICollectionViewScrollDirection.Horizontal
+				};
+
+				NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
+			};
 		}
 		public override void ViewDidAppear(bool animated)
 		{
