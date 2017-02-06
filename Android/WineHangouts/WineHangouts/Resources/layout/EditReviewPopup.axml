@@ -17,11 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageButton
-                android:src="@android:drawable/ic_menu_gallery"
+                android:src="@drawable/close"
                 android:layout_column="0"
                 android:id="@+id/close"
                 android:background="#cc007a"
-                android:layout_gravity="bottom" />
+                android:layout_gravity="bottom"
+                android:scaleType="centerInside" />
             <TextView
                 android:text="Rate And Comment"
                 android:textAppearance="?android:attr/textAppearanceLarge"

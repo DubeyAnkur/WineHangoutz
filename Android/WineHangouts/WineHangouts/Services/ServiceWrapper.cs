@@ -50,9 +50,9 @@ namespace WineHangouts
             return output;
         }
 
-        public async Task<ItemDetailsResponse> GetItemDetails(int sku)
+        public async Task<ItemDetailsResponse> GetItemDetails(int wineid)
         {
-            var uri = new Uri(ServiceURL + "GetItemDetails/" + sku);
+            var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
             return output;
@@ -83,9 +83,17 @@ namespace WineHangouts
             return output;
         }
 
-        public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
+        //public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
+        //{
+        //    var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
+        //    var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+        //    var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
+        //    return output;
+        //}
+
+        public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
         {
-            var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
+            var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             return output;

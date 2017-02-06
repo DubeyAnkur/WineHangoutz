@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 
 namespace WineHangouts
 {
@@ -21,7 +22,8 @@ namespace WineHangouts
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Fragment);
-
+            //  getActionBar().setBackgroundDrawable(new ColorDrawable(Color.AliceBlue));
+            
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
 
@@ -90,7 +92,7 @@ namespace WineHangouts
                 var metrics = Resources.DisplayMetrics;
                 int height = metrics.HeightPixels; // ConvertPixelsToDp(metrics.HeightPixels);
                 ////int heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-                height = height - (int)((380 * metrics.Density) / 3);
+                height = height - (int)((360 * metrics.Density) / 3);
                 height = height / 3;
                 Top.LayoutParameters.Height = height;
                 Middle.LayoutParameters.Height = height;

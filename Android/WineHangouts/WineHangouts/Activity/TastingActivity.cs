@@ -22,7 +22,7 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            uid = 4;//checking purpose
+            uid= Convert.ToInt32(CurrentUser.getUserId());
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Tasting);
             ActionBar.SetHomeButtonEnabled(true);

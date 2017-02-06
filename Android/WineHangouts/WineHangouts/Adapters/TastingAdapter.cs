@@ -68,7 +68,8 @@ namespace WineHangouts
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             //edit.SetTag(1, 5757);
             edit.Click +=  (sender, args) => {
-                PerformItemClick(sender, args, position, 5757);
+                int WineId = myItems[position].WineID;
+                PerformItemClick(sender, args, position,5757, WineId);
             };
             delete.Click += Delete_Click;
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
@@ -98,10 +99,11 @@ namespace WineHangouts
             return row;
         }
 
-        public void PerformItemClick(object sender, EventArgs e, int position, int SKU)
+        public void PerformItemClick(object sender, EventArgs e, int position, int SKU,int WineId)
         {
             ReviewPopup editPopup = new ReviewPopup(myContext);
             editPopup.SKU = SKU;
+            editPopup.WineId = WineId;
             editPopup.EditPopup(sender, e);
         }
 

@@ -60,7 +60,7 @@ namespace WineHangouts
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-            ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
+           ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
             //RelativeLayout rel = row.FindViewById<RelativeLayout>(Resource.Id.relative);
             //var place11 = new RelativeLayout.LayoutParams(520, 620)
@@ -125,15 +125,15 @@ namespace WineHangouts
 
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             imgWine.SetImageResource(Resource.Drawable.wine1);
-            var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
-            // var place = new RelativeLayout.LayoutParams(520, 620);
-            place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
-            imgWine.LayoutParameters = place;
+          //var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+           var place = new RelativeLayout.LayoutParams(520, 520);
+           place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
+        imgWine.LayoutParameters = place;
 
-            var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
-            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
-            imgPlaceHolder.LayoutParameters = place1;
-            //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
+         var place1 = new RelativeLayout.LayoutParams(520, 520);
+          place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
+          imgPlaceHolder.LayoutParameters = place1;
+         //   imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 
 

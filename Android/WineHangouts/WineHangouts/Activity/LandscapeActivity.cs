@@ -22,8 +22,8 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Landscape);
             HorizontalScrollView hsw = FindViewById<HorizontalScrollView>(Resource.Id.HorizontalScrollView1);
             
-            listner x = new listner();
-            hsw.SetOnScrollChangeListener(x);
+        ///    listner x = new listner();
+         ///   hsw.SetOnScrollChangeListener(x);
 
             int StoreId = 2;
             int userId = Convert.ToInt32(CurrentUser.getUserId());
@@ -33,7 +33,7 @@ namespace WineHangouts
             myArr = output.ItemList.ToList();
             var gridview = FindViewById<GridView>(Resource.Id.gridview);
             HorizontalViewAdapter adapter = new HorizontalViewAdapter(this, myArr);
-            gridview.SetNumColumns(9);
+            gridview.SetNumColumns(10);
             gridview.Adapter = adapter;
             // Create your application here
         }

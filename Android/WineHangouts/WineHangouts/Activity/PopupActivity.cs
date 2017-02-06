@@ -72,6 +72,7 @@ namespace WineHangouts
 
         Context Parent;
         public int SKU;
+        public int WineId;
         public ReviewPopup(Context parent)
         {
             Parent = parent;
@@ -107,10 +108,14 @@ namespace WineHangouts
                 Review review = new Review();
                 review.ReviewDate = DateTime.Now;
                 review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
+                review.Username = CurrentUser.getUserName();
                 review.RatingText = Comments.Text;
+               // review.PlantFinal=
                 review.RatingStars = Convert.ToInt32( custRating.Rating);
                 review.IsActive = true;
                 review.SKU = SKU;
+                
+                review.WineID = WineId;
                 await sw.InsertUpdateReview(review);
                 
                 editDialog.Dismiss();
@@ -156,6 +161,7 @@ namespace WineHangouts
                 review.RatingStars = Convert.ToInt32(custRating.Rating);
                 review.IsActive = true;
                 review.SKU = SKU;
+                review.WineID = WineId;
                 await sw.InsertUpdateReview(review);
                 editDialog.Dismiss();
             };
