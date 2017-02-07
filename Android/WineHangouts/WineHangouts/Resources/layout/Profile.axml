@@ -191,10 +191,12 @@
         </TableRow>
     </TableLayout>
     <ImageButton
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="50dp"
+        android:src="@drawable/updateprofilebtn"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:background="@null"
         android:id="@+id/UpdateButton"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop" />
 </LinearLayout>

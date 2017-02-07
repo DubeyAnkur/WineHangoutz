@@ -1473,8 +1473,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f020058
 			public const int myprofile = 2130837592;
 			
-			// aapt resource value: 0x7f020076
-			public const int notification_template_icon_bg = 2130837622;
+			// aapt resource value: 0x7f020077
+			public const int notification_template_icon_bg = 2130837623;
 			
 			// aapt resource value: 0x7f020059
 			public const int placeholder = 2130837593;
@@ -1543,25 +1543,28 @@ namespace WineHangouts
 			public const int Update = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int user = 2130837615;
+			public const int updateprofilebtn = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int wine1 = 2130837616;
+			public const int user = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int wine6 = 2130837617;
+			public const int wine1 = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int wine7 = 2130837618;
+			public const int wine6 = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int wine_review = 2130837619;
+			public const int wine7 = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int winereviews = 2130837620;
+			public const int wine_review = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int winetasting = 2130837621;
+			public const int winereviews = 2130837621;
+			
+			// aapt resource value: 0x7f020076
+			public const int winetasting = 2130837622;
 			
 			static Drawable()
 			{
