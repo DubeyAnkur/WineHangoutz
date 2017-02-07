@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Hangout.Models;
-using System.Linq;
+
 namespace WineHangouts
 {
     [Activity(Label = "MyTastingActivity")]

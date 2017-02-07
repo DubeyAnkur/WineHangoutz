@@ -2933,11 +2933,11 @@ namespace WineHangouts
 			// aapt resource value: 0x7f080073
 			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131230835;
 			
-			// aapt resource value: 0x7f080134
-			public const int CustomActionBarTheme = 2131231028;
+			// aapt resource value: 0x7f080133
+			public const int CustomActionBarTheme = 2131231027;
 			
-			// aapt resource value: 0x7f080135
-			public const int MyActionBar = 2131231029;
+			// aapt resource value: 0x7f080134
+			public const int MyActionBar = 2131231028;
 			
 			// aapt resource value: 0x7f080010
 			public const int Platform_AppCompat = 2131230736;
@@ -3427,9 +3427,6 @@ namespace WineHangouts
 			
 			// aapt resource value: 0x7f080132
 			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131231026;
-			
-			// aapt resource value: 0x7f080133
-			public const int rtbProductRating = 2131231027;
 			
 			static Style()
 			{
