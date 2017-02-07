@@ -81,9 +81,10 @@ namespace WineHangouts
             AvgRating.Focusable =false;
             AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-            ReviewPopup editPopup = new ReviewPopup(this);
-            editPopup.SKU = sku;
-            editPopup.WineId = wineid;
+
+            Review edit = new Review();
+            edit.WineID = wineid;
+            ReviewPopup editPopup = new ReviewPopup(this, edit);
             RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
             RatingInput.RatingBarChange += editPopup.CreatePopup;
                       
@@ -94,7 +95,7 @@ namespace WineHangouts
             ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
             ImageView imgPlaceHolder =FindViewById<ImageView>(Resource.Id.placeholder1);
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
-            imgWine.SetImageResource(Resource.Drawable.finca1);
+            imgWine.SetImageResource(Resource.Drawable.wine1);
             imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
