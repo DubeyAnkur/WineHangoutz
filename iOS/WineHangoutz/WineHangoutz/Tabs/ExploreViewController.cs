@@ -41,7 +41,7 @@ namespace WineHangoutz
 
 			btnBlog.TouchUpInside += (sender, e) =>
 			{
-				
+				NavigationController.PushViewController(new ProfileViewController(), false);
 			};
 			btnWineries.TouchUpInside += (sender, e) =>
 			{

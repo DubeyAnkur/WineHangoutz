@@ -1,15 +1,15 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/PopupView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/DetailViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="109" Column="5" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="41" Column="1" />
-      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="26" Column="37" />
-      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="70" Column="96" />
-      <File FileName="WineHangoutz/LineLayout.cs" Line="50" Column="46" />
-      <File FileName="WineHangoutz/Tabs/ExploreViewController.cs" Line="50" Column="35" />
-      <File FileName="WineHangoutz/SimpleControllerViewController.cs" Line="65" Column="17" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="85" Column="15" />
+      <File FileName="WineHangoutz/LineLayout.cs" Line="66" Column="3" />
+      <File FileName="WineHangoutz/Tabs/ExploreViewController.cs" Line="42" Column="43" />
+      <File FileName="WineHangoutz/SimpleControllerViewController.cs" Line="1" Column="1" />
       <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="32" Column="41" />
-      <File FileName="WineHangoutz/PopupView.cs" Line="103" Column="24" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="28" Column="59" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="21" Column="6" />
+      <File FileName="WineHangoutz/ProfileViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />

@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio from the outlets and
 // actions declared in your storyboard file.
@@ -11,11 +11,11 @@ using UIKit;
 
 namespace WineHangoutz
 {
-	[Register("SimpleControllerViewController")]
-	partial class SimpleControllerViewController
-	{
-		void ReleaseDesignerOutlets()
-		{
-		}
-	}
+    [Register ("SimpleControllerViewController")]
+    partial class SimpleControllerViewController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }
