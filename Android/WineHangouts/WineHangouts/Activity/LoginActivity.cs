@@ -66,7 +66,7 @@ namespace WineHangouts
 
                 }
                 var authen = svc.AuthencateUser (username.Text).Result;
-                if (authen.customer != null || authen.customer.CustomerID!= 0)
+                if (authen.customer != null && authen.customer.CustomerID!= 0)
                 {
                     CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
                     Intent intent = new Intent(this, typeof(TabActivity));

@@ -22,13 +22,13 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-          //  int customerid = Convert.ToInt32(CurrentUser.getUserId());
+           int customerid = Convert.ToInt32(CurrentUser.getUserId());
             //   uid = 4;//checking purpose
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.MyTasting);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            customerid = 38691;
+         //   customerid = 38691;
                         ServiceWrapper svc = new ServiceWrapper();
             // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
             var MYtastings = svc.GetMyTastingsList(customerid).Result;
