@@ -79,10 +79,7 @@ namespace WineHangouts
                 customer.Address1 = Address.Text;
                 customer.Email = Email.Text;
                 customer.CustomerID = userId;
-                var x=await sw.UpdateCustomer(customer);
-                if (x == 1) { 
-                Toast.MakeText(this,"Thank you your profile is Updated", ToastLength.Short).Show();
-                }
+                await sw.UpdateCustomer(customer);
             };
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

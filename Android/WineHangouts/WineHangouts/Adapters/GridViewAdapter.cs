@@ -50,7 +50,7 @@ namespace WineHangouts
         {
             View row = convertView;
             if (row == null)
-                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.GridViewcell, null, false);
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.cell, null, false);
             //else
             //    return row;
 
@@ -62,8 +62,6 @@ namespace WineHangouts
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
            ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
-            RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
-            rating.Rating =(float)myItems[position].AverageRating;
             //RelativeLayout rel = row.FindViewById<RelativeLayout>(Resource.Id.relative);
             //var place11 = new RelativeLayout.LayoutParams(520, 620)
             //rel.LayoutParameters = place11;
