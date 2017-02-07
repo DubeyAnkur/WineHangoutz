@@ -12,8 +12,8 @@ using System.Linq;
 namespace WineHangouts
 {
 
-    [Activity(Label = "WineHagoutS", MainLauncher = false)]
-    public class MainActivity : Activity
+    [Activity(Label = "GridViewActivity", MainLauncher = false)]
+    public class GridViewActivity : Activity
     {
         public string StoreName = "";
         protected override void OnCreate(Bundle bundle)

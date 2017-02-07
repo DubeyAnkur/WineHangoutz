@@ -26,7 +26,7 @@ namespace WineHangouts
        protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            //ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+            
             SetContentView(Resource.Layout.Profile);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -35,8 +35,7 @@ namespace WineHangouts
             var output = sw.GetCustomerDetails(userId).Result;
 
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
-            ///var imageBitmap = GetImageBitmapFromUrl("http://xamarin.com/resources/design/home/devices.png");
-            //propicimage.SetImageBitmap(imageBitmap);
+          
             propicimage.SetImageResource(Resource.Drawable.user);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
             changepropic.SetImageResource(Resource.Drawable.dpreplacer);
@@ -66,9 +65,13 @@ namespace WineHangouts
             string Addres2 = output.customer.Address2;
             string Addres1 = output.customer.Address1;           
             Address.Text=string.Concat(Addres1, Addres2);
-            //Button update = FindViewById<Button>(Resource.Id.insert);
+            EditText City = FindViewById<EditText>(Resource.Id.txtCity);
+            City.Text = output.customer.City;
+            EditText State = FindViewById<EditText>(Resource.Id.txtState);
+            State.Text = output.customer.State;
+          
             ImageButton updatebtn = FindViewById<ImageButton>(Resource.Id.UpdateButton);
-           // updatebtn.SetImageResource(Resource.Drawable.Update);
+         
             updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
             updatebtn.Click += async delegate
             {
@@ -79,6 +82,8 @@ namespace WineHangouts
                 customer.Address1 = Address.Text;
                 customer.Email = Email.Text;
                 customer.CustomerID = userId;
+                customer.State = State.Text;
+                customer.City = City.Text;
                 var x=await sw.UpdateCustomer(customer);
                 if (x == 1)
                 {

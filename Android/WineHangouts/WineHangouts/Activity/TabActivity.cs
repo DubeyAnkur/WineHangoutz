@@ -123,13 +123,13 @@ namespace WineHangouts
                     //param2.Height = PixelsToDp(160);
                     Top.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(MainActivity));
+                        var intent = new Intent(Activity, typeof(GridViewActivity));
                         intent.PutExtra("MyData", "Wall Store");
                         StartActivity(intent);
                     };
                     Middle.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(MainActivity));
+                        var intent = new Intent(Activity, typeof(GridViewActivity));
                         intent.PutExtra("MyData", "Point Pleasent Store");
                         StartActivity(intent);
                     };
