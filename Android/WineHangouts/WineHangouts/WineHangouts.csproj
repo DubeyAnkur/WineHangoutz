@@ -83,7 +83,7 @@
     <Compile Include="Activity\PopupActivity.cs" />
     <Compile Include="Activity\DummyActivity.cs" />
     <Compile Include="Activity\MainActivity.cs" />
-    <Compile Include="Activity\TastingActivity.cs" />
+    <Compile Include="Activity\MyReviewActivity.cs" />
     <Compile Include="Adapters\DetailsViewAdapter.cs" />
     <Compile Include="Adapters\HorizontalViewAdapter.cs" />
     <Compile Include="Adapters\GridViewAdapter.cs" />
@@ -93,7 +93,7 @@
     <Compile Include="Adapters\MyTastingAdapter.cs" />
     <Compile Include="Adapters\PotraitAdapter.cs" />
     <Compile Include="Adapters\reviewAdapter.cs" />
-    <Compile Include="Adapters\TastingAdapter.cs" />
+    <Compile Include="Adapters\MyReviewAdapter.cs" />
     <Compile Include="Classes\Wine.cs" />
     <Compile Include="Classes\Wine1.cs" />
     <Compile Include="Classes\WineDetails.cs" />

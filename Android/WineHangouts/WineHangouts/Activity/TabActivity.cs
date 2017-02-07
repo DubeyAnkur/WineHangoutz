@@ -169,7 +169,7 @@ namespace WineHangouts
                     //param2.Height = PixelsToDp(160);
                     Top.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(TastingActivity));
+                        var intent = new Intent(Activity, typeof(MyReviewActivity));
                         intent.PutExtra("MyData", "My Reviews");
                         StartActivity(intent);
                     };

@@ -2,7 +2,7 @@
 <resources>
 
   <style name="CustomActionBarTheme"
-           parent="@android:style/Theme.Holo.Light">
+           >
     <item name="android:actionBarStyle">@style/MyActionBar</item>
   </style>
   <!-- ActionBar styles -->

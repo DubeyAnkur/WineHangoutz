@@ -14,8 +14,8 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "TastingActivity")]
-    public class TastingActivity : Activity, IPopupParent
+    [Activity(Label = "MyReviewActivity")]
+    public class MyReviewActivity : Activity, IPopupParent
     {
         public int uid;
         
@@ -35,10 +35,11 @@ namespace WineHangouts
           //  myArr1 = SampleData1();
 
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
-           // myArr1 = SampleData1();
-            ReviewPopup editPopup = new ReviewPopup(this);
-            TastingAdapter adapter = new TastingAdapter(this, uidreviews.Reviews.ToList());
-            adapter.Edit_Click += editPopup.EditPopup;
+            // myArr1 = SampleData1();
+            Review edit = new Review();
+            ReviewPopup editPopup = new ReviewPopup(this, edit);
+            MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
+            //adapter.Edit_Click += editPopup.EditPopup;
            
                 adapter.Delete_Click += (object sender, EventArgs e) =>
             {
@@ -117,9 +118,10 @@ namespace WineHangouts
            
             var uidreviews = svc.GetItemReviewUID(uid).Result;
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
-            ReviewPopup editPopup = new ReviewPopup(this);
-            TastingAdapter adapter = new TastingAdapter(this, uidreviews.Reviews.ToList());
-            adapter.Edit_Click += editPopup.EditPopup;
+            Review edit = new Review();
+            ReviewPopup editPopup = new ReviewPopup(this, edit);
+            MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
+            //adapter.Edit_Click += editPopup.EditPopup;
             adapter.Delete_Click += (object sender, EventArgs e) =>
             {
                 //Pull up Dialog

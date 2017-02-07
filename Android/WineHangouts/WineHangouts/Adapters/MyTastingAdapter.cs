@@ -59,19 +59,15 @@ namespace WineHangouts
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.Vintage);
             TextView txtDescription = row.FindViewById<TextView>(Resource.Id.TastingNotes);
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.Date);
-            ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
-            ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
+            
             ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.AvgRating);
-            edit.SetScaleType(ImageView.ScaleType.Center);
-            delete.SetScaleType(ImageView.ScaleType.Center);
+           
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             //edit.SetTag(1, 5757);
-            edit.Click += (sender, args) => {
-                PerformItemClick(sender, args, position, 5757);
-            };
-            delete.Click += Delete_Click;
+           
+           
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage.ToString();
@@ -99,12 +95,7 @@ namespace WineHangouts
             return row;
         }
 
-        public void PerformItemClick(object sender, EventArgs e, int position, int SKU)
-        {
-            ReviewPopup editPopup = new ReviewPopup(myContext);
-            editPopup.SKU = SKU;
-            editPopup.EditPopup(sender, e);
-        }
+       
 
         private Bitmap GetImageBitmapFromUrl(string url)
         {

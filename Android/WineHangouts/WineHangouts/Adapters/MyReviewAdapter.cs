@@ -15,7 +15,7 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    class TastingAdapter : BaseAdapter<Review>
+    class MyReviewAdapter : BaseAdapter<Review>
     {
         private List<Review> myItems;
         private Context myContext;
@@ -27,7 +27,7 @@ namespace WineHangouts
             }
         }
 
-        public TastingAdapter(Context con, List<Review> strArr)
+        public MyReviewAdapter(Context con, List<Review> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -69,7 +69,11 @@ namespace WineHangouts
             //edit.SetTag(1, 5757);
             edit.Click +=  (sender, args) => {
                 int WineId = myItems[position].WineID;
-                PerformItemClick(sender, args, position,5757, WineId);
+                Review _review = new Review();
+                _review.WineID = WineId;
+                _review.RatingStars = myItems[position].RatingStars;
+                _review.RatingText = myItems[position].RatingText;
+                PerformItemClick(sender, args, _review);
             };
             delete.Click += Delete_Click;
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
@@ -99,11 +103,9 @@ namespace WineHangouts
             return row;
         }
 
-        public void PerformItemClick(object sender, EventArgs e, int position, int SKU,int WineId)
+        public void PerformItemClick(object sender, EventArgs e, Review edit)
         {
-            ReviewPopup editPopup = new ReviewPopup(myContext);
-            editPopup.SKU = SKU;
-            editPopup.WineId = WineId;
+            ReviewPopup editPopup = new ReviewPopup(myContext, edit);
             editPopup.EditPopup(sender, e);
         }
 

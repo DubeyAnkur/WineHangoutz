@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tableLayout1"
-            android:background="@android:color/background_light">
+            android:background="#A9A9A9">
             <TableRow
                 android:id="@+id/tableRow1"
                 android:gravity="left"
@@ -32,7 +32,7 @@
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow1"
-                android:background="#ffffff">
+                android:background="#A9A9A9">
                 <TextView
                     android:text="Vintage"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -72,16 +72,20 @@
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="42.5dp"
+                    style="?android:attr/ratingBarStyleIndicator"
                     android:id="@+id/avgrating"
                     android:isIndicator="true"
                     android:stepSize="1.0"
                     android:numStars="5"
                     android:max="5"
-                    android:scaleX="0.3"
-                    android:scaleY="0.3"
-                    android:progressBackgroundTint="@android:color/holo_green_dark"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:progressBackgroundTint="#ff808080"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="-30dp"/>
+                    android:layout_marginBottom="-20dp"
+                    android:transformPivotX="0dp"
+                    android:transformPivotY="2dp"
+                    android:translationX="45dp" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow6"
@@ -104,7 +108,8 @@
                     android:layout_column="0"
                     android:id="@+id/textView20"
                     android:layout_gravity="center_horizontal"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="12dp" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"
@@ -133,7 +138,8 @@
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:progressTint="@android:color/holo_blue_dark"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:progressBackgroundTint="#ff808080" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"
@@ -157,14 +163,13 @@
                     android:id="@+id/textView33"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Description Wine"
+                    android:text="Description Wine :"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow8"
                 android:layout_margin="10px">
                 <TextView
-                    android:textStyle="bold"
                     android:singleLine="false"
                     android:id="@+id/txtWineDescription"
                     android:layout_height="wrap_content"
@@ -180,7 +185,7 @@
                     android:id="@+id/textView36"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Producer:"
+                    android:text="Producer :"
                     android:layout_span="2"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
@@ -198,7 +203,7 @@
             <TableRow
                 android:id="@+id/tableRow8"
                 android:layout_margin="10px"
-                android:background="#00ff00">
+                android:background="#808080">
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/textView99"

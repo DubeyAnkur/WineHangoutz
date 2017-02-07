@@ -44,22 +44,6 @@
                         android:textColor="#991912"
                         android:paddingLeft="30px"
                         android:layout_margin="2dp" />
-                    <ImageButton
-                        android:src="@drawable/edit"
-                        android:id="@+id/imageButton3"
-                        android:layout_height="25dp"
-                        android:layout_marginBottom="0.0dp"
-                        android:layout_width="25dp"
-                        android:layout_marginTop="0.0dp"
-                        android:layout_margin="2dp" />
-                    <ImageButton
-                        android:src="@drawable/delete"
-                        android:id="@+id/imageButton4"
-                        android:layout_height="25dp"
-                        android:layout_marginBottom="0.0dp"
-                        android:layout_width="25dp"
-                        android:layout_marginTop="0.0dp"
-                        android:layout_margin="2dp" />
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow89"
@@ -109,7 +93,7 @@
                         android:progressBackgroundTint="@android:color/holo_blue_dark"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="-30dp"
-                        android:transformPivotX="0dp"/>
+                        android:transformPivotX="0dp" />
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow90"

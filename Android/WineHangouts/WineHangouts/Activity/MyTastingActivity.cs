@@ -39,21 +39,7 @@ namespace WineHangouts
 
             ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
             // myArr1 = SampleData1();
-            ReviewPopup editPopup = new ReviewPopup(this);
             MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.ItemList.ToList());
-            adapter.Edit_Click += editPopup.EditPopup;
-
-            adapter.Delete_Click += (object sender, EventArgs e) =>
-            {
-                //Pull up Dialog
-                FragmentTransaction trans = FragmentManager.BeginTransaction();
-                DeleteReview dr = new DeleteReview();
-                dr.Show(trans, "Wine Review");
-                //Dialog DeleteDialog = new Dialog(this);
-                //DeleteDialog.SetContentView(Resource.Layout.DeleteReviewPop);
-                //DeleteDialog.Window.RequestFeature(WindowFeatures.NoTitle);
-                //DeleteDialog.Show();
-            };
             wineList.Adapter = adapter;
 
 
@@ -120,16 +106,9 @@ namespace WineHangouts
             var MYtastings = svc.GetMyTastingsList(customerid).Result;
             ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
             // myArr1 = SampleData1();
-            ReviewPopup editPopup = new ReviewPopup(this);
             MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.ItemList.ToList());
-            adapter.Edit_Click += editPopup.EditPopup;
 
-            adapter.Delete_Click += (object sender, EventArgs e) =>
-            {
-                FragmentTransaction trans = FragmentManager.BeginTransaction();
-                DeleteReview dr = new DeleteReview();
-                dr.Show(trans, "Wine Review");
-            };
+         
             wineList.Adapter = adapter;
             adapter.NotifyDataSetChanged();
         }
