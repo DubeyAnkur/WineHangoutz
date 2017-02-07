@@ -62,7 +62,7 @@ namespace WineHangoutz
 		{
 			//This do not work.
 			System.Diagnostics.Debug.WriteLine("code to perform action");
-			NavigationController.PushViewController(new PopupView(), false);
+			//NavigationController.PushViewController(new PopupView(), false);
 		}
 		public void BindData(APLCollectionViewCell cell, NSIndexPath indexPath)
 		{
@@ -76,7 +76,7 @@ namespace WineHangoutz
 			cell.Vintage = myData.ItemList[index].Vintage.ToString();
 			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-			cell.SKU = myData.ItemList[index].SKU;
+			cell.WineId = myData.ItemList[index].WineID.ToString();
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
 			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C");

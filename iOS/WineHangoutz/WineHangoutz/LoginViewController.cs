@@ -69,10 +69,10 @@ namespace WineHangoutz
 		{
 			ServiceWrapper svc = new ServiceWrapper();
 			var myData = svc.AuthencateUser(userName).Result;
-			if (myData.user.UserId != 0)
+			if (myData.customer.CustomerID != 0)
 			{
 				lblError.Text = "";
-				CurrentUser.Store(myData.user.UserId.ToString(), userName);
+				CurrentUser.Store(myData.customer.CustomerID.ToString(), userName);
 			}
 			else
 			{

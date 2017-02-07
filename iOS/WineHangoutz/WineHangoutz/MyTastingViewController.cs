@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-    public partial class MyTastingViewController : UITableViewController
+    public partial class MyTastingViewController : UITableViewController, IPopupParent
     {
         public MyTastingViewController (IntPtr handle) : base (handle)
         {
@@ -27,8 +27,17 @@ namespace WineHangoutz
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
-
+			TableView.AllowsSelection = false;
 			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
+		}
+		public void RefreshParent()
+		{
+			ServiceWrapper svc = new ServiceWrapper();
+			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+			var myData = svc.GetItemReviewUID(userId).Result;
+			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
+			TableView.ReloadData();
+			
 		}
     }
 
@@ -88,7 +97,7 @@ namespace WineHangoutz
 		PDRatingView stars;
 		UIButton btnEdit;
 		UIButton btnDelete;
-		UILabel SKU;
+		UILabel WineIdLabel;
 
 		public UINavigationController NavController;
 		public UIViewController Parent;
@@ -101,9 +110,10 @@ namespace WineHangoutz
 			separator = new UIImageView();
 			WineName = new UILabel()
 			{
-				Font = UIFont.FromName("Verdana", 15f),
+				Font = UIFont.FromName("Verdana", 14f),
 				TextColor = UIColor.FromRGB(127, 51, 0),
-				BackgroundColor = UIColor.Clear
+				BackgroundColor = UIColor.Clear,
+				                         
 			};
 			ReviewDate = new UILabel()
 			{
@@ -117,7 +127,9 @@ namespace WineHangoutz
 				Font = UIFont.FromName("AmericanTypewriter", 14f),
 				TextColor = UIColor.FromRGB(55, 127, 0),
 				//TextAlignment = UITextAlignment.Center,
-				BackgroundColor = UIColor.Clear
+				BackgroundColor = UIColor.Clear,
+				Editable = false
+				                         
 			};
 			Vintage = new UILabel()
 			{
@@ -138,19 +150,19 @@ namespace WineHangoutz
 
 			btnEdit.TouchUpInside += (sender, e) =>
 			{
-				PopupView yourController = new PopupView();
+				PopupView yourController = new PopupView(Convert.ToInt32(WineIdLabel.Text));
 				yourController.NavController = NavController;
 				yourController.parent = Parent;
 				yourController.StartsSelected = stars.AverageRating;
 				yourController.Comments = Comments.Text;
-				yourController.SKU = Convert.ToInt32(SKU.Text);
+				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
 				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 				//this.PresentViewController(yourController, true, null);
 				Parent.PresentModalViewController(yourController, false);
 
 			};
 			btnDelete = new UIButton();
-			SKU = new UILabel();
+			WineIdLabel = new UILabel();
 			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
 
 		}
@@ -162,7 +174,7 @@ namespace WineHangoutz
 			ReviewDate.Text = review.Date.ToString("d");
 			Comments.Text = review.RatingText;
 			Vintage.Text = review.Vintage.ToString();
-			SKU.Text = review.SKU.ToString();
+			WineIdLabel.Text = review.WineID.ToString();
 			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 			//ContentView.Bounds.Height = 90;
 			stars.AverageRating = Convert.ToDecimal(review.RatingStars);

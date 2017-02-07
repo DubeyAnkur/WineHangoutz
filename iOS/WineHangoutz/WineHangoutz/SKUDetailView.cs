@@ -9,12 +9,12 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-	public class SKUDetailView : UITableViewController
+	public class SKUDetailView : UITableViewController, IPopupParent
 	{
-		int SKU;
-		public SKUDetailView(string sku): base()
+		int _wineId;
+		public SKUDetailView(string WineId): base()
 		{
-			SKU = Convert.ToInt32(sku);
+			_wineId = Convert.ToInt32(WineId);
 			this.Title = "Details";
 		}
 
@@ -24,7 +24,7 @@ namespace WineHangoutz
 			nfloat width = View.Frame.Width;
 
 			ServiceWrapper svc = new ServiceWrapper();
-			ItemDetailsResponse myData = svc.GetItemDetails(5757).Result;
+			ItemDetailsResponse myData = svc.GetItemDetails(_wineId).Result;
 
 			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			TableView.AllowsSelection = false;
@@ -33,6 +33,14 @@ namespace WineHangoutz
 			TableView.RowHeight = UITableView.AutomaticDimension;
 			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails);
 
+		}
+		public void RefreshParent()
+		{
+			nfloat width = View.Frame.Width;
+			ServiceWrapper svc = new ServiceWrapper();
+			ItemDetailsResponse myData = svc.GetItemDetails(_wineId).Result;
+			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails);
+			TableView.ReloadData();
 		}
 	}
 
@@ -62,7 +70,7 @@ namespace WineHangoutz
 			data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
 
 			ServiceWrapper sw = new ServiceWrapper();
-			ItemReviewResponse ratings = sw.GetItemReviewSKU(Convert.ToInt32(data.SKU)).Result;
+			ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineID)).Result;
 			data.Reviews = ratings.Reviews.ToList();
 			//var review1 = new Rating();
 			//review1.RatingText = "Comments";
@@ -175,7 +183,7 @@ namespace WineHangoutz
 					UIViewController that = Parent;
 					ratingView2.RatingChosen += (sender, e) =>
 					{
-						PopupView yourController = new PopupView();
+						PopupView yourController = new PopupView(Convert.ToInt32(data.WineID));
 						yourController.NavController = NavigationController;
 						yourController.parent = that;
 						yourController.StartsSelected = e.Rating;

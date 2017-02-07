@@ -15,11 +15,12 @@ namespace WineHangoutz
 		//Possible Inputss
 		public decimal StartsSelected;
 		public string Comments="";
-		public int SKU;
+		public int WineId;
 
-		public PopupView() : base ()
+		public PopupView(int Wine) : base ()
 		{
 			this.Title = "Popup";
+			WineId = Wine;
 			//this.TabBarItem.Image = UIImage.FromBundle("Images/first");
 		}
 		public override void ViewDidLoad()
@@ -111,14 +112,22 @@ namespace WineHangoutz
 				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 				review.RatingText = txtComments.Text;
 				review.IsActive = true;
-				review.SKU = SKU;
+				//review.SKU = SKU;
+				review.WineID = WineId;
 
 				await sw.InsertUpdateReview(review);
 
+				((IPopupParent)parent).RefreshParent();
+				                      
 				NavController.DismissViewController(true, null);
 				//Save Service Call.
 				//txtComments
 			};
 		}
+	}
+
+	public interface IPopupParent
+	{
+	 	void RefreshParent();
 	}
 }

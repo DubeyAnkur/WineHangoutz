@@ -17,7 +17,7 @@ namespace WineHangoutz {
 		public string Vintage = "2012";
 		public string RegPrice = "$9.99";
 		public decimal averageRating = 3.3m;
-		public string SKU = "0";
+		public string WineId = "0";
 
 
 		[Export ("initWithFrame:")]
@@ -42,7 +42,7 @@ namespace WineHangoutz {
 			ImageView.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavigationController.PushViewController(new SKUDetailView(SKU), false);
+				NavigationController.PushViewController(new SKUDetailView(WineId), false);
 			};
 
 			box.Width = (box.Width/ 240) * 92; //box.Width / 2;
@@ -59,7 +59,7 @@ namespace WineHangoutz {
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavigationController.PushViewController(new SKUDetailView(SKU), false);
+				NavigationController.PushViewController(new SKUDetailView(WineId), false);
 			};
 
 			box.Height = 20;
@@ -93,7 +93,7 @@ namespace WineHangoutz {
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				SKULike like = new SKULike();
 				like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
-				like.SKU = Convert.ToInt32(SKU);
+				like.WineId = Convert.ToInt32(WineId);
 				like.Liked = Convert.ToBoolean(temp.Tag);
 				ServiceWrapper sw = new ServiceWrapper();
 				await sw.InsertUpdateLike(like);

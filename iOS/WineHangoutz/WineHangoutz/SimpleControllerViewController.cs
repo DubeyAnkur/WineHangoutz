@@ -62,7 +62,7 @@ namespace WineHangoutz
 		{
 			//This do not work.
 			System.Diagnostics.Debug.WriteLine("code to perform action");
-			NavigationController.PushViewController(new PopupView(), false);
+			//NavigationController.PushViewController(new PopupView(), false);
 		}
 		public void BindData(BottleCell cell, NSIndexPath indexPath)
 		{

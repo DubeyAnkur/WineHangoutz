@@ -50,9 +50,9 @@ namespace WineHangoutz
 			return output;
 		}
 
-		public async Task<ItemDetailsResponse> GetItemDetails(int sku)
+		public async Task<ItemDetailsResponse> GetItemDetails(int wineid)
 		{
-			var uri = new Uri(ServiceURL + "GetItemDetails/" + sku);
+			var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 			var output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
 			return output;
@@ -75,17 +75,25 @@ namespace WineHangoutz
 			return 1;
 		}
 
-		public async Task<UserResponse> AuthencateUser(string UserName)
+		public async Task<CustomerResponse> AuthencateUser(string UserName)
 		{
 			var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			var output = JsonConvert.DeserializeObject<UserResponse>(response);
+			var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
 			return output;
 		}
 
-		public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
+		//public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
+		//{
+		//    var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
+		//    var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+		//    var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
+		//    return output;
+		//}
+
+		public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
 		{
-			var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
+			var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 			var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
 			return output;
@@ -106,7 +114,23 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "InsertUpdateReview/");
 				var content = JsonConvert.SerializeObject(review);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+																  //var result = response.Content.ReadAsStringAsync().Result;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			return 1;
+		}
+		public async Task<int> UpdateCustomer(Customer customer)
+		{
+			try
+			{
+				var uri = new Uri(ServiceURL + "UpdateCustomer/");
+				var content = JsonConvert.SerializeObject(customer);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
 																  //var result = response.Content.ReadAsStringAsync().Result;
 			}
 			catch (Exception ex)
@@ -118,6 +142,21 @@ namespace WineHangoutz
 		public async Task<ItemListResponse> GetItemFavsUID(int userId)
 		{
 			var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+			return output;
+		}
+		public async Task<CustomerResponse> GetCustomerDetails(int userID)
+		{
+			var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+			return output;
+		}
+		public async Task<ItemListResponse> GetMyTastingsList(int customerid)
+		{
+			customerid = 38691;
+			var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
 			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 			var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
 			return output;
