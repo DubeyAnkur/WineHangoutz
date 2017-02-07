@@ -42,6 +42,8 @@
                         android:layout_column="0"
                         android:id="@+id/textView64"
                         android:textColor="#991912"
+                        android:singleLine="false"
+                        android:inputType="textMultiLine"
                         android:paddingLeft="30px"
                         android:layout_margin="2dp" />
                     <ImageButton

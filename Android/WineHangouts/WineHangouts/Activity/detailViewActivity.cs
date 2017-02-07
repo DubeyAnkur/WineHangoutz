@@ -17,7 +17,7 @@ using System.Linq;
 namespace WineHangouts
 {
     [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon" )]
-    public class detailViewActivity : Activity
+    public class detailViewActivity : Activity, IPopupParent
     {
         public int sku;
         List<ItemDetails> DetailsArray;
@@ -237,7 +237,34 @@ namespace WineHangouts
             DetailsArray.Add(w8);
             return DetailsArray;
         }
-     
+
+        public void RefreshParent()
+        {
+            ServiceWrapper svc = new ServiceWrapper();
+            int wineid = Intent.GetIntExtra("WineID", 138);
+
+            // wineid = 138;
+            ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
+            var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+
+            this.Title = "Details";
+
+            //Top detailed view
+            string[] arr1 = new string[] { "Silver napa valley",
+                                           "Cabernet ",
+                                           "2011",
+                                          " This is the description about wine,This is the description about wine,This is the description about wine" };
+            //var detailView = FindViewById<ListView>(Resource.Id.listView1);
+            //DetailsArray = DetailsData();
+            //DetailsViewAdapter Details = new DetailsViewAdapter(this, DetailsArray);
+            //detailView.Adapter = Details;
+
+            var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+            //ReviewArray = ReviewData();
+            reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
+            commentsView.Adapter = comments;
+            comments.NotifyDataSetChanged();
+        }
     }
     
 }

@@ -15,7 +15,7 @@ using Hangout.Models;
 namespace WineHangouts
 {
     [Activity(Label = "TastingActivity")]
-    public class TastingActivity : Activity
+    public class TastingActivity : Activity, IPopupParent
     {
         public int uid;
         
@@ -61,7 +61,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                StartActivity(typeof(TabActivity));
+                return false;
             }
             return base.OnOptionsItemSelected(item);
         }
@@ -109,6 +109,30 @@ namespace WineHangouts
             myArr1.Add(w3);
 
             return myArr1;
+        }
+
+        public void RefreshParent()
+        {
+            ServiceWrapper svc = new ServiceWrapper();
+           
+            var uidreviews = svc.GetItemReviewUID(uid).Result;
+            ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
+            ReviewPopup editPopup = new ReviewPopup(this);
+            TastingAdapter adapter = new TastingAdapter(this, uidreviews.Reviews.ToList());
+            adapter.Edit_Click += editPopup.EditPopup;
+            adapter.Delete_Click += (object sender, EventArgs e) =>
+            {
+                //Pull up Dialog
+                FragmentTransaction trans = FragmentManager.BeginTransaction();
+                DeleteReview dr = new DeleteReview();
+                dr.Show(trans, "Wine Review");
+                //Dialog DeleteDialog = new Dialog(this);
+                //DeleteDialog.SetContentView(Resource.Layout.DeleteReviewPop);
+                //DeleteDialog.Window.RequestFeature(WindowFeatures.NoTitle);
+                //DeleteDialog.Show();
+            };
+            wineList.Adapter = adapter;
+            adapter.NotifyDataSetChanged();
         }
     }
 }

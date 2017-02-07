@@ -117,7 +117,7 @@ namespace WineHangouts
                 
                 review.WineID = WineId;
                 await sw.InsertUpdateReview(review);
-                
+                ((IPopupParent)Parent).RefreshParent();
                 editDialog.Dismiss();
                 
             };
@@ -163,9 +163,15 @@ namespace WineHangouts
                 review.SKU = SKU;
                 review.WineID = WineId;
                 await sw.InsertUpdateReview(review);
+                ((IPopupParent)Parent).RefreshParent();
                 editDialog.Dismiss();
             };
 
         }
     }
+
+    public interface IPopupParent
+    {
+        void RefreshParent();
+    } 
 }

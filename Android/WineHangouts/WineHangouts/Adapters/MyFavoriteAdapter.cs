@@ -140,13 +140,13 @@ namespace WineHangouts
 
             place.SetImageResource(Resource.Drawable.placeholder);
             Wine.SetImageResource(Resource.Drawable.wine1);
-            var place1 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+            var place1 = new RelativeLayout.LayoutParams(520, 520);
             // var place = new RelativeLayout.LayoutParams(520, 620);
-            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
             Wine.LayoutParameters = place1;
 
-            var place2 = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
-            place2.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 530;
+            var place2 = new RelativeLayout.LayoutParams(520, 520);
+            place2.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
             place.LayoutParameters = place2;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);

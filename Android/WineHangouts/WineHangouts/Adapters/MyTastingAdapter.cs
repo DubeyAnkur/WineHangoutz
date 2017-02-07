@@ -11,6 +11,7 @@ using System.Net;
 using Hangout.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace WineHangouts
 {
@@ -75,7 +76,7 @@ namespace WineHangouts
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage.ToString();
             txtDescription.Text = myItems[position].Description;
-            txtDate.Text = myItems[position].RegPrice.ToString();
+            txtDate.Text = myItems[position].RegPrice.ToString("C");
             rb.Rating = (float)myItems[position].AverageRating;
             wineimage.SetImageResource(Resource.Drawable.wine7);
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
