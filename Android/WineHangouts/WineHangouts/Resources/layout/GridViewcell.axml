@@ -124,7 +124,8 @@
                 android:stepSize="0.1"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                android:isIndicator="true" />
+                android:isIndicator="true"
+                android:progressBackgroundTint="#ffb4b4b4" />
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"

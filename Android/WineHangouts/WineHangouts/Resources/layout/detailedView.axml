@@ -54,13 +54,13 @@
                     android:background="@null" />-->
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="450dp"
+                        android:layout_height="400dp"
                         android:id="@+id/placeholder1"
                         android:src="@drawable/placeholder_11" />
                     <ImageView
                         android:src="@drawable/placeholder_11"
                         android:layout_width="match_parent"
-                        android:layout_height="450dp"
+                        android:layout_height="400dp"
                         android:id="@+id/imgWine12"
                         android:clickable="false" />
                 </RelativeLayout>
@@ -77,10 +77,11 @@
                     android:stepSize="1.0"
                     android:numStars="5"
                     android:max="5"
-                    android:scaleX="0.5"
-                    android:scaleY="0.5"
-                    android:progressBackgroundTint="@android:color/holo_green_dark"
-                    android:layout_gravity="center_horizontal" />
+                    android:scaleX="0.3"
+                    android:scaleY="0.3"
+                    android:progressBackgroundTint="#ffb4b4b4"
+                    android:layout_gravity="center_horizontal"
+                    android:translationY="@dimen/abc_action_bar_subtitle_top_margin_material" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow6"
@@ -132,7 +133,8 @@
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:progressTint="@android:color/holo_blue_dark"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:progressBackgroundTint="#ffb4b4b4" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"

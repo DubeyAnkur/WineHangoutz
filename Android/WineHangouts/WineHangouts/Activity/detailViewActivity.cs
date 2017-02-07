@@ -12,7 +12,7 @@ using Android.Widget;
 using Android.Graphics;
 using Android.Util;
 using Hangout.Models;
-using System.Linq;
+
 
 namespace WineHangouts
 {
