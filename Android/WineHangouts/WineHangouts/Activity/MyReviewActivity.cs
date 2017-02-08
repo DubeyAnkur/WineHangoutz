@@ -18,7 +18,7 @@ namespace WineHangouts
     public class MyReviewActivity : Activity, IPopupParent
     {
         public int uid;
-        
+        Context parent;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -41,17 +41,6 @@ namespace WineHangouts
             MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
             //adapter.Edit_Click += editPopup.EditPopup;
            
-                adapter.Delete_Click += (object sender, EventArgs e) =>
-            {
-                //Pull up Dialog
-                FragmentTransaction trans = FragmentManager.BeginTransaction();
-                DeleteReview dr = new DeleteReview();
-                dr.Show(trans, "Wine Review");
-                //Dialog DeleteDialog = new Dialog(this);
-                //DeleteDialog.SetContentView(Resource.Layout.DeleteReviewPop);
-                //DeleteDialog.Window.RequestFeature(WindowFeatures.NoTitle);
-                //DeleteDialog.Show();
-            };
             wineList.Adapter = adapter;
 
 
@@ -122,17 +111,7 @@ namespace WineHangouts
             ReviewPopup editPopup = new ReviewPopup(this, edit);
             MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
             //adapter.Edit_Click += editPopup.EditPopup;
-            adapter.Delete_Click += (object sender, EventArgs e) =>
-            {
-                //Pull up Dialog
-                FragmentTransaction trans = FragmentManager.BeginTransaction();
-                DeleteReview dr = new DeleteReview();
-                dr.Show(trans, "Wine Review");
-                //Dialog DeleteDialog = new Dialog(this);
-                //DeleteDialog.SetContentView(Resource.Layout.DeleteReviewPop);
-                //DeleteDialog.Window.RequestFeature(WindowFeatures.NoTitle);
-                //DeleteDialog.Show();
-            };
+          
             wineList.Adapter = adapter;
             adapter.NotifyDataSetChanged();
         }

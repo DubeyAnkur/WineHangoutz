@@ -16,11 +16,11 @@ using System.Globalization;
 namespace WineHangouts
 {
     [Activity(Label = "MyTastingAdapter")]
-    public class MyTastingAdapter : BaseAdapter<Item>
+    public class MyTastingAdapter : BaseAdapter<Tastings>
     {
-        private List<Item> myItems;
+        private List<Tastings> myItems;
         private Context myContext;
-        public override Item this[int position]
+        public override Tastings this[int position]
         {
             get
             {
@@ -28,7 +28,7 @@ namespace WineHangouts
             }
         }
 
-        public MyTastingAdapter(Context con, List<Item> strArr)
+        public MyTastingAdapter(Context con, List<Tastings> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -59,6 +59,7 @@ namespace WineHangouts
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.Vintage);
             TextView txtDescription = row.FindViewById<TextView>(Resource.Id.TastingNotes);
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.Date);
+            TextView txtPrice = row.FindViewById<TextView>(Resource.Id.Price);
             
             ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.AvgRating);
@@ -72,7 +73,8 @@ namespace WineHangouts
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage.ToString();
             txtDescription.Text = myItems[position].Description;
-            txtDate.Text = myItems[position].RegPrice.ToString("C");
+            txtDate.Text = myItems[position].TastingDate.ToString();
+            txtPrice.Text = myItems[position].RegPrice.ToString("C");
             rb.Rating = (float)myItems[position].AverageRating;
             wineimage.SetImageResource(Resource.Drawable.wine7);
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);

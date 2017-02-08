@@ -22,24 +22,23 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-           int customerid = Convert.ToInt32(CurrentUser.getUserId());
-            //   uid = 4;//checking purpose
-            // Set our view from the "main" layout resource
+           customerid = Convert.ToInt32(CurrentUser.getUserId());
+           
             SetContentView(Resource.Layout.MyTasting);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-         //   customerid = 38691;
+       
                         ServiceWrapper svc = new ServiceWrapper();
-            // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
+           
             var MYtastings = svc.GetMyTastingsList(customerid).Result;
 
-            List<Item> myArr;
+            List<Tastings> myArr;
           
             //  myArr1 = SampleData1();
 
             ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
             // myArr1 = SampleData1();
-            MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.ItemList.ToList());
+            MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
             wineList.Adapter = adapter;
 
 
@@ -106,7 +105,7 @@ namespace WineHangouts
             var MYtastings = svc.GetMyTastingsList(customerid).Result;
             ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
             // myArr1 = SampleData1();
-            MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.ItemList.ToList());
+            MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
 
          
             wineList.Adapter = adapter;

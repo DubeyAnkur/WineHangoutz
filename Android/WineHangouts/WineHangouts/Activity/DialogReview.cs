@@ -24,7 +24,7 @@ namespace WineHangouts
 
 
 
-          //  btnSubmitReview.Click += BtnSubmitReview_Click;
+         
             return view;
         }
 
