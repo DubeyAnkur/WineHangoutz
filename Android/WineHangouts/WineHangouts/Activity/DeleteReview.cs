@@ -20,8 +20,10 @@ namespace WineHangouts
         public Dialog myDialog;
         private int WineId;
         Context Parent;
+        public DeleteReview(Context parent,Review _editObj)
         {
             Parent = parent;
+            WineId=  _editObj.WineId;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
