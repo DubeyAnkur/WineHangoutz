@@ -75,7 +75,14 @@ namespace WineHangouts
                 _review.RatingText = myItems[position].RatingText;
                 PerformItemClick(sender, args, _review);
             };
-            delete.Click += Delete_Click;
+            //delete.Click += Delete_Click;
+            delete.Click += (sender, args) => {
+                int WineId = myItems[position].WineId;
+                Review _review = new Review();
+                _review.WineId = WineId;
+               
+                PerformdeleteClick(sender, args, _review);
+            };
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;
@@ -107,6 +114,12 @@ namespace WineHangouts
         {
             ReviewPopup editPopup = new ReviewPopup(myContext, edit);
             editPopup.EditPopup(sender, e);
+        }
+        public void PerformdeleteClick(object sender, EventArgs e, Review edit)
+        {
+            //DeleteReview editPopup = new DeleteReview(myContext, edit);
+            DeleteReview dr = new DeleteReview(myContext, edit);
+            dr.Show(((Activity)myContext).FragmentManager, "");
         }
 
         private Bitmap GetImageBitmapFromUrl(string url)

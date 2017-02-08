@@ -107,6 +107,18 @@
                         android:textColor="@android:color/holo_blue_bright"
                         android:layout_margin="2dp" />
                 </TableRow>
+              <TableRow
+                    android:id="@+id/tableRow95"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:paddingLeft="30px">
+                    <TextView
+                        android:text="Price"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/Price"
+                        android:textColor="@android:color/holo_blue_bright"
+                        android:layout_margin="2dp" />
+                </TableRow>
                 <TableRow
                     android:id="@+id/tableRow91"
                     android:minWidth="25px"

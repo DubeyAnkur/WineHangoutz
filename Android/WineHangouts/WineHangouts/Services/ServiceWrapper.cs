@@ -123,6 +123,22 @@ namespace WineHangouts
             }
             return 1;
         }
+        public async Task<int> DeleteReview(Review review)
+        {
+            try
+            {
+                var uri = new Uri(ServiceURL + "DeleteReview/");
+                var content = JsonConvert.SerializeObject(review);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+                //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 1;
+        }
         public async Task<int> UpdateCustomer(Customer customer)
         {
             try
@@ -153,12 +169,12 @@ namespace WineHangouts
             var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
             return output;
         }
-        public async Task<ItemListResponse> GetMyTastingsList(int customerid)
+        public async Task<TastingListResponse> GetMyTastingsList(int customerid)
         {
-            customerid = 38691;
+            //customerid = 38691;
             var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+            var output = JsonConvert.DeserializeObject<TastingListResponse>(response);
             return output;
         }
     }
