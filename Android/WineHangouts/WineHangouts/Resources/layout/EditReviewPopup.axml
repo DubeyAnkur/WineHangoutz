@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageButton
-                android:src="@drawable/close"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
                 android:layout_column="0"
                 android:id="@+id/close"
                 android:background="#cc007a"

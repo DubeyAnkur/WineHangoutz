@@ -16,14 +16,14 @@
             android:id="@+id/relativeLayout1"
             android:layout_margin="5dp">
             <ImageView
-                android:src="@android:drawable/ic_menu_gallery"
+                android:src="@drawable/ic_action_person"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/propicview"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center" />
             <ImageButton
-                android:src="@android:drawable/ic_menu_gallery"
+                android:src="@android:drawable/ic_menu_camera"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@null"
@@ -131,14 +131,13 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/mail"
+                    android:src="@drawable/ic_action_email"
                     android:layout_width="32.0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="-100dp" />
+                    android:layout_gravity="left" />
                 <TextView
                     android:text="E-Mail"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -156,7 +155,7 @@
                     android:id="@+id/txtEmail"
                     android:inputType="phone"
                     android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textSize="15dp"
                     android:textColor="@android:color/black"
                     android:typeface="sans"
@@ -170,14 +169,13 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/mail"
+                    android:src="@android:drawable/ic_menu_call"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="-100dp" />
+                    android:layout_gravity="left" />
                 <TextView
                     android:text="Mobile Number"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -195,7 +193,7 @@
                     android:id="@+id/txtMobileNumber"
                     android:inputType="text"
                     android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
                     android:typeface="sans"
@@ -204,23 +202,23 @@
                     android:layout_marginLeft="25dp" />
             </TableRow>
             <TableRow
-                android:id="@+id/tableRow5"
+                android:id="@+id/tableRow4"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/mail"
-                    android:layout_width="wrap_content"
+                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_marginRight="0dp" />
+                    android:layout_gravity="left" />
                 <TextView
                     android:text="Address"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
-                    android:id="@+id/textView17"
+                    android:id="@+id/textView14"
                     android:layout_gravity="left" />
             </TableRow>
             <TableRow
@@ -234,8 +232,8 @@
                     android:inputType="textMultiLine"
                     android:minLines="5"
                     android:singleLine="false"
-                    android:layout_height="40.5dp"
-                    android:layout_width="wrap_content"
+                    android:layout_height="48.5dp"
+                    android:layout_width="match_parent"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
                     android:maxLines="5"
@@ -250,14 +248,13 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/mail"
+                    android:src="@drawable/ic_action_place"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="-100dp" />
+                    android:layout_gravity="left" />
                 <TextView
                     android:text="City"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -275,7 +272,7 @@
                     android:id="@+id/txtCity"
                     android:inputType="text"
                     android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
                     android:maxLines="5"
@@ -290,14 +287,13 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/mail"
+                    android:src="@android:drawable/ic_dialog_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="-100dp" />
+                    android:layout_gravity="left" />
                 <TextView
                     android:text="State"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -315,7 +311,7 @@
                     android:id="@+id/txtState"
                     android:inputType="text"
                     android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
                     android:maxLines="5"
