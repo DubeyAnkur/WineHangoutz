@@ -120,7 +120,7 @@ namespace WineHangouts
                     like.UserID = Convert.ToInt32(CurrentUser.getUserId());
                     like.SKU = Convert.ToInt32(myItems[position].SKU);
                     like.Liked = x;
-                    like.WineId = myItems[position].WineID;
+                    like.WineId = myItems[position].WineId;
                     ServiceWrapper sw = new ServiceWrapper();
                     await sw.InsertUpdateLike(like);
                 };

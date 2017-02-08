@@ -83,7 +83,7 @@ namespace WineHangouts
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
 
             Review edit = new Review();
-            edit.WineID = wineid;
+            edit.WineId = wineid;
             ReviewPopup editPopup = new ReviewPopup(this, edit);
             RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
             RatingInput.RatingBarChange += editPopup.CreatePopup;

@@ -68,9 +68,9 @@ namespace WineHangouts
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             //edit.SetTag(1, 5757);
             edit.Click +=  (sender, args) => {
-                int WineId = myItems[position].WineID;
+                int WineId = myItems[position].WineId;
                 Review _review = new Review();
-                _review.WineID = WineId;
+                _review.WineId = WineId;
                 _review.RatingStars = myItems[position].RatingStars;
                 _review.RatingText = myItems[position].RatingText;
                 PerformItemClick(sender, args, _review);

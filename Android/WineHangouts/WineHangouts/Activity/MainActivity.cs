@@ -57,7 +57,7 @@ namespace WineHangouts
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                int WineID = myArr[args.Position].WineID;
+                int WineID = myArr[args.Position].WineId;
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID",WineID);
                 StartActivity(intent);

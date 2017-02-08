@@ -79,7 +79,7 @@ namespace WineHangouts
         {
             Parent = parent;
             _editObj = EditObj;
-            WineId = EditObj.WineID;
+            WineId = EditObj.WineId;
         }
 
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
@@ -122,7 +122,7 @@ namespace WineHangouts
                 review.RatingStars = Convert.ToInt32(custRating.Rating);
                 review.IsActive = true;
 
-                review.WineID = WineId;
+                review.WineId = WineId;
                 await sw.InsertUpdateReview(review);
                 ((IPopupParent)Parent).RefreshParent();
                 editDialog.Dismiss();
@@ -172,7 +172,7 @@ namespace WineHangouts
                 review.RatingText = Comments.Text;
                 review.RatingStars = Convert.ToInt32(custRating.Rating);
                 review.IsActive = true;
-                review.WineID = WineId;
+                review.WineId = WineId;
                 await sw.InsertUpdateReview(review);
                 ((IPopupParent)Parent).RefreshParent();
                 editDialog.Dismiss();
