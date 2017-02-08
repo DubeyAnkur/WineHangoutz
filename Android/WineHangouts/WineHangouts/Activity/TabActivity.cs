@@ -20,9 +20,9 @@ namespace WineHangouts
             base.OnCreate(bundle);
             this.TitleColor=Color.LightGray;
 
-            // Set our view from the "main" layout resource
+            
             SetContentView(Resource.Layout.Fragment);
-            //  getActionBar().setBackgroundDrawable(new ColorDrawable(Color.AliceBlue));
+          
             
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
@@ -49,7 +49,7 @@ namespace WineHangouts
             tab.SetText(tabText);
 
 
-            // must set event handler before adding tab
+           
             tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
             {
                 var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
@@ -81,17 +81,11 @@ namespace WineHangouts
             {
                 base.OnCreateView(inflater, container, savedInstanceState);
                 var view = inflater.Inflate(Resource.Layout.LocationLayout, null);
-
-
-                // The result will be null because InJustDecodeBounds == true.
-
-
                 Button Top = view.FindViewById<Button>(Resource.Id.btnTop);
                 Button Middle = view.FindViewById<Button>(Resource.Id.btnMiddle);
                 Button Bottom = view.FindViewById<Button>(Resource.Id.btnBottom);
                 var metrics = Resources.DisplayMetrics;
-                int height = metrics.HeightPixels; // ConvertPixelsToDp(metrics.HeightPixels);
-                ////int heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+                int height = metrics.HeightPixels; 
                 height = height - (int)((360 * metrics.Density) / 3);
                 height = height / 3;
                 Top.LayoutParameters.Height = height;
@@ -115,12 +109,7 @@ namespace WineHangouts
                     Bottom.Text = "Seacucas";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
-                    //var param = Top.LayoutParameters;
-                    //var param1 = Middle.LayoutParameters;
-                    //var param2 = Bottom.LayoutParameters;
-                    //param.Height = PixelsToDp(160);
-                    //param1.Height = PixelsToDp(160);
-                    //param2.Height = PixelsToDp(160);
+                    
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(GridViewActivity));
@@ -135,9 +124,6 @@ namespace WineHangouts
                     };
                     Bottom.Click += (sender, e) =>
                     {
-                        // var intent = new Intent(Activity, typeof(MainActivity));
-                        //intent.PutExtra("MyData", "Seacucas Store");
-                        // StartActivity(intent);
                         AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
                         aler.SetTitle("Secacus Store");
                         aler.SetMessage("Coming Soon");
@@ -161,12 +147,7 @@ namespace WineHangouts
                     Bottom.Text = "My Favorite";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
-                    //var param = Top.LayoutParameters;
-                    //var param1 = Middle.LayoutParameters;
-                    //var param2 = Bottom.LayoutParameters;
-                    //param.Height = PixelsToDp(160);
-                    //param1.Height = PixelsToDp(160);
-                    //param2.Height = PixelsToDp(160);
+                   
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(MyReviewActivity));
@@ -195,7 +176,7 @@ namespace WineHangouts
                     Top.Text = "My Profile";
                     Top.SetTextColor(Color.White);
                     Top.TextSize = 20;
-                    //Top.SetTextColor(Color.Red);
+                    
 
                     Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
                     Middle.Text = "Wineries";
@@ -205,13 +186,7 @@ namespace WineHangouts
                     Bottom.Text = "Regions";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
-
-                    //var param = Top.LayoutParameters;
-                    //var param1 = Middle.LayoutParameters;
-                    //var param2 = Bottom.LayoutParameters;
-                    //param.Height = PixelsToDp(160);
-                    //param1.Height = PixelsToDp(160);
-                    //param2.Height = PixelsToDp(160);
+                    
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(ProfileActivity));
@@ -233,11 +208,7 @@ namespace WineHangouts
                 }
 
                 return view;
-                /*  var view = inflater.Inflate (Resource.Layout.Tab, container, false);
-                  var sampleTextView = view.FindViewById<TextView> (Resource.Id.sampleTextView);             
-                  sampleTextView.Text = "sample fragment text";
-
-                  return view;*/
+               
 
             }
             private int PixelsToDp(int pixels)
@@ -253,71 +224,7 @@ namespace WineHangouts
             MoveTaskToBack(true);
         }
 
-
-            //class SampleTabFragment2 : Fragment
-            //{
-            //    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-            //    {
-            //        base.OnCreateView(inflater, container, savedInstanceState);
-
-            //        /*var view = inflater.Inflate(Resource.Layout.Tab, container, false);
-            //        var sampleTextView = view.FindViewById<TextView>(Resource.Id.sampleTextView);
-            //        sampleTextView.Text = "sample fragment text 2";
-
-            //        return view;*/
-            //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout2, null);
-            //        Button Top = view.FindViewById<Button>(Resource.Id.button);
-            //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
-            //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
-
-
-            //        var param = Top.LayoutParameters;
-            //        var param1 = Middle.LayoutParameters;
-            //        var param2 = Bottom.LayoutParameters;
-            //        param.Height = PixelsToDp(160);
-            //        param1.Height = PixelsToDp(160);
-            //        param2.Height = PixelsToDp(160);
-            //        return view;
-            //    }
-            //    private int PixelsToDp(int pixels)
-            //    {
-            //        return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
-            //    }
-            //}
-            //class SampleTabFragment3 : Fragment
-            //{
-            //    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-            //    {
-            //        base.OnCreateView(inflater, container, savedInstanceState);
-            //        /*
-            //                        var view = inflater.Inflate(Resource.Layout.Tab, container, false);
-            //                        var sampleTextView = view.FindViewById<TextView>(Resource.Id.sampleTextView);
-            //                        sampleTextView.Text = "sample fragment text 2";
-
-            //                        return view;*/
-            //        var view = inflater.Inflate(Resource.Layout.Fragment1Layout3, null);
-            //        Button Top = view.FindViewById<Button>(Resource.Id.button);
-            //        Button Middle = view.FindViewById<Button>(Resource.Id.button1);
-            //        Button Bottom = view.FindViewById<Button>(Resource.Id.button2);
-
-
-            //        var param = Top.LayoutParameters;
-            //        var param1 = Middle.LayoutParameters;
-            //        var param2 = Bottom.LayoutParameters;
-            //        param.Height = PixelsToDp(160);
-            //        param1.Height = PixelsToDp(160);
-            //        param2.Height = PixelsToDp(160);
-
-            //        //Top.wei = 100;
-
-            //        return view;
-            //    }
-            //    private int PixelsToDp(int pixels)
-            //    {
-            //        return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
-            //    }
-
-            //}
+        
         }
 
 }

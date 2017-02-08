@@ -17,8 +17,7 @@ namespace WineHangouts
     {
 
 
-        //RatingBar userRatingBar;
-        //EditText txtReviewComments;
+       
         public Dialog myDialog;
  
 
@@ -28,16 +27,10 @@ namespace WineHangouts
             var view = inflater.Inflate(Resource.Layout.DeleteReviewPop, container, false);
 
 
-            //userRatingBar = view.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
-            //txtReviewComments = view.FindViewById<EditText>(Resource.Id.txtReviewComments);
-            //Button btnSubmitReview = view.FindViewById<Button>(Resource.Id.btnSubmitReview);
-
-            //userRatingBar = view.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
-            //txtReviewComments = view.FindViewById<EditText>(Resource.Id.txtReviewComments);
             Button btnSubmitReview = view.FindViewById<Button>(Resource.Id.btnSubmitReview);
 
 
-          //  btnSubmitReview.Click += BtnSubmitReview_Click;
+          
             return view;
         }
 
