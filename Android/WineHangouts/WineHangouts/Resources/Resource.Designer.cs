@@ -2951,6 +2951,9 @@ namespace WineHangouts
 			// aapt resource value: 0x7f080073
 			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131230835;
 			
+			// aapt resource value: 0x7f080135
+			public const int Base_Widget_Design_TabLayout = 2131231029;
+			
 			// aapt resource value: 0x7f080133
 			public const int CustomActionBarTheme = 2131231027;
 			

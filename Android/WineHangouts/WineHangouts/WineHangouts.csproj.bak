@@ -43,7 +43,7 @@
   <ItemGroup>
     <Reference Include="Hangouts.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Savvy IT\Desktop\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
+      <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
@@ -303,9 +303,6 @@
     <AndroidResource Include="Resources\drawable\finca1.30.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Update.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\myprofile.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -330,10 +327,22 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\updateprofilebtn.png" />
+    <AndroidResource Include="Resources\drawable\mail.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\mail.png" />
+    <AndroidResource Include="Resources\drawable\Icons\ic_action_phone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_place.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

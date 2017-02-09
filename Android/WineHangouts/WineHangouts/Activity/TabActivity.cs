@@ -12,7 +12,7 @@ using Android.Graphics.Drawables;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Wine Hangouts", MainLauncher = false)]
+    [Activity(Label = "Wine Hangouts", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
     public class TabActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
