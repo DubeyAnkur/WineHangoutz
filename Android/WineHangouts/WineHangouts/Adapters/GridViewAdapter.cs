@@ -127,7 +127,9 @@ namespace WineHangouts
             }
 
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
-            imgWine.SetImageResource(Resource.Drawable.wine1);
+            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/download.jpg");
+            imgWine.SetImageBitmap(imageBitmap);
+            //imgWine.SetImageResource(Resource.Drawable.wine1);
           //var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
            var place = new RelativeLayout.LayoutParams(520, 520);
            place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;

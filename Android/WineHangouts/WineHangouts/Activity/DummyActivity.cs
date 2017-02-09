@@ -13,7 +13,7 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Testing App", MainLauncher =false, Icon = "@drawable/update")]
+    [Activity(Label = "Testing App", MainLauncher =false, Icon = "@drawable/icon")]
     public class DummyActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

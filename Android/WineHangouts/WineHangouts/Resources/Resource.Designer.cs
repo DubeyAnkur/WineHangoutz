@@ -1459,124 +1459,121 @@ namespace WineHangouts
 			public const int ic_action_email = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int ic_action_person = 2130837588;
+			public const int ic_action_map = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int ic_action_place = 2130837589;
+			public const int ic_action_person = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int ic_tab_white = 2130837590;
+			public const int ic_action_place = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int ic_tab_white1 = 2130837591;
+			public const int ic_tab_white = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int Icon = 2130837592;
+			public const int ic_tab_white1 = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int Icon2 = 2130837593;
+			public const int Icon = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int mail = 2130837594;
+			public const int Icon2 = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int myfavorate = 2130837595;
+			public const int mail = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int myprofile = 2130837596;
-			
-			// aapt resource value: 0x7f02007b
-			public const int notification_template_icon_bg = 2130837627;
+			public const int myfavorate = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int placeholder = 2130837597;
-			
-			// aapt resource value: 0x7f02005e
-			public const int placeholder_11 = 2130837598;
-			
-			// aapt resource value: 0x7f02005f
-			public const int placeholder_bottiglia_lista = 2130837599;
-			
-			// aapt resource value: 0x7f020060
-			public const int placeholder_re = 2130837600;
-			
-			// aapt resource value: 0x7f020061
-			public const int ratingstars = 2130837601;
-			
-			// aapt resource value: 0x7f020062
-			public const int regione_lombardia = 2130837602;
-			
-			// aapt resource value: 0x7f020063
-			public const int Reimage = 2130837603;
-			
-			// aapt resource value: 0x7f020064
-			public const int respon = 2130837604;
-			
-			// aapt resource value: 0x7f020065
-			public const int sfondo_blog = 2130837605;
-			
-			// aapt resource value: 0x7f020066
-			public const int sfondo_cantine = 2130837606;
-			
-			// aapt resource value: 0x7f020067
-			public const int sfondo_catalogo_vini = 2130837607;
-			
-			// aapt resource value: 0x7f020068
-			public const int sfondo_mierecensioni = 2130837608;
-			
-			// aapt resource value: 0x7f020069
-			public const int sfondo_nuoverecensioni = 2130837609;
-			
-			// aapt resource value: 0x7f02006a
-			public const int sfondo_promozioni = 2130837610;
-			
-			// aapt resource value: 0x7f02006b
-			public const int sfondo_regioni = 2130837611;
-			
-			// aapt resource value: 0x7f02006c
-			public const int sfondo_selezioni = 2130837612;
-			
-			// aapt resource value: 0x7f02006d
-			public const int sfondo_topvini = 2130837613;
-			
-			// aapt resource value: 0x7f02006e
-			public const int sfondo_wineprofile = 2130837614;
-			
-			// aapt resource value: 0x7f02006f
-			public const int star = 2130837615;
-			
-			// aapt resource value: 0x7f020070
-			public const int star_empty = 2130837616;
-			
-			// aapt resource value: 0x7f020071
-			public const int Tes = 2130837617;
-			
-			// aapt resource value: 0x7f020072
-			public const int Update = 2130837618;
-			
-			// aapt resource value: 0x7f020073
-			public const int updateprofilebtn = 2130837619;
-			
-			// aapt resource value: 0x7f020074
-			public const int user = 2130837620;
-			
-			// aapt resource value: 0x7f020075
-			public const int wine1 = 2130837621;
-			
-			// aapt resource value: 0x7f020076
-			public const int wine6 = 2130837622;
-			
-			// aapt resource value: 0x7f020077
-			public const int wine7 = 2130837623;
-			
-			// aapt resource value: 0x7f020078
-			public const int wine_review = 2130837624;
-			
-			// aapt resource value: 0x7f020079
-			public const int winereviews = 2130837625;
+			public const int myprofile = 2130837597;
 			
 			// aapt resource value: 0x7f02007a
-			public const int winetasting = 2130837626;
+			public const int notification_template_icon_bg = 2130837626;
+			
+			// aapt resource value: 0x7f02005e
+			public const int placeholder = 2130837598;
+			
+			// aapt resource value: 0x7f02005f
+			public const int placeholder_11 = 2130837599;
+			
+			// aapt resource value: 0x7f020060
+			public const int placeholder_bottiglia_lista = 2130837600;
+			
+			// aapt resource value: 0x7f020061
+			public const int placeholder_re = 2130837601;
+			
+			// aapt resource value: 0x7f020062
+			public const int ratingstars = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int regione_lombardia = 2130837603;
+			
+			// aapt resource value: 0x7f020064
+			public const int Reimage = 2130837604;
+			
+			// aapt resource value: 0x7f020065
+			public const int respon = 2130837605;
+			
+			// aapt resource value: 0x7f020066
+			public const int sfondo_blog = 2130837606;
+			
+			// aapt resource value: 0x7f020067
+			public const int sfondo_cantine = 2130837607;
+			
+			// aapt resource value: 0x7f020068
+			public const int sfondo_catalogo_vini = 2130837608;
+			
+			// aapt resource value: 0x7f020069
+			public const int sfondo_mierecensioni = 2130837609;
+			
+			// aapt resource value: 0x7f02006a
+			public const int sfondo_nuoverecensioni = 2130837610;
+			
+			// aapt resource value: 0x7f02006b
+			public const int sfondo_promozioni = 2130837611;
+			
+			// aapt resource value: 0x7f02006c
+			public const int sfondo_regioni = 2130837612;
+			
+			// aapt resource value: 0x7f02006d
+			public const int sfondo_selezioni = 2130837613;
+			
+			// aapt resource value: 0x7f02006e
+			public const int sfondo_topvini = 2130837614;
+			
+			// aapt resource value: 0x7f02006f
+			public const int sfondo_wineprofile = 2130837615;
+			
+			// aapt resource value: 0x7f020070
+			public const int star = 2130837616;
+			
+			// aapt resource value: 0x7f020071
+			public const int star_empty = 2130837617;
+			
+			// aapt resource value: 0x7f020072
+			public const int Tes = 2130837618;
+			
+			// aapt resource value: 0x7f020073
+			public const int user = 2130837619;
+			
+			// aapt resource value: 0x7f020074
+			public const int wine1 = 2130837620;
+			
+			// aapt resource value: 0x7f020075
+			public const int wine6 = 2130837621;
+			
+			// aapt resource value: 0x7f020076
+			public const int wine7 = 2130837622;
+			
+			// aapt resource value: 0x7f020077
+			public const int wine_review = 2130837623;
+			
+			// aapt resource value: 0x7f020078
+			public const int winereviews = 2130837624;
+			
+			// aapt resource value: 0x7f020079
+			public const int winetasting = 2130837625;
 			
 			static Drawable()
 			{
@@ -1603,20 +1600,23 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b00a0
 			public const int MyTasting = 2131427488;
 			
+			// aapt resource value: 0x7f0b00a6
+			public const int Price = 2131427494;
+			
 			// aapt resource value: 0x7f0b00a1
 			public const int SkuName = 2131427489;
 			
-			// aapt resource value: 0x7f0b00a6
-			public const int TastingNotes = 2131427494;
+			// aapt resource value: 0x7f0b00a7
+			public const int TastingNotes = 2131427495;
 			
-			// aapt resource value: 0x7f0b00c4
-			public const int UpdateButton = 2131427524;
+			// aapt resource value: 0x7f0b00c5
+			public const int UpdateButton = 2131427525;
 			
 			// aapt resource value: 0x7f0b00a3
 			public const int Vintage = 2131427491;
 			
-			// aapt resource value: 0x7f0b00a7
-			public const int action0 = 2131427495;
+			// aapt resource value: 0x7f0b00a8
+			public const int action0 = 2131427496;
 			
 			// aapt resource value: 0x7f0b0041
 			public const int action_bar = 2131427393;
@@ -1642,8 +1642,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0042
 			public const int action_context_bar = 2131427394;
 			
-			// aapt resource value: 0x7f0b00ab
-			public const int action_divider = 2131427499;
+			// aapt resource value: 0x7f0b00ac
+			public const int action_divider = 2131427500;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int action_menu_divider = 2131427330;
@@ -1678,14 +1678,14 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b008f
 			public const int btnBottom = 2131427471;
 			
-			// aapt resource value: 0x7f0b00c5
-			public const int btnCamera = 2131427525;
-			
-			// aapt resource value: 0x7f0b00b7
-			public const int btnChangePropic = 2131427511;
-			
 			// aapt resource value: 0x7f0b00c6
-			public const int btnGallery = 2131427526;
+			public const int btnCamera = 2131427526;
+			
+			// aapt resource value: 0x7f0b00b8
+			public const int btnChangePropic = 2131427512;
+			
+			// aapt resource value: 0x7f0b00c7
+			public const int btnGallery = 2131427527;
 			
 			// aapt resource value: 0x7f0b0096
 			public const int btnLoginLL = 2131427478;
@@ -1708,14 +1708,14 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b002b
 			public const int buttonPanel = 2131427371;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int cancel_action = 2131427496;
+			// aapt resource value: 0x7f0b00a9
+			public const int cancel_action = 2131427497;
 			
 			// aapt resource value: 0x7f0b0039
 			public const int checkbox = 2131427385;
 			
-			// aapt resource value: 0x7f0b00ae
-			public const int chronometer = 2131427502;
+			// aapt resource value: 0x7f0b00af
+			public const int chronometer = 2131427503;
 			
 			// aapt resource value: 0x7f0b007e
 			public const int close = 2131427454;
@@ -1750,8 +1750,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0019
 			public const int end = 2131427353;
 			
-			// aapt resource value: 0x7f0b00b3
-			public const int end_padder = 2131427507;
+			// aapt resource value: 0x7f0b00b4
+			public const int end_padder = 2131427508;
 			
 			// aapt resource value: 0x7f0b0025
 			public const int expand_activities_button = 2131427365;
@@ -1786,14 +1786,14 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b005d
 			public const int imageButton2 = 2131427421;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int imageButton3 = 2131427509;
+			// aapt resource value: 0x7f0b00b6
+			public const int imageButton3 = 2131427510;
 			
-			// aapt resource value: 0x7f0b00c7
-			public const int imageButton4 = 2131427527;
+			// aapt resource value: 0x7f0b00c8
+			public const int imageButton4 = 2131427528;
 			
-			// aapt resource value: 0x7f0b00bc
-			public const int imageView1 = 2131427516;
+			// aapt resource value: 0x7f0b00bd
+			public const int imageView1 = 2131427517;
 			
 			// aapt resource value: 0x7f0b0055
 			public const int imgHeart = 2131427413;
@@ -1810,8 +1810,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0099
 			public const int imgWinefav = 2131427481;
 			
-			// aapt resource value: 0x7f0b00b2
-			public const int info = 2131427506;
+			// aapt resource value: 0x7f0b00b3
+			public const int info = 2131427507;
 			
 			// aapt resource value: 0x7f0b0093
 			public const int lblPassword = 2131427475;
@@ -1819,11 +1819,11 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0090
 			public const int lblUsername = 2131427472;
 			
-			// aapt resource value: 0x7f0b00ac
-			public const int line1 = 2131427500;
+			// aapt resource value: 0x7f0b00ad
+			public const int line1 = 2131427501;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int line3 = 2131427504;
+			// aapt resource value: 0x7f0b00b1
+			public const int line3 = 2131427505;
 			
 			// aapt resource value: 0x7f0b0095
 			public const int linearLayoutBtns = 2131427477;
@@ -1834,8 +1834,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0009
 			public const int listMode = 2131427337;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int listView1 = 2131427508;
+			// aapt resource value: 0x7f0b00b5
+			public const int listView1 = 2131427509;
 			
 			// aapt resource value: 0x7f0b007c
 			public const int listView2 = 2131427452;
@@ -1843,8 +1843,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0028
 			public const int list_item = 2131427368;
 			
-			// aapt resource value: 0x7f0b00aa
-			public const int media_actions = 2131427498;
+			// aapt resource value: 0x7f0b00ab
+			public const int media_actions = 2131427499;
 			
 			// aapt resource value: 0x7f0b001a
 			public const int middle = 2131427354;
@@ -1879,8 +1879,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0006
 			public const int progress_horizontal = 2131427334;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int propicview = 2131427510;
+			// aapt resource value: 0x7f0b00b7
+			public const int propicview = 2131427511;
 			
 			// aapt resource value: 0x7f0b003b
 			public const int radio = 2131427387;
@@ -1900,8 +1900,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0080
 			public const int relativeLayout1 = 2131427456;
 			
-			// aapt resource value: 0x7f0b00b8
-			public const int relativeLayout2 = 2131427512;
+			// aapt resource value: 0x7f0b00b9
+			public const int relativeLayout2 = 2131427513;
 			
 			// aapt resource value: 0x7f0b0097
 			public const int relativefav = 2131427479;
@@ -1984,8 +1984,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0017
 			public const int src_over = 2131427351;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int status_bar_latest_event_content = 2131427497;
+			// aapt resource value: 0x7f0b00aa
+			public const int status_bar_latest_event_content = 2131427498;
 			
 			// aapt resource value: 0x7f0b004c
 			public const int submit_area = 2131427404;
@@ -2011,8 +2011,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0069
 			public const int tableRow3 = 2131427433;
 			
-			// aapt resource value: 0x7f0b00bd
-			public const int tableRow4 = 2131427517;
+			// aapt resource value: 0x7f0b00be
+			public const int tableRow4 = 2131427518;
 			
 			// aapt resource value: 0x7f0b006b
 			public const int tableRow5 = 2131427435;
@@ -2047,11 +2047,11 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0060
 			public const int tableRow95 = 2131427424;
 			
-			// aapt resource value: 0x7f0b00b1
-			public const int text = 2131427505;
+			// aapt resource value: 0x7f0b00b2
+			public const int text = 2131427506;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int text2 = 2131427503;
+			// aapt resource value: 0x7f0b00b0
+			public const int text2 = 2131427504;
 			
 			// aapt resource value: 0x7f0b0034
 			public const int textSpacerNoButtons = 2131427380;
@@ -2068,11 +2068,11 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b008c
 			public const int textView13 = 2131427468;
 			
-			// aapt resource value: 0x7f0b00bb
-			public const int textView14 = 2131427515;
+			// aapt resource value: 0x7f0b00bc
+			public const int textView14 = 2131427516;
 			
-			// aapt resource value: 0x7f0b00c1
-			public const int textView17 = 2131427521;
+			// aapt resource value: 0x7f0b00c2
+			public const int textView17 = 2131427522;
 			
 			// aapt resource value: 0x7f0b0071
 			public const int textView19 = 2131427441;
@@ -2092,8 +2092,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b005f
 			public const int textView64 = 2131427423;
 			
-			// aapt resource value: 0x7f0b00c8
-			public const int textView65 = 2131427528;
+			// aapt resource value: 0x7f0b00c9
+			public const int textView65 = 2131427529;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int textView66 = 2131427428;
@@ -2104,8 +2104,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b007a
 			public const int textView99 = 2131427450;
 			
-			// aapt resource value: 0x7f0b00ad
-			public const int time = 2131427501;
+			// aapt resource value: 0x7f0b00ae
+			public const int time = 2131427502;
 			
 			// aapt resource value: 0x7f0b002a
 			public const int title = 2131427370;
@@ -2122,23 +2122,23 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b002e
 			public const int topPanel = 2131427374;
 			
-			// aapt resource value: 0x7f0b00c0
-			public const int txtAddress = 2131427520;
+			// aapt resource value: 0x7f0b00c1
+			public const int txtAddress = 2131427521;
 			
-			// aapt resource value: 0x7f0b00c2
-			public const int txtCity = 2131427522;
-			
-			// aapt resource value: 0x7f0b00be
-			public const int txtEmail = 2131427518;
-			
-			// aapt resource value: 0x7f0b00b9
-			public const int txtFirstName = 2131427513;
-			
-			// aapt resource value: 0x7f0b00ba
-			public const int txtLastName = 2131427514;
+			// aapt resource value: 0x7f0b00c3
+			public const int txtCity = 2131427523;
 			
 			// aapt resource value: 0x7f0b00bf
-			public const int txtMobileNumber = 2131427519;
+			public const int txtEmail = 2131427519;
+			
+			// aapt resource value: 0x7f0b00ba
+			public const int txtFirstName = 2131427514;
+			
+			// aapt resource value: 0x7f0b00bb
+			public const int txtLastName = 2131427515;
+			
+			// aapt resource value: 0x7f0b00c0
+			public const int txtMobileNumber = 2131427520;
 			
 			// aapt resource value: 0x7f0b0056
 			public const int txtName = 2131427414;
@@ -2161,8 +2161,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b0084
 			public const int txtReviewComments = 2131427460;
 			
-			// aapt resource value: 0x7f0b00c3
-			public const int txtState = 2131427523;
+			// aapt resource value: 0x7f0b00c4
+			public const int txtState = 2131427524;
 			
 			// aapt resource value: 0x7f0b0092
 			public const int txtUsername = 2131427474;

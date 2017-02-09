@@ -35,8 +35,9 @@ namespace WineHangouts
             var output = sw.GetCustomerDetails(userId).Result;
 
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
-          
-            propicimage.SetImageResource(Resource.Drawable.user);
+            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/"+ userId+".jpg");
+            propicimage.SetImageBitmap(imageBitmap);
+            //propicimage.SetImageResource(Resource.Drawable.user);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
             changepropic.SetImageResource(Resource.Drawable.dpreplacer);
             changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
@@ -70,9 +71,9 @@ namespace WineHangouts
             EditText State = FindViewById<EditText>(Resource.Id.txtState);
             State.Text = output.customer.State;
           
-            ImageButton updatebtn = FindViewById<ImageButton>(Resource.Id.UpdateButton);
+            Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
          
-            updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
+            //updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
             updatebtn.Click += async delegate
             {
                 Customer customer = new Customer();
@@ -91,6 +92,23 @@ namespace WineHangouts
                 }
             };
         }
+
+        private Bitmap GetImageBitmapFromUrl(string v)
+        {
+            Bitmap imageBitmap = null;
+
+            using (var webClient = new WebClient())
+            {
+                var imageBytes = webClient.DownloadData(v);
+                if (imageBytes != null && imageBytes.Length > 0)
+                {
+                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                }
+            }
+
+            return imageBitmap;
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)

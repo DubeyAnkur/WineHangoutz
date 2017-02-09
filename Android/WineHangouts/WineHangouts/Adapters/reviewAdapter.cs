@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Hangout.Models;
 using Android.Widget;
+using Android.Graphics;
+using System.Net;
 
 namespace WineHangouts
 {
@@ -18,6 +20,7 @@ namespace WineHangouts
     {
         private List<Review> myItems;
         private Context myContext;
+        int userId = Convert.ToInt32(CurrentUser.getUserId());
         public override Review this[int position]
         {
             get
@@ -54,14 +57,38 @@ namespace WineHangouts
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
-
+            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/1.jpg");
+            if (imageBitmap == null)
+            {
+                Image.SetImageResource(Resource.Drawable.ic_action_person);
+            }
             Name.Text = myItems[position].Username;
             Comments.Text = myItems[position].RatingText;
             date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
-            Image.SetImageResource(Resource.Drawable.user);
+            Image.SetImageBitmap(imageBitmap);
             Image.SetScaleType(ImageView.ScaleType.CenterCrop);
             return row;
+        }
+
+        private Bitmap GetImageBitmapFromUrl(string p)
+        {
+            Bitmap imageBitmap = null;
+
+            using (var webClient = new WebClient())
+            {
+                if (webClient.DownloadData(p).ToString() == null)
+                {
+                    var imageBytes = webClient.DownloadData(p);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
+                }
+               
+            }
+
+            return imageBitmap;
         }
     }
 }
