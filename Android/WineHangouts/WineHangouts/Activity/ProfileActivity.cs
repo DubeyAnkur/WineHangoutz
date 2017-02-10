@@ -19,23 +19,23 @@ using System.IO;
 using Hangout.Models;
 
 namespace WineHangouts
-{ 
+{
     [Activity(Label = "Profile")]
     public class ProfileActivity : Activity
     {
-       protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
+
             SetContentView(Resource.Layout.Profile);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            int userId = Convert.ToInt32(CurrentUser.getUserId()); ;
+            int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetCustomerDetails(userId).Result;
 
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
-            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/"+ userId+".jpg");
+            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
             propicimage.SetImageBitmap(imageBitmap);
             //propicimage.SetImageResource(Resource.Drawable.user);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
@@ -59,20 +59,20 @@ namespace WineHangouts
                 Mobilenumber.Text = phno1;
             }
             else
-            Mobilenumber.Text = phno2;
+                Mobilenumber.Text = phno2;
             EditText Email = FindViewById<EditText>(Resource.Id.txtEmail);
             Email.Text = output.customer.Email;
             EditText Address = FindViewById<EditText>(Resource.Id.txtAddress);
             string Addres2 = output.customer.Address2;
-            string Addres1 = output.customer.Address1;           
-            Address.Text=string.Concat(Addres1, Addres2);
+            string Addres1 = output.customer.Address1;
+            Address.Text = string.Concat(Addres1, Addres2);
             EditText City = FindViewById<EditText>(Resource.Id.txtCity);
             City.Text = output.customer.City;
             EditText State = FindViewById<EditText>(Resource.Id.txtState);
             State.Text = output.customer.State;
-          
+
             Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
-         
+
             //updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
             updatebtn.Click += async delegate
             {
@@ -85,7 +85,7 @@ namespace WineHangouts
                 customer.CustomerID = userId;
                 customer.State = State.Text;
                 customer.City = City.Text;
-                var x=await sw.UpdateCustomer(customer);
+                var x = await sw.UpdateCustomer(customer);
                 if (x == 1)
                 {
                     Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
@@ -97,15 +97,25 @@ namespace WineHangouts
         {
             Bitmap imageBitmap = null;
 
-            using (var webClient = new WebClient())
+            try
             {
-                var imageBytes = webClient.DownloadData(v);
-                if (imageBytes != null && imageBytes.Length > 0)
-                {
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                }
-            }
 
+                using (var webClient = new WebClient())
+                {
+                    var imageBytes = webClient.DownloadData(v);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                //Get Default image.
+                // return it.
+                //throw;
+            }
             return imageBitmap;
         }
 
@@ -120,5 +130,5 @@ namespace WineHangouts
         }
 
     }
-   
+
 }
