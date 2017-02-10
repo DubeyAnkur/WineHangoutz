@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
   <color name="actionbar_background">#56198E</color>
+  <color name="Tab_Highlighter">#000000</color>
 </resources>

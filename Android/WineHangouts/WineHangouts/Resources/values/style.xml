@@ -3,21 +3,25 @@
 
   <style name="CustomActionBarTheme">
     <item name="android:actionBarStyle">@style/MyActionBar</item>
+    <item name="android:logo">@android:color/transparent</item>
   </style>
 
 
   <!-- ActionBar styles -->
   <style name="MyActionBar"
          parent="@android:style/Widget.Holo.Light.ActionBar">
+    <item name="android:logo">@android:color/transparent</item>
 
-
-    <item name="android:background">#3F51B5</item>
+    <item name="android:background">#00008B</item>
   </style>
 
 
 
   <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
-    <item name="android:background">#3F51B5</item>
+    <item name="android:background">#00008B</item>
+    <item name="colorAccent">@color/Tab_Highlighter</item>
+    
+    
 
   </style>
 </resources>

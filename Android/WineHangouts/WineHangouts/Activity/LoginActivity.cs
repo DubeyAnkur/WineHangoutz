@@ -13,7 +13,7 @@ using Android.Widget;
 namespace WineHangouts
 
 {
-    [Activity(Label = "WineHangouts",MainLauncher =true,Icon ="@drawable/Icon")]
+    [Activity(Label = "WineHangouts",MainLauncher =true)]
     public class LoginActivity : Activity
 
     {
