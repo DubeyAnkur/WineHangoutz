@@ -48,13 +48,13 @@ namespace WineHangouts
         // Loading the full sized image will consume to much memory 
         // and cause the application to crash.
 
-        int height = Resources.DisplayMetrics.HeightPixels;
-            int width = _imageView.Height ;
-            var x=App.bitmap = App._file.Path.LoadAndResizeBitmap (width, height);
-            if (App.bitmap != null) {
-                _imageView.SetImageBitmap (App.bitmap);
-                App.bitmap = null;
-            }
+        //int height = Resources.DisplayMetrics.HeightPixels;
+        //    int width = _imageView.Height ;
+        //    App.bitmap = App._file.Path.LoadAndResizeBitmap (width, height);
+        //    if (App.bitmap != null) {
+        //        _imageView.SetImageBitmap (App.bitmap);
+        //        App.bitmap = null;
+        //    }
             UploadProfilePic(path);
             // Dispose of the Java side bitmap.
             GC.Collect();
@@ -73,7 +73,7 @@ namespace WineHangouts
                 ImageButton BtnCamera = FindViewById<ImageButton>(Resource.Id.btnCamera);
                
                
-                _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
+               // _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
                 BtnCamera.Click += TakeAPicture;
             }
             //ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.btnGallery);

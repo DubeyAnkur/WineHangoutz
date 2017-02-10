@@ -17,11 +17,12 @@ using Android.Util;
 using System.Net;
 using System.IO;
 using Hangout.Models;
+using Android.Media;
 
 namespace WineHangouts
 {
     [Activity(Label = "Profile")]
-    public class ProfileActivity : Activity
+    public class ProfileActivity : Activity, IPopupParent
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -36,6 +37,11 @@ namespace WineHangouts
 
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
             var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
+            if(imageBitmap == null)
+            {
+                propicimage.SetImageResource(Resource.Drawable.user);
+            }
+                else
             propicimage.SetImageBitmap(imageBitmap);
             //propicimage.SetImageResource(Resource.Drawable.user);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
@@ -112,9 +118,9 @@ namespace WineHangouts
             }
             catch (Exception)
             {
-                //Get Default image.
-                // return it.
-                //throw;
+                
+                return null;
+                
             }
             return imageBitmap;
         }
@@ -129,6 +135,13 @@ namespace WineHangouts
             return base.OnOptionsItemSelected(item);
         }
 
+        public void RefreshParent()
+        {
+            ServiceWrapper svc = new ServiceWrapper();
+            int userId = Convert.ToInt32(CurrentUser.getUserId());
+            var output = svc.GetCustomerDetails(userId).Result;
+            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
+        }
     }
 
 }

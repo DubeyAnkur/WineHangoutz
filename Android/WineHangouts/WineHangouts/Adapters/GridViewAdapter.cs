@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Graphics;
 using System.Net;
 using Hangout.Models;
+using System.Collections;
 
 namespace WineHangouts
 {
@@ -19,6 +20,7 @@ namespace WineHangouts
     {
         private List<Item> myItems;
         private Context myContext;
+        private Hashtable wineImages;
         public override Item this[int position]
         {
             get
@@ -31,6 +33,15 @@ namespace WineHangouts
         {
             myContext = con;
             myItems = strArr;
+            wineImages = new Hashtable();
+            foreach (var item in myItems)
+            {
+                if (!wineImages.ContainsKey(item.WineId))
+                {
+                    var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
+                    wineImages.Add(item.WineId, wineImages);
+                }
+            }
         }
         public override int Count
         {
@@ -60,7 +71,7 @@ namespace WineHangouts
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-           ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
+            ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
             RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             rating.Rating = (float)myItems[position].AverageRating;
@@ -72,18 +83,18 @@ namespace WineHangouts
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
             txtPrice.Text = myItems[position].RegPrice.ToString("C");
-            
+
             txtVintage.Text = myItems[position].Vintage.ToString();
             //heartImg.t = myItems[position].s;
 
             heartImg.SetImageResource(Resource.Drawable.heart_empty);
             var heartLP = new RelativeLayout.LayoutParams(80, 80);
 
-            var metrics = myContext.Resources.DisplayMetrics;
-            var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
-            heartImg.LayoutParameters = heartLP;
+            //var metrics = myContext.Resources.DisplayMetrics;
+            //var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
+            //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+            //heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
+            //heartImg.LayoutParameters = heartLP;
 
 
 
@@ -127,28 +138,32 @@ namespace WineHangouts
             }
 
             imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
-            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/download.jpg");
-            imgWine.SetImageBitmap(imageBitmap);
-            //imgWine.SetImageResource(Resource.Drawable.wine1);
-          //var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
-           var place = new RelativeLayout.LayoutParams(520, 520);
-           place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
-        imgWine.LayoutParameters = place;
+            //if (convertView == null)
+            {
+                //var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + myItems[position].WineId + ".jpg");
+                Bitmap imageBitmap = (Bitmap)wineImages[myItems[position].WineId];
+                imgWine.SetImageBitmap(imageBitmap);
 
-         var place1 = new RelativeLayout.LayoutParams(520, 520);
-          place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
-          imgPlaceHolder.LayoutParameters = place1;
-         //   imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
-            //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
+                //imgWine.SetImageResource(Resource.Drawable.wine1);
+                //var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
+                var place = new RelativeLayout.LayoutParams(520, 520);
+                place.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
+                imgWine.LayoutParameters = place;
+
+                var place1 = new RelativeLayout.LayoutParams(520, 520);
+                place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
+                imgPlaceHolder.LayoutParameters = place1;
+                //   imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
+                //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 
 
-            txtName.Focusable = false;
-            //txtRatings.Focusable = false;
-            //txtUserRatings.Focusable = false;
-            txtVintage.Focusable = false;
-            txtPrice.Focusable = false;
-            imgWine.Focusable = false;
-
+                txtName.Focusable = false;
+                //txtRatings.Focusable = false;
+                //txtUserRatings.Focusable = false;
+                txtVintage.Focusable = false;
+                txtPrice.Focusable = false;
+                imgWine.Focusable = false;
+            }
 
             return row;
         }
@@ -156,14 +171,22 @@ namespace WineHangouts
         private Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
-
-            using (var webClient = new WebClient())
+            try
             {
-                var imageBytes = webClient.DownloadData(url);
-                if (imageBytes != null && imageBytes.Length > 0)
+
+                using (var webClient = new WebClient())
                 {
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    var imageBytes = webClient.DownloadData(url);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
                 }
+
+            }
+            catch (Exception)
+            {
+                return null;
             }
 
             return imageBitmap;

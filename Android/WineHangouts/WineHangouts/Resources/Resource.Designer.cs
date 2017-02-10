@@ -1690,9 +1690,6 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b00b8
 			public const int btnChangePropic = 2131427512;
 			
-			// aapt resource value: 0x7f0b00c7
-			public const int btnGallery = 2131427527;
-			
 			// aapt resource value: 0x7f0b0096
 			public const int btnLoginLL = 2131427478;
 			
@@ -1795,8 +1792,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b00b6
 			public const int imageButton3 = 2131427510;
 			
-			// aapt resource value: 0x7f0b00c8
-			public const int imageButton4 = 2131427528;
+			// aapt resource value: 0x7f0b00c7
+			public const int imageButton4 = 2131427527;
 			
 			// aapt resource value: 0x7f0b00bd
 			public const int imageView1 = 2131427517;
@@ -2098,8 +2095,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f0b005f
 			public const int textView64 = 2131427423;
 			
-			// aapt resource value: 0x7f0b00c9
-			public const int textView65 = 2131427529;
+			// aapt resource value: 0x7f0b00c8
+			public const int textView65 = 2131427528;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int textView66 = 2131427428;
