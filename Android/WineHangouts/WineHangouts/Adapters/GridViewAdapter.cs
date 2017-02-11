@@ -13,6 +13,7 @@ using Android.Graphics;
 using System.Net;
 using Hangout.Models;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace WineHangouts
 {
@@ -39,7 +40,7 @@ namespace WineHangouts
                 if (!wineImages.ContainsKey(item.WineId))
                 {
                     var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
-                    wineImages.Add(item.WineId, wineImages);
+                    wineImages.Add(item.WineId, imageBitmap);
                 }
             }
         }
@@ -56,6 +57,10 @@ namespace WineHangouts
             return position;
         }
 
+        public async Task bindImages()
+        {
+            await 
+        }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
@@ -90,17 +95,13 @@ namespace WineHangouts
             heartImg.SetImageResource(Resource.Drawable.heart_empty);
             var heartLP = new RelativeLayout.LayoutParams(80, 80);
 
-            //var metrics = myContext.Resources.DisplayMetrics;
-            //var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            //var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            //heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
-            //heartImg.LayoutParameters = heartLP;
+            var metrics = myContext.Resources.DisplayMetrics;
+            var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
+            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
+            heartImg.LayoutParameters = heartLP;
 
-
-
-
-
-            //heartImg.Layout(50, 50, 50, 50);
+            heartImg.Layout(50, 50, 50, 50);
             bool count = Convert.ToBoolean(myItems[position].IsLike);
             if (count == true)
             {
