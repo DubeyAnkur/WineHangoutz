@@ -70,7 +70,7 @@ namespace WineHangoutz
 			data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
 
 			ServiceWrapper sw = new ServiceWrapper();
-			ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineID)).Result;
+			ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
 			data.Reviews = ratings.Reviews.ToList();
 			//var review1 = new Rating();
 			//review1.RatingText = "Comments";
@@ -183,7 +183,7 @@ namespace WineHangoutz
 					UIViewController that = Parent;
 					ratingView2.RatingChosen += (sender, e) =>
 					{
-						PopupView yourController = new PopupView(Convert.ToInt32(data.WineID));
+						PopupView yourController = new PopupView(Convert.ToInt32(data.WineId));
 						yourController.NavController = NavigationController;
 						yourController.parent = that;
 						yourController.StartsSelected = e.Rating;

@@ -9,12 +9,12 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-    public partial class MyTastingViewController : UITableViewController, IPopupParent
+    public partial class MyReviewViewController : UITableViewController, IPopupParent
     {
-        public MyTastingViewController (IntPtr handle) : base (handle)
+        public MyReviewViewController (IntPtr handle) : base (handle)
         {
         }
-		public MyTastingViewController() : base()
+		public MyReviewViewController() : base()
 		{
 		}
 		public override void ViewDidLoad()
@@ -28,20 +28,20 @@ namespace WineHangoutz
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
 			TableView.AllowsSelection = false;
-			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
+			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 		}
 		public void RefreshParent()
 		{
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
-			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
+			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
 			
 		}
     }
 
-	public class MyTastingTableSource : UITableViewSource
+	public class MyReviewTableSource : UITableViewSource
 	{
 
 		List<Review> TableItems;
@@ -49,7 +49,7 @@ namespace WineHangoutz
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyTastingTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
+		public MyReviewTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -63,14 +63,14 @@ namespace WineHangoutz
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			MyTastingCellView cell = tableView.DequeueReusableCell(CellIdentifier) as MyTastingCellView;
+			MyReviewCellView cell = tableView.DequeueReusableCell(CellIdentifier) as MyReviewCellView;
 			Review item = TableItems[indexPath.Row];
 
 
 			//---- if there are no cells to reuse, create a new one
 			NSString name = new NSString(CellIdentifier);
 			if (cell == null)
-				cell = new MyTastingCellView(name);
+				cell = new MyReviewCellView(name);
 
 			cell.NavController = NavController;
 			cell.Parent = Parent;
@@ -86,7 +86,7 @@ namespace WineHangoutz
 		}
 	}
 
-	public class MyTastingCellView : UITableViewCell
+	public class MyReviewCellView : UITableViewCell
 	{
 		UILabel WineName;
 		UILabel ReviewDate;
@@ -102,7 +102,7 @@ namespace WineHangoutz
 		public UINavigationController NavController;
 		public UIViewController Parent;
 
-		public MyTastingCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
+		public MyReviewCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);

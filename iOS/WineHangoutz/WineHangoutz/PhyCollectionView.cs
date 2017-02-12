@@ -67,7 +67,7 @@ namespace WineHangoutz
 		public void BindData(APLCollectionViewCell cell, NSIndexPath indexPath)
 		{
 			cell.NavigationController = NavigationController;
-			cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
+			//cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
 
 			int index = (int)indexPath.Item;
 
@@ -76,7 +76,7 @@ namespace WineHangoutz
 			cell.Vintage = myData.ItemList[index].Vintage.ToString();
 			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-			cell.WineId = myData.ItemList[index].WineID.ToString();
+			cell.WineId = myData.ItemList[index].WineId.ToString();
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
 			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C");
@@ -90,6 +90,22 @@ namespace WineHangoutz
 			{
 				cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 			}
+			UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
+			if (image != null)
+			{
+				CGRect rect = cell.btlImage.Bounds;
+				nfloat boxHeight = rect.Height;
+				nfloat imgHeight = image.Size.Height;
+				nfloat ratio = boxHeight / imgHeight;
+				if (ratio < 1)
+				{
+					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+					image = image.Scale(newSize);
+				}
+				cell.btlImage.SetImage(image, UIControlState.Normal);
+			}
+			else
+				cell.btlImage.SetImage(null, UIControlState.Normal);
 		}
 	}
 }

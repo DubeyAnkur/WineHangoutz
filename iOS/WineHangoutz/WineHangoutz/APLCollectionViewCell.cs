@@ -45,17 +45,15 @@ namespace WineHangoutz {
 				NavigationController.PushViewController(new SKUDetailView(WineId), false);
 			};
 
-			box.Width = (box.Width/ 240) * 92; //box.Width / 2;
-			box.X = (Bounds.Width-box.Width) / 2;
+			//box.Width = (box.Width/ 240) * 92; //box.Width / 2;
+			//box.X = (Bounds.Width-box.Width) / 2;
+			box.Y = 5;
 			btlImage = new UIButton(box);
 			btlImage.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
-			btlImage.ContentMode = UIViewContentMode.ScaleToFill;
-			//btlImage.Layer.BorderWidth = 3.0f;
+			//btlImage.ContentMode = UIViewContentMode.ScaleAspectFill;
 			btlImage.ClipsToBounds = true;
 			btlImage.Layer.BorderColor = UIColor.White.CGColor;
 			btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-			//btlImage.SetBackgroundImage(UIImage.FromFile("Honoro g.png"), UIControlState.Normal);
-			//btlImage.InsertSubviewAbove()
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);

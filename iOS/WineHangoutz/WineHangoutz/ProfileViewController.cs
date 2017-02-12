@@ -1,6 +1,7 @@
 ﻿using System;
 
 using UIKit;
+using Hangout.Models;
 
 namespace WineHangoutz
 {
@@ -22,7 +23,24 @@ namespace WineHangoutz
 			txtEmail.Text = cRes.customer.Email;
 			txtPhone.Text = cRes.customer.PhoneNumber;
 			txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
+			txtState.Text = cRes.customer.State;
 
+			btnUpdate.TouchUpInside += async (sender, e) =>
+			{
+				Customer cust = new Customer();
+				cust.CustomerID = CurrentUser.RetreiveUserId();
+				cust.Address1 = txtAddress.Text;
+				cust.FirstName = txtFirstName.Text;
+				cust.LastName = txtLastName.Text;
+				cust.City = txtCity.Text;
+				cust.Email = txtCity.Text;
+				cust.Email = txtEmail.Text;
+				cust.PhoneNumber = txtPhone.Text;
+				cust.State = txtState.Text;
+
+				await sw.UpdateCustomer(cust);
+
+			};
 			// Perform any additional setup after loading the view, typically from a nib.
 		}
 

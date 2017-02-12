@@ -36,7 +36,7 @@ namespace WineHangoutz
 
 			btnReviews.TouchUpInside += (sender, e) =>
 			{
-				var MyReview = new MyTastingViewController();
+				var MyReview = new MyReviewViewController();
 				NavigationController.PushViewController(MyReview, false);
 			};
 

@@ -113,7 +113,7 @@ namespace WineHangoutz
 				review.RatingText = txtComments.Text;
 				review.IsActive = true;
 				//review.SKU = SKU;
-				review.WineID = WineId;
+				review.WineId = WineId;
 
 				await sw.InsertUpdateReview(review);
 

@@ -11,6 +11,7 @@ namespace WineHangoutz
 	public class AppDelegate : UIApplicationDelegate
 	{
 		// class-level declarations
+		public NSCache cachedWineImages;
 
 		public override UIWindow Window
 		{
@@ -20,6 +21,7 @@ namespace WineHangoutz
 		UINavigationController nav;
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			cachedWineImages = new NSCache();
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;

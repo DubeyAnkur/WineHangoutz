@@ -20,6 +20,10 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton btnUpdateNotWorking { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtAddress { get; set; }
 
         [Outlet]
@@ -51,6 +55,11 @@ namespace WineHangoutz
             if (btnUpdate != null) {
                 btnUpdate.Dispose ();
                 btnUpdate = null;
+            }
+
+            if (btnUpdateNotWorking != null) {
+                btnUpdateNotWorking.Dispose ();
+                btnUpdateNotWorking = null;
             }
 
             if (txtAddress != null) {

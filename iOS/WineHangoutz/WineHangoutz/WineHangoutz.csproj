@@ -181,6 +181,11 @@
     <Compile Include="ProfileViewController.designer.cs">
       <DependentUpon>ProfileViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="BlobWrapper.cs" />
+    <Compile Include="MyReviewViewController.cs" />
+    <Compile Include="MyReviewViewController.designer.cs">
+      <DependentUpon>MyReviewViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />

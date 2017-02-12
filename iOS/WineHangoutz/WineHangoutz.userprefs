@@ -1,15 +1,12 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/MyTastingViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="32" Column="41" />
-      <File FileName="WineHangoutz/PopupView.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="1" Column="1" />
-      <File FileName="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.3.1.8/lib/mono/2.1/Xamarin.iOS.Common.targets" Line="13" Column="54" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="57" Column="1" />
+      <File FileName="WineHangoutz/BlobWrapper.cs" Line="17" Column="3" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="19" Column="8" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="85" Column="6" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="97" Column="36" />
+      <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="48" Column="4" />
+      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="184" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
