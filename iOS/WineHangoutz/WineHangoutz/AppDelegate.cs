@@ -52,7 +52,7 @@ namespace WineHangoutz
 			//UITabBar.Appearance.BackgroundImage = UIImage.FromFile("Star4.png");
 			UITabBarItem t0 = tabBar.Items[0];
 			t0.Title = "Shop";
-			UIImage shop = UIImage.FromFile("Shop.png");
+			UIImage shop = UIImage.FromFile("shop.png");
 			shop = ResizeImage(shop, 32, 32);
 			t0.Image = shop;
 			t0.SelectedImage = shop;

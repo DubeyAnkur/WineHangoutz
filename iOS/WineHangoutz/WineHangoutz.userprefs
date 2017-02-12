@@ -1,26 +1,16 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ProfileViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/AppDelegate.cs">
     <Files>
       <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="32" Column="41" />
-      <File FileName="WineHangoutz/PopupView.cs" Line="129" Column="31" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="79" Column="47" />
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="12" Column="2" />
-      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="157" Column="39" />
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="23" Column="45" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="149" Column="37" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/LoginViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="1" Column="1" />
+      <File FileName="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.3.1.8/lib/mono/2.1/Xamarin.iOS.Common.targets" Line="13" Column="54" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="57" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="WineHangoutz" expanded="True">
-            <Node name="WineHangoutz" expanded="True">
-              <Node name="References" expanded="True" />
-              <Node name="ProfileViewController.cs" expanded="True" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -28,4 +18,5 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.0CE5DE0F-63D9-442A-ADC6-CBBBF2F707C4" />
+  <AuthorInfo Name="Mohana Indukuri" Email="development@savvyitsol.com" Copyright="(c) Savvy IT Solutions Private Limited" Company="" Trademark="" />
 </Properties>
