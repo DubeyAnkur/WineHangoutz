@@ -18,6 +18,7 @@ namespace WineHangoutz
 		{
 			this.Title = "Login";
 		}
+		UILabel lblFN;
 		UILabel lblError;
 		public override void ViewDidLoad()
 		{
@@ -27,10 +28,23 @@ namespace WineHangoutz
 
 			nfloat h = 31.0f;
 			nfloat w = View.Bounds.Width;
+			nfloat imageSize = 80;
+
+			var imgLogo = new UIImageView();
+			imgLogo.Frame = new CGRect((w - imageSize)/2, 70, imageSize, imageSize);
+			imgLogo.Image = UIImage.FromFile("whLogo.jpg");
+
+
 			lblError = new UILabel();
-			lblError.Frame = new CGRect(10, 70, View.Frame.Width, h);
-			lblError.Text = "Username:";
+			lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h);
+			lblError.Text = "";
 			lblError.TextAlignment = UITextAlignment.Left;
+
+
+			lblFN = new UILabel();
+			lblFN.Frame = new CGRect(10, imageSize+ 100, View.Frame.Width, h);
+			lblFN.Text = "First Name:";
+			lblFN.TextAlignment = UITextAlignment.Left;
 
 			//var lblName = new UILabel();
 			//lblName.Frame = new CGRect(0, 150, View.Frame.Width, 20);
@@ -41,14 +55,23 @@ namespace WineHangoutz
 			{
 				Placeholder = "Enter your username",
 				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(10, 100, w - 20, h)
+				Frame = new CGRect(10, imageSize + 130, w - 20, h)
 			};
 
-			//var txtUserName = new UITextView();
-			//txtUserName.Frame = new CGRect(0, 180, View.Frame.Width, 20);
-			//txtUserName.BackgroundColor = UIColor.Purple;
+			var lblCard = new UILabel();
+			lblCard.Frame = new CGRect(10, imageSize + 170, View.Frame.Width, h);
+			lblCard.Text = "Card # or Email or Phone:";
+			lblCard.TextAlignment = UITextAlignment.Left;
 
-			UIButton btnSave = new UIButton(new CGRect(14, 270, View.Frame.Width - 28, 20));
+			var txtPassword = new UITextField
+			{
+				Placeholder = "Enter any of above",
+				BorderStyle = UITextBorderStyle.RoundedRect,
+				Frame = new CGRect(10, imageSize + 200, w - 20, h)
+			};
+
+
+			UIButton btnSave = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
 			btnSave.SetTitle("Login", UIControlState.Normal);
 			btnSave.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 			btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
@@ -60,9 +83,13 @@ namespace WineHangoutz
 			};
 
 			View.BackgroundColor = UIColor.White;
+			View.AddSubview(imgLogo);
 			View.AddSubview(lblError);
+			View.AddSubview(lblFN);
 			View.AddSubview(btnSave);
 			View.AddSubview(usernameField);
+			View.AddSubview(txtPassword);
+			View.AddSubview(lblCard);
 		}
 
 		public void SaveUserDetails(string userName)

@@ -136,12 +136,30 @@ namespace WineHangoutz
 					btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
 					btlBack.Image = UIImage.FromFile("placeholder.jpeg");
 
-					nfloat height = this.Width;
-					nfloat width = (height / 233) * 92;
-					nfloat X = (this.Width - width) / 2;
+					//nfloat height = this.Width;
+					//nfloat width = (height / 233) * 92;
+					//nfloat X = (this.Width - width) / 2;
 					var btlImage = new UIImageView(); //92 * 233
-					btlImage.Frame = new CGRect(X, 0, width, height);
-					btlImage.Image = UIImage.FromFile(data.LargeImageUrl);
+
+					//btlImage.Image = UIImage.FromFile(data.LargeImageUrl);
+
+					var image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString());
+					if (image != null)
+					{
+						CGRect rect = btlBack.Bounds;
+						nfloat boxHeight = rect.Height; // which is = width;
+						nfloat imgHeight = image.Size.Height;
+						nfloat ratio = boxHeight / imgHeight;
+						CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+						image = image.Scale(newSize);
+						nfloat X = (boxHeight - image.Size.Width) / 2;
+						btlImage.Frame = new CGRect(X, 0, image.Size.Width, image.Size.Height);
+
+						btlImage.Image = image;
+					}
+					else
+						btlImage.Image= null;
+					
 					vw = btlBack;
 					vw.AddSubview(btlImage);
 					break;

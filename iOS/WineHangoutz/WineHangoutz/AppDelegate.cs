@@ -41,7 +41,7 @@ namespace WineHangoutz
 			ManageTabBar(RootTab);
 
 			nav = new UINavigationController(Window.RootViewController);
-			nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+			//nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
 
 			Window.RootViewController = nav;
 			return true;

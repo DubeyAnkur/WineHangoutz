@@ -232,6 +232,14 @@
     <BundleResource Include="Stars\star-silver1.png" />
     <BundleResource Include="Stars\star-silver2.png" />
     <BundleResource Include="Resources\eno.jpg" />
+    <BundleResource Include="Resources\whLogo.jpg" />
+    <BundleResource Include="Images\beach.jpg" />
+    <BundleResource Include="Images\city.jpg" />
+    <BundleResource Include="Images\city1.jpg" />
+    <BundleResource Include="Images\myfavorate.jpg" />
+    <BundleResource Include="Images\myprofile.jpg" />
+    <BundleResource Include="Images\winereviews.jpg" />
+    <BundleResource Include="Images\winetasting.jpg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
