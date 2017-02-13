@@ -28,10 +28,10 @@ namespace WineHangoutz
 			btnBlog.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnWineries.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnRegions.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnBlog.SetTitle("Blog", UIControlState.Normal);
-			btnWineries.SetTitle("Wineries", UIControlState.Normal);
+			btnBlog.SetTitle("Profile", UIControlState.Normal);
+			btnWineries.SetTitle("Eno View", UIControlState.Normal);
 			btnRegions.SetTitle("Region", UIControlState.Normal);
-			btnBlog.SetBackgroundImage(new UIImage("Images/Blog.jpg"), UIControlState.Normal);
+			btnBlog.SetBackgroundImage(new UIImage("Images/myprofile.jpg"), UIControlState.Normal);
 			btnWineries.SetBackgroundImage(new UIImage("Images/Wineries.jpg"), UIControlState.Normal);
 			btnRegions.SetBackgroundImage(new UIImage("Images/Region.jpg"), UIControlState.Normal);
 

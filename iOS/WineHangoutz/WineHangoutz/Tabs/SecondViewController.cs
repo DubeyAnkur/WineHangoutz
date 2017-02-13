@@ -30,9 +30,9 @@ namespace WineHangoutz
 			btnReviews.SetTitle("My Reviews", UIControlState.Normal);
 			btnTastings.SetTitle("My Tastings", UIControlState.Normal);
 			btnFavourites.SetTitle("My Favourites", UIControlState.Normal);
-			btnReviews.SetBackgroundImage(new UIImage("Images/My.png"), UIControlState.Normal);
-			btnTastings.SetBackgroundImage(new UIImage("Images/New.jpg"), UIControlState.Normal);
-			btnFavourites.SetBackgroundImage(new UIImage("Images/Top.jpg"), UIControlState.Normal);
+			btnReviews.SetBackgroundImage(new UIImage("Images/winereviews.jpg"), UIControlState.Normal);
+			btnTastings.SetBackgroundImage(new UIImage("Images/winetasting.jpg"), UIControlState.Normal);
+			btnFavourites.SetBackgroundImage(new UIImage("Images/myfavorate.jpg"), UIControlState.Normal);
 
 			btnReviews.TouchUpInside += (sender, e) =>
 			{

@@ -33,9 +33,9 @@ namespace WineHangoutz
 			btnMan.SetTitle("Manasquan",UIControlState.Normal);
 			btnSec.SetTitle("Secacus", UIControlState.Normal);
 			btnPP.SetTitle("Point Pleasant", UIControlState.Normal);
-			btnMan.SetBackgroundImage(new UIImage("Images/Man.png"), UIControlState.Normal);
-			btnSec.SetBackgroundImage(new UIImage("Images/Sec.jpg"), UIControlState.Normal);
-			btnPP.SetBackgroundImage(new UIImage("Images/PP.jpg"), UIControlState.Normal);
+			btnMan.SetBackgroundImage(new UIImage("Images/city.jpg"), UIControlState.Normal);
+			btnSec.SetBackgroundImage(new UIImage("Images/city1.jpg"), UIControlState.Normal);
+			btnPP.SetBackgroundImage(new UIImage("Images/beach.jpg"), UIControlState.Normal);
 
 			View.AddSubview(btnMan);
 			View.AddSubview(btnSec);
