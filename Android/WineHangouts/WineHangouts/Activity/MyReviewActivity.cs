@@ -31,6 +31,10 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
           // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
              var uidreviews = svc.GetItemReviewUID(uid).Result;
+            //if (uidreviews.Reviews.Count == 0)
+            //{
+            //    SetContentView(Resource.Layout.Dummy);
+            //}
             List<Review> myArr1;
           //  myArr1 = SampleData1();
 
@@ -39,9 +43,15 @@ namespace WineHangouts
             Review edit = new Review();
             ReviewPopup editPopup = new ReviewPopup(this, edit);
             MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
+            //if(adapter.Count==0)
+            //{
+            //    TextView infoText = FindViewById<TextView>(Resource.Id.txtInfo);
+            //    infoText.Text = "You haven't reviewed anything";
+            //}
             //adapter.Edit_Click += editPopup.EditPopup;
            
             wineList.Adapter = adapter;
+           
 
 
         }

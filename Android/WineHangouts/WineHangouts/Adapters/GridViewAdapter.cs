@@ -57,10 +57,10 @@ namespace WineHangouts
             return position;
         }
 
-        public async Task bindImages()
-        {
-            await 
-        }
+        //public async Task bindImages()
+        //{
+        //    await 
+        //}
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
