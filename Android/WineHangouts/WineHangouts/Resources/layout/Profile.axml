@@ -327,6 +327,11 @@
                     android:background="@android:drawable/editbox_background" />
             </TableRow>
         </TableLayout>
+        <!--<Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button1"
+            android:text="Logout" />-->
         <Button
             android:text="save"
             android:layout_width="wrap_content"

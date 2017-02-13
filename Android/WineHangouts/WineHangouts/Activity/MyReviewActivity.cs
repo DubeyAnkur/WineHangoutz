@@ -43,13 +43,13 @@ namespace WineHangouts
             Review edit = new Review();
             ReviewPopup editPopup = new ReviewPopup(this, edit);
             MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
-            //if(adapter.Count==0)
+            //if (adapter.Count == 0)
             //{
             //    TextView infoText = FindViewById<TextView>(Resource.Id.txtInfo);
             //    infoText.Text = "You haven't reviewed anything";
             //}
             //adapter.Edit_Click += editPopup.EditPopup;
-           
+
             wineList.Adapter = adapter;
            
 

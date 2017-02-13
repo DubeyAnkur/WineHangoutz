@@ -18,6 +18,7 @@ using System.Net;
 using System.IO;
 using Hangout.Models;
 using Android.Media;
+using System.Threading;
 
 namespace WineHangouts
 {
@@ -29,11 +30,29 @@ namespace WineHangouts
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Profile);
+            var progressDialog = ProgressDialog.Show(this, "Please wait...", "Loading your profile...", true);
+            new Thread(new ThreadStart(delegate
+            {
+                //LOAD METHOD TO GET ACCOUNT INFO
+
+                //HIDE PROGRESS DIALOG
+                RunOnUiThread(() => progressDialog.Show());
+                Thread.Sleep(10000);
+                RunOnUiThread(() => progressDialog.Dismiss());
+                //RunOnUiThread(() => progressDialog.Wait(1000));
+                //RunOnUiThread(() => progressDialog.Hide());
+            })).Start();
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetCustomerDetails(userId).Result;
+
+            
+            //new Thread(new ThreadStart(delegate
+            //{
+            //          RunOnUiThread(() => progressDialog.Hide());
+            //})).Start();
 
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
             var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
@@ -45,6 +64,7 @@ namespace WineHangouts
             propicimage.SetImageBitmap(imageBitmap);
             //propicimage.SetImageResource(Resource.Drawable.user);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
+
             changepropic.SetImageResource(Resource.Drawable.dpreplacer);
             changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
             changepropic.Click += delegate
@@ -52,6 +72,14 @@ namespace WineHangouts
                 Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
                 StartActivity(intent);
             };
+
+            //Button Btnlogout = FindViewById<Button>(Resource.Id.button1);
+            //Btnlogout.Click += delegate
+            //{
+               
+            //    Intent intent = new Intent(this, typeof(LoginActivity));
+            //    StartActivity(intent);
+            //};
 
             EditText Firstname = FindViewById<EditText>(Resource.Id.txtFirstName);
             Firstname.Text = output.customer.FirstName;

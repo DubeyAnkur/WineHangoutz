@@ -8,6 +8,7 @@ using Android.OS;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
+using System.Threading;
 
 namespace WineHangouts
 {
@@ -15,7 +16,8 @@ namespace WineHangouts
     [Activity(Label = "GridViewActivity", MainLauncher = false)]
     public class GridViewActivity : Activity
     {
-        public string StoreName = "";
+        
+    public string StoreName = "";
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -30,6 +32,18 @@ namespace WineHangouts
                 StoreId = 2;
             else
                 StoreId = 3;
+            var progressDialog = ProgressDialog.Show(this, "Please wait...", "We are loading available wines...", true);
+            new Thread(new ThreadStart(delegate
+            {
+                //LOAD METHOD TO GET ACCOUNT INFO
+
+                //HIDE PROGRESS DIALOG
+                RunOnUiThread(() => progressDialog.Show());
+                Thread.Sleep(10000);
+                RunOnUiThread(() => progressDialog.Dismiss());
+                //RunOnUiThread(() => progressDialog.Wait(1000));
+                //RunOnUiThread(() => progressDialog.Hide());
+            })).Start();
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId,userId).Result;

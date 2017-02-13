@@ -192,6 +192,8 @@ namespace WineHangouts
                         var intent = new Intent(Activity, typeof(ProfileActivity));
                         intent.PutExtra("MyData", "My Profile");
                         StartActivity(intent);
+                      
+
                     };
                     Middle.Click += (sender, e) =>
                     {
