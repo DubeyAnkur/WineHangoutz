@@ -32,27 +32,15 @@ namespace WineHangouts
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemFavsUID(userId).Result;
-
-
             SetContentView(Resource.Layout.MyFavoriteGridView);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            //var listview = FindViewById<ListView>(Resource.Id.gridview);
             List<Item> myArr;
-            //myArr = SampleData();
-           // myArr = 
-
             var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
-            //myArr = SampleData();
-
             MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, output.ItemList.ToList());
             gridview.SetNumColumns(2);
             gridview.Adapter = adapter;
-            //gridview.SetColumnWidth(1);
-
-            //gridview.SetBackgroundColor(new Android.Graphics.Color(110, 145, 141));
-            //gridview.SetVerticalSpacing(5);
-            //gridview.SetHorizontalSpacing(5);
+            
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
@@ -71,63 +59,56 @@ namespace WineHangouts
             }
             return base.OnOptionsItemSelected(item);
         }
-        public class ImageAdapter : BaseAdapter
-        {
-            Context context;
+        //public class ImageAdapter : BaseAdapter
+        //{
+        //    Context context;
 
-            public ImageAdapter(Context c)
-            {
-                context = c;
-            }
+        //    public ImageAdapter(Context c)
+        //    {
+        //        context = c;
+        //    }
 
-            public override int Count
-            {
-                get { return thumbIds.Length; }
-            }
+        //    public override int Count
+        //    {
+        //        get { return thumbIds.Length; }
+        //    }
 
-            public override Java.Lang.Object GetItem(int position)
-            {
-                return null;
-            }
+        //    public override Java.Lang.Object GetItem(int position)
+        //    {
+        //        return null;
+        //    }
 
-            public override long GetItemId(int position)
-            {
-                return 0;
-            }
+        //    public override long GetItemId(int position)
+        //    {
+        //        return 0;
+        //    }
 
-            // create a new ImageView for each item referenced by the Adapter
-            public override View GetView(int position, View convertView, ViewGroup parent)
-            {
-                ImageView imageView;
+        //    // create a new ImageView for each item referenced by the Adapter
+        //    public override View GetView(int position, View convertView, ViewGroup parent)
+        //    {
+        //        ImageView imageView;
 
-                if (convertView == null)
-                {  // if it's not recycled, initialize some attributes
-                    imageView = new ImageView(context);
-                    imageView.LayoutParameters = new GridView.LayoutParams(450, 450);
-                    imageView.SetScaleType(ImageView.ScaleType.FitCenter);
-                    imageView.SetPadding(8, 8, 8, 8);
-                }
-                else
-                {
-                    imageView = (ImageView)convertView;
-                }
+        //        if (convertView == null)
+        //        {  // if it's not recycled, initialize some attributes
+        //            imageView = new ImageView(context);
+        //            imageView.LayoutParameters = new GridView.LayoutParams(450, 450);
+        //            imageView.SetScaleType(ImageView.ScaleType.FitCenter);
+        //            imageView.SetPadding(8, 8, 8, 8);
+        //        }
+        //        else
+        //        {
+        //            imageView = (ImageView)convertView;
+        //        }
 
-                imageView.SetImageResource(thumbIds[position]);
-                return imageView;
-            }
+        //        imageView.SetImageResource(thumbIds[position]);
+        //        return imageView;
+        //    }
 
-            // references to our images
-            int[] thumbIds = {
-        Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
-        Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
-        Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
-        Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
-        Resource.Drawable.placeholder_bottiglia_lista, Resource.Drawable.placeholder_bottiglia_lista,
-
-    };
+        //    // references to our images
+        //    int[] thumbIds = {    };
 
 
-        }
+        //}
 
     }
 }

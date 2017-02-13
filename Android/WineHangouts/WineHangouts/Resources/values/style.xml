@@ -12,13 +12,13 @@
          parent="@android:style/Widget.Holo.Light.ActionBar">
     <item name="android:logo">@android:color/transparent</item>
 
-    <item name="android:background">#00008B</item>
+    <item name="android:background">#000000</item>
   </style>
 
 
 
   <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
-    <item name="android:background">#00008B</item>
+    <item name="android:background">#000000</item>
     <item name="colorAccent">@color/Tab_Highlighter</item>
     
     

@@ -57,10 +57,11 @@ namespace WineHangouts
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
-            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/1.jpg");
+            BlobWrapper bvb = new BlobWrapper();
+            Bitmap imageBitmap = bvb.ProfileImages(myItems[position].ReviewUserId);
             if (imageBitmap == null)
             {
-                Image.SetImageResource(Resource.Drawable.ic_action_person);
+                Image.SetImageResource(Resource.Drawable.user);
             }
             Name.Text = myItems[position].Username;
             Comments.Text = myItems[position].RatingText;
@@ -71,24 +72,6 @@ namespace WineHangouts
             return row;
         }
 
-        private Bitmap GetImageBitmapFromUrl(string p)
-        {
-            Bitmap imageBitmap = null;
-
-            using (var webClient = new WebClient())
-            {
-                if (webClient.DownloadData(p).ToString() == null)
-                {
-                    var imageBytes = webClient.DownloadData(p);
-                    if (imageBytes != null && imageBytes.Length > 0)
-                    {
-                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                    }
-                }
-               
-            }
-
-            return imageBitmap;
-        }
+        
     }
 }

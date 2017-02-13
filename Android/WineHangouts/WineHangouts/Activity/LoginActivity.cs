@@ -13,7 +13,7 @@ using Android.Widget;
 namespace WineHangouts
 
 {
-    [Activity(Label = "WineHangouts",MainLauncher =true)]
+    [Activity(Label = "Wine Hangouts",MainLauncher =true)]
     public class LoginActivity : Activity
 
     {
@@ -24,17 +24,11 @@ namespace WineHangouts
             
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
-            //Button cancel = FindViewById<Button>(Resource.Id.btnClearLL);
+            
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
-            //EditText password = FindViewById<EditText>(Resource.Id.txtPassword);
+            
             ServiceWrapper svc = new ServiceWrapper();
-            //int authen = svc.AuthencateUser(username.Text).Result;
-            //username.Text = CurrentUser.getUserName();
-
-            //string value1 = pref.GetString("user", null);
-            //username.Text = value1;
-
-            //edit.Commit();
+          ;
 
             if (CurrentUser.getUserName() == null || CurrentUser.getUserName() == "")
             {
@@ -85,7 +79,7 @@ namespace WineHangouts
 
             };                 
 
-            // Create your application here
+            
         }
     }
 }

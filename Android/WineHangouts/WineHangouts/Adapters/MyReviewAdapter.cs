@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Graphics;
 using System.Net;
 using Hangout.Models;
+using Java.Util;
 
 namespace WineHangouts
 {
@@ -19,6 +20,7 @@ namespace WineHangouts
     {
         private List<Review> myItems;
         private Context myContext;
+       
         public override Review this[int position]
         {
             get
@@ -31,6 +33,7 @@ namespace WineHangouts
         {
             myContext = con;
             myItems = strArr;
+          
         }
         public override int Count
         {
@@ -39,8 +42,8 @@ namespace WineHangouts
                 return myItems.Count;
             }
         }
-        public EventHandler Edit_Click;
-        public EventHandler Delete_Click;
+        //public EventHandler Edit_Click;
+        //public EventHandler Delete_Click;
         public override long GetItemId(int position)
         {
             return position;
@@ -89,22 +92,17 @@ namespace WineHangouts
             txtDescription.Text = myItems[position].RatingText;
             txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
-            wineimage.SetImageResource(Resource.Drawable.wine7);
+            BlobWrapper bvb = new BlobWrapper();
+            Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+            wineimage.SetImageBitmap(imageBitmap);
+            //wineimage.SetImageResource(Resource.Drawable.wine7);
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
-            //txtPrice.Text = myItems[position].Price;
-            //imgWine.SetImageURI(new Uri(myItems[position].imageURL));
-
-            //var imageBitmap = GetImageBitmapFromUrl(myItems[position].imageURL);
-            //imgWine.SetImageBitmap(imageBitmap);
-
+           
             txtName.Focusable = false;
             txtYear.Focusable = false;
             txtDescription.Focusable = false;
             txtDate.Focusable = false;
-            //txtRatings.Focusable = false;
-            //txtUserRatings.Focusable = false;
-            //txtPrice.Focusable = false;
-            //imgWine.Focusable = false;
+           
 
 
             return row;
@@ -117,25 +115,11 @@ namespace WineHangouts
         }
         public void PerformdeleteClick(object sender, EventArgs e, Review edit)
         {
-            //DeleteReview editPopup = new DeleteReview(myContext, edit);
+           
             DeleteReview dr = new DeleteReview(myContext, edit);
             dr.Show(((Activity)myContext).FragmentManager, "");
         }
 
-        private Bitmap GetImageBitmapFromUrl(string url)
-        {
-            Bitmap imageBitmap = null;
-
-            using (var webClient = new WebClient())
-            {
-                var imageBytes = webClient.DownloadData(url);
-                if (imageBytes != null && imageBytes.Length > 0)
-                {
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                }
-            }
-
-            return imageBitmap;
-        }
+       
     }
 }

@@ -43,7 +43,7 @@ namespace WineHangouts
         }
 
 
-       
+
         public override long GetItemId(int position)
         {
             return position;
@@ -58,7 +58,7 @@ namespace WineHangouts
             else
                 return row;
 
-          
+
             TextView Name = row.FindViewById<TextView>(Resource.Id.txtNamefav);
             TextView Vintage = row.FindViewById<TextView>(Resource.Id.txtVintagefav);
             ImageView Wine = row.FindViewById<ImageView>(Resource.Id.imgWinefav);
@@ -67,28 +67,14 @@ namespace WineHangouts
             ImageView place = row.FindViewById<ImageView>(Resource.Id.placeholdefavr);
             ImageView Heart = row.FindViewById<ImageView>(Resource.Id.imgHeartfav);
 
-
-            //////TextView txtVintage1 = row.FindViewById<TextView>(Resource.Id.txtVintagefav);
-
-            //////TextView txtPrice1 = row.FindViewById<TextView>(Resource.Id.txtPricefav);
-            //////ImageView imgWine1 = row.FindViewById<ImageView>(Resource.Id.imgWinefav);
-            //////RatingBar avgrating1 = row.FindViewById<RatingBar>(Resource.Id.rtbProductRatingfav);
-            //////ImageView imgPlaceHolder1 = row.FindViewById<ImageView>(Resource.Id.placeholdefavr);
-            //////ImageView heartImg1 = row.FindViewById<ImageView>(Resource.Id.imgHeartfav);
-            //RelativeLayout rel = row.FindViewById<RelativeLayout>(Resource.Id.relative);
-            //var place11 = new RelativeLayout.LayoutParams(520, 620)
-            //rel.LayoutParameters = place11;
-            //rel.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
-            //txtName1.Text = myItems[position].RegPrice.ToString();\
             String str = "lokesh";
             Name.Text = myItems[position].Name;
-            //txtRatings.Text = myItems[position].Ratings;
-            //txtUserRatings.Text = myItems[position].UserRatings;
+
             Price.Text = myItems[position].RegPrice.ToString("C");
-           
+
             Avgrating.Rating = (float)myItems[position].AverageRating;
             Vintage.Text = myItems[position].Vintage.ToString();
-            //heartImg.t = myItems[position].s;
+
 
             Heart.SetImageResource(Resource.Drawable.heart_empty);
             var heartLP = new RelativeLayout.LayoutParams(80, 80);
@@ -98,12 +84,6 @@ namespace WineHangouts
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
             heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2;
             Heart.LayoutParameters = heartLP;
-
-
-
-
-
-            //heartImg.Layout(50, 50, 50, 50);
             bool count = Convert.ToBoolean(myItems[position].IsLike);
             if (count == true)
             {
@@ -136,10 +116,10 @@ namespace WineHangouts
                 ServiceWrapper sw = new ServiceWrapper();
                 await sw.InsertUpdateLike(like);
             };
-
-
+            BlobWrapper bvb = new BlobWrapper();
+            Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
             place.SetImageResource(Resource.Drawable.placeholder);
-            Wine.SetImageResource(Resource.Drawable.wine1);
+            Wine.SetImageBitmap(imageBitmap);
             var place1 = new RelativeLayout.LayoutParams(520, 520);
             // var place = new RelativeLayout.LayoutParams(520, 620);
             place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
@@ -152,34 +132,15 @@ namespace WineHangouts
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 
 
-            //  txtName1.Focusable = false;
+
             Name.Focusable = false;
-            //txtRatings.Focusable = false;
-            //txtUserRatings.Focusable = false;
             Vintage.Focusable = false;
             Price.Focusable = false;
             Wine.Focusable = false;
-            
+
             NotifyDataSetChanged();
             return row;
         }
-
-        private Bitmap GetImageBitmapFromUrl(string url)
-        {
-            Bitmap imageBitmap = null;
-
-            using (var webClient = new WebClient())
-            {
-                var imageBytes = webClient.DownloadData(url);
-                if (imageBytes != null && imageBytes.Length > 0)
-                {
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                }
-            }
-
-            return imageBitmap;
-        }
-
         private int ConvertPixelsToDp(float pixelValue)
         {
             var dp = (int)((pixelValue) / myContext.Resources.DisplayMetrics.Density);

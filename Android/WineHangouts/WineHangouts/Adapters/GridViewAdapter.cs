@@ -39,7 +39,8 @@ namespace WineHangouts
             {
                 if (!wineImages.ContainsKey(item.WineId))
                 {
-                    var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
+                    ImageHelper im = new ImageHelper();
+                    var imageBitmap = im.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
                     wineImages.Add(item.WineId, imageBitmap);
                 }
             }
@@ -159,8 +160,7 @@ namespace WineHangouts
 
 
                 txtName.Focusable = false;
-                //txtRatings.Focusable = false;
-                //txtUserRatings.Focusable = false;
+              
                 txtVintage.Focusable = false;
                 txtPrice.Focusable = false;
                 imgWine.Focusable = false;
@@ -169,29 +169,7 @@ namespace WineHangouts
             return row;
         }
 
-        private Bitmap GetImageBitmapFromUrl(string url)
-        {
-            Bitmap imageBitmap = null;
-            try
-            {
-
-                using (var webClient = new WebClient())
-                {
-                    var imageBytes = webClient.DownloadData(url);
-                    if (imageBytes != null && imageBytes.Length > 0)
-                    {
-                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-            return imageBitmap;
-        }
+       
 
         private int ConvertPixelsToDp(float pixelValue)
         {

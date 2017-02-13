@@ -22,7 +22,7 @@ using System.Threading;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Profile")]
+    [Activity(Label = "Wine Hangouts User Profile")]
     public class ProfileActivity : Activity, IPopupParent
     {
         protected override void OnCreate(Bundle bundle)
@@ -47,22 +47,16 @@ namespace WineHangouts
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetCustomerDetails(userId).Result;
-
-            
-            //new Thread(new ThreadStart(delegate
-            //{
-            //          RunOnUiThread(() => progressDialog.Hide());
-            //})).Start();
-
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
-            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
-            if(imageBitmap == null)
+            BlobWrapper bvb = new BlobWrapper();
+            Bitmap imageBitmap = bvb.ProfileImages(userId);
+            
+            if (imageBitmap == null)
             {
                 propicimage.SetImageResource(Resource.Drawable.user);
             }
                 else
             propicimage.SetImageBitmap(imageBitmap);
-            //propicimage.SetImageResource(Resource.Drawable.user);
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
 
             changepropic.SetImageResource(Resource.Drawable.dpreplacer);
@@ -127,32 +121,7 @@ namespace WineHangouts
             };
         }
 
-        private Bitmap GetImageBitmapFromUrl(string v)
-        {
-            Bitmap imageBitmap = null;
-
-            try
-            {
-
-                using (var webClient = new WebClient())
-                {
-                    var imageBytes = webClient.DownloadData(v);
-                    if (imageBytes != null && imageBytes.Length > 0)
-                    {
-                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-                
-                return null;
-                
-            }
-            return imageBitmap;
-        }
-
+       
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
@@ -168,7 +137,8 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             var output = svc.GetCustomerDetails(userId).Result;
-            var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
+            BlobWrapper bvb = new BlobWrapper();
+            Bitmap imageBitmap = bvb.ProfileImages(userId);
         }
     }
 

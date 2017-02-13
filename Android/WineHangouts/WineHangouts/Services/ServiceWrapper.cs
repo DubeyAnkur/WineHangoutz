@@ -22,7 +22,7 @@ namespace WineHangouts
         {
             get
             {
-                //string host = "http://localhost:65442/";
+                
                 string host = "http://hangoutz.azurewebsites.net/";
                 return host + "api/Item/";
             }
