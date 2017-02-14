@@ -31,22 +31,19 @@ namespace WineHangoutz
 				string url = "https://icsintegration.blob.core.windows.net/bottleimages/" + wineId + ".jpg";
 				NSUrl imageURL = new NSUrl(url);
 				imageData = NSData.FromUrl(imageURL);
+				CachedImagePhysically(imageData, wineId);
 			}
 			if (imageData == null)
 				return null;
 
 			UIImage img = UIImage.LoadFromData(imageData);
-			//wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId));
-			CachedImagePhysically(imageData, wineId);
+			wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId));
 
 			return img;
 		}
 
-
-
 		public static void CachedImagePhysically(NSData image, string wineId)
 		{
-			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 			var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 			var filename = Path.Combine(cache, wineId + ".jpg");
 
@@ -64,7 +61,6 @@ namespace WineHangoutz
 		{
 			try
 			{
-				var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 
 				var filename = Path.Combine(cache, wineId + ".jpg");
