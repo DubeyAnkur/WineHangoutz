@@ -39,8 +39,8 @@ namespace WineHangouts
             {
                 if (!wineImages.ContainsKey(item.WineId))
                 {
-                    ImageHelper im = new ImageHelper();
-                    var imageBitmap = im.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
+                    BlobWrapper bvb = new BlobWrapper();
+                    var imageBitmap = bvb.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
                     wineImages.Add(item.WineId, imageBitmap);
                 }
             }
@@ -77,7 +77,7 @@ namespace WineHangouts
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-            ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
+            //ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
             RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             rating.Rating = (float)myItems[position].AverageRating;
@@ -139,7 +139,7 @@ namespace WineHangouts
                 };
             }
 
-            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
+            //imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
             //if (convertView == null)
             {
                 //var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + myItems[position].WineId + ".jpg");
@@ -154,7 +154,7 @@ namespace WineHangouts
 
                 var place1 = new RelativeLayout.LayoutParams(520, 520);
                 place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
-                imgPlaceHolder.LayoutParameters = place1;
+                //imgPlaceHolder.LayoutParameters = place1;
                 //   imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
                 //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 

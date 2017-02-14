@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:background="@null"
     android:minWidth="25px"
     android:minHeight="25px"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:background="@drawable/border_line">
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,12 +23,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="3">
-                <ImageView
+                <!--<ImageView
                     android:layout_width="45dp"
                     android:layout_height="450dp"
                     android:id="@+id/placeholdefavr"
                     android:layout_alignParentRight="true"
-                    android:src="@android:drawable/ic_menu_gallery" />
+                    android:src="@android:drawable/ic_menu_gallery" />-->
                 <ImageView
                     android:src="@android:drawable/ic_menu_gallery"
                     android:layout_width="45dp"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:shrinkColumns="1"
-        android:background="#ffffff"
+        android:background="#dcdcdc"
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
@@ -74,11 +74,11 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00ffff"
+        android:background="#dcdcdc"
         android:id="@+id/tableLayout1">
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="#dcdcdc">
             <View
                 android:id="@+id/topDivider"
                 android:layout_weight="1"
@@ -112,7 +112,7 @@
         android:background="#00ffff">
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff"
+            android:background="#dcdcdc"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RatingBar
@@ -128,7 +128,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
-            android:background="#ffffff">
+            android:background="#dcdcdc">
             <TextView
                 android:text="$19.99"
                 android:textAppearance="?android:attr/textAppearanceSmall"

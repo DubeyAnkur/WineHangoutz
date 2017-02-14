@@ -21,7 +21,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/propicview"
                 android:adjustViewBounds="true"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:background="@drawable/img" />
             <ImageButton
                 android:src="@android:drawable/ic_menu_camera"
                 android:layout_width="30dp"
@@ -327,7 +328,7 @@
                     android:background="@android:drawable/editbox_background" />
             </TableRow>
         </TableLayout>
-        <!--<Button
+    <!--<Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button1"

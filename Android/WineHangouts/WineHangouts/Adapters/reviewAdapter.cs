@@ -15,7 +15,7 @@ using System.Net;
 
 namespace WineHangouts
 {
-    [Activity(Label = "reviewAdapter")]
+    [Activity(Label = "Review Adapter")]
     public class reviewAdapter : BaseAdapter<Review>
     {
         private List<Review> myItems;

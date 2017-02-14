@@ -12,12 +12,11 @@ using Android.Widget;
 using Android.Graphics;
 using Android.Util;
 using Hangout.Models;
-using System.Linq;
 using System.Net;
 
 namespace WineHangouts
 {
-    [Activity(Label = "detailViewActivity", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/icon")]
     public class detailViewActivity : Activity, IPopupParent
     {
         public int sku;
@@ -35,7 +34,7 @@ namespace WineHangouts
             int wineid = Intent.GetIntExtra("WineID", 138);
             ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
             var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
-            this.Title = "Details";
+            this.Title = "Wine Details";
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
             reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
             commentsView.Adapter = comments;
@@ -75,15 +74,15 @@ namespace WineHangouts
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
 
             ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
-            ImageView imgPlaceHolder = FindViewById<ImageView>(Resource.Id.placeholder1);
-            imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
+            //ImageView imgPlaceHolder = FindViewById<ImageView>(Resource.Id.placeholder1);
+            //imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
             BlobWrapper bvb = new BlobWrapper();
             Bitmap imageBitmap = bvb.Bottleimages(wineid);
             //ImageHelper im = new ImageHelper();
             //Bitmap imageBitmap = im.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + wineid + ".jpg");
             imgWine.SetImageBitmap(imageBitmap);
 
-            imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
+            //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
 

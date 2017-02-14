@@ -30,18 +30,6 @@ namespace WineHangouts
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Profile);
-            var progressDialog = ProgressDialog.Show(this, "Please wait...", "Loading your profile...", true);
-            new Thread(new ThreadStart(delegate
-            {
-                //LOAD METHOD TO GET ACCOUNT INFO
-
-                //HIDE PROGRESS DIALOG
-                RunOnUiThread(() => progressDialog.Show());
-                Thread.Sleep(10000);
-                RunOnUiThread(() => progressDialog.Dismiss());
-                //RunOnUiThread(() => progressDialog.Wait(1000));
-                //RunOnUiThread(() => progressDialog.Hide());
-            })).Start();
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             int userId = Convert.ToInt32(CurrentUser.getUserId());

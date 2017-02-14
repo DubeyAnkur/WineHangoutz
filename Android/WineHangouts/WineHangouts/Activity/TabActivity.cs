@@ -9,21 +9,21 @@ using Android.OS;
 using Android.Util;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-
+using System.Threading;
 namespace WineHangouts
 {
-    [Activity(Label = "Wine Hangouts", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
+    [Activity(Label = "Wine Hangoutz", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
     public class TabActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            this.TitleColor=Color.LightGray;
+            this.TitleColor = Color.LightGray;
 
-            
+
             SetContentView(Resource.Layout.Fragment);
-          
-            
+
+
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
 
@@ -49,7 +49,7 @@ namespace WineHangouts
             tab.SetText(tabText);
 
 
-           
+
             tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
             {
                 var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
@@ -57,13 +57,14 @@ namespace WineHangouts
                     e.FragmentTransaction.Remove(fragment);
                 e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
             };
-            tab.TabUnselected += delegate (object sender, ActionBar.TabEventArgs e) {
+            tab.TabUnselected += delegate (object sender, ActionBar.TabEventArgs e)
+            {
                 e.FragmentTransaction.Remove(view);
             };
-            
+
             this.ActionBar.AddTab(tab);
         }
-        
+
 
         class SampleTabFragment : Fragment
         {
@@ -85,7 +86,7 @@ namespace WineHangouts
                 Button Middle = view.FindViewById<Button>(Resource.Id.btnMiddle);
                 Button Bottom = view.FindViewById<Button>(Resource.Id.btnBottom);
                 var metrics = Resources.DisplayMetrics;
-                int height = metrics.HeightPixels; 
+                int height = metrics.HeightPixels;
                 height = height - (int)((360 * metrics.Density) / 3);
                 height = height / 3;
                 Top.LayoutParameters.Height = height;
@@ -95,21 +96,21 @@ namespace WineHangouts
 
                 if (tabName == "Location")
                 {
-                   
-                   
+
+
                     Top.SetBackgroundResource(Resource.Drawable.city);
                     Top.Text = "Wall";
                     Top.SetTextColor(Color.White);
                     Top.TextSize = 20;
-                    Middle.SetBackgroundResource(Resource.Drawable.beach );
-                    Middle.Text = "Point Pleasent";
+                    Middle.SetBackgroundResource(Resource.Drawable.beach);
+                    Middle.Text = "Point Pleasant";
                     Middle.SetTextColor(Color.White);
                     Middle.TextSize = 20;
                     Bottom.SetBackgroundResource(Resource.Drawable.city1);
                     Bottom.Text = "Seacucas";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
-                    
+
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(GridViewActivity));
@@ -134,7 +135,7 @@ namespace WineHangouts
                 }
                 if (tabName == "TASTE")
                 {
-                  
+
                     Top.SetBackgroundResource(Resource.Drawable.winereviews);
                     Top.Text = "My Reviews";
                     Top.SetTextColor(Color.White);
@@ -147,7 +148,7 @@ namespace WineHangouts
                     Bottom.Text = "My Favorite";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
-                   
+
                     Top.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(MyReviewActivity));
@@ -171,63 +172,92 @@ namespace WineHangouts
                 }
                 if (tabName == "EXPLORE")
                 {
-                  
+
                     Top.SetBackgroundResource(Resource.Drawable.myprofile);
                     Top.Text = "My Profile";
                     Top.SetTextColor(Color.White);
                     Top.TextSize = 20;
-                    
+
 
                     Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
                     Middle.Text = "Wineries";
-                    Middle.SetTextColor(Color.White);
                     Middle.TextSize = 20;
+                    Middle.SetTextColor(Color.White);
+
+
                     Bottom.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
                     Bottom.Text = "Regions";
-                    Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
-                    
+                    Bottom.SetTextColor(Color.White);
+                    Bottom.SetTextAppearance(Resource.Drawable.abc_btn_borderless_material);
+
                     Top.Click += (sender, e) =>
                     {
+                        //    ProgressDialog progressdialog = ProgressDialog.Show(this,"Please","jg",true);
+                        //    new Thread(new ThreadStart(delegate
+                        //{
+                        //    //LOAD METHOD TO GET ACCOUNT INFO
+
+                        //    //HIDE PROGRESS DIALOG
+                        //    RunOnUiThread(() => progressdialog.Show());
+                        //    Thread.Sleep(10000);
+
+                        //    RunOnUiThread(() => progressdialog.Dismiss());
+                        //        //RunOnUiThread(() => progressDialog.Wait(1000));
+                        //        //RunOnUiThread(() => progressDialog.Hide());
+                        //    })).Start();
                         var intent = new Intent(Activity, typeof(ProfileActivity));
                         intent.PutExtra("MyData", "My Profile");
                         StartActivity(intent);
-                      
+
+
 
                     };
                     Middle.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(LandscapeActivity));
-                        intent.PutExtra("MyData", "Wineries");
-                        StartActivity(intent);
+                        AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                        aler.SetTitle("Wineries Section");
+                        aler.SetMessage("Coming Soon");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog = aler.Create();
+                        dialog.Show();
+                        //var intent = new Intent(Activity, typeof(LandscapeActivity));
+                        //intent.PutExtra("MyData", "Wineries");
+                        //StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>
                     {
-                        var intent = new Intent(Activity, typeof(PotraitActivity));
-                        intent.PutExtra("MyData", "Regions");
-                        StartActivity(intent);
+                        AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                        aler.SetTitle("Regions Section");
+                        aler.SetMessage("Coming Soon");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog = aler.Create();
+                        dialog.Show();
+                        //var intent = new Intent(Activity, typeof(PotraitActivity));
+                        //intent.PutExtra("MyData", "Regions");
+                        //StartActivity(intent);
                     };
                 }
 
                 return view;
-               
+
 
             }
             private int PixelsToDp(int pixels)
             {
                 return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
             }
-        
 
-            
+
+
         }
         public override void OnBackPressed()
         {
             MoveTaskToBack(true);
         }
 
-        
-        }
+
+    }
 
 }
 

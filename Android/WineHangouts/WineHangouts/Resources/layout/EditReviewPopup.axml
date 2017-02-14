@@ -22,7 +22,8 @@
                 android:id="@+id/close"
                 android:background="#cc007a"
                 android:layout_gravity="bottom"
-                android:scaleType="centerInside" />
+                android:scaleType="centerInside"
+                android:layout_height="30dp" />
             <TextView
                 android:text="Rate And Comment"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -49,10 +50,11 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="70dp" />
                 <ImageButton
-                    android:src="@android:drawable/ic_menu_gallery"
+                    android:src="@android:drawable/checkbox_off_background"
                     android:id="@+id/ratingimage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
                     android:background="@null" />
             </RelativeLayout>
         </TableRow>

@@ -18,11 +18,11 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    class DetailsViewAdapter : BaseAdapter<WineDetails>
+    class DetailsViewAdapter : BaseAdapter<Item>
     {
-        private List<WineDetails> myItems;
+        private List<Item> myItems;
         private Context myContext;
-        public override WineDetails this[int position]
+        public override Item this[int position]
         {
             get
             {
@@ -30,7 +30,7 @@ namespace WineHangouts
             }
         }
 
-        public DetailsViewAdapter(Context con, List<WineDetails> strArr)
+        public DetailsViewAdapter(Context con, List<Item> strArr)
         {
             myContext = con;
             myItems = strArr;
@@ -70,8 +70,8 @@ namespace WineHangouts
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
 
 
-            Type.Text = myItems[position].Type;
-            Value.Text = myItems[position].Value;
+            Type.Text = myItems[position].Name;
+            Value.Text = myItems[position].Vintage.ToString();
             //Type.Text = myItems[position].Classification;
             //Value.Text = myItems[position].ClassificationValue;
             //Type.Text = myItems[position].Grapetype;

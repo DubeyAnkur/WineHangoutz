@@ -54,7 +54,7 @@ namespace WineHangouts
 
             ibs.SetImageResource(Resource.Drawable.wine_review);
             ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-            close.SetImageResource(Resource.Drawable.Close);
+            //close.SetImageResource(Resource.Drawable.Close);
             close.SetScaleType(ImageView.ScaleType.CenterCrop);
             editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
             editDialog.Show();
@@ -104,7 +104,7 @@ namespace WineHangouts
 
             ibs.SetImageResource(Resource.Drawable.wine_review);
             ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-            close.SetImageResource(Resource.Drawable.Close);
+            //close.SetImageResource(Resource.Drawable.Close);
             close.SetScaleType(ImageView.ScaleType.CenterCrop);
             editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
             editDialog.Show();

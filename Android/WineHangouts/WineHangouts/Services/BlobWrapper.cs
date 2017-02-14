@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using System.Net.Http;
 using Android.Graphics;
+using System.Net;
 
 namespace WineHangouts
 {
@@ -37,15 +38,36 @@ namespace WineHangouts
          public Bitmap Bottleimages(int wineid)
         {
             var uri = new Uri(ServiceURL + "bottleimages/"+wineid+".jpg");
-            ImageHelper im = new ImageHelper();
-            Bitmap imageBitmap = im.GetImageBitmapFromUrl(uri.ToString());
+            Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
             return imageBitmap;
         }
         public Bitmap ProfileImages(int userid)
         {
             var uri = new Uri(ServiceURL + "profileimages/" + userid + ".jpg");
-            ImageHelper im = new ImageHelper();
-            Bitmap imageBitmap = im.GetImageBitmapFromUrl(uri.ToString());
+               Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+            return imageBitmap;
+        }
+        public Bitmap GetImageBitmapFromUrl(string url)
+        {
+            Bitmap imageBitmap = null;
+            try
+            {
+
+                using (var webClient = new WebClient())
+                {
+                    var imageBytes = webClient.DownloadData(url);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
             return imageBitmap;
         }
 

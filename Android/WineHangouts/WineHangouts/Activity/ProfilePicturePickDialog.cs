@@ -42,19 +42,19 @@ namespace WineHangouts
             Uri contentUri = Uri.FromFile(App._file);
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
-       
-    
-        // Display in ImageView. We will resize the bitmap to fit the display
-        // Loading the full sized image will consume to much memory 
-        // and cause the application to crash.
+            Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
+            Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
+            // Display in ImageView. We will resize the bitmap to fit the display
+            // Loading the full sized image will consume to much memory 
+            // and cause the application to crash.
 
-        //int height = Resources.DisplayMetrics.HeightPixels;
-        //    int width = _imageView.Height ;
-        //    App.bitmap = App._file.Path.LoadAndResizeBitmap (width, height);
-        //    if (App.bitmap != null) {
-        //        _imageView.SetImageBitmap (App.bitmap);
-        //        App.bitmap = null;
-        //    }
+            //int height = Resources.DisplayMetrics.HeightPixels;
+            //    int width = _imageView.Height ;
+            //    App.bitmap = App._file.Path.LoadAndResizeBitmap (width, height);
+            //    if (App.bitmap != null) {
+            //        _imageView.SetImageBitmap (App.bitmap);
+            //        App.bitmap = null;
+            //    }
             UploadProfilePic(path);
             // Dispose of the Java side bitmap.
             GC.Collect();
@@ -144,7 +144,8 @@ namespace WineHangouts
             using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
             {
                 
-                await blob.UploadFromStreamAsync(fs);//  .UploadFromFileAsync(path);
+               await blob.UploadFromStreamAsync(fs);//  .UploadFromFileAsync(path);
+                
             }
                 //}
                 // await container=

@@ -28,22 +28,22 @@ namespace WineHangouts
             int StoreId = 0;
             if (StoreName == "Wall Store")
                 StoreId = 1;
-            else if (StoreName == "Point Pleasent Store")
+            else if (StoreName == "Point Pleasant Store")
                 StoreId = 2;
             else
                 StoreId = 3;
-            var progressDialog = ProgressDialog.Show(this, "Please wait...", "We are loading available wines...", true);
-            new Thread(new ThreadStart(delegate
-            {
-                //LOAD METHOD TO GET ACCOUNT INFO
+            //var progressDialog = ProgressDialog.Show(this, "Please wait...", "We are loading available wines...", true);
+            //new Thread(new ThreadStart(delegate
+            //{
+            //    //LOAD METHOD TO GET ACCOUNT INFO
 
-                //HIDE PROGRESS DIALOG
-                RunOnUiThread(() => progressDialog.Show());
-                Thread.Sleep(10000);
-                RunOnUiThread(() => progressDialog.Dismiss());
-                //RunOnUiThread(() => progressDialog.Wait(1000));
-                //RunOnUiThread(() => progressDialog.Hide());
-            })).Start();
+            //    //HIDE PROGRESS DIALOG
+            //    RunOnUiThread(() => progressDialog.Show());
+            //    Thread.Sleep(10000);
+            //    RunOnUiThread(() => progressDialog.Dismiss());
+            //    //RunOnUiThread(() => progressDialog.Wait(1000));
+            //    //RunOnUiThread(() => progressDialog.Hide());
+            //})).Start();
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId,userId).Result;
