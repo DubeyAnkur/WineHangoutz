@@ -28,12 +28,10 @@ namespace WineHangoutz
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
-			var topBtn = new UIBarButtonItem(profile
-			, UIBarButtonItemStyle.Plain
-			, (sender, args) =>
-			{
-				// button was clicked
-			});
+			//var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
+			//{
+			//	// button was clicked
+			//});
 
 
 			ManageTabBar(RootTab);

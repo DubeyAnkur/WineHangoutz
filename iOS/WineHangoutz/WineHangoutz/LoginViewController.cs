@@ -155,6 +155,8 @@ namespace WineHangoutz
 		public static int RetreiveUserId()
 		{
 			string savedUserId = plist.StringForKey("userId");
+			if (savedUserId == "")
+				return 0;
 			return Convert.ToInt32(savedUserId);
 		}
 	}

@@ -16,11 +16,19 @@ namespace WineHangoutz
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton btnEdit { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton btnUpdate { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton btnUpdateNotWorking { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgProfile { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -52,6 +60,11 @@ namespace WineHangoutz
 
         void ReleaseDesignerOutlets ()
         {
+            if (btnEdit != null) {
+                btnEdit.Dispose ();
+                btnEdit = null;
+            }
+
             if (btnUpdate != null) {
                 btnUpdate.Dispose ();
                 btnUpdate = null;
@@ -60,6 +73,11 @@ namespace WineHangoutz
             if (btnUpdateNotWorking != null) {
                 btnUpdateNotWorking.Dispose ();
                 btnUpdateNotWorking = null;
+            }
+
+            if (imgProfile != null) {
+                imgProfile.Dispose ();
+                imgProfile = null;
             }
 
             if (txtAddress != null) {

@@ -44,11 +44,6 @@ namespace WineHangoutz
 				BTProgressHUD.Show("Loading..."); //show spinner + text
 			};
 
-			btnRegions.TouchDown += (sender, e) =>
-			{
-				BTProgressHUD.Show("Loading..."); //show spinner + text
-			};
-
 			btnWineries.TouchDown += (sender, e) =>
 			{
 				BTProgressHUD.Show("Loading..."); //show spinner + text
@@ -57,14 +52,10 @@ namespace WineHangoutz
 
 			btnBlog.TouchUpInside += (sender, e) =>
 			{
-				NavigationController.PushViewController(new ProfileViewController(), false);
+				NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
 				BTProgressHUD.Dismiss();
 			};
-			btnRegions.TouchUpInside += (sender, e) =>//temp alpana
-			{
-				NavigationController.PushViewController(new ProfileViewController(), false);
-				BTProgressHUD.Dismiss();
-			};
+
 			btnWineries.TouchUpInside += (sender, e) =>
 			{
 				var lineLayout = new LineLayout()

@@ -5,6 +5,8 @@ using Foundation;
 using UIKit;
 using ImageIO;
 using System.IO;
+using Hangout.Models;
+using System.Threading.Tasks;
 
 namespace WineHangoutz
 {
@@ -22,15 +24,20 @@ namespace WineHangoutz
 
 			if (btl != null)
 				return (UIImage)btl;
-			string url = "https://icsintegration.blob.core.windows.net/bottleimages/" + wineId + ".jpg";
-			NSUrl imageURL = new NSUrl(url);
-			NSData imageData = NSData.FromUrl(imageURL);
-
+			
+			NSData imageData = ReadPhysicalCache(wineId);
+			if (imageData == null)
+			{
+				string url = "https://icsintegration.blob.core.windows.net/bottleimages/" + wineId + ".jpg";
+				NSUrl imageURL = new NSUrl(url);
+				imageData = NSData.FromUrl(imageURL);
+			}
 			if (imageData == null)
 				return null;
 
 			UIImage img = UIImage.LoadFromData(imageData);
-			wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId));
+			//wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId));
+			CachedImagePhysically(imageData, wineId);
 
 			return img;
 		}
@@ -40,26 +47,58 @@ namespace WineHangoutz
 		public static void CachedImagePhysically(NSData image, string wineId)
 		{
 			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			var cache = Path.Combine(documents, "..", "Library", "Caches", "WineHangoutz");
-			//var tmp = Path.Combine(documents, "..", "WineHangoutz");
+			var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 			var filename = Path.Combine(cache, wineId + ".jpg");
 
 			byte[] dataBytes = new byte[image.Length];
 
 			System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
-
+			if (!Directory.Exists(cache))
+			{ 
+				Directory.CreateDirectory(cache);
+			}
 			File.WriteAllBytes(filename, dataBytes);
 		}
 
 		public static NSData ReadPhysicalCache(string wineId)
 		{
-			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			var cache = Path.Combine(documents, "..", "Library", "Caches", "WineHangoutz");
-			//var tmp = Path.Combine(documents, "..", "WineHangoutz");
-			var filename = Path.Combine(cache, wineId + ".jpg");
+			try
+			{
+				var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 
-			byte[] dataBytes = File.ReadAllBytes(filename);
-			return NSData.FromArray(dataBytes);
+				var filename = Path.Combine(cache, wineId + ".jpg");
+
+				byte[] dataBytes = File.ReadAllBytes(filename);
+				return NSData.FromArray(dataBytes);
+
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+
+		public static void DownloadAllImages()
+		{
+			Task.Factory.StartNew(() =>
+			{
+				ServiceWrapper svc = new ServiceWrapper();
+				ItemListResponse myData = svc.GetItemList(1, CurrentUser.RetreiveUserId()).Result;
+
+				foreach (var wine in myData.ItemList)
+				{
+					GetImageBitmapFromWineId(wine.WineId.ToString());
+				}
+
+				myData = svc.GetItemList(2, CurrentUser.RetreiveUserId()).Result;
+
+				foreach (var wine in myData.ItemList)
+				{
+					GetImageBitmapFromWineId(wine.WineId.ToString());
+				}
+
+			});
 		}
 	}
 }
