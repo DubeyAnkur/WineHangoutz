@@ -1,19 +1,31 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/Info.plist">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/BlobWrapper.cs">
     <Files>
-      <File FileName="WineHangoutz/BlobWrapper.cs" Line="17" Column="3" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="23" Column="4" />
-      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="105" Column="18" />
-      <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="36" Column="4" />
-      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="126" Column="6" />
-      <File FileName="WineHangoutz/SKUDetailView.cs" Line="155" Column="33" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="37" Column="35" />
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="35" Column="51" />
-      <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
-      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="43" Column="4" />
-      <File FileName="WineHangoutz/Tabs/ExploreViewController.cs" Line="32" Column="34" />
+      <File FileName="WineHangoutz/LoginViewController.cs" Line="86" Column="5" />
+      <File FileName="WineHangoutz/Tabs/ExploreViewController.cs" Line="52" Column="43" />
       <File FileName="WineHangoutz/Info.plist" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="32" Column="39" />
+      <File FileName="WineHangoutz/LoadingOverlay.cs" Line="40" Column="32" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="27" Column="6" />
+      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="53" Column="6" />
+      <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="63" Column="29" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="104" Column="7" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="29" Column="14" />
+      <File FileName="WineHangoutz/BlobWrapper.cs" Line="17" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WineHangoutz" expanded="True">
+            <Node name="WineHangoutz" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Tabs" expanded="True" />
+              <Node name="BlobWrapper.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

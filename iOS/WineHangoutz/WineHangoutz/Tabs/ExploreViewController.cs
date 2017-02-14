@@ -2,6 +2,7 @@
 using CoreGraphics;
 using UIKit;
 using Foundation;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -38,10 +39,31 @@ namespace WineHangoutz
 			View.AddSubview(btnBlog);
 			View.AddSubview(btnWineries);
 			View.AddSubview(btnRegions);
+			btnBlog.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+
+			btnRegions.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+
+			btnWineries.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+
 
 			btnBlog.TouchUpInside += (sender, e) =>
 			{
 				NavigationController.PushViewController(new ProfileViewController(), false);
+				BTProgressHUD.Dismiss();
+			};
+			btnRegions.TouchUpInside += (sender, e) =>//temp alpana
+			{
+				NavigationController.PushViewController(new ProfileViewController(), false);
+				BTProgressHUD.Dismiss();
 			};
 			btnWineries.TouchUpInside += (sender, e) =>
 			{
@@ -53,6 +75,7 @@ namespace WineHangoutz
 				};
 
 				NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
+				BTProgressHUD.Dismiss();
 			};
 		}
 		public override void ViewDidAppear(bool animated)

@@ -228,5 +228,13 @@
         <image name="Stars/star-silver1.png" width="200" height="200"/>
         <image name="Stars/star-silver2.png" width="200" height="200"/>
         <image name="eno.jpg" width="700" height="418"/>
+        <image name="whLogo.jpg" width="2100" height="2100"/>
+        <image name="Images/beach.jpg" width="720" height="240"/>
+        <image name="Images/city.jpg" width="720" height="240"/>
+        <image name="Images/city1.jpg" width="720" height="240"/>
+        <image name="Images/myfavorate.jpg" width="720" height="240"/>
+        <image name="Images/myprofile.jpg" width="720" height="240"/>
+        <image name="Images/winereviews.jpg" width="720" height="240"/>
+        <image name="Images/winetasting.jpg" width="720" height="240"/>
     </resources>
 </document>

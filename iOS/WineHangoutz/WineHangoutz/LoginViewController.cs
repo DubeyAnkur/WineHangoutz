@@ -38,6 +38,7 @@ namespace WineHangoutz
 			lblError = new UILabel();
 			lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h);
 			lblError.Text = "";
+			lblError.TextColor = UIColor.Red;
 			lblError.TextAlignment = UITextAlignment.Left;
 
 
@@ -71,39 +72,55 @@ namespace WineHangoutz
 			};
 
 
-			UIButton btnSave = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
-			btnSave.SetTitle("Login", UIControlState.Normal);
-			btnSave.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
-			btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+			UIButton btnLogin = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+			btnLogin.SetTitle("Login", UIControlState.Normal);
+			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnSave.TouchUpInside += (sender, e) =>
+			btnLogin.TouchUpInside += (sender, e) =>
 			{
-				SaveUserDetails(usernameField.Text);
-				nav.DismissViewController(true, null);
+				var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
+				View.AddSubview(loadPop);
+
+				var output = SaveUserDetails(usernameField.Text);
+
+				if (output == true)
+					nav.DismissViewController(true, null);
+
+				loadPop.Hide();
 			};
 
 			View.BackgroundColor = UIColor.White;
 			View.AddSubview(imgLogo);
 			View.AddSubview(lblError);
 			View.AddSubview(lblFN);
-			View.AddSubview(btnSave);
+			View.AddSubview(btnLogin);
 			View.AddSubview(usernameField);
 			View.AddSubview(txtPassword);
 			View.AddSubview(lblCard);
 		}
 
-		public void SaveUserDetails(string userName)
+		public bool SaveUserDetails(string userName)
 		{
 			ServiceWrapper svc = new ServiceWrapper();
+
+			if (userName.Trim() == "")
+			{
+				lblError.Text = "Wrong First Name.";
+				return false;
+			}
+
 			var myData = svc.AuthencateUser(userName).Result;
 			if (myData.customer.CustomerID != 0)
 			{
 				lblError.Text = "";
 				CurrentUser.Store(myData.customer.CustomerID.ToString(), userName);
+				return true;
 			}
 			else
 			{
-				lblError.Text = "Wrong User Name.";
+				lblError.Text = "Wrong First Name.";
+				return false;
 			}
 		}
 	}

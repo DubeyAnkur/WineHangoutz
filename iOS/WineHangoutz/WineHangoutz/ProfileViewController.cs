@@ -25,6 +25,15 @@ namespace WineHangoutz
 			txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
 			txtState.Text = cRes.customer.State;
 
+
+			//var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
+			//if (imageBitmap == null)
+			//{
+			//	propicimage.SetImageResource(Resource.Drawable.user);
+			//}
+			//else
+			//	propicimage.SetImageBitmap(imageBitmap);
+			
 			btnUpdate.TouchUpInside += async (sender, e) =>
 			{
 				Customer cust = new Customer();

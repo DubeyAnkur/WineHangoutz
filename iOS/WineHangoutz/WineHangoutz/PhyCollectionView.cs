@@ -31,10 +31,14 @@ namespace WineHangoutz
 			else
 				myData = svc.GetItemList(storeId,CurrentUser.RetreiveUserId()).Result;
 
-			//View.BackgroundColor = UIColor.White;
 			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 			this.CollectionView.BackgroundColor = UIColor.White;
 			CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
@@ -97,7 +101,7 @@ namespace WineHangoutz
 				nfloat boxHeight = rect.Height;
 				nfloat imgHeight = image.Size.Height;
 				nfloat ratio = boxHeight / imgHeight;
-				if (ratio < 1)
+				//if (ratio < 1)
 				{
 					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
 					image = image.Scale(newSize);

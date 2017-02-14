@@ -4,6 +4,7 @@ using System.Drawing;
 using Foundation;
 using UIKit;
 using ImageIO;
+using System.IO;
 
 namespace WineHangoutz
 {
@@ -18,6 +19,7 @@ namespace WineHangoutz
 		public static UIImage GetImageBitmapFromWineId(string wineId)
 		{
 			NSObject btl = wineBottles.ObjectForKey(NSObject.FromObject(wineId));
+
 			if (btl != null)
 				return (UIImage)btl;
 			string url = "https://icsintegration.blob.core.windows.net/bottleimages/" + wineId + ".jpg";
@@ -35,26 +37,29 @@ namespace WineHangoutz
 
 
 
-		public static void CachedImages()
+		public static void CachedImagePhysically(NSData image, string wineId)
 		{
-			//var webImage = new Image { Aspect = Aspect.AspectFit };
+			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			var cache = Path.Combine(documents, "..", "Library", "Caches", "WineHangoutz");
+			//var tmp = Path.Combine(documents, "..", "WineHangoutz");
+			var filename = Path.Combine(cache, wineId + ".jpg");
 
-			//webImage.Source = new UriImageSource
-			//{
-			//	Uri = new Uri("https://xamarin.com/content/images/pages/forms/example-app.png"),
-			//	CachingEnabled = true,
-			//	CacheValidity = new TimeSpan(5, 0, 0, 0)
-			//};
+			byte[] dataBytes = new byte[image.Length];
 
+			System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
 
-			//foreach (var item in myItems)
-			//{
-			//	if (!wineImages.ContainsKey(item.WineId))
-			//	{
-			//		var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
-			//		wineImages.Add(item.WineId, imageBitmap);
-			//	}
-			//}
+			File.WriteAllBytes(filename, dataBytes);
+		}
+
+		public static NSData ReadPhysicalCache(string wineId)
+		{
+			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			var cache = Path.Combine(documents, "..", "Library", "Caches", "WineHangoutz");
+			//var tmp = Path.Combine(documents, "..", "WineHangoutz");
+			var filename = Path.Combine(cache, wineId + ".jpg");
+
+			byte[] dataBytes = File.ReadAllBytes(filename);
+			return NSData.FromArray(dataBytes);
 		}
 	}
 }

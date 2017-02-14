@@ -2,6 +2,8 @@
 using CoreGraphics;
 using UIKit;
 using Foundation;
+using System.Threading.Tasks;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -17,11 +19,10 @@ namespace WineHangoutz
 			base.ViewDidLoad();
 
 
-
 			// Perform any additional setup after loading the view, typically from a nib.
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
-			nfloat margin = 1;
+			nfloat margin = 0;
 			nfloat start = 50;
 			UIButton btnMan = new UIButton();
 			UIButton btnSec = new UIButton();
@@ -41,34 +42,37 @@ namespace WineHangoutz
 			View.AddSubview(btnSec);
 			View.AddSubview(btnPP);
 
-			BindClicks(btnMan, btnSec, btnPP);
-			//TabBarItem.Image = new UIImage("Star4.png");
-			//btnNavigate.TouchUpInside += (sender, e) => {
-			//	NavigationController.PushViewController(new IsolatedView(), false);
-			//};
-
+			BindClicks(btnMan, btnSec, btnPP, View);
 		}
 
-		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP)
+		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP, UIView parentView)
 		{
+			btnMan.TouchDown  += (sender, e) =>
+			{
+				BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+			btnPP.TouchDown += (sender, e) =>
+		    {
+			   BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
 			btnMan.TouchUpInside += (sender, e) =>
 			{
-				//NavigationController.PushViewController(myList, false);
+				//https://components.xamarin.com/gettingstarted/btprogresshud/true
+				//BTProgressHUD.Show(); //shows the spinner
+
 				nfloat width = UIScreen.MainScreen.Bounds.Width;
 				width = width / 2 - 15;
 
 				UICollectionViewFlowLayout flowLayout;
 				flowLayout = new UICollectionViewFlowLayout()
 				{
-					//HeaderReferenceSize = new CGSize(width, 275.0f),
 					ItemSize = new CGSize(width, 325.0f),
 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
-					//SectionInset = new UIEdgeInsets(20, 20, 20, 20),
 					ScrollDirection = UICollectionViewScrollDirection.Vertical
-					//MinimumInteritemSpacing = 50, // minimum spacing between cells
-					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
 				};
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
+
+				BTProgressHUD.Dismiss();
 			};
 			btnSec.TouchUpInside += (sender, e) => { 
 				UIAlertView alert = new UIAlertView()
@@ -106,6 +110,7 @@ namespace WineHangoutz
 					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
 				};
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
+				BTProgressHUD.Dismiss();
 			};
 		}
 

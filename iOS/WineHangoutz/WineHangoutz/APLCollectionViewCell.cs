@@ -37,7 +37,7 @@ namespace WineHangoutz {
 			ImageView.ClipsToBounds = true;
 			ImageView.Layer.BorderColor = UIColor.White.CGColor;
 			ImageView.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-			ImageView.SetBackgroundImage(UIImage.FromFile("placeholder.jpeg"), UIControlState.Normal);
+			//ImageView.SetBackgroundImage(UIImage.FromFile("placeholder.jpeg"), UIControlState.Normal);
 
 			ImageView.TouchUpInside += (object sender, EventArgs e) =>
 			{

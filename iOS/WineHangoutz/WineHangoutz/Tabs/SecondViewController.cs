@@ -1,6 +1,7 @@
 ﻿using System;
 using CoreGraphics;
 using UIKit;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -34,16 +35,32 @@ namespace WineHangoutz
 			btnTastings.SetBackgroundImage(new UIImage("Images/winetasting.jpg"), UIControlState.Normal);
 			btnFavourites.SetBackgroundImage(new UIImage("Images/myfavorate.jpg"), UIControlState.Normal);
 
+			btnReviews.TouchDown += (sender, e) =>
+		    {
+			   BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+			btnTastings.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+			btnFavourites.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Loading..."); //show spinner + text
+			};
+
 			btnReviews.TouchUpInside += (sender, e) =>
 			{
+				
 				var MyReview = new MyReviewViewController();
 				NavigationController.PushViewController(MyReview, false);
+				BTProgressHUD.Dismiss();
 			};
 
 			btnTastings.TouchUpInside += (sender, e) =>
 			{
 				var MyTaste = new MyTastingViewController();
 				NavigationController.PushViewController(MyTaste, false);
+				BTProgressHUD.Dismiss();
 			};
 
 			btnFavourites.TouchUpInside += (sender, e) =>
@@ -59,6 +76,7 @@ namespace WineHangoutz
 					ScrollDirection = UICollectionViewScrollDirection.Vertical
 				};
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1, true), false);
+				BTProgressHUD.Dismiss();
 			};
 
 			View.AddSubview(btnReviews);
