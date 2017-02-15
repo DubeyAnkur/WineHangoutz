@@ -244,6 +244,12 @@
     <BundleResource Include="Images\myprofile.jpg" />
     <BundleResource Include="Images\winereviews.jpg" />
     <BundleResource Include="Images\winetasting.jpg" />
+    <BundleResource Include="Resources\ic_action_map.png" />
+    <BundleResource Include="Resources\ic_action_place.png" />
+    <BundleResource Include="Resources\mail.png" />
+    <BundleResource Include="Resources\city.png" />
+    <BundleResource Include="Resources\state.png" />
+    <BundleResource Include="Resources\phone.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">

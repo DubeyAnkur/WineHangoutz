@@ -17,8 +17,6 @@ namespace WineHangoutz
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			//Download all images in background.
-			BlobWrapper.DownloadAllImages();
 
 			// Perform any additional setup after loading the view, typically from a nib.
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;

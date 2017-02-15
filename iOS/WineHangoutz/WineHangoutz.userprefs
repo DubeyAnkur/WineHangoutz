@@ -1,26 +1,25 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/Entitlements.plist">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/APLCollectionViewCell.cs">
     <Files>
       <File FileName="WineHangoutz/LoginViewController.cs" Line="157" Column="1" />
       <File FileName="WineHangoutz/Tabs/ExploreViewController.cs" Line="56" Column="29" />
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="65" Column="42" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="6" Column="1" />
       <File FileName="WineHangoutz/LoadingOverlay.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="34" Column="8" />
-      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="14" Column="26" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="50" Column="13" />
-      <File FileName="WineHangoutz/BlobWrapper.cs" Line="86" Column="1" />
-      <File FileName="WineHangoutz/SKUDetailView.cs" Line="210" Column="62" />
-      <File FileName="WineHangoutz/Info.plist" />
-      <File FileName="WineHangoutz/Entitlements.plist" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="97" Column="112" />
+      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="74" Column="29" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="137" Column="25" />
+      <File FileName="WineHangoutz/BlobWrapper.cs" Line="35" Column="18" />
+      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="198" Column="4" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="51" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
-              <Node name="References" expanded="True" />
+              <Node name="Resources" expanded="True" />
               <Node name="Tabs" expanded="True" />
-              <Node name="Entitlements.plist" selected="True" />
+              <Node name="APLCollectionViewCell.cs" selected="True" />
             </Node>
           </Node>
         </State>

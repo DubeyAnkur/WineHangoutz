@@ -94,18 +94,9 @@ namespace WineHangoutz
 			{
 				cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 			}
-			UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
+			UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds);
 			if (image != null)
 			{
-				CGRect rect = cell.btlImage.Bounds;
-				nfloat boxHeight = rect.Height;
-				nfloat imgHeight = image.Size.Height;
-				nfloat ratio = boxHeight / imgHeight;
-				//if (ratio < 1)
-				{
-					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
-					image = image.Scale(newSize);
-				}
 				cell.btlImage.SetImage(image, UIControlState.Normal);
 			}
 			else

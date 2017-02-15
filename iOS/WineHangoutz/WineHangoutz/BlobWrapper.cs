@@ -7,6 +7,7 @@ using ImageIO;
 using System.IO;
 using Hangout.Models;
 using System.Threading.Tasks;
+using CoreGraphics;
 
 namespace WineHangoutz
 {
@@ -18,6 +19,24 @@ namespace WineHangoutz
 			wineBottles = new NSCache();
 		}
 
+		public static UIImage GetResizedImage(string wineId, CGRect bounds)
+		{
+			UIImage image = BlobWrapper.GetImageBitmapFromWineId(wineId);
+			if (image != null)
+			{
+				nfloat boxHeight = bounds.Height;
+				nfloat imgHeight = image.Size.Height;
+				nfloat ratio = boxHeight / imgHeight;
+				//if (ratio < 1)
+				{
+					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+					image = image.Scale(newSize);
+				}
+				return image;
+			}
+			else
+				return null;
+		}
 		public static UIImage GetImageBitmapFromWineId(string wineId)
 		{
 			NSObject btl = wineBottles.ObjectForKey(NSObject.FromObject(wineId));
@@ -44,17 +63,24 @@ namespace WineHangoutz
 
 		public static void CachedImagePhysically(NSData image, string wineId)
 		{
-			var cache = Path.Combine("Library/Caches/", "WineHangoutz");
-			var filename = Path.Combine(cache, wineId + ".jpg");
+			try
+			{
+				var cache = Path.Combine("Library/Caches/", "WineHangoutz");
+				var filename = Path.Combine(cache, wineId + ".jpg");
 
-			byte[] dataBytes = new byte[image.Length];
+				byte[] dataBytes = new byte[image.Length];
 
-			System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
-			if (!Directory.Exists(cache))
-			{ 
-				Directory.CreateDirectory(cache);
+				System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
+				if (!Directory.Exists(cache))
+				{ 
+					Directory.CreateDirectory(cache);
+				}
+				File.WriteAllBytes(filename, dataBytes);
 			}
-			File.WriteAllBytes(filename, dataBytes);
+			catch (Exception)
+			{
+				//ignore the error. Download it next time.
+			}
 		}
 
 		public static NSData ReadPhysicalCache(string wineId)

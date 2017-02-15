@@ -88,7 +88,7 @@ namespace WineHangoutz
 
 	public class MyReviewCellView : UITableViewCell
 	{
-		UILabel WineName;
+		UITextView WineName;
 		UILabel ReviewDate;
 		UITextView Comments;
 		UILabel Vintage;
@@ -107,12 +107,16 @@ namespace WineHangoutz
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
 			imageView = new UIImageView();
+			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+			imageView.ContentMode = UIViewContentMode.Center;
+			imageView.ClipsToBounds = true;
+
 			separator = new UIImageView();
-			WineName = new UILabel()
+			WineName = new UITextView()
 			{
 				Font = UIFont.FromName("Verdana", 14f),
 				TextColor = UIColor.FromRGB(127, 51, 0),
-				BackgroundColor = UIColor.Clear,
+				BackgroundColor = UIColor.Clear
 				                         
 			};
 			ReviewDate = new UILabel()
@@ -126,10 +130,12 @@ namespace WineHangoutz
 			{
 				Font = UIFont.FromName("AmericanTypewriter", 14f),
 				TextColor = UIColor.FromRGB(55, 127, 0),
-				//TextAlignment = UITextAlignment.Center,
+				TextAlignment = UITextAlignment.Justified,
+				//TextAlignment = UITextAlignment.Natural,
 				BackgroundColor = UIColor.Clear,
-				Editable = false
-				                         
+				//LineBreakMode = UILineBreakMode.WordWrap
+				Editable = false,
+				Selectable = false
 			};
 			Vintage = new UILabel()
 			{
@@ -143,7 +149,7 @@ namespace WineHangoutz
 												filledImage: UIImage.FromBundle("Stars/filled.png"),
 												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
 
-			stars = new PDRatingView(new CGRect(60, 50, 60, 20), ratingConfig, averageRating);
+			stars = new PDRatingView(new CGRect(110, 60, 60, 20), ratingConfig, averageRating);
 
 			btnEdit = new UIButton();
 			//UIViewController that = Parent;
@@ -159,7 +165,6 @@ namespace WineHangoutz
 				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 				//this.PresentViewController(yourController, true, null);
 				Parent.PresentModalViewController(yourController, false);
-
 			};
 			btnDelete = new UIButton();
 			WineIdLabel = new UILabel();
@@ -168,7 +173,7 @@ namespace WineHangoutz
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = new UIImage("Wines/wine0.png");
+			imageView.Image = BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155));
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
 			ReviewDate.Text = review.Date.ToString("d");
@@ -184,14 +189,15 @@ namespace WineHangoutz
 		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
-			imageView.Frame = new CGRect(5, 5, 50, 155);
-			WineName.Frame = new CGRect(60, 2, ContentView.Bounds.Width - 60, 30);
-			Vintage.Frame = new CGRect(60, 32, ContentView.Bounds.Width - 60, 15);
-			separator.Frame = new CGRect(60, 49, ContentView.Bounds.Width - 60, 3);
-			ReviewDate.Frame = new CGRect(60, 70, ContentView.Bounds.Width - 60, 20);
+			int imageWidth = 110; // + 10;
+			imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
+			WineName.Frame = new CGRect(imageWidth-4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
+			Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
+			separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
+			ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
 			//stars.Frame = new CGRect(35, 50, 100, 20);
 			stars.UserInteractionEnabled = false;
-			Comments.Frame = new CGRect(56, 82, ContentView.Bounds.Width - 60, 40);
+			Comments.Frame = new CGRect(imageWidth-4, 99, ContentView.Bounds.Width - imageWidth-2, 70);
 			btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
 			btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
 		}

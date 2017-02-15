@@ -4,6 +4,7 @@ using CoreGraphics;
 using Foundation;
 using PatridgeDev;
 using Hangout.Models;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -104,6 +105,10 @@ namespace WineHangoutz
 			btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
 			this.View.AddSubview(btnSave);
+			btnSave.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Saving review..."); //show spinner + text
+			};
 			btnSave.TouchUpInside += async (sender, e) =>
 			{
 				ServiceWrapper sw = new ServiceWrapper();
@@ -122,6 +127,7 @@ namespace WineHangoutz
 				NavController.DismissViewController(true, null);
 				//Save Service Call.
 				//txtComments
+				BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
 			};
 		}
 	}

@@ -28,7 +28,27 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgAddr { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgCity { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgEmail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgPhone { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView imgProfile { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgState { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -75,9 +95,34 @@ namespace WineHangoutz
                 btnUpdateNotWorking = null;
             }
 
+            if (imgAddr != null) {
+                imgAddr.Dispose ();
+                imgAddr = null;
+            }
+
+            if (imgCity != null) {
+                imgCity.Dispose ();
+                imgCity = null;
+            }
+
+            if (imgEmail != null) {
+                imgEmail.Dispose ();
+                imgEmail = null;
+            }
+
+            if (imgPhone != null) {
+                imgPhone.Dispose ();
+                imgPhone = null;
+            }
+
             if (imgProfile != null) {
                 imgProfile.Dispose ();
                 imgProfile = null;
+            }
+
+            if (imgState != null) {
+                imgState.Dispose ();
+                imgState = null;
             }
 
             if (txtAddress != null) {

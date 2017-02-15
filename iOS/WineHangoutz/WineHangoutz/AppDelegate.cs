@@ -20,6 +20,9 @@ namespace WineHangoutz
 		UINavigationController nav;
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			//Download all images in background.
+			BlobWrapper.DownloadAllImages();
+
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;

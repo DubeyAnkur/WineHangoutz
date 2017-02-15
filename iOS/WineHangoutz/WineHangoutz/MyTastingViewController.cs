@@ -130,7 +130,7 @@ namespace WineHangoutz
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = new UIImage("Wines/wine0.png");
+			imageView.Image = BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0,0,100,155));
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
 			ReviewDate.Text = review.Date.ToString("d");
@@ -142,11 +142,12 @@ namespace WineHangoutz
 		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
-			imageView.Frame = new CGRect(5, 5, 50, 155);
-			WineName.Frame = new CGRect(60, 2, ContentView.Bounds.Width - 60, 30);
-			Vintage.Frame = new CGRect(60, 32, ContentView.Bounds.Width - 60, 15);
-			separator.Frame = new CGRect(60, 49, ContentView.Bounds.Width - 60, 3);
-			ReviewDate.Frame = new CGRect(60, 70, ContentView.Bounds.Width - 60, 20);
+			int imageWidth = 110; // + 10;
+			imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
+			WineName.Frame = new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
+			Vintage.Frame = new CGRect(imageWidth, 62, ContentView.Bounds.Width - imageWidth, 15);
+			separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
+			ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
 			//stars.Frame = new CGRect(35, 50, 100, 20);
 		}
 	}

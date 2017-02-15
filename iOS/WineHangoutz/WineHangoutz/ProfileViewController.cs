@@ -1,8 +1,9 @@
 ﻿using System;
-
 using UIKit;
 using Hangout.Models;
 using Foundation;
+using AVFoundation;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -29,6 +30,13 @@ namespace WineHangoutz
 			txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
 			txtState.Text = cRes.customer.State;
 
+			imgProfile.Image = new UIImage("user.png");
+			imgEmail.Image = new UIImage("mail.png");
+			imgAddr.Image = new UIImage("ic_action_place.png");
+			imgCity.Image = new UIImage("city.png");
+			imgState.Image = new UIImage("state.png");
+			imgPhone.Image = new UIImage("phone.png");
+			//imgPhone
 
 			//var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
 			//if (imageBitmap == null)
@@ -37,7 +45,12 @@ namespace WineHangoutz
 			//}
 			//else
 			//	propicimage.SetImageBitmap(imageBitmap);
-			
+
+			btnUpdate.TouchDown += (sender, e) =>
+			{
+				BTProgressHUD.Show("Updaing profile..."); //show spinner + text
+			};
+
 			btnUpdate.TouchUpInside += async (sender, e) =>
 			{
 				Customer cust = new Customer();
@@ -52,18 +65,23 @@ namespace WineHangoutz
 				cust.State = txtState.Text;
 
 				await sw.UpdateCustomer(cust);
+				BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
 			};
 
 			btnEdit.TouchUpInside += (sender, e) =>
 		    {
-			   imagePicker = new UIImagePickerController();
-			   imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-			   imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+				IsCameraAuthorized();
+			    imagePicker = new UIImagePickerController();
+			    imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+			    imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
 
 				imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
 				imagePicker.Canceled += Handle_Canceled;
-			    NavCtrl.PresentModalViewController(imagePicker, true);
-				this.PresentModalViewController(imagePicker, false);
+			    //NavCtrl.PresentModalViewController(imagePicker, true);
+				if (IsCameraAuthorized())
+				{
+					this.PresentModalViewController(imagePicker, false);
+				}
 			};
 		}
 
@@ -118,6 +136,35 @@ namespace WineHangoutz
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
+		}
+
+		public bool IsCameraAuthorized()
+		{
+			AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
+			if (authStatus == AVAuthorizationStatus.Authorized)
+			{
+				// do your logic
+				return true;
+			}
+			else if (authStatus == AVAuthorizationStatus.Denied)
+			{
+				// denied
+				return false;
+			}
+			else if (authStatus == AVAuthorizationStatus.Restricted)
+			{
+				// restricted, normally won't happen
+				return false;
+			}
+			else if (authStatus == AVAuthorizationStatus.NotDetermined)
+			{
+				// not determined?!
+				return false;
+			}
+			else {
+				return false;
+				// impossible, unknown authorization status
+			}
 		}
 	}
 }
