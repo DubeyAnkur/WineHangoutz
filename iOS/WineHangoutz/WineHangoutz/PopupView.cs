@@ -80,9 +80,15 @@ namespace WineHangoutz
 			// Create the view.
 			decimal averageRating = StartsSelected;
 			PDRatingView ratingView = new PDRatingView(new CGRect(View.Bounds.Width * 3 / 8, 210, View.Bounds.Width / 4, 35f), ratingConfig, averageRating);
-			//ratingView.UserInteractionEnabled = false;
+			//ratingView.UserInteractionEnabled = true
+
 			ratingView.BackgroundColor = UIColor.White;
+			ratingView.RatingChosen += (sender, e) =>
+			{
+				StartsSelected=e.Rating;
+			};
 			this.View.AddSubview(ratingView);
+
 
 			var txtComments = new UITextView();
 			txtComments.Frame = new CGRect(14, 240, View.Frame.Width-28, 130);
@@ -117,6 +123,7 @@ namespace WineHangoutz
 				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 				review.RatingText = txtComments.Text;
 				review.IsActive = true;
+				review.RatingStars = Convert.ToInt32(StartsSelected);
 				//review.SKU = SKU;
 				review.WineId = WineId;
 

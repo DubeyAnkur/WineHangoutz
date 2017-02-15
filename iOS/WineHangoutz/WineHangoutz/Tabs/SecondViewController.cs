@@ -9,7 +9,7 @@ namespace WineHangoutz
 	{
 		protected SecondViewController(IntPtr handle) : base(handle)
 		{
-			this.Title = "Taste";
+			this.Title = "My Hangoutz";
 		}
 
 		public override void ViewDidLoad()
@@ -54,6 +54,7 @@ namespace WineHangoutz
 				var MyReview = new MyReviewViewController();
 				NavigationController.PushViewController(MyReview, false);
 				BTProgressHUD.Dismiss();
+				NavigationController.NavigationBar.TopItem.Title = "My Reviews";
 			};
 
 			btnTastings.TouchUpInside += (sender, e) =>
@@ -61,6 +62,7 @@ namespace WineHangoutz
 				var MyTaste = new MyTastingViewController();
 				NavigationController.PushViewController(MyTaste, false);
 				BTProgressHUD.Dismiss();
+				NavigationController.NavigationBar.TopItem.Title = "My Tastings" ;
 			};
 
 			btnFavourites.TouchUpInside += (sender, e) =>
@@ -75,6 +77,7 @@ namespace WineHangoutz
 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
 					ScrollDirection = UICollectionViewScrollDirection.Vertical
 				};
+				NavigationController.NavigationBar.TopItem.Title = "My Favourites";
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1, true), false);
 				BTProgressHUD.Dismiss();
 			};
@@ -93,7 +96,7 @@ namespace WineHangoutz
 		{
 			base.ViewDidAppear(animated);
 			//NavigationController.Title = "Locations";
-			NavigationController.NavigationBar.TopItem.Title = "Taste";
+			NavigationController.NavigationBar.TopItem.Title = "My Hangoutz";
 		}
 	}
 }

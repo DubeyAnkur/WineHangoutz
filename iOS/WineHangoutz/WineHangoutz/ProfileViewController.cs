@@ -48,7 +48,7 @@ namespace WineHangoutz
 
 			btnUpdate.TouchDown += (sender, e) =>
 			{
-				BTProgressHUD.Show("Updaing profile..."); //show spinner + text
+				BTProgressHUD.Show("Updating profile..."); //show spinner + text
 			};
 
 			btnUpdate.TouchUpInside += async (sender, e) =>
@@ -77,7 +77,7 @@ namespace WineHangoutz
 
 				imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
 				imagePicker.Canceled += Handle_Canceled;
-			    //NavCtrl.PresentModalViewController(imagePicker, true);
+			    NavCtrl.PresentModalViewController(imagePicker, true);
 				if (IsCameraAuthorized())
 				{
 					this.PresentModalViewController(imagePicker, false);

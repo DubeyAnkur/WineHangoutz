@@ -44,29 +44,49 @@ namespace WineHangoutz
 				BTProgressHUD.Show("Loading..."); //show spinner + text
 			};
 
-			btnWineries.TouchDown += (sender, e) =>
-			{
-				BTProgressHUD.Show("Loading..."); //show spinner + text
-			};
+			//btnWineries.TouchDown += (sender, e) =>
+			//{
+			//	BTProgressHUD.Show("Loading..."); //show spinner + text
+			//};
 
 
 			btnBlog.TouchUpInside += (sender, e) =>
 			{
 				NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
+				NavigationController.NavigationBar.TopItem.Title = "Profile";
 				BTProgressHUD.Dismiss();
 			};
 
+			btnRegions.TouchUpInside += (sender, e) =>
+			{
+
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Region",
+					Message = "Comming Soon..."
+				};
+				alert.AddButton("OK");
+				alert.Show();
+			};
 			btnWineries.TouchUpInside += (sender, e) =>
 			{
-				var lineLayout = new LineLayout()
-				{
-					ItemSize = new CGSize(120, 300),
-					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
-					ScrollDirection = UICollectionViewScrollDirection.Horizontal
-				};
 
-				NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
-				BTProgressHUD.Dismiss();
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Eno View",
+					Message = "Comming Soon..."
+				};
+				alert.AddButton("OK");
+				alert.Show();
+				//var lineLayout = new LineLayout()
+				//{
+				//	ItemSize = new CGSize(120, 300),
+				//	SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+				//	ScrollDirection = UICollectionViewScrollDirection.Horizontal
+				//};
+
+				//NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
+				//BTProgressHUD.Dismiss();
 			};
 		}
 		public override void ViewDidAppear(bool animated)

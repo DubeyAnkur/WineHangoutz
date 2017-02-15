@@ -27,7 +27,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			//CurrentUser.Clear();
+			CurrentUser.Clear();
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
@@ -60,7 +60,7 @@ namespace WineHangoutz
 
 			UITabBarItem t1 = tabBar.Items[1];
 			//t1 = new UITabBarItem();
-			t1.Title = "Taste";
+			t1.Title = "My Hangoutz";
 			UIImage Taste = UIImage.FromFile("taste.png");
 			Taste = ResizeImage(Taste, 35, 35);
 			t1.Image = Taste;

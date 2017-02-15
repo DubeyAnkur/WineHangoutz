@@ -74,7 +74,7 @@ namespace WineHangoutz
 
 			UIButton btnLogin = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
 			btnLogin.SetTitle("Login", UIControlState.Normal);
-			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
 			btnLogin.TouchUpInside += (sender, e) =>
