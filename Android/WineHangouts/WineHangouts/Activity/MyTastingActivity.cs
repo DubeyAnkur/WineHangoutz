@@ -14,7 +14,7 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "MyTastingActivity")]
+    [Activity(Label = "My Tastings")]
     public class MyTastingActivity : Activity, IPopupParent
     {
         public int customerid;

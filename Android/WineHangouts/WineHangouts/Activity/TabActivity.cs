@@ -120,7 +120,7 @@ namespace WineHangouts
                     Middle.Click += (sender, e) =>
                     {
                         var intent = new Intent(Activity, typeof(GridViewActivity));
-                        intent.PutExtra("MyData", "Point Pleasent Store");
+                        intent.PutExtra("MyData", "Point Pleasant Store");
                         StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>

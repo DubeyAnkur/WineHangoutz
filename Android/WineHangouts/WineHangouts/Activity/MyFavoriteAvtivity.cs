@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace WineHangouts
 {
-    [Activity(Label = "MyFavoriteAvtivity")]
+    [Activity(Label = "My Favorites")]
     public class MyFavoriteAvtivity : Activity
     {
         public string StoreName = "";

@@ -13,7 +13,7 @@ using Android.Widget;
 namespace WineHangouts
 
 {
-    [Activity(Label = "Wine Hangouts",MainLauncher =true)]
+    [Activity(Label = "Wine Hangoutz",MainLauncher =true)]
     public class LoginActivity : Activity
 
     {
