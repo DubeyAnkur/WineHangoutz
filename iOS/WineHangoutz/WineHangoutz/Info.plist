@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>Wine Hangoutz</string>
+	<string>Wine Hangouts</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.savvyitsol.winehangoutz</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>

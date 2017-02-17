@@ -31,7 +31,7 @@ namespace WineHangoutz
 			btnPP.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnSec.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnMan.SetTitle("Manasquan",UIControlState.Normal);
-			btnSec.SetTitle("Secacus", UIControlState.Normal);
+			btnSec.SetTitle("Secaucus",UIControlState.Normal);
 			btnPP.SetTitle("Point Pleasant", UIControlState.Normal);
 			btnMan.SetBackgroundImage(new UIImage("Images/city.jpg"), UIControlState.Normal);
 			btnSec.SetBackgroundImage(new UIImage("Images/city1.jpg"), UIControlState.Normal);
@@ -69,6 +69,7 @@ namespace WineHangoutz
 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
 					ScrollDirection = UICollectionViewScrollDirection.Vertical
 				};
+				NavigationController.NavigationBar.TopItem.Title = "Manasquan Store";
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 
 				BTProgressHUD.Dismiss();
@@ -76,8 +77,8 @@ namespace WineHangoutz
 			btnSec.TouchUpInside += (sender, e) => { 
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "Secacaus Store",
-					Message = "Comming Soon..."
+					Title = "Secaucus Store",
+					Message = "Coming Soon..."
 				};
 				alert.AddButton("OK");
 				alert.Show();
@@ -108,6 +109,7 @@ namespace WineHangoutz
 					//MinimumInteritemSpacing = 50, // minimum spacing between cells
 					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
 				};
+				NavigationController.NavigationBar.TopItem.Title = "Point Plesant Store";
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
 				BTProgressHUD.Dismiss();
 			};

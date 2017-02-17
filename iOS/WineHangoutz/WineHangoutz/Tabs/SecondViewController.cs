@@ -9,7 +9,7 @@ namespace WineHangoutz
 	{
 		protected SecondViewController(IntPtr handle) : base(handle)
 		{
-			this.Title = "My Hangoutz";
+			this.Title = "My Hangouts";
 		}
 
 		public override void ViewDidLoad()
@@ -30,7 +30,7 @@ namespace WineHangoutz
 			btnFavourites.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnReviews.SetTitle("My Reviews", UIControlState.Normal);
 			btnTastings.SetTitle("My Tastings", UIControlState.Normal);
-			btnFavourites.SetTitle("My Favourites", UIControlState.Normal);
+			btnFavourites.SetTitle("My Favorites", UIControlState.Normal);
 			btnReviews.SetBackgroundImage(new UIImage("Images/winereviews.jpg"), UIControlState.Normal);
 			btnTastings.SetBackgroundImage(new UIImage("Images/winetasting.jpg"), UIControlState.Normal);
 			btnFavourites.SetBackgroundImage(new UIImage("Images/myfavorate.jpg"), UIControlState.Normal);
@@ -77,7 +77,7 @@ namespace WineHangoutz
 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
 					ScrollDirection = UICollectionViewScrollDirection.Vertical
 				};
-				NavigationController.NavigationBar.TopItem.Title = "My Favourites";
+				NavigationController.NavigationBar.TopItem.Title = "My Favorites";
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1, true), false);
 				BTProgressHUD.Dismiss();
 			};
@@ -96,7 +96,7 @@ namespace WineHangoutz
 		{
 			base.ViewDidAppear(animated);
 			//NavigationController.Title = "Locations";
-			NavigationController.NavigationBar.TopItem.Title = "My Hangoutz";
+			NavigationController.NavigationBar.TopItem.Title = "My Hangouts";
 		}
 	}
 }

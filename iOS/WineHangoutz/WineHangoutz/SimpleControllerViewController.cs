@@ -81,7 +81,7 @@ namespace WineHangoutz
 			box.Y = 50;
 			box.Height = 180;
 			box.Width = 70;
-			BackgroundColor = UIColor.White;
+			BackgroundColor = UIColor.Black;
 			var ImageView = new UIButton(box);
 			//ImageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			//ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;

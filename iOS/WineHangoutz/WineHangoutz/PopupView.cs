@@ -67,9 +67,9 @@ namespace WineHangoutz
 			this.View.AddSubview(Separator);
 
 
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star2_empty.png"),
-												filledImage: UIImage.FromBundle("Stars/star.png"),
-												chosenImage: UIImage.FromBundle("Stars/star.png"));
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
+												filledImage: UIImage.FromBundle("Stars/filled.png"),
+												chosenImage: UIImage.FromBundle("Stars/star-silver.png"));
 
 			var lblStarBack = new UILabel();
 			lblStarBack.Frame = new CGRect(View.Bounds.Width * 3 / 9, 210, View.Bounds.Width / 3, 35f);
@@ -95,12 +95,14 @@ namespace WineHangoutz
 			//txtComments.Text = "Describe your testing";
 			//txtComments.TextAlignment = UITextAlignment.Justified;
 			//txtComments.BackgroundColor = UIColor.LightGray;
-			txtComments.Text = Comments.Length > 0 ? Comments : "Describe your testing";
+			txtComments.Text = Comments.Length > 0 ? Comments : "Describe your tasting";
+
 			txtComments.Started += (sender, e) => {
-				if (((UITextView)sender).Text == "Describe your testing")
+				if (((UITextView)sender).Text == "Describe your tasting")
 				{
-					((UITextView)sender).Text = "";
+					((UITextView)sender).Text = "   ";
 				}
+
 			}; 
 			this.View.AddSubview(txtComments);
 
@@ -121,6 +123,10 @@ namespace WineHangoutz
 				Review review = new Review();
 				review.ReviewDate = DateTime.Now;
 				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				if(txtComments.Text=="Describe your tasting")
+				{
+					txtComments.Text = " ";
+				}
 				review.RatingText = txtComments.Text;
 				review.IsActive = true;
 				review.RatingStars = Convert.ToInt32(StartsSelected);

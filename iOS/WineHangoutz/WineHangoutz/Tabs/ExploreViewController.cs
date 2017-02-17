@@ -63,7 +63,7 @@ namespace WineHangoutz
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Region",
-					Message = "Comming Soon..."
+					Message = "Coming Soon..."
 				};
 				alert.AddButton("OK");
 				alert.Show();
@@ -74,7 +74,7 @@ namespace WineHangoutz
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Eno View",
-					Message = "Comming Soon..."
+					Message = "Coming Soon..."
 				};
 				alert.AddButton("OK");
 				alert.Show();

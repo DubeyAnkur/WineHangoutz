@@ -69,8 +69,8 @@ namespace WineHangoutz
 			Separator.Image = UIImage.FromFile("separator.png");
 			Separator.ContentMode = UIViewContentMode.ScaleAspectFill;
 			Separator.ClipsToBounds = true;
-			Separator.Layer.BorderColor = UIColor.White.CGColor;
-			Separator.BackgroundColor = UIColor.LightGray;
+			Separator.Layer.BorderColor = UIColor.LightGray.CGColor;
+			Separator.BackgroundColor = UIColor.White;
 
 			CGRect year = new CGRect(Bounds.Location, Bounds.Size);
 			year.Y = lower.Y - 15;

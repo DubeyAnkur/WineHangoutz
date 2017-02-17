@@ -37,6 +37,18 @@
       <LogicalName>AppIcon60x60@3x.png</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/actool/bundle/AppIcon76x76~ipad.png">
+      <LogicalName>AppIcon76x76~ipad.png</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/actool/bundle/AppIcon76x76@2x~ipad.png">
+      <LogicalName>AppIcon76x76@2x~ipad.png</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/actool/bundle/AppIcon83.5x83.5@2x~ipad.png">
+      <LogicalName>AppIcon83.5x83.5@2x~ipad.png</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/actool/bundle/Assets.car">
       <LogicalName>Assets.car</LogicalName>
       <Optimize>false</Optimize>
