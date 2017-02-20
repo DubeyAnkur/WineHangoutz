@@ -44,19 +44,9 @@ namespace WineHangouts
             SendBroadcast(mediaScanIntent);
             Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
             Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
-            // Display in ImageView. We will resize the bitmap to fit the display
-            // Loading the full sized image will consume to much memory 
-            // and cause the application to crash.
-
-            //int height = Resources.DisplayMetrics.HeightPixels;
-            //    int width = _imageView.Height ;
-            //    App.bitmap = App._file.Path.LoadAndResizeBitmap (width, height);
-            //    if (App.bitmap != null) {
-            //        _imageView.SetImageBitmap (App.bitmap);
-            //        App.bitmap = null;
-            //    }
+            
             UploadProfilePic(path);
-            // Dispose of the Java side bitmap.
+            
             GC.Collect();
         }
 
@@ -88,7 +78,7 @@ namespace WineHangouts
 
 
 
-        private void CreateDirectoryForPictures()
+        public string CreateDirectoryForPictures()
         {
             App._dir = new File(
                 Environment.GetExternalStoragePublicDirectory(
@@ -99,6 +89,7 @@ namespace WineHangouts
                 App._dir.Mkdirs();
             }
             path = App._dir.ToString();
+            return path;
         }
 
         private bool IsThereAnAppToTakePictures()

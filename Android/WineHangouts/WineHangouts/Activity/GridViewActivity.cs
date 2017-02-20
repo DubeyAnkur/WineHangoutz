@@ -34,18 +34,7 @@ namespace WineHangouts
                 StoreId = 2;
             else
                 StoreId = 3;
-            //var progressDialog = ProgressDialog.Show(this, "Please wait...", "We are loading available wines...", true);
-            //new Thread(new ThreadStart(delegate
-            //{
-            //    //LOAD METHOD TO GET ACCOUNT INFO
-
-            //    //HIDE PROGRESS DIALOG
-            //    RunOnUiThread(() => progressDialog.Show());
-            //    Thread.Sleep(10000);
-            //    RunOnUiThread(() => progressDialog.Dismiss());
-            //    //RunOnUiThread(() => progressDialog.Wait(1000));
-            //    //RunOnUiThread(() => progressDialog.Hide());
-            //})).Start();
+           
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             var output = sw.GetItemList(StoreId,userId).Result;
@@ -68,10 +57,25 @@ namespace WineHangouts
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
+
+                ProgressDialog progressdialog = ProgressDialog.Show(this, "Please Wait", "We are loading it");
+                new Thread(new ThreadStart(delegate
+            {
+                    //LOAD METHOD TO GET ACCOUNT INFO
+
+                    //HIDE PROGRESS DIALOG
+                    RunOnUiThread(() => progressdialog.Show());
+                Thread.Sleep(50000);
                 int WineID = myArr[args.Position].WineId;
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID", WineID);
                 StartActivity(intent);
+                RunOnUiThread(() => progressdialog.Dismiss());
+                    //RunOnUiThread(() => progressDialog.Wait(1000));
+                    //RunOnUiThread(() => progressDialog.Hide());
+                })).Start();
+
+                
             };
 
 

@@ -23,12 +23,15 @@ namespace WineHangouts
             base.OnCreate(savedInstanceState);
             
             SetContentView(Resource.Layout.login);
+           
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
             
             ServiceWrapper svc = new ServiceWrapper();
-          ;
+            BlobWrapper bvb = new BlobWrapper();
+            int storeid = 1;
+            bvb.Downloads(Convert.ToInt32(CurrentUser.getUserId()),storeid);
 
             if (CurrentUser.getUserName() == null || CurrentUser.getUserName() == "")
             {
@@ -40,6 +43,7 @@ namespace WineHangouts
                 StartActivity(intent);
 
             }
+
 
 
             login.Click += delegate

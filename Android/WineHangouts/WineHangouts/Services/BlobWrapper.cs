@@ -12,6 +12,8 @@ using Android.Widget;
 using System.Net.Http;
 using Android.Graphics;
 using System.Net;
+using System.IO;
+using Hangout.Models;
 
 namespace WineHangouts
 {
@@ -47,6 +49,30 @@ namespace WineHangouts
                Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
             return imageBitmap;
         }
+
+        public void Downloads(int userid,int storeid)
+        {
+            BlobWrapper bvb = new BlobWrapper();
+            ServiceWrapper sw = new ServiceWrapper();
+            var output = sw.GetItemList(storeid, userid).Result;
+            List<Item> x=output.ItemList.ToList();
+            var uri = new Uri(ServiceURL + "bottleimages/" + x[1].WineId + ".jpg");
+            Bitmap bm = bvb.GetImageBitmapFromUrl("uri");
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            try
+            {
+                var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+                var filePath = System.IO.Path.Combine(sdCardPath, x[1].WineId + ".jpg");
+                var stream = new FileStream(filePath, FileMode.Create);
+                bm.Compress(Bitmap.CompressFormat.Png, 100, stream);
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                string Exe=e.ToString();
+            }
+        }       
+
         public Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;

@@ -19,42 +19,51 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
-            //RelativeLayout ll1 = FindViewById<RelativeLayout>(Resource.Id.linearLayout_gridtableLayout);
-            //ll1.LayoutParameters = new RelativeLayout.LayoutParams(1500, 1500);
-            //EditText ed = FindViewById<EditText>(Resource.Id.edittext);
-            //ed.Text = "lokesh";
 
-            //ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-            //ActionBar.Tab tab = ActionBar.NewTab();
 
-            //tab.SetIcon(Resource.Drawable.user);
-            //tab.TabSelected += (sender, args) =>
-            //{
-            //    // Do something when tab is selected
-            //};
-            //ActionBar.AddTab(tab);
+        //    public static async Task<bool> SaveCache(Stream data, string id)
+        //{
+        //    try
+        //    {
+        //        //cache folder in local storage
+        //        IFolder rootFolder = FileSystem.Current.LocalStorage;
+        //        var folder = await rootFolder.CreateFolderAsync("Cache",
+        //            CreationCollisionOption.OpenIfExists);
+        //        //save cached data
+        //        IFile file = await folder.CreateFileAsync(id, CreationCollisionOption.ReplaceExisting);
+        //        byte[] buffer = new byte[data.Length];
+        //        data.Read(buffer, 0, buffer.Length);
+        //        using (Stream stream = await file.OpenAsync(FileAccess.ReadAndWrite))
+        //        {
+        //            stream.Write(buffer, 0, buffer.Length);
+        //        }
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        //some logging
+        //        return false;
+        //    }
+        //}
 
-            //tab = ActionBar.NewTab();
-            ////tab.SetText(Resources.GetString(Resource.String.tab2_text));
-            //tab.SetIcon(Resource.Drawable.user);
-            //tab.TabSelected += (sender, args) =>
-            //{
-            //    // Do something when tab is selected
-            //};
-            //ActionBar.AddTab(tab);
-            ////TableRow tr= FindViewById<TableRow>(Resource.Id.tableRow1);
-            ////tr.SetBackgroundColor(Android.Graphics.Color.Aqua);
-            ////Button bn = new Button(this);
-            ////var metrics = Resources.DisplayMetrics;
-            ////var param = bn.LayoutParameters;
-            ////param.Width = 320;
-            //////var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            //////bn.LayoutParameters = new LinearLayout.LayoutParams(widthInDp, widthInDp);
+        //public static async Task<Stream> LoadCache(string id)
+        //{
+        //    //cache folder in local storage
+        //    IFolder rootFolder = FileSystem.Current.LocalStorage;
+        //    var folder = await rootFolder.CreateFolderAsync("Cache",
+        //        CreationCollisionOption.OpenIfExists);
 
-            ////bn.SetText("Hellojsjdfff".ToArray(), 2,3);
-            ////tr.AddView(bn);
-            //// Create your application here
-        }
+        //    var isExists = await folder.CheckExistsAsync(id);
+
+        //    if (isExists == ExistenceCheckResult.FileExists)
+        //    {
+        //        //file exists - load it from cache
+        //        IFile file = await folder.GetFileAsync(id);
+        //        return await file.OpenAsync(FileAccess.Read);
+        //    }
+        //}
+        //    return null;
+        //}
+}
     }
 }

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.savvyitsol.winehangoutz" android:versionName="1.0" android:installLocation="auto" android:versionCode="2">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.savvyitsol.winehangoutz" android:versionName="1.0" android:installLocation="internalOnly" android:versionCode="2">
 	<uses-sdk android:minSdkVersion="16" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:label="WineHangoutz" android:theme="@style/CustomActionBarTheme" android:icon="@drawable/Icon"></application>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<application android:label="WineHangouts" android:theme="@style/CustomActionBarTheme" android:icon="@drawable/Icon"></application>
 </manifest>

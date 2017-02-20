@@ -113,6 +113,7 @@ namespace WineHangouts
 
                     Top.Click += (sender, e) =>
                     {
+                       
                         var intent = new Intent(Activity, typeof(GridViewActivity));
                         intent.PutExtra("MyData", "Wall Store");
                         StartActivity(intent);
@@ -172,7 +173,7 @@ namespace WineHangouts
                 }
                 if (tabName == "EXPLORE")
                 {
-
+                   
                     Top.SetBackgroundResource(Resource.Drawable.myprofile);
                     Top.Text = "My Profile";
                     Top.SetTextColor(Color.White);
@@ -193,19 +194,7 @@ namespace WineHangouts
 
                     Top.Click += (sender, e) =>
                     {
-                        //    ProgressDialog progressdialog = ProgressDialog.Show(this,"Please","jg",true);
-                        //    new Thread(new ThreadStart(delegate
-                        //{
-                        //    //LOAD METHOD TO GET ACCOUNT INFO
 
-                        //    //HIDE PROGRESS DIALOG
-                        //    RunOnUiThread(() => progressdialog.Show());
-                        //    Thread.Sleep(10000);
-
-                        //    RunOnUiThread(() => progressdialog.Dismiss());
-                        //        //RunOnUiThread(() => progressDialog.Wait(1000));
-                        //        //RunOnUiThread(() => progressDialog.Hide());
-                        //    })).Start();
                         var intent = new Intent(Activity, typeof(ProfileActivity));
                         intent.PutExtra("MyData", "My Profile");
                         StartActivity(intent);
