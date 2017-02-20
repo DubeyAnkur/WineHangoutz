@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Hangout.Models;
+using static Android.Widget.AdapterView;
 
 namespace WineHangouts
 {
@@ -36,13 +37,13 @@ namespace WineHangouts
             //    SetContentView(Resource.Layout.Dummy);
             //}
            List<Review> myArr1;
-          //  myArr1 = SampleData1();
+              myArr1 =  uidreviews.Reviews.ToList();
 
-            ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
+            var wineList = FindViewById<ListView>(Resource.Id.listView1);
             // myArr1 = SampleData1();
             Review edit = new Review();
             ReviewPopup editPopup = new ReviewPopup(this, edit);
-            MyReviewAdapter adapter = new MyReviewAdapter(this, uidreviews.Reviews.ToList());
+            MyReviewAdapter adapter = new MyReviewAdapter(this,myArr1);
             //if (adapter.Count == 0)
             //{
             //    TextView infoText = FindViewById<TextView>(Resource.Id.txtInfo);
@@ -51,9 +52,16 @@ namespace WineHangouts
             //adapter.Edit_Click += editPopup.EditPopup;
 
             wineList.Adapter = adapter;
-           
 
+           // wineList.ItemClick += listView_ItemClick;
 
+            wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+            {
+                int WineID = myArr1[args.Position].WineId;
+                var intent = new Intent(this, typeof(detailViewActivity));
+                intent.PutExtra("WineID", WineID);
+                StartActivity(intent);
+            };
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -96,6 +104,15 @@ namespace WineHangouts
             wineList.Adapter = adapter;
             adapter.NotifyDataSetChanged();
         }
+
+        //void listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        //{
+        //    //Get our item from the list adapter
+        //    int WineID = e.Position;
+        //        //var intent = new Intent(this, typeof(detailViewActivity));
+        //        //intent.PutExtra("WineID", WineID);
+        //        //StartActivity(intent);
+        //}
     }
 }
 

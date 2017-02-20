@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000000">
+    android:background="#ffffff">
     <GridView
         android:id="@+id/gridview"
-        android:background="#000000"
+        android:background="#ffffff"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:verticalSpacing="5dp"
-        android:layout_margin="5dp"
-        android:horizontalSpacing="5dp"
+        
+        android:layout_margin="3dp"
+      
         android:stretchMode="columnWidth"
         android:gravity="center" />
+
 </RelativeLayout>

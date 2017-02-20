@@ -31,7 +31,7 @@ namespace WineHangouts
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ServiceWrapper svc = new ServiceWrapper();
-            int wineid = Intent.GetIntExtra("WineID", 138);
+            int wineid = Intent.GetIntExtra("WineID", 123);
             ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
             var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
             this.Title = "Wine Details";

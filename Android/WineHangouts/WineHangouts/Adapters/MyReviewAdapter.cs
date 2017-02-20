@@ -54,8 +54,8 @@ namespace WineHangouts
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.TastingListview, null, false);
-            else
-                return convertView;
+            //else
+            //    return convertView;
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.textView64);
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.textView65);
@@ -67,6 +67,15 @@ namespace WineHangouts
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
             edit.SetScaleType(ImageView.ScaleType.Center);
             delete.SetScaleType(ImageView.ScaleType.Center);
+            edit.Focusable = false;
+            //edit.FocusableInTouchMode = false;
+            edit.Clickable = true;
+            delete.Focusable = false;
+            //delete.FocusableInTouchMode = false;
+            delete.Clickable = true;
+            wineimage.Focusable = false;
+            wineimage.FocusableInTouchMode = false;
+            wineimage.Clickable = true;
             //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
             //edit.SetTag(1, 5757);
@@ -86,6 +95,7 @@ namespace WineHangouts
                
                 PerformdeleteClick(sender, args, _review);
             };
+            wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
             txtYear.Text = myItems[position].Vintage;

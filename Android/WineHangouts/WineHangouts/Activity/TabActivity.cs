@@ -25,11 +25,11 @@ namespace WineHangouts
 
 
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+           
 
-
-            AddTab("Location", Resource.Drawable.ic_tab_white, new SampleTabFragment("Location"));
-            AddTab("TASTE", Resource.Drawable.ic_tab_white, new SampleTabFragment("TASTE"));
-            AddTab("EXPLORE", Resource.Drawable.ic_tab_white, new SampleTabFragment("EXPLORE"));
+            AddTab("Location", Resource.Drawable.shop, new SampleTabFragment("Location"));
+            AddTab("MY HANGOUTZ", Resource.Drawable.taste, new SampleTabFragment("MY HANGOUTZ"));
+            AddTab("EXPLORE", Resource.Drawable.explore, new SampleTabFragment("EXPLORE"));
 
             if (bundle != null)
                 this.ActionBar.SelectTab(this.ActionBar.GetTabAt(bundle.GetInt("tab")));
@@ -133,7 +133,7 @@ namespace WineHangouts
                         dialog.Show();
                     };
                 }
-                if (tabName == "TASTE")
+                if (tabName == "MY HANGOUTZ")
                 {
 
                     Top.SetBackgroundResource(Resource.Drawable.winereviews);

@@ -24,6 +24,8 @@ namespace WineHangouts
             if (StoreName == "")
                 StoreName = Intent.GetStringExtra("MyData");
             this.Title = StoreName;
+            this.ActionBar.SetHomeButtonEnabled(true);
+            this.ActionBar.SetDisplayShowTitleEnabled(true);//  ToolbartItems.Add(new ToolbarItem { Text = "BTN 1", Icon = "myicon.png" });
 
             int StoreId = 0;
             if (StoreName == "Wall Store")

@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -88,9 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity\BitmapHelpers.cs" />
     <Compile Include="Activity\LandscapeActivity.cs" />
-    <Compile Include="Activity\LocationItems.cs" />
     <Compile Include="Activity\MyFavoriteAvtivity.cs" />
     <Compile Include="Activity\MyTastingActivity.cs" />
     <Compile Include="Activity\PotraitActivity.cs" />
@@ -104,24 +102,20 @@
     <Compile Include="Activity\LoginActivity.cs" />
     <Compile Include="Activity\PopupActivity.cs" />
     <Compile Include="Activity\DummyActivity.cs" />
-    <Compile Include="Activity\MainActivity.cs" />
+    <Compile Include="Activity\GridViewActivity.cs" />
     <Compile Include="Activity\MyReviewActivity.cs" />
     <Compile Include="Adapters\DetailsViewAdapter.cs" />
     <Compile Include="Adapters\HorizontalViewAdapter.cs" />
     <Compile Include="Adapters\GridViewAdapter.cs" />
-    <Compile Include="Adapters\ListViewAdapter.cs" />
-    <Compile Include="Adapters\LocationAdapter.cs" />
     <Compile Include="Adapters\MyFavoriteAdapter.cs" />
     <Compile Include="Adapters\MyTastingAdapter.cs" />
     <Compile Include="Adapters\PotraitAdapter.cs" />
     <Compile Include="Adapters\reviewAdapter.cs" />
     <Compile Include="Adapters\MyReviewAdapter.cs" />
-    <Compile Include="Classes\Wine.cs" />
-    <Compile Include="Classes\Wine1.cs" />
-    <Compile Include="Classes\WineDetails.cs" />
     <Compile Include="CurrentUser.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BlobWrapper.cs" />
     <Compile Include="Services\ServiceWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -193,13 +187,7 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\edit.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_tab_white.jpg" />
@@ -218,18 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\placeholder_re.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ratingstars.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\regione_lombardia.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Reimage.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\respon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\sfondo_blog.jpg" />
@@ -262,12 +238,6 @@
     <AndroidResource Include="Resources\drawable\sfondo_wineprofile.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\star.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\star_empty.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Tes.png" />
   </ItemGroup>
   <ItemGroup>
@@ -277,16 +247,10 @@
     <AndroidResource Include="Resources\drawable\user.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\wine1.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\wine_review.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Close.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\wine7.png" />
@@ -314,12 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dpreplacer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Gallery.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\finca1.30.JPG" />
@@ -352,9 +310,6 @@
     <AndroidResource Include="Resources\drawable\mail.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icons\ic_action_phone.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_action_place.png" />
   </ItemGroup>
   <ItemGroup>
@@ -368,6 +323,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\rounded_corner.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\winereview_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Border_line.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\circle.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\img.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
