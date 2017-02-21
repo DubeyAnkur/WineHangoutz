@@ -31,10 +31,10 @@ namespace WineHangouts
             
             ServiceWrapper svc = new ServiceWrapper();
             BlobWrapper bvb = new BlobWrapper();
-            //new Thread(new ThreadStart(delegate
-            //{
-            //    RunOnUiThread(() => bvb.Downloads(Convert.ToInt32(CurrentUser.getUserId())));
-            //})).Start();
+            new Thread(new ThreadStart(delegate
+            {
+                RunOnUiThread(() => bvb.Downloads(Convert.ToInt32(CurrentUser.getUserId())));
+            })).Start();
 
 
 
