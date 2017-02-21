@@ -14,6 +14,7 @@ using System.Net;
 using Hangout.Models;
 using System.Collections;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace WineHangouts
 {
@@ -22,6 +23,8 @@ namespace WineHangouts
         private List<Item> myItems;
         private Context myContext;
         private Hashtable wineImages;
+        
+
         public override Item this[int position]
         {
             get
@@ -53,6 +56,11 @@ namespace WineHangouts
             }
         }
 
+        public static class Cultures
+        {
+            public static readonly CultureInfo UnitedState =
+                CultureInfo.GetCultureInfo("en-US");
+        }
         public override long GetItemId(int position)
         {
             return position;
@@ -88,8 +96,9 @@ namespace WineHangouts
             txtName.Text = myItems[position].Name;
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
-            txtPrice.Text = myItems[position].RegPrice.ToString("C");
-
+            
+            txtPrice.Text = myItems[position].RegPrice.ToString("C", Cultures.UnitedState);
+      
             txtVintage.Text = myItems[position].Vintage.ToString();
             //heartImg.t = myItems[position].s;
 

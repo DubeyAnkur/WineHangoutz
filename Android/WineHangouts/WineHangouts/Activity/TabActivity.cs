@@ -12,7 +12,7 @@ using Android.Graphics.Drawables;
 using System.Threading;
 namespace WineHangouts
 {
-    [Activity(Label = "Wine Hangoutz", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
+    [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
     public class TabActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
@@ -28,8 +28,8 @@ namespace WineHangouts
            
 
             AddTab("Location", Resource.Drawable.shop, new SampleTabFragment("Location"));
-            AddTab("MY HANGOUTZ", Resource.Drawable.taste, new SampleTabFragment("MY HANGOUTZ"));
-            AddTab("EXPLORE", Resource.Drawable.explore, new SampleTabFragment("EXPLORE"));
+            AddTab("My Hangouts", Resource.Drawable.taste, new SampleTabFragment("My Hangouts"));
+            AddTab("Explore", Resource.Drawable.explore, new SampleTabFragment("Explore"));
 
             if (bundle != null)
                 this.ActionBar.SelectTab(this.ActionBar.GetTabAt(bundle.GetInt("tab")));
@@ -134,7 +134,7 @@ namespace WineHangouts
                         dialog.Show();
                     };
                 }
-                if (tabName == "MY HANGOUTZ")
+                if (tabName == "My Hangouts")
                 {
 
                     Top.SetBackgroundResource(Resource.Drawable.winereviews);
@@ -171,11 +171,12 @@ namespace WineHangouts
 
                     //};
                 }
-                if (tabName == "EXPLORE")
+                if (tabName == "Explore")
                 {
                    
                     Top.SetBackgroundResource(Resource.Drawable.myprofile);
                     Top.Text = "My Profile";
+                    
                     Top.SetTextColor(Color.White);
                     Top.TextSize = 20;
 

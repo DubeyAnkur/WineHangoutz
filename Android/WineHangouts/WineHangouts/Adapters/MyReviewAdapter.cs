@@ -61,6 +61,7 @@ namespace WineHangouts
             TextView txtYear = row.FindViewById<TextView>(Resource.Id.textView65);
             TextView txtDescription = row.FindViewById<TextView>(Resource.Id.textView66);
             TextView txtDate = row.FindViewById<TextView>(Resource.Id.textView67);
+            //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
             ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
             ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
@@ -98,6 +99,7 @@ namespace WineHangouts
             wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
+           // txtPrice.Text= myItems[position].
             txtYear.Text = myItems[position].Vintage;
             txtDescription.Text = myItems[position].RatingText;
             txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");

@@ -9,11 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Threading;
 
 namespace WineHangouts
 
 {
-    [Activity(Label = "Wine Hangoutz",MainLauncher =true)]
+    [Activity(Label = "@string/ApplicationName", MainLauncher =true)]
     public class LoginActivity : Activity
 
     {
@@ -30,8 +31,13 @@ namespace WineHangouts
             
             ServiceWrapper svc = new ServiceWrapper();
             BlobWrapper bvb = new BlobWrapper();
-            int storeid = 1;
-            bvb.Downloads(Convert.ToInt32(CurrentUser.getUserId()),storeid);
+            //new Thread(new ThreadStart(delegate
+            //{
+            //    RunOnUiThread(() => bvb.Downloads(Convert.ToInt32(CurrentUser.getUserId())));
+            //})).Start();
+
+
+
 
             if (CurrentUser.getUserName() == null || CurrentUser.getUserName() == "")
             {

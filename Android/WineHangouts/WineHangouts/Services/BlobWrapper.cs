@@ -33,45 +33,65 @@ namespace WineHangouts
 
                 string host = "https://icsintegration.blob.core.windows.net/";
                 return host;
-                
+
             }
 
         }
-         public Bitmap Bottleimages(int wineid)
+        public Bitmap Bottleimages(int wineid)
         {
-            var uri = new Uri(ServiceURL + "bottleimages/"+wineid+".jpg");
+            var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
             Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
             return imageBitmap;
         }
         public Bitmap ProfileImages(int userid)
         {
             var uri = new Uri(ServiceURL + "profileimages/" + userid + ".jpg");
-               Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+            Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
             return imageBitmap;
         }
 
-        public void Downloads(int userid,int storeid)
+        public void Downloads(int userid)
         {
             BlobWrapper bvb = new BlobWrapper();
             ServiceWrapper sw = new ServiceWrapper();
-            var output = sw.GetItemList(storeid, userid).Result;
-            List<Item> x=output.ItemList.ToList();
-            var uri = new Uri(ServiceURL + "bottleimages/" + x[1].WineId + ".jpg");
-            Bitmap bm = bvb.GetImageBitmapFromUrl("uri");
             ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-            try
+
+            string path = pppd.CreateDirectoryForPictures();
+            int storeid = 3;
+            DirectoryInfo di = new DirectoryInfo(path);
+
+            //bool ispresent = di.GetFiles(di.Name.ToString()+".jpg").Any();
+            //if (!ispresent)
+            //{
+            for (int j = 1; j < storeid; j++)
             {
-                var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-                var filePath = System.IO.Path.Combine(sdCardPath, x[1].WineId + ".jpg");
-                var stream = new FileStream(filePath, FileMode.Create);
-                bm.Compress(Bitmap.CompressFormat.Png, 100, stream);
-                stream.Close();
+                var output = sw.GetItemList(j, userid).Result;
+                List<Item> x = output.ItemList.ToList();
+                int y = x.Count;
+                for (int i = 0; i < y; i++)
+                {
+                    bool ispresent = di.GetFiles(x[i].WineId+".jpg").Any();
+                    if (!ispresent)
+                    {
+                        var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".jpg");
+                        Bitmap bm = bvb.GetImageBitmapFromUrl(uri.ToString());
+                        try
+                        {
+                            //var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+                            var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".jpg");
+                            var stream = new FileStream(filePath, FileMode.Create);
+                            bm.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                            stream.Close();
+                        }
+                        catch (Exception e)
+                        {
+                            string Exe = e.ToString();
+                        }
+                    }
+
+                }
             }
-            catch (Exception e)
-            {
-                string Exe=e.ToString();
-            }
-        }       
+        }
 
         public Bitmap GetImageBitmapFromUrl(string url)
         {
@@ -85,6 +105,7 @@ namespace WineHangouts
                     if (imageBytes != null && imageBytes.Length > 0)
                     {
                         imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+
                     }
                 }
 

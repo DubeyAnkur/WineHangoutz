@@ -37,6 +37,7 @@ namespace WineHangouts
             var output = sw.GetCustomerDetails(userId).Result;
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
             BlobWrapper bvb = new BlobWrapper();
+           
             Bitmap imageBitmap = bvb.ProfileImages(userId);
             
             if (imageBitmap == null)

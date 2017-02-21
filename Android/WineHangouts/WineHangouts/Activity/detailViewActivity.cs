@@ -74,15 +74,13 @@ namespace WineHangouts
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
 
             ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
-            //ImageView imgPlaceHolder = FindViewById<ImageView>(Resource.Id.placeholder1);
-            //imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder_11);
+
             BlobWrapper bvb = new BlobWrapper();
             Bitmap imageBitmap = bvb.Bottleimages(wineid);
-            //ImageHelper im = new ImageHelper();
-            //Bitmap imageBitmap = im.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + wineid + ".jpg");
+
             imgWine.SetImageBitmap(imageBitmap);
 
-            //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
+            
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
 
@@ -102,7 +100,7 @@ namespace WineHangouts
 
         }
 
-       
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
@@ -179,7 +177,7 @@ namespace WineHangouts
             ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
             var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
 
-            this.Title = "Details";
+            this.Title = "Wine Details";
 
 
 

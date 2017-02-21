@@ -70,7 +70,7 @@ namespace WineHangouts
             //String str = "lokesh";
             Name.Text = myItems[position].Name;
 
-            Price.Text = myItems[position].RegPrice.ToString("C");
+            Price.Text = myItems[position].RegPrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
 
             Avgrating.Rating = (float)myItems[position].AverageRating;
             Vintage.Text = myItems[position].Vintage.ToString();

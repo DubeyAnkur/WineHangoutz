@@ -71,7 +71,7 @@ namespace WineHangouts
             txtYear.Text = myItems[position].Vintage.ToString();
             txtDescription.Text = myItems[position].Description;
             txtDate.Text = myItems[position].TastingDate.ToString();
-            txtPrice.Text = myItems[position].RegPrice.ToString("C");
+            txtPrice.Text = myItems[position].RegPrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
             rb.Rating = (float)myItems[position].AverageRating;
             BlobWrapper bvb = new BlobWrapper();
             Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">Wine Hangoutz</string>
+    <string name="ApplicationName">Wine Hangouts</string>
   <string name="openCamera">Click from camera</string>
   <string name="openGallery">pick from gallery</string>
 </resources>

@@ -18,6 +18,10 @@ namespace WineHangouts
     {
 
         public string StoreName = "";
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bundle"></param>
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -61,15 +65,13 @@ namespace WineHangouts
                 ProgressDialog progressdialog = ProgressDialog.Show(this, "Please Wait", "We are loading it");
                 new Thread(new ThreadStart(delegate
             {
-                    //LOAD METHOD TO GET ACCOUNT INFO
-
-                    //HIDE PROGRESS DIALOG
                     RunOnUiThread(() => progressdialog.Show());
-                Thread.Sleep(50000);
+                Thread.Sleep(10000); 
                 int WineID = myArr[args.Position].WineId;
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID", WineID);
                 StartActivity(intent);
+                
                 RunOnUiThread(() => progressdialog.Dismiss());
                     //RunOnUiThread(() => progressDialog.Wait(1000));
                     //RunOnUiThread(() => progressDialog.Hide());
