@@ -75,12 +75,22 @@ namespace WineHangouts
 
             ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
 
-            BlobWrapper bvb = new BlobWrapper();
-            Bitmap imageBitmap = bvb.Bottleimages(wineid);
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+            var filePath = System.IO.Path.Combine(path + "/" +wineid + ".jpg");
+            if (System.IO.File.Exists(filePath))
+            {
+                Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                imgWine.SetImageBitmap(imageBitmap);
+            }
+            else
+            {
+                BlobWrapper bvb = new BlobWrapper();
+                Bitmap imageBitmap = bvb.Bottleimages(wineid);
+                imgWine.SetImageBitmap(imageBitmap);
+            }
 
-            imgWine.SetImageBitmap(imageBitmap);
-
-            
+                      
             imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
 
 

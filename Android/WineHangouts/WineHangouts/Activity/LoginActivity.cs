@@ -33,12 +33,9 @@ namespace WineHangouts
             BlobWrapper bvb = new BlobWrapper();
             new Thread(new ThreadStart(delegate
             {
-                RunOnUiThread(() => bvb.Downloads(Convert.ToInt32(CurrentUser.getUserId())));
+                RunOnUiThread(() => bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())));
             })).Start();
-
-
-
-
+           
             if (CurrentUser.getUserName() == null || CurrentUser.getUserName() == "")
             {
                 // Do nothing

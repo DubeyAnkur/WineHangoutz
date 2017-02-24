@@ -58,16 +58,29 @@ namespace WineHangouts
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
             BlobWrapper bvb = new BlobWrapper();
-            Bitmap imageBitmap = bvb.ProfileImages(myItems[position].ReviewUserId);
-            if (imageBitmap == null)
+            //Bitmap imageBitmap = bvb.ProfileImages(myItems[position].ReviewUserId);
+            //if (imageBitmap == null)
+            //{
+            //    Image.SetImageResource(Resource.Drawable.user);
+            //}
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+             var filePath = System.IO.Path.Combine(path + "/" + myItems[position].ReviewUserId + ".jpg");
+            if (System.IO.File.Exists(filePath))
             {
-                Image.SetImageResource(Resource.Drawable.user);
+                Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                Image.SetImageBitmap(imageBitmap);
+            }
+            else
+            {
+                Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+                Image.SetImageBitmap(imageBitmap);
             }
             Name.Text = myItems[position].Username;
             Comments.Text = myItems[position].RatingText;
             date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
-            Image.SetImageBitmap(imageBitmap);
+            //Image.SetImageBitmap(imageBitmap);
             Image.SetScaleType(ImageView.ScaleType.CenterCrop);
             return row;
         }

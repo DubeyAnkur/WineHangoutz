@@ -37,15 +37,21 @@ namespace WineHangouts
             var output = sw.GetCustomerDetails(userId).Result;
             ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
             BlobWrapper bvb = new BlobWrapper();
-           
-            Bitmap imageBitmap = bvb.ProfileImages(userId);
-            
-            if (imageBitmap == null)
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+
+            var filePath = System.IO.Path.Combine(path + "/"+userId+".jpg");
+            if (System.IO.File.Exists(filePath))
             {
-                propicimage.SetImageResource(Resource.Drawable.user);
+                Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                propicimage.SetImageBitmap(imageBitmap);
             }
-                else
-            propicimage.SetImageBitmap(imageBitmap);
+            else
+            {
+                Bitmap imageBitmap = bvb.ProfileImages(userId);
+                propicimage.SetImageBitmap(imageBitmap);
+            }
+
             ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
 
             changepropic.SetImageResource(Resource.Drawable.dpreplacer);

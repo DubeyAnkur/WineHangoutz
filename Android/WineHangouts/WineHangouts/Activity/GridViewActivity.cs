@@ -62,22 +62,23 @@ namespace WineHangouts
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
 
-                ProgressDialog progressdialog = ProgressDialog.Show(this, "Please Wait", "We are loading it");
-                new Thread(new ThreadStart(delegate
-            {
-                    RunOnUiThread(() => progressdialog.Show());
-                Thread.Sleep(10000); 
                 int WineID = myArr[args.Position].WineId;
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID", WineID);
                 StartActivity(intent);
-                
-                RunOnUiThread(() => progressdialog.Dismiss());
-                    //RunOnUiThread(() => progressDialog.Wait(1000));
-                    //RunOnUiThread(() => progressDialog.Hide());
-                })).Start();
+                //    ProgressDialog progressdialog = ProgressDialog.Show(this, "Please Wait", "We are loading it");
+                //    new Thread(new ThreadStart(delegate
+                //{
+                //        RunOnUiThread(() => progressdialog.Show());
+                //    Thread.Sleep(10000); 
 
-                
+
+                //    RunOnUiThread(() => progressdialog.Dismiss());
+                //        //RunOnUiThread(() => progressDialog.Wait(1000));
+                //        //RunOnUiThread(() => progressDialog.Hide());
+                //    })).Start();
+
+
             };
 
 

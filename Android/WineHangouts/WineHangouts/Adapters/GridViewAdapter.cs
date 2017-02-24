@@ -22,7 +22,7 @@ namespace WineHangouts
     {
         private List<Item> myItems;
         private Context myContext;
-        private Hashtable wineImages;
+        //private Hashtable wineImages;
         
 
         public override Item this[int position]
@@ -37,16 +37,16 @@ namespace WineHangouts
         {
             myContext = con;
             myItems = strArr;
-            wineImages = new Hashtable();
-            foreach (var item in myItems)
-            {
-                if (!wineImages.ContainsKey(item.WineId))
-                {
-                    BlobWrapper bvb = new BlobWrapper();
-                    var imageBitmap = bvb.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
-                    wineImages.Add(item.WineId, imageBitmap);
-                }
-            }
+            //wineImages = new Hashtable();
+            //foreach (var item in myItems)
+            //{
+            //    if (!wineImages.ContainsKey(item.WineId))
+            //    {
+            //        BlobWrapper bvb = new BlobWrapper();
+            //        var imageBitmap = bvb.GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + item.WineId + ".jpg");
+            //        wineImages.Add(item.WineId, imageBitmap);
+            //    }
+            //}
         }
         public override int Count
         {
@@ -148,12 +148,24 @@ namespace WineHangouts
                 };
             }
 
-            //imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
-            //if (convertView == null)
+           
             {
                 //var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/bottleimages/" + myItems[position].WineId + ".jpg");
-                Bitmap imageBitmap = (Bitmap)wineImages[myItems[position].WineId];
-                imgWine.SetImageBitmap(imageBitmap);
+                //Bitmap imageBitmap = (Bitmap)wineImages[myItems[position].WineId];
+                ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                string path = pppd.CreateDirectoryForPictures();
+                var filePath = System.IO.Path.Combine(path + "/"+ myItems[position].WineId+".jpg");
+                if (System.IO.File.Exists(filePath))
+                {
+                    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                    imgWine.SetImageBitmap(imageBitmap);
+                }
+                else
+                {
+                    BlobWrapper bvb = new BlobWrapper();
+                    Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+                    imgWine.SetImageBitmap(imageBitmap);
+                }
 
                 //imgWine.SetImageResource(Resource.Drawable.wine1);
                 //var place = new RelativeLayout.LayoutParams(heightInDp, heightInDp);
