@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace WineHangouts
 
@@ -31,11 +32,16 @@ namespace WineHangouts
             
             ServiceWrapper svc = new ServiceWrapper();
             BlobWrapper bvb = new BlobWrapper();
-            new Thread(new ThreadStart(delegate
-            {
-                RunOnUiThread(() => bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())));
-            })).Start();
-           
+            //new Thread(new ThreadStart(delegate
+            //{
+            //    RunOnUiThread(() => bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())));
+            //})).Start();
+
+
+            var TaskA = new Task(() => { bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())); });
+            TaskA.Start();
+
+
             if (CurrentUser.getUserName() == null || CurrentUser.getUserName() == "")
             {
                 // Do nothing
