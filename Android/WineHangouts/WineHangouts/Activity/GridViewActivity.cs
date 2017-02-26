@@ -80,7 +80,7 @@ namespace WineHangouts
 
 
             };
-
+            ProgressIndicator.Hide();
 
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

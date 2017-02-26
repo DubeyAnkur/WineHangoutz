@@ -10,6 +10,8 @@ using Android.Util;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using System.Threading;
+using System.Threading.Tasks;
+
 namespace WineHangouts
 {
     [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
@@ -27,9 +29,9 @@ namespace WineHangouts
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
            
 
-            AddTab("Location", Resource.Drawable.shop, new SampleTabFragment("Location"));
-            AddTab("My Hangouts", Resource.Drawable.taste, new SampleTabFragment("My Hangouts"));
-            AddTab("Explore", Resource.Drawable.explore, new SampleTabFragment("Explore"));
+            AddTab("Location", Resource.Drawable.shop, new SampleTabFragment("Location", this));
+            AddTab("My Hangouts", Resource.Drawable.taste, new SampleTabFragment("My Hangouts", this));
+            AddTab("Explore", Resource.Drawable.explore, new SampleTabFragment("Explore", this));
 
             if (bundle != null)
                 this.ActionBar.SelectTab(this.ActionBar.GetTabAt(bundle.GetInt("tab")));
@@ -69,14 +71,22 @@ namespace WineHangouts
         class SampleTabFragment : Fragment
         {
             string tabName;
-
+            Activity _parent;
+            ProgressDialog progress;
             public SampleTabFragment()
             {
                 tabName = "Location";
             }
-            public SampleTabFragment(string Name)
+            public SampleTabFragment(string Name, Activity parent)
             {
                 tabName = Name;
+                _parent = parent;
+               // progress = new Android.App.ProgressDialog(_parent);
+            }
+
+            public override void OnViewCreated(View view, Bundle savedInstanceState)
+            {
+                
             }
             public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
             {
@@ -111,15 +121,22 @@ namespace WineHangouts
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
 
+                    
+
                     Top.Click += (sender, e) =>
                     {
-                       
+                        ProgressIndicator.Show(_parent);
+
                         var intent = new Intent(Activity, typeof(GridViewActivity));
                         intent.PutExtra("MyData", "Wall Store");
+                        
                         StartActivity(intent);
+
                     };
                     Middle.Click += (sender, e) =>
                     {
+                        ProgressIndicator.Show(_parent);
+
                         var intent = new Intent(Activity, typeof(GridViewActivity));
                         intent.PutExtra("MyData", "Point Pleasant Store");
                         StartActivity(intent);

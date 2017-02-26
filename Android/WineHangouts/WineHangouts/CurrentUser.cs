@@ -47,4 +47,30 @@ namespace WineHangouts
             return value1;
         }
     }
+
+    public class ProgressIndicator
+    {
+        // There will be only one instance of ProgressDialog across application.
+        static ProgressDialog progress;
+        static ProgressIndicator()
+        {
+            
+        }
+
+        public static void Show(Context _parent)
+        {
+            progress = new Android.App.ProgressDialog(_parent);
+            progress.Indeterminate = true;
+            progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
+            progress.SetMessage("Loading... Please Wait...");
+            progress.SetCancelable(false);
+            progress.Show();
+        }
+
+        public static void Hide()
+        {
+            //progress should not be null & should we called for every show.
+            progress.Dismiss();
+        }
+    }
 }
