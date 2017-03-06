@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using System.Threading;
 using System.Threading.Tasks;
+using Hangout.Models;
 
 namespace WineHangouts
 
@@ -37,8 +38,10 @@ namespace WineHangouts
             //    RunOnUiThread(() => bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())));
             //})).Start();
 
-
-            var TaskA = new Task(() => { bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())); });
+            //bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
+            var TaskA = new Task(() => {
+                bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
+            });
             TaskA.Start();
 
 
@@ -72,23 +75,38 @@ namespace WineHangouts
                     return;
 
                 }
-                var authen = svc.AuthencateUser (username.Text).Result;
-                if (authen.customer != null && authen.customer.CustomerID!= 0)
+                CustomerResponse authen = new CustomerResponse();
+                try
                 {
-                    CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
-                    Intent intent = new Intent(this, typeof(TabActivity));
-                    StartActivity(intent);
+                   authen = svc.AuthencateUser(username.Text).Result;
+                    if (authen.customer != null && authen.customer.CustomerID != 0)
+                    {
+                        CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
+                        Intent intent = new Intent(this, typeof(TabActivity));
+                        StartActivity(intent);
 
+                    }
+                    else
+                    {
+                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                        aler.SetTitle("Sorry");
+                        aler.SetMessage("Incorrect Details");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog = aler.Create();
+                        dialog.Show();
+                    };
                 }
-                else
+                catch(Exception exception)
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
                     aler.SetTitle("Sorry");
-                    aler.SetMessage("Incorrect Details");
+                    aler.SetMessage("We're under maintainence");
                     aler.SetNegativeButton("Ok", delegate { });
                     Dialog dialog = aler.Create();
                     dialog.Show();
-                };
+                    
+                }
+             
 
             };                 
 

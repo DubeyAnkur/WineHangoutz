@@ -30,8 +30,21 @@ namespace WineHangouts
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             ServiceWrapper svc = new ServiceWrapper();
-          // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
-             var uidreviews = svc.GetItemReviewUID(uid).Result;
+            ItemReviewResponse uidreviews = new ItemReviewResponse();
+            // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
+            try
+            {
+                uidreviews = svc.GetItemReviewUID(uid).Result;
+            }
+            catch (Exception exe)
+            {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("We're under maintainence");
+                aler.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = aler.Create();
+                dialog.Show();
+            }
             //if (uidreviews.Reviews.Count == 0)
             //{
             //    SetContentView(Resource.Layout.Dummy);

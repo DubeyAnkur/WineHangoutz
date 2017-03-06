@@ -53,7 +53,7 @@ namespace WineHangouts
         {
             View row = convertView;
             if (row == null)
-                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.TastingListview, null, false);
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.Dummy, null, false);
             //else
             //    return convertView;
 

@@ -38,12 +38,24 @@ namespace WineHangouts
                 StoreId = 2;
             else
                 StoreId = 3;
-           
+
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
-            var output = sw.GetItemList(StoreId,userId).Result;
-
-
+            ItemListResponse output = new ItemListResponse();
+            try
+            {
+                output = sw.GetItemList(StoreId, userId).Result;
+            }
+            catch (Exception ex)
+            {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("We're under maintainence");
+                aler.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = aler.Create();
+                dialog.Show();
+              
+            }
             SetContentView(Resource.Layout.Main);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);

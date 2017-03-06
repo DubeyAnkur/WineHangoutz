@@ -32,8 +32,23 @@ namespace WineHangouts
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ServiceWrapper svc = new ServiceWrapper();
             int wineid = Intent.GetIntExtra("WineID", 123);
-            ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
-            var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+            ItemDetailsResponse myData = new ItemDetailsResponse();
+            ItemReviewResponse SkuRating = new ItemReviewResponse();
+            try
+            {
+                myData = svc.GetItemDetails(wineid).Result;
+                SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+            }
+            catch (Exception ex)
+            {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("We're under maintainence");
+                aler.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = aler.Create();
+                dialog.Show();
+                
+            }
             this.Title = "Wine Details";
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
             reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());

@@ -49,14 +49,21 @@ namespace WineHangouts
             Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
             return imageBitmap;
         }
-
-        public void DownloadImages(int userid)
+         public void DownloadImages(int userid)
         {
             BlobWrapper bvb = new BlobWrapper();
             ServiceWrapper sw = new ServiceWrapper();
-            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+        //    ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+       
+            App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "pics");
 
-            string path = pppd.CreateDirectoryForPictures();
+            if (!App._dir.Exists())
+            {
+                App._dir.Mkdirs();
+            }
+            string path = App._dir.ToString();
+            
+            //string path = pppd.CreateDirectoryForPictures();
             int storeid = 3;
             DirectoryInfo di = new DirectoryInfo(path);
 
