@@ -99,7 +99,7 @@ namespace WineHangouts
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
 
-            txtPrice.Text = myItems[position].RegPrice.ToString("C", Cultures.UnitedState);
+            txtPrice.Text = myItems[position].SalePrice.ToString("C", Cultures.UnitedState);
 
             txtVintage.Text = myItems[position].Vintage.ToString();
             //heartImg.t = myItems[position].s;
