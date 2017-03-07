@@ -64,11 +64,12 @@ namespace WineHangouts
             ImageView Wine = row.FindViewById<ImageView>(Resource.Id.imgWinefav);
             TextView Price = row.FindViewById<TextView>(Resource.Id.txtPricefav);
             RatingBar Avgrating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRatingfav);
-           // ImageView place = row.FindViewById<ImageView>(Resource.Id.placeholdefavr);
+            // ImageView place = row.FindViewById<ImageView>(Resource.Id.placeholdefavr);
             ImageView Heart = row.FindViewById<ImageView>(Resource.Id.imgHeartfav);
 
             //String str = "lokesh";
             Name.Text = myItems[position].Name;
+            Name.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
 
             Price.Text = myItems[position].RegPrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
 
@@ -118,7 +119,7 @@ namespace WineHangouts
             };
             BlobWrapper bvb = new BlobWrapper();
             Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
-           // place.SetImageResource(Resource.Drawable.placeholder);
+            // place.SetImageResource(Resource.Drawable.placeholder);
             Wine.SetImageBitmap(imageBitmap);
             var place1 = new RelativeLayout.LayoutParams(520, 520);
             // var place = new RelativeLayout.LayoutParams(520, 620);
@@ -127,7 +128,7 @@ namespace WineHangouts
 
             var place2 = new RelativeLayout.LayoutParams(520, 520);
             place2.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
-           // place.LayoutParameters = place2;
+            // place.LayoutParameters = place2;
             //imgPlaceHolder.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
 

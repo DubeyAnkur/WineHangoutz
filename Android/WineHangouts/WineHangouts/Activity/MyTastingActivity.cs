@@ -25,22 +25,35 @@ namespace WineHangouts
             customerid = Convert.ToInt32(CurrentUser.getUserId());
 
             SetContentView(Resource.Layout.MyTasting);
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            try
+            {
+                ActionBar.SetHomeButtonEnabled(true);
+                ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            ServiceWrapper svc = new ServiceWrapper();
+                ServiceWrapper svc = new ServiceWrapper();
 
-            var MYtastings = svc.GetMyTastingsList(customerid).Result;
+                var MYtastings = svc.GetMyTastingsList(customerid).Result;
 
-            List<Tastings> myArr;
+                List<Tastings> myArr;
 
-            //  myArr1 = SampleData1();
+                //  myArr1 = SampleData1();
 
-            ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
-            // myArr1 = SampleData1();
-            MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
-            wineList.Adapter = adapter;
+                ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
+                // myArr1 = SampleData1();
+                MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
+                wineList.Adapter = adapter;
+                ProgressIndicator.Hide();
+            }
 
+            catch (Exception exe)
+            {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("We're under maintainence");
+                aler.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = aler.Create();
+                dialog.Show();
+            }
 
         }
 

@@ -169,18 +169,21 @@ namespace WineHangouts
 
                     Top.Click += (sender, e) =>
                     {
+                        ProgressIndicator.Show(_parent);
                         var intent = new Intent(Activity, typeof(MyReviewActivity));
                         intent.PutExtra("MyData", "My Reviews");
                         StartActivity(intent);
                     };
                     Middle.Click += (sender, e) =>
                     {
+                        ProgressIndicator.Show(_parent);
                         var intent = new Intent(Activity, typeof(MyTastingActivity));
                         intent.PutExtra("MyData", "My Tastings");
                         StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>
                     {
+                        ProgressIndicator.Show(_parent);
                         var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
                         intent.PutExtra("MyData", "My Favorite");
                         StartActivity(intent);
@@ -212,6 +215,7 @@ namespace WineHangouts
 
                     Top.Click += (sender, e) =>
                     {
+                        ProgressIndicator.Show(_parent);
 
                         var intent = new Intent(Activity, typeof(ProfileActivity));
                         intent.PutExtra("MyData", "My Profile");

@@ -18,25 +18,48 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            if (StoreName == "")
-                StoreName = Intent.GetStringExtra("MyData");
-            this.Title = StoreName;
-
-            int StoreId = 0;
-            if (StoreName == "My Favorite")
-                StoreId = 1;
-            else if (StoreName == "Point Pleasent Store")
-                StoreId = 2;
-            else if (StoreName == "Wall Store")
-                StoreId = 3;
-            int userId = Convert.ToInt32(CurrentUser.getUserId());
-            ServiceWrapper sw = new ServiceWrapper();
-            ItemListResponse output = new ItemListResponse();
             try
             {
+                SetContentView(Resource.Layout.MyFavoriteGridView);
+                ActionBar.SetHomeButtonEnabled(true);
+                ActionBar.SetDisplayHomeAsUpEnabled(true);
+                if (StoreName == "")
+                    StoreName = Intent.GetStringExtra("MyData");
+                this.Title = StoreName;
+
+                int StoreId = 0;
+                if (StoreName == "My Favorite")
+                    StoreId = 1;
+                else if (StoreName == "Point Pleasent Store")
+                    StoreId = 2;
+                else if (StoreName == "Wall Store")
+                    StoreId = 3;
+                int userId = Convert.ToInt32(CurrentUser.getUserId());
+                ServiceWrapper sw = new ServiceWrapper();
+                ItemListResponse output = new ItemListResponse();
+
                 output = sw.GetItemFavsUID(userId).Result;
+
+
+                List<Item> myArr;
+                myArr = output.ItemList.ToList();
+                var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
+                MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
+                gridview.SetNumColumns(2);
+                gridview.Adapter = adapter;
+
+
+                gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+                {
+                    int WineID = myArr[args.Position].WineId;
+                    var intent = new Intent(this, typeof(detailViewActivity));
+                    intent.PutExtra("WineID", WineID);
+                    StartActivity(intent);
+                };
+                ProgressIndicator.Hide();
             }
-            catch (Exception ex)
+             
+            catch (Exception exe)
             {
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
@@ -44,26 +67,8 @@ namespace WineHangouts
                 aler.SetNegativeButton("Ok", delegate { });
                 Dialog dialog = aler.Create();
                 dialog.Show();
-                
-            }
-            SetContentView(Resource.Layout.MyFavoriteGridView);
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            List<Item> myArr;
-            myArr= output.ItemList.ToList();
-            var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
-            MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
-            gridview.SetNumColumns(2);
-            gridview.Adapter = adapter;
-            
 
-            gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-            {
-                int WineID = myArr[args.Position].WineId;
-                var intent = new Intent(this, typeof(detailViewActivity));
-                intent.PutExtra("WineID", WineID);
-                StartActivity(intent);
-            };
+            }
 
 
         }

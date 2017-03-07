@@ -25,7 +25,9 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            if (StoreName == "")
+            try
+            {
+                if (StoreName == "")
                 StoreName = Intent.GetStringExtra("MyData");
             this.Title = StoreName;
             this.ActionBar.SetHomeButtonEnabled(true);
@@ -42,20 +44,9 @@ namespace WineHangouts
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             ItemListResponse output = new ItemListResponse();
-            try
-            {
+          
                 output = sw.GetItemList(StoreId, userId).Result;
-            }
-            catch (Exception ex)
-            {
-                AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                aler.SetTitle("Sorry");
-                aler.SetMessage("We're under maintainence");
-                aler.SetNegativeButton("Ok", delegate { });
-                Dialog dialog = aler.Create();
-                dialog.Show();
-              
-            }
+            
             SetContentView(Resource.Layout.Main);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -73,6 +64,7 @@ namespace WineHangouts
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
+               
 
                 int WineID = myArr[args.Position].WineId;
                 var intent = new Intent(this, typeof(detailViewActivity));
@@ -93,6 +85,17 @@ namespace WineHangouts
 
             };
             ProgressIndicator.Hide();
+            }
+            catch (Exception ex)
+            {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("We're under maintainence");
+                aler.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = aler.Create();
+                dialog.Show();
+
+            }
 
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

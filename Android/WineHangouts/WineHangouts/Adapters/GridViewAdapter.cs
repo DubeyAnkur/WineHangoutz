@@ -95,6 +95,7 @@ namespace WineHangouts
             //rel.LayoutParameters = place11;
             //rel.LayoutParameters = new RelativeLayout.LayoutParams(520, 520);
             txtName.Text = myItems[position].Name;
+            txtName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
             //txtRatings.Text = myItems[position].Ratings;
             //txtUserRatings.Text = myItems[position].UserRatings;
 

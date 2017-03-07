@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tableLayout1"
-            android:background="#A9A9A9">
+            android:background="#ffffff">
             <TableRow
                 android:id="@+id/tableRow1"
                 android:gravity="left"
@@ -32,7 +32,7 @@
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow1"
-                android:background="#A9A9A9">
+                android:background="#ffffff">
                 <TextView
                     android:text="Vintage"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -233,9 +233,9 @@
                     android:minHeight="25px"
                     android:layout_column="0"
                     android:id="@+id/listView2" />
-                 <!--  android:divider="#FFCC00"
-                    android:dividerHeight="4px"--> 
-               </TableRow>
+            <!--  android:divider="#FFCC00"
+                    android:dividerHeight="4px"-->
+            </TableRow>
         </TableLayout>
     </LinearLayout>
 </ScrollView>

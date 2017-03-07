@@ -68,6 +68,7 @@ namespace WineHangouts
 
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
+            txtName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
             txtYear.Text = myItems[position].Vintage.ToString();
             txtDescription.Text = myItems[position].Description;
             txtDate.Text = myItems[position].TastingDate.ToString();

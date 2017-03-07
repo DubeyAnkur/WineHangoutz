@@ -26,102 +26,103 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            SetContentView(Resource.Layout.detailedView);
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ServiceWrapper svc = new ServiceWrapper();
-            int wineid = Intent.GetIntExtra("WineID", 123);
-            ItemDetailsResponse myData = new ItemDetailsResponse();
-            ItemReviewResponse SkuRating = new ItemReviewResponse();
             try
             {
+                SetContentView(Resource.Layout.detailedView);
+                ActionBar.SetHomeButtonEnabled(true);
+                ActionBar.SetDisplayHomeAsUpEnabled(true);
+                ServiceWrapper svc = new ServiceWrapper();
+                int wineid = Intent.GetIntExtra("WineID", 123);
+                ItemDetailsResponse myData = new ItemDetailsResponse();
+                ItemReviewResponse SkuRating = new ItemReviewResponse();
+
                 myData = svc.GetItemDetails(wineid).Result;
                 SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+
+                this.Title = "Wine Details";
+                var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+                reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
+                commentsView.Adapter = comments;
+
+                setListViewHeightBasedOnChildren1(commentsView);
+                TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
+                WineName.Focusable = false;
+                WineName.Text = myData.ItemDetails.Name;
+                WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
+                TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
+                Vintage.Focusable = false;
+                Vintage.Text = myData.ItemDetails.Vintage.ToString();
+
+                TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
+                WineProducer.Focusable = false;
+                WineProducer.Text = myData.ItemDetails.Producer;
+
+                TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
+                WineDescription.Focusable = false;
+                WineDescription.Text = myData.ItemDetails.Description;
+
+
+
+                RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
+                AvgRating.Focusable = false;
+                AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
+                TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
+
+                Review edit = new Review();
+                edit.WineId = wineid;
+                ReviewPopup editPopup = new ReviewPopup(this, edit);
+                RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
+                RatingInput.RatingBarChange += editPopup.CreatePopup;
+
+                var metrics = Resources.DisplayMetrics;
+                var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
+                var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+
+                ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
+
+                ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                string path = pppd.CreateDirectoryForPictures();
+                var filePath = System.IO.Path.Combine(path + "/" + wineid + ".jpg");
+                if (System.IO.File.Exists(filePath))
+                {
+                    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                    imgWine.SetImageBitmap(imageBitmap);
+                }
+                else
+                {
+                    BlobWrapper bvb = new BlobWrapper();
+                    Bitmap imageBitmap = bvb.Bottleimages(wineid);
+                    imgWine.SetImageBitmap(imageBitmap);
+                }
+
+
+                imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
+
+
+
+
+                BitmapFactory.Options options = new BitmapFactory.Options
+                {
+                    InJustDecodeBounds = false,
+                    OutHeight = 75,
+                    OutWidth = 75
+
+                };
+                ProgressIndicator.Hide();
+
+
+                Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
             }
             catch (Exception ex)
             {
-                AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                aler.SetTitle("Sorry");
-                aler.SetMessage("We're under maintainence");
-                aler.SetNegativeButton("Ok", delegate { });
-                Dialog dialog = aler.Create();
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Sorry");
+                alert.SetMessage("We're under maintainence");
+                alert.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = alert.Create();
                 dialog.Show();
-                
+
             }
-            this.Title = "Wine Details";
-            var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-            reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
-            commentsView.Adapter = comments;
-
-            setListViewHeightBasedOnChildren1(commentsView);
-            TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
-            WineName.Focusable = false;
-            WineName.Text = myData.ItemDetails.Name;
-
-            TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
-            Vintage.Focusable = false;
-            Vintage.Text = myData.ItemDetails.Vintage.ToString();
-
-            TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
-            WineProducer.Focusable = false;
-            WineProducer.Text = myData.ItemDetails.Producer;
-
-            TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
-            WineDescription.Focusable = false;
-            WineDescription.Text = myData.ItemDetails.Description;
-
-
-
-            RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
-            AvgRating.Focusable = false;
-            AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
-            TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-
-            Review edit = new Review();
-            edit.WineId = wineid;
-            ReviewPopup editPopup = new ReviewPopup(this, edit);
-            RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
-            RatingInput.RatingBarChange += editPopup.CreatePopup;
-
-            var metrics = Resources.DisplayMetrics;
-            var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-            var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-
-            ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
-
-            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-            string path = pppd.CreateDirectoryForPictures();
-            var filePath = System.IO.Path.Combine(path + "/" +wineid + ".jpg");
-            if (System.IO.File.Exists(filePath))
-            {
-                Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-                imgWine.SetImageBitmap(imageBitmap);
-            }
-            else
-            {
-                BlobWrapper bvb = new BlobWrapper();
-                Bitmap imageBitmap = bvb.Bottleimages(wineid);
-                imgWine.SetImageBitmap(imageBitmap);
-            }
-
-                      
-            imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
-
-
-
-
-            BitmapFactory.Options options = new BitmapFactory.Options
-            {
-                InJustDecodeBounds = false,
-                OutHeight = 75,
-                OutWidth = 75
-
-            };
-
-
-            Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
-
 
         }
 
