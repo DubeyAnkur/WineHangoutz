@@ -14,19 +14,25 @@ using Android.Graphics;
 using System.Net;
 using System.IO;
 using Hangout.Models;
+using System.Collections;
 
 namespace WineHangouts
 {
-    public class BlobWrapper
+    public static class BlobWrapper
     {
-        HttpClient client;
-        public BlobWrapper()
+        static HttpClient client;
+        //static Hashtable wineImages;
+        static string Path;
+        static BlobWrapper()
         {
             client = new HttpClient();
             //client.MaxResponseContentBufferSize = 256000;
+            //wineImages = new Hashtable();
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            Path = pppd.CreateDirectoryForPictures();
         }
 
-        public string ServiceURL
+        public static string ServiceURL
         {
             get
             {
@@ -37,25 +43,38 @@ namespace WineHangouts
             }
 
         }
-        public Bitmap Bottleimages(int wineid)
+        public static Bitmap Bottleimages(int wineid)
         {
-            var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
-            Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+            //if (wineImages.Contains(wineid))
+            //{
+            //    return (Bitmap)wineImages[wineid];
+            //}
+
+            //var filePath = System.IO.Path.Combine(Path + "/" + wineid + ".jpg");
+            //if (System.IO.File.Exists(filePath))
+            //{
+            //    Bitmap imageFile = BitmapFactory.DecodeFile(filePath);
+            //    wineImages.Add(wineid, imageFile);
+            //}
+
+            //var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
+            //Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+            //wineImages.Add(wineid, imageBitmap);
+            Bitmap imageBitmap= null;
             return imageBitmap;
         }
-        public Bitmap ProfileImages(int userid)
+        public static Bitmap ProfileImages(int userid)
         {
             var uri = new Uri(ServiceURL + "profileimages/" + userid + ".jpg");
             Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
             return imageBitmap;
         }
-         public void DownloadImages(int userid)
+        public static void DownloadImages(int userid)
         {
-            BlobWrapper bvb = new BlobWrapper();
             ServiceWrapper sw = new ServiceWrapper();
         //    ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
        
-            App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "pics");
+            App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "winehangouts/wineimages");
 
             if (!App._dir.Exists())
             {
@@ -71,7 +90,7 @@ namespace WineHangouts
             if (!isthere)
             {
                 var uri = new Uri(ServiceURL + "profileimages/" + userid + ".jpg");
-                Bitmap bm = bvb.GetImageBitmapFromUrl(uri.ToString());
+                Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
                 try
                 {
                     var filePath = System.IO.Path.Combine(path + "/" + userid + ".jpg");
@@ -96,7 +115,7 @@ namespace WineHangouts
                     if (!ispresent)
                     {
                         var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".jpg");
-                        Bitmap bm = bvb.GetImageBitmapFromUrl(uri.ToString());
+                        Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
                         try
                         {
                             var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".jpg");
@@ -140,7 +159,7 @@ namespace WineHangouts
         //    }
 
         //}
-        public Bitmap GetImageBitmapFromUrl(string url)
+        public static Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
             try

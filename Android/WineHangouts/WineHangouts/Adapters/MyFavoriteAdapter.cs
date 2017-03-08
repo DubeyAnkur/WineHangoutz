@@ -115,12 +115,26 @@ namespace WineHangouts
                 like.SKU = Convert.ToInt32(myItems[position].SKU);
                 like.Liked = x;
                 ServiceWrapper sw = new ServiceWrapper();
+                like.WineId = myItems[position].WineId;
                 await sw.InsertUpdateLike(like);
             };
-            BlobWrapper bvb = new BlobWrapper();
-            Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+            //Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
             // place.SetImageResource(Resource.Drawable.placeholder);
-            Wine.SetImageBitmap(imageBitmap);
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            Bitmap imageBitmap;
+            if (System.IO.File.Exists(filePath))
+            {
+                imageBitmap = BitmapFactory.DecodeFile(filePath);
+                Wine.SetImageBitmap(imageBitmap);
+            }
+            else
+            {
+                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+                Wine.SetImageBitmap(imageBitmap);
+            }
+            //Wine.SetImageBitmap(imageBitmap);
             var place1 = new RelativeLayout.LayoutParams(520, 520);
             // var place = new RelativeLayout.LayoutParams(520, 620);
             place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;

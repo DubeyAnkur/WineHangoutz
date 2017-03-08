@@ -74,14 +74,22 @@ namespace WineHangouts
             txtDate.Text = myItems[position].TastingDate.ToString();
             txtPrice.Text = myItems[position].SalePrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
             rb.Rating = (float)myItems[position].AverageRating;
-            BlobWrapper bvb = new BlobWrapper();
-            Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
-            if (imageBitmap == null)
+            //Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            Bitmap imageBitmap;
+            if (System.IO.File.Exists(filePath))
             {
-                wineimage.SetImageResource(Resource.Drawable.wine6);
+                imageBitmap = BitmapFactory.DecodeFile(filePath);
+                wineimage.SetImageBitmap(imageBitmap);
             }
             else
-            { wineimage.SetImageBitmap(imageBitmap); }
+            {
+                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+
+                wineimage.SetImageBitmap(imageBitmap);
+            }
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
 
 

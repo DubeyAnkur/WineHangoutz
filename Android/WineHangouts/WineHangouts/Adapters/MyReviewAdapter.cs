@@ -105,9 +105,22 @@ namespace WineHangouts
             txtDescription.Text = myItems[position].RatingText;
             txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
-            BlobWrapper bvb = new BlobWrapper();
-            Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
-            wineimage.SetImageBitmap(imageBitmap);
+            //Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            Bitmap imageBitmap;
+            if (System.IO.File.Exists(filePath))
+            {
+                imageBitmap = BitmapFactory.DecodeFile(filePath);
+                wineimage.SetImageBitmap(imageBitmap);
+            }
+            else            {
+                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+
+                wineimage.SetImageBitmap(imageBitmap);
+            }
+            //wineimage.SetImageBitmap(imageBitmap);
             //wineimage.SetImageResource(Resource.Drawable.wine7);
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
            
