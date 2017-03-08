@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using System.Globalization;
 using Android.Graphics.Drawables;
 
+
+
 namespace WineHangouts
 {
     class GridViewAdapter : BaseAdapter<Item>
@@ -147,6 +149,7 @@ namespace WineHangouts
                     like.UserID = Convert.ToInt32(CurrentUser.getUserId());
                     like.SKU = Convert.ToInt32(myItems[position].SKU);
                     like.Liked = x;
+                    myItems[position].IsLike = x;
                     like.WineId = myItems[position].WineId;
                     ServiceWrapper sw = new ServiceWrapper();
                     await sw.InsertUpdateLike(like);
@@ -154,25 +157,25 @@ namespace WineHangouts
             }
 
 
-            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-            string path = pppd.CreateDirectoryForPictures();
-            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            //string path = pppd.CreateDirectoryForPictures();
+            //var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             Bitmap imageBitmap;
 
-            
 
-            if (System.IO.File.Exists(filePath))
-            {
-                imageBitmap = BitmapFactory.DecodeFile(filePath);
-                imgWine.SetImageBitmap(imageBitmap);
-            }
-            else
-            {
-                BlobWrapper bvb = new BlobWrapper();
-                imageBitmap = bvb.Bottleimages(myItems[position].WineId);
-                
-                imgWine.SetImageBitmap(imageBitmap);
-            }
+
+            //if (System.IO.File.Exists(filePath))
+            //{
+            //    imageBitmap = BitmapFactory.DecodeFile(filePath);
+            //}
+            //else
+            //{
+           // BlobWrapper.Bottleimages(222);
+
+            imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+            //}
+
+         
 
             var place = new FrameLayout.LayoutParams(650, 650);
             place.LeftMargin = -70; //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;

@@ -80,7 +80,7 @@ namespace WineHangouts
 
         public string CreateDirectoryForPictures()
         {
-            App._dir = new File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "pics");
+            App._dir = new File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "winehangouts/wineimages");
             
             if (!App._dir.Exists())
             {

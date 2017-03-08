@@ -90,8 +90,7 @@ namespace WineHangouts
                 }
                 else
                 {
-                    BlobWrapper bvb = new BlobWrapper();
-                    Bitmap imageBitmap = bvb.Bottleimages(wineid);
+                    Bitmap imageBitmap = BlobWrapper.Bottleimages(wineid);
                     imgWine.SetImageBitmap(imageBitmap);
                 }
 

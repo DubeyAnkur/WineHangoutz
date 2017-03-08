@@ -39,7 +39,6 @@ namespace WineHangouts
                 ServiceWrapper sw = new ServiceWrapper();
                 var output = sw.GetCustomerDetails(userId).Result;
                 ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
-                BlobWrapper bvb = new BlobWrapper();
                 ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
                 string path = pppd.CreateDirectoryForPictures();
 
@@ -51,7 +50,7 @@ namespace WineHangouts
                 }
                 else
                 {
-                    Bitmap imageBitmap = bvb.ProfileImages(userId);
+                    Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
                     propicimage.SetImageBitmap(imageBitmap);
                 }
 
@@ -147,8 +146,8 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             var output = svc.GetCustomerDetails(userId).Result;
-            BlobWrapper bvb = new BlobWrapper();
-            Bitmap imageBitmap = bvb.ProfileImages(userId);
+
+            Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
         }
         //public void ResizeImage(string sourceFile, string targetFile, float maxWidth, float maxHeight)
         //{

@@ -57,7 +57,6 @@ namespace WineHangouts
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
-            BlobWrapper bvb = new BlobWrapper();
             //Bitmap imageBitmap = bvb.ProfileImages(myItems[position].ReviewUserId);
             //if (imageBitmap == null)
             //{
@@ -73,7 +72,7 @@ namespace WineHangouts
             }
             else
             {
-                Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+                Bitmap imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
                 Image.SetImageBitmap(imageBitmap);
             }
             Name.Text = myItems[position].Username;

@@ -32,7 +32,6 @@ namespace WineHangouts
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
             
             ServiceWrapper svc = new ServiceWrapper();
-            BlobWrapper bvb = new BlobWrapper();
             //new Thread(new ThreadStart(delegate
             //{
             //    RunOnUiThread(() => bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())));
@@ -40,7 +39,7 @@ namespace WineHangouts
 
             //bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             var TaskA = new Task(() => {
-                bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
+                BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             });
             TaskA.Start();
 
