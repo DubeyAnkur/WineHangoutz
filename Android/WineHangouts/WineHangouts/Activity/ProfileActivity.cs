@@ -40,7 +40,7 @@ namespace WineHangouts
                 var output = sw.GetCustomerDetails(userId).Result;
                 ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
                 ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-                string path = pppd.CreateDirectoryForPictures();
+                string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
                 var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
                 if (System.IO.File.Exists(filePath))

@@ -122,6 +122,7 @@ namespace WineHangouts
             // place.SetImageResource(Resource.Drawable.placeholder);
             ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             string path = pppd.CreateDirectoryForPictures();
+            //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             Bitmap imageBitmap;
             if (System.IO.File.Exists(filePath))

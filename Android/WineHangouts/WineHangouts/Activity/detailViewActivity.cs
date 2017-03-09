@@ -13,6 +13,8 @@ using Android.Graphics;
 using Android.Util;
 using Hangout.Models;
 using System.Net;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace WineHangouts
 {
@@ -20,6 +22,12 @@ namespace WineHangouts
     public class detailViewActivity : Activity, IPopupParent
     {
         public int sku;
+        Button downloadButton;
+        WebClient webClient;
+        ImageView HighImageWine;
+        ImageView imgWine;
+        int wineid;
+        //LinearLayout progressLayout;
         List<ItemDetails> DetailsArray;
         List<Review> ReviewArray;
 
@@ -32,7 +40,7 @@ namespace WineHangouts
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                 ServiceWrapper svc = new ServiceWrapper();
-                int wineid = Intent.GetIntExtra("WineID", 123);
+                wineid = Intent.GetIntExtra("WineID", 123);
                 ItemDetailsResponse myData = new ItemDetailsResponse();
                 ItemReviewResponse SkuRating = new ItemReviewResponse();
 
@@ -52,6 +60,7 @@ namespace WineHangouts
                 TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
                 Vintage.Focusable = false;
                 Vintage.Text = myData.ItemDetails.Vintage.ToString();
+
 
                 TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
                 WineProducer.Focusable = false;
@@ -78,28 +87,23 @@ namespace WineHangouts
                 var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
                 var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
 
-                ImageView imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
+                //imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
+                HighImageWine = FindViewById<ImageView>(Resource.Id.WineImage);
 
-                ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-                string path = pppd.CreateDirectoryForPictures();
-                var filePath = System.IO.Path.Combine(path + "/" + wineid + ".jpg");
-                if (System.IO.File.Exists(filePath))
-                {
-                    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-                    imgWine.SetImageBitmap(imageBitmap);
-                }
-                else
-                {
-                    Bitmap imageBitmap = BlobWrapper.Bottleimages(wineid);
-                    imgWine.SetImageBitmap(imageBitmap);
-                }
-
-
-                imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
-
-
-
-
+                //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                //string path = pppd.CreateDirectoryForPictures();
+                //var filePath = System.IO.Path.Combine(path + "/" + wineid + ".jpg");
+                //if (System.IO.File.Exists(filePath))
+                //{
+                //    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                //    imgWine.SetImageBitmap(imageBitmap);
+                //}
+                //else
+                //{
+                //    Bitmap imageBitmap = BlobWrapper.Bottleimages(wineid);
+                //    imgWine.SetImageBitmap(imageBitmap);
+                //}
+                //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
                 BitmapFactory.Options options = new BitmapFactory.Options
                 {
                     InJustDecodeBounds = false,
@@ -108,8 +112,6 @@ namespace WineHangouts
 
                 };
                 ProgressIndicator.Hide();
-
-
                 Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
             }
             catch (Exception ex)
@@ -122,7 +124,17 @@ namespace WineHangouts
                 dialog.Show();
 
             }
+            downloadButton = FindViewById<Button>(Resource.Id.Download);
+            try
+            {
+                //downloadButton.Enabled = true;
+                downloadButton.Click += downloadAsync;
+                //downloadButton.Enabled = false;
 
+            }
+             
+            catch (Exception e) { }
+            
         }
 
 
@@ -211,6 +223,64 @@ namespace WineHangouts
             reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
             commentsView.Adapter = comments;
             comments.NotifyDataSetChanged();
+        }
+
+        public async void downloadAsync(object sender, System.EventArgs ea)
+        {
+            webClient = new WebClient();
+            var url = new Uri("https://icsintegration.blob.core.windows.net/bottleimagesdetails/"+wineid+".jpg");
+            byte[] imageBytes = null;
+            //progressLayout.Visibility = ViewStates.Visible;
+            try
+            {
+                imageBytes = await webClient.DownloadDataTaskAsync(url);
+            }
+            catch (TaskCanceledException)
+            {
+                //this.progressLayout.Visibility = ViewStates.Gone;
+                return;
+            }
+            catch (Exception exe)
+            {
+                //progressLayout.Visibility = ViewStates.Gone;
+                downloadButton.Click += downloadAsync;
+                //downloadButton.Text = "Download Image";
+                return;
+            }
+
+            try
+            {
+                string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string localFilename = "Wine.png";
+                string localPath = System.IO.Path.Combine(documentsPath, localFilename);
+
+                FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
+                await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
+                Console.WriteLine("Saving image in local path: " + localPath);
+                fs.Close();
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.InJustDecodeBounds = true;
+                await BitmapFactory.DecodeFileAsync(localPath, options);
+
+
+                //options.InSampleSize = options.OutWidth > options.OutHeight ? options.OutHeight / imageView.Height : options.OutWidth / imageView.Width;
+                //options.InJustDecodeBounds = false;
+
+                Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
+                HighImageWine.SetImageBitmap(bitmap);
+            }
+            catch (Exception e)
+            {
+
+
+            }
+
+            //progressLayout.Visibility = ViewStates.Gone;
+            downloadButton.Click += downloadAsync;
+            downloadButton.Enabled = false;
+            HighImageWine.Dispose();
+            //downloadButton.Text = "Download Image";
         }
     }
 

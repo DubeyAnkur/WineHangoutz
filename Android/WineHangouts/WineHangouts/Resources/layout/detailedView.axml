@@ -47,8 +47,13 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                <!--
-                <ImageButton
+                    <ImageView
+                        android:src="@drawable/placeholder_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        android:id="@+id/imgWine12"
+                        android:clickable="false" />
+                <!--<ImageButton
                     android:src="@drawable/placeholder_11"
                     android:id="@+id/imageButton1"
                     android:background="@null" />
@@ -56,13 +61,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="450dp"
                         android:id="@+id/placeholder1"
-                        android:src="@drawable/placeholder_11" />-->
-                    <ImageView
-                        android:src="@drawable/placeholder_11"
+                        android:src="@drawable/placeholder_11" />
+                        <LinearLayout
+                        android:minWidth="25px"
+                        android:minHeight="25px"
                         android:layout_width="match_parent"
-                        android:layout_height="450dp"
-                        android:id="@+id/imgWine12"
-                        android:clickable="false" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/progressLayout"
+                        android:gravity="center">
+                    <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/progressBar1" />
+                    </LinearLayout>-->
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="#ffffff">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="400dp"
+                            android:id="@+id/WineImage"
+                            android:clickable="false"
+                            android:background="@null" />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:id="@+id/Download"
+                            android:background="@null"
+                            android:text="Download"
+                            android:textColor="@android:color/background_dark" />
+                    </FrameLayout>
                 </RelativeLayout>
             </TableRow>
             <TableRow

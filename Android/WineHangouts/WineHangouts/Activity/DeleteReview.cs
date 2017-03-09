@@ -42,8 +42,10 @@ namespace WineHangouts
                 await sw.DeleteReview(review);
                 myDialog.Dismiss();
             };
-
-
+            Cancel.Click += delegate
+            {
+                myDialog.Dismiss();
+            };
 
             return view;
         }

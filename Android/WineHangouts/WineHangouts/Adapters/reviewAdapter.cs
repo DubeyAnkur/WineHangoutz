@@ -57,22 +57,26 @@ namespace WineHangouts
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
-            //Bitmap imageBitmap = bvb.ProfileImages(myItems[position].ReviewUserId);
-            //if (imageBitmap == null)
-            //{
-            //    Image.SetImageResource(Resource.Drawable.user);
-            //}
+
+            Bitmap imageBitmap = BlobWrapper.ProfileImages(myItems[position].ReviewUserId);
+            if (imageBitmap == null)
+            {
+                Image.SetImageResource(Resource.Drawable.user);
+            }
             ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             string path = pppd.CreateDirectoryForPictures();
-             var filePath = System.IO.Path.Combine(path + "/" + myItems[position].ReviewUserId + ".jpg");
+            //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            //It's taking lot of time to load user images so giving wine id, after completing compressing image we will give reviewuserid
+            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             if (System.IO.File.Exists(filePath))
             {
-                Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                imageBitmap = BitmapFactory.DecodeFile(filePath);
                 Image.SetImageBitmap(imageBitmap);
             }
             else
             {
-                Bitmap imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+                //It's taking lot of time to load user images so giving wine id, after completing compressing image we will give reviewuserid
+                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
                 Image.SetImageBitmap(imageBitmap);
             }
             Name.Text = myItems[position].Username;
@@ -85,6 +89,6 @@ namespace WineHangouts
             return row;
         }
 
-        
+
     }
 }

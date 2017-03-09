@@ -67,6 +67,8 @@ namespace WineHangouts
                
 
                 int WineID = myArr[args.Position].WineId;
+                //detailViewActivity dva = new detailViewActivity();
+                //dva.downloadAsync(sender, WineID);
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID", WineID);
                 StartActivity(intent);

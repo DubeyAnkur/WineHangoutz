@@ -45,6 +45,7 @@ namespace WineHangouts
             Bitmap imageBitmap;
             ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             Path = pppd.CreateDirectoryForPictures();
+            //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
             if (wineImages.Contains(wineid))
             {
@@ -74,17 +75,18 @@ namespace WineHangouts
         public static void DownloadImages(int userid)
         {
             ServiceWrapper sw = new ServiceWrapper();
-        //    ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-       
-            App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "winehangouts/wineimages");
+            //    ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 
-            if (!App._dir.Exists())
-            {
-                App._dir.Mkdirs();
-            }
-            string path = App._dir.ToString();
-            
+            //App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "winehangouts/wineimages");
+
+            //if (!App._dir.Exists())
+            //{
+            //    App._dir.Mkdirs();
+            //}
+            //string path = App._dir.ToString();
+
             //string path = pppd.CreateDirectoryForPictures();
+            string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             int storeid = 3;
             DirectoryInfo di = new DirectoryInfo(path);
 
@@ -161,6 +163,14 @@ namespace WineHangouts
         //    }
 
         //}
+        //async void downloadAsync(object sender, System.EventArgs ea) {
+        //}
+
+
+
+
+
+
         public static Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;

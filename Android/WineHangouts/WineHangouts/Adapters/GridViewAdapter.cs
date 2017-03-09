@@ -157,25 +157,23 @@ namespace WineHangouts
             }
 
 
-            //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-            //string path = pppd.CreateDirectoryForPictures();
-            //var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            string path = pppd.CreateDirectoryForPictures();
+            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             Bitmap imageBitmap;
 
 
 
-            //if (System.IO.File.Exists(filePath))
-            //{
-            //    imageBitmap = BitmapFactory.DecodeFile(filePath);
-            //}
-            //else
-            //{
-           // BlobWrapper.Bottleimages(222);
+            if (System.IO.File.Exists(filePath))
+            {
+                imageBitmap = BitmapFactory.DecodeFile(filePath);
+            }
+            else
+            {
+                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+            }
 
-            imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
-            //}
 
-         
 
             var place = new FrameLayout.LayoutParams(650, 650);
             place.LeftMargin = -70; //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
