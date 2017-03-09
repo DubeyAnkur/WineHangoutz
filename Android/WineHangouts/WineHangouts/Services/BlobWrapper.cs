@@ -21,46 +21,48 @@ namespace WineHangouts
     public static class BlobWrapper
     {
         static HttpClient client;
-        //static Hashtable wineImages;
+        static Hashtable wineImages;
         static string Path;
         static BlobWrapper()
         {
             client = new HttpClient();
-            //client.MaxResponseContentBufferSize = 256000;
-            //wineImages = new Hashtable();
-            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-            Path = pppd.CreateDirectoryForPictures();
+            client.MaxResponseContentBufferSize = 256000;
+            wineImages = new Hashtable();
+           
         }
 
         public static string ServiceURL
         {
             get
             {
-
                 string host = "https://icsintegration.blob.core.windows.net/";
                 return host;
-
             }
 
         }
         public static Bitmap Bottleimages(int wineid)
         {
-            //if (wineImages.Contains(wineid))
-            //{
-            //    return (Bitmap)wineImages[wineid];
-            //}
+            Bitmap imageBitmap;
+            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            Path = pppd.CreateDirectoryForPictures();
 
-            //var filePath = System.IO.Path.Combine(Path + "/" + wineid + ".jpg");
-            //if (System.IO.File.Exists(filePath))
-            //{
-            //    Bitmap imageFile = BitmapFactory.DecodeFile(filePath);
-            //    wineImages.Add(wineid, imageFile);
-            //}
+            if (wineImages.Contains(wineid))
+            {
+                return (Bitmap)wineImages[wineid];
+            }
 
-            //var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
-            //Bitmap imageBitmap = GetImageBitmapFromUrl(uri.ToString());
-            //wineImages.Add(wineid, imageBitmap);
-            Bitmap imageBitmap= null;
+            var filePath = System.IO.Path.Combine(Path + "/" + wineid + ".jpg");
+            if (System.IO.File.Exists(filePath))
+            {
+                imageBitmap = BitmapFactory.DecodeFile(filePath);
+                wineImages.Add(wineid, imageBitmap);
+            }
+            else
+            {
+                var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
+                imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+                wineImages.Add(wineid, imageBitmap);
+            }
             return imageBitmap;
         }
         public static Bitmap ProfileImages(int userid)

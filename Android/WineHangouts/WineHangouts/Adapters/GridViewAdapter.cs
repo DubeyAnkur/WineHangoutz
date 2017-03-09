@@ -186,6 +186,7 @@ namespace WineHangouts
             imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, Convert.ToInt32(imageBitmap.Width * ratio), 650, true);
             //imageBitmap.Recycle();
             imgWine.SetImageBitmap(imageBitmap);
+            imageBitmap.Dispose();
 
 
             var place1 = new FrameLayout.LayoutParams(520, 520);
