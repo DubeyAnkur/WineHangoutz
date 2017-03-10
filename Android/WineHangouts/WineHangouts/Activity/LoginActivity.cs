@@ -97,12 +97,24 @@ namespace WineHangouts
                 }
                 catch(Exception exception)
                 {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("We're under maintainence");
-                    aler.SetNegativeButton("Ok", delegate { });
-                    Dialog dialog = aler.Create();
-                    dialog.Show();
+                    if (exception.Message.ToString() == "One or more errors occurred.")
+                    {
+                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                        aler.SetTitle("Sorry");
+                        aler.SetMessage("Please check your internet connection");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog = aler.Create();
+                        dialog.Show();
+                    }
+                    else {
+                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                        aler.SetTitle("Sorry");
+                        aler.SetMessage("We're under maintanence");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog = aler.Create();
+                        dialog.Show();
+
+                    }
                     
                 }
              

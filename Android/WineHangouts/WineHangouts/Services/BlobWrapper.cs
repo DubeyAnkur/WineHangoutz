@@ -77,16 +77,16 @@ namespace WineHangouts
             ServiceWrapper sw = new ServiceWrapper();
             //    ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 
-            //App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "winehangouts/wineimages");
+            App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures), "winehangouts/wineimages");
 
-            //if (!App._dir.Exists())
-            //{
-            //    App._dir.Mkdirs();
-            //}
-            //string path = App._dir.ToString();
-
+            if (!App._dir.Exists())
+            {
+                App._dir.Mkdirs();
+            }
+            string path = App._dir.ToString();
+            //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             //string path = pppd.CreateDirectoryForPictures();
-            string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             int storeid = 3;
             DirectoryInfo di = new DirectoryInfo(path);
 

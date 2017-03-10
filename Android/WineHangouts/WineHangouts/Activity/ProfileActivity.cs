@@ -19,6 +19,8 @@ using System.IO;
 using Hangout.Models;
 using Android.Media;
 using System.Threading;
+using System.Drawing;
+//using System.Drawing.Drawing2D;
 
 namespace WineHangouts
 {
@@ -40,24 +42,40 @@ namespace WineHangouts
                 var output = sw.GetCustomerDetails(userId).Result;
                 ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
                 ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-                string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string path = pppd.CreateDirectoryForPictures();
+                //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
                 var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
                 if (System.IO.File.Exists(filePath))
                 {
                     Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                    if(imageBitmap==null)
+                    {
+                        propicimage.SetImageResource(Resource.Drawable.user);
+                    //propicimage.SetImageBitmap(imageBitmap);
+                    }
+                    else
+                    { 
                     propicimage.SetImageBitmap(imageBitmap);
+                    }
                 }
                 else
                 {
                     Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
-                    propicimage.SetImageBitmap(imageBitmap);
+                    if (imageBitmap == null)
+                    {
+                        propicimage.SetImageResource(Resource.Drawable.user);
+                    }
+                    else
+                    {
+                        propicimage.SetImageBitmap(imageBitmap);
+                    }
                 }
 
                 ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
 
-                changepropic.SetImageResource(Resource.Drawable.dpreplacer);
-                changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
+                //changepropic.SetImageResource(Resource.Drawable.dpreplacer);
+                //changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
                 changepropic.Click += delegate
                 {
                     Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
@@ -147,59 +165,57 @@ namespace WineHangouts
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             var output = svc.GetCustomerDetails(userId).Result;
 
-            Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
+            Android.Graphics.Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
         }
-        //public void ResizeImage(string sourceFile, string targetFile, float maxWidth, float maxHeight)
+
+        public Bitmap resizeAndRotate(Bitmap image, int width, int height)
+        {
+            var matrix = new Matrix();
+            var scaleWidth = ((float)width) / image.Width;
+            var scaleHeight = ((float)height) / image.Height;
+            matrix.PostRotate(90);
+            matrix.PreScale(scaleWidth, scaleHeight);
+            return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
+        }
+
+
+        //public void  ResizeImage(Image image, int width, int height, int desiredWidth, int desiredHeight)
         //{
-        //    if (!Java.IO.Exists(targetFile) && File.Exists(sourceFile))
+        //    //float ratio = ((float)240) / height;
+        //    //ratio = ratio / 2;
+        //    float nPercent = 0;
+        //    float nPercentW = 0;
+        //    float nPercentH = 0;
+
+        //    nPercentW = ((float)desiredWidth / (float)width);
+        //    nPercentH = ((float)desiredHeight / (float)height);
+
+        //    if (nPercentH < nPercentW)
+        //        nPercent = nPercentH;
+        //    else
+        //        nPercent = nPercentW;
+        //    float ratio = nPercent;
+        //    var destRect = new System.Drawing.Rectangle(0, 0, Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
+        //    var destImage = new System.Drawing.biBitmap(Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
+
+        //    destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+        //    using (var graphics = Graphics.FromImage(destImage))
         //    {
-        //        // First decode with inJustDecodeBounds=true to check dimensions
-        //        var options = new BitmapFactory.Options()
+        //        //graphics.CompositingMode = CompositingMode.SourceCopy;
+        //        //graphics.CompositingQuality = CompositingQuality.HighSpeed;
+        //        //graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //        //graphics.SmoothingMode = SmoothingMode.HighQuality;
+        //        //graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+        //        using (var wrapMode = new ImageAttributes())
         //        {
-        //            InJustDecodeBounds = false,
-        //            InPurgeable = true,
-        //        };
-
-        //        using (var image = BitmapFactory.DecodeFile(sourceFile, options))
-        //        {
-        //            if (image != null)
-        //            {
-        //                var sourceSize = new Size((int)image.GetBitmapInfo().Height, (int)image.GetBitmapInfo().Width);
-
-        //                var maxResizeFactor = Math.Min(maxWidth / sourceSize.Width, maxHeight / sourceSize.Height);
-
-        //                string targetDir = System.IO.Path.GetDirectoryName(targetFile);
-        //                if (!Directory.Exists(targetDir))
-        //                    Directory.CreateDirectory(targetDir);
-
-        //                if (maxResizeFactor > 0.9)
-        //                {
-        //                    File.Copy(sourceFile, targetFile);
-        //                }
-        //                else
-        //                {
-        //                    var width = (int)(maxResizeFactor * sourceSize.Width);
-        //                    var height = (int)(maxResizeFactor * sourceSize.Height);
-
-        //                    using (var bitmapScaled = Bitmap.CreateScaledBitmap(image, height, width, true))
-        //                    {
-        //                        using (Stream outStream = File.Create(targetFile))
-        //                        {
-        //                            if (targetFile.ToLower().EndsWith("png"))
-        //                                bitmapScaled.Compress(Bitmap.CompressFormat.Png, 100, outStream);
-        //                            else
-        //                                bitmapScaled.Compress(Bitmap.CompressFormat.Jpeg, 95, outStream);
-        //                        }
-        //                        bitmapScaled.Recycle();
-        //                    }
-        //                }
-
-        //                image.Recycle();
-        //            }
-        //            else
-        //                Log.E("Image scaling failed: " + sourceFile);
+        //            wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+        //            graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
         //        }
         //    }
+
+
         //}
     }
 

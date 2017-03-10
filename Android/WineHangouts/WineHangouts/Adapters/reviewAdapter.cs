@@ -67,7 +67,7 @@ namespace WineHangouts
             string path = pppd.CreateDirectoryForPictures();
             //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             //It's taking lot of time to load user images so giving wine id, after completing compressing image we will give reviewuserid
-            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].ReviewUserId + ".jpg");
             if (System.IO.File.Exists(filePath))
             {
                 imageBitmap = BitmapFactory.DecodeFile(filePath);
@@ -76,8 +76,15 @@ namespace WineHangouts
             else
             {
                 //It's taking lot of time to load user images so giving wine id, after completing compressing image we will give reviewuserid
-                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+                imageBitmap = BlobWrapper.ProfileImages(myItems[position].ReviewUserId);
+                if(imageBitmap==null)
+                {
+                    Image.SetImageResource(Resource.Drawable.user);
+                }
+                else
+                { 
                 Image.SetImageBitmap(imageBitmap);
+                }
             }
             Name.Text = myItems[position].Username;
             Name.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;

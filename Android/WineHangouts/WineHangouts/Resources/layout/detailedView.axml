@@ -92,7 +92,8 @@
                             android:id="@+id/Download"
                             android:background="@null"
                             android:text="Download"
-                            android:textColor="@android:color/background_dark" />
+                            android:textColor="@android:color/background_dark"
+                            android:clickable="true" />
                     </FrameLayout>
                 </RelativeLayout>
             </TableRow>

@@ -37,10 +37,12 @@ namespace WineHangouts
             try
             {
                 SetContentView(Resource.Layout.detailedView);
+                wineid = Intent.GetIntExtra("WineID", 123);
+                downloadAsync(this,System.EventArgs.Empty, wineid);
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                 ServiceWrapper svc = new ServiceWrapper();
-                wineid = Intent.GetIntExtra("WineID", 123);
+                
                 ItemDetailsResponse myData = new ItemDetailsResponse();
                 ItemReviewResponse SkuRating = new ItemReviewResponse();
 
@@ -125,15 +127,15 @@ namespace WineHangouts
 
             }
             downloadButton = FindViewById<Button>(Resource.Id.Download);
-            try
-            {
-                //downloadButton.Enabled = true;
-                downloadButton.Click += downloadAsync;
-                //downloadButton.Enabled = false;
+            //try
+            //{
+            //    //downloadButton.Enabled = true;
+            //    downloadButton.Click += downloadAsync;
+            //    //downloadButton.Enabled = false;
 
-            }
+            //}
              
-            catch (Exception e) { }
+            //catch (Exception e) { }
             
         }
 
@@ -225,7 +227,7 @@ namespace WineHangouts
             comments.NotifyDataSetChanged();
         }
 
-        public async void downloadAsync(object sender, System.EventArgs ea)
+        public async void downloadAsync(object sender, System.EventArgs ea,int wineid)
         {
             webClient = new WebClient();
             var url = new Uri("https://icsintegration.blob.core.windows.net/bottleimagesdetails/"+wineid+".jpg");
@@ -234,6 +236,7 @@ namespace WineHangouts
             try
             {
                 imageBytes = await webClient.DownloadDataTaskAsync(url);
+                
             }
             catch (TaskCanceledException)
             {
@@ -243,7 +246,7 @@ namespace WineHangouts
             catch (Exception exe)
             {
                 //progressLayout.Visibility = ViewStates.Gone;
-                downloadButton.Click += downloadAsync;
+                //downloadButton.Click += downloadAsync;
                 //downloadButton.Text = "Download Image";
                 return;
             }
@@ -268,6 +271,10 @@ namespace WineHangouts
                 //options.InJustDecodeBounds = false;
 
                 Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
+                if(bitmap==null)
+                {
+                    HighImageWine.SetImageResource(Resource.Drawable.wine7);
+                }
                 HighImageWine.SetImageBitmap(bitmap);
             }
             catch (Exception e)
@@ -277,8 +284,8 @@ namespace WineHangouts
             }
 
             //progressLayout.Visibility = ViewStates.Gone;
-            downloadButton.Click += downloadAsync;
-            downloadButton.Enabled = false;
+            //downloadButton.Click += downloadAsync;
+            //downloadButton.Enabled = false;
             HighImageWine.Dispose();
             //downloadButton.Text = "Download Image";
         }

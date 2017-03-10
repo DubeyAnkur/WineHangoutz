@@ -14,22 +14,23 @@ using Android.Views;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
+using System.IO;
 
 namespace WineHangouts
 {
  
 
     public static class App {
-        public static File _file;
-        public static File _dir;     
+        public static Java.IO.File _file;
+        public static Java.IO.File _dir;     
         public static Bitmap bitmap;
        
     }
-   
-    [Activity(Label = "@string/ApplicationName", MainLauncher = false,Theme = "@android:style/Theme.Dialog")]
+
+    [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@android:style/Theme.Dialog")]
     public class ProfilePicturePickDialog : Activity
     {
-       
+
         private ImageView _imageView;
         public string path;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -44,9 +45,24 @@ namespace WineHangouts
             SendBroadcast(mediaScanIntent);
             Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
             Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
-            
+
+            //Bitmap propic = BitmapFactory.DecodeFile(path);
+            //ProfileActivity pa = new ProfileActivity();
+            //Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
+            //try
+            //{
+            //    var filePath = System.IO.Path.Combine(path + "/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg");
+            //    var stream = new FileStream(filePath, FileMode.Create);
+            //    resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+            //    stream.Close();
+            //}
+            //catch(Exception ex)
+            //{
+
+            //}
+            resize();
             UploadProfilePic(path);
-            
+
             GC.Collect();
         }
 
@@ -61,13 +77,13 @@ namespace WineHangouts
                 CreateDirectoryForPictures();
 
                 ImageButton BtnCamera = FindViewById<ImageButton>(Resource.Id.btnCamera);
-               
-               
-               // _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
+
+
+                // _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
                 BtnCamera.Click += TakeAPicture;
             }
             //ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.btnGallery);
-           
+
             //btnGallery.Click += delegate {
             //    Intent intent = new Intent(this, typeof(ProfilePictureGallery));
             //    StartActivity(intent);
@@ -80,8 +96,8 @@ namespace WineHangouts
 
         public string CreateDirectoryForPictures()
         {
-            App._dir = new File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "winehangouts/wineimages");
-            
+            App._dir = new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "winehangouts/wineimages");
+
             if (!App._dir.Exists())
             {
                 App._dir.Mkdirs();
@@ -93,9 +109,29 @@ namespace WineHangouts
         private bool IsThereAnAppToTakePictures()
         {
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            IList<ResolveInfo> availableActivities = 
+            IList<ResolveInfo> availableActivities =
                 PackageManager.QueryIntentActivities(intent, PackageInfoFlags.MatchDefaultOnly);
             return availableActivities != null && availableActivities.Count > 0;
+        }
+
+        public void resize() 
+            {
+
+            Bitmap propic = BitmapFactory.DecodeFile(path);
+            ProfileActivity pa = new ProfileActivity();
+            Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
+            try
+            {
+                var filePath = System.IO.Path.Combine(path);
+                var stream = new FileStream(filePath, FileMode.Create);
+                resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                stream.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         private void TakeAPicture(object sender, EventArgs eventArgs)
@@ -103,7 +139,7 @@ namespace WineHangouts
             Intent intent = new Intent(MediaStore.ActionImageCapture);
 
             
-            App._file = new File(App._dir, String.Format(Convert.ToInt32(CurrentUser.getUserId())+".jpg", Guid.NewGuid()));
+            App._file = new Java.IO.File(App._dir, String.Format(Convert.ToInt32(CurrentUser.getUserId())+".jpg", Guid.NewGuid()));
            path += "/"+CurrentUser.getUserId()+".jpg";
             
 
