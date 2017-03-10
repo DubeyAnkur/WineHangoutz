@@ -121,7 +121,24 @@ namespace WineHangouts
                 review.RatingStars = Convert.ToInt32(custRating.Rating);
                 review.IsActive = true;
                 review.WineId = WineId;
-                await sw.InsertUpdateReview(review);
+                try
+                {
+                    await sw.InsertUpdateReview(review);
+                }
+                catch (Exception exe)
+                {
+                    //string msg=exe.Message.ToString();
+                    //if (msg == "An error occurred while sending the request")
+                    //{
+                    //    Android.Content.Context x;
+                    //    AlertDialog.Builder alert = new AlertDialog.Builder(x);
+                    //    alert.SetTitle("Sorry");
+                    //    alert.SetMessage("We're under maintainence");
+                    //    alert.SetNegativeButton("Ok", delegate { });
+                    //    Dialog dialog = alert.Create();
+                    //    dialog.Show();
+                    //}
+                }
                 ((IPopupParent)Parent).RefreshParent();
                 editDialog.Dismiss();
             };

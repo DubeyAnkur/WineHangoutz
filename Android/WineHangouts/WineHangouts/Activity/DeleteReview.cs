@@ -40,6 +40,7 @@ namespace WineHangouts
                 review.WineId = WineId;
                 review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
                 await sw.DeleteReview(review);
+                 ((IPopupParent)Parent).RefreshParent();
                 myDialog.Dismiss();
             };
             Cancel.Click += delegate

@@ -16,7 +16,7 @@ namespace WineHangouts
     [Activity(Label = "GridViewActivity", MainLauncher = false)]
     public class GridViewActivity : Activity
     {
-
+        public int WineID;
         public string StoreName = "";
         /// <summary>
         /// 
@@ -66,9 +66,9 @@ namespace WineHangouts
             {
                
 
-                int WineID = myArr[args.Position].WineId;
+                WineID = myArr[args.Position].WineId;
                 //detailViewActivity dva = new detailViewActivity();
-                //dva.downloadAsync(sender, WineID);
+                //dva.downloadAsync(sender, args, WineID);
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID", WineID);
                 StartActivity(intent);

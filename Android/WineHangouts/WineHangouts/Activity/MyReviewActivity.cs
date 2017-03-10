@@ -128,7 +128,11 @@ namespace WineHangouts
         //        //var intent = new Intent(this, typeof(detailViewActivity));
         //        //intent.PutExtra("WineID", WineID);
         //        //StartActivity(intent);
+
         //}
+
+        
     }
+
 }
 
