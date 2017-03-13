@@ -14,6 +14,8 @@ using Android.Views;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
+using System.IO;
+using Android.Database;
 
 namespace WineHangouts
 {
@@ -33,12 +35,37 @@ namespace WineHangouts
 
             if (resultCode == Result.Ok)
             {
-                var imageView =
-                    FindViewById<ImageView>(Resource.Id.imageView1);
-                imageView.SetImageURI(data.Data);
-                
+                //var imageView =
+                //    FindViewById<ImageView>(Resource.Id.imageView1);
+                //imageView.SetImageURI(data.Data);
 
-                
+                // new FileInfo(path).Directory.FullName
+              string Path=GetRealPathFromURI(data.Data);
+
+
+                Bitmap propic = BitmapFactory.DecodeFile(Path);
+
+                ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                string dir_path=pppd.CreateDirectoryForPictures();
+                dir_path = dir_path+"/"+Convert.ToInt32(CurrentUser.getUserId()) + ".jpg";
+                ProfileActivity pa = new ProfileActivity();
+                Bitmap resized = pa.Resize(propic, 450, 450);
+                try
+                {
+                    var filePath = System.IO.Path.Combine(dir_path);
+                    var stream = new FileStream(filePath, FileMode.Create);
+                    resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                    stream.Close();
+                    Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
+                    Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
+                    pppd.UploadProfilePic(filePath);
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+
             }
 
 
@@ -59,40 +86,25 @@ namespace WineHangouts
 
 
         }
+        public string GetRealPathFromURI(Uri contentURI)
+        {
+            ICursor cursor = ContentResolver.Query(contentURI, null, null, null, null);
+            cursor.MoveToFirst();
+            string documentId = cursor.GetString(0);
+            documentId = documentId.Split(':')[1];
+            cursor.Close();
 
+            cursor = ContentResolver.Query(
+            Android.Provider.MediaStore.Images.Media.ExternalContentUri,
+            null, MediaStore.Images.Media.InterfaceConsts.Id + " = ? ", new[] { documentId }, null);
+            cursor.MoveToFirst();
+            string path = cursor.GetString(cursor.GetColumnIndex(MediaStore.Images.Media.InterfaceConsts.Data));
+            cursor.Close();
+
+            return path;
+        }
 
         
-
-
-
-        private async void UploadProfilePic(string path)
-        {
-
-            StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-            CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-            CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
-
-            await container.CreateIfNotExistsAsync();
-            //string[] FileEntries = App.System.IO._dir.GetFiles(path);
-
-            //foreach (string FilePath in FileEntries)
-            //{
-            //    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
-            CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".jpg"); //(path);
-
-
-            using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-            {
-
-                await blob.UploadFromStreamAsync(fs);//  .UploadFromFileAsync(path);
-            }
-            //}
-            // await container=
-
-
-
-        }
 
 
     }

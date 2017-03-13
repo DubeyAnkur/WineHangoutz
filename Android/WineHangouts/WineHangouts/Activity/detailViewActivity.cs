@@ -22,7 +22,7 @@ namespace WineHangouts
     public class detailViewActivity : Activity, IPopupParent
     {
         public int sku;
-        Button downloadButton;
+        //Button downloadButton;
         WebClient webClient;
         ImageView HighImageWine;
         ImageView imgWine;
@@ -126,7 +126,7 @@ namespace WineHangouts
                 dialog.Show();
 
             }
-            downloadButton = FindViewById<Button>(Resource.Id.Download);
+            //downloadButton = FindViewById<Button>(Resource.Id.Download);
             //try
             //{
             //    //downloadButton.Enabled = true;

@@ -177,6 +177,14 @@ namespace WineHangouts
             matrix.PreScale(scaleWidth, scaleHeight);
             return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
         }
+        public Bitmap Resize(Bitmap image, int width, int height)
+        {
+            var matrix = new Matrix();
+            var scaleWidth = ((float)width) / image.Width;
+            var scaleHeight = ((float)height) / image.Height;
+            matrix.PreScale(scaleWidth, scaleHeight);
+            return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
+        }
 
 
         //public void  ResizeImage(Image image, int width, int height, int desiredWidth, int desiredHeight)

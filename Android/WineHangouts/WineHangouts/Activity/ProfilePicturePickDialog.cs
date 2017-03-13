@@ -82,12 +82,13 @@ namespace WineHangouts
                 // _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
                 BtnCamera.Click += TakeAPicture;
             }
-            //ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.btnGallery);
+            ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.imgbtnGallery);
 
-            //btnGallery.Click += delegate {
-            //    Intent intent = new Intent(this, typeof(ProfilePictureGallery));
-            //    StartActivity(intent);
-            //};
+            btnGallery.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(ProfilePictureGallery));
+                StartActivity(intent);
+            };
 
 
         }
@@ -149,7 +150,7 @@ namespace WineHangouts
             StartActivityForResult(intent, 0);
         }
 
-        private async void UploadProfilePic(string path)
+        public async void UploadProfilePic(string path)
         {
 
             StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");

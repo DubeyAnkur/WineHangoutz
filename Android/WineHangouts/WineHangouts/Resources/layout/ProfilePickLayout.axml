@@ -9,4 +9,9 @@
         android:layout_height="@dimen/abc_action_bar_default_height_material"
         android:background="@null"
         android:id="@+id/btnCamera" />
+    <ImageButton
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="@dimen/abc_action_bar_default_height_material"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:id="@+id/imgbtnGallery" />
 </LinearLayout>

@@ -28,7 +28,18 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Dummy);
+            SetContentView(Resource.Layout.Dummy_1);
+
+            Button btnGallery = FindViewById<Button>(Resource.Id.btnGallery);
+
+            btnGallery.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(ProfilePictureGallery));
+                StartActivity(intent);
+            };
+
+
+
             ////AsyncDownload asn = new AsyncDownload();
             //ImageView imageView = FindViewById<ImageView>(Resource.Id.imageView1);
             //LinearLayout progressLayout = FindViewById<LinearLayout>(Resource.Id.progressLayout);
@@ -73,7 +84,7 @@ namespace WineHangouts
             //        BitmapFactory.Options options = new BitmapFactory.Options();
             //        options.InJustDecodeBounds = true;
             //        await BitmapFactory.DecodeFileAsync(localPath, options);
-              
+
 
             //    //options.InSampleSize = options.OutWidth > options.OutHeight ? options.OutHeight / imageView.Height : options.OutWidth / imageView.Width;
             //    //options.InJustDecodeBounds = false;
