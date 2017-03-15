@@ -194,6 +194,7 @@
       <DependentUpon>MyReviewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingOverlay.cs" />
+    <Compile Include="DeletePopup.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />

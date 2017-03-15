@@ -93,7 +93,7 @@ namespace WineHangoutz
 		UITextView Comments;
 		UILabel Vintage;
 		UIImageView separator;
-		UIImageView imageView;
+		UIButton imageView;
 		PDRatingView stars;
 		UIButton btnEdit;
 		UIButton btnDelete;
@@ -106,10 +106,16 @@ namespace WineHangoutz
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIImageView();
+			imageView = new UIButton();
 			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			imageView.ContentMode = UIViewContentMode.Center;
 			imageView.ClipsToBounds = true;
+
+			imageView.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				//NavigationController.PushViewController(new DetailViewController(), false);
+				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
+			};
 
 			separator = new UIImageView();
 			WineName = new UITextView()
@@ -167,13 +173,31 @@ namespace WineHangoutz
 				Parent.PresentModalViewController(yourController, false);
 			};
 			btnDelete = new UIButton();
+
+			btnDelete.TouchUpInside += (sender, e) =>
+			{
+				DeletePopup yourController = new DeletePopup(Convert.ToInt32(WineIdLabel.Text));
+				yourController.NavController = NavController;
+				yourController.parent = Parent;
+				yourController.StartsSelected = stars.AverageRating;
+				yourController.Comments = Comments.Text;
+				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
+				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+				//this.PresentViewController(yourController, true, null);
+				Parent.PresentModalViewController(yourController, false);
+			};
+
+
+
+
+
 			WineIdLabel = new UILabel();
 			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
 
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155));
+			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
 			ReviewDate.Text = review.Date.ToString("d");
