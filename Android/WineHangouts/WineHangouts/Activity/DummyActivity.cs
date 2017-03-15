@@ -28,15 +28,15 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Dummy_1);
+            SetContentView(Resource.Layout.Dummy);
 
-            Button btnGallery = FindViewById<Button>(Resource.Id.btnGallery);
+            //Button btnGallery = FindViewById<Button>(Resource.Id.btnGallery);
 
-            btnGallery.Click += delegate
-            {
-                Intent intent = new Intent(this, typeof(ProfilePictureGallery));
-                StartActivity(intent);
-            };
+            //btnGallery.Click += delegate
+            //{
+            //    Intent intent = new Intent(this, typeof(ProfilePictureGallery));
+            //    StartActivity(intent);
+            //};
 
 
 

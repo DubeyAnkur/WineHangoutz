@@ -45,6 +45,7 @@ namespace WineHangouts
                 
                 ItemDetailsResponse myData = new ItemDetailsResponse();
                 ItemReviewResponse SkuRating = new ItemReviewResponse();
+                
 
                 myData = svc.GetItemDetails(wineid).Result;
                 SkuRating = svc.GetItemReviewsByWineID(wineid).Result;

@@ -153,7 +153,7 @@
     <AndroidResource Include="Resources\layout\LandscapeCell.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Dummy_1.axml">
+    <AndroidResource Include="Resources\layout\Dummy.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Resources\layout\ReviewPopup.axml" />
@@ -169,7 +169,7 @@
     <AndroidResource Include="Resources\layout\detailedView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Dummy.axml" />
+    <AndroidResource Include="Resources\layout\MyReviewsCell.axml" />
     <AndroidResource Include="Resources\layout\Fragment.axml" />
     <AndroidResource Include="Resources\layout\LocationLayout.axml" />
     <AndroidResource Include="Resources\layout\ListView.axml" />

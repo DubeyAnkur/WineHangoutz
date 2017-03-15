@@ -9,8 +9,8 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:paddingLeft="25px"
-        android:gravity="center"
-        android:layout_width="match_parent"
+        android:gravity="left"
+        android:layout_width="350.0dp"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout3"
         android:background="@drawable/rounded_corner">

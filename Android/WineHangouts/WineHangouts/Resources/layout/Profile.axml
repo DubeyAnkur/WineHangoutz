@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/relativeLayout1"
             android:layout_margin="5dp">
-            <ImageView
+           <ImageView
                 android:src="@drawable/ic_action_person"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
