@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\AutoCompleteTextActivity.cs" />
     <Compile Include="Activity\LandscapeActivity.cs" />
     <Compile Include="Activity\MyFavoriteAvtivity.cs" />
     <Compile Include="Activity\MyTastingActivity.cs" />
@@ -156,6 +157,7 @@
     <AndroidResource Include="Resources\layout\Dummy.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\AutoCompleteTextLayout.axml" />
     <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
@@ -347,6 +349,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\taste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\WineList.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

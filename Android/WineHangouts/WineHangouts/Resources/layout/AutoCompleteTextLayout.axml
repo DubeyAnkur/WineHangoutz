@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <AutoCompleteTextView
+                android:id="@+id/AutoCompleteInput"
+                android:layout_column="0"
+                android:layout_width="330.5dp"
+                android:hint="Enter Wine Name"/>
+            <ImageButton
+                android:src="@android:drawable/ic_menu_search"
+                android:layout_column="1"
+                android:id="@+id/btnSearch"
+                android:background="@null" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
