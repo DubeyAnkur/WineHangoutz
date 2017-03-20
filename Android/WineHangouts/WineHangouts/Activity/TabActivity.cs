@@ -204,7 +204,7 @@ namespace WineHangouts
 
 
                     Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
-                    Middle.Text = "Wineries";
+                    Middle.Text = "Wineries/Search Helper";
                     Middle.TextSize = 20;
                     Middle.SetTextColor(Color.White);
 
@@ -228,15 +228,18 @@ namespace WineHangouts
                     };
                     Middle.Click += (sender, e) =>
                     {
-                        AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
-                        aler.SetTitle("Wineries Section");
-                        aler.SetMessage("Coming Soon");
-                        aler.SetNegativeButton("Ok", delegate { });
-                        Dialog dialog = aler.Create();
-                        dialog.Show();
+                        //AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                        //aler.SetTitle("Wineries Section");
+                        //aler.SetMessage("Coming Soon");
+                        //aler.SetNegativeButton("Ok", delegate { });
+                        //Dialog dialog = aler.Create();
+                        //dialog.Show();
                         //var intent = new Intent(Activity, typeof(LandscapeActivity));
                         //intent.PutExtra("MyData", "Wineries");
                         //StartActivity(intent);
+                        var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
+                        //intent.PutExtra("MyData", "Wineries");
+                        StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>
                     {
