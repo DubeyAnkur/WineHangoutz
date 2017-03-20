@@ -88,7 +88,7 @@ namespace WineHangouts
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-            //ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.placeholder);
+           // ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.Placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
             RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             rating.Rating = (float)myItems[position].AverageRating;
@@ -112,7 +112,7 @@ namespace WineHangouts
             var metrics = myContext.Resources.DisplayMetrics;
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels/2 - 110; // 110 = 80 + 30
+            heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 110; // 110 = 80 + 30
             heartLP.TopMargin = 5;
             heartImg.LayoutParameters = heartLP;
 
@@ -161,17 +161,21 @@ namespace WineHangouts
             string path = pppd.CreateDirectoryForPictures();
             var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             Bitmap imageBitmap;
+            
 
 
-
-            if (System.IO.File.Exists(filePath))
-            {
-                imageBitmap = BitmapFactory.DecodeFile(filePath);
-            }
-            else
-            {
-                imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
-            }
+            //if (System.IO.File.Exists(filePath))
+            //{
+            //    imageBitmap = BitmapFactory.DecodeFile(filePath);
+            //}
+            //else
+            //{
+            imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+            //}
+            //var place1 = new FrameLayout.LayoutParams(650, 650);
+            //imgPlaceHolder.SetImageResource(Resource.Drawable.placeholder);
+            //place1.LeftMargin = -70;
+            //imgPlaceHolder.LayoutParameters = place1;
 
 
 
@@ -180,15 +184,22 @@ namespace WineHangouts
             imgWine.LayoutParameters = place;
 
 
-            float ratio = (float)650 / imageBitmap.Height;
-            imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, Convert.ToInt32(imageBitmap.Width * ratio), 650, true);
-            //imageBitmap.Recycle();
-            imgWine.SetImageBitmap(imageBitmap);
-            imageBitmap.Dispose();
+            if (imageBitmap != null)
+            {
+                float ratio = (float)650 / imageBitmap.Height;
+                imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, Convert.ToInt32(imageBitmap.Width * ratio), 650, true);
+                //imageBitmap.Recycle();
+                //Canvas canvas = new Canvas(imageBitmap);
+                //imageBitmap.EraseColor(Color.White);
+                //canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
+                //canvas.DrawBitmap(imageBitmap, 0, 0, null);
+                imgWine.SetImageBitmap(imageBitmap);
+                
+                imageBitmap.Dispose();
+                
+            }
 
 
-            var place1 = new FrameLayout.LayoutParams(520, 520);
-            place1.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 430;
 
 
             txtName.Focusable = false;
@@ -196,7 +207,7 @@ namespace WineHangouts
             txtVintage.Focusable = false;
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
-
+            //imgPlaceHolder.Focusable = false;
             return row;
         }
 

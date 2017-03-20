@@ -29,9 +29,9 @@ namespace WineHangouts
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
            
 
-            AddTab("Location", Resource.Drawable.shop, new SampleTabFragment("Location", this));
-            AddTab("My Hangouts", Resource.Drawable.taste, new SampleTabFragment("My Hangouts", this));
-            AddTab("Explore", Resource.Drawable.explore, new SampleTabFragment("Explore", this));
+            AddTab("Location", 1, new SampleTabFragment("Location", this));
+            AddTab("My Hangouts",1, new SampleTabFragment("My Hangouts", this));
+            AddTab("Explore",1, new SampleTabFragment("Explore", this));
 
             if (bundle != null)
                 this.ActionBar.SelectTab(this.ActionBar.GetTabAt(bundle.GetInt("tab")));
@@ -68,8 +68,9 @@ namespace WineHangouts
         }
 
 
-        class SampleTabFragment : Fragment
+      public  class SampleTabFragment : Fragment
         {
+
             string tabName;
             Activity _parent;
             ProgressDialog progress;
@@ -81,7 +82,8 @@ namespace WineHangouts
             {
                 tabName = Name;
                 _parent = parent;
-               // progress = new Android.App.ProgressDialog(_parent);
+                // progress = new Android.App.ProgressDialog(_parent);
+
             }
 
             public override void OnViewCreated(View view, Bundle savedInstanceState)
@@ -163,7 +165,7 @@ namespace WineHangouts
                     Middle.SetTextColor(Color.White);
                     Middle.TextSize = 20;
                     Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
-                    Bottom.Text = "My Favorite";
+                    Bottom.Text = "My Favorites";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
 
@@ -185,7 +187,7 @@ namespace WineHangouts
                     {
                         ProgressIndicator.Show(_parent);
                         var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
-                        intent.PutExtra("MyData", "My Favorite");
+                        intent.PutExtra("MyData", "My Favorites");
                         StartActivity(intent);
                     };
 
@@ -267,7 +269,60 @@ namespace WineHangouts
             MoveTaskToBack(true);
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+        
 
+            switch (item.ItemId)
+            {
+                case Resource.Id.action_settings:
+                    ProgressIndicator.Show(this);
+                    var intent = new Intent(this, typeof(ProfileActivity));
+                    intent.PutExtra("MyData", "Wall Store");
+
+                    StartActivity(intent);
+                    break;
+                case Resource.Id.action_settings1:
+                    ProgressIndicator.Show(this);
+                    var intent1 = new Intent(this, typeof(MyReviewActivity));
+                    intent1.PutExtra("MyData", "Wall Store");
+
+                    StartActivity(intent1);
+                    break;
+
+                case Resource.Id.action_settings2:
+                    MoveTaskToBack(true);
+                    break;
+            }
+            try
+            {
+                if (item.ItemId == Resource.Id.action_settings3)
+                {
+                    ProgressIndicator.Show(this);
+                    StartActivity(typeof(GridViewActivity));
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+           
+            if (item.ItemId == Android.Resource.Id.Home)
+            {
+                Finish();
+                return false;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+
+
+            MenuInflater.Inflate(Resource.Drawable.options_menu, menu);
+
+            return true;
+        }
     }
 
 }

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+  <!--///showAsAction="always" ///-->
+  <item android:id="@+id/action_settings" android:title="Profile" showAsAction="always" />
+  <item android:id="@+id/action_settings1" android:title="MyTastings" showAsAction="always" />
+  <item android:id="@+id/action_settings2" android:title="Exit" showAsAction="always" />
+  <!--/android:showAsAction="ifRoom"/-->
+  <item android:id="@+id/action_settings3" android:title="items" android:showAsAction="ifRoom" />
+</menu>

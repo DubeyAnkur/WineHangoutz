@@ -28,7 +28,7 @@ namespace WineHangouts
                 this.Title = StoreName;
 
                 int StoreId = 0;
-                if (StoreName == "My Favorite")
+                if (StoreName == "My Favorites")
                     StoreId = 1;
                 else if (StoreName == "Point Pleasent Store")
                     StoreId = 2;

@@ -64,6 +64,9 @@ namespace WineHangouts
                 imageBitmap = GetImageBitmapFromUrl(uri.ToString());
                 wineImages.Add(wineid, imageBitmap);
             }
+            //Canvas canvas = new Canvas(imageBitmap);
+            //canvas.DrawColor(Color.White);
+            //canvas.DrawBitmap(imageBitmap, 0, 0, null);
             return imageBitmap;
         }
         public static Bitmap ProfileImages(int userid)

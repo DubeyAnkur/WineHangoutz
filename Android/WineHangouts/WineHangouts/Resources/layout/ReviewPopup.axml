@@ -16,6 +16,8 @@
         android:stepSize="1.0"
         android:numStars="5"
         android:rating="3.5"
+        android:progressTint="@android:color/holo_green_dark"
+        android:progressBackgroundTint="#808080"
         android:isIndicator="false" />
     <EditText
         android:inputType="textMultiLine"
