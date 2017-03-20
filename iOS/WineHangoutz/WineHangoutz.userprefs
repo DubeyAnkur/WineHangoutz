@@ -1,29 +1,18 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/Info.plist">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
     <Files>
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="47" Column="10" />
-      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="33" Column="32" />
-      <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="12" Column="15" />
-      <File FileName="WineHangoutz/PopupView.cs" Line="130" Column="1" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="106" Column="37" />
-      <File FileName="WineHangoutz/SimpleControllerViewController.cs" Line="80" Column="15" />
-      <File FileName="WineHangoutz/CollectionViewCell.cs" Line="25" Column="33" />
-      <File FileName="WineHangoutz/LineLayout.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="32" Column="1" />
-      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="33" Column="4" />
-      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="154" Column="6" />
-      <File FileName="WineHangoutz/Info.plist" />
+      <File FileName="WineHangoutz/RatingCellView.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="212" Column="4" />
+      <File FileName="WineHangoutz/DeletePopup.cs" Line="89" Column="35" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="107" Column="38" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/CollectionViewCell.cs" line="21" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PopupView.cs" line="130" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
-  <AuthorInfo Name="Mohana Indukuri" Email="development@savvyitsol.com" Copyright="(c) Savvy IT Solutions Private Limited" Company="" Trademark="" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.0CE5DE0F-63D9-442A-ADC6-CBBBF2F707C4" />
+  <MultiItemStartupConfigurations />
 </Properties>

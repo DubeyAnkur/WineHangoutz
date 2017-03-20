@@ -18,7 +18,7 @@ namespace WineHangoutz {
 		public string RegPrice = "$9.99";
 		public decimal averageRating = 3.3m;
 		public string WineId = "0";
-
+		public Item myItem;
 
 		[Export ("initWithFrame:")]
 		public APLCollectionViewCell (CGRect frame) : base (frame)
@@ -60,8 +60,8 @@ namespace WineHangoutz {
 				NavigationController.PushViewController(new SKUDetailView(WineId), false);
 			};
 
-			box.Height = 20;
-			box.Width = 20;
+			box.Height = 25;
+			box.Width = 25;
 			box.X = (Bounds.Width - 25);
 			box.Y = 5;
 			heartImage = new UIButton(box);
@@ -82,11 +82,13 @@ namespace WineHangoutz {
 				{
 					heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 					temp.Tag = 1;
+					myItem.IsLike = true;
 				}
 				else
 				{
 					heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 					temp.Tag = 0;
+					myItem.IsLike = false;
 				}
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				SKULike like = new SKULike();
@@ -95,7 +97,6 @@ namespace WineHangoutz {
 				like.Liked = Convert.ToBoolean(temp.Tag);
 				ServiceWrapper sw = new ServiceWrapper();
 				await sw.InsertUpdateLike(like);
-
 			};
 
 			CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
