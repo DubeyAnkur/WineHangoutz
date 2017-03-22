@@ -50,16 +50,16 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="Card # or Email or Phone:"
+        android:text="Enter your phone number"
         android:textColor="#000000"
         android:textSize="23dp"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:typeface="sans" />
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/MobileNumber"
         android:layout_below="@+id/lblPassword"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:layout_height="30.5dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
@@ -74,7 +74,8 @@
         android:layout_marginTop="4.0dp"
         android:layout_marginBottom="4dp"
         android:textColorHint="#aaa"
-        android:background="@android:drawable/editbox_background" />
+        android:background="@android:drawable/editbox_background"
+        android:maxLength="10" />
     <LinearLayout
         android:id="@+id/linearLayoutBtns"
         android:layout_below="@+id/txtPassword"

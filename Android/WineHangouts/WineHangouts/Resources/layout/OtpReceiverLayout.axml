@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/relativeLayout1">
+    <TextView
+        p1:text="Please enter OTP(One Time Password)"
+        p1:textAppearance="?android:attr/textAppearanceMedium"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/textView1"
+        p1:layout_centerHorizontal="true"
+        p1:layout_centerInParent="true" />
+    <EditText
+        p1:inputType="number"
+        p1:id="@+id/txtOtp"
+        p1:layout_below="@id/textView1"
+        p1:layout_height="wrap_content"
+        p1:layout_width="wrap_content"
+        p1:hint="1 2 3 4"
+        p1:textColor="@android:color/black"
+        p1:paddingLeft="5dp"
+        p1:paddingTop="1dp"
+        p1:textSize="25dp"
+        p1:paddingBottom="1dp"
+        p1:typeface="sans"
+        p1:layout_marginTop="4dp"
+        p1:layout_marginBottom="4dp"
+        p1:textColorHint="@android:color/darker_gray"
+        p1:background="@android:drawable/editbox_background"
+        p1:maxLength="4"
+        p1:layout_centerHorizontal="true" />
+    <Button
+        p1:text="Verify"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:layout_below="@id/txtOtp"
+        p1:id="@+id/btnVerify"
+        p1:layout_centerHorizontal="true" />
+</RelativeLayout>

@@ -12,6 +12,7 @@ using Android.Widget;
 using System.Threading;
 using System.Threading.Tasks;
 using Hangout.Models;
+using Android.Telephony;
 
 namespace WineHangouts
 
@@ -20,7 +21,7 @@ namespace WineHangouts
     public class LoginActivity : Activity
 
     {
-        
+        public string otp = "";
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -30,6 +31,7 @@ namespace WineHangouts
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
+            EditText txtUserNumber = FindViewById<EditText>(Resource.Id.MobileNumber);
             
             ServiceWrapper svc = new ServiceWrapper();
             //new Thread(new ThreadStart(delegate
@@ -44,12 +46,14 @@ namespace WineHangouts
             TaskA.Start();
 
 
-            if (CurrentUser.getUserName() == null || CurrentUser.getUserName() == "")
+            if (CurrentUser.getUserName() == null ||
+                CurrentUser.getUserName() == "" )
             {
                 // Do nothing
             }
             else
             {
+
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
 
@@ -63,65 +67,88 @@ namespace WineHangouts
                 //2. If it returns 1 save Username and go to Tab Activity.
                 //3. Else Show message, incorrect username.
                 //
-                if(username.Text=="")
+                if (username.Text == "" || txtUserNumber.Text == "")
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
                     aler.SetTitle("Sorry");
-                    aler.SetMessage("Enter user name");
+                    aler.SetMessage("Enter proper details");
                     aler.SetNegativeButton("Ok", delegate { });
                     Dialog dialog = aler.Create();
                     dialog.Show();
                     return;
 
                 }
-                CustomerResponse authen = new CustomerResponse();
-                try
+                else
                 {
-                   authen = svc.AuthencateUser(username.Text).Result;
-                    if (authen.customer != null && authen.customer.CustomerID != 0)
-                    {
-                        CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
-                        Intent intent = new Intent(this, typeof(TabActivity));
-                        StartActivity(intent);
+                    SendSmsgs(txtUserNumber.Text);
+                    var intent = new Intent(this, typeof(VerificationActivity));
+                    intent.PutExtra("otp", otp);
+                    intent.PutExtra("username", username.Text);
+                    StartActivity(intent);
 
-                    }
-                    else
-                    {
-                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                        aler.SetTitle("Sorry");
-                        aler.SetMessage("Incorrect Details");
-                        aler.SetNegativeButton("Ok", delegate { });
-                        Dialog dialog = aler.Create();
-                        dialog.Show();
-                    };
                 }
-                catch(Exception exception)
-                {
-                    if (exception.Message.ToString() == "One or more errors occurred.")
-                    {
-                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                        aler.SetTitle("Sorry");
-                        aler.SetMessage("Please check your internet connection");
-                        aler.SetNegativeButton("Ok", delegate { });
-                        Dialog dialog = aler.Create();
-                        dialog.Show();
-                    }
-                    else {
-                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                        aler.SetTitle("Sorry");
-                        aler.SetMessage("We're under maintanence");
-                        aler.SetNegativeButton("Ok", delegate { });
-                        Dialog dialog = aler.Create();
-                        dialog.Show();
+                //CustomerResponse authen = new CustomerResponse();
+                //try
+                //{
+                //    authen = svc.AuthencateUser(username.Text).Result;
+                //    if (authen.customer != null && authen.customer.CustomerID != 0)
+                //    {
+                //        CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
+                //        Intent intent = new Intent(this, typeof(TabActivity));
+                //        StartActivity(intent);
 
-                    }
+                //    }
+                //    else
+                //    {
+                //        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                //        aler.SetTitle("Sorry");
+                //        aler.SetMessage("Incorrect Details");
+                //        aler.SetNegativeButton("Ok", delegate { });
+                //        Dialog dialog = aler.Create();
+                //        dialog.Show();
+                //    };
+                //}
+                //catch(Exception exception)
+                //{
+                //    if (exception.Message.ToString() == "One or more errors occurred.")
+                //    {
+                //        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                //        aler.SetTitle("Sorry");
+                //        aler.SetMessage("Please check your internet connection");
+                //        aler.SetNegativeButton("Ok", delegate { });
+                //        Dialog dialog = aler.Create();
+                //        dialog.Show();
+                //    }
+                //    else {
+                //        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                //        aler.SetTitle("Sorry");
+                //        aler.SetMessage("We're under maintanence");
+                //        aler.SetNegativeButton("Ok", delegate { });
+                //        Dialog dialog = aler.Create();
+                //        dialog.Show();
+
+                //    }
                     
-                }
+                //}
              
 
             };                 
 
             
+        }
+        private void SendSmsgs(string userNumber)
+        {
+            otp = RandomString(4);
+            int otpcount = otp.Count();
+            SmsManager.Default.SendTextMessage(userNumber.ToString(), null, "Your winehangouts Otp is:" + otp, null, null);
+            //otps.Add(otp);
+        }
+        private System.Random random = new System.Random();
+        public string RandomString(int length)
+        {
+            const string chars = "0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
