@@ -1485,8 +1485,8 @@ namespace WineHangouts
 			// aapt resource value: 0x7f02005b
 			public const int myprofile = 2130837595;
 			
-			// aapt resource value: 0x7f020077
-			public const int notification_template_icon_bg = 2130837623;
+			// aapt resource value: 0x7f02007a
+			public const int notification_template_icon_bg = 2130837626;
 			
 			// aapt resource value: 0x7f02005c
 			public const int options_menu = 2130837596;
@@ -1540,34 +1540,43 @@ namespace WineHangouts
 			public const int shop = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int taste = 2130837613;
+			public const int star1 = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int Tes = 2130837614;
+			public const int star2 = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int user = 2130837615;
+			public const int star3 = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int wine1 = 2130837616;
+			public const int taste = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int wine6 = 2130837617;
+			public const int Tes = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int wine7 = 2130837618;
+			public const int user = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int wine_review = 2130837619;
+			public const int wine1 = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int winereview_1 = 2130837620;
+			public const int wine6 = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int winereviews = 2130837621;
+			public const int wine7 = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int winetasting = 2130837622;
+			public const int wine_review = 2130837622;
+			
+			// aapt resource value: 0x7f020077
+			public const int winereview_1 = 2130837623;
+			
+			// aapt resource value: 0x7f020078
+			public const int winereviews = 2130837624;
+			
+			// aapt resource value: 0x7f020079
+			public const int winetasting = 2130837625;
 			
 			static Drawable()
 			{

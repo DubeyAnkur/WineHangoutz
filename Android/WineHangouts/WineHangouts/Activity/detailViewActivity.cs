@@ -15,11 +15,12 @@ using Hangout.Models;
 using System.Net;
 using System.Threading.Tasks;
 using System.IO;
+using Android.Support;
 
 namespace WineHangouts
 {
     [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/icon")]
-    public class detailViewActivity : Activity, IPopupParent
+    public class detailViewActivity : Activity, IPopupParent 
     {
         public int sku;
         //Button downloadButton;

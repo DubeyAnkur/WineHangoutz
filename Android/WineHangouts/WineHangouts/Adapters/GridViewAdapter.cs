@@ -128,10 +128,14 @@ namespace WineHangouts
             {
                 heartImg.SetImageResource(Resource.Drawable.heart_empty);
             }
+
+            heartImg.Tag = position;
+
             if (convertView == null)
             {
                 heartImg.Click += async delegate
                 {
+                    int actualPosition = Convert.ToInt32(heartImg.Tag);
                     bool x;
                     if (count == false)
                     {
@@ -147,10 +151,10 @@ namespace WineHangouts
                     }
                     SKULike like = new SKULike();
                     like.UserID = Convert.ToInt32(CurrentUser.getUserId());
-                    like.SKU = Convert.ToInt32(myItems[position].SKU);
+                    like.SKU = Convert.ToInt32(myItems[actualPosition].SKU);
                     like.Liked = x;
-                    myItems[position].IsLike = x;
-                    like.WineId = myItems[position].WineId;
+                    myItems[actualPosition].IsLike = x;
+                    like.WineId = myItems[actualPosition].WineId;
                     ServiceWrapper sw = new ServiceWrapper();
                     await sw.InsertUpdateLike(like);
                 };

@@ -247,6 +247,7 @@
                     android:textSize="30dp"
                     android:textColor="@android:color/background_dark" />
             </TableRow>
+         
         <!--<TableRow
                 android:id="@+id/tableRow9"
                 android:gravity="left"

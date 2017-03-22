@@ -302,7 +302,7 @@ namespace WineHangouts
                 if (item.ItemId == Resource.Id.action_settings3)
                 {
                     ProgressIndicator.Show(this);
-                    StartActivity(typeof(GridViewActivity));
+                    StartActivity(typeof(AutoCompleteTextActivity));
                 }
             }
 

@@ -48,6 +48,7 @@ namespace WineHangouts
                     lines.Add(line);
                 }
             }
+            ProgressIndicator.Hide();
             string[] wordlist = lines.ToArray();
             ArrayAdapter dictionaryAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, wordlist);
             autocompleteTextView.Adapter = dictionaryAdapter;

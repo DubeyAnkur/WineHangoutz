@@ -20,8 +20,6 @@
   <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
     <item name="android:background">#800080</item>
     <item name="colorAccent">@color/Tab_Highlighter</item>
-    
-    
-
   </style>
+ 
 </resources>
