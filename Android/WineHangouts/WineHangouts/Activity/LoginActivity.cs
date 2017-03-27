@@ -142,6 +142,8 @@ namespace WineHangouts
             int otpcount = otp.Count();
             SmsManager.Default.SendTextMessage(userNumber.ToString(), null, "Your winehangouts Otp is:" + otp, null, null);
             //otps.Add(otp);
+
+            //string httpreq="http://bhashsms.com/api/sendmsg.php?user=success&pass=********&sender=WineHangouts&phone=" + userNumber + "&text=" + otp + "&priority=dnd&stype=unicode";
         }
         private System.Random random = new System.Random();
         public string RandomString(int length)
