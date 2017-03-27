@@ -1,18 +1,14 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ProfileViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/RatingCellView.cs" Line="1" Column="1" />
-      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="212" Column="4" />
-      <File FileName="WineHangoutz/DeletePopup.cs" Line="89" Column="35" />
-      <File FileName="WineHangoutz/PopupView.cs" Line="107" Column="38" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.0CE5DE0F-63D9-442A-ADC6-CBBBF2F707C4" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
   <MultiItemStartupConfigurations />
 </Properties>

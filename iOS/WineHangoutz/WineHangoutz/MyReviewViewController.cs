@@ -9,11 +9,12 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-    public partial class MyReviewViewController : UITableViewController, IPopupParent
-    {
-        public MyReviewViewController (IntPtr handle) : base (handle)
-        {
-        }
+	public partial class MyReviewViewController : UITableViewController, IPopupParent
+	{
+		public MyReviewViewController(IntPtr handle) : base(handle)
+		{
+
+		}
 		public MyReviewViewController() : base()
 		{
 		}
@@ -37,9 +38,9 @@ namespace WineHangoutz
 			var myData = svc.GetItemReviewUID(userId).Result;
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
-			
+
 		}
-    }
+	}
 
 	public class MyReviewTableSource : UITableViewSource
 	{
@@ -49,7 +50,7 @@ namespace WineHangoutz
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyReviewTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
+		public MyReviewTableSource(List<Review> items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -93,7 +94,7 @@ namespace WineHangoutz
 		UITextView Comments;
 		UILabel Vintage;
 		UIImageView separator;
-		UIButton imageView;
+		UIImageView imageView;
 		PDRatingView stars;
 		UIButton btnEdit;
 		UIButton btnDelete;
@@ -101,21 +102,17 @@ namespace WineHangoutz
 
 		public UINavigationController NavController;
 		public UIViewController Parent;
+		public int wineId;
 
 		public MyReviewCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIButton();
+			imageView = new UIImageView();
 			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			imageView.ContentMode = UIViewContentMode.Center;
 			imageView.ClipsToBounds = true;
-
-			imageView.TouchUpInside += (object sender, EventArgs e) =>
-			{
-				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
-			};
+			Review review = new Review();
 
 			separator = new UIImageView();
 			WineName = new UITextView()
@@ -123,7 +120,7 @@ namespace WineHangoutz
 				Font = UIFont.FromName("Verdana", 14f),
 				TextColor = UIColor.FromRGB(127, 51, 0),
 				BackgroundColor = UIColor.Clear
-				                         
+
 			};
 			ReviewDate = new UILabel()
 			{
@@ -174,18 +171,50 @@ namespace WineHangoutz
 			};
 			btnDelete = new UIButton();
 
+
 			btnDelete.TouchUpInside += (sender, e) =>
 			{
-				DeletePopup yourController = new DeletePopup(Convert.ToInt32(WineIdLabel.Text));
-				yourController.NavController = NavController;
-				yourController.parent = Parent;
-				yourController.StartsSelected = stars.AverageRating;
-				yourController.Comments = Comments.Text;
+				//////DeletePopup deleteController = new DeletePopup(Convert.ToInt32(WineIdLabel.Text));
+				//////deleteController.NavController = NavController;
+				//////deleteController.parent = Parent;
+				//yourController.StartsSelected = stars.AverageRating;
+				//yourController.Comments = Comments.Text;
 				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
-				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+				//yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 				//this.PresentViewController(yourController, true, null);
-				Parent.PresentModalViewController(yourController, false);
+				//////Parent.PresentModalViewController(deleteController, false);
+
+				//Show the pop, Are you sure. With Yes & No Button.
+				//If Yes, Then delete, lse close the popup.
+
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Delete Review",
+					Message = "Do you want to delete this review."
+				};
+				alert.AddButton("Yes");
+				alert.AddButton("No");
+
+				alert.Clicked += async (senderalert, buttonArgs) =>
+				{
+					if (buttonArgs.ButtonIndex == 0)
+					{
+						//Review review = new Review();
+						ServiceWrapper sw = new ServiceWrapper();
+						review.WineId = Convert.ToInt32(WineIdLabel.Text);
+
+						review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+
+						await sw.DeleteReview(review);
+
+						((IPopupParent)Parent).RefreshParent();
+					}
+				};
+
+				alert.Show();
+
 			};
+
 
 
 
@@ -195,9 +224,10 @@ namespace WineHangoutz
 			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
 
 		}
+
 		public void UpdateCell(Review review)
 		{
-			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
+			imageView.Image = BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155));
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
 			ReviewDate.Text = review.Date.ToString("d");
@@ -215,15 +245,18 @@ namespace WineHangoutz
 			base.LayoutSubviews();
 			int imageWidth = 110; // + 10;
 			imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
-			WineName.Frame = new CGRect(imageWidth-4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
+			WineName.Frame = new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
 			Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
 			separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
 			ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
 			//stars.Frame = new CGRect(35, 50, 100, 20);
 			stars.UserInteractionEnabled = false;
-			Comments.Frame = new CGRect(imageWidth-4, 99, ContentView.Bounds.Width - imageWidth-2, 70);
+			Comments.Frame = new CGRect(imageWidth - 4, 99, ContentView.Bounds.Width - imageWidth - 2, 70);
 			btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
 			btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
 		}
+
+
 	}
+
 }

@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-    public partial class MyTastingViewController : UITableViewController, IPopupParent
-    {
-        public MyTastingViewController (IntPtr handle) : base (handle)
-        {
-        }
+	public partial class MyTastingViewController : UITableViewController, IPopupParent
+	{
+		public MyTastingViewController(IntPtr handle) : base(handle)
+		{
+		}
 		public MyTastingViewController() : base()
 		{
 		}
@@ -37,9 +37,9 @@ namespace WineHangoutz
 			var myData = svc.GetItemReviewUID(userId).Result;
 			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
-			
+
 		}
-    }
+	}
 
 	public class MyTastingTableSource : UITableViewSource
 	{
@@ -49,7 +49,7 @@ namespace WineHangoutz
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyTastingTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
+		public MyTastingTableSource(List<Review> items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -92,7 +92,7 @@ namespace WineHangoutz
 		UILabel ReviewDate;
 		UILabel Vintage;
 		UIImageView separator;
-		UIImageView imageView;
+		UIButton imageView;
 		UILabel WineIdLabel;
 
 		public UINavigationController NavController;
@@ -102,14 +102,23 @@ namespace WineHangoutz
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIImageView();
+			imageView = new UIButton();
+			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+			imageView.ContentMode = UIViewContentMode.Center;
+			imageView.ClipsToBounds = true;
+
+			imageView.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				//NavigationController.PushViewController(new DetailViewController(), false);
+				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
+			};
 			separator = new UIImageView();
 			WineName = new UILabel()
 			{
 				Font = UIFont.FromName("Verdana", 14f),
 				TextColor = UIColor.FromRGB(127, 51, 0),
 				BackgroundColor = UIColor.Clear,
-				                         
+
 			};
 			ReviewDate = new UILabel()
 			{
@@ -130,7 +139,7 @@ namespace WineHangoutz
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0,0,100,155));
+			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
 			ReviewDate.Text = review.Date.ToString("d");

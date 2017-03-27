@@ -12,7 +12,7 @@ namespace WineHangoutz
 	public class SKUDetailView : UITableViewController, IPopupParent
 	{
 		int _wineId;
-		public SKUDetailView(string WineId): base()
+		public SKUDetailView(string WineId) : base()
 		{
 			_wineId = Convert.ToInt32(WineId);
 			this.Title = "Details";
@@ -103,8 +103,8 @@ namespace WineHangoutz
 		public UIView GetViewForSKUCell(nint index)
 		{
 			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/star-silver1.png"),
-												chosenImage: UIImage.FromBundle("Stars/star-silver.png"));
+												filledImage: UIImage.FromBundle("Stars/star.png"),
+												chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 			UIView vw = new UIView();
 			switch (index)
@@ -158,8 +158,8 @@ namespace WineHangoutz
 						btlImage.Image = image;
 					}
 					else
-						btlImage.Image= null;
-					
+						btlImage.Image = null;
+
 					vw = btlBack;
 					vw.AddSubview(btlImage);
 					break;
@@ -297,10 +297,10 @@ namespace WineHangoutz
 				return 50;
 
 			if (indexPath.Item == 13) // table
-				return (nfloat)(data.WineProperties.Count * 22)+10;// 22 is hard coded height of rows
+				return (nfloat)(data.WineProperties.Count * 22) + 10;// 22 is hard coded height of rows
 
 			if (indexPath.Item == 16) // Reviews
-				return (nfloat)(data.Reviews.Count * 90)+35;// 90 is hard coded height of rows
+				return (nfloat)(data.Reviews.Count * 90) + 35;// 90 is hard coded height of rows
 
 			return (nfloat)Math.Min(height, this.Width);
 			//var viewCell = uiCell.GetPropertyValue<ViewCell>(uiCell.GetType(), "ViewCell");

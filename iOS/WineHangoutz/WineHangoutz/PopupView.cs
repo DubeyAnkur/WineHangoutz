@@ -15,10 +15,10 @@ namespace WineHangoutz
 
 		//Possible Inputss
 		public decimal StartsSelected;
-		public string Comments="";
+		public string Comments = "";
 		public int WineId;
 
-		public PopupView(int Wine) : base ()
+		public PopupView(int Wine) : base()
 		{
 			this.Title = "Popup";
 			WineId = Wine;
@@ -30,7 +30,7 @@ namespace WineHangoutz
 			this.View.BackgroundColor = new UIColor(0, 0, 0, 0.8f);
 
 			var lblProducer = new UILabel();
-			lblProducer.Frame = new CGRect(4, 180, View.Frame.Width-8, 30);
+			lblProducer.Frame = new CGRect(4, 180, View.Frame.Width - 8, 30);
 			lblProducer.Text = "My Tasting";
 			lblProducer.BackgroundColor = UIColor.Purple;
 			lblProducer.TextAlignment = UITextAlignment.Center;
@@ -68,8 +68,8 @@ namespace WineHangoutz
 
 
 			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/filled.png"),
-												chosenImage: UIImage.FromBundle("Stars/star-silver.png"));
+												filledImage: UIImage.FromBundle("Stars/star.png"),
+												chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 			var lblStarBack = new UILabel();
 			lblStarBack.Frame = new CGRect(View.Bounds.Width * 3 / 9, 210, View.Bounds.Width / 3, 35f);
@@ -85,25 +85,26 @@ namespace WineHangoutz
 			ratingView.BackgroundColor = UIColor.White;
 			ratingView.RatingChosen += (sender, e) =>
 			{
-				StartsSelected=e.Rating;
+				StartsSelected = e.Rating;
 			};
 			this.View.AddSubview(ratingView);
 
 
 			var txtComments = new UITextView();
-			txtComments.Frame = new CGRect(14, 240, View.Frame.Width-28, 130);
+			txtComments.Frame = new CGRect(14, 250, View.Frame.Width - 28, 130);
 			//txtComments.Text = "Describe your testing";
 			//txtComments.TextAlignment = UITextAlignment.Justified;
 			//txtComments.BackgroundColor = UIColor.LightGray;
 			txtComments.Text = Comments.Length > 0 ? Comments : "Describe your tasting";
 
-			txtComments.Started += (sender, e) => {
+			txtComments.Started += (sender, e) =>
+			{
 				if (((UITextView)sender).Text == "Describe your tasting")
 				{
 					((UITextView)sender).Text = "   ";
 				}
 
-			}; 
+			};
 			this.View.AddSubview(txtComments);
 
 			UIButton btnSave = new UIButton(new CGRect(14, 370, View.Frame.Width - 28, 20));
@@ -123,7 +124,7 @@ namespace WineHangoutz
 				Review review = new Review();
 				review.ReviewDate = DateTime.Now;
 				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-				if(txtComments.Text=="Describe your tasting")
+				if (txtComments.Text == "Describe your tasting")
 				{
 					txtComments.Text = " ";
 				}
@@ -136,7 +137,7 @@ namespace WineHangoutz
 				await sw.InsertUpdateReview(review);
 
 				((IPopupParent)parent).RefreshParent();
-				                      
+
 				NavController.DismissViewController(true, null);
 				//Save Service Call.
 				//txtComments
@@ -147,6 +148,6 @@ namespace WineHangoutz
 
 	public interface IPopupParent
 	{
-	 	void RefreshParent();
+		void RefreshParent();
 	}
 }
