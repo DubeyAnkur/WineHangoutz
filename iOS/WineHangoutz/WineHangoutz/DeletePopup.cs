@@ -61,47 +61,56 @@ namespace WineHangoutz
 			lblWhite.TextAlignment = UITextAlignment.Center;
 			this.View.AddSubview(lblWhite);
 
-			UIButton btnDelete = new UIButton(new CGRect(14, 370, View.Frame.Width - 28, 20));
-			UIButton btnCancel = new UIButton(new CGRect(14, 370, View.Frame.Width-30,20));
+			UIButton btnYes = new UIButton(new CGRect(14, 340, View.Frame.Width - 28, 20));
+			UIButton btnCancel = new UIButton(new CGRect(14, 340, View.Frame.Width-30,20));
 
 			//btnSave.SetBackgroundImage(new UIImage("Close.png"), UIControlState.Normal);
 			btnCancel.SetTitle("Cancel", UIControlState.Normal);
 			btnCancel.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 			btnCancel.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnDelete.SetTitle("Delete", UIControlState.Normal);
-			btnDelete.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
-			btnDelete.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+			btnYes.SetTitle("Delete", UIControlState.Normal);
+			btnYes.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+			btnYes.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			this.View.AddSubview(btnDelete);
+			this.View.AddSubview(btnYes);
 			this.View.AddSubview(btnCancel);
 			btnCancel.TouchUpInside += (sender, e) =>
 			{
 				NavController.DismissViewController(true, null);
 			};
-			try
+
+			btnYes.TouchUpInside += async delegate
 			{
-				btnDelete.TouchDown += async delegate
-				{
-					ServiceWrapper sw = new ServiceWrapper();
-					Review review = new Review();
-					review.WineId = WineId;
-					review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-					await sw.DeleteReview(review);
+				ServiceWrapper sw = new ServiceWrapper();
+				Review review = new Review();
+				review.WineId = WineId;
+				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				((IPopupParent)parent).RefreshParent();
+				await sw.DeleteReview(review);
+				
+				//myDialog.Dismiss();
+			};
+				//btnDelete.TouchDown += async delegate
+				//{
+					
+				//	review.WineId = WineId;
+				//	review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				//	await sw.DeleteReview(review);
 
-					((IPopupParent)parent).RefreshParent();
+				//	((IPopupParent)parent).RefreshParent();
 
-					NavController.DismissViewController(true, null);
+				//	NavController.DismissViewController(true, null);
 					//Save Service Call.
 					//txtComments
-					BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
-				};
-			}
-			catch (Exception exe)
-			{
-				string msg = exe.Message;
-			}
+				//	BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
+				//};
 
+
+		}
+		public interface IPopupParent
+		{
+			void RefreshParent();
 		}
 	}
 

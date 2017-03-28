@@ -9,12 +9,12 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-	public partial class MyReviewViewController : UITableViewController, IPopupParent
-	{
-		public MyReviewViewController(IntPtr handle) : base(handle)
-		{
-
-		}
+    public partial class MyReviewViewController : UITableViewController, IPopupParent
+    {
+        public MyReviewViewController (IntPtr handle) : base (handle)
+        {
+			
+        }
 		public MyReviewViewController() : base()
 		{
 		}
@@ -38,9 +38,9 @@ namespace WineHangoutz
 			var myData = svc.GetItemReviewUID(userId).Result;
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
-
+			
 		}
-	}
+    }
 
 	public class MyReviewTableSource : UITableViewSource
 	{
@@ -50,7 +50,7 @@ namespace WineHangoutz
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyReviewTableSource(List<Review> items, UINavigationController NavigationController, UIViewController parent)
+		public MyReviewTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -120,7 +120,7 @@ namespace WineHangoutz
 				Font = UIFont.FromName("Verdana", 14f),
 				TextColor = UIColor.FromRGB(127, 51, 0),
 				BackgroundColor = UIColor.Clear
-
+				                         
 			};
 			ReviewDate = new UILabel()
 			{
@@ -195,7 +195,7 @@ namespace WineHangoutz
 				alert.AddButton("Yes");
 				alert.AddButton("No");
 
-				alert.Clicked += async (senderalert, buttonArgs) =>
+				alert.Clicked += async(senderalert, buttonArgs) =>
 				{
 					if (buttonArgs.ButtonIndex == 0)
 					{
@@ -245,17 +245,17 @@ namespace WineHangoutz
 			base.LayoutSubviews();
 			int imageWidth = 110; // + 10;
 			imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
-			WineName.Frame = new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
+			WineName.Frame = new CGRect(imageWidth-4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
 			Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
 			separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
 			ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
 			//stars.Frame = new CGRect(35, 50, 100, 20);
 			stars.UserInteractionEnabled = false;
-			Comments.Frame = new CGRect(imageWidth - 4, 99, ContentView.Bounds.Width - imageWidth - 2, 70);
+			Comments.Frame = new CGRect(imageWidth-4, 99, ContentView.Bounds.Width - imageWidth-2, 70);
 			btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
 			btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
 		}
-
+	
 
 	}
 

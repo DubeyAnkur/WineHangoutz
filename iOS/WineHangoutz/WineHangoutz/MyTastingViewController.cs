@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-	public partial class MyTastingViewController : UITableViewController, IPopupParent
-	{
-		public MyTastingViewController(IntPtr handle) : base(handle)
-		{
-		}
+    public partial class MyTastingViewController : UITableViewController, IPopupParent
+    {
+        public MyTastingViewController (IntPtr handle) : base (handle)
+        {
+        }
 		public MyTastingViewController() : base()
 		{
 		}
@@ -37,9 +37,9 @@ namespace WineHangoutz
 			var myData = svc.GetItemReviewUID(userId).Result;
 			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
-
+			
 		}
-	}
+    }
 
 	public class MyTastingTableSource : UITableViewSource
 	{
@@ -49,7 +49,7 @@ namespace WineHangoutz
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyTastingTableSource(List<Review> items, UINavigationController NavigationController, UIViewController parent)
+		public MyTastingTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -118,7 +118,7 @@ namespace WineHangoutz
 				Font = UIFont.FromName("Verdana", 14f),
 				TextColor = UIColor.FromRGB(127, 51, 0),
 				BackgroundColor = UIColor.Clear,
-
+				                         
 			};
 			ReviewDate = new UILabel()
 			{

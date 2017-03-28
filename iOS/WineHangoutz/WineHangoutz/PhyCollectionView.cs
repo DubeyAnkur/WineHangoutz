@@ -85,7 +85,6 @@ namespace WineHangoutz
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
 			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C");
 			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
-			cell.myItem = myData.ItemList[index];
 
 			if (myData.ItemList[index].IsLike == true)
 			{

@@ -79,6 +79,20 @@ namespace WineHangoutz
 
 			btnLogin.TouchUpInside += (sender, e) =>
 			{
+				//var smsTo = NSUrl.FromString("sms:"+txtPassword.Text);
+				//UIApplication.SharedApplication.OpenUrl(smsTo);
+				//if (UIApplication.SharedApplication.CanOpenUrl(smsTo))
+				//{
+				//	UIApplication.SharedApplication.OpenUrl(smsTo);
+
+				//}
+				//else
+				//{
+				//	// warn the user, or hide the button...
+				//}
+
+
+
 				var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
 				View.AddSubview(loadPop);
 

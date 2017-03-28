@@ -50,8 +50,8 @@ namespace WineHangoutz
 			btlImage.Image = UIImage.FromFile("Wines/wine2.png");
 
 			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/filled.png"),
-												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
+												filledImage: UIImage.FromBundle("Stars/star.png"),
+												chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 			nfloat Y = 70 + View.Frame.Width;
 			// Create the view.

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UIKit;
 using Hangout.Models;
 using Foundation;
@@ -68,28 +68,20 @@ namespace WineHangoutz
 				BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
 			};
 
+
 			btnEdit.TouchUpInside += (sender, e) =>
 			{
-				try
-				{
-					IsCameraAuthorized();
-					imagePicker = new UIImagePickerController();
-					imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-					imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+				IsCameraAuthorized();
+				imagePicker = new UIImagePickerController();
+				imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+				imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
 
-					imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-					imagePicker.Canceled += Handle_Canceled;
-
-					if (IsCameraAuthorized())
-					{
-						NavCtrl.PresentModalViewController(imagePicker, true);
-						//this.PresentModalViewController(imagePicker, false);
-					}
-				}
-				catch (Exception ex)
+				imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+				imagePicker.Canceled += Handle_Canceled;
+				NavCtrl.PresentModalViewController(imagePicker, true);
+				if (IsCameraAuthorized())
 				{
-					string s = ex.Message;
-					s = s + "";
+					this.PresentModalViewController(imagePicker, false);
 				}
 			};
 		}
@@ -122,10 +114,12 @@ namespace WineHangoutz
 			if (isImage)
 			{
 				// get the original image
+
 				UIImage originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
 				if (originalImage != null)
 				{
 					// do something with the image
+
 					Console.WriteLine("got the original image");
 					imgProfile.Image = originalImage; // display
 					using (NSData imagedata = originalImage.AsJPEG())
@@ -133,10 +127,7 @@ namespace WineHangoutz
 						byte[] myByteArray = new byte[imagedata.Length];
 						System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes,
 																	myByteArray, 0, Convert.ToInt32(imagedata.Length));
-						//UploadProfilePic(myByteArray);
-
 					}
-
 				}
 			}
 			else
@@ -163,7 +154,6 @@ namespace WineHangoutz
 			if (authStatus == AVAuthorizationStatus.Authorized)
 			{
 				// do your logic
-
 				return true;
 			}
 			else if (authStatus == AVAuthorizationStatus.Denied)
@@ -179,7 +169,6 @@ namespace WineHangoutz
 			else if (authStatus == AVAuthorizationStatus.NotDetermined)
 			{
 				// not determined?!
-				AVCaptureDevice.RequestAccessForMediaTypeAsync(AVMediaType.Video);
 				return false;
 			}
 			else
@@ -188,20 +177,6 @@ namespace WineHangoutz
 				// impossible, unknown authorization status
 			}
 		}
-		//public async void UploadProfilePic(byte[] bytesOfPic)
-		//{
-
-			//StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-			//CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-			//CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-			//CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
-
-			//await container.CreateIfNotExistsAsync();
-			//CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.RetreiveUserId() + ".jpg"); //(path);
-
-			//Stream stream = new MemoryStream(bytesOfPic);
-			//await blob.UploadFromStreamAsync(stream);//  .UploadFromFileAsync(path);
-		//}
 	}
 }
 

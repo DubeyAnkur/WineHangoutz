@@ -21,7 +21,7 @@ namespace WineHangoutz
 			// Perform any additional setup after loading the view, typically from a nib.
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
-			nfloat margin = 0;
+			nfloat margin = 1;
 			nfloat start = 50;
 			UIButton btnMan = new UIButton();
 			UIButton btnSec = new UIButton();
@@ -69,7 +69,7 @@ namespace WineHangoutz
 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
 					ScrollDirection = UICollectionViewScrollDirection.Vertical
 				};
-				NavigationController.NavigationBar.TopItem.Title = "Manasquan Store";
+				NavigationController.NavigationBar.TopItem.Title = "Manasquan";
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 
 				BTProgressHUD.Dismiss();
@@ -109,7 +109,7 @@ namespace WineHangoutz
 					//MinimumInteritemSpacing = 50, // minimum spacing between cells
 					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
 				};
-				NavigationController.NavigationBar.TopItem.Title = "Point Plesant Store";
+				NavigationController.NavigationBar.TopItem.Title = "Point Plesant";
 				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
 				BTProgressHUD.Dismiss();
 			};

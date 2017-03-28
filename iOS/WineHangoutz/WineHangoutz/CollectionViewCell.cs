@@ -39,10 +39,10 @@ namespace WineHangoutz
 			btlImage.Image = UIImage.FromFile("Images/Honoro g.png");
 			//btlImage.InsertSubviewAbove()
 
-			box.Height = 20;
-			box.Width = 20;
+			box.Height = 15;
+			box.Width = 15;
 			box.X = (box.Width * 6);
-			box.Y = 5;
+			box.Y =5;
 			heartImage = new UIImageView(box);
 			//heartImage.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			//heartImage.ContentMode = UIViewContentMode.ScaleToFill;
@@ -74,7 +74,7 @@ namespace WineHangoutz
 
 			CGRect year = new CGRect(Bounds.Location, Bounds.Size);
 			year.Y = lower.Y - 15;
-			year.X = year.Width / 2 - 25;
+			year.X = year.Width / 2 - 15;
 			year.Height = 30;
 			year.Width = 50;
 			lblYear = new UILabel(year);
