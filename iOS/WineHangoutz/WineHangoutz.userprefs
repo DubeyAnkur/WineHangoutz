@@ -2,8 +2,22 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
     <Files>
       <File FileName="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.4.0.128/lib/msbuild/iOS/Xamarin.iOS.Common.targets" Line="1" Column="1" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="47" Column="20" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="123" Column="40" />
+      <File FileName="WineHangoutz/Info.plist" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WineHangoutz" expanded="True">
+            <Node name="WineHangoutz" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="ComponentReferenceFolder" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

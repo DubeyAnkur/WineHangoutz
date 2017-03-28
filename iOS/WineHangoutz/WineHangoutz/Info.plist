@@ -36,5 +36,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Profile Pic</string>
+	<key>CFBundleExecutable</key>
+	<string></string>
 </dict>
 </plist>
