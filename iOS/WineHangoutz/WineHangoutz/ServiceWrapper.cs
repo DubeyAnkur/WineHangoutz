@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Hangout.Models;
+using System.Runtime;
 
 namespace WineHangoutz
 {
@@ -37,7 +38,7 @@ namespace WineHangoutz
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                output = JsonConvert.DeserializeObject<string>(content);
+				output = JsonConvert.DeserializeObject<string>(content); // JsonConvert.DeserializeObject<string>(content);
             }
             return output;
         }
