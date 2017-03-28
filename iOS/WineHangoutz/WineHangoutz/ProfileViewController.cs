@@ -69,18 +69,27 @@ namespace WineHangoutz
 			};
 
 			btnEdit.TouchUpInside += (sender, e) =>
-		    {
-				IsCameraAuthorized();
-			    imagePicker = new UIImagePickerController();
-			    imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-			    imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
-
-				imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-				imagePicker.Canceled += Handle_Canceled;
-			    NavCtrl.PresentModalViewController(imagePicker, true);
-				if (IsCameraAuthorized())
+			{
+				try
 				{
-					this.PresentModalViewController(imagePicker, false);
+					IsCameraAuthorized();
+					imagePicker = new UIImagePickerController();
+					imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+					imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+
+					imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+					imagePicker.Canceled += Handle_Canceled;
+
+					if (IsCameraAuthorized())
+					{
+						NavCtrl.PresentModalViewController(imagePicker, true);
+						//this.PresentModalViewController(imagePicker, false);
+					}
+				}
+				catch (Exception ex)
+				{
+					string s = ex.Message;
+					s = s + "";
 				}
 			};
 		}
@@ -119,10 +128,20 @@ namespace WineHangoutz
 					// do something with the image
 					Console.WriteLine("got the original image");
 					imgProfile.Image = originalImage; // display
+					using (NSData imagedata = originalImage.AsJPEG())
+					{
+						byte[] myByteArray = new byte[imagedata.Length];
+						System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes,
+																	myByteArray, 0, Convert.ToInt32(imagedata.Length));
+						//UploadProfilePic(myByteArray);
+
+					}
+
 				}
 			}
-			else { // if it's a video
-				   // get video url
+			else
+			{ // if it's a video
+			  // get video url
 				NSUrl mediaURL = e.Info[UIImagePickerController.MediaURL] as NSUrl;
 				if (mediaURL != null)
 				{
@@ -144,6 +163,7 @@ namespace WineHangoutz
 			if (authStatus == AVAuthorizationStatus.Authorized)
 			{
 				// do your logic
+
 				return true;
 			}
 			else if (authStatus == AVAuthorizationStatus.Denied)
@@ -159,13 +179,29 @@ namespace WineHangoutz
 			else if (authStatus == AVAuthorizationStatus.NotDetermined)
 			{
 				// not determined?!
+				AVCaptureDevice.RequestAccessForMediaTypeAsync(AVMediaType.Video);
 				return false;
 			}
-			else {
+			else
+			{
 				return false;
 				// impossible, unknown authorization status
 			}
 		}
+		//public async void UploadProfilePic(byte[] bytesOfPic)
+		//{
+
+			//StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+			//CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+			//CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+			//CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
+
+			//await container.CreateIfNotExistsAsync();
+			//CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.RetreiveUserId() + ".jpg"); //(path);
+
+			//Stream stream = new MemoryStream(bytesOfPic);
+			//await blob.UploadFromStreamAsync(stream);//  .UploadFromFileAsync(path);
+		//}
 	}
 }
 

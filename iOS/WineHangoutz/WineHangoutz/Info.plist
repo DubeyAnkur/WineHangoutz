@@ -26,6 +26,8 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>still-camera</string>
+		<string>video-camera</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -36,5 +38,11 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Used for profile pic.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>PHOTO</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Media</string>
 </dict>
 </plist>
