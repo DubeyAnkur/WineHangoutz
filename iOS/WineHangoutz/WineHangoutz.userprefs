@@ -1,31 +1,28 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.4.0.128/lib/msbuild/iOS/Xamarin.MonoTouch.CSharp.targets">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ProfileViewController.cs">
     <Files>
-      <File FileName="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.4.0.128/lib/msbuild/iOS/Xamarin.iOS.Common.targets" Line="1" Column="1" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="40" Column="26" />
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="129" Column="1" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="42" Column="14" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="129" Column="11" />
       <File FileName="WineHangoutz/Info.plist" />
-      <File FileName="../../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.4.0.128/lib/msbuild/iOS/Xamarin.MonoTouch.CSharp.targets" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Json.NET.iOS.Sample" selected="True" />
+          <Node />
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
-              <Node name="References" expanded="True" />
               <Node name="ComponentReferenceFolder" expanded="True" />
               <Node name="Packages" expanded="True" />
+              <Node name="ProfileViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="129" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="103" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="90" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="83" column="1" />

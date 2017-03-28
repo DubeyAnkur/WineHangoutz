@@ -128,6 +128,8 @@ namespace WineHangoutz
 						System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes,
 																	myByteArray, 0, Convert.ToInt32(imagedata.Length));
 					}
+
+					//NetStandard.Library 1.6.0 is recommended else app will flicker.
 				}
 			}
 			else
