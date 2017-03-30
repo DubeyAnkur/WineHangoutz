@@ -6,6 +6,7 @@ using UIKit;
 using ObjCRuntime;
 using PatridgeDev;
 using Hangout.Models;
+using BigTed;
 
 namespace WineHangoutz {
 
@@ -39,10 +40,17 @@ namespace WineHangoutz {
 			ImageView.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 			//ImageView.SetBackgroundImage(UIImage.FromFile("placeholder.jpeg"), UIControlState.Normal);
 
+			//ImageView.TouchDown += (object sender, EventArgs e) =>
+			// {
+			//	 BTProgressHUD.Show("Loading...");
+			// };
+
 			ImageView.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);
+
 				NavigationController.PushViewController(new SKUDetailView(WineId), false);
+				BTProgressHUD.Dismiss();
 			};
 
 			//box.Width = (box.Width/ 240) * 92; //box.Width / 2;
@@ -54,10 +62,17 @@ namespace WineHangoutz {
 			btlImage.ClipsToBounds = true;
 			btlImage.Layer.BorderColor = UIColor.White.CGColor;
 			btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
+
+			btlImage.TouchDown += (object sender, EventArgs e) =>
+			{
+				BTProgressHUD.Show("Loading...");
+			};
+
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				NavigationController.PushViewController(new SKUDetailView(WineId), false);
+				BTProgressHUD.Dismiss();
 			};
 
 			box.Height = 25;

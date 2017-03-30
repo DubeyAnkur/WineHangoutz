@@ -53,7 +53,8 @@ namespace WineHangoutz
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = new UIImage("user.png");
+			imageView.Image = ProfileViewController.GetImageBitmapFromUrl(review.ReviewUserId);
+			//imageView.Image = new UIImage("user.png");
 			userName.Text = review.Username;
 			ReviewDate.Text = review.Date.ToString("d");
 			Comments.Text = review.RatingText;

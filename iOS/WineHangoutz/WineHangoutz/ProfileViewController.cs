@@ -4,6 +4,15 @@ using Hangout.Models;
 using Foundation;
 using AVFoundation;
 using BigTed;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using CoreGraphics;
+using System.Net;
+using System.Drawing;
+using ImageIO;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace WineHangoutz
 {
@@ -11,6 +20,7 @@ namespace WineHangoutz
 	{
 		UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
+		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
 		{
 			NavCtrl = navCtrl;
@@ -30,7 +40,7 @@ namespace WineHangoutz
 			txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
 			txtState.Text = cRes.customer.State;
 
-			imgProfile.Image = new UIImage("user.png");
+			//imgProfile.Image = new UIImage("user.png");
 			imgEmail.Image = new UIImage("mail.png");
 			imgAddr.Image = new UIImage("ic_action_place.png");
 			imgCity.Image = new UIImage("city.png");
@@ -45,6 +55,10 @@ namespace WineHangoutz
 			//}
 			//else
 			//	propicimage.SetImageBitmap(imageBitmap);
+
+
+			UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
+			imgProfile.Image = prpicImage;
 
 			btnUpdate.TouchDown += (sender, e) =>
 			{
@@ -90,6 +104,57 @@ namespace WineHangoutz
 		{
 			imagePicker.DismissModalViewController(true);
 		}
+
+		public static UIImage GetImageBitmapFromUrl(int userid)
+		{
+			//String usid =Convert.ToString(CurrentUser.RetreiveUserId());
+			//NSObject pro = ProfileImages.ObjectForKey(NSObject.FromObject(usid));
+			NSData imgData = null;
+			UIImage img = null;
+			//if (pro != null)
+			//	return (UIImage)pro;
+			try
+			{
+				string url = "https://icsintegration.blob.core.windows.net/profileimages/" + userid + ".jpg";
+					NSUrl imageURL = new NSUrl(url);
+					imgData = NSData.FromUrl(imageURL);
+					img = UIImage.LoadFromData(imgData);
+				//ProfileImages.SetObjectforKey(img, NSObject.FromObject(usid));
+				//BlobWrapper bvb = new BlobWrapper();
+				//CachedImagePhysically(imgData, usid);
+				
+			}
+
+			catch (Exception)
+			{
+				return null;
+			}
+
+			return img;
+		}
+
+		//public static void CachedImagePhysically(NSData image, string userId)
+		//{
+		//	try
+		//	{
+		//		var cache = Path.Combine("Library/Caches/", "WineHangoutz");
+		//		var filename = Path.Combine(cache, userId + ".jpg");
+
+		//		byte[] dataBytes = new byte[image.Length];
+
+		//		System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
+		//		if (!Directory.Exists(cache))
+		//		{
+		//			Directory.CreateDirectory(cache);
+		//		}
+		//		File.WriteAllBytes(filename, dataBytes);
+		//	}
+		//	catch (Exception)
+		//	{
+		//		//ignore the error. Download it next time.
+		//	}
+		//}
+
 		protected void Handle_FinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs e)
 		{
 			// determine what was selected, video or image
@@ -127,7 +192,15 @@ namespace WineHangoutz
 						byte[] myByteArray = new byte[imagedata.Length];
 						System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes,
 																	myByteArray, 0, Convert.ToInt32(imagedata.Length));
+
+
+						byte[] img = ResizeImageIOS(myByteArray, 750, 900);
+
+
+						int i = img.Length;
+						UploadProfilePic(img,i);
 					}
+
 
 					//NetStandard.Library 1.6.0 is recommended else app will flicker.
 				}
@@ -179,6 +252,103 @@ namespace WineHangoutz
 				// impossible, unknown authorization status
 			}
 		}
-	}
+		public async void UploadProfilePic(byte[] myByteArray,int i)
+		{
+
+			StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+			CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+			CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+			CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
+
+			await container.CreateIfNotExistsAsync();
+			//string[] FileEntries = App.System.IO._dir.GetFiles(path);
+
+
+			//foreach (string FilePath in FileEntries)
+			//{
+			//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
+			CloudBlockBlob blob = container.GetBlockBlobReference( CurrentUser.RetreiveUserId()+ ".jpg"); //(path);
+
+
+
+
+
+
+
+
+
+
+			//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+			//{
+
+			await blob.UploadFromByteArrayAsync(myByteArray,0,i) ;//  .UploadFromFileAsync(path);
+
+			//}
+			//}
+			// await container=
+
+
+
+		}
+		public static byte[] ResizeImageIOS(byte[] imageData, float width, float height)
+		{
+			// Load the bitmap
+			UIImage originalImage1 = ImageFromByteArray(imageData);
+			//
+			var Hoehe = originalImage1.Size.Height;
+			var Breite = originalImage1.Size.Width;
+			//
+			nfloat ZielHoehe = 0;
+			nfloat ZielBreite = 0;
+			//
+
+			if (Hoehe > Breite) // Höhe (71 für Avatar) ist Master
+			{
+				ZielHoehe = height;
+				nfloat teiler = Hoehe / height;
+				ZielBreite = Breite / teiler;
+			}
+			else // Breite (61 for Avatar) ist Master
+			{
+				ZielBreite = width;
+				nfloat teiler = Breite / width;
+				ZielHoehe = Hoehe / teiler;
+			}
+			//
+			width = (float)ZielBreite;
+			height = (float)ZielHoehe;
+			//
+			UIGraphics.BeginImageContext(new SizeF(width, height));
+			originalImage1.Draw(new RectangleF(0, 0, width, height));
+			var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			//
+			var bytesImagen = resizedImage.AsJPEG().ToArray();
+			resizedImage.Dispose();
+			return bytesImagen;
+		}
+
+		static UIImage ImageFromByteArray(byte[] imageData)
+		{
+			{
+				if (imageData == null)
+				{
+					return null;
+				}
+				//
+				UIKit.UIImage image;
+				try
+				{
+					image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine("Image load failed: " + e.Message);
+					return null;
+				}
+				return image;
+			}
+		}
+}
 }
 
