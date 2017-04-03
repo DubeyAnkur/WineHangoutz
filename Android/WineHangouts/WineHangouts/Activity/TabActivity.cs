@@ -234,12 +234,12 @@ namespace WineHangouts
                         //aler.SetNegativeButton("Ok", delegate { });
                         //Dialog dialog = aler.Create();
                         //dialog.Show();
-                        //var intent = new Intent(Activity, typeof(LandscapeActivity));
-                        //intent.PutExtra("MyData", "Wineries");
-                        //StartActivity(intent);
-                        var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
-                        //intent.PutExtra("MyData", "Wineries");
+                        var intent = new Intent(Activity, typeof(LandscapeActivity));
+                        intent.PutExtra("MyData", "Wineries");
                         StartActivity(intent);
+                        //var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
+                        ////intent.PutExtra("MyData", "Wineries");
+                        //StartActivity(intent);
                     };
                     Bottom.Click += (sender, e) =>
                     {

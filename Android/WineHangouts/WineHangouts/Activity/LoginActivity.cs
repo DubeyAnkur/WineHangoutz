@@ -17,7 +17,7 @@ using Android.Telephony;
 namespace WineHangouts
 
 {
-    [Activity(Label = "@string/ApplicationName", MainLauncher =true)]
+    [Activity(Label = "@string/ApplicationName", MainLauncher =true, Icon ="@drawable/logo5")]
     public class LoginActivity : Activity
 
     {
@@ -82,6 +82,7 @@ namespace WineHangouts
                 {
                     SendSmsgs(txtUserNumber.Text);
                     var intent = new Intent(this, typeof(VerificationActivity));
+                    //var intent = new Intent(this, typeof(TabActivity));
                     intent.PutExtra("otp", otp);
                     intent.PutExtra("username", username.Text);
                     StartActivity(intent);

@@ -13,7 +13,7 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "LandscapeActivity")]
+    [Activity(Label = "EnoMachine Bottles")]
     public class LandscapeActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -29,9 +29,11 @@ namespace WineHangouts
             myArr = output.ItemList.ToList();
             var gridview = FindViewById<GridView>(Resource.Id.gridview);
             HorizontalViewAdapter adapter = new HorizontalViewAdapter(this, myArr);
-            gridview.SetNumColumns(10);
+            gridview.SetNumColumns(myArr.Count);
             gridview.Adapter = adapter;
-         
+            //ListView lv = FindViewById<ListView>(Resource.Id.listView1);
+            //lv.Adapter=adapter;
+
         }
     }
 
