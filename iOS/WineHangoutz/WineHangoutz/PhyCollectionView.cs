@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using CoreGraphics;
 using ObjCRuntime;
 using Hangout.Models;
+using System.Globalization;
 
 namespace WineHangoutz
 {
@@ -23,7 +24,7 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 
 			ServiceWrapper svc = new ServiceWrapper();
 			if(FaviouriteView)
@@ -39,6 +40,12 @@ namespace WineHangoutz
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+		}
+
+		public static class Cultures
+		{
+			public static readonly CultureInfo UnitedState =
+					CultureInfo.GetCultureInfo("en-US");
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
@@ -83,8 +90,9 @@ namespace WineHangoutz
 			cell.WineId = myData.ItemList[index].WineId.ToString();
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
-			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C");
+			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C",Cultures.UnitedState);
 			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
+			cell.myItem = myData.ItemList[index];
 
 			if (myData.ItemList[index].IsLike == true)
 			{

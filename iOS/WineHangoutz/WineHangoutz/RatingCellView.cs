@@ -42,9 +42,9 @@ namespace WineHangoutz
 				//TextAlignment = UITextAlignment.Center,
 				BackgroundColor = UIColor.Clear
 			};
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/filled.png"),
-												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
+						filledImage: UIImage.FromBundle("Stars/star.png"),
+						chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 			stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, 5.0m);
 
@@ -53,7 +53,7 @@ namespace WineHangoutz
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = ProfileViewController.GetImageBitmapFromUrl(review.ReviewUserId);
+			imageView.Image = BlobWrapper.GetProfileImageforUser(review.ReviewUserId);
 			//imageView.Image = new UIImage("user.png");
 			userName.Text = review.Username;
 			ReviewDate.Text = review.Date.ToString("d");

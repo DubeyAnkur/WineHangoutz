@@ -92,9 +92,6 @@
     <Reference Include="Xamarin.Auth.iOS">
       <HintPath>..\Components\xamarin.auth-1.2.3.1\lib\ios-unified\Xamarin.Auth.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="Hangouts.Models">
-      <HintPath>..\..\..\..\Services\Hangouts.Models\bin\Debug\Hangouts.Models.dll</HintPath>
-    </Reference>
     <Reference Include="BTProgressHUD">
       <HintPath>..\..\..\..\..\Downloads\btprogresshud-1.20\lib\ios-unified\BTProgressHUD.dll</HintPath>
     </Reference>
@@ -117,6 +114,9 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage">
       <HintPath>..\packages\WindowsAzure.Storage.8.1.1\lib\netstandard1.3\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangouts.Models">
+      <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +152,7 @@
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="SimpleControllerViewController.xib" />
     <InterfaceDefinition Include="ProfileViewController.xib" />
+    <InterfaceDefinition Include="AboutController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -162,8 +163,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="PopupView.cs" />
-    <Compile Include="CollectionViewCtrl.cs" />
-    <Compile Include="CollectionViewCell.cs" />
     <Compile Include="PhyCollectionView.cs" />
     <Compile Include="PhyCollectionView.designer.cs">
       <DependentUpon>PhyCollectionView.cs</DependentUpon>
@@ -211,6 +210,10 @@
       <DependentUpon>MyReviewViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingOverlay.cs" />
+    <Compile Include="AboutController.cs" />
+    <Compile Include="AboutController.designer.cs">
+      <DependentUpon>AboutController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
@@ -271,6 +274,12 @@
     <BundleResource Include="Resources\city.png" />
     <BundleResource Include="Resources\state.png" />
     <BundleResource Include="Resources\phone.png" />
+    <BundleResource Include="Resources\Info.png" />
+    <BundleResource Include="Resources\add.png" />
+    <BundleResource Include="Resources\City1.png" />
+    <BundleResource Include="Resources\phone1.png" />
+    <BundleResource Include="Resources\line1.png" />
+    <BundleResource Include="Resources\line123.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

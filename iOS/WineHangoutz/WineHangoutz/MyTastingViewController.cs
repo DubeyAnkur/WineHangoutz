@@ -19,7 +19,7 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 			//table = new UITableView(View.Bounds); // defaults to Plain style
 			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
 			//List<Reviews> tableItems = new List<Reviews>();>
@@ -142,7 +142,7 @@ namespace WineHangoutz
 			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
-			ReviewDate.Text = review.Date.ToString("d");
+			ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 			Vintage.Text = review.Vintage.ToString();
 			WineIdLabel.Text = review.WineId.ToString();
 			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);

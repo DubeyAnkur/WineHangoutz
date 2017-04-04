@@ -7,6 +7,8 @@ using ObjCRuntime;
 using PatridgeDev;
 using Hangout.Models;
 using BigTed;
+using System.Globalization;
+using System.Threading;
 
 namespace WineHangoutz {
 
@@ -20,6 +22,12 @@ namespace WineHangoutz {
 		public decimal averageRating = 3.3m;
 		public string WineId = "0";
 		public Item myItem;
+
+		public void Dowork()
+		{
+			
+			NavigationController.PushViewController(new SKUDetailView(WineId), false);
+		}
 
 		[Export ("initWithFrame:")]
 		public APLCollectionViewCell (CGRect frame) : base (frame)
@@ -45,13 +53,13 @@ namespace WineHangoutz {
 			//	 BTProgressHUD.Show("Loading...");
 			// };
 
-			ImageView.TouchUpInside += (object sender, EventArgs e) =>
-			{
-				//NavigationController.PushViewController(new DetailViewController(), false);
+			//ImageView.TouchUpInside += (object sender, EventArgs e) =>
+			//{
+			//	//NavigationController.PushViewController(new DetailViewController(), false);
 
-				NavigationController.PushViewController(new SKUDetailView(WineId), false);
-				BTProgressHUD.Dismiss();
-			};
+			//	NavigationController.PushViewController(new SKUDetailView(WineId), false);
+			//	BTProgressHUD.Dismiss();
+			//};
 
 			//box.Width = (box.Width/ 240) * 92; //box.Width / 2;
 			//box.X = (Bounds.Width-box.Width) / 2;
@@ -62,17 +70,24 @@ namespace WineHangoutz {
 			btlImage.ClipsToBounds = true;
 			btlImage.Layer.BorderColor = UIColor.White.CGColor;
 			btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-
+			    
 			btlImage.TouchDown += (object sender, EventArgs e) =>
 			{
-				BTProgressHUD.Show("Loading...");
+				BTProgressHUD.Show("Thread running");
+
+
 			};
 
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
+				Thread.Sleep(5000);
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				NavigationController.PushViewController(new SKUDetailView(WineId), false);
 				BTProgressHUD.Dismiss();
+
+				//ThreadStart thr = new ThreadStart(Dowork);
+				//Thread mythr = new Thread(thr);
+				//mythr.Start();
 			};
 
 			box.Height = 25;
@@ -152,7 +167,8 @@ namespace WineHangoutz {
 
 
 			lblRegPrice = new UILabel(new CGRect(0, Bounds.Height - 60, Bounds.Width, 12f));
-			lblRegPrice.Text = "$"+RegPrice;
+			lblRegPrice.Text = RegPrice;
+
 			lblRegPrice.Font = UIFont.FromName("Verdana", 13f);
 
 			lblRegPrice.TextAlignment = UITextAlignment.Center;

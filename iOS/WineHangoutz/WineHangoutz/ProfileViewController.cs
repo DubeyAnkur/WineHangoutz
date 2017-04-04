@@ -14,6 +14,7 @@ using ImageIO;
 using System.IO;
 using System.Threading.Tasks;
 
+
 namespace WineHangoutz
 {
 	public partial class ProfileViewController : UIViewController
@@ -28,7 +29,7 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 
 			ServiceWrapper sw = new ServiceWrapper();
 			var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
@@ -39,13 +40,19 @@ namespace WineHangoutz
 			txtPhone.Text = cRes.customer.PhoneNumber;
 			txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
 			txtState.Text = cRes.customer.State;
-
 			//imgProfile.Image = new UIImage("user.png");
+
+
 			imgEmail.Image = new UIImage("mail.png");
-			imgAddr.Image = new UIImage("ic_action_place.png");
-			imgCity.Image = new UIImage("city.png");
+
+			imgAddr.Image = new UIImage("add.png");
+
+			imgCity.Image = new UIImage("City1.png");
+
 			imgState.Image = new UIImage("state.png");
-			imgPhone.Image = new UIImage("phone.png");
+
+			imgPhone.Image = new UIImage("phone1.png");
+	
 			//imgPhone
 
 			//var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
@@ -155,7 +162,7 @@ namespace WineHangoutz
 		//	}
 		//}
 
-		protected void Handle_FinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs e)
+		protected async void Handle_FinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs e)
 		{
 			// determine what was selected, video or image
 			bool isImage = false;
@@ -194,11 +201,11 @@ namespace WineHangoutz
 																	myByteArray, 0, Convert.ToInt32(imagedata.Length));
 
 
-						byte[] img = ResizeImageIOS(myByteArray, 750, 900);
+						byte[] img =BlobWrapper.ResizeImageIOS(myByteArray, 250, 300);
 
 
 						int i = img.Length;
-						UploadProfilePic(img,i);
+						await BlobWrapper.UploadProfilePic(img,i);
 					}
 
 
@@ -222,6 +229,8 @@ namespace WineHangoutz
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
+
+
 
 		public bool IsCameraAuthorized()
 		{
@@ -252,24 +261,22 @@ namespace WineHangoutz
 				// impossible, unknown authorization status
 			}
 		}
-		public async void UploadProfilePic(byte[] myByteArray,int i)
-		{
+		//public async void UploadProfilePic(byte[] myByteArray,int i)
+		//{
 
-			StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-			CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-			CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-			CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
+		//	StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+		//	CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+		//	CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+		//	CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
 
-			await container.CreateIfNotExistsAsync();
-			//string[] FileEntries = App.System.IO._dir.GetFiles(path);
-
-
-			//foreach (string FilePath in FileEntries)
-			//{
-			//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
-			CloudBlockBlob blob = container.GetBlockBlobReference( CurrentUser.RetreiveUserId()+ ".jpg"); //(path);
+		//	await container.CreateIfNotExistsAsync();
+		//	//string[] FileEntries = App.System.IO._dir.GetFiles(path);
 
 
+		//	//foreach (string FilePath in FileEntries)
+		//	//{
+		//	//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
+		//	CloudBlockBlob blob = container.GetBlockBlobReference( CurrentUser.RetreiveUserId()+ ".jpg"); //(path);
 
 
 
@@ -278,77 +285,79 @@ namespace WineHangoutz
 
 
 
-			//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-			//{
-
-			await blob.UploadFromByteArrayAsync(myByteArray,0,i) ;//  .UploadFromFileAsync(path);
-
-			//}
-			//}
-			// await container=
 
 
+		//	//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+		//	//{
 
-		}
-		public static byte[] ResizeImageIOS(byte[] imageData, float width, float height)
-		{
-			// Load the bitmap
-			UIImage originalImage1 = ImageFromByteArray(imageData);
-			//
-			var Hoehe = originalImage1.Size.Height;
-			var Breite = originalImage1.Size.Width;
-			//
-			nfloat ZielHoehe = 0;
-			nfloat ZielBreite = 0;
-			//
+		//	await blob.UploadFromByteArrayAsync(myByteArray,0,i) ;//  .UploadFromFileAsync(path);
 
-			if (Hoehe > Breite) // Höhe (71 für Avatar) ist Master
-			{
-				ZielHoehe = height;
-				nfloat teiler = Hoehe / height;
-				ZielBreite = Breite / teiler;
-			}
-			else // Breite (61 for Avatar) ist Master
-			{
-				ZielBreite = width;
-				nfloat teiler = Breite / width;
-				ZielHoehe = Hoehe / teiler;
-			}
-			//
-			width = (float)ZielBreite;
-			height = (float)ZielHoehe;
-			//
-			UIGraphics.BeginImageContext(new SizeF(width, height));
-			originalImage1.Draw(new RectangleF(0, 0, width, height));
-			var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-			//
-			var bytesImagen = resizedImage.AsJPEG().ToArray();
-			resizedImage.Dispose();
-			return bytesImagen;
-		}
+		//	//}
+		//	//}
+		//	// await container=
 
-		static UIImage ImageFromByteArray(byte[] imageData)
-		{
-			{
-				if (imageData == null)
-				{
-					return null;
-				}
-				//
-				UIKit.UIImage image;
-				try
-				{
-					image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine("Image load failed: " + e.Message);
-					return null;
-				}
-				return image;
-			}
-		}
+
+
+		//}
+		//public static byte[] ResizeImageIOS(byte[] imageData, float width, float height)
+		//{
+		//	// Load the bitmap
+		//	UIImage originalImage1 = ImageFromByteArray(imageData);
+		//	//
+		//	var Hoehe = originalImage1.Size.Height;
+		//	var Breite = originalImage1.Size.Width;
+		//	//
+		//	nfloat ZielHoehe = 0;
+		//	nfloat ZielBreite = 0;
+		//	//
+
+		//	if (Hoehe > Breite) // Höhe (71 für Avatar) ist Master
+		//	{
+		//		ZielHoehe = height;
+		//		nfloat teiler = Hoehe / height;
+		//		ZielBreite = Breite / teiler;
+		//	}
+		//	else // Breite (61 for Avatar) ist Master
+		//	{
+		//		ZielBreite = width;
+		//		nfloat teiler = Breite / width;
+		//		ZielHoehe = Hoehe / teiler;
+		//	}
+		//	//
+		//	width = (float)ZielBreite;
+		//	height = (float)ZielHoehe;
+		//	//
+		//	UIGraphics.BeginImageContext(new SizeF(width, height));
+		//	originalImage1.Draw(new RectangleF(0, 0, width, height));
+		//	var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
+		//	UIGraphics.EndImageContext();
+		//	//
+		//	var bytesImagen = resizedImage.AsJPEG().ToArray();
+		//	resizedImage.Dispose();
+		//	return bytesImagen;
+		//}
+
+		//static UIImage ImageFromByteArray(byte[] imageData)
+		//{
+		//	{
+		//		if (imageData == null)
+		//		{
+		//			return null;
+		//		}
+		//		//
+		//		UIKit.UIImage image;
+		//		try
+		//		{
+		//			image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
+		//		}
+		//		catch (Exception e)
+		//		{
+		//			Console.WriteLine("Image load failed: " + e.Message);
+		//			return null;
+		//		}
+		//		return image;
+		//	}
+		//}
 }
 }
 

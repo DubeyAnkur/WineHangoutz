@@ -18,7 +18,7 @@ namespace WineHangoutz
 		PDRatingView ratingView;
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 
 
 

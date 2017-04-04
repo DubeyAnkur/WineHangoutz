@@ -22,7 +22,7 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 
 			ServiceWrapper svc = new ServiceWrapper();
 			if (FaviouriteView)

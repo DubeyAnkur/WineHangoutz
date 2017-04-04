@@ -15,7 +15,7 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;

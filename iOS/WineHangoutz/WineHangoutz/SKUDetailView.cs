@@ -15,12 +15,12 @@ namespace WineHangoutz
 		public SKUDetailView(string WineId): base()
 		{
 			_wineId = Convert.ToInt32(WineId);
-			this.Title = "Details";
+			this.Title = "Wine Details";
 		}
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 			nfloat width = View.Frame.Width;
 
 			ServiceWrapper svc = new ServiceWrapper();
@@ -127,7 +127,7 @@ namespace WineHangoutz
 					lblVintage.Text = data.Vintage.ToString();
 					lblVintage.Font = UIFont.FromName("Verdana", 12f);
 					lblVintage.TextAlignment = UITextAlignment.Center;
-					lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("Line.png"));
+					lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("line123.png"));
 					vw = lblVintage;
 					//vw.AddSubview(Separator);
 					break;

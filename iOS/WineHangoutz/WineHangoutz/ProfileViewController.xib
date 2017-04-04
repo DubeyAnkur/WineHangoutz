@@ -146,23 +146,23 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kfd-In-SlJ">
-                    <rect key="frame" x="22" y="225" width="24" height="24"/>
+                    <rect key="frame" x="16" y="224" width="24" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ObV-oq-ciG">
-                    <rect key="frame" x="22" y="283" width="28" height="28"/>
+                    <rect key="frame" x="14" y="286" width="28" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="clt-zy-yBE">
-                    <rect key="frame" x="22" y="350" width="28" height="28"/>
+                    <rect key="frame" x="14" y="346" width="28" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rwq-Sg-y8D">
-                    <rect key="frame" x="22" y="415" width="28" height="28"/>
+                    <rect key="frame" x="14" y="412" width="28" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3uE-3M-sd5">
-                    <rect key="frame" x="22" y="474" width="28" height="28"/>
+                    <rect key="frame" x="14" y="470" width="28" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfK-xJ-7ke">
@@ -243,5 +243,11 @@
         <image name="city.png" width="160" height="160"/>
         <image name="state.png" width="230" height="220"/>
         <image name="phone.png" width="225" height="225"/>
+        <image name="Info.png" width="256" height="256"/>
+        <image name="add.png" width="200" height="200"/>
+        <image name="City1.png" width="512" height="512"/>
+        <image name="phone1.png" width="256" height="256"/>
+        <image name="line1.png" width="1800" height="72"/>
+        <image name="line123.png" width="1800" height="72"/>
     </resources>
 </document>

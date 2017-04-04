@@ -26,7 +26,7 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 			this.View.BackgroundColor = new UIColor(0, 0, 0, 0.8f);
 
 			var lblProducer = new UILabel();
@@ -91,7 +91,7 @@ namespace WineHangoutz
 
 
 			var txtComments = new UITextView();
-			txtComments.Frame = new CGRect(14, 240, View.Frame.Width-28, 130);
+			txtComments.Frame = new CGRect(14, 250, View.Frame.Width-28, 130);
 			//txtComments.Text = "Describe your testing";
 			//txtComments.TextAlignment = UITextAlignment.Justified;
 			//txtComments.BackgroundColor = UIColor.LightGray;

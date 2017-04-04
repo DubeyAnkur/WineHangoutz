@@ -22,7 +22,7 @@ namespace WineHangoutz
 		UILabel lblError;
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 
 			UITextField usernameField;
 

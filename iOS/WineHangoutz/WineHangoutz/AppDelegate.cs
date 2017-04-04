@@ -2,6 +2,7 @@
 using UIKit;
 using CoreGraphics;
 using System.Collections.Generic;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -31,16 +32,29 @@ namespace WineHangoutz
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
-			//var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
-			//{
-			//	// button was clicked
-			//});
 
+			UIImage info = UIImage.FromFile("Info.png");
+			info = ResizeImage(info, 25, 25);
 
+			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
+			{
+				BTProgressHUD.Show("Loading,,,");
+				nav.PushViewController(new ProfileViewController(nav), false);
+				nav.NavigationBar.TopItem.Title = "Profile";
+				BTProgressHUD.Dismiss();
+			});
+			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
+			{
+				BTProgressHUD.Show("Loading,,,");
+				nav.PushViewController(new AboutController1(nav), false);
+				nav.NavigationBar.TopItem.Title = "About";
+				BTProgressHUD.Dismiss();
+			});
 			ManageTabBar(RootTab);
 
 			nav = new UINavigationController(Window.RootViewController);
-			//nav.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
+			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
 
 			Window.RootViewController = nav;
 			return true;

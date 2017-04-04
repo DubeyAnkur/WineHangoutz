@@ -20,7 +20,7 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			//AboutController1.ViewDidLoad(base);
 			//table = new UITableView(View.Bounds); // defaults to Plain style
 			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
 			//List<Reviews> tableItems = new List<Reviews>();>
@@ -94,7 +94,7 @@ namespace WineHangoutz
 		UITextView Comments;
 		UILabel Vintage;
 		UIImageView separator;
-		UIImageView imageView;
+		UIButton imageView;
 		PDRatingView stars;
 		UIButton btnEdit;
 		UIButton btnDelete;
@@ -108,10 +108,16 @@ namespace WineHangoutz
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.Gray;
 			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIImageView();
+			imageView = new UIButton();
 			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 			imageView.ContentMode = UIViewContentMode.Center;
 			imageView.ClipsToBounds = true;
+
+			imageView.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				//NavigationController.PushViewController(new DetailViewController(), false);
+				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
+			};
 			Review review = new Review();
 
 			separator = new UIImageView();
@@ -148,9 +154,9 @@ namespace WineHangoutz
 			};
 
 			decimal averageRating = 0.0m;
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/filled.png"),
-												chosenImage: UIImage.FromBundle("Stars/chosen.png"));
+			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
+						filledImage: UIImage.FromBundle("Stars/star.png"),
+						chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 			stars = new PDRatingView(new CGRect(110, 60, 60, 20), ratingConfig, averageRating);
 
@@ -227,7 +233,7 @@ namespace WineHangoutz
 
 		public void UpdateCell(Review review)
 		{
-			imageView.Image = BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155));
+			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
 			separator.Image = UIImage.FromFile("separator.png");
 			WineName.Text = review.Name;
 			ReviewDate.Text = review.Date.ToString("d");
