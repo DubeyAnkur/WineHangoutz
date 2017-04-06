@@ -287,7 +287,7 @@ namespace WineHangouts
                     break;
                 case Resource.Id.action_settings1:
                     ProgressIndicator.Show(this);
-                    var intent1 = new Intent(this, typeof(MyReviewActivity));
+                    var intent1 = new Intent(this, typeof(AboutActivity));
                     intent1.PutExtra("MyData", "Wall Store");
 
                     StartActivity(intent1);

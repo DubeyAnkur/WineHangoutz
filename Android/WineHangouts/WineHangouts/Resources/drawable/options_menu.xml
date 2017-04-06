@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
   <!--///showAsAction="always" ///-->
   <item android:id="@+id/action_settings" android:icon="@drawable/taste" android:title="Profile" showAsAction="always" />
-  <item android:id="@+id/action_settings1" android:title="MyTastings" showAsAction="always" />
+  <item android:id="@+id/action_settings1" android:title="About Us" showAsAction="always" />
   <item android:id="@+id/action_settings2" android:icon="@drawable/taste" android:title="Exit" showAsAction="always" />
   <!--/android:showAsAction="ifRoom"/-->
   <item android:id="@+id/action_settings3" android:title="items"  android:icon="@drawable/taste" android:showAsAction="ifRoom" />

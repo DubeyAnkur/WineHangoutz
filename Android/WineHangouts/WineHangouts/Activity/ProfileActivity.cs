@@ -24,7 +24,7 @@ using System.Drawing;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Wine Hangouts User Profile")]
+    [Activity(Label = "My Profile")]
     public class ProfileActivity : Activity, IPopupParent
     {
         protected override void OnCreate(Bundle bundle)

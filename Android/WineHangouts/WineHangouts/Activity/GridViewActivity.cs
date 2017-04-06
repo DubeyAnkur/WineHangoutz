@@ -13,7 +13,7 @@ using System.Threading;
 namespace WineHangouts
 {
 
-    [Activity(Label = "GridViewActivity", MainLauncher = false)]
+    [Activity(Label = "Available Wines", MainLauncher = false)]
     public class GridViewActivity : Activity
     {
         public int WineID;

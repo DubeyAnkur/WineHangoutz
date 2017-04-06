@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace WineHangouts
 {
-    [Activity(Label = "AlertActivity")]
+    [Activity(Label = "Alert")]
     public class AlertActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

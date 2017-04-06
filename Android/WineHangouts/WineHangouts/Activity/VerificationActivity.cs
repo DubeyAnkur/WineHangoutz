@@ -14,7 +14,7 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "VerificationActivity")]
+    [Activity(Label = "Verification")]
     public class VerificationActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
