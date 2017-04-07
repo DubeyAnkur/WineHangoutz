@@ -10,80 +10,13 @@
         p1:layout_width="match_parent"
         p1:layout_height="match_parent"
         p1:id="@+id/relativeLayout1"
-        p1:background="@android:color/background_light">
-        <ImageView
-            p1:src="@android:drawable/ic_menu_gallery"
-            p1:layout_width="100dp"
-            p1:layout_height="150dp"
-            p1:id="@+id/imgWine" />
-        <TextView
-            p1:text="cods"
-            p1:layout_width="220.5dp"
-            p1:layout_height="wrap_content"
-            p1:layout_toRightOf="@id/imgWine"
-            p1:id="@+id/txtWineName"
-            p1:layout_marginLeft="5dp"
-            p1:inputType="textMultiLine"
-            p1:textSize="20dp"
-            p1:textColor="#991912" />
-        <ImageButton
-            p1:src="@android:drawable/ic_menu_edit"
-            p1:layout_width="25dp"
-            p1:layout_height="25dp"
-            p1:layout_toRightOf="@id/txtWineName"
-            p1:id="@+id/btnEditReview"
-            p1:scaleType="centerCrop"
-            p1:background="@null" />
-        <ImageButton
-            p1:src="@android:drawable/ic_menu_delete"
-            p1:layout_width="25dp"
-            p1:layout_height="25dp"
-            p1:layout_toRightOf="@+id/btnEditReview"
-            p1:id="@+id/btnDeleteReview"
-            p1:scaleType="centerCrop"
-            p1:background="@null" />
-        <TextView
-            p1:text="Medium Text"
-            p1:textAppearance="?android:attr/textAppearanceMedium"
+        p1:background="@android:color/background_light"
+        p1:minWidth="25px"
+        p1:minHeight="25px">
+        <Button
+            p1:text="Click"
             p1:layout_width="wrap_content"
             p1:layout_height="wrap_content"
-            p1:layout_below="@id/txtWineName"
-            p1:id="@+id/txtVintage"
-            p1:layout_toRightOf="@id/imgWine"
-            p1:layout_marginLeft="5dp"
-            p1:textColor="#f90c43" />
-        <View
-            p1:id="@+id/topDivider"
-            p1:layout_width="wrap_content"
-            p1:layout_height="2dp"
-            p1:background="@android:color/background_dark"
-            p1:layout_gravity="center"
-            p1:layout_margin="2dp"
-            p1:layout_toRightOf="@id/imgWine"
-            p1:layout_below="@id/txtVintage"
-            p1:layout_marginLeft="5dp" />
-        <RatingBar
-            p1:layout_width="wrap_content"
-            p1:layout_height="48.5dp"
-            p1:layout_toRightOf="@id/imgWine"
-            p1:id="@+id/custRating"
-            p1:layout_below="@id/topDivider"
-            p1:progress="@integer/abc_config_activityDefaultDur"
-            p1:secondaryProgress="@integer/cancel_button_image_alpha"
-            p1:numStars="5"
-            p1:stepSize="1"
-            p1:rating="1.5"
-            p1:isIndicator="true"
-            p1:scaleX="0.3"
-            p1:scaleY="0.3"
-            p1:transformPivotX="@dimen/abc_action_bar_content_inset_material" />
-        <TextView
-            p1:text="Medium Text"
-            p1:textAppearance="?android:attr/textAppearanceMedium"
-            p1:layout_width="wrap_content"
-            p1:layout_height="wrap_content"
-            p1:layout_below="@id/custRating"
-            p1:id="@+id/textView1"
-            p1:layout_toRightOf="@id/imgWine" />
+            p1:id="@+id/btnTest" />
     </RelativeLayout>
 </LinearLayout>

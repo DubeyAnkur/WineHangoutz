@@ -176,7 +176,9 @@
     <AndroidResource Include="Resources\layout\detailedView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\MyReviewsCell.axml" />
+    <AndroidResource Include="Resources\layout\MyReviewsCell.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\Fragment.axml" />
     <AndroidResource Include="Resources\layout\LocationLayout.axml" />
     <AndroidResource Include="Resources\layout\ListView.axml" />
@@ -254,9 +256,6 @@
     <AndroidResource Include="Resources\values\style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\user.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\wine1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -285,9 +284,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\dpreplacer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\finca1.30.JPG" />
@@ -377,6 +373,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\user1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

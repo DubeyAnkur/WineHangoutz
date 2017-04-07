@@ -17,7 +17,7 @@ using Android.Graphics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Testing App", MainLauncher =false, Icon = "@drawable/icon")]
+    [Activity(Label = "Testing App", MainLauncher =true, Icon = "@drawable/icon")]
     public class TestingActivity : Activity
     {
         Button downloadButton;
@@ -30,13 +30,22 @@ namespace WineHangouts
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Dummy);
 
-            //Button btnGallery = FindViewById<Button>(Resource.Id.btnGallery);
+            Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
 
-            //btnGallery.Click += delegate
-            //{
-            //    Intent intent = new Intent(this, typeof(ProfilePictureGallery));
-            //    StartActivity(intent);
-            //};
+            btnGallery.Click += delegate
+            {
+                Notification.Builder builder = new Notification.Builder(this)
+                .SetContentTitle("hi Notification")
+                .SetContentText("https://developer.xamarin.com/guides/android/application_fundamentals/notifications/remote-notifications-with-gcm/")
+                .SetSmallIcon(Resource.Drawable.user1);
+                Notification notification = builder.Build();
+                NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+                const int notificationId = 0;
+                notificationManager.Notify(notificationId, notification);
+                //Intent intent = new Intent(this, typeof(ProfilePictureGallery));
+                //StartActivity(intent);
+            };
 
 
 

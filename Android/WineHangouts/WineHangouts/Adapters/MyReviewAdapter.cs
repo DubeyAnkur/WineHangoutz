@@ -66,8 +66,10 @@ namespace WineHangouts
             ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
             ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
-            edit.SetScaleType(ImageView.ScaleType.Center);
-            delete.SetScaleType(ImageView.ScaleType.Center);
+            //edit.SetScaleType(ImageView.ScaleType.Center);
+            //delete.SetScaleType(ImageView.ScaleType.Center);
+            //edit.SetImageResource(Resource.Drawable.edit);
+            //delete.SetImageResource(Resource.Drawable.delete);
             edit.Focusable = false;
             //edit.FocusableInTouchMode = false;
             edit.Clickable = true;
@@ -103,6 +105,7 @@ namespace WineHangouts
             // txtPrice.Text= myItems[position].
             txtYear.Text = myItems[position].Vintage;
             txtDescription.Text = myItems[position].RatingText;
+            txtDescription.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
             txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
             //Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
