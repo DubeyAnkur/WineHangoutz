@@ -20,7 +20,7 @@ using Android.Support;
 namespace WineHangouts
 {
     [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/icon")]
-    public class detailViewActivity : Activity, IPopupParent 
+    public class detailViewActivity : Activity, IPopupParent
     {
         public int sku;
         //Button downloadButton;
@@ -35,52 +35,41 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            SetContentView(Resource.Layout.detailedView);
+            wineid = Intent.GetIntExtra("WineID", 123);
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            ServiceWrapper svc = new ServiceWrapper();
+            ItemDetailsResponse myData = new ItemDetailsResponse();
+            ItemReviewResponse SkuRating = new ItemReviewResponse();
+            this.Title = "Wine Details";
+            var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+            TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
+            WineName.Focusable = false;
+            TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
+            WineProducer.Focusable = false;
+            TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
+            Vintage.Focusable = false;
+            TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
+            WineDescription.Focusable = false;
+            RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
+            AvgRating.Focusable = false;
+            TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             try
             {
-                SetContentView(Resource.Layout.detailedView);
-                wineid = Intent.GetIntExtra("WineID", 123);
-                downloadAsync(this,System.EventArgs.Empty, wineid);
-                ActionBar.SetHomeButtonEnabled(true);
-                ActionBar.SetDisplayHomeAsUpEnabled(true);
-                ServiceWrapper svc = new ServiceWrapper();
-                
-                ItemDetailsResponse myData = new ItemDetailsResponse();
-                ItemReviewResponse SkuRating = new ItemReviewResponse();
-                
-
+                downloadAsync(this, System.EventArgs.Empty, wineid);
                 myData = svc.GetItemDetails(wineid).Result;
-                SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
-
-                this.Title = "Wine Details";
-                var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+                SkuRating = svc.GetItemReviewsByWineID(wineid).Result;               
                 reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
                 commentsView.Adapter = comments;
-
                 setListViewHeightBasedOnChildren1(commentsView);
-                TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
-                WineName.Focusable = false;
                 WineName.Text = myData.ItemDetails.Name;
                 WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
-                TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
-                Vintage.Focusable = false;
                 Vintage.Text = myData.ItemDetails.Vintage.ToString();
-
-
-                TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
-                WineProducer.Focusable = false;
                 WineProducer.Text = myData.ItemDetails.Producer;
-
-                TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
-                WineDescription.Focusable = false;
                 WineDescription.Text = myData.ItemDetails.Description;
-
-
-
-                RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
-                AvgRating.Focusable = false;
                 AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
-                TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-
                 Review edit = new Review();
                 edit.WineId = wineid;
                 ReviewPopup editPopup = new ReviewPopup(this, edit);
@@ -136,9 +125,9 @@ namespace WineHangouts
             //    //downloadButton.Enabled = false;
 
             //}
-             
+
             //catch (Exception e) { }
-            
+
         }
 
 
@@ -229,16 +218,16 @@ namespace WineHangouts
             comments.NotifyDataSetChanged();
         }
 
-        public async void downloadAsync(object sender, System.EventArgs ea,int wineid)
+        public async void downloadAsync(object sender, System.EventArgs ea, int wineid)
         {
             webClient = new WebClient();
-            var url = new Uri("https://icsintegration.blob.core.windows.net/bottleimagesdetails/"+wineid+".jpg");
+            var url = new Uri("https://icsintegration.blob.core.windows.net/bottleimagesdetails/" + wineid + ".jpg");
             byte[] imageBytes = null;
             //progressLayout.Visibility = ViewStates.Visible;
             try
             {
                 imageBytes = await webClient.DownloadDataTaskAsync(url);
-                
+
             }
             catch (TaskCanceledException)
             {
@@ -250,6 +239,8 @@ namespace WineHangouts
                 //progressLayout.Visibility = ViewStates.Gone;
                 //downloadButton.Click += downloadAsync;
                 //downloadButton.Text = "Download Image";
+                Bitmap imgWine=BlobWrapper.Bottleimages(wineid);
+                HighImageWine.SetImageBitmap(imgWine);
                 return;
             }
 
@@ -273,7 +264,7 @@ namespace WineHangouts
                 //options.InJustDecodeBounds = false;
 
                 Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
-                if(bitmap==null)
+                if (bitmap == null)
                 {
                     HighImageWine.SetImageResource(Resource.Drawable.wine7);
                 }

@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.savvyitsol.winehangoutz" android:versionName="1.1" android:installLocation="internalOnly" android:versionCode="5">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.savvyitsol.winehangoutz" android:versionName="1.1" android:installLocation="internalOnly" android:versionCode="6">
 	<uses-sdk android:minSdkVersion="16" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.SEND_SMS" />
-	<application android:label="@string/ApplicationName" android:theme="@style/CustomActionBarTheme"></application>
+	<application android:label="@string/ApplicationName" android:theme="@style/CustomActionBarTheme" android:icon="@drawable/logo5"></application>
 </manifest>

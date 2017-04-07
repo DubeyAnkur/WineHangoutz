@@ -286,7 +286,7 @@ namespace WineHangouts
                     StartActivity(intent);
                     break;
                 case Resource.Id.action_settings1:
-                    ProgressIndicator.Show(this);
+                    //ProgressIndicator.Show(this);
                     var intent1 = new Intent(this, typeof(AboutActivity));
                     intent1.PutExtra("MyData", "Wall Store");
 
@@ -299,11 +299,11 @@ namespace WineHangouts
             }
             try
             {
-                if (item.ItemId == Resource.Id.action_settings3)
-                {
-                    ProgressIndicator.Show(this);
-                    StartActivity(typeof(AutoCompleteTextActivity));
-                }
+                //if (item.ItemId == Resource.Id.action_settings3)
+                //{
+                //    ProgressIndicator.Show(this);
+                //    StartActivity(typeof(AutoCompleteTextActivity));
+                //}
             }
 
             catch (Exception ex)

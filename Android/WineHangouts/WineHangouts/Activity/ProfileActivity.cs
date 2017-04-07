@@ -51,7 +51,7 @@ namespace WineHangouts
                     Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
                     if(imageBitmap==null)
                     {
-                        propicimage.SetImageResource(Resource.Drawable.user);
+                        propicimage.SetImageResource(Resource.Drawable.user1);
                     //propicimage.SetImageBitmap(imageBitmap);
                     }
                     else
@@ -64,7 +64,7 @@ namespace WineHangouts
                     Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
                     if (imageBitmap == null)
                     {
-                        propicimage.SetImageResource(Resource.Drawable.user);
+                        propicimage.SetImageResource(Resource.Drawable.user1);
                     }
                     else
                     {

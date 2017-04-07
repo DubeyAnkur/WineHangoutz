@@ -202,6 +202,10 @@ namespace WineHangouts
                 imageBitmap.Dispose();
                 
             }
+            else
+            {
+                imgWine.SetImageResource(Resource.Drawable.wine7);
+            }
 
 
 

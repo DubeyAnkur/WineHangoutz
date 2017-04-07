@@ -7,10 +7,11 @@
     android:minHeight="40px"
     android:background="@android:color/background_light">
     <ImageView
-        android:src="@drawable/icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView1" />
+        android:src="@drawable/logo5"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:id="@+id/imageView1"
+        android:scaleType="fitCenter" />
     <TextView
         android:id="@+id/lblUsername"
         android:layout_below="@+id/titleLogin"

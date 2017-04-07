@@ -67,7 +67,7 @@ namespace WineHangouts
                 //2. If it returns 1 save Username and go to Tab Activity.
                 //3. Else Show message, incorrect username.
                 //
-                if (username.Text == "" || txtUserNumber.Text == "")
+                if (username.Text == "" )//|| txtUserNumber.Text == "")
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
                     aler.SetTitle("Sorry");
@@ -80,12 +80,56 @@ namespace WineHangouts
                 }
                 else
                 {
-                    SendSmsgs(txtUserNumber.Text);
-                    var intent = new Intent(this, typeof(VerificationActivity));
-                    //var intent = new Intent(this, typeof(TabActivity));
-                    intent.PutExtra("otp", otp);
-                    intent.PutExtra("username", username.Text);
-                    StartActivity(intent);
+                    CustomerResponse authen = new CustomerResponse();
+                    try
+                    {
+                        authen = svc.AuthencateUser(username.Text).Result;
+                        if (authen.customer != null && authen.customer.CustomerID != 0)
+                        {
+                            CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
+                            Intent intent = new Intent(this, typeof(TabActivity));
+                            StartActivity(intent);
+
+                        }
+                        else
+                        {
+                            AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                            aler.SetTitle("Sorry");
+                            aler.SetMessage("You entered wrong ");
+                            aler.SetNegativeButton("Ok", delegate { });
+                            Dialog dialog1 = aler.Create();
+                            dialog1.Show();
+                        };
+                    }
+                    catch (Exception exception)
+                    {
+                        if (exception.Message.ToString() == "One or more errors occurred.")
+                        {
+                            AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                            aler.SetTitle("Sorry");
+                            aler.SetMessage("Please check your internet connection");
+                            aler.SetNegativeButton("Ok", delegate { });
+                            Dialog dialog2 = aler.Create();
+                            dialog2.Show();
+                        }
+                        else
+                        {
+                            AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                            aler.SetTitle("Sorry");
+                            aler.SetMessage("We're under maintanence");
+                            aler.SetNegativeButton("Ok", delegate { });
+                            Dialog dialog3 = aler.Create();
+                            dialog3.Show();
+
+                        }
+                    }
+
+                   //SendSmsgs(txtUserNumber.Text);
+                    //var intent = new Intent(this, typeof(VerificationActivity));
+                    ////var intent = new Intent(this, typeof(TabActivity));
+                    //intent.PutExtra("otp", otp);
+                    //intent.PutExtra("username", username.Text);
+                    //StartActivity(intent);
 
                 }
                 //CustomerResponse authen = new CustomerResponse();
