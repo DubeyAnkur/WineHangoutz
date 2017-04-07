@@ -15,7 +15,7 @@
 	--sdk \
 	10.2 \
 	--targetver \
-	8.0 \
+	10.2 \
 	--http-message-handler=HttpClientHandler \
 	--tls-provider=default \
 	--abi=i386 \
@@ -58,6 +58,8 @@
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/WindowsAzure.Storage.8.1.1/lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll \
 	-r \
 	/Users/ankurdubey/Projects/Services/Hangout/bin/Hangouts.Models.dll \
+	-r \
+	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Xamarin.Azure.NotificationHubs.iOS.1.2.5.2/lib/Xamarin.iOS10/Xamarin.Azure.NotificationHubs.iOS.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
 	-r \
@@ -338,6 +340,8 @@
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/WindowsAzure.Storage.8.1.1/lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll \
 	-r \
 	/Users/ankurdubey/Projects/Services/Hangout/bin/Hangouts.Models.dll \
+	-r \
+	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Xamarin.Azure.NotificationHubs.iOS.1.2.5.2/lib/Xamarin.iOS10/Xamarin.Azure.NotificationHubs.iOS.dll \
 	--target-framework \
 	"Xamarin.iOS,v1.0" \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug//WineHangoutz.exe \

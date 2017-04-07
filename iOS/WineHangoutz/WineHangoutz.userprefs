@@ -1,31 +1,12 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/SKUDetailView.cs">
-    <Files>
-      <File FileName="WineHangoutz/SKUDetailView.cs" Line="130" Column="85" />
-    </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node />
-          <Node name="WineHangoutz" expanded="True">
-            <Node name="WineHangoutz" expanded="True">
-              <Node name="Tabs" expanded="True" />
-              <Node name="AboutController.cs" expanded="True" />
-              <Node name="ProfileViewController.cs" expanded="True" />
-              <Node name="SKUDetailView.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
-  </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="375" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="382" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.0CE5DE0F-63D9-442A-ADC6-CBBBF2F707C4" />
   <MultiItemStartupConfigurations />
 </Properties>

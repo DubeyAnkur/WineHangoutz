@@ -249,5 +249,8 @@
         <image name="phone1.png" width="256" height="256"/>
         <image name="line1.png" width="1800" height="72"/>
         <image name="line123.png" width="1800" height="72"/>
+        <image name="logo5.png" width="1000" height="1000"/>
+        <image name="logo5.jpg" width="1000" height="1000"/>
+        <image name="user1.png" width="500" height="466"/>
     </resources>
 </document>

@@ -65,7 +65,14 @@ namespace WineHangoutz
 
 
 			UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
-			imgProfile.Image = prpicImage;
+			if (prpicImage != null)
+			{
+				imgProfile.Image = prpicImage;
+			}
+			else
+			{
+				imgProfile.Image=new UIImage("user1.png");
+			}
 
 			btnUpdate.TouchDown += (sender, e) =>
 			{

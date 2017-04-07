@@ -28,11 +28,11 @@ namespace WineHangoutz
 
 			nfloat h = 31.0f;
 			nfloat w = View.Bounds.Width;
-			nfloat imageSize = 80;
+			nfloat imageSize = 150;
 
 			var imgLogo = new UIImageView();
-			imgLogo.Frame = new CGRect((w - imageSize)/2, 70, imageSize, imageSize);
-			imgLogo.Image = UIImage.FromFile("whLogo.jpg");
+			imgLogo.Frame = new CGRect((w - imageSize)/3, 70, imageSize, imageSize);
+			imgLogo.Image = UIImage.FromFile("logo5.png");
 
 
 			lblError = new UILabel();

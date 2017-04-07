@@ -71,22 +71,22 @@ namespace WineHangoutz
 			btnWineries.TouchUpInside += (sender, e) =>
 			{
 
-				//UIAlertView alert = new UIAlertView()
-				//{
-				//	Title = "Eno View",
-				//	Message = "Coming Soon..."
-				//};
-				//alert.AddButton("OK");
-				//alert.Show();
-				var lineLayout = new LineLayout()
+				UIAlertView alert = new UIAlertView()
 				{
-					ItemSize = new CGSize(120, 300),
-					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
-					ScrollDirection = UICollectionViewScrollDirection.Horizontal
+					Title = "Eno View",
+					Message = "Coming Soon..."
 				};
+				alert.AddButton("OK");
+				alert.Show();
+				//var lineLayout = new LineLayout()
+				//{
+				//	ItemSize = new CGSize(120, 300),
+				//	SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+				//	ScrollDirection = UICollectionViewScrollDirection.Horizontal
+				//};
 
-				NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
-				BTProgressHUD.Dismiss();
+				//NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
+				//BTProgressHUD.Dismiss();
 			};
 		}
 		public override void ViewDidAppear(bool animated)

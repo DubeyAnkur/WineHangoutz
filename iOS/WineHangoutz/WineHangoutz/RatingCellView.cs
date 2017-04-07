@@ -52,9 +52,16 @@ namespace WineHangoutz
 
 		}
 		public void UpdateCell(Review review)
-		{
-			imageView.Image = BlobWrapper.GetProfileImageforUser(review.ReviewUserId);
-			//imageView.Image = new UIImage("user.png");
+		{ 
+			UIImage img= BlobWrapper.GetProfileImageforUser(review.ReviewUserId);
+			if (img != null)
+			{
+				imageView.Image = img;
+			}
+			else
+			{
+				imageView.Image = new UIImage("user1.png");
+			}
 			userName.Text = review.Username;
 			ReviewDate.Text = review.Date.ToString("d");
 			Comments.Text = review.RatingText;

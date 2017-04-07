@@ -118,6 +118,9 @@
     <Reference Include="Hangouts.Models">
       <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Azure.NotificationHubs.iOS">
+      <HintPath>..\packages\Xamarin.Azure.NotificationHubs.iOS.1.2.5.2\lib\Xamarin.iOS10\Xamarin.Azure.NotificationHubs.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -126,18 +129,19 @@
     <ImageAsset Include="Assets.xcassets\Second.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Second.imageset\vector.pdf" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29X29.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57X57.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58X58.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87X87.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80X80.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120X120.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\114X114.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180X180.png" />
     <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76_76.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152_152.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167_167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57X57 %282%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\114X114 %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120X120 %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180X180 %282%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76X76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152X152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167X167 %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29X29 %282%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58X58 %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87X87 %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80X80 %282%29.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -214,6 +218,7 @@
     <Compile Include="AboutController.designer.cs">
       <DependentUpon>AboutController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
@@ -280,6 +285,9 @@
     <BundleResource Include="Resources\phone1.png" />
     <BundleResource Include="Resources\line1.png" />
     <BundleResource Include="Resources\line123.png" />
+    <BundleResource Include="Resources\logo5.png" />
+    <BundleResource Include="Resources\logo5.jpg" />
+    <BundleResource Include="Resources\user1.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">
@@ -288,6 +296,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="json.net">
       <Version>7.0.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="azure-messaging">
+      <Version>1.2.5.2</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

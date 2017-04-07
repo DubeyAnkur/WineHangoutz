@@ -73,14 +73,14 @@ namespace WineHangoutz {
 			    
 			btlImage.TouchDown += (object sender, EventArgs e) =>
 			{
-				BTProgressHUD.Show("Thread running");
+				//BTProgressHUD.Show("Thread running");
 
 
 			};
 
 			btlImage.TouchUpInside += (object sender, EventArgs e) =>
 			{
-				Thread.Sleep(5000);
+				//Thread.Sleep(5000);
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				NavigationController.PushViewController(new SKUDetailView(WineId), false);
 				BTProgressHUD.Dismiss();
