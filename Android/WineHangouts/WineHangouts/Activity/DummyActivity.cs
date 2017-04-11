@@ -17,7 +17,7 @@ using Android.Graphics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Testing App", MainLauncher =true, Icon = "@drawable/icon")]
+    [Activity(Label = "Testing App", MainLauncher =false, Icon = "@drawable/icon")]
     public class TestingActivity : Activity
     {
         Button downloadButton;
@@ -31,11 +31,21 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Dummy);
 
             Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
-
-            btnGallery.Click += delegate
+            ServiceWrapper svc = new ServiceWrapper();
+            ItemReviewResponse md,md1 = new ItemReviewResponse();
+            CurrentUser.SaveUserName("lok", "3");
+            List<Review> Arr;
+            md=svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
+            Arr = md.Reviews.ToList();
+            int oldcont = Arr.Count;
+            md1 = svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
+            //CurrentUser.putCount(oldcont);
+            Arr = md1.Reviews.ToList();
+            int newcoun = Arr.Count;
+            if (oldcont != newcoun)
             {
                 Notification.Builder builder = new Notification.Builder(this)
-                .SetContentTitle("hi Notification")
+                .SetContentTitle("You've reviewed new wine")
                 .SetContentText("https://developer.xamarin.com/guides/android/application_fundamentals/notifications/remote-notifications-with-gcm/")
                 .SetSmallIcon(Resource.Drawable.user1);
                 Notification notification = builder.Build();
@@ -43,9 +53,22 @@ namespace WineHangouts
                 GetSystemService(Context.NotificationService) as NotificationManager;
                 const int notificationId = 0;
                 notificationManager.Notify(notificationId, notification);
-                //Intent intent = new Intent(this, typeof(ProfilePictureGallery));
+            }
+            
+            //btnGallery.Click += delegate
+            //{
+            //    Notification.Builder builder = new Notification.Builder(this)
+            //    .SetContentTitle("hi Notification")
+            //    .SetContentText("https://developer.xamarin.com/guides/android/application_fundamentals/notifications/remote-notifications-with-gcm/")
+            //    .SetSmallIcon(Resource.Drawable.user1);
+            //    Notification notification = builder.Build();
+            //    NotificationManager notificationManager =
+            //    GetSystemService(Context.NotificationService) as NotificationManager;
+            //    const int notificationId = 0;
+            //    notificationManager.Notify(notificationId, notification);
+            //    //Intent intent = new Intent(this, typeof(ProfilePictureGallery));
                 //StartActivity(intent);
-            };
+            //};
 
 
 

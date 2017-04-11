@@ -31,6 +31,19 @@ namespace WineHangouts
             _edit.PutString("UserId", UserId);
             _edit.Apply();
         }
+        
+        public static void putCount(string count)
+        {
+            _edit.PutString("Count", count);
+            _edit.Apply();
+           
+        }
+
+        public static string getCount()
+        {
+            string countVal = _pref.GetString("Count", null);
+            return countVal;
+        }
 
         public static string getUserName()
         {

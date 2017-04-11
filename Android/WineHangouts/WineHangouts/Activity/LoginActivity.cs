@@ -17,7 +17,7 @@ using Android.Telephony;
 namespace WineHangouts
 
 {
-    [Activity(Label = "@string/ApplicationName", MainLauncher =false, Icon ="@drawable/logo5")]
+    [Activity(Label = "@string/ApplicationName", MainLauncher =true, Icon ="@drawable/logo5")]
     public class LoginActivity : Activity
 
     {
