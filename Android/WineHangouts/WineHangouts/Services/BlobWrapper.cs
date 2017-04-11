@@ -93,14 +93,14 @@ namespace WineHangouts
             int storeid = 3;
             DirectoryInfo di = new DirectoryInfo(path);
 
-            bool isthere = di.GetFiles(userid + ".jpg").Any();
+            bool isthere = di.GetFiles(userid + ".Webp").Any();
             if (!isthere)
             {
-                var uri = new Uri(ServiceURL + "profileimages/" + userid + ".jpg");
+                var uri = new Uri(ServiceURL + "profileimages/" + userid + ".Webp");
                 Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
                 try
                 {
-                    var filePath = System.IO.Path.Combine(path + "/" + userid + ".jpg");
+                    var filePath = System.IO.Path.Combine(path + "/" + userid + ".Webp");
                     var stream = new FileStream(filePath, FileMode.Create);
                     bm.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                     stream.Close();
@@ -118,16 +118,16 @@ namespace WineHangouts
                 int y = x.Count;
                 for (int i = 0; i < y; i++)
                 {
-                    bool ispresent = di.GetFiles(x[i].WineId + ".jpg").Any();
+                    bool ispresent = di.GetFiles(x[i].WineId + ".").Any();
                     if (!ispresent)
                     {
-                        var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".jpg");
+                        var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".Webp");
                         Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
                         try
                         {
-                            var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".jpg");
+                            var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".Webp");
                             var stream = new FileStream(filePath, FileMode.Create);
-                            bm.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                            bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
                             stream.Close();
                         }
                         catch (Exception e)

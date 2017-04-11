@@ -20,6 +20,7 @@ namespace WineHangouts
     {
         public int uid;
         Context parent;
+        public int x;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -43,6 +44,7 @@ namespace WineHangouts
                 //}
                 List<Review> myArr1;
                 myArr1 = uidreviews.Reviews.ToList();
+           
 
                 var wineList = FindViewById<ListView>(Resource.Id.listView1);
                 // myArr1 = SampleData1();
@@ -55,7 +57,7 @@ namespace WineHangouts
                 //    infoText.Text = "You haven't reviewed anything";
                 //}
                 //adapter.Edit_Click += editPopup.EditPopup;
-
+             
                 wineList.Adapter = adapter;
 
                 // wineList.ItemClick += listView_ItemClick;

@@ -29,10 +29,11 @@ namespace WineHangouts
             }
         }
 
-        public MyReviewAdapter(Context con, List<Review> strArr)
+        public MyReviewAdapter(Context con, List<Review> strArr )
         {
             myContext = con;
             myItems = strArr;
+         
           
         }
         public override int Count
@@ -40,10 +41,13 @@ namespace WineHangouts
             get
             {
                 return myItems.Count;
+                
             }
         }
         //public EventHandler Edit_Click;
         //public EventHandler Delete_Click;
+
+       
         public override long GetItemId(int position)
         {
             return position;
