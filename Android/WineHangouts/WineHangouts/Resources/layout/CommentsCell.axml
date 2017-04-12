@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,14 +19,22 @@
             android:minHeight="25px"
             android:id="@+id/tableRow88"
             android:layout_rowSpan="2">
-            <ImageButton
+        <!--     <ImageButton
                 android:layout_column="0"
                 android:id="@+id/imageButton2"
                 android:layout_height="50.0dp"
                 android:layout_marginBottom="0.0dp"
                 android:layout_width="50.0dp"
                 android:layout_marginTop="15dp"
-                android:background="@null" />
+                android:background="@null" />  -->
+            <refractored.controls.CircleImageView
+                android:paddingTop="16dp"
+                android:layout_width="80dp"
+                android:layout_height="80.5dp"
+                android:id="@+id/imageButton2"
+                android:src="@drawable/ic_action_person"
+                app:civ_border_width="0.1dp"
+                app:civ_border_color="#808080" />
             <TableLayout
                 android:minWidth="25px"
                 android:minHeight="25px"
@@ -52,8 +61,8 @@
                     <View
                         android:id="@+id/topDivider"
                         android:layout_width="180.0dp"
-                        android:layout_height="1dp"
-                        android:background="#4a4f56"
+                        android:layout_height="0.3dp"
+                        android:background="#808080"
                         android:layout_gravity="center"
                         android:layout_margin="2dp"
                         android:layout_weight="1" />
@@ -96,9 +105,25 @@
                         android:textColor="@android:color/holo_blue_bright"
                         android:layout_margin="2dp" />
                 </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow90"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:paddingLeft="30px">
+                    <TextView
+                        android:text="Wine description"
+                        android:singleLine="false"
+                         android:inputType="textMultiLine"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_column="0"
+                        android:textSize="35px"
+                        android:id="@+id/textView66"
+                         android:textColor="@android:color/holo_green_dark"
+                        android:layout_margin="2dp" />
+                </TableRow>
             </TableLayout>
         </TableRow>
-        <TableRow
+     <!--  <TableRow
             android:id="@+id/tableRow91"
             android:minWidth="25px"
             android:minHeight="25px"
@@ -116,7 +141,7 @@
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
                 android:layout_span="2" />
-        </TableRow>
+        </TableRow>-->
     </TableLayout>
     <TableRow
         android:layout_width="match_parent"
@@ -124,9 +149,9 @@
         <View
             android:id="@+id/topDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.8dp"
             android:background="#000000"
-            android:paddingLeft="0.5px"
+            android:paddingLeft="0.4px"
             android:layout_gravity="fill_horizontal" />
     </TableRow>
 </LinearLayout>

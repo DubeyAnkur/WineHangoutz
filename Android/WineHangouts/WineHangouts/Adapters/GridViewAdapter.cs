@@ -161,9 +161,9 @@ namespace WineHangouts
             }
 
 
-            ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-            string path = pppd.CreateDirectoryForPictures();
-            var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+            //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+            //string path = pppd.CreateDirectoryForPictures();
+            //var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             Bitmap imageBitmap;
             
 

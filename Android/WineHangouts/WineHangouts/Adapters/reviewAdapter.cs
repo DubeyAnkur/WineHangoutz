@@ -56,7 +56,7 @@ namespace WineHangouts
             TextView Comments = row.FindViewById<TextView>(Resource.Id.textView66);
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
-            ImageButton Image = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
+            ImageView Image = row.FindViewById<ImageView>(Resource.Id.imageButton2);
 
             Bitmap imageBitmap = BlobWrapper.ProfileImages(myItems[position].ReviewUserId);
             if (imageBitmap == null)

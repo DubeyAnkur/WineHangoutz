@@ -93,14 +93,14 @@ namespace WineHangouts
             int storeid = 3;
             DirectoryInfo di = new DirectoryInfo(path);
 
-            bool isthere = di.GetFiles(userid + ".Webp").Any();
+            bool isthere = di.GetFiles(userid + ".jpg").Any();
             if (!isthere)
             {
-                var uri = new Uri(ServiceURL + "profileimages/" + userid + ".Webp");
+                var uri = new Uri(ServiceURL + "profileimages/" + userid + ".jpg");
                 Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
                 try
                 {
-                    var filePath = System.IO.Path.Combine(path + "/" + userid + ".Webp");
+                    var filePath = System.IO.Path.Combine(path + "/" + userid + ".jpg");
                     var stream = new FileStream(filePath, FileMode.Create);
                     bm.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                     stream.Close();
@@ -121,11 +121,11 @@ namespace WineHangouts
                     bool ispresent = di.GetFiles(x[i].WineId + ".").Any();
                     if (!ispresent)
                     {
-                        var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".Webp");
+                        var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".jpg");
                         Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
                         try
                         {
-                            var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".Webp");
+                            var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".jpg");
                             var stream = new FileStream(filePath, FileMode.Create);
                             bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
                             stream.Close();
