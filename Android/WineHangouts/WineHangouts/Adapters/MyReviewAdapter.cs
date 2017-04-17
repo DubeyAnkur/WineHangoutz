@@ -105,7 +105,7 @@ namespace WineHangouts
             wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
             txtName.Text = myItems[position].Name;
-            txtName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
+           // txtName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
             // txtPrice.Text= myItems[position].
             txtYear.Text = myItems[position].Vintage;
             txtDescription.Text = myItems[position].RatingText;

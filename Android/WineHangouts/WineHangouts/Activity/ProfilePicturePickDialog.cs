@@ -97,13 +97,21 @@ namespace WineHangouts
 
         public string CreateDirectoryForPictures()
         {
-            App._dir = new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "winehangouts/wineimages");
+            App._dir = new Java.IO.File(Environment.GetExternalStoragePublicDirectory("WineHangouts"), "winehangouts/wineimages");
 
             if (!App._dir.Exists())
             {
                 App._dir.Mkdirs();
             }
             path = App._dir.ToString();
+
+            //String NOMEDIA = ".nomedia";
+            //App._file = new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), NOMEDIA);
+            //if (!App._file.Exists())
+            //{
+            //    App._file.CreateNewFile();
+            //}
+            
             return path;
         }
 
