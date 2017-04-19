@@ -32,16 +32,16 @@ namespace WineHangouts
             _edit.Apply();
         }
         
-        public static void putCount(string count)
+        public static void putToken(string count)
         {
-            _edit.PutString("Count", count);
+            _edit.PutString("token", count);
             _edit.Apply();
            
         }
 
-        public static string getCount()
+        public static string getToken()
         {
-            string countVal = _pref.GetString("Count", null);
+            string countVal = _pref.GetString("token", null);
             return countVal;
         }
 

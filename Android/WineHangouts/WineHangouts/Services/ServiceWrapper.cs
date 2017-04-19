@@ -83,15 +83,24 @@ namespace WineHangouts
             return output;
         }
 
-        //public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
-        //{
-        //    var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
-        //    var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-        //    var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-        //    return output;
-        //}
+        public async Task<int> InsertUpdateToken(TokenModel token)
+        {
+            try
+            {
+                var uri = new Uri(ServiceURL + "UpdateDeviceToken/"+token.User_id+"/token/"+token.DeviceToken.Replace(":",","));
+                var content = JsonConvert.SerializeObject(token);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+                //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return 1;
+        }
 
-        public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
+            public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
         {
             var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);

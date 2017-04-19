@@ -30,31 +30,31 @@ namespace WineHangouts
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Dummy);
 
-            Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
-            ServiceWrapper svc = new ServiceWrapper();
-            ItemReviewResponse md,md1 = new ItemReviewResponse();
-            CurrentUser.SaveUserName("lok", "3");
-            List<Review> Arr;
-            md=svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
-            Arr = md.Reviews.ToList();
-            int oldcont = Arr.Count;
-            md1 = svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
-            //CurrentUser.putCount(oldcont);
-            Arr = md1.Reviews.ToList();
-            int newcoun = Arr.Count;
-            if (oldcont != newcoun)
-            {
-                Notification.Builder builder = new Notification.Builder(this)
-                .SetContentTitle("You've reviewed new wine")
-                .SetContentText("https://developer.xamarin.com/guides/android/application_fundamentals/notifications/remote-notifications-with-gcm/")
-                .SetSmallIcon(Resource.Drawable.user1);
-                Notification notification = builder.Build();
-                NotificationManager notificationManager =
-                GetSystemService(Context.NotificationService) as NotificationManager;
-                const int notificationId = 0;
-                notificationManager.Notify(notificationId, notification);
-            }
-            
+            //Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
+            //ServiceWrapper svc = new ServiceWrapper();
+            //ItemReviewResponse md,md1 = new ItemReviewResponse();
+            //CurrentUser.SaveUserName("lok", "3");
+            //List<Review> Arr;
+            //md=svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
+            //Arr = md.Reviews.ToList();
+            //int oldcont = Arr.Count;
+            //md1 = svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
+            ////CurrentUser.putCount(oldcont);
+            //Arr = md1.Reviews.ToList();
+            //int newcoun = Arr.Count;
+            //if (oldcont != newcoun)
+            //{
+            //    Notification.Builder builder = new Notification.Builder(this)
+            //    .SetContentTitle("You've reviewed new wine")
+            //    .SetContentText("https://developer.xamarin.com/guides/android/application_fundamentals/notifications/remote-notifications-with-gcm/")
+            //    .SetSmallIcon(Resource.Drawable.user1);
+            //    Notification notification = builder.Build();
+            //    NotificationManager notificationManager =
+            //    GetSystemService(Context.NotificationService) as NotificationManager;
+            //    const int notificationId = 0;
+            //    notificationManager.Notify(notificationId, notification);
+            //}
+
             //btnGallery.Click += delegate
             //{
             //    Notification.Builder builder = new Notification.Builder(this)
@@ -67,7 +67,7 @@ namespace WineHangouts
             //    const int notificationId = 0;
             //    notificationManager.Notify(notificationId, notification);
             //    //Intent intent = new Intent(this, typeof(ProfilePictureGallery));
-                //StartActivity(intent);
+            //StartActivity(intent);
             //};
 
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android.Gms.Iid;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hangout.Models;
 using Android.Telephony;
+using Android.Gms.Common;
+using Android.Gms.Gcm;
 
 namespace WineHangouts
 
@@ -22,6 +24,7 @@ namespace WineHangouts
 
     {
         public string otp = "";
+        public string gplaystatus = "";
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -40,11 +43,21 @@ namespace WineHangouts
             //})).Start();
 
             //bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
-            var TaskA = new Task(() => {
+            var TaskA = new System.Threading.Tasks.Task(() => {
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             });
             TaskA.Start();
 
+            if (IsPlayServicesAvailable())
+            {
+                var TaskB = new System.Threading.Tasks.Task(() =>
+                {
+                    // Start the registration intent service; try to get a token:
+                    var intent = new Intent(this, typeof(RegistrationIntentService));
+                    StartService(intent);
+                });
+                TaskB.Start();
+            }
 
             if (CurrentUser.getUserName() == null ||
                 CurrentUser.getUserName() == "" )
@@ -87,6 +100,7 @@ namespace WineHangouts
                         if (authen.customer != null && authen.customer.CustomerID != 0)
                         {
                             CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
+                            SendRegistrationToAppServer(CurrentUser.getToken());
                             Intent intent = new Intent(this, typeof(TabActivity));
                             StartActivity(intent);
 
@@ -181,6 +195,44 @@ namespace WineHangouts
 
             
         }
+        public async void SendRegistrationToAppServer(string token)
+        {
+            TokenModel _token = new TokenModel();
+            _token.User_id = Convert.ToInt32(CurrentUser.getUserId());
+            _token.DeviceToken = token;
+            ServiceWrapper svc = new ServiceWrapper();
+            int x = await svc.InsertUpdateToken(_token);
+           
+        }
+
+        private bool IsPlayServicesAvailable()
+        {
+            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if (resultCode != ConnectionResult.Success)
+            {
+                // Google Play Service check failed - display the error to the user:
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                {
+                    // Give the user a chance to download the APK:
+                    
+                    gplaystatus= GoogleApiAvailability.Instance.GetErrorString(resultCode);
+                }
+                else
+                {
+                    gplaystatus = "Sorry, this device is not supported";
+                    Toast.MakeText(this, gplaystatus, ToastLength.Short).Show();
+                    Finish();
+                }
+                return false;
+            }
+            else
+            {
+                gplaystatus = "Google Play Services is available.";
+                Toast.MakeText(this, gplaystatus, ToastLength.Short).Show();
+                return true;
+            }
+        }
+
         private void SendSmsgs(string userNumber)
         {
             otp = RandomString(4);
