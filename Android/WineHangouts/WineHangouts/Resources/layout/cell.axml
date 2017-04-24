@@ -133,7 +133,7 @@
                 android:scaleY="0.5"
                 android:isIndicator="true"
                 android:progressBackgroundTint="#000000"
-                android:progressTint="@android:color/holo_green_dark" />
+                android:progressTint="#800080" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

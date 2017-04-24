@@ -38,14 +38,19 @@ namespace WineHangouts
             base.OnActivityResult(requestCode, resultCode, data);
 
             // Make it available in the gallery
+            try
+            {
+                Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
+                Uri contentUri = Uri.FromFile(App._file);
+                mediaScanIntent.SetData(contentUri);
+                SendBroadcast(mediaScanIntent);
 
-            Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-            Uri contentUri = Uri.FromFile(App._file);
-            mediaScanIntent.SetData(contentUri);
-            SendBroadcast(mediaScanIntent);
-            Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
-            Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
-
+            }
+            catch (Exception e)
+            {
+                Intent intent = new Intent(this, typeof(ProfileActivity));
+                StartActivity(intent);
+            }
             //Bitmap propic = BitmapFactory.DecodeFile(path);
             //ProfileActivity pa = new ProfileActivity();
             //Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
@@ -60,6 +65,8 @@ namespace WineHangouts
             //{
 
             //}
+            Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
+            Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
             resize();
             UploadProfilePic(path);
 
@@ -105,13 +112,13 @@ namespace WineHangouts
             }
             path = App._dir.ToString();
 
-            //String NOMEDIA = ".nomedia";
-            //App._file = new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), NOMEDIA);
-            //if (!App._file.Exists())
-            //{
-            //    App._file.CreateNewFile();
-            //}
-            
+            String NOMEDIA = ".nomedia";
+            App._file = new Java.IO.File(path, NOMEDIA);
+            if (!App._file.Exists())
+            {
+                App._file.CreateNewFile();
+            }
+
             return path;
         }
 

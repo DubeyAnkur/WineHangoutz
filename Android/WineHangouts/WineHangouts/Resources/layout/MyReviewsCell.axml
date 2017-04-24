@@ -16,7 +16,8 @@
             android:id="@+id/tableRow88"
             android:layout_width="99.5dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="2dp">
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="6dp">
             <ImageButton
                 android:layout_column="0"
                 android:id="@+id/imageButton2"
@@ -47,9 +48,9 @@
                             android:layout_margin="2dp"
                             android:gravity="left"
                             android:lines="2"
-                            android:layout_width="200dp"
-                            android:layout_marginBottom="2.0dp"
-                            android:layout_height="28.5dp" />
+                            android:layout_width="209.0dp"
+                            android:layout_height="41.0dp"
+                            android:layout_marginBottom="2.0dp" />
                         <ImageButton
                             android:src="@drawable/edit"
                             android:id="@+id/imageButton3"
@@ -109,8 +110,8 @@
                         android:rating="1.5"
                         android:scaleX="0.3"
                         android:scaleY="0.3"
-                        android:progressTint="@android:color/holo_green_dark"
-                        android:progressBackgroundTint="@android:color/holo_blue_dark"
+                        android:progressTint="#800080"
+                        android:progressBackgroundTint="#808080"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="0.0dp"
                         android:layout_marginRight="0.0dp"

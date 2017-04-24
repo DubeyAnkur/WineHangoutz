@@ -8,7 +8,6 @@
     <TableLayout
         android:minWidth="25px"
         android:minHeight="25px"
-        android:paddingLeft="25px"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,8 +90,8 @@
                         android:rating="1.5"
                         android:scaleX="0.3"
                         android:scaleY="0.3"
-                        android:progressTint="@android:color/holo_green_dark"
-                        android:progressBackgroundTint="@android:color/holo_blue_dark"
+                        android:progressTint="#800080"
+                        android:progressBackgroundTint="#808080"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="-30dp"
                         android:transformPivotX="0dp" />
@@ -142,7 +141,7 @@
             </TableLayout>
         </TableRow>
     </TableLayout>
-  <View
+    <View
         android:id="@+id/topDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"

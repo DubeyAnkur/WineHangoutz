@@ -61,7 +61,7 @@ namespace WineHangouts
             Bitmap imageBitmap = BlobWrapper.ProfileImages(myItems[position].ReviewUserId);
             if (imageBitmap == null)
             {
-                Image.SetImageResource(Resource.Drawable.user1);
+                Image.SetImageResource(Resource.Drawable.ProfileEmpty);
             }
             else
             { 

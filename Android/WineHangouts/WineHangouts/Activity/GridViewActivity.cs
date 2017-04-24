@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
 using System.Threading;
+using Android.Support.V4.Widget;
 
 namespace WineHangouts
 {
@@ -27,6 +28,8 @@ namespace WineHangouts
             base.OnCreate(bundle);
             try
             {
+               
+                
                 if (StoreName == "")
                 StoreName = Intent.GetStringExtra("MyData");
             this.Title = StoreName;
@@ -44,8 +47,19 @@ namespace WineHangouts
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
             ItemListResponse output = new ItemListResponse();
-          
-                output = sw.GetItemList(StoreId, userId).Result;
+
+
+                ////SwipeRefreshLayout refresher = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
+                ////refresher.SetColorScheme(Resource.Color.material_blue_grey_800,
+                ////                          Resource.Color.abc_primary_text_disable_only_material_dark,
+                ////                          Resource.Color.abc_primary_text_disable_only_material_light,
+                ////                          Resource.Color.abc_primary_text_material_light);
+                ////refresher.Refresh += async delegate
+                ////{
+                ////    await forum.FetchItems(clear: true);
+                ////    refresher.Refreshing = false;
+                ////};
+                    output = sw.GetItemList(StoreId, userId).Result;
             
             SetContentView(Resource.Layout.Main);
             ActionBar.SetHomeButtonEnabled(true);

@@ -82,8 +82,8 @@
                 android:max="5"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                android:progressTint="@android:color/holo_green_dark"
-                android:progressBackgroundTint="@android:color/holo_blue_dark"
+               android:progressTint="#800080"
+                android:progressBackgroundTint="#808080"
                 android:layout_gravity="center_horizontal" />
         </TableRow>
     </TableLayout>
