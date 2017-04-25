@@ -75,7 +75,6 @@ namespace WineHangouts
                 ReviewPopup editPopup = new ReviewPopup(this, edit);
                 RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
                 RatingInput.RatingBarChange += editPopup.CreatePopup;
-
                 var metrics = Resources.DisplayMetrics;
                 var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
                 var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);

@@ -183,7 +183,7 @@ namespace WineHangouts
 
 
             var place = new FrameLayout.LayoutParams(650, 650);
-            place.LeftMargin = -70; //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
+              place.LeftMargin = -70; //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
             Wine.LayoutParameters = place;
 
 

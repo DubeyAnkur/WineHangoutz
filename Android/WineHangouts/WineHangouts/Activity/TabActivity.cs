@@ -29,7 +29,7 @@ namespace WineHangouts
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
            
 
-            AddTab("Location", 1, new SampleTabFragment("Location", this));
+            AddTab("Locations", 1, new SampleTabFragment("Locations", this));
             AddTab("My Hangouts",1, new SampleTabFragment("My Hangouts", this));
             AddTab("Explore",1, new SampleTabFragment("Explore", this));
 
@@ -76,7 +76,7 @@ namespace WineHangouts
             ProgressDialog progress;
             public SampleTabFragment()
             {
-                tabName = "Location";
+                tabName = "Locations";
             }
             public SampleTabFragment(string Name, Activity parent)
             {
@@ -106,7 +106,7 @@ namespace WineHangouts
                 Bottom.LayoutParameters.Height = height;
 
 
-                if (tabName == "Location")
+                if (tabName == "Locations")
                 {
 
 
@@ -119,7 +119,7 @@ namespace WineHangouts
                     Middle.SetTextColor(Color.White);
                     Middle.TextSize = 20;
                     Bottom.SetBackgroundResource(Resource.Drawable.city1);
-                    Bottom.Text = "Seacucas";
+                    Bottom.Text = "Secaucus";
                     Bottom.SetTextColor(Color.White);
                     Bottom.TextSize = 20;
 
@@ -146,7 +146,7 @@ namespace WineHangouts
                     Bottom.Click += (sender, e) =>
                     {
                         AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
-                        aler.SetTitle("Secacus Store");
+                        aler.SetTitle("Secaucus Store");
                         aler.SetMessage("Coming Soon");
                         aler.SetNegativeButton("Ok", delegate { });
                         Dialog dialog = aler.Create();
@@ -274,28 +274,36 @@ namespace WineHangouts
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-        
-
+           
+            Intent intent = null;
+           
             switch (item.ItemId)
             {
+               
                 case Resource.Id.action_settings:
                     ProgressIndicator.Show(this);
-                    var intent = new Intent(this, typeof(ProfileActivity));
+                     intent = new Intent(this, typeof(ProfileActivity));
                     intent.PutExtra("MyData", "Wall Store");
 
-                    StartActivity(intent);
+                    //StartActivity(intent);
                     break;
                 case Resource.Id.action_settings1:
                     //ProgressIndicator.Show(this);
-                    var intent1 = new Intent(this, typeof(AboutActivity));
-                    intent1.PutExtra("MyData", "Wall Store");
+                     intent = new Intent(this, typeof(AboutActivity));
+                    intent.PutExtra("MyData", "Wall Store");
 
-                    StartActivity(intent1);
+                    //StartActivity(intent);
                     break;
 
                 case Resource.Id.action_settings2:
                     MoveTaskToBack(true);
                     break;
+                default://invalid option
+                    return base.OnOptionsItemSelected(item);
+            }
+            if (intent != null)
+            {
+                StartActivity(intent);
             }
             try
             {
@@ -323,7 +331,7 @@ namespace WineHangouts
 
 
             MenuInflater.Inflate(Resource.Drawable.options_menu, menu);
-
+            
             return true;
         }
     }

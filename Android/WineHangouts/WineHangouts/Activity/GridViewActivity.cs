@@ -11,14 +11,26 @@ using System.Linq;
 using System.Threading;
 using Android.Support.V4.Widget;
 
+using System.Threading.Tasks;
+
+using System.Collections.Concurrent;
+using System.Net.Http;
+using Newtonsoft.Json;
+
+
 namespace WineHangouts
 {
 
     [Activity(Label = "Available Wines", MainLauncher = false)]
-    public class GridViewActivity : Activity
+    public class GridViewActivity : Android.Support.V4.App.FragmentActivity
     {
+        bool loading;
         public int WineID;
         public string StoreName = "";
+        GridViewAdapter adapter;
+        SwipeRefreshLayout refresher1;
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -26,16 +38,58 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            SetContentView(Resource.Layout.Main);
+
             try
             {
-               
-                
                 if (StoreName == "")
-                StoreName = Intent.GetStringExtra("MyData");
-            this.Title = StoreName;
-            this.ActionBar.SetHomeButtonEnabled(true);
-            this.ActionBar.SetDisplayShowTitleEnabled(true);//  ToolbartItems.Add(new ToolbarItem { Text = "BTN 1", Icon = "myicon.png" });
+                    StoreName = Intent.GetStringExtra("MyData");
+                this.Title = StoreName;
+                this.ActionBar.SetHomeButtonEnabled(true);
+                this.ActionBar.SetDisplayShowTitleEnabled(true);//  ToolbartItems.Add(new ToolbarItem { Text = "BTN 1", Icon = "myicon.png" });
+                
+                BindGridData();
 
+                SwipeRefreshLayout mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.PullDownRefresh);
+
+                //mSwipeRefreshLayout.Refresh += MSwipeRefreshLayout_Refresh;
+                //mSwipeRefreshLayout.SetColorScheme(Resource.Color.abc_background_cache_hint_selector_material_dark, Resource.Color.abc_background_cache_hint_selector_material_light);
+
+                mSwipeRefreshLayout.Refresh  += async delegate {
+                    //BindGridData();
+                    
+                    await someAsync();
+                    mSwipeRefreshLayout.Refreshing = false;
+                };
+
+                ActionBar.SetHomeButtonEnabled(true);
+                ActionBar.SetDisplayHomeAsUpEnabled(true);
+               
+                ProgressIndicator.Hide();
+            }
+            catch (Exception ex)
+            {
+                ProgressIndicator.Hide();
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("We're under maintainence");
+                aler.SetNegativeButton("Ok", delegate { });
+                Dialog dialog = aler.Create();
+                dialog.Show();
+
+            }
+
+
+        }
+
+        public async Task someAsync()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            BindGridData();
+        }
+
+        private void BindGridData()
+        {
             int StoreId = 0;
             if (StoreName == "Wall Store")
                 StoreId = 1;
@@ -46,75 +100,32 @@ namespace WineHangouts
 
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             ServiceWrapper sw = new ServiceWrapper();
-            ItemListResponse output = new ItemListResponse();
+            ItemListResponse output = sw.GetItemList(StoreId, userId).Result;
 
-
-                ////SwipeRefreshLayout refresher = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
-                ////refresher.SetColorScheme(Resource.Color.material_blue_grey_800,
-                ////                          Resource.Color.abc_primary_text_disable_only_material_dark,
-                ////                          Resource.Color.abc_primary_text_disable_only_material_light,
-                ////                          Resource.Color.abc_primary_text_material_light);
-                ////refresher.Refresh += async delegate
-                ////{
-                ////    await forum.FetchItems(clear: true);
-                ////    refresher.Refreshing = false;
-                ////};
-                    output = sw.GetItemList(StoreId, userId).Result;
-            
-            SetContentView(Resource.Layout.Main);
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            //var listview = FindViewById<ListView>(Resource.Id.gridview);
-            List<Item> myArr;
-            //myArr = SampleData();
-            myArr = output.ItemList.ToList();
+            List<Item> myArr = output.ItemList.ToList();
 
             var gridview = FindViewById<GridView>(Resource.Id.gridview);
-            //myArr = SampleData();
-
-            GridViewAdapter adapter = new GridViewAdapter(this, myArr);
+            adapter = new GridViewAdapter(this, myArr);
             gridview.SetNumColumns(2);
             gridview.Adapter = adapter;
 
             gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-               
-
                 WineID = myArr[args.Position].WineId;
-                //detailViewActivity dva = new detailViewActivity();
-                //dva.downloadAsync(sender, args, WineID);
                 ProgressIndicator.Show(this);
                 var intent = new Intent(this, typeof(detailViewActivity));
                 intent.PutExtra("WineID", WineID);
                 StartActivity(intent);
-                //    ProgressDialog progressdialog = ProgressDialog.Show(this, "Please Wait", "We are loading it");
-                //    new Thread(new ThreadStart(delegate
-                //{
-                //        RunOnUiThread(() => progressdialog.Show());
-                //    Thread.Sleep(10000); 
-
-
-                //    RunOnUiThread(() => progressdialog.Dismiss());
-                //        //RunOnUiThread(() => progressDialog.Wait(1000));
-                //        //RunOnUiThread(() => progressDialog.Hide());
-                //    })).Start();
-
-
             };
-            ProgressIndicator.Hide();
-            }
-            catch (Exception ex)
-            {
-                AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                aler.SetTitle("Sorry");
-                aler.SetMessage("We're under maintainence");
-                aler.SetNegativeButton("Ok", delegate { });
-                Dialog dialog = aler.Create();
-                dialog.Show();
-
-            }
-
         }
+
+        private void MSwipeRefreshLayout_Refresh(object sender, EventArgs e)
+        {
+            BindGridData();
+            SwipeRefreshLayout mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.PullDownRefresh);
+            mSwipeRefreshLayout.Refreshing =false;
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
@@ -127,6 +138,7 @@ namespace WineHangouts
 
 
     }
+
 
 
 

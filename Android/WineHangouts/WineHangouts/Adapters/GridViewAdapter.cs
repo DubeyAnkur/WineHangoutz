@@ -16,6 +16,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Globalization;
 using Android.Graphics.Drawables;
+using Newtonsoft.Json;
 
 
 
@@ -27,7 +28,16 @@ namespace WineHangouts
         private Context myContext;
         //private Hashtable wineImages;
 
-
+        public void ClearData()
+        {
+            myItems.Clear();
+            NotifyDataSetChanged();
+        }
+        public void FeedData(IEnumerable<Item> newData)
+        {
+            myItems.AddRange(newData);
+            NotifyDataSetChanged();
+        }
         public override Item this[int position]
         {
             get
@@ -88,7 +98,7 @@ namespace WineHangouts
             //TextView txtUserRatings = row.FindViewById<TextView>(Resource.Id.txtUserRatings);
             TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-           // ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.Placeholder);
+            // ImageView imgPlaceHolder = row.FindViewById<ImageView>(Resource.Id.Placeholder);
             ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
             RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             rating.Rating = (float)myItems[position].AverageRating;
@@ -165,7 +175,7 @@ namespace WineHangouts
             //string path = pppd.CreateDirectoryForPictures();
             //var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
             Bitmap imageBitmap;
-            
+
 
 
             //if (System.IO.File.Exists(filePath))
@@ -198,9 +208,9 @@ namespace WineHangouts
                 //canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
                 //canvas.DrawBitmap(imageBitmap, 0, 0, null);
                 imgWine.SetImageBitmap(imageBitmap);
-                
+
                 imageBitmap.Dispose();
-                
+
             }
             else
             {
@@ -220,7 +230,20 @@ namespace WineHangouts
         }
 
 
+        public override Java.Lang.Object GetItem(int position)
+        {
+            return new Java.Lang.String(myItems[position].Name);
+        }
 
+
+
+        public override int ViewTypeCount
+        {
+            get
+            {
+                return 1;
+            }
+        }
         private int ConvertPixelsToDp(float pixelValue)
         {
             var dp = (int)((pixelValue) / myContext.Resources.DisplayMetrics.Density);
