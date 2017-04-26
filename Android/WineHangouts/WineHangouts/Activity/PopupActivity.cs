@@ -44,7 +44,7 @@ namespace WineHangouts
             //editDialog.SetTitle();
             ServiceWrapper sw = new ServiceWrapper();
             Review review = new Review();
-            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
+            //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
             ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.close);
             Button btnSubmitReview = editDialog.FindViewById<Button>(Resource.Id.btnSubmitReview);
             TextView Comments = editDialog.FindViewById<TextView>(Resource.Id.txtReviewComments);
@@ -52,8 +52,8 @@ namespace WineHangouts
             custRating.Rating = rat;
 
 
-            ibs.SetImageResource(Resource.Drawable.wine_review);
-            ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
+            //ibs.SetImageResource(Resource.Drawable.wine_review);
+            //ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
             //close.SetImageResource(Resource.Drawable.Close);
             close.SetScaleType(ImageView.ScaleType.CenterCrop);
             editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
@@ -64,18 +64,19 @@ namespace WineHangouts
             };
             btnSubmitReview.Click += async delegate
             {
-
-                review.ReviewDate = DateTime.Now;
+				ProgressIndicator.Show(Parent);
+				review.ReviewDate = DateTime.Now;
                 review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
                 review.Username = CurrentUser.getUserName();
                 review.RatingText = Comments.Text;
                 review.RatingStars = Convert.ToInt32(custRating.Rating);
                 review.IsActive = true;
-
-                review.WineId = WineId;
+				
+				review.WineId = WineId;
                 await sw.InsertUpdateReview(review);
                 ((IPopupParent)Parent).RefreshParent();
-                editDialog.Dismiss();
+				ProgressIndicator.Hide();
+				editDialog.Dismiss();
 
             };
 
@@ -92,7 +93,7 @@ namespace WineHangouts
             ServiceWrapper sw = new ServiceWrapper();
             Review review = new Review();
 
-            ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
+            //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
             ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.close);
             Button btnSubmitReview = editDialog.FindViewById<Button>(Resource.Id.btnSubmitReview);
             TextView Comments = editDialog.FindViewById<TextView>(Resource.Id.txtReviewComments);
@@ -102,8 +103,8 @@ namespace WineHangouts
             Comments.Text = _editObj.RatingText;
             custRating.Rating = _editObj.RatingStars;
 
-            ibs.SetImageResource(Resource.Drawable.wine_review);
-            ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
+            //ibs.SetImageResource(Resource.Drawable.wine_review);
+            //ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
             //close.SetImageResource(Resource.Drawable.Close);
             close.SetScaleType(ImageView.ScaleType.CenterCrop);
             editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
@@ -114,19 +115,23 @@ namespace WineHangouts
             };
             btnSubmitReview.Click += async delegate
             {
-
-                review.ReviewDate = DateTime.Now;
+				ProgressIndicator.Show(Parent);
+				review.ReviewDate = DateTime.Now;
                 review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
                 review.RatingText = Comments.Text;
                 review.RatingStars = Convert.ToInt32(custRating.Rating);
                 review.IsActive = true;
                 review.WineId = WineId;
+
                 try
                 {
                     await sw.InsertUpdateReview(review);
-                }
+					
+				}
+				
                 catch (Exception exe)
-                {
+                { 
+
                     //string msg=exe.Message.ToString();
                     //if (msg == "An error occurred while sending the request")
                     //{
@@ -140,6 +145,7 @@ namespace WineHangouts
                     //}
                 }
                 ((IPopupParent)Parent).RefreshParent();
+				ProgressIndicator.Hide();
                 editDialog.Dismiss();
             };
 

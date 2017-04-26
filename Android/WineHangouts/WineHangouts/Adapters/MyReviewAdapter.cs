@@ -97,10 +97,12 @@ namespace WineHangouts
             //delete.Click += Delete_Click;
             delete.Click += (sender, args) => {
                 int WineId = myItems[position].WineId;
-                Review _review = new Review();
+				
+				Review _review = new Review();
                 _review.WineId = WineId;
                
                 PerformdeleteClick(sender, args, _review);
+			
             };
             wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
             txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
@@ -152,6 +154,7 @@ namespace WineHangouts
            
             DeleteReview dr = new DeleteReview(myContext, edit);
             dr.Show(((Activity)myContext).FragmentManager, "");
+			
         }
 
        

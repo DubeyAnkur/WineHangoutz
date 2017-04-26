@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="#d7dae0">
     <TableLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -20,43 +20,21 @@
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
                 android:layout_column="0"
                 android:id="@+id/close"
-                android:background="#cc007a"
+                android:background="#800080"
                 android:layout_gravity="bottom"
                 android:scaleType="centerInside"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
             <TextView
                 android:text="Rate And Comment"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView1"
                 android:layout_column="1"
-                android:textSize="67px"
-                android:background="#cc007a"
+                android:textSize="57px"
+                android:layout_height="40dp"
+                android:background="#800080"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="bottom" />
-            <RelativeLayout
-                android:minWidth="25px"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:id="@+id/relativeLayout1">
-                <TextView
-                    android:text=" "
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/textView2"
-                    android:textSize="67px"
-                    android:background="#cc007a"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="70dp" />
-                <ImageButton
-                    android:src="@android:drawable/checkbox_off_background"
-                    android:id="@+id/ratingimage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
-                    android:background="@null" />
-            </RelativeLayout>
         </TableRow>
     </TableLayout>
     <TableLayout
@@ -71,7 +49,7 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray">
+            android:background="#d7dae0">
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="42.0dp"
@@ -82,9 +60,10 @@
                 android:max="5"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-               android:progressTint="#800080"
+                android:progressTint="#800080"
                 android:progressBackgroundTint="#808080"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:translationY="-9dp" />
         </TableRow>
     </TableLayout>
 <!-- <RatingBar
@@ -101,15 +80,38 @@
         android:singleLine="false"
         android:layout_width="match_parent"
         android:hint="Click here to rate the wine"
+        android:textColorHint="#808080"
         android:layout_height="60dp"
         android:id="@+id/txtReviewComments"
         android:textColor="#000000"
-        android:background="@android:color/darker_gray" />
-    <Button
-        android:text="Submit"
+        android:background="#d7dae0"
+        android:translationX="7dp"
+        android:translationY="-18dp" />
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnSubmitReview"
-        android:layout_gravity="right"
-        android:background="#cc007a" />
+        android:id="@+id/tableLayout1"
+        android:background="@null">
+        <TableRow
+            android:id="@+id/tableRow78"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#d7dae0">
+            <Button
+                android:text="Submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSubmitReview"
+                android:layout_gravity="right"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_marginLeft="0.0dp"
+                android:layout_marginRight="0.0dp"
+                android:textColor="#800080"
+                android:background="#d7dae0"
+                android:translationX="110dp" />
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

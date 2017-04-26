@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics.Drawables;
 
 namespace WineHangouts
 {
@@ -74,8 +75,11 @@ namespace WineHangouts
         {
             progress = new Android.App.ProgressDialog(_parent);
             progress.Indeterminate = true;
-            progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
-            progress.SetMessage("Loading... Please Wait...");
+			progress.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+			progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
+			//progress.SetProgressStyle(ProgressDialogStyle.Spinner);
+			
+			progress.SetMessage("Loading... Please Wait...");
             progress.SetCancelable(false);
             progress.Show();
         }

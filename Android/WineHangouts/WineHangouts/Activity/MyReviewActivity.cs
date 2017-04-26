@@ -65,7 +65,8 @@ namespace WineHangouts
                 wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
                 {
                     int WineID = myArr1[args.Position].WineId;
-                    var intent = new Intent(this, typeof(detailViewActivity));
+					ProgressIndicator.Show(this);
+					var intent = new Intent(this, typeof(detailViewActivity));
                     intent.PutExtra("WineID", WineID);
                     StartActivity(intent);
                 };
@@ -73,7 +74,8 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+				ProgressIndicator.Hide();
+				AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
                 aler.SetNegativeButton("Ok", delegate { });

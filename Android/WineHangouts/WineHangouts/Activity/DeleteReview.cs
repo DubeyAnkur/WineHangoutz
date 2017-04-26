@@ -38,11 +38,15 @@ namespace WineHangouts
             Delete.Click += async delegate
             {
                 review.WineId = WineId;
-                review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
+				ProgressIndicator.Show(Parent);
+				review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
                 await sw.DeleteReview(review);
                  ((IPopupParent)Parent).RefreshParent();
-                myDialog.Dismiss();
-            };
+				ProgressIndicator.Hide();
+				myDialog.Dismiss();
+				
+			};
+			
             Cancel.Click += delegate
             {
                 myDialog.Dismiss();

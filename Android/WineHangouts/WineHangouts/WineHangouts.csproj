@@ -196,8 +196,6 @@
     <AndroidResource Include="Resources\layout\ProfilePickLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\MyFavorite.axml" />
-    <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
     <AndroidResource Include="Resources\layout\MyTastingView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -222,6 +220,8 @@
     <AndroidResource Include="Resources\layout\AutoCompleteTextLayout.axml" />
     <AndroidResource Include="Resources\layout\OtpReceiverLayout.axml" />
     <AndroidResource Include="Resources\layout\AboutLayout.axml" />
+    <AndroidResource Include="Resources\layout\MyFavorite.axml" />
+    <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
     <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
@@ -447,6 +447,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ProfileEmpty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Camer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Galler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\gallry.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -134,7 +134,7 @@
                     android:max="5"
                     android:scaleX="0.5"
                     android:scaleY="0.5"
-                     android:progressTint="#800080"
+                    android:progressTint="#800080"
                     android:progressBackgroundTint="#808080"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="-20dp"
@@ -196,7 +196,7 @@
                     android:scaleY="0.8"
                     android:progressTint="#800080"
                     android:layout_gravity="center_horizontal"
-                    android:progressBackgroundTint="#808080"  />
+                    android:progressBackgroundTint="#808080" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow78"
