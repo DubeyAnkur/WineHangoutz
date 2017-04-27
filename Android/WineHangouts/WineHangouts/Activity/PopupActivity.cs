@@ -24,7 +24,7 @@ namespace WineHangouts
         private int WineId;
 
         Review _editObj;
-
+        List<Review> ReviewArray;
         public ReviewPopup(Context parent, Review EditObj)
         {
             Parent = parent;
@@ -36,6 +36,8 @@ namespace WineHangouts
         {
             //e.Rating
 
+
+
             Dialog editDialog = new Dialog(Parent);
             var rat = e.Rating;
             //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
@@ -44,12 +46,35 @@ namespace WineHangouts
             //editDialog.SetTitle();
             ServiceWrapper sw = new ServiceWrapper();
             Review review = new Review();
-            //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
             ImageButton close = editDialog.FindViewById<ImageButton>(Resource.Id.close);
             Button btnSubmitReview = editDialog.FindViewById<Button>(Resource.Id.btnSubmitReview);
             TextView Comments = editDialog.FindViewById<TextView>(Resource.Id.txtReviewComments);
             RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
             custRating.Rating = rat;
+            //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
+            //ItemReviewResponse SkuRating = new ItemReviewResponse();
+            //SkuRating = sw.GetItemReviewsByWineID(WineId).Result;
+            //ReviewArray = SkuRating.Reviews.ToList();
+            //for (int i = 0; i < ReviewArray.Count(); i++)
+            //{
+            //    if (Convert.ToInt32(CurrentUser.getUserId()) == ReviewArray[i].ReviewUserId)
+            //    {
+            //        ItemReviewResponse uidreviews = new ItemReviewResponse();
+            //        uidreviews = sw.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
+            //        List<Review> myArr1;
+            //        myArr1 = uidreviews.Reviews.ToList();
+            //        for (int j = 0; j < myArr1.Count; j++)
+            //        {
+            //            if (ReviewArray[i].Name == myArr1[i].Name)
+            //                Comments.Text = myArr1[i].RatingText.ToString();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        CreatePopup(sender, e);
+            //    }
+            //}
+            
 
 
             //ibs.SetImageResource(Resource.Drawable.wine_review);

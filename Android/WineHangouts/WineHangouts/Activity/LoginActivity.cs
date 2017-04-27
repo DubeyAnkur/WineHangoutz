@@ -69,6 +69,7 @@ namespace WineHangouts
 
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
+                SendRegistrationToAppServer(CurrentUser.getToken());
 
             }
 
@@ -101,6 +102,9 @@ namespace WineHangouts
                         {
                             CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
                             SendRegistrationToAppServer(CurrentUser.getToken());
+
+                            //RegistrationIntentService ri = new RegistrationIntentService();
+                            //ri.OnHandleIntent(Intent);
                             Intent intent = new Intent(this, typeof(TabActivity));
                             StartActivity(intent);
 
@@ -200,8 +204,9 @@ namespace WineHangouts
             TokenModel _token = new TokenModel();
             _token.User_id = Convert.ToInt32(CurrentUser.getUserId());
             _token.DeviceToken = token;
+            _token.DeviceType = 1;
             ServiceWrapper svc = new ServiceWrapper();
-            int x = await svc.InsertUpdateToken(_token);
+            int x = await svc.InsertUpdateToken1(_token);
            
         }
 

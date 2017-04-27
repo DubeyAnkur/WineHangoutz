@@ -83,11 +83,11 @@ namespace WineHangouts
             return output;
         }
 
-        public async Task<int> InsertUpdateToken(TokenModel token)
+        public async Task<int> InsertUpdateToken1(TokenModel token)
         {
             try
             {
-                var uri = new Uri(ServiceURL + "UpdateDeviceToken/"+token.User_id+"/token/"+token.DeviceToken.Replace(":",","));
+                var uri = new Uri(ServiceURL + "UpdateDeviceToken1/"+token.User_id+"/token/"+token.DeviceToken.Replace(":",",")+"/DeviceType/"+token.DeviceType);
                 var content = JsonConvert.SerializeObject(token);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works

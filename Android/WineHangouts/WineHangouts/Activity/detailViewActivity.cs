@@ -60,8 +60,9 @@ namespace WineHangouts
             {
                 downloadAsync(this, System.EventArgs.Empty, wineid);
                 myData = svc.GetItemDetails(wineid).Result;
-                SkuRating = svc.GetItemReviewsByWineID(wineid).Result;               
-                reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
+                SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+                ReviewArray = SkuRating.Reviews.ToList();
+                reviewAdapter comments = new reviewAdapter(this, ReviewArray);
                 commentsView.Adapter = comments;
                 setListViewHeightBasedOnChildren1(commentsView);
                 WineName.Text = myData.ItemDetails.Name;
@@ -74,7 +75,7 @@ namespace WineHangouts
                 edit.WineId = wineid;
                 ReviewPopup editPopup = new ReviewPopup(this, edit);
                 RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
-                RatingInput.RatingBarChange += editPopup.CreatePopup;
+                RatingInput.RatingBarChange +=   editPopup.CreatePopup;                   
                 var metrics = Resources.DisplayMetrics;
                 var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
                 var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);

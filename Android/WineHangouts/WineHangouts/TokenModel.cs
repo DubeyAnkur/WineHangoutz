@@ -16,5 +16,6 @@ namespace WineHangouts
     {
        public int User_id { get; set; }
        public string DeviceToken { get; set; }
+        public int DeviceType { get; set; }
     }
 }

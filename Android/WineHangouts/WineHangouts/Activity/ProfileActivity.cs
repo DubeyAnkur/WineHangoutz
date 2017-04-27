@@ -173,7 +173,7 @@ namespace WineHangouts
             var matrix = new Matrix();
             var scaleWidth = ((float)width) / image.Width;
             var scaleHeight = ((float)height) / image.Height;
-            matrix.PostRotate(90);
+            matrix.PostRotate(270);
             matrix.PreScale(scaleWidth, scaleHeight);
             return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
         }

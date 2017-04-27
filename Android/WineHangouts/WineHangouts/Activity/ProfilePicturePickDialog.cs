@@ -18,13 +18,14 @@ using System.IO;
 
 namespace WineHangouts
 {
- 
 
-    public static class App {
+
+    public static class App
+    {
         public static Java.IO.File _file;
-        public static Java.IO.File _dir;     
+        public static Java.IO.File _dir;
         public static Bitmap bitmap;
-       
+
     }
 
     [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@android:style/Theme.Dialog")]
@@ -36,41 +37,34 @@ namespace WineHangouts
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-
-            // Make it available in the gallery
-            try
+            if (resultCode.ToString() == "Canceled")
             {
-                Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-                Uri contentUri = Uri.FromFile(App._file);
-                mediaScanIntent.SetData(contentUri);
-                SendBroadcast(mediaScanIntent);
-
-            }
-            catch (Exception e)
-            {
-                Intent intent = new Intent(this, typeof(ProfileActivity));
+                Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
             }
-            //Bitmap propic = BitmapFactory.DecodeFile(path);
-            //ProfileActivity pa = new ProfileActivity();
-            //Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
-            //try
-            //{
-            //    var filePath = System.IO.Path.Combine(path + "/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg");
-            //    var stream = new FileStream(filePath, FileMode.Create);
-            //    resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-            //    stream.Close();
-            //}
-            //catch(Exception ex)
-            //{
+            else
+            {
 
-            //}
-            Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
-            Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
-            resize();
-            UploadProfilePic(path);
+                // Make it available in the gallery
+                try
+                {
+                    Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
+                    Uri contentUri = Uri.FromFile(App._file);
+                    mediaScanIntent.SetData(contentUri);
+                    SendBroadcast(mediaScanIntent);
 
-            GC.Collect();
+                }
+                catch (Exception e)
+                {
+                    Intent intent1 = new Intent(this, typeof(TabActivity));
+                    StartActivity(intent1);
+                }
+                resize();
+                UploadProfilePic(path);
+                Intent intent = new Intent(this, typeof(TabActivity));
+                StartActivity(intent);
+                GC.Collect();
+            }
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -130,14 +124,14 @@ namespace WineHangouts
             return availableActivities != null && availableActivities.Count > 0;
         }
 
-        public void resize() 
-            {
-
-            Bitmap propic = BitmapFactory.DecodeFile(path);
-            ProfileActivity pa = new ProfileActivity();
-            Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
+        public void resize()
+        {
             try
             {
+                Bitmap propic = BitmapFactory.DecodeFile(path);
+                ProfileActivity pa = new ProfileActivity();
+                Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
+
                 var filePath = System.IO.Path.Combine(path);
                 var stream = new FileStream(filePath, FileMode.Create);
                 resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
@@ -154,14 +148,14 @@ namespace WineHangouts
         {
             Intent intent = new Intent(MediaStore.ActionImageCapture);
 
-            
-            App._file = new Java.IO.File(App._dir, String.Format(Convert.ToInt32(CurrentUser.getUserId())+".jpg", Guid.NewGuid()));
-           path += "/"+CurrentUser.getUserId()+".jpg";
-            
+
+            App._file = new Java.IO.File(App._dir, String.Format(Convert.ToInt32(CurrentUser.getUserId()) + ".jpg", Guid.NewGuid()));
+            path += "/" + CurrentUser.getUserId() + ".jpg";
+
 
 
             intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(App._file));
-            
+
             StartActivityForResult(intent, 0);
         }
 
@@ -180,20 +174,20 @@ namespace WineHangouts
             //{
             //    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
             CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".jpg"); //(path);
-           
-        
+
+
             using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
             {
-                
-               await blob.UploadFromStreamAsync(fs);//  .UploadFromFileAsync(path);
-                
-            }
-                //}
-                // await container=
 
-
+                await blob.UploadFromStreamAsync(fs);//  .UploadFromFileAsync(path);
 
             }
+            //}
+            // await container=
+
+
+
         }
+    }
 
 }
