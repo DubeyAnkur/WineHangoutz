@@ -68,9 +68,23 @@ namespace WineHangouts
                 WineName.Text = myData.ItemDetails.Name;
                 WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
                 Vintage.Text = myData.ItemDetails.Vintage.ToString();
-                WineProducer.Text = myData.ItemDetails.Producer;
-                WineDescription.Text = myData.ItemDetails.Description;
-                AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
+				if (myData.ItemDetails.Producer == null || myData.ItemDetails.Producer == "")
+				{
+					WineProducer.Text = "Not Available";
+				}
+				else
+				{
+					WineProducer.Text = myData.ItemDetails.Producer;
+				}
+				if (myData.ItemDetails.Description == null || myData.ItemDetails.Description == "")
+				{
+					WineDescription.Text = "Not Available";
+				}
+				else
+				{
+					WineDescription.Text = myData.ItemDetails.Producer;
+				}
+				AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
                 Review edit = new Review();
                 edit.WineId = wineid;
                 ReviewPopup editPopup = new ReviewPopup(this, edit);

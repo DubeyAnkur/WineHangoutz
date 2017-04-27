@@ -128,7 +128,7 @@
                 <TextView
                     android:text="Personal Information"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:id="@+id/textView14"
                     android:gravity="center" />
             </TableRow>

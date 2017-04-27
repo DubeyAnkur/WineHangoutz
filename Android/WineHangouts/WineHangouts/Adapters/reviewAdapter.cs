@@ -62,7 +62,9 @@ namespace WineHangouts
             if (imageBitmap == null)
             {
                 Image.SetImageResource(Resource.Drawable.ProfileEmpty);
+				
             }
+			
             else
             { 
             Image.SetImageBitmap(imageBitmap);
@@ -97,7 +99,8 @@ namespace WineHangouts
             rb.Rating = myItems[position].RatingStars;
             //Image.SetImageBitmap(imageBitmap);
             Image.SetScaleType(ImageView.ScaleType.CenterCrop);
-            return row;
+			
+			return row;
         }
 
 

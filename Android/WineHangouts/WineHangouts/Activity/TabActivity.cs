@@ -115,7 +115,7 @@ namespace WineHangouts
                     Top.SetTextColor(Color.White);
                     Top.TextSize = 20;
                     Middle.SetBackgroundResource(Resource.Drawable.beach);
-                    Middle.Text = "Point Pleasant";
+                    Middle.Text = "Pt. Pleasant Beach";
                     Middle.SetTextColor(Color.White);
                     Middle.TextSize = 20;
                     Bottom.SetBackgroundResource(Resource.Drawable.city1);

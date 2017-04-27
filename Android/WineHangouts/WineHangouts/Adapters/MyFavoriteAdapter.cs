@@ -69,8 +69,7 @@ namespace WineHangouts
 
 			//String str = "lokesh";
 			Name.Text = myItems[position].Name;
-			Name.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
-
+			
 			Price.Text = myItems[position].SalePrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
 
 			Avgrating.Rating = (float)myItems[position].AverageRating;
