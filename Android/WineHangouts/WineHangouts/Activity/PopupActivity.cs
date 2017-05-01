@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Graphics;
 using Android.Util;
 using Hangout.Models;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -40,6 +41,7 @@ namespace WineHangouts
 
             Dialog editDialog = new Dialog(Parent);
             var rat = e.Rating;
+            Appsee.StartScreen("Create popup");
             //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
             editDialog.SetContentView(Resource.Layout.EditReviewPopup);
@@ -51,6 +53,7 @@ namespace WineHangouts
             TextView Comments = editDialog.FindViewById<TextView>(Resource.Id.txtReviewComments);
             RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
             custRating.Rating = rat;
+            Comments.Text = _editObj.RatingText;
             //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
             //ItemReviewResponse SkuRating = new ItemReviewResponse();
             //SkuRating = sw.GetItemReviewsByWineID(WineId).Result;
@@ -74,7 +77,7 @@ namespace WineHangouts
             //        CreatePopup(sender, e);
             //    }
             //}
-            
+
 
 
             //ibs.SetImageResource(Resource.Drawable.wine_review);
@@ -110,7 +113,7 @@ namespace WineHangouts
         public void EditPopup(object sender, EventArgs e)
         {
             Dialog editDialog = new Dialog(Parent);
-
+            Appsee.StartScreen("Edit popup");
             //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
             editDialog.SetContentView(Resource.Layout.EditReviewPopup);

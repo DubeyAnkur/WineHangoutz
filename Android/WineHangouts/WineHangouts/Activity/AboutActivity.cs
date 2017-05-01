@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -19,6 +20,7 @@ namespace WineHangouts
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.AboutLayout);
+            Appsee.StartScreen("About");
             // Create your application here
         }
     }

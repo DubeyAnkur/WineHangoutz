@@ -16,6 +16,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
 using System.IO;
 using Android.Database;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -42,7 +43,7 @@ namespace WineHangouts
                 // new FileInfo(path).Directory.FullName
               string Path=GetRealPathFromURI(data.Data);
 
-
+                Appsee.StartScreen("PPD");
                 Bitmap propic = BitmapFactory.DecodeFile(Path);
 
                 ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
@@ -56,8 +57,8 @@ namespace WineHangouts
                     var stream = new FileStream(filePath, FileMode.Create);
                     resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                     stream.Close();
-                    Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
-                    Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
+                    //Toast.MakeText(this, "Thank you,We will update your profile picture as soon as possible", ToastLength.Short).Show();
+                    //Toast.MakeText(this, "Please touch anywhere to exit this dialog.", ToastLength.Short).Show();
                     pppd.UploadProfilePic(filePath);
                 }
                 catch (Exception ex)
@@ -76,7 +77,7 @@ namespace WineHangouts
             base.OnCreate(bundle);
             Window.RequestFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.ProfilePickLayout);
-
+            Appsee.StartScreen("Profile picture Gallery");
             var imageIntent = new Intent();
             imageIntent.SetType("image/*");
             imageIntent.SetAction(Intent.ActionGetContent);

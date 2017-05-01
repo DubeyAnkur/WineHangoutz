@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Hangout.Models;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -28,6 +29,7 @@ namespace WineHangouts
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            Appsee.StartScreen("Delete review");
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.DeleteReviewPop, container, false);
             ServiceWrapper sw = new ServiceWrapper();

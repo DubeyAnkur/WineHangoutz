@@ -15,6 +15,7 @@ using Hangout.Models;
 using Android.Telephony;
 using Android.Gms.Common;
 using Android.Gms.Gcm;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 
@@ -28,9 +29,9 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
+            Appsee.Start("4f28a3b6c27b4053b00e8c4bb9b80e17");
             SetContentView(Resource.Layout.login);
-           
+            Appsee.StartScreen("Login");
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);

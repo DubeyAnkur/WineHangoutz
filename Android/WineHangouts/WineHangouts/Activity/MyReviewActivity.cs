@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Util;
 using Hangout.Models;
 using static Android.Widget.AdapterView;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -24,6 +25,7 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            Appsee.StartScreen("My Reviews");
             uid = Convert.ToInt32(CurrentUser.getUserId());
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Tasting);

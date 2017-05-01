@@ -8,6 +8,7 @@ using Android.OS;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -18,6 +19,7 @@ namespace WineHangouts
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
+            Appsee.StartScreen("My Favorite");
 			try
 			{
 				SetContentView(Resource.Layout.MyFavoriteGridView);
@@ -37,18 +39,13 @@ namespace WineHangouts
 				int userId = Convert.ToInt32(CurrentUser.getUserId());
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemListResponse output = new ItemListResponse();
-
 				output = sw.GetItemFavsUID(userId).Result;
-
-
 				List<Item> myArr;
 				myArr = output.ItemList.ToList();
 				var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
 				MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
 				gridview.SetNumColumns(2);
 				gridview.Adapter = adapter;
-
-
 				gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
 				{
 					int WineID = myArr[args.Position].WineId;
@@ -71,68 +68,15 @@ namespace WineHangouts
 				dialog.Show();
 
 			}
-
-
 		}
-		public override bool OnOptionsItemSelected(IMenuItem item)
-		{
-			if (item.ItemId == Android.Resource.Id.Home)
-			{
-				base.OnBackPressed();
-				return false;
-			}
-			return base.OnOptionsItemSelected(item);
-		}
-		//public class ImageAdapter : BaseAdapter
-		//{
-		//    Context context;
-
-		//    public ImageAdapter(Context c)
-		//    {
-		//        context = c;
-		//    }
-
-		//    public override int Count
-		//    {
-		//        get { return thumbIds.Length; }
-		//    }
-
-		//    public override Java.Lang.Object GetItem(int position)
-		//    {
-		//        return null;
-		//    }
-
-		//    public override long GetItemId(int position)
-		//    {
-		//        return 0;
-		//    }
-
-		//    // create a new ImageView for each item referenced by the Adapter
-		//    public override View GetView(int position, View convertView, ViewGroup parent)
-		//    {
-		//        ImageView imageView;
-
-		//        if (convertView == null)
-		//        {  // if it's not recycled, initialize some attributes
-		//            imageView = new ImageView(context);
-		//            imageView.LayoutParameters = new GridView.LayoutParams(450, 450);
-		//            imageView.SetScaleType(ImageView.ScaleType.FitCenter);
-		//            imageView.SetPadding(8, 8, 8, 8);
-		//        }
-		//        else
-		//        {
-		//            imageView = (ImageView)convertView;
-		//        }
-
-		//        imageView.SetImageResource(thumbIds[position]);
-		//        return imageView;
-		//    }
-
-		//    // references to our images
-		//    int[] thumbIds = {    };
-
-
-		//}
-
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Android.Resource.Id.Home)
+            {
+                base.OnBackPressed();
+                return false;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
 	}
 }

@@ -8,9 +8,10 @@ using Android.OS;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
+using Android.Util;
 using System.Threading;
 using Android.Support.V4.Widget;
-
+using AppseeAnalytics.Android;
 using System.Threading.Tasks;
 
 using System.Collections.Concurrent;
@@ -38,6 +39,7 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            Appsee.StartScreen("Grid");
             SetContentView(Resource.Layout.Main);
 
             try
@@ -69,6 +71,7 @@ namespace WineHangouts
             }
             catch (Exception ex)
             {
+                Log.Error("Hangouts Exception", ex.Message);
                 ProgressIndicator.Hide();
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");

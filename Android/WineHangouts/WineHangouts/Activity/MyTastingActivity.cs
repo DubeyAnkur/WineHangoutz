@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Hangout.Models;
+using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -22,6 +23,7 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            Appsee.StartScreen("My Tasting");
             customerid = Convert.ToInt32(CurrentUser.getUserId());
 
             SetContentView(Resource.Layout.MyTasting);

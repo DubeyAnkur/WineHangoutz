@@ -15,6 +15,7 @@ using Hangout.Models;
 using System.Net;
 using System.Threading.Tasks;
 using System.IO;
+using AppseeAnalytics.Android;
 using Android.Support;
 
 namespace WineHangouts
@@ -35,7 +36,7 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            Appsee.StartScreen("Detail");
             SetContentView(Resource.Layout.detailedView);
             wineid = Intent.GetIntExtra("WineID", 123);
             ActionBar.SetHomeButtonEnabled(true);
@@ -87,6 +88,10 @@ namespace WineHangouts
 				AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
                 Review edit = new Review();
                 edit.WineId = wineid;
+                edit.RatingText = "";
+                var tempReview = ReviewArray.Find(x => x.ReviewUserId == Convert.ToInt32(CurrentUser.getUserId()));
+                if(tempReview != null)
+                    edit.RatingText = tempReview.RatingText;
                 ReviewPopup editPopup = new ReviewPopup(this, edit);
                 RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
                 RatingInput.RatingBarChange +=   editPopup.CreatePopup;                   
