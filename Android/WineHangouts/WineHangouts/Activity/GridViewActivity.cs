@@ -138,6 +138,11 @@ namespace WineHangouts
             }
             return base.OnOptionsItemSelected(item);
         }
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Drawable.options_menu_1, menu);
+            return true;
+        }
 
 
     }
