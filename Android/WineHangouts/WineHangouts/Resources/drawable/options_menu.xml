@@ -5,6 +5,6 @@
   <item android:id="@+id/action_settings1" android:title="About Us" showAsAction="always" />
   <item android:id="@+id/action_settings2" android:icon="@drawable/taste" android:title="Exit" showAsAction="always" />
   <!--/android:showAsAction="ifRoom"/-->
-  <item android:id="@+id/action_settings3" android:title="items"  android:icon="@drawable/taste" android:showAsAction="ifRoom" />
+  <!--<item android:id="@+id/action_settings3" android:title="items"  android:icon="@drawable/taste" android:showAsAction="ifRoom" />-->
 </menu>
 

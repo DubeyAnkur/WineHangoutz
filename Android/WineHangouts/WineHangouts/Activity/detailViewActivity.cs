@@ -15,28 +15,26 @@ using Hangout.Models;
 using System.Net;
 using System.Threading.Tasks;
 using System.IO;
-using AppseeAnalytics.Android;
 using Android.Support;
 
 namespace WineHangouts
 {
     [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/icon")]
-    public class detailViewActivity : Activity, IPopupParent
+    public class DetailViewActivity : Activity, IPopupParent
     {
         public int sku;
         //Button downloadButton;
         WebClient webClient;
         ImageView HighImageWine;
-        ImageView imgWine;
+        //ImageView imgWine;
         int wineid;
         //LinearLayout progressLayout;
-        List<ItemDetails> DetailsArray;
+        //List<ItemDetails> DetailsArray;
         List<Review> ReviewArray;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            Appsee.StartScreen("Detail");
             SetContentView(Resource.Layout.detailedView);
             wineid = Intent.GetIntExtra("WineID", 123);
             ActionBar.SetHomeButtonEnabled(true);
@@ -59,7 +57,7 @@ namespace WineHangouts
             TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
             try
             {
-                downloadAsync(this, System.EventArgs.Empty, wineid);
+                DownloadAsync(this, System.EventArgs.Empty, wineid);
                 myData = svc.GetItemDetails(wineid).Result;
                 SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
                 ReviewArray = SkuRating.Reviews.ToList();
@@ -86,9 +84,11 @@ namespace WineHangouts
 					WineDescription.Text = myData.ItemDetails.Producer;
 				}
 				AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
-                Review edit = new Review();
-                edit.WineId = wineid;
-                edit.RatingText = "";
+                Review edit = new Review()
+                {
+                    WineId = wineid,
+                    RatingText = ""
+                };
                 var tempReview = ReviewArray.Find(x => x.ReviewUserId == Convert.ToInt32(CurrentUser.getUserId()));
                 if(tempReview != null)
                     edit.RatingText = tempReview.RatingText;
@@ -99,23 +99,9 @@ namespace WineHangouts
                 var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
                 var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
 
-                //imgWine = FindViewById<ImageView>(Resource.Id.imgWine12);
+               
                 HighImageWine = FindViewById<ImageView>(Resource.Id.WineImage);
-
-                //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-                //string path = pppd.CreateDirectoryForPictures();
-                //var filePath = System.IO.Path.Combine(path + "/" + wineid + ".jpg");
-                //if (System.IO.File.Exists(filePath))
-                //{
-                //    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-                //    imgWine.SetImageBitmap(imageBitmap);
-                //}
-                //else
-                //{
-                //    Bitmap imageBitmap = BlobWrapper.Bottleimages(wineid);
-                //    imgWine.SetImageBitmap(imageBitmap);
-                //}
-                //imgWine.LayoutParameters = new RelativeLayout.LayoutParams(1100, 1100);
+                
                 BitmapFactory.Options options = new BitmapFactory.Options
                 {
                     InJustDecodeBounds = false,
@@ -126,8 +112,9 @@ namespace WineHangouts
                 ProgressIndicator.Hide();
                 Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
             }
-            catch (Exception ex)
+            catch (Exception exe)
             {
+                LoggingClass.LogError(exe.Message+"In WineDetails Screen");
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Sorry");
                 alert.SetMessage("We're under maintainence");
@@ -155,6 +142,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
+                LoggingClass.LogInfo("Exited from Detail view screen");
                 return false;
             }
             return base.OnOptionsItemSelected(item);
@@ -221,23 +209,16 @@ namespace WineHangouts
         {
             ServiceWrapper svc = new ServiceWrapper();
             int wineid = Intent.GetIntExtra("WineID", 138);
-
-
             ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
             var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
-
             this.Title = "Wine Details";
-
-
-
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-
             reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
             commentsView.Adapter = comments;
             comments.NotifyDataSetChanged();
         }
 
-        public async void downloadAsync(object sender, System.EventArgs ea, int wineid)
+        public async void DownloadAsync(object sender, System.EventArgs ea, int wineid)
         {
             webClient = new WebClient();
             var url = new Uri("https://icsintegration.blob.core.windows.net/bottleimagesdetails/" + wineid + ".jpg");
@@ -255,6 +236,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
+                LoggingClass.LogError( exe.Message+"In Detail View Activity");
                 //progressLayout.Visibility = ViewStates.Gone;
                 //downloadButton.Click += downloadAsync;
                 //downloadButton.Text = "Download Image";
@@ -274,8 +256,10 @@ namespace WineHangouts
                 Console.WriteLine("Saving image in local path: " + localPath);
                 fs.Close();
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.InJustDecodeBounds = true;
+                BitmapFactory.Options options = new BitmapFactory.Options()
+                {
+                    InJustDecodeBounds = true
+                };
                 await BitmapFactory.DecodeFileAsync(localPath, options);
 
 
@@ -289,9 +273,9 @@ namespace WineHangouts
                 }
                 HighImageWine.SetImageBitmap(bitmap);
             }
-            catch (Exception e)
+            catch (Exception exe)
             {
-
+                LoggingClass.LogError(exe.Message+ "In Detail View Activity");
 
             }
 

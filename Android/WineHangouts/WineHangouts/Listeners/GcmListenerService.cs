@@ -25,7 +25,7 @@ namespace WineHangouts
         // Use Notification Builder to create and launch the notification:
         void SendNotification(string message, string wineid)
         {
-            var intent = new Intent(this, typeof(detailViewActivity));
+            var intent = new Intent(this, typeof(DetailViewActivity));
             intent.PutExtra("WineID", wineid);
             intent.AddFlags(ActivityFlags.ClearTop);
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);

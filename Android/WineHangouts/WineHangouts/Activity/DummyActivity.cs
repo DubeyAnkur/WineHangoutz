@@ -14,23 +14,27 @@ using System.Net;
 using System.Threading.Tasks;
 using System.IO;
 using Android.Graphics;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Testing App", MainLauncher =false, Icon = "@drawable/icon")]
+    [Activity(Label = "Testing App", MainLauncher = false, Icon = "@drawable/star1")]
     public class TestingActivity : Activity
     {
-        Button downloadButton;
-        WebClient webClient;
-        ImageView imageView;
-        LinearLayout progressLayout;
+        //Button downloadButton;
+        //WebClient webClient;
+        //ImageView imageView;
+        //LinearLayout progressLayout;
+        string path = "";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Dummy);
-
-            //Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
+            Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
+            path = CreateDirectoryForPictures();
             //ServiceWrapper svc = new ServiceWrapper();
             //ItemReviewResponse md,md1 = new ItemReviewResponse();
             //CurrentUser.SaveUserName("lok", "3");
@@ -55,8 +59,12 @@ namespace WineHangouts
             //    notificationManager.Notify(notificationId, notification);
             //}
 
-            //btnGallery.Click += delegate
-            //{
+            btnGallery.Click += delegate
+            {
+
+                UploadProfilePic(path);
+            };
+
             //    Notification.Builder builder = new Notification.Builder(this)
             //    .SetContentTitle("hi Notification")
             //    .SetContentText("https://developer.xamarin.com/guides/android/application_fundamentals/notifications/remote-notifications-with-gcm/")
@@ -178,6 +186,50 @@ namespace WineHangouts
             //}
             //    return null;
             //}
+        }
+        public async void UploadProfilePic(string path)
+        {
+
+            StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+            CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+            CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
+
+            await container.CreateIfNotExistsAsync();
+
+            CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".csv"); //(path);
+
+
+            using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+            {
+
+                await blob.UploadFromStreamAsync(fs);
+
+            }
+
+
+
+
+        }
+        public string CreateDirectoryForPictures()
+        {
+            App._dir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory("WineHangouts"), "winehangouts/logs");
+
+            if (!App._dir.Exists())
+            {
+                App._dir.Mkdirs();
+            }
+            path = App._dir.ToString()+"/" + CurrentUser.getUserId() +".csv";
+            var csv = new StringBuilder();
+            var newLine = string.Format("{0},{1}", "test1", DateTime.Now);
+            csv.AppendLine(newLine);
+            File.WriteAllText(path, csv.ToString());
+            using (var tw = new StreamWriter(path, true))
+            {
+                tw.WriteLine("The next line!");
+                tw.Close();
+            }
+            return path;
         }
     }
 }

@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
-using Hangout.Models;
-using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -23,12 +17,11 @@ namespace WineHangouts
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Appsee.StartScreen("My Tasting");
             customerid = Convert.ToInt32(CurrentUser.getUserId());
-
             SetContentView(Resource.Layout.MyTasting);
             try
             {
+                LoggingClass.LogInfo("Entered into MyTastings");
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -36,7 +29,7 @@ namespace WineHangouts
 
                 var MYtastings = svc.GetMyTastingsList(customerid).Result;
 
-                List<Tastings> myArr;
+                //List<Tastings> myArr;
 
                 //  myArr1 = SampleData1();
 
@@ -49,6 +42,7 @@ namespace WineHangouts
 
             catch (Exception exe)
             {
+                LoggingClass.LogError(exe.Message+"In my review's");
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
@@ -64,15 +58,12 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
+                LoggingClass.LogInfo("Exited from MyTastings");
                 return false;
             }
             return base.OnOptionsItemSelected(item);
         }
-        private void Close_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         private int ConvertPixelsToDp(float pixelValue)
         {
             var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);

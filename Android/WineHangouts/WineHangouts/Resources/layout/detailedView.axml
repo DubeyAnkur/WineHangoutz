@@ -269,7 +269,7 @@
                     android:text="Reviews"
                     android:textStyle="bold"
                     android:textSize="30dp"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="#FFFFFF" />
             </TableRow>
         <!--<TableRow
                 android:id="@+id/tableRow9"

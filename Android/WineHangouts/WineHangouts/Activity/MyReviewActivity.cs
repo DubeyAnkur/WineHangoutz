@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Hangout.Models;
-using static Android.Widget.AdapterView;
-using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
@@ -20,55 +16,36 @@ namespace WineHangouts
     public class MyReviewActivity : Activity, IPopupParent
     {
         public int uid;
-        Context parent;
+        //Context parent;
         public int x;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Appsee.StartScreen("My Reviews");
             uid = Convert.ToInt32(CurrentUser.getUserId());
-            // Set our view from the "main" layout resource
+            
             SetContentView(Resource.Layout.Tasting);
             try
             {
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
-
+                LoggingClass.LogInfo("Entered into My Reviews");
                 ServiceWrapper svc = new ServiceWrapper();
                 ItemReviewResponse uidreviews = new ItemReviewResponse();
-                // ItemRatingResponse irr = svc.GetItemReviewUID(uid).Result;
-
                 uidreviews = svc.GetItemReviewUID(uid).Result;
-
-                //if (uidreviews.Reviews.Count == 0)
-                //{
-                //    SetContentView(Resource.Layout.Dummy);
-                //}
                 List<Review> myArr1;
                 myArr1 = uidreviews.Reviews.ToList();
-           
-
                 var wineList = FindViewById<ListView>(Resource.Id.listView1);
                 // myArr1 = SampleData1();
                 Review edit = new Review();
                 ReviewPopup editPopup = new ReviewPopup(this, edit);
                 MyReviewAdapter adapter = new MyReviewAdapter(this, myArr1);
-                //if (adapter.Count == 0)
-                //{
-                //    TextView infoText = FindViewById<TextView>(Resource.Id.txtInfo);
-                //    infoText.Text = "You haven't reviewed anything";
-                //}
-                //adapter.Edit_Click += editPopup.EditPopup;
-             
                 wineList.Adapter = adapter;
-
-                // wineList.ItemClick += listView_ItemClick;
-
+                
                 wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
                 {
                     int WineID = myArr1[args.Position].WineId;
 					ProgressIndicator.Show(this);
-					var intent = new Intent(this, typeof(detailViewActivity));
+					var intent = new Intent(this, typeof(DetailViewActivity));
                     intent.PutExtra("WineID", WineID);
                     StartActivity(intent);
                 };
@@ -76,6 +53,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
+                LoggingClass.LogError(exe.Message+ "Exception in My Review");
 				ProgressIndicator.Hide();
 				AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
@@ -91,6 +69,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
+                LoggingClass.LogInfo("Exited from My Reviews");
                 return false;
             }
             return base.OnOptionsItemSelected(item);

@@ -1,21 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Android.Gms.Iid;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using System.Threading;
-using System.Threading.Tasks;
 using Hangout.Models;
 using Android.Telephony;
 using Android.Gms.Common;
-using Android.Gms.Gcm;
-using AppseeAnalytics.Android;
 
 namespace WineHangouts
 
@@ -29,21 +20,14 @@ namespace WineHangouts
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            Appsee.Start("4f28a3b6c27b4053b00e8c4bb9b80e17");
+            
             SetContentView(Resource.Layout.login);
-            Appsee.StartScreen("Login");
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
             EditText txtUserNumber = FindViewById<EditText>(Resource.Id.MobileNumber);
             
             ServiceWrapper svc = new ServiceWrapper();
-            //new Thread(new ThreadStart(delegate
-            //{
-            //    RunOnUiThread(() => bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId())));
-            //})).Start();
-
-            //bvb.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             var TaskA = new System.Threading.Tasks.Task(() => {
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             });
@@ -67,7 +51,7 @@ namespace WineHangouts
             }
             else
             {
-
+                LoggingClass.LogInfo("Logged In");
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
                 SendRegistrationToAppServer(CurrentUser.getToken());
@@ -103,7 +87,7 @@ namespace WineHangouts
                         {
                             CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
                             SendRegistrationToAppServer(CurrentUser.getToken());
-
+                            LoggingClass.LogInfo("Authentication done");
                             //RegistrationIntentService ri = new RegistrationIntentService();
                             //ri.OnHandleIntent(Intent);
                             Intent intent = new Intent(this, typeof(TabActivity));
@@ -114,7 +98,7 @@ namespace WineHangouts
                         {
                             AlertDialog.Builder aler = new AlertDialog.Builder(this);
                             aler.SetTitle("Sorry");
-                            aler.SetMessage("You entered wrong ");
+                            aler.SetMessage("You entered wrong details or authentication failed");
                             aler.SetNegativeButton("Ok", delegate { });
                             Dialog dialog1 = aler.Create();
                             dialog1.Show();
@@ -124,6 +108,7 @@ namespace WineHangouts
                     {
                         if (exception.Message.ToString() == "One or more errors occurred.")
                         {
+                            
                             AlertDialog.Builder aler = new AlertDialog.Builder(this);
                             aler.SetTitle("Sorry");
                             aler.SetMessage("Please check your internet connection");
@@ -207,6 +192,7 @@ namespace WineHangouts
             _token.DeviceToken = token;
             _token.DeviceType = 1;
             ServiceWrapper svc = new ServiceWrapper();
+            LoggingClass.LogInfo("Token sent to db");
             int x = await svc.InsertUpdateToken1(_token);
            
         }
@@ -226,7 +212,12 @@ namespace WineHangouts
                 else
                 {
                     gplaystatus = "Sorry, this device is not supported";
-                    Toast.MakeText(this, gplaystatus, ToastLength.Short).Show();
+                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                    aler.SetTitle("Sorry");
+                    aler.SetMessage(gplaystatus);
+                    aler.SetNegativeButton("Ok", delegate { });
+                    Dialog dialog3 = aler.Create();
+                    dialog3.Show();
                     Finish();
                 }
                 return false;
@@ -234,7 +225,6 @@ namespace WineHangouts
             else
             {
                 gplaystatus = "Google Play Services is available.";
-                Toast.MakeText(this, gplaystatus, ToastLength.Short).Show();
                 return true;
             }
         }

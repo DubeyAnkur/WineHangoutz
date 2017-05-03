@@ -42,15 +42,6 @@ namespace WineHangouts
                 return myItems.Count;
             }
         }
-
-        //public override WineDetails this[int position]
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
         public override long GetItemId(int position)
         {
             return position;

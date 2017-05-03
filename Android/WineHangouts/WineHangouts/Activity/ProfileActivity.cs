@@ -1,25 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Java.Net;
 using Android.Graphics;
-using Java.IO;
-using Android.Graphics.Drawables;
 using Android.Util;
-using System.Net;
-using System.IO;
 using Hangout.Models;
-using Android.Media;
-using System.Threading;
-using System.Drawing;
 //using System.Drawing.Drawing2D;
 
 namespace WineHangouts
@@ -34,7 +22,7 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Profile);
             try
             {
-
+                LoggingClass.LogInfo("Entered into Profile");
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                 int userId = Convert.ToInt32(CurrentUser.getUserId());
@@ -48,15 +36,16 @@ namespace WineHangouts
                 var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
                 if (System.IO.File.Exists(filePath))
                 {
+
                     Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-                    if(imageBitmap==null)
+                    if (imageBitmap == null)
                     {
                         propicimage.SetImageResource(Resource.Drawable.user1);
-                    //propicimage.SetImageBitmap(imageBitmap);
+                        //propicimage.SetImageBitmap(imageBitmap);
                     }
                     else
-                    { 
-                    propicimage.SetImageBitmap(imageBitmap);
+                    {
+                        propicimage.SetImageBitmap(imageBitmap);
                     }
                 }
                 else
@@ -78,18 +67,10 @@ namespace WineHangouts
                 //changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
                 changepropic.Click += delegate
                 {
+                    LoggingClass.LogInfo("Clicked on change profile activity");
                     Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
                     StartActivity(intent);
                 };
-
-                //Button Btnlogout = FindViewById<Button>(Resource.Id.button1);
-                //Btnlogout.Click += delegate
-                //{
-
-                //    Intent intent = new Intent(this, typeof(LoginActivity));
-                //    StartActivity(intent);
-                //};
-
                 EditText Firstname = FindViewById<EditText>(Resource.Id.txtFirstName);
                 Firstname.Text = output.customer.FirstName;
                 EditText Lastname = FindViewById<EditText>(Resource.Id.txtLastName);
@@ -119,25 +100,30 @@ namespace WineHangouts
                 //updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
                 updatebtn.Click += async delegate
                 {
-                    Customer customer = new Customer();
-                    customer.FirstName = Firstname.Text;
-                    customer.LastName = Lastname.Text;
-                    customer.PhoneNumber = Mobilenumber.Text;
-                    customer.Address1 = Address.Text;
-                    customer.Email = Email.Text;
-                    customer.CustomerID = userId;
-                    customer.State = State.Text;
-                    customer.City = City.Text;
+                    Customer customer = new Customer()
+                    {
+                        FirstName = Firstname.Text,
+                        LastName = Lastname.Text,
+                        PhoneNumber = Mobilenumber.Text,
+                        Address1 = Address.Text,
+                        Email = Email.Text,
+                        CustomerID = userId,
+                        State = State.Text,
+                        City = City.Text
+                    };
+                    LoggingClass.LogInfo("Clicked on update info");
                     var x = await sw.UpdateCustomer(customer);
                     if (x == 1)
                     {
                         Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
                     }
                 };
-               
+
+
             }
             catch (Exception exe)
             {
+                LoggingClass.LogError(exe.Message + "In profile activity");
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
@@ -147,8 +133,6 @@ namespace WineHangouts
             }
             ProgressIndicator.Hide();
         }
-
-
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
@@ -164,11 +148,10 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             var output = svc.GetCustomerDetails(userId).Result;
-
             Android.Graphics.Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
         }
 
-        public Bitmap resizeAndRotate(Bitmap image, int width, int height)
+        public Bitmap ResizeAndRotate(Bitmap image, int width, int height)
         {
             var matrix = new Matrix();
             var scaleWidth = ((float)width) / image.Width;
@@ -186,45 +169,6 @@ namespace WineHangouts
             return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
         }
 
-
-        //public void  ResizeImage(Image image, int width, int height, int desiredWidth, int desiredHeight)
-        //{
-        //    //float ratio = ((float)240) / height;
-        //    //ratio = ratio / 2;
-        //    float nPercent = 0;
-        //    float nPercentW = 0;
-        //    float nPercentH = 0;
-
-        //    nPercentW = ((float)desiredWidth / (float)width);
-        //    nPercentH = ((float)desiredHeight / (float)height);
-
-        //    if (nPercentH < nPercentW)
-        //        nPercent = nPercentH;
-        //    else
-        //        nPercent = nPercentW;
-        //    float ratio = nPercent;
-        //    var destRect = new System.Drawing.Rectangle(0, 0, Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
-        //    var destImage = new System.Drawing.biBitmap(Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
-
-        //    destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-        //    using (var graphics = Graphics.FromImage(destImage))
-        //    {
-        //        //graphics.CompositingMode = CompositingMode.SourceCopy;
-        //        //graphics.CompositingQuality = CompositingQuality.HighSpeed;
-        //        //graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        //        //graphics.SmoothingMode = SmoothingMode.HighQuality;
-        //        //graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-        //        using (var wrapMode = new ImageAttributes())
-        //        {
-        //            wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-        //            graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-        //        }
-        //    }
-
-
-        //}
     }
 
 }

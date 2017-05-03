@@ -15,6 +15,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
 using System.IO;
+using Android.Util;
 
 namespace WineHangouts
 {
@@ -32,13 +33,14 @@ namespace WineHangouts
     public class ProfilePicturePickDialog : Activity
     {
 
-        private ImageView _imageView;
+        //private ImageView _imageView;
         public string path;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
             if (resultCode.ToString() == "Canceled")
             {
+                LoggingClass.LogInfo("Cancelled from camera");
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
             }
@@ -54,12 +56,13 @@ namespace WineHangouts
                     SendBroadcast(mediaScanIntent);
 
                 }
-                catch (Exception e)
+                catch (Exception exe)
                 {
+                    LoggingClass.LogError(exe.Message+"in camera dialog");
                     Intent intent1 = new Intent(this, typeof(TabActivity));
                     StartActivity(intent1);
                 }
-                resize();
+                Resize();
                 UploadProfilePic(path);
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
@@ -72,14 +75,10 @@ namespace WineHangouts
             base.OnCreate(bundle);
             Window.RequestFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.ProfilePickLayout);
-
             if (IsThereAnAppToTakePictures())
             {
                 CreateDirectoryForPictures();
-
                 ImageButton BtnCamera = FindViewById<ImageButton>(Resource.Id.btnCamera);
-
-
                 // _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
                 BtnCamera.Click += TakeAPicture;
             }
@@ -87,6 +86,7 @@ namespace WineHangouts
 
             btnGallery.Click += delegate
             {
+                LoggingClass.LogInfo("Clicked on gallery picking option");
                 Intent intent = new Intent(this, typeof(ProfilePictureGallery));
                 StartActivity(intent);
             };
@@ -124,22 +124,22 @@ namespace WineHangouts
             return availableActivities != null && availableActivities.Count > 0;
         }
 
-        public void resize()
+        public void Resize()
         {
             try
             {
                 Bitmap propic = BitmapFactory.DecodeFile(path);
                 ProfileActivity pa = new ProfileActivity();
-                Bitmap resized = pa.resizeAndRotate(propic, 450, 450);
+                Bitmap resized = pa.ResizeAndRotate(propic, 450, 450);
 
                 var filePath = System.IO.Path.Combine(path);
                 var stream = new FileStream(filePath, FileMode.Create);
                 resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                 stream.Close();
             }
-            catch (Exception ex)
+            catch (Exception exe)
             {
-
+                LoggingClass.LogError( exe.Message+"in pppd");
             }
 
         }
@@ -147,15 +147,9 @@ namespace WineHangouts
         private void TakeAPicture(object sender, EventArgs eventArgs)
         {
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-
-
             App._file = new Java.IO.File(App._dir, String.Format(Convert.ToInt32(CurrentUser.getUserId()) + ".jpg", Guid.NewGuid()));
             path += "/" + CurrentUser.getUserId() + ".jpg";
-
-
-
             intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(App._file));
-
             StartActivityForResult(intent, 0);
         }
 
@@ -166,27 +160,15 @@ namespace WineHangouts
             CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
             CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
-
             await container.CreateIfNotExistsAsync();
-            //string[] FileEntries = App.System.IO._dir.GetFiles(path);
-
-            //foreach (string FilePath in FileEntries)
-            //{
-            //    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
-            CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".jpg"); //(path);
-
-
+            CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".jpg"); 
+            LoggingClass.LogInfo("Updated profile picture");
             using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
             {
 
-                await blob.UploadFromStreamAsync(fs);//  .UploadFromFileAsync(path);
-
+                await blob.UploadFromStreamAsync(fs);
+                LoggingClass.LogInfo("Profile picture uploaded into blob");
             }
-            //}
-            // await container=
-
-
-
         }
     }
 

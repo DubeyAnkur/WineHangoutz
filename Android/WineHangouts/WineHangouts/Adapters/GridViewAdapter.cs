@@ -137,14 +137,11 @@ namespace WineHangouts
                     like.Liked = x;
                     myItems[actualPosition].IsLike = x;
                     like.WineId = myItems[actualPosition].WineId;
+                    LoggingClass.LogInfo("Liked an item");
                     ServiceWrapper sw = new ServiceWrapper();
                     await sw.InsertUpdateLike(like);
                 };
             }
-
-
-
-
             Bitmap imageBitmap;
             imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
             var place = new FrameLayout.LayoutParams(650, 650);

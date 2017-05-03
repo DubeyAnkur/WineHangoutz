@@ -1,16 +1,12 @@
 using System;
-
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Android.Graphics;
-using Android.Graphics.Drawables;
-using System.Threading;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace WineHangouts
 {
@@ -21,17 +17,21 @@ namespace WineHangouts
         {
             base.OnCreate(bundle);
             this.TitleColor = Color.LightGray;
-
-
             SetContentView(Resource.Layout.Fragment);
-
-
+            try
+            {
+                LoggingClass.UploadErrorLogs(LoggingClass.CreateDirectoryForLogs());
+                //File.Delete(LoggingClass.CreateDirectoryForLogs());
+            }
+            catch(Exception exe)
+            {
+                Log.Error("Hangouts", exe.Message);
+            }
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-           
-
+            LoggingClass.LogInfo("Entered into Tab");
             AddTab("Locations", 1, new SampleTabFragment("Locations", this));
-            AddTab("My Hangouts",1, new SampleTabFragment("My Hangouts", this));
-            AddTab("Explore",1, new SampleTabFragment("Explore", this));
+            AddTab("My Hangouts", 1, new SampleTabFragment("My Hangouts", this));
+            //AddTab("Explore",1, new SampleTabFragment("Explore", this));
 
             if (bundle != null)
                 this.ActionBar.SelectTab(this.ActionBar.GetTabAt(bundle.GetInt("tab")));
@@ -41,7 +41,6 @@ namespace WineHangouts
         protected override void OnSaveInstanceState(Bundle outState)
         {
             outState.PutInt("tab", this.ActionBar.SelectedNavigationIndex);
-
             base.OnSaveInstanceState(outState);
         }
 
@@ -49,9 +48,6 @@ namespace WineHangouts
         {
             var tab = this.ActionBar.NewTab();
             tab.SetText(tabText);
-
-
-
             tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
             {
                 var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
@@ -68,12 +64,12 @@ namespace WineHangouts
         }
 
 
-      public  class SampleTabFragment : Fragment
+        public class SampleTabFragment : Fragment
         {
 
             string tabName;
             Activity _parent;
-            ProgressDialog progress;
+            //ProgressDialog progress;
             public SampleTabFragment()
             {
                 tabName = "Locations";
@@ -82,13 +78,11 @@ namespace WineHangouts
             {
                 tabName = Name;
                 _parent = parent;
-                // progress = new Android.App.ProgressDialog(_parent);
-
             }
 
             public override void OnViewCreated(View view, Bundle savedInstanceState)
             {
-                
+
             }
             public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
             {
@@ -104,11 +98,8 @@ namespace WineHangouts
                 Top.LayoutParameters.Height = height;
                 Middle.LayoutParameters.Height = height;
                 Bottom.LayoutParameters.Height = height;
-
-
                 if (tabName == "Locations")
                 {
-
                     try
                     {
                         Top.SetBackgroundResource(Resource.Drawable.city);
@@ -123,23 +114,20 @@ namespace WineHangouts
                         Bottom.Text = "Secaucus";
                         Bottom.SetTextColor(Color.White);
                         Bottom.TextSize = 20;
-
-
-
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-
+                            LoggingClass.LogInfo("Clicked on Wall");
                             var intent = new Intent(Activity, typeof(GridViewActivity));
                             intent.PutExtra("MyData", "Wall Store");
-
                             StartActivity(intent);
+
 
                         };
                         Middle.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-
+                            LoggingClass.LogInfo("Clicked on Point Plesent");
                             var intent = new Intent(Activity, typeof(GridViewActivity));
                             intent.PutExtra("MyData", "Point Pleasant Store");
                             StartActivity(intent);
@@ -150,57 +138,61 @@ namespace WineHangouts
                             aler.SetTitle("Secaucus Store");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
+                            LoggingClass.LogInfo("Clicked on Secaucus");
                             Dialog dialog = aler.Create();
                             dialog.Show();
                         };
                     }
                     catch (Exception Exe)
                     {
-                        Log.Error("Wine Tab Activity", Exe.Message);
+                        LoggingClass.LogError(Exe.Message + "In Locations Tab");
                     }
                 }
                 if (tabName == "My Hangouts")
                 {
                     try
-                    { 
-                    Top.SetBackgroundResource(Resource.Drawable.winereviews);
-                    Top.Text = "My Reviews";
-                    Top.SetTextColor(Color.White);
-                    Top.TextSize = 20;
-                    Middle.SetBackgroundResource(Resource.Drawable.winetasting);
-                    Middle.Text = "My Tastings";
-                    Middle.SetTextColor(Color.White);
-                    Middle.TextSize = 20;
-                    Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
-                    Bottom.Text = "My Favorites";
-                    Bottom.SetTextColor(Color.White);
-                    Bottom.TextSize = 20;
+                    {
+                        Top.SetBackgroundResource(Resource.Drawable.winereviews);
+                        Top.Text = "My Reviews";
+                        Top.SetTextColor(Color.White);
+                        Top.TextSize = 20;
+                        Middle.SetBackgroundResource(Resource.Drawable.winetasting);
+                        Middle.Text = "My Tastings";
+                        Middle.SetTextColor(Color.White);
+                        Middle.TextSize = 20;
+                        Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
+                        Bottom.Text = "My Favorites";
+                        Bottom.SetTextColor(Color.White);
+                        Bottom.TextSize = 20;
 
-                    Top.Click += (sender, e) =>
-                    {
-                        ProgressIndicator.Show(_parent);
-                        var intent = new Intent(Activity, typeof(MyReviewActivity));
-                        intent.PutExtra("MyData", "My Reviews");
-                        StartActivity(intent);
-                    };
-                    Middle.Click += (sender, e) =>
-                    {
-                        ProgressIndicator.Show(_parent);
-                        var intent = new Intent(Activity, typeof(MyTastingActivity));
-                        intent.PutExtra("MyData", "My Tastings");
-                        StartActivity(intent);
-                    };
-                    Bottom.Click += (sender, e) =>
-                    {
-                        ProgressIndicator.Show(_parent);
-                        var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
-                        intent.PutExtra("MyData", "My Favorites");
-                        StartActivity(intent);
-                    };
+                        Top.Click += (sender, e) =>
+                        {
+                            ProgressIndicator.Show(_parent);
+                            LoggingClass.LogInfo("Clicked on My Reviews");
+                            var intent = new Intent(Activity, typeof(MyReviewActivity));
+                            intent.PutExtra("MyData", "My Reviews");
+                            StartActivity(intent);
+                        };
+                        Middle.Click += (sender, e) =>
+                        {
+                            ProgressIndicator.Show(_parent);
+                            LoggingClass.LogInfo("Clicked on My Tastings");
+                            var intent = new Intent(Activity, typeof(MyTastingActivity));
+                            intent.PutExtra("MyData", "My Tastings");
+                            StartActivity(intent);
+                        };
+                        Bottom.Click += (sender, e) =>
+                        {
+                            ProgressIndicator.Show(_parent);
+                            LoggingClass.LogInfo("Clicked on My Favorites");
+                            var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
+                            intent.PutExtra("MyData", "My Favorites");
+                            StartActivity(intent);
+                        };
                     }
                     catch (Exception Exe)
                     {
-                        Log.Error("Wine Tab Activity", Exe.Message);
+                        LoggingClass.LogError(Exe.Message + "In My Hangouts");
                     }
 
                     //};
@@ -213,17 +205,12 @@ namespace WineHangouts
 
                         Top.SetBackgroundResource(Resource.Drawable.myprofile);
                         Top.Text = "My Profile";
-
                         Top.SetTextColor(Color.White);
                         Top.TextSize = 20;
-
-
                         Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
                         Middle.Text = "Wineries/Search Helper";
                         Middle.TextSize = 20;
                         Middle.SetTextColor(Color.White);
-
-
                         Bottom.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
                         Bottom.Text = "Regions";
                         Bottom.TextSize = 20;
@@ -233,45 +220,45 @@ namespace WineHangouts
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-
+                            LoggingClass.LogInfo("Clicked on My Profile");
                             var intent = new Intent(Activity, typeof(ProfileActivity));
                             intent.PutExtra("MyData", "My Profile");
                             StartActivity(intent);
-
-
-
+                          
                         };
                         Middle.Click += (sender, e) =>
                         {
-                        //AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
-                        //aler.SetTitle("Wineries Section");
-                        //aler.SetMessage("Coming Soon");
-                        //aler.SetNegativeButton("Ok", delegate { });
-                        //Dialog dialog = aler.Create();
-                        //dialog.Show();
-                        var intent = new Intent(Activity, typeof(LandscapeActivity));
-                            intent.PutExtra("MyData", "Wineries");
-                            StartActivity(intent);
-                        //var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
-                        ////intent.PutExtra("MyData", "Wineries");
-                        //StartActivity(intent);
-                    };
+                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                            aler.SetTitle("Wineries Section");
+                            aler.SetMessage("Coming Soon");
+                            aler.SetNegativeButton("Ok", delegate { });
+                            LoggingClass.LogInfo("Clicked on Wineries");
+                            Dialog dialog = aler.Create();
+                            dialog.Show();
+                            //var intent = new Intent(Activity, typeof(LandscapeActivity));
+                            //    intent.PutExtra("MyData", "Wineries");
+                            //    StartActivity(intent);
+                            //var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
+                            ////intent.PutExtra("MyData", "Wineries");
+                            //StartActivity(intent);
+                        };
                         Bottom.Click += (sender, e) =>
                         {
                             AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
                             aler.SetTitle("Regions Section");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
+                            LoggingClass.LogInfo("Clicked on Regions");
                             Dialog dialog = aler.Create();
                             dialog.Show();
-                        //var intent = new Intent(Activity, typeof(PotraitActivity));
-                        //intent.PutExtra("MyData", "Regions");
-                        //StartActivity(intent);
-                    };
+                            //var intent = new Intent(Activity, typeof(PotraitActivity));
+                            //intent.PutExtra("MyData", "Regions");
+                            //StartActivity(intent);
+                        };
                     }
-                    catch(Exception Exe)
+                    catch (Exception Exe)
                     {
-                        Log.Error("Wine Tab Activity", Exe.Message);
+                        LoggingClass.LogError(Exe.Message + "In Explore Tab");
                     }
                 }
 
@@ -294,29 +281,26 @@ namespace WineHangouts
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-           
+
             Intent intent = null;
-           
+
             switch (item.ItemId)
             {
-               
+
                 case Resource.Id.action_settings:
                     ProgressIndicator.Show(this);
-                     intent = new Intent(this, typeof(ProfileActivity));
-                    intent.PutExtra("MyData", "Wall Store");
-
-                    //StartActivity(intent);
+                    intent = new Intent(this, typeof(ProfileActivity));
+                    LoggingClass.LogInfo("Clicked on options menu Profile");
                     break;
                 case Resource.Id.action_settings1:
                     //ProgressIndicator.Show(this);
-                     intent = new Intent(this, typeof(AboutActivity));
-                    intent.PutExtra("MyData", "Wall Store");
-
-                    //StartActivity(intent);
+                    intent = new Intent(this, typeof(AboutActivity));
+                    LoggingClass.LogInfo("Clicked on options menu About");
                     break;
 
                 case Resource.Id.action_settings2:
                     MoveTaskToBack(true);
+                    LoggingClass.LogInfo("Exited from App");
                     break;
                 default://invalid option
                     return base.OnOptionsItemSelected(item);
@@ -334,11 +318,12 @@ namespace WineHangouts
                 //}
             }
 
-            catch (Exception ex)
+            catch (Exception exe)
             {
+                LoggingClass.LogError(exe.Message+"In options menu");
                 throw new Exception();
             }
-           
+
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
@@ -348,10 +333,8 @@ namespace WineHangouts
         }
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-
-
             MenuInflater.Inflate(Resource.Drawable.options_menu, menu);
-            
+
             return true;
         }
     }

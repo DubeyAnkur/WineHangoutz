@@ -45,7 +45,7 @@ namespace WineHangouts
             wineList.Adapter = adapter;
             wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                var intent = new Intent(this, typeof(detailViewActivity));
+                var intent = new Intent(this, typeof(DetailViewActivity));
                 StartActivity(intent);
 
             };

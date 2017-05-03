@@ -114,7 +114,8 @@ namespace WineHangouts
 				like.SKU = Convert.ToInt32(myItems[position].SKU);
 				like.Liked = x;
 				ServiceWrapper sw = new ServiceWrapper();
-				like.WineId = myItems[position].WineId;
+                LoggingClass.LogInfo("Liked an item in my profile");
+                like.WineId = myItems[position].WineId;
 				await sw.InsertUpdateLike(like);
 			};
 			//Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);

@@ -8,7 +8,7 @@ using Android.OS;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
-using AppseeAnalytics.Android;
+using Android.Util;
 
 namespace WineHangouts
 {
@@ -19,8 +19,8 @@ namespace WineHangouts
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-            Appsee.StartScreen("My Favorite");
-			try
+            LoggingClass.LogInfo("Entered into My Fav's");
+           try
 			{
 				SetContentView(Resource.Layout.MyFavoriteGridView);
 				ActionBar.SetHomeButtonEnabled(true);
@@ -28,14 +28,6 @@ namespace WineHangouts
 				if (StoreName == "")
 					StoreName = Intent.GetStringExtra("MyData");
 				this.Title = StoreName;
-
-				int StoreId = 0;
-				if (StoreName == "My Favorites")
-					StoreId = 1;
-				else if (StoreName == "Point Pleasent Store")
-					StoreId = 2;
-				else if (StoreName == "Wall Store")
-					StoreId = 3;
 				int userId = Convert.ToInt32(CurrentUser.getUserId());
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemListResponse output = new ItemListResponse();
@@ -50,7 +42,7 @@ namespace WineHangouts
 				{
 					int WineID = myArr[args.Position].WineId;
 					ProgressIndicator.Show(this);
-					var intent = new Intent(this, typeof(detailViewActivity));
+					var intent = new Intent(this, typeof(DetailViewActivity));
 					intent.PutExtra("WineID", WineID);
 					StartActivity(intent);
 				};
@@ -59,7 +51,8 @@ namespace WineHangouts
 
 			catch (Exception exe)
 			{
-				ProgressIndicator.Hide();
+                LoggingClass.LogError( exe.Message+"In my fav activity");
+                ProgressIndicator.Hide();
 				AlertDialog.Builder aler = new AlertDialog.Builder(this);
 				aler.SetTitle("Sorry");
 				aler.SetMessage("We're under maintainence");
@@ -74,6 +67,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
+                LoggingClass.LogInfo("Exited from My fav's");
                 return false;
             }
             return base.OnOptionsItemSelected(item);

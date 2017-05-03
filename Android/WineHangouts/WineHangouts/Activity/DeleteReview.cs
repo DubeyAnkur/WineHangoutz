@@ -10,14 +10,13 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Hangout.Models;
-using AppseeAnalytics.Android;
 
 namespace WineHangouts
 {
    
     class DeleteReview : DialogFragment
     {
-        Review _editObj;
+        //Review _editObj;
         public Dialog myDialog;
         private int WineId;
         Context Parent;
@@ -29,26 +28,31 @@ namespace WineHangouts
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            Appsee.StartScreen("Delete review");
+           
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.DeleteReviewPop, container, false);
             ServiceWrapper sw = new ServiceWrapper();
             Review review = new Review();
             Button Delete = view.FindViewById<Button>(Resource.Id.button1);
             Button Cancel = view.FindViewById<Button>(Resource.Id.button2);
-            
-            Delete.Click += async delegate
+            try
             {
-                review.WineId = WineId;
-				ProgressIndicator.Show(Parent);
-				review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
-                await sw.DeleteReview(review);
-                 ((IPopupParent)Parent).RefreshParent();
-				ProgressIndicator.Hide();
-				myDialog.Dismiss();
-				
-			};
-			
+                Delete.Click += async delegate
+                {
+                    review.WineId = WineId;
+                    ProgressIndicator.Show(Parent);
+                    review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
+                    await sw.DeleteReview(review);
+                    ((IPopupParent)Parent).RefreshParent();
+                    ProgressIndicator.Hide();
+                    myDialog.Dismiss();
+
+                };
+            }
+            catch(Exception exe)
+            {
+                LoggingClass.LogError(exe.Message + "While deleting review");
+            }
             Cancel.Click += delegate
             {
                 myDialog.Dismiss();

@@ -39,7 +39,7 @@ namespace WineHangouts
 
     public class listner : View.IOnScrollChangeListener
     {
-        IntPtr _handler;
+        //IntPtr _handler;
       
         public IntPtr Handle
         {
