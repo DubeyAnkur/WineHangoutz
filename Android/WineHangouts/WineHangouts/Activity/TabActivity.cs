@@ -23,7 +23,7 @@ namespace WineHangouts
                 LoggingClass.UploadErrorLogs(LoggingClass.CreateDirectoryForLogs());
                 //File.Delete(LoggingClass.CreateDirectoryForLogs());
             }
-            catch(Exception exe)
+            catch (Exception exe)
             {
                 Log.Error("Hangouts", exe.Message);
             }
@@ -224,7 +224,7 @@ namespace WineHangouts
                             var intent = new Intent(Activity, typeof(ProfileActivity));
                             intent.PutExtra("MyData", "My Profile");
                             StartActivity(intent);
-                          
+
                         };
                         Middle.Click += (sender, e) =>
                         {
@@ -320,7 +320,7 @@ namespace WineHangouts
 
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message+"In options menu");
+                LoggingClass.LogError(exe.Message + "In options menu");
                 throw new Exception();
             }
 

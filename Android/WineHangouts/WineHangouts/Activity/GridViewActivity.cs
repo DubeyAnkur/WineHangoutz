@@ -11,7 +11,6 @@ using System.Linq;
 using Android.Util;
 using System.Threading;
 using Android.Support.V4.Widget;
-using AppseeAnalytics.Android;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Net.Http;

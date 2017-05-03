@@ -55,7 +55,6 @@ namespace WineHangouts
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
                 SendRegistrationToAppServer(CurrentUser.getToken());
-
             }
 
 
@@ -187,10 +186,12 @@ namespace WineHangouts
         }
         public async void SendRegistrationToAppServer(string token)
         {
-            TokenModel _token = new TokenModel();
-            _token.User_id = Convert.ToInt32(CurrentUser.getUserId());
-            _token.DeviceToken = token;
-            _token.DeviceType = 1;
+            TokenModel _token = new TokenModel()
+            {
+                User_id = Convert.ToInt32(CurrentUser.getUserId()),
+                DeviceToken = token,
+                DeviceType = 1
+            };
             ServiceWrapper svc = new ServiceWrapper();
             LoggingClass.LogInfo("Token sent to db");
             int x = await svc.InsertUpdateToken1(_token);

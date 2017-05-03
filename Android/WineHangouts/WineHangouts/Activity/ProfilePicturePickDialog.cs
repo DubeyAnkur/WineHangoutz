@@ -90,7 +90,7 @@ namespace WineHangouts
                 Intent intent = new Intent(this, typeof(ProfilePictureGallery));
                 StartActivity(intent);
             };
-
+            
 
         }
 

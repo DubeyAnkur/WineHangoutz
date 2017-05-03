@@ -10,7 +10,7 @@ namespace WineHangouts
 {
     public static class LoggingClass
     {
-        static string logspath = CreateDirectoryForLogs();        
+        static string logspath = CreateDirectoryForLogs();
         public static string CreateDirectoryForLogs()
         {
             try
@@ -23,7 +23,7 @@ namespace WineHangouts
                 }
                 logspath = App._dir.ToString() + "/" + CurrentUser.getUserId() + ".csv";
             }
-            catch(Exception exe)
+            catch (Exception exe)
             {
                 Log.Error("Error", exe.Message);
             }
@@ -32,13 +32,13 @@ namespace WineHangouts
         public static void LogInfo(string info)
         {
             try
-            { 
-            var csv = new StringBuilder();
-            var newLine = string.Format("{0},{1},{2}","Information",DateTime.Now, info);
-            csv.AppendLine(newLine);
-            File.AppendAllText(logspath, csv.ToString());
+            {
+                var csv = new StringBuilder();
+                var newLine = string.Format("{0},{1},{2}", "Information", DateTime.Now, info);
+                csv.AppendLine(newLine);
+                File.AppendAllText(logspath, csv.ToString());
             }
-            catch(Exception exe)
+            catch (Exception exe)
             {
                 Log.Error("Error", exe.Message);
             }
@@ -48,9 +48,9 @@ namespace WineHangouts
             try
             {
                 var csv = new StringBuilder();
-            var newLine = string.Format("{0},{1},{2}","Exception",DateTime.Now, error);
-            csv.AppendLine(newLine);
-            File.AppendAllText(logspath, csv.ToString());
+                var newLine = string.Format("{0},{1},{2}", "Exception", DateTime.Now, error);
+                csv.AppendLine(newLine);
+                File.AppendAllText(logspath, csv.ToString());
             }
             catch (Exception exe)
             {
@@ -62,21 +62,19 @@ namespace WineHangouts
             try
             {
                 StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-            CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-            CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
+                CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+                CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+                CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
 
-            await container.CreateIfNotExistsAsync();
+                await container.CreateIfNotExistsAsync();
 
-            CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".csv"); //(path);
+                CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".csv"); //(path);
 
 
-            using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-            {
-
-                await blob.UploadFromStreamAsync(fs);
-
-            }
+                using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+                {
+                    await blob.UploadFromStreamAsync(fs);
+                }
             }
             catch (Exception exe)
             {
