@@ -29,12 +29,12 @@ namespace WineHangouts
             }
             return logspath;
         }
-        public static void LogInfo(string info)
+        public static void LogInfo(string info,int screenid)
         {
             try
             {
                 var csv = new StringBuilder();
-                var newLine = string.Format("{0},{1},{2}", "Information", DateTime.Now, info);
+                var newLine = string.Format("{0},{1},{2},{3}", "Information", DateTime.Now, info,screenid);
                 csv.AppendLine(newLine);
                 File.AppendAllText(logspath, csv.ToString());
             }
@@ -43,12 +43,26 @@ namespace WineHangouts
                 Log.Error("Error", exe.Message);
             }
         }
-        public static void LogError(string error)
+        public static void LogServiceInfo(string info, string servicename)
         {
             try
             {
                 var csv = new StringBuilder();
-                var newLine = string.Format("{0},{1},{2}", "Exception", DateTime.Now, error);
+                var newLine = string.Format("{0},{1},{2},{3}", "Service", DateTime.Now, info, servicename);
+                csv.AppendLine(newLine);
+                File.AppendAllText(logspath, csv.ToString());
+            }
+            catch (Exception exe)
+            {
+                Log.Error("Error", exe.Message);
+            }
+        }
+        public static void LogError(string error,int screenid,string lineno)
+        {
+            try
+            {
+                var csv = new StringBuilder();
+                var newLine = string.Format("{0},{1},{2},{3},{4}", "Exception", DateTime.Now, error,lineno,screenid);
                 csv.AppendLine(newLine);
                 File.AppendAllText(logspath, csv.ToString());
             }

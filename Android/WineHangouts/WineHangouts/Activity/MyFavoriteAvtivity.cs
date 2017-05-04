@@ -16,10 +16,10 @@ namespace WineHangouts
 	public class MyFavoriteAvtivity : Activity
 	{
 		public string StoreName = "";
+        private int screenid = 7;
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-            LoggingClass.LogInfo("Entered into My Fav's");
            try
 			{
 				SetContentView(Resource.Layout.MyFavoriteGridView);
@@ -47,11 +47,12 @@ namespace WineHangouts
 					StartActivity(intent);
 				};
 				ProgressIndicator.Hide();
+                LoggingClass.LogInfo("Entered into ", screenid);
 			}
 
 			catch (Exception exe)
 			{
-                LoggingClass.LogError( exe.Message+"In my fav activity");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 ProgressIndicator.Hide();
 				AlertDialog.Builder aler = new AlertDialog.Builder(this);
 				aler.SetTitle("Sorry");
@@ -59,15 +60,14 @@ namespace WineHangouts
 				aler.SetNegativeButton("Ok", delegate { });
 				Dialog dialog = aler.Create();
 				dialog.Show();
-
-			}
+            }
 		}
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from My fav's");
+                LoggingClass.LogInfo("Exited from ",screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

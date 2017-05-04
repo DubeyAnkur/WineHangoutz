@@ -13,7 +13,7 @@ namespace WineHangouts
     public class MyTastingActivity : Activity, IPopupParent
     {
         public int customerid;
-
+        private int screenid = 6;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -21,7 +21,7 @@ namespace WineHangouts
             SetContentView(Resource.Layout.MyTasting);
             try
             {
-                LoggingClass.LogInfo("Entered into MyTastings");
+                LoggingClass.LogInfo("Entered into ",screenid);
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -42,7 +42,7 @@ namespace WineHangouts
 
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message+"In my review's");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
@@ -58,7 +58,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                LoggingClass.LogInfo("Exited from MyTastings");
+                LoggingClass.LogInfo("Exited from ",screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

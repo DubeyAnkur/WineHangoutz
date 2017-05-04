@@ -16,6 +16,7 @@ namespace WineHangouts
 
     {
         public string otp = "";
+        private int screenid = 1;
         public string gplaystatus = "";
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,7 +27,6 @@ namespace WineHangouts
             
             EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
             EditText txtUserNumber = FindViewById<EditText>(Resource.Id.MobileNumber);
-            
             ServiceWrapper svc = new ServiceWrapper();
             var TaskA = new System.Threading.Tasks.Task(() => {
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
@@ -37,7 +37,6 @@ namespace WineHangouts
             {
                 var TaskB = new System.Threading.Tasks.Task(() =>
                 {
-                    // Start the registration intent service; try to get a token:
                     var intent = new Intent(this, typeof(RegistrationIntentService));
                     StartService(intent);
                 });
@@ -51,7 +50,7 @@ namespace WineHangouts
             }
             else
             {
-                LoggingClass.LogInfo("Logged In");
+                LoggingClass.LogInfo("Logged In ",screenid);
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
                 SendRegistrationToAppServer(CurrentUser.getToken());
@@ -86,7 +85,8 @@ namespace WineHangouts
                         {
                             CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
                             SendRegistrationToAppServer(CurrentUser.getToken());
-                            LoggingClass.LogInfo("Authentication done");
+                            LoggingClass.LogInfo("Authentication done ",screenid);
+                            LoggingClass.LogInfo("Clicked on login ", screenid);
                             //RegistrationIntentService ri = new RegistrationIntentService();
                             //ri.OnHandleIntent(Intent);
                             Intent intent = new Intent(this, typeof(TabActivity));
@@ -193,7 +193,7 @@ namespace WineHangouts
                 DeviceType = 1
             };
             ServiceWrapper svc = new ServiceWrapper();
-            LoggingClass.LogInfo("Token sent to db");
+            LoggingClass.LogInfo("Token sent to db",screenid);
             int x = await svc.InsertUpdateToken1(_token);
            
         }

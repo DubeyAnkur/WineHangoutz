@@ -26,6 +26,7 @@ namespace WineHangouts
        // bool loading;
         public int WineID;
         public string StoreName = "";
+        private int screenid = 3;
         GridViewAdapter adapter;
 
        // SwipeRefreshLayout refresher1;
@@ -55,7 +56,7 @@ namespace WineHangouts
 
                 mSwipeRefreshLayout.Refresh  += async delegate {
                     //BindGridData();
-                    LoggingClass.LogInfo("Refreshed grid view");
+                    LoggingClass.LogInfo("Refreshed grid view",screenid);
                     await SomeAsync();
                     mSwipeRefreshLayout.Refreshing = false;
                 };
@@ -64,10 +65,11 @@ namespace WineHangouts
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                
                 ProgressIndicator.Hide();
+                LoggingClass.LogInfo("Entered into ", screenid);
             }
-            catch (Exception ex)
+            catch (Exception exe)
             {
-                LoggingClass.LogError(ex.Message+"In Gridview Activity");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 ProgressIndicator.Hide();
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
@@ -114,14 +116,14 @@ namespace WineHangouts
                     WineID = myArr[args.Position].WineId;
                     ProgressIndicator.Show(this);
                     var intent = new Intent(this, typeof(DetailViewActivity));
-                    LoggingClass.LogInfo("Clicked on" + " " + WineID+" going into Detail view ");
+                    LoggingClass.LogInfo("Clicked on "+WineID+" to enter into wine details",screenid);
                     intent.PutExtra("WineID", WineID);
                     StartActivity(intent);
                 };
             }
             catch(Exception exe)
             {
-                LoggingClass.LogError(exe.Message + "In Gridview");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
         }
 
@@ -137,7 +139,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from gridview");
+                LoggingClass.LogInfo("Exited from ",screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

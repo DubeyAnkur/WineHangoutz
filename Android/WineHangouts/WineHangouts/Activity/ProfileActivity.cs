@@ -7,7 +7,10 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Util;
+using System.Net;
 using Hangout.Models;
+using System.Threading.Tasks;
+using System.IO;
 //using System.Drawing.Drawing2D;
 
 namespace WineHangouts
@@ -15,6 +18,9 @@ namespace WineHangouts
     [Activity(Label = "My Profile")]
     public class ProfileActivity : Activity, IPopupParent
     {
+        ImageView propicimage;
+        WebClient webClient;
+        private int screenid = 8;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -22,52 +28,51 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Profile);
             try
             {
-                LoggingClass.LogInfo("Entered into Profile");
+                LoggingClass.LogInfo("Entered into ",screenid);
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                 int userId = Convert.ToInt32(CurrentUser.getUserId());
                 ServiceWrapper sw = new ServiceWrapper();
                 var output = sw.GetCustomerDetails(userId).Result;
-                ImageView propicimage = FindViewById<ImageView>(Resource.Id.propicview);
-                ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-                string path = pppd.CreateDirectoryForPictures();
+                propicimage = FindViewById<ImageView>(Resource.Id.propicview);
+                DownloadAsync(this, System.EventArgs.Empty);
+                //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                //string path = pppd.CreateDirectoryForPictures();
                 //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-                var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
-                if (System.IO.File.Exists(filePath))
-                {
+                //var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
+                //if (System.IO.File.Exists(filePath))
+                //{
 
-                    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-                    if (imageBitmap == null)
-                    {
-                        propicimage.SetImageResource(Resource.Drawable.user1);
-                        //propicimage.SetImageBitmap(imageBitmap);
-                    }
-                    else
-                    {
-                        propicimage.SetImageBitmap(imageBitmap);
-                    }
-                }
-                else
-                {
-                    Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
-                    if (imageBitmap == null)
-                    {
-                        propicimage.SetImageResource(Resource.Drawable.user1);
-                    }
-                    else
-                    {
-                        propicimage.SetImageBitmap(imageBitmap);
-                    }
-                }
+                //    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                //    if (imageBitmap == null)
+                //    {
+                //        propicimage.SetImageResource(Resource.Drawable.user1);
+                //        propicimage.Dispose();
+                //    }
+                //    else
+                //    {
+                //        propicimage.SetImageBitmap(imageBitmap);
+                //        propicimage.Dispose();
+                //    }
+                //}
+                //else
+                //{
+                //    Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
+                //    if (imageBitmap == null)
+                //    {
+                //        propicimage.SetImageResource(Resource.Drawable.user1);
+                //    }
+                //    else
+                //    {
+                //        propicimage.SetImageBitmap(imageBitmap);
+                //    }
+                //}
 
                 ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
-
-                //changepropic.SetImageResource(Resource.Drawable.dpreplacer);
-                //changepropic.SetScaleType(ImageView.ScaleType.CenterCrop);
                 changepropic.Click += delegate
                 {
-                    LoggingClass.LogInfo("Clicked on change profile activity");
+                    LoggingClass.LogInfo("Clicked on chang propic",screenid);
                     Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
                     StartActivity(intent);
                 };
@@ -83,7 +88,7 @@ namespace WineHangouts
                     Mobilenumber.Text = phno1;
                 }
                 else
-                    Mobilenumber.Text = phno2;
+                Mobilenumber.Text = phno2;
                 EditText Email = FindViewById<EditText>(Resource.Id.txtEmail);
                 Email.Text = output.customer.Email;
                 EditText Address = FindViewById<EditText>(Resource.Id.txtAddress);
@@ -94,9 +99,7 @@ namespace WineHangouts
                 City.Text = output.customer.City;
                 EditText State = FindViewById<EditText>(Resource.Id.txtState);
                 State.Text = output.customer.State;
-
                 Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
-
                 //updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
                 updatebtn.Click += async delegate
                 {
@@ -111,7 +114,7 @@ namespace WineHangouts
                         State = State.Text,
                         City = City.Text
                     };
-                    LoggingClass.LogInfo("Clicked on update info");
+                    LoggingClass.LogInfo("Clicked on update info",screenid);
                     var x = await sw.UpdateCustomer(customer);
                     if (x == 1)
                     {
@@ -123,7 +126,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message + "In profile activity");
+                LoggingClass.LogError(exe.Message,screenid,exe.StackTrace.ToString());
                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
@@ -132,6 +135,70 @@ namespace WineHangouts
                 dialog.Show();
             }
             ProgressIndicator.Hide();
+        }
+        public async void DownloadAsync(object sender, System.EventArgs ea)
+        {
+            Bitmap img = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
+            if (img != null)
+            {
+                propicimage.SetImageBitmap(img);
+            }
+            else
+            {
+                webClient = new WebClient();
+                var url = new Uri("https://icsintegration.blob.core.windows.net/profileimages/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg");
+                byte[] imageBytes = null;
+                //progressLayout.Visibility = ViewStates.Visible;
+                try
+                {
+                    imageBytes = await webClient.DownloadDataTaskAsync(url);
+
+                }
+                catch (TaskCanceledException)
+                {
+                    //this.progressLayout.Visibility = ViewStates.Gone;
+                    return;
+                }
+                catch (Exception exe)
+                {
+                    LoggingClass.LogError(exe.Message,screenid,exe.StackTrace.ToString());
+                    //progressLayout.Visibility = ViewStates.Gone;
+                    //downloadButton.Click += downloadAsync;
+                    //downloadButton.Text = "Download Image";
+                    Bitmap imgWine = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
+                    propicimage.SetImageBitmap(imgWine);
+                    return;
+                }
+
+                try
+                {
+                    string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    string localFilename = "user.png";
+                    string localPath = System.IO.Path.Combine(documentsPath, localFilename);
+
+                    FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
+                    await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
+                    //Console.WriteLine("Saving image in local path: " + localPath);
+                    fs.Close();
+                    BitmapFactory.Options options = new BitmapFactory.Options()
+                    {
+                        InJustDecodeBounds = true
+                    };
+                    await BitmapFactory.DecodeFileAsync(localPath, options);
+
+                    Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
+                    if (bitmap == null)
+                    {
+                        propicimage.SetImageResource(Resource.Drawable.user1);
+                    }
+                    propicimage.SetImageBitmap(bitmap);
+                }
+                catch (Exception exe)
+                {
+                    LoggingClass.LogError(exe.Message,screenid,exe.StackTrace.ToString());
+                }
+                propicimage.Dispose();
+            }
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -148,9 +215,8 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
             int userId = Convert.ToInt32(CurrentUser.getUserId());
             var output = svc.GetCustomerDetails(userId).Result;
-            Android.Graphics.Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
+            Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
         }
-
         public Bitmap ResizeAndRotate(Bitmap image, int width, int height)
         {
             var matrix = new Matrix();

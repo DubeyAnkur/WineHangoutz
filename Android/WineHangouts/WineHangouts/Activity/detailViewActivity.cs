@@ -23,6 +23,7 @@ namespace WineHangouts
     public class DetailViewActivity : Activity, IPopupParent
     {
         public int sku;
+        private int screenid = 4; 
         //Button downloadButton;
         WebClient webClient;
         ImageView HighImageWine;
@@ -110,11 +111,12 @@ namespace WineHangouts
 
                 };
                 ProgressIndicator.Hide();
+                LoggingClass.LogInfo("Entered into ", screenid);
                 Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message+"In WineDetails Screen");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Sorry");
                 alert.SetMessage("We're under maintainence");
@@ -142,7 +144,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from Detail view screen");
+                LoggingClass.LogInfo("Exited from ", screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);
@@ -204,7 +206,6 @@ namespace WineHangouts
         {
             return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
         }
-
         public void RefreshParent()
         {
             ServiceWrapper svc = new ServiceWrapper();
@@ -236,7 +237,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError( exe.Message+"In Detail View Activity");
+                LoggingClass.LogError("while downloading image "+exe.Message, screenid, exe.StackTrace.ToString());
                 //progressLayout.Visibility = ViewStates.Gone;
                 //downloadButton.Click += downloadAsync;
                 //downloadButton.Text = "Download Image";
@@ -253,7 +254,6 @@ namespace WineHangouts
 
                 FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
                 await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
-                Console.WriteLine("Saving image in local path: " + localPath);
                 fs.Close();
 
                 BitmapFactory.Options options = new BitmapFactory.Options()
@@ -261,11 +261,7 @@ namespace WineHangouts
                     InJustDecodeBounds = true
                 };
                 await BitmapFactory.DecodeFileAsync(localPath, options);
-
-
-                //options.InSampleSize = options.OutWidth > options.OutHeight ? options.OutHeight / imageView.Height : options.OutWidth / imageView.Width;
-                //options.InJustDecodeBounds = false;
-
+                
                 Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
                 if (bitmap == null)
                 {
@@ -275,8 +271,8 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message+ "In Detail View Activity");
-
+                LoggingClass.LogError("While setting High resulution image" + exe.Message, screenid, exe.StackTrace.ToString());
+                
             }
 
             //progressLayout.Visibility = ViewStates.Gone;

@@ -22,6 +22,7 @@ namespace WineHangouts
     {
         static HttpClient client;
         static Hashtable wineImages;
+        private static int screenid = 20;
         static string Path;
         static BlobWrapper()
         {
@@ -57,17 +58,20 @@ namespace WineHangouts
             {
                 imageBitmap = BitmapFactory.DecodeFile(filePath);
                 wineImages.Add(wineid, imageBitmap);
+                
             }
             else
             {
                 var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
                 imageBitmap = GetImageBitmapFromUrl(uri.ToString());
                 wineImages.Add(wineid, imageBitmap);
+                
             }
             //Canvas canvas = new Canvas(imageBitmap);
             //canvas.DrawColor(Color.White);
             //canvas.DrawBitmap(imageBitmap, 0, 0, null);
             return imageBitmap;
+            
         }
         public static Bitmap ProfileImages(int userid)
         {
@@ -105,9 +109,9 @@ namespace WineHangouts
                     bm.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                     stream.Close();
                 }
-                catch (Exception e)
+                catch (Exception exe)
                 {
-                    string Exe = e.ToString();
+                    LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 }
             }
 

@@ -16,6 +16,7 @@ namespace WineHangouts
     public class MyReviewActivity : Activity, IPopupParent
     {
         public int uid;
+        private int screenid = 5;
         //Context parent;
         public int x;
         protected override void OnCreate(Bundle bundle)
@@ -28,7 +29,6 @@ namespace WineHangouts
             {
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
-                LoggingClass.LogInfo("Entered into My Reviews");
                 ServiceWrapper svc = new ServiceWrapper();
                 ItemReviewResponse uidreviews = new ItemReviewResponse();
                 uidreviews = svc.GetItemReviewUID(uid).Result;
@@ -50,11 +50,12 @@ namespace WineHangouts
                     StartActivity(intent);
                 };
                 ProgressIndicator.Hide();
+                LoggingClass.LogInfo("Entered into ", screenid);
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message+ "Exception in My Review");
-				ProgressIndicator.Hide();
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+                ProgressIndicator.Hide();
 				AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
@@ -69,7 +70,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                LoggingClass.LogInfo("Exited from My Reviews");
+                LoggingClass.LogInfo("Exited from ",screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

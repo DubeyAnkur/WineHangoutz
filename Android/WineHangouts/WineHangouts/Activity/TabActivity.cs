@@ -13,6 +13,7 @@ namespace WineHangouts
     [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
     public class TabActivity : Activity
     {
+        public int screenid = 2;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -28,7 +29,7 @@ namespace WineHangouts
                 Log.Error("Hangouts", exe.Message);
             }
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-            LoggingClass.LogInfo("Entered into Tab");
+            LoggingClass.LogInfo("Entered into ",screenid);
             AddTab("Locations", 1, new SampleTabFragment("Locations", this));
             AddTab("My Hangouts", 1, new SampleTabFragment("My Hangouts", this));
             //AddTab("Explore",1, new SampleTabFragment("Explore", this));
@@ -67,6 +68,7 @@ namespace WineHangouts
         public class SampleTabFragment : Fragment
         {
 
+            private int screenid = 11;
             string tabName;
             Activity _parent;
             //ProgressDialog progress;
@@ -117,7 +119,7 @@ namespace WineHangouts
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on Wall");
+                            LoggingClass.LogInfo("Clicked on Wall", screenid);
                             var intent = new Intent(Activity, typeof(GridViewActivity));
                             intent.PutExtra("MyData", "Wall Store");
                             StartActivity(intent);
@@ -127,7 +129,7 @@ namespace WineHangouts
                         Middle.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on Point Plesent");
+                            LoggingClass.LogInfo("Clicked on Point Plesent", screenid);
                             var intent = new Intent(Activity, typeof(GridViewActivity));
                             intent.PutExtra("MyData", "Point Pleasant Store");
                             StartActivity(intent);
@@ -138,14 +140,14 @@ namespace WineHangouts
                             aler.SetTitle("Secaucus Store");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
-                            LoggingClass.LogInfo("Clicked on Secaucus");
+                            LoggingClass.LogInfo("Clicked on Secaucus", screenid);
                             Dialog dialog = aler.Create();
                             dialog.Show();
                         };
                     }
-                    catch (Exception Exe)
+                    catch (Exception exe)
                     {
-                        LoggingClass.LogError(Exe.Message + "In Locations Tab");
+                        LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
                 }
                 if (tabName == "My Hangouts")
@@ -168,7 +170,7 @@ namespace WineHangouts
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Reviews");
+                            LoggingClass.LogInfo("Clicked on My Reviews",screenid);
                             var intent = new Intent(Activity, typeof(MyReviewActivity));
                             intent.PutExtra("MyData", "My Reviews");
                             StartActivity(intent);
@@ -176,7 +178,7 @@ namespace WineHangouts
                         Middle.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Tastings");
+                            LoggingClass.LogInfo("Clicked on My Tastings",screenid);
                             var intent = new Intent(Activity, typeof(MyTastingActivity));
                             intent.PutExtra("MyData", "My Tastings");
                             StartActivity(intent);
@@ -184,15 +186,15 @@ namespace WineHangouts
                         Bottom.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Favorites");
+                            LoggingClass.LogInfo("Clicked on My Favorites",screenid);
                             var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
                             intent.PutExtra("MyData", "My Favorites");
                             StartActivity(intent);
                         };
                     }
-                    catch (Exception Exe)
+                    catch (Exception exe)
                     {
-                        LoggingClass.LogError(Exe.Message + "In My Hangouts");
+                        LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
 
                     //};
@@ -220,7 +222,7 @@ namespace WineHangouts
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Profile");
+                            LoggingClass.LogInfo("Clicked on My Profile",screenid);
                             var intent = new Intent(Activity, typeof(ProfileActivity));
                             intent.PutExtra("MyData", "My Profile");
                             StartActivity(intent);
@@ -232,7 +234,7 @@ namespace WineHangouts
                             aler.SetTitle("Wineries Section");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
-                            LoggingClass.LogInfo("Clicked on Wineries");
+                            LoggingClass.LogInfo("Clicked on Wineries",screenid);
                             Dialog dialog = aler.Create();
                             dialog.Show();
                             //var intent = new Intent(Activity, typeof(LandscapeActivity));
@@ -248,7 +250,7 @@ namespace WineHangouts
                             aler.SetTitle("Regions Section");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
-                            LoggingClass.LogInfo("Clicked on Regions");
+                            LoggingClass.LogInfo("Clicked on Regions",screenid);
                             Dialog dialog = aler.Create();
                             dialog.Show();
                             //var intent = new Intent(Activity, typeof(PotraitActivity));
@@ -256,9 +258,9 @@ namespace WineHangouts
                             //StartActivity(intent);
                         };
                     }
-                    catch (Exception Exe)
+                    catch (Exception exe)
                     {
-                        LoggingClass.LogError(Exe.Message + "In Explore Tab");
+                        LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
                 }
 
@@ -290,17 +292,17 @@ namespace WineHangouts
                 case Resource.Id.action_settings:
                     ProgressIndicator.Show(this);
                     intent = new Intent(this, typeof(ProfileActivity));
-                    LoggingClass.LogInfo("Clicked on options menu Profile");
+                    LoggingClass.LogInfo("Clicked on options menu Profile",screenid);
                     break;
                 case Resource.Id.action_settings1:
                     //ProgressIndicator.Show(this);
                     intent = new Intent(this, typeof(AboutActivity));
-                    LoggingClass.LogInfo("Clicked on options menu About");
+                    LoggingClass.LogInfo("Clicked on options menu About",screenid);
                     break;
 
                 case Resource.Id.action_settings2:
                     MoveTaskToBack(true);
-                    LoggingClass.LogInfo("Exited from App");
+                    LoggingClass.LogInfo("Exited from App",screenid);
                     break;
                 default://invalid option
                     return base.OnOptionsItemSelected(item);
@@ -320,7 +322,7 @@ namespace WineHangouts
 
             catch (Exception exe)
             {
-                LoggingClass.LogError(exe.Message + "In options menu");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 throw new Exception();
             }
 

@@ -1,22 +1,13 @@
 using System;
-using System.Collections.Generic;
 using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Provider;
-using Android.Widget;
-using Java.IO;
-using Environment = Android.OS.Environment;
 using Uri = Android.Net.Uri;
 using Android.Views;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Auth;
 using System.IO;
 using Android.Database;
-using Android.Util;
 
 namespace WineHangouts
 {
@@ -24,10 +15,11 @@ namespace WineHangouts
     public class ProfilePictureGallery : Activity
     {
         public string path;
+        private int screenid = 13;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-            LoggingClass.LogInfo("Entered Picking from gallery");
+            LoggingClass.LogInfo("Entered into ",screenid);
             if (resultCode == Result.Ok)
             {
                 string Path = GetRealPathFromURI(data.Data);
@@ -46,10 +38,12 @@ namespace WineHangouts
                     pppd.UploadProfilePic(filePath);
                     Intent intent = new Intent(this, typeof(TabActivity));
                     StartActivity(intent);
+                    propic.Dispose();
+                    resized.Dispose();
                 }
                 catch (Exception exe)
                 {
-                    LoggingClass.LogError(exe.Message+"in profile picture gallery");
+                    LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 }
             }
             

@@ -19,6 +19,7 @@ namespace WineHangouts
         //Review _editObj;
         public Dialog myDialog;
         private int WineId;
+        private int screenid = 12;
         Context Parent;
         public DeleteReview(Context parent,Review _editObj)
         {
@@ -51,7 +52,7 @@ namespace WineHangouts
             }
             catch(Exception exe)
             {
-                LoggingClass.LogError(exe.Message + "While deleting review");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
             Cancel.Click += delegate
             {

@@ -22,7 +22,7 @@ namespace WineHangouts
 
         Context Parent;
         private int WineId;
-
+        private int ParentScreenId=17;
         Review _editObj;
         //List<Review> ReviewArray;
         public ReviewPopup(Context parent, Review EditObj)
@@ -50,38 +50,40 @@ namespace WineHangouts
                 RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
                 custRating.Rating = rat;
                 Comments.Text = _editObj.RatingText;
-                //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
-                //ItemReviewResponse SkuRating = new ItemReviewResponse();
-                //SkuRating = sw.GetItemReviewsByWineID(WineId).Result;
-                //ReviewArray = SkuRating.Reviews.ToList();
-                //for (int i = 0; i < ReviewArray.Count(); i++)
-                //{
-                //    if (Convert.ToInt32(CurrentUser.getUserId()) == ReviewArray[i].ReviewUserId)
-                //    {
-                //        ItemReviewResponse uidreviews = new ItemReviewResponse();
-                //        uidreviews = sw.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
-                //        List<Review> myArr1;
-                //        myArr1 = uidreviews.Reviews.ToList();
-                //        for (int j = 0; j < myArr1.Count; j++)
-                //        {
-                //            if (ReviewArray[i].Name == myArr1[i].Name)
-                //                Comments.Text = myArr1[i].RatingText.ToString();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        CreatePopup(sender, e);
-                //    }
-                //}
+                 int screenid = 9;
+        //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
+        //ItemReviewResponse SkuRating = new ItemReviewResponse();
+        //SkuRating = sw.GetItemReviewsByWineID(WineId).Result;
+        //ReviewArray = SkuRating.Reviews.ToList();
+        //for (int i = 0; i < ReviewArray.Count(); i++)
+        //{
+        //    if (Convert.ToInt32(CurrentUser.getUserId()) == ReviewArray[i].ReviewUserId)
+        //    {
+        //        ItemReviewResponse uidreviews = new ItemReviewResponse();
+        //        uidreviews = sw.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
+        //        List<Review> myArr1;
+        //        myArr1 = uidreviews.Reviews.ToList();
+        //        for (int j = 0; j < myArr1.Count; j++)
+        //        {
+        //            if (ReviewArray[i].Name == myArr1[i].Name)
+        //                Comments.Text = myArr1[i].RatingText.ToString();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        CreatePopup(sender, e);
+        //    }
+        //}
 
 
 
-                //ibs.SetImageResource(Resource.Drawable.wine_review);
-                //ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-                //close.SetImageResource(Resource.Drawable.Close);
-                close.SetScaleType(ImageView.ScaleType.CenterCrop);
+        //ibs.SetImageResource(Resource.Drawable.wine_review);
+        //ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
+        //close.SetImageResource(Resource.Drawable.Close);
+        close.SetScaleType(ImageView.ScaleType.CenterCrop);
                 editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
                 editDialog.Show();
+                LoggingClass.LogInfo("Entered into ", screenid);
                 close.Click += delegate
                 {
                     editDialog.Dismiss();
@@ -96,7 +98,7 @@ namespace WineHangouts
                     review.RatingStars = Convert.ToInt32(custRating.Rating);
                     review.IsActive = true;
                     review.WineId = WineId;
-                    LoggingClass.LogInfo("Submitted review");
+                    LoggingClass.LogInfo("Submitted review",screenid);
                     await sw.InsertUpdateReview(review);
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
@@ -106,7 +108,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError("Exception in Popup view" + exe.Message);
+                LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
 
         }
@@ -116,6 +118,7 @@ namespace WineHangouts
             try
             {
                 Dialog editDialog = new Dialog(Parent);
+                int screenid = 18;
                 //editDialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 //editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.White));// (Android.Graphics.Color.Transparent));
                 editDialog.SetContentView(Resource.Layout.EditReviewPopup);
@@ -151,12 +154,12 @@ namespace WineHangouts
                     try
                     {
                         await sw.InsertUpdateReview(review);
-                        LoggingClass.LogInfo("Edited Review submitted");
+                        LoggingClass.LogInfo("Edited Review submitted",screenid);
                     }
 
                     catch (Exception exe)
                     {
-                        LoggingClass.LogError(exe.Message + "In popup Activity");
+                        LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
@@ -165,7 +168,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError("Error in edit popup" + exe.Message);
+                LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
         }
     }

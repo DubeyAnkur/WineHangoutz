@@ -35,12 +35,13 @@ namespace WineHangouts
 
         //private ImageView _imageView;
         public string path;
+        private int screenid = 14;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
             if (resultCode.ToString() == "Canceled")
             {
-                LoggingClass.LogInfo("Cancelled from camera");
+                LoggingClass.LogInfo("Cancelled from camera",screenid);
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
             }
@@ -58,7 +59,7 @@ namespace WineHangouts
                 }
                 catch (Exception exe)
                 {
-                    LoggingClass.LogError(exe.Message+"in camera dialog");
+                    LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     Intent intent1 = new Intent(this, typeof(TabActivity));
                     StartActivity(intent1);
                 }
@@ -86,7 +87,7 @@ namespace WineHangouts
 
             btnGallery.Click += delegate
             {
-                LoggingClass.LogInfo("Clicked on gallery picking option");
+                LoggingClass.LogInfo("Clicked on gallery picking ",screenid);
                 Intent intent = new Intent(this, typeof(ProfilePictureGallery));
                 StartActivity(intent);
             };
@@ -136,10 +137,12 @@ namespace WineHangouts
                 var stream = new FileStream(filePath, FileMode.Create);
                 resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                 stream.Close();
+                propic.Dispose();
+                resized.Dispose();
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError( exe.Message+"in pppd");
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
 
         }
@@ -162,12 +165,12 @@ namespace WineHangouts
             CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
             await container.CreateIfNotExistsAsync();
             CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".jpg"); 
-            LoggingClass.LogInfo("Updated profile picture");
+            LoggingClass.LogInfo("Updated profile picture",screenid);
             using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
             {
 
                 await blob.UploadFromStreamAsync(fs);
-                LoggingClass.LogInfo("Profile picture uploaded into blob");
+                LoggingClass.LogInfo("Profile picture uploaded into blob",screenid);
             }
         }
     }

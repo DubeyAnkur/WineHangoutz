@@ -26,6 +26,7 @@ namespace WineHangouts
     {
         private List<Item> myItems;
         private Context myContext;
+        private int screenid = 15;
         //private Hashtable wineImages;
 
         public void ClearData()
@@ -137,7 +138,7 @@ namespace WineHangouts
                     like.Liked = x;
                     myItems[actualPosition].IsLike = x;
                     like.WineId = myItems[actualPosition].WineId;
-                    LoggingClass.LogInfo("Liked an item");
+                    LoggingClass.LogInfo("Liked an item",screenid);
                     ServiceWrapper sw = new ServiceWrapper();
                     await sw.InsertUpdateLike(like);
                 };

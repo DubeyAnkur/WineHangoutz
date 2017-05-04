@@ -15,13 +15,14 @@ namespace WineHangouts
     [Activity(Label = "About Us")]
     public class AboutActivity : Activity
     {
+        private int screenid = 11;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.AboutLayout);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            LoggingClass.LogInfo("Entered into About us");
+            LoggingClass.LogInfo("Entered into ",screenid);
             // Create your application here
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -29,7 +30,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                LoggingClass.LogInfo("Exited from About us");
+                LoggingClass.LogInfo("Exited from ",screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

@@ -21,6 +21,7 @@ namespace WineHangouts
 	{
 		private List<Item> myItems;
 		private Context myContext;
+        private int screenid = 16;
 		public override Item this[int position]
 		{
 			get
@@ -114,7 +115,7 @@ namespace WineHangouts
 				like.SKU = Convert.ToInt32(myItems[position].SKU);
 				like.Liked = x;
 				ServiceWrapper sw = new ServiceWrapper();
-                LoggingClass.LogInfo("Liked an item in my profile");
+                LoggingClass.LogInfo("Liked an item"+ myItems[position].WineId, screenid);
                 like.WineId = myItems[position].WineId;
 				await sw.InsertUpdateLike(like);
 			};
