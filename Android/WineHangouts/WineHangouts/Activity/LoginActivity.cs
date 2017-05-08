@@ -25,8 +25,8 @@ namespace WineHangouts
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             
-            EditText username = FindViewById<EditText>(Resource.Id.txtUsername);
-            EditText txtUserNumber = FindViewById<EditText>(Resource.Id.MobileNumber);
+            EditText UserName = FindViewById<EditText>(Resource.Id.txtUsername);
+            EditText UserEmail = FindViewById<EditText>(Resource.Id.TxtUserEmail);
             ServiceWrapper svc = new ServiceWrapper();
             var TaskA = new System.Threading.Tasks.Task(() => {
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
@@ -58,38 +58,47 @@ namespace WineHangouts
 
 
 
-            login.Click += delegate
+            login.Click += async delegate
             {
                 //1. Call Auth service and check for this user, it returns one.
                 //2. If it returns 1 save Username and go to Tab Activity.
                 //3. Else Show message, incorrect username.
                 //
-                if (username.Text == "" )//|| txtUserNumber.Text == "")
+                if (UserName.Text == "" )//|| txtUserNumber.Text == "")
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
                     aler.SetTitle("Sorry");
-                    aler.SetMessage("Enter proper details");
+                    aler.SetMessage("Please enter name and email id");
                     aler.SetNegativeButton("Ok", delegate { });
                     Dialog dialog = aler.Create();
                     dialog.Show();
                     return;
 
                 }
+                else if(UserEmail.Text == "")
+                {
+                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                    aler.SetTitle("Sorry");
+                    aler.SetMessage("Please enter email id please");
+                    aler.SetNegativeButton("Ok", delegate { });
+                    Dialog dialog = aler.Create();
+                    dialog.Show();
+                    return;
+                }
                 else
                 {
+                    CurrentUser.SaveMailId(UserEmail.Text);
                     CustomerResponse authen = new CustomerResponse();
                     try
                     {
-                        authen = svc.AuthencateUser(username.Text).Result;
+                        authen = svc.AuthencateUser(UserName.Text).Result;
                         if (authen.customer != null && authen.customer.CustomerID != 0)
                         {
-                            CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
-                            SendRegistrationToAppServer(CurrentUser.getToken());
-                            LoggingClass.LogInfo("Authentication done ",screenid);
+                            CurrentUser.SaveUserName(UserName.Text, authen.customer.CustomerID.ToString());
+                            SendRegistrationToAppServer(CurrentUser.getToken());                            
                             LoggingClass.LogInfo("Clicked on login ", screenid);
-                            //RegistrationIntentService ri = new RegistrationIntentService();
-                            //ri.OnHandleIntent(Intent);
-                            Intent intent = new Intent(this, typeof(TabActivity));
+                            await svc.AuthencateUser1(CurrentUser.GetMailId());
+                            Intent intent = new Intent(this, typeof(VerificationActivity));
                             StartActivity(intent);
 
                         }

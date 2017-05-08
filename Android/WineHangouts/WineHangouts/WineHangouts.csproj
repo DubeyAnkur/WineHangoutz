@@ -192,7 +192,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="packages.config" />
-    <AndroidResource Include="Resources\layout\login.axml" />
+    <AndroidResource Include="Resources\layout\login.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\Profile.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -225,6 +227,9 @@
     <AndroidResource Include="Resources\layout\AboutLayout.axml" />
     <AndroidResource Include="Resources\layout\MyFavorite.axml" />
     <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
+    <AndroidResource Include="Resources\layout\EmailVerificationLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />

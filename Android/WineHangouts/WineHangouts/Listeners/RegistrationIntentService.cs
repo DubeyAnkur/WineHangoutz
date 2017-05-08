@@ -37,7 +37,7 @@ namespace WineHangouts
                     //Toast.MakeText(this, token, ToastLength.Short).Show();
                     // Log the registration token that was returned from GCM:
                     Log.Info("RegistrationIntentService", "GCM Registration Token: " + token);
-                    CurrentUser.putToken(token);
+                    CurrentUser.PutToken(token);
                     // Send to the app server (if it requires it):
                     //SendRegistrationToAppServer(token);
                    

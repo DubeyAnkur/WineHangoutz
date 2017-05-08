@@ -1,19 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using Hangout.Models;
-using System.Net;
-using System.Threading.Tasks;
 using System.IO;
-using Android.Graphics;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -34,9 +25,9 @@ namespace WineHangouts
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Dummy);
             Button btnGallery = FindViewById<Button>(Resource.Id.btnTest);
-            path = CreateDirectoryForPictures();
-            //ServiceWrapper svc = new ServiceWrapper();
-            //ItemReviewResponse md,md1 = new ItemReviewResponse();
+            //path = CreateDirectoryForPictures();
+            ServiceWrapper svc = new ServiceWrapper();
+            //itemreviewresponse md, md1 = new itemreviewresponse();
             //CurrentUser.SaveUserName("lok", "3");
             //List<Review> Arr;
             //md=svc.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
@@ -59,10 +50,10 @@ namespace WineHangouts
             //    notificationManager.Notify(notificationId, notification);
             //}
 
-            btnGallery.Click += delegate
+            btnGallery.Click += async delegate
             {
 
-                UploadProfilePic(path);
+               await svc.AuthencateUser1("sailokeshgoud@gmail.com");
             };
 
             //    Notification.Builder builder = new Notification.Builder(this)

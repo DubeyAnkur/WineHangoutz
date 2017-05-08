@@ -32,8 +32,19 @@ namespace WineHangouts
             _edit.PutString("UserId", UserId);
             _edit.Apply();
         }
+
+        public static void SaveMailId(string email)
+        {
+            _edit.PutString("UserEmail", email);
+            _edit.Apply();
+        }
+        public static string GetMailId()
+        {
+            string MailId = _pref.GetString("UserEmail", null);
+            return MailId;
+        }
         
-        public static void putToken(string count)
+        public static void PutToken(string count)
         {
             _edit.PutString("token", count);
             _edit.Apply();

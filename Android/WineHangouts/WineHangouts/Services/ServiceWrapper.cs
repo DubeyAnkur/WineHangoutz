@@ -115,6 +115,40 @@ namespace WineHangouts
             }
             return output;
         }
+        public async Task<CustomerResponse> AuthencateUser1(string email)
+        {
+            CustomerResponse output = null;
+            try
+            {
+                LoggingClass.LogServiceInfo("service called", "authen1");
+                var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
+                var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+                output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+                LoggingClass.LogServiceInfo("service response", "authen1");
+            }
+            catch (Exception exe)
+            {
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+            }
+            return output;
+        }
+        public async Task<int> CheckMail(string email)
+        {
+            //CustomerResponse output = null;
+            //try
+            //{
+            //    LoggingClass.LogServiceInfo("service called", "authen1");
+            //    var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
+            //    var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+            //    output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+            //    LoggingClass.LogServiceInfo("service response", "authen1");
+            //}
+            //catch (Exception exe)
+            //{
+            //    LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+            //}
+            return 1;
+        }
 
         public async Task<int> InsertUpdateToken1(TokenModel token)
         {

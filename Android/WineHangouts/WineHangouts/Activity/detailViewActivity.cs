@@ -19,7 +19,7 @@ using Android.Support;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/logo5")]
     public class DetailViewActivity : Activity, IPopupParent
     {
         public int sku;
