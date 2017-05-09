@@ -18,11 +18,12 @@ namespace WineHangouts
     public class VerificationActivity : Activity
     {
         ServiceWrapper sc = new ServiceWrapper();
+        private int screenid = 21;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.EmailVerificationLayout);
-            //EmailVerification();
+            EmailVerification();
             //string Sentotp = Intent.GetStringExtra("otp");//receiving otp from previous activity
             //string username = Intent.GetStringExtra("username");//receiving username from previous activity
             //EditText txtreceivedOtp = FindViewById<EditText>(Resource.Id.txtOtp);
@@ -44,8 +45,16 @@ namespace WineHangouts
         }
         public async void EmailVerification()
         {
-            int i = await sc.CheckMail(CurrentUser.GetMailId());
-            if (i == 1)
+            DeviceToken DO = new DeviceToken();
+            try
+            {
+                DO = await sc.CheckMail(CurrentUser.getUserId());
+            }
+            catch(Exception exe)
+            {
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+            }
+            if (DO.VerificationStatus == 1)
             {
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);

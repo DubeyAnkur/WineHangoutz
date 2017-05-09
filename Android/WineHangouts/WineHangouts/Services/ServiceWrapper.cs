@@ -62,13 +62,13 @@ namespace WineHangouts
             return output;
         }
 
-        public async Task<ItemDetailsResponse> GetItemDetails(int wineid)
+        public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
         {
             ItemDetailsResponse output = null;
             LoggingClass.LogServiceInfo("Service Called", "itemdetails");
             try
             {
-                var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid);
+                var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid+"/user/"+storeid);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
                 LoggingClass.LogServiceInfo("Service Response", "itemdetails");
@@ -132,22 +132,22 @@ namespace WineHangouts
             }
             return output;
         }
-        public async Task<int> CheckMail(string email)
+        public async Task<DeviceToken> CheckMail(string uid)
         {
-            //CustomerResponse output = null;
-            //try
-            //{
-            //    LoggingClass.LogServiceInfo("service called", "authen1");
-            //    var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
-            //    var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            //    output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-            //    LoggingClass.LogServiceInfo("service response", "authen1");
-            //}
-            //catch (Exception exe)
-            //{
-            //    LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-            //}
-            return 1;
+            DeviceToken output = null;
+            try
+            {
+                LoggingClass.LogServiceInfo("service called", "authen1");
+                var uri = new Uri(ServiceURL + "GetVerificationStatus/" + uid);
+                var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+                output = JsonConvert.DeserializeObject<DeviceToken>(response);
+                LoggingClass.LogServiceInfo("service response", "authen1");
+            }
+            catch (Exception exe)
+            {
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+            }
+            return output;
         }
 
         public async Task<int> InsertUpdateToken1(TokenModel token)

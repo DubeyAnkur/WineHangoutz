@@ -118,6 +118,7 @@ namespace WineHangouts
                     var intent = new Intent(this, typeof(DetailViewActivity));
                     LoggingClass.LogInfo("Clicked on "+WineID+" to enter into wine details",screenid);
                     intent.PutExtra("WineID", WineID);
+                    intent.PutExtra("storeid", StoreId);
                     StartActivity(intent);
                 };
             }

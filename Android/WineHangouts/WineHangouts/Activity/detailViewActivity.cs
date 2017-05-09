@@ -23,7 +23,8 @@ namespace WineHangouts
     public class DetailViewActivity : Activity, IPopupParent
     {
         public int sku;
-        private int screenid = 4; 
+        private int screenid = 4;
+        private int storeid = 0;
         //Button downloadButton;
         WebClient webClient;
         ImageView HighImageWine;
@@ -38,6 +39,7 @@ namespace WineHangouts
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.detailedView);
             wineid = Intent.GetIntExtra("WineID", 123);
+            storeid = Intent.GetIntExtra("storeid",1);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ServiceWrapper svc = new ServiceWrapper();
@@ -59,7 +61,7 @@ namespace WineHangouts
             try
             {
                 DownloadAsync(this, System.EventArgs.Empty, wineid);
-                myData = svc.GetItemDetails(wineid).Result;
+                myData = svc.GetItemDetails(wineid,storeid).Result;
                 SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
                 ReviewArray = SkuRating.Reviews.ToList();
                 reviewAdapter comments = new reviewAdapter(this, ReviewArray);
@@ -210,7 +212,7 @@ namespace WineHangouts
         {
             ServiceWrapper svc = new ServiceWrapper();
             int wineid = Intent.GetIntExtra("WineID", 138);
-            ItemDetailsResponse myData = svc.GetItemDetails(wineid).Result;
+            ItemDetailsResponse myData = svc.GetItemDetails(wineid,storeid).Result;
             var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
             this.Title = "Wine Details";
             var commentsView = FindViewById<ListView>(Resource.Id.listView2);

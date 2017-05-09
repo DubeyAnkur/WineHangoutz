@@ -91,7 +91,7 @@ namespace WineHangouts
                     CustomerResponse authen = new CustomerResponse();
                     try
                     {
-                        authen = svc.AuthencateUser(UserName.Text).Result;
+                        authen = svc.AuthencateUser1(UserEmail.Text).Result;
                         if (authen.customer != null && authen.customer.CustomerID != 0)
                         {
                             CurrentUser.SaveUserName(UserName.Text, authen.customer.CustomerID.ToString());
