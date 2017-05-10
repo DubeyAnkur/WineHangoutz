@@ -48,18 +48,6 @@
 			<key>type</key>
 			<string>Inapplicable Content</string>
 		</dict>
-		<dict>
-			<key>affected-items</key>
-			<array>
-				<string>./AppIcon.appiconset/[][ipad][76x76][][][1x]</string>
-			</array>
-			<key>catalog</key>
-			<string>/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/Assets.xcassets</string>
-			<key>message</key>
-			<string>(null)</string>
-			<key>type</key>
-			<string>Inapplicable Content</string>
-		</dict>
 	</array>
 	<key>com.apple.actool.document.warnings</key>
 	<array>

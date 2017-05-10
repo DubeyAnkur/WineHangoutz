@@ -35,7 +35,7 @@ namespace WineHangoutz
 			//this.View
 			//this.CollectionView.BackgroundColor = UIColor.White;
 			//this.CollectionView.InsertSubview(new UIImageView(UIImage.FromFile("placeholder.jpeg")), 0);
-			CollectionView.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("eno.jpg"));
+			//CollectionView.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("eno.jpg"));
 			CollectionView.RegisterClassForCell(typeof(BottleCell), "BottleCell");
 		}
 
@@ -63,6 +63,7 @@ namespace WineHangoutz
 			//This do not work.
 			System.Diagnostics.Debug.WriteLine("code to perform action");
 			//NavigationController.PushViewController(new PopupView(), false);
+			NavigationController.PushViewController(new SKUDetailView(Convert.ToString(198)), false);
 		}
 		public void BindData(BottleCell cell, NSIndexPath indexPath)
 		{
@@ -89,7 +90,7 @@ namespace WineHangoutz
 			ImageView.ClipsToBounds = true;
 			//ImageView.Layer.BorderColor = UIColor.White.CGColor;
 			//ImageView.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-			ImageView.SetBackgroundImage(UIImage.FromFile("Wines/wine2.png"), UIControlState.Normal);
+			ImageView.SetBackgroundImage(UIImage.FromFile("Wines/wine4.png"), UIControlState.Normal);
 			//ContentView.BackgroundColor = UIColor.
 			ContentView.BackgroundColor = new UIColor(0, 0, 0, 0.0f);
 			ContentView.AddSubview(ImageView);

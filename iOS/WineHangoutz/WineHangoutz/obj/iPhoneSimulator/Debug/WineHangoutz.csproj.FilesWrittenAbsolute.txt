@@ -56,11 +56,11 @@
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/WineHangoutz.exe
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/WineHangoutz.exe.mdb
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/PDRating.dll
-/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Xamarin.Auth.iOS.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/BTProgressHUD.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Microsoft.Data.Edm.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/System.Spatial.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Microsoft.Data.OData.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Microsoft.WindowsAzure.Storage.dll
-/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Hangouts.Models.dll
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Xamarin.Azure.NotificationHubs.iOS.dll
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Xamarin.Auth.iOS.dll
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug/Hangouts.Models.dll

@@ -23,7 +23,7 @@ namespace WineHangoutz
 			//table = new UITableView(View.Bounds); // defaults to Plain style
 			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
 			//List<Reviews> tableItems = new List<Reviews>();>
-
+		
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
@@ -97,67 +97,94 @@ namespace WineHangoutz
 
 		public UINavigationController NavController;
 		public UIViewController Parent;
-
+		private int screenid = 7;
 		public MyTastingCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
-			SelectionStyle = UITableViewCellSelectionStyle.Gray;
-			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIButton();
-			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
-			imageView.ContentMode = UIViewContentMode.Center;
-			imageView.ClipsToBounds = true;
-
-			imageView.TouchUpInside += (object sender, EventArgs e) =>
+			try
 			{
+				SelectionStyle = UITableViewCellSelectionStyle.Gray;
+
+
+				LoggingClass.LogInfo("Tasting View", screenid);
+
+
+				//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
+				imageView = new UIButton();
+				imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+				imageView.ContentMode = UIViewContentMode.Center;
+				imageView.ClipsToBounds = true;
+
+				imageView.TouchUpInside += (object sender, EventArgs e) =>
+				{
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
-			};
-			separator = new UIImageView();
-			WineName = new UILabel()
-			{
-				Font = UIFont.FromName("Verdana", 14f),
-				TextColor = UIColor.FromRGB(127, 51, 0),
-				BackgroundColor = UIColor.Clear,
-				                         
-			};
-			ReviewDate = new UILabel()
-			{
-				Font = UIFont.FromName("AmericanTypewriter", 10f),
-				TextColor = UIColor.FromRGB(38, 127, 200),
-				//TextAlignment = UITextAlignment.Center,
-				BackgroundColor = UIColor.Clear
-			};
-			Vintage = new UILabel()
-			{
-				Font = UIFont.FromName("Verdana", 10f),
-				TextColor = UIColor.FromRGB(127, 51, 100),
-				BackgroundColor = UIColor.Clear
-			};
+				};
+				separator = new UIImageView();
+				WineName = new UILabel()
+				{
+					Font = UIFont.FromName("Verdana", 14f),
+					TextColor = UIColor.FromRGB(127, 51, 0),
+					BackgroundColor = UIColor.Clear,
 
-			WineIdLabel = new UILabel();
-			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, imageView, Vintage, separator });
+				};
+				ReviewDate = new UILabel()
+				{
+					Font = UIFont.FromName("AmericanTypewriter", 10f),
+					TextColor = UIColor.FromRGB(38, 127, 200),
+					//TextAlignment = UITextAlignment.Center,
+					BackgroundColor = UIColor.Clear
+				};
+				Vintage = new UILabel()
+				{
+					Font = UIFont.FromName("Verdana", 10f),
+					TextColor = UIColor.FromRGB(127, 51, 100),
+					BackgroundColor = UIColor.Clear
+				};
+
+				WineIdLabel = new UILabel();
+				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, imageView, Vintage, separator });
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 		public void UpdateCell(Review review)
 		{
-			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
-			separator.Image = UIImage.FromFile("separator.png");
-			WineName.Text = review.Name;
-			ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
-			Vintage.Text = review.Vintage.ToString();
-			WineIdLabel.Text = review.WineId.ToString();
-			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
-			//ContentView.Bounds.Height = 90;
+			try
+			{
+				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
+				separator.Image = UIImage.FromFile("separator.png");
+				WineName.Text = review.Name;
+				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
+				Vintage.Text = review.Vintage.ToString();
+				WineIdLabel.Text = review.WineId.ToString();
+				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
+				//ContentView.Bounds.Height = 90;
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 		public override void LayoutSubviews()
 		{
-			base.LayoutSubviews();
-			int imageWidth = 110; // + 10;
-			imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
-			WineName.Frame = new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
-			Vintage.Frame = new CGRect(imageWidth, 62, ContentView.Bounds.Width - imageWidth, 15);
-			separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
-			ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
-			//stars.Frame = new CGRect(35, 50, 100, 20);
+			try
+			{
+
+				base.LayoutSubviews();
+				int imageWidth = 110; // + 10;
+				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
+				WineName.Frame = new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
+				Vintage.Frame = new CGRect(imageWidth, 62, ContentView.Bounds.Width - imageWidth, 15);
+				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
+				ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
+				//stars.Frame = new CGRect(35, 50, 100, 20);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 	}
 }

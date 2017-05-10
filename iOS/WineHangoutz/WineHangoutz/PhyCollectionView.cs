@@ -6,35 +6,53 @@ using CoreGraphics;
 using ObjCRuntime;
 using Hangout.Models;
 using System.Globalization;
+using BigTed;
 
 namespace WineHangoutz
 {
     public partial class PhyCollectionView : UICollectionViewController
     {
+		private int screenid = 12;
 
 		public ItemListResponse myData;
 		public int storeId = 2;
 		//public int userId = 2;
+
 		public bool FaviouriteView = false;
         public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
         {
 			storeId = StoreId;
 			FaviouriteView = favView;
+			if (StoreId == 1)
+			{
+				this.Title = "Wall";
+			}
+			else if (StoreId == 2)
+			{
+				this.Title = "Pt. Pleasant Beach";
+			}
         }
 
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
-
-			ServiceWrapper svc = new ServiceWrapper();
-			if(FaviouriteView)
-				myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
-			else
-				myData = svc.GetItemList(storeId,CurrentUser.RetreiveUserId()).Result;
+			try
+			{
+				ServiceWrapper svc = new ServiceWrapper();
+				if (FaviouriteView)
+					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+				else
+					myData = svc.GetItemList(storeId, CurrentUser.RetreiveUserId()).Result;
+			
 
 			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 			this.CollectionView.BackgroundColor = UIColor.White;
 			CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
+				}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -88,6 +106,8 @@ namespace WineHangoutz
 			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
 			cell.WineId = myData.ItemList[index].WineId.ToString();
+			cell.storeId =storeId.ToString();
+			//cell.storeId = storeId;
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
 			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C",Cultures.UnitedState);
@@ -109,6 +129,14 @@ namespace WineHangoutz
 			}
 			else
 				cell.btlImage.SetImage(null, UIControlState.Normal);
+		}
+		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
+		{
+			UIGraphics.BeginImageContext(new CGSize(width, height));
+			sourceImage.Draw(new CGRect(0, 0, width, height));
+			var resultImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return resultImage;
 		}
 	}
 }

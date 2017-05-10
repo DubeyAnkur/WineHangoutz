@@ -6,6 +6,7 @@ using BigTed;
 using WindowsAzure.Messaging;
 using System;
 
+
 namespace WineHangoutz
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -15,7 +16,10 @@ namespace WineHangoutz
 	{
 		// class-level declarations
 
-		private SBNotificationHub Hub { get; set; }
+		protected string deviceToken = string.Empty;
+
+		public string DeviceToken {get { return deviceToken; } }
+
 		public override UIWindow Window
 		{
 			get;
@@ -31,7 +35,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			//CurrentUser.Clear();
+			CurrentUser.Clear();
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
@@ -80,25 +84,29 @@ namespace WineHangoutz
 			return true;
 		}
 
-		public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+		public override async void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 		{
-			Hub = new SBNotificationHub(Constants.ConnectionString, Constants.NotificationHubPath);
-
-			Hub.UnregisterAllAsync(deviceToken, (error) =>
+			var DeviceToken = deviceToken.Description;
+			if (!string.IsNullOrWhiteSpace(DeviceToken))
 			{
-				if (error != null)
-				{
-					Console.WriteLine("Error calling Unregister: {0}", error.ToString());
-					return;
-				}
+				DeviceToken = DeviceToken.Trim('<').Trim('>');
+				CurrentUser.SetToken(DeviceToken);
+			}
+			ServiceWrapper svc = new ServiceWrapper();
+			int DeviceType = 2;
+			await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(),DeviceType);
+			// Get previous device token
+			var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
 
-				NSSet tags = null; // create tags if you want
-				Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) =>
-				{
-					if (errorCallback != null)
-						Console.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
-				});
-			});
+			// Has the token changed?
+			if (string.IsNullOrEmpty(	oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
+			{
+				//TODO: Put your own logic here to notify your server that the device token has changed/been created!
+			}
+
+			// Save new device token 
+			NSUserDefaults.StandardUserDefaults.SetString(DeviceToken, "PushDeviceToken");
+
 		}
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 		{
@@ -106,33 +114,31 @@ namespace WineHangoutz
 		}
 		void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
 		{
-			// Check to see if the dictionary has the aps key.  This is the notification payload you would have sent
 			if (null != options && options.ContainsKey(new NSString("aps")))
 			{
-				//Get the aps dictionary
+				
 				NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
 
-				string alert = string.Empty;
+				string wine = options.ObjectForKey(new NSString("wineid")).ToString();
 
-				//Extract the alert text
-				// NOTE: If you're using the simple alert by just specifying
-				// "  aps:{alert:"alert msg here"}  ", this will work fine.
-				// But if you're using a complex alert with Localization keys, etc.,
-				// your "alert" object from the aps dictionary will be another NSDictionary.
-				// Basically the JSON gets dumped right into a NSDictionary,
-				// so keep that in mind.
+				string alert = string.Empty;
+				string wineid = string.Empty;
+
 				if (aps.ContainsKey(new NSString("alert")))
 					alert = (aps[new NSString("alert")] as NSString).ToString();
-
-				//If this came from the ReceivedRemoteNotification while the app was running,
-				// we of course need to manually process things like the sound, badge, and alert.
+				wineid = wine;
 				if (!fromFinishedLaunching)
 				{
-					//Manually show an alert
-					if (!string.IsNullOrEmpty(alert))
+					if (wineid == "")
 					{
-						UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
+						alert = "Sorry";
+						UIAlertView avAlert = new UIAlertView("we were unable to find tasted wines", alert, null, "Ok", null);
 						avAlert.Show();
+					}
+					else
+					{
+						nav.PushViewController(new SKUDetailView(wineid), false);
+						BTProgressHUD.Dismiss();
 					}
 				}
 			}

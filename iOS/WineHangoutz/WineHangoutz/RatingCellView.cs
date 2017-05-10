@@ -15,78 +15,100 @@ namespace WineHangoutz
 		UITextView Comments;
 		UIImageView imageView;
 		PDRatingView stars;
-
+		private int screenid = 10;
 		public ReviewCellView(NSString cellId) : base (UITableViewCellStyle.Default, cellId)
     	{
-			SelectionStyle = UITableViewCellSelectionStyle.Gray;
-			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIImageView();
-
-			userName = new UILabel()
+			try
 			{
-				Font = UIFont.FromName("Verdana", 15f),
-				TextColor = UIColor.FromRGB(127, 51, 0),
-				BackgroundColor = UIColor.Clear
-			};
-			ReviewDate = new UILabel()
-			{
-				Font = UIFont.FromName("AmericanTypewriter", 10f),
-				TextColor = UIColor.FromRGB(38, 127, 0),
-				//TextAlignment = UITextAlignment.Center,
-				BackgroundColor = UIColor.Clear
-			};
-			Comments = new UITextView()
-			{
-				Font = UIFont.FromName("AmericanTypewriter", 14f),
-				TextColor = UIColor.FromRGB(255, 127, 0),
-				//TextAlignment = UITextAlignment.Center,
-				BackgroundColor = UIColor.Clear
-			};
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
-						filledImage: UIImage.FromBundle("Stars/star.png"),
-						chosenImage: UIImage.FromBundle("Stars/star.png"));
+				SelectionStyle = UITableViewCellSelectionStyle.Gray;
+				//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
+				imageView = new UIImageView();
 
-			stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, 5.0m);
+				userName = new UILabel()
+				{
+					Font = UIFont.FromName("Verdana", 15f),
+					TextColor = UIColor.FromRGB(127, 51, 0),
+					BackgroundColor = UIColor.Clear
+				};
+				ReviewDate = new UILabel()
+				{
+					Font = UIFont.FromName("AmericanTypewriter", 10f),
+					TextColor = UIColor.FromRGB(38, 127, 0),
+					//TextAlignment = UITextAlignment.Center,
+					BackgroundColor = UIColor.Clear
+				};
+				Comments = new UITextView()
+				{
+					Font = UIFont.FromName("AmericanTypewriter", 14f),
+					TextColor = UIColor.FromRGB(255, 127, 0),
+					//TextAlignment = UITextAlignment.Center,
+					BackgroundColor = UIColor.Clear
+				};
+				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
+							filledImage: UIImage.FromBundle("Stars/star.png"),
+							chosenImage: UIImage.FromBundle("Stars/star.png"));
 
-			ContentView.AddSubviews(new UIView[] { userName, ReviewDate, Comments, stars, imageView});
+				stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, 5.0m);
+
+				ContentView.AddSubviews(new UIView[] { userName, ReviewDate, Comments, stars, imageView });
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 
 		}
 		public void UpdateCell(Review review)
-		{ 
-			UIImage img= BlobWrapper.GetProfileImageforUser(review.ReviewUserId);
-			if (img != null)
+		{
+			try
 			{
-				imageView.Image = img;
+
+				UIImage img = BlobWrapper.GetProfileImageforUser(review.ReviewUserId);
+				if (img != null)
+				{
+					imageView.Image = img;
+				}
+				else
+				{
+					imageView.Image = new UIImage("user1.png");
+				}
+				userName.Text = review.Username;
+				ReviewDate.Text = review.Date.ToString("d");
+				Comments.Text = review.RatingText;
+				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
+				//ContentView.Bounds.Height = 90;
+				stars.AverageRating = review.RatingStars;
 			}
-			else
+			catch (Exception ex)
 			{
-				imageView.Image = new UIImage("user1.png");
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
-			userName.Text = review.Username;
-			ReviewDate.Text = review.Date.ToString("d");
-			Comments.Text = review.RatingText;
-			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
-			//ContentView.Bounds.Height = 90;
-			stars.AverageRating = review.RatingStars;
 		}
 		public override void LayoutSubviews()
 		{
-			base.LayoutSubviews();
-			imageView.Frame = new CGRect(5, 5, 33, 33);
-			userName.Frame = new CGRect(50, 2, ContentView.Bounds.Width - 35, 20);
-			ReviewDate.Frame = new CGRect(50, 20, ContentView.Bounds.Width - 35, 20);
-			//stars.Frame = new CGRect(35, 50, 100, 20);
-			stars.UserInteractionEnabled = false;
-			Comments.Frame = new CGRect(45, 30, ContentView.Bounds.Width - 35, 40);
+			try
+			{
+				base.LayoutSubviews();
+				imageView.Frame = new CGRect(5, 5, 33, 33);
+				userName.Frame = new CGRect(50, 2, ContentView.Bounds.Width - 35, 20);
+				ReviewDate.Frame = new CGRect(50, 20, ContentView.Bounds.Width - 35, 20);
+				//stars.Frame = new CGRect(35, 50, 100, 20);
+				stars.UserInteractionEnabled = false;
+				Comments.Frame = new CGRect(45, 30, ContentView.Bounds.Width - 35, 40);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 	}
 
 	public class ReviewTableSource : UITableViewSource
 	{
+		
 		//string CellIdentifier = "TableCell";
 		List<Review> Reviews;
-
-
+		private int screenid = 10;
 		public ReviewTableSource(List<Review> reviews)
 		{
 			Reviews = reviews;
@@ -99,20 +121,31 @@ namespace WineHangoutz
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			NSString name = new NSString("TableCell");
-			var cell = tableView.DequeueReusableCell(name) as ReviewCellView;
-			if (cell == null)
-				cell = new ReviewCellView(name);
-			cell.UpdateCell(Reviews[indexPath.Row]);
-			cell.SetNeedsDisplay();
+			ReviewCellView cell = null;
+			try
+			{
+
+				NSString name = new NSString("TableCell");
+				 cell = tableView.DequeueReusableCell(name) as ReviewCellView;
+				if (cell == null)
+					cell = new ReviewCellView(name);
+				cell.UpdateCell(Reviews[indexPath.Row]);
+				cell.SetNeedsDisplay();
+
+
+			}
+			catch(Exception ex) { 
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 			return cell;
+
 		}
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
 			//string item = this.Lst.Items[indexPath.Section];
 			//SizeF size = new SizeF(tableView.Bounds.Width - 40, float.MaxValue);
 			//float height = tableView.StringSize(item, Font, size, LineBreakMode).Height + 10;
-			return 90f;
+			return 90f;	
 		}
 		public override UIView GetViewForHeader(UITableView tableView, nint section)
 		{

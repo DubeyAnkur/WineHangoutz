@@ -13,9 +13,9 @@
 	--sdkroot \
 	/Applications/Xcode.app/Contents/Developer \
 	--sdk \
-	10.2 \
+	10.3 \
 	--targetver \
-	10.2 \
+	8.0 \
 	--http-message-handler=HttpClientHandler \
 	--tls-provider=default \
 	--abi=i386 \
@@ -34,8 +34,6 @@
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/PDRating.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Net.Http.dll \
-	-r \
-	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/Components/xamarin.auth-1.2.3.1/lib/ios-unified/Xamarin.Auth.iOS.dll \
 	-r \
 	/Users/ankurdubey/Downloads/btprogresshud-1.20/lib/ios-unified/BTProgressHUD.dll \
 	-r \
@@ -57,9 +55,11 @@
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/WindowsAzure.Storage.8.1.1/lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll \
 	-r \
-	/Users/ankurdubey/Projects/Services/Hangout/bin/Hangouts.Models.dll \
-	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Xamarin.Azure.NotificationHubs.iOS.1.2.5.2/lib/Xamarin.iOS10/Xamarin.Azure.NotificationHubs.iOS.dll \
+	-r \
+	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/Components/xamarin.auth-1.2.3.1/lib/ios-unified/Xamarin.Auth.iOS.dll \
+	-r \
+	/Users/ankurdubey/Projects/Services/Hangout/bin/Hangouts.Models.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
 	-r \
@@ -327,8 +327,6 @@
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/PDRating.dll \
 	-r \
-	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/Components/xamarin.auth-1.2.3.1/lib/ios-unified/Xamarin.Auth.iOS.dll \
-	-r \
 	/Users/ankurdubey/Downloads/btprogresshud-1.20/lib/ios-unified/BTProgressHUD.dll \
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Microsoft.Data.Edm.5.8.2/lib/netstandard1.1/Microsoft.Data.Edm.dll \
@@ -339,9 +337,11 @@
 	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/WindowsAzure.Storage.8.1.1/lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll \
 	-r \
-	/Users/ankurdubey/Projects/Services/Hangout/bin/Hangouts.Models.dll \
-	-r \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/packages/Xamarin.Azure.NotificationHubs.iOS.1.2.5.2/lib/Xamarin.iOS10/Xamarin.Azure.NotificationHubs.iOS.dll \
+	-r \
+	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/Components/xamarin.auth-1.2.3.1/lib/ios-unified/Xamarin.Auth.iOS.dll \
+	-r \
+	/Users/ankurdubey/Projects/Services/Hangout/bin/Hangouts.Models.dll \
 	--target-framework \
 	"Xamarin.iOS,v1.0" \
 	/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/bin/iPhoneSimulator/Debug//WineHangoutz.exe \

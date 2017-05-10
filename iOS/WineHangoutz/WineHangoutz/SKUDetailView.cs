@@ -9,22 +9,26 @@ using System.Linq;
 
 namespace WineHangoutz
 {
+
 	public class SKUDetailView : UITableViewController, IPopupParent
 	{
+		
 		int _wineId;
-		public SKUDetailView(string WineId): base()
+		int _storeId;
+		public SKUDetailView(string WineId,string storeid) : base()
 		{
 			_wineId = Convert.ToInt32(WineId);
+			_storeId = Convert.ToInt32(storeid);
 			this.Title = "Wine Details";
 		}
+
 
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
 			nfloat width = View.Frame.Width;
-
 			ServiceWrapper svc = new ServiceWrapper();
-			ItemDetailsResponse myData = svc.GetItemDetails(_wineId).Result;
+			ItemDetailsResponse myData = svc.GetItemDetails(_wineId,_storeId).Result;
 
 			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			TableView.AllowsSelection = false;
@@ -44,6 +48,9 @@ namespace WineHangoutz
 		}
 	}
 
+
+	
+
 	public class SKUDetailTableSource : UITableViewSource
 	{
 
@@ -56,35 +63,43 @@ namespace WineHangoutz
 
 		public SKUDetailTableSource(nfloat wid, UIViewController parent, UINavigationController navCtrl, ItemDetails Data)
 		{
-			Width = wid;
-			Parent = parent;
-			NavigationController = navCtrl;
-			data = Data;
+			try
+			{
 
-			//data.Name = "Arzenton Pinot Nero";
-			//data.Vintage = "2013";
-			//data.Description = "Deep ruby. Perfumes alive and intense of red berry fruit enveloped by fresh spiciness of black pepper, cloves with a finish of cinnamon stick and sensations resinous toasted. In the background, flavors of wild berries. Tannnin vibrant, but already silky and enveloping connotes tasting soft, round but at the same time fresh with a tasty thin vein of great elegance.";
-			data.LargeImageUrl = "Wines/wine2.png";
-			data.Producer = Data.Producer;// "Arzenton company was found in 1968, with the accomodation of the hilly area of spessa of Cividale del Friuli: thus in one of the places most suited to vityculture of the capital Doc Coli Orientali bel Friuli. The company consist of 14 hectare of which 10 are devoted to vineyards in soil consist of alternating layers of marl and sandstones that represnt the best soil of viticulture hilly.";
-			data.AverageRating = Data.AverageRating;// 4.25m;
-			data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
+				Width = wid;
+				Parent = parent;
+				NavigationController = navCtrl;
+				data = Data;
 
-			ServiceWrapper sw = new ServiceWrapper();
-			ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
-			data.Reviews = ratings.Reviews.ToList();
-			//var review1 = new Rating();
-			//review1.RatingText = "Comments";
-			//review1.Date = DateTime.Now;
-			//review1.RatingStars = 4.2m;
-			//review1.Username = "Ankur";
-			//data.Ratings.Add(review1);
+				//data.Name = "Arzenton Pinot Nero";
+				//data.Vintage = "2013";
+				//data.Description = "Deep ruby. Perfumes alive and intense of red berry fruit enveloped by fresh spiciness of black pepper, cloves with a finish of cinnamon stick and sensations resinous toasted. In the background, flavors of wild berries. Tannnin vibrant, but already silky and enveloping connotes tasting soft, round but at the same time fresh with a tasty thin vein of great elegance.";
+				data.LargeImageUrl = "Wines/wine2.png";
+				data.Producer = Data.Producer;// "Arzenton company was found in 1968, with the accomodation of the hilly area of spessa of Cividale del Friuli: thus in one of the places most suited to vityculture of the capital Doc Coli Orientali bel Friuli. The company consist of 14 hectare of which 10 are devoted to vineyards in soil consist of alternating layers of marl and sandstones that represnt the best soil of viticulture hilly.";
+				data.AverageRating = Data.AverageRating;// 4.25m;
+				data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
 
-			//var review2 = new Rating();
-			//review2.RatingText = "More Comments";
-			//review2.Date = DateTime.Now;
-			//review2.RatingStars = 3.5m;
-			//review2.Username = "Alpana";
-			//data.Ratings.Add(review2);
+				ServiceWrapper sw = new ServiceWrapper();
+				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
+				data.Reviews = ratings.Reviews.ToList();
+				//var review1 = new Rating();
+				//review1.RatingText = "Comments";
+				//review1.Date = DateTime.Now;
+				//review1.RatingStars = 4.2m;
+				//review1.Username = "Ankur";
+				//data.Ratings.Add(review1);
+
+				//var review2 = new Rating();
+				//review2.RatingText = "More Comments";
+				//review2.Date = DateTime.Now;
+				//review2.RatingStars = 3.5m;
+				//review2.Username = "Alpana";
+				//data.Ratings.Add(review2);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)
@@ -99,179 +114,206 @@ namespace WineHangoutz
 
 			return cell;
 		}
-
+		private int screenid = 5;
 		public UIView GetViewForSKUCell(nint index)
 		{
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
-												filledImage: UIImage.FromBundle("Stars/star.png"),
-												chosenImage: UIImage.FromBundle("Stars/star.png"));
-
 			UIView vw = new UIView();
-			switch (index)
+			try
 			{
-				case 1:
-					var lblName = new UILabel();
-					lblName.Frame = new CGRect(0, 0, this.Width, 40);
-					lblName.Text = data.Name;
-					lblName.Font = UIFont.FromName("Verdana-Bold", 16f);
-					lblName.TextAlignment = UITextAlignment.Center;
-					lblName.TextColor = UIColor.Purple;
-					vw = lblName;
-					break;
-				case 2:
-					//vw = Separator;
-					break;
-				case 3:
-					var lblVintage = new UILabel();
-					lblVintage.Frame = new CGRect(0, 0, this.Width, 20);
-					lblVintage.Text = data.Vintage.ToString();
-					lblVintage.Font = UIFont.FromName("Verdana", 12f);
-					lblVintage.TextAlignment = UITextAlignment.Center;
-					lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("line123.png"));
-					vw = lblVintage;
-					//vw.AddSubview(Separator);
-					break;
-				case 4:
-					var btlBack = new UIImageView();
-					btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
-					btlBack.Image = UIImage.FromFile("placeholder.jpeg");
+				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
+													filledImage: UIImage.FromBundle("Stars/star.png"),
 
-					//nfloat height = this.Width;
-					//nfloat width = (height / 233) * 92;
-					//nfloat X = (this.Width - width) / 2;
-					var btlImage = new UIImageView(); //92 * 233
+													chosenImage: UIImage.FromBundle("Stars/star.png"));
 
-					//btlImage.Image = UIImage.FromFile(data.LargeImageUrl);
+				LoggingClass.LogInfo("In Detail View", screenid);
 
-					var image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString());
-					if (image != null)
-					{
-						CGRect rect = btlBack.Bounds;
-						nfloat boxHeight = rect.Height; // which is = width;
-						nfloat imgHeight = image.Size.Height;
-						nfloat ratio = boxHeight / imgHeight;
-						CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
-						image = image.Scale(newSize);
-						nfloat X = (boxHeight - image.Size.Width) / 2;
-						btlImage.Frame = new CGRect(X, 0, image.Size.Width, image.Size.Height);
 
-						btlImage.Image = image;
-					}
-					else
-						btlImage.Image= null;
-					
-					vw = btlBack;
-					vw.AddSubview(btlImage);
-					break;
-				case 5:
-					ratingView = new PDRatingView(new CGRect(this.Width * 3 / 8 + 2, 10, this.Width / 4, 20f), ratingConfig, data.AverageRating);
-					ratingView.UserInteractionEnabled = false;
-					vw = ratingView;
-					break;
-				case 6:
-					var lblRateTitle = new UILabel();
-					lblRateTitle.Frame = new CGRect(4, 10, this.Width, 50);
-					lblRateTitle.Text = "Rate this Wine";
-					lblRateTitle.TextAlignment = UITextAlignment.Center;
-					lblRateTitle.Font = UIFont.FromName("Verdana-Bold", 16f);
-					lblRateTitle.TextColor = UIColor.Purple;
-					vw = lblRateTitle;
-					break;
-				case 7:
-					var lblRateRequest = new UILabel();
-					lblRateRequest.Frame = new CGRect(4, 0, this.Width, 10);
-					lblRateRequest.Text = "Select number of Stars";
-					lblRateRequest.Font = UIFont.FromName("AmericanTypewriter", 10f);
-					lblRateRequest.TextAlignment = UITextAlignment.Center;
-					vw = lblRateRequest;
-					break;
-				case 8:
-					var starUpLine = new UIImageView(new CGRect(4, 0, this.Width - 8, 1));
-					starUpLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-					starUpLine.Image = UIImage.FromFile("separator.png");
-					starUpLine.ContentMode = UIViewContentMode.ScaleAspectFill;
-					starUpLine.ClipsToBounds = true;
-					starUpLine.Layer.BorderColor = UIColor.White.CGColor;
-					starUpLine.BackgroundColor = UIColor.LightGray;
-					vw = starUpLine;
-					break;
-				case 9:
-					PDRatingView ratingView2 = new PDRatingView(new CGRect(this.Width * 2 / 8, 0, this.Width / 2, 36f), ratingConfig, 0m);
-					// [Optional] Do something when the user selects a rating.
-					UIViewController that = Parent;
-					ratingView2.RatingChosen += (sender, e) =>
-					{
-						PopupView yourController = new PopupView(Convert.ToInt32(data.WineId));
-						yourController.NavController = NavigationController;
-						yourController.parent = that;
-						yourController.StartsSelected = e.Rating;
-						yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+				switch (index)
+				{
+					case 1:
+						var lblName = new UILabel();
+						lblName.Frame = new CGRect(0, 0, this.Width, 40);
+						lblName.Text = data.Name;
+						lblName.Font = UIFont.FromName("Verdana-Bold", 16f);
+						lblName.TextAlignment = UITextAlignment.Center;
+						lblName.TextColor = UIColor.Purple;
+						vw = lblName;
+						break;
+					case 2:
+						//vw = Separator;
+						break;
+					case 3:
+						var lblVintage = new UILabel();
+						lblVintage.Frame = new CGRect(0, 0, this.Width, 20);
+						lblVintage.Text = data.Vintage.ToString();
+						lblVintage.Font = UIFont.FromName("Verdana", 12f);
+						lblVintage.TextAlignment = UITextAlignment.Center;
+						lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("line123.png"));
+						vw = lblVintage;
+						//vw.AddSubview(Separator);
+						break;
+					case 4:
+						var btlBack = new UIImageView();
+						btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
+						btlBack.Image = UIImage.FromFile("placeholder.jpeg");
+
+						//nfloat height = this.Width;
+						//nfloat width = (height / 233) * 92;
+						//nfloat X = (this.Width - width) / 2;
+						var btlImage = new UIImageView(); //92 * 233
+
+						//btlImage.Image = UIImage.FromFile(data.LargeImageUrl);
+
+						var image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString());
+						if (image != null)
+						{
+							CGRect rect = btlBack.Bounds;
+							nfloat boxHeight = rect.Height; // which is = width;
+							nfloat imgHeight = image.Size.Height;
+							nfloat ratio = boxHeight / imgHeight;
+							CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+							image = image.Scale(newSize);
+							nfloat X = (boxHeight - image.Size.Width) / 2;
+							btlImage.Frame = new CGRect(X, 0, image.Size.Width, image.Size.Height);
+
+							btlImage.Image = image;
+						}
+						else
+							btlImage.Image = null;
+
+						vw = btlBack;
+						vw.AddSubview(btlImage);
+						break;
+					case 5:
+						ratingView = new PDRatingView(new CGRect(this.Width * 3 / 8 + 2, 10, this.Width / 4, 20f), ratingConfig, data.AverageRating);
+						ratingView.UserInteractionEnabled = false;
+						vw = ratingView;
+						break;
+					case 6:
+						var lblRateTitle = new UILabel();
+						lblRateTitle.Frame = new CGRect(4, 10, this.Width, 50);
+						lblRateTitle.Text = "Rate this Wine";
+						lblRateTitle.TextAlignment = UITextAlignment.Center;
+						lblRateTitle.Font = UIFont.FromName("Verdana-Bold", 16f);
+						lblRateTitle.TextColor = UIColor.Purple;
+						vw = lblRateTitle;
+						break;
+					case 7:
+						var lblRateRequest = new UILabel();
+						lblRateRequest.Frame = new CGRect(4, 0, this.Width, 10);
+						lblRateRequest.Text = "Select number of Stars";
+						lblRateRequest.Font = UIFont.FromName("AmericanTypewriter", 10f);
+						lblRateRequest.TextAlignment = UITextAlignment.Center;
+						vw = lblRateRequest;
+						break;
+					case 8:
+						var starUpLine = new UIImageView(new CGRect(4, 0, this.Width - 8, 1));
+						starUpLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+						starUpLine.Image = UIImage.FromFile("separator.png");
+						starUpLine.ContentMode = UIViewContentMode.ScaleAspectFill;
+						starUpLine.ClipsToBounds = true;
+						starUpLine.Layer.BorderColor = UIColor.White.CGColor;
+						starUpLine.BackgroundColor = UIColor.LightGray;
+						vw = starUpLine;
+						break;
+					case 9:
+						PDRatingView ratingView2 = new PDRatingView(new CGRect(this.Width * 2 / 8, 0, this.Width / 2, 36f), ratingConfig, 0m);
+						// [Optional] Do something when the user selects a rating.
+						UIViewController that = Parent;
+						ratingView2.RatingChosen += (sender, e) =>
+						{
+							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId));
+							yourController.NavController = NavigationController;
+							yourController.parent = that;
+							yourController.StartsSelected = e.Rating;
+
+							yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 						//this.PresentViewController(yourController, true, null);
 						that.PresentModalViewController(yourController, false);
 
 						//ShowModal(false);
 					};
-					vw = ratingView2;
-					break;
-				case 10:
-					var starDownLine = new UIImageView(new CGRect(4, 10, this.Width - 8, 1));
-					starDownLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-					starDownLine.Image = UIImage.FromFile("separator.png");
-					starDownLine.ContentMode = UIViewContentMode.ScaleAspectFill;
-					starDownLine.ClipsToBounds = true;
-					starDownLine.Layer.BorderColor = UIColor.White.CGColor;
-					starDownLine.BackgroundColor = UIColor.LightGray;
-					vw = starDownLine;
-					break;
-				case 11:
-					var lblDesc = new UILabel();
-					lblDesc.Frame = new CGRect(4, 10, this.Width, 20);
-					lblDesc.Text = "Description: ";
-					lblDesc.TextAlignment = UITextAlignment.Left;
-					vw = lblDesc;
-					break;
-				case 12:
-					var lblDescText = new UITextView();
-					lblDescText.Text = data.Description;
-					lblDescText.TextAlignment = UITextAlignment.Justified;
-					//lblDescText.BackgroundColor = UIColor.LightGray;
-					CGSize sTemp = new CGSize(this.Width, 100);
-					sTemp = lblDescText.SizeThatFits(sTemp);
-					lblDescText.Frame = new CGRect(0, 0, this.Width, sTemp.Height);
-					vw = lblDescText;
-					break;
-				case 13:
-					table = new UITableView();
-					//string[,] tableItems 
-					table.Frame = new CGRect(0, 0, this.Width, data.WineProperties.Count * 22);
-					table.Source = new WineInfoTableSource(data.WineProperties);
-					table.AllowsSelection = false;
-					table.ScrollEnabled = false;
-					vw = table;
-					break;
-				case 14:
-					var lblProducer = new UILabel();
-					lblProducer.Frame = new CGRect(4, 0, this.Width, 20);
-					lblProducer.Text = "Producer: ";
-					lblProducer.TextAlignment = UITextAlignment.Left;
-					vw = lblProducer;
-					break;
-				case 15:
-					var lblProducerText = new UITextView();
-					//lblProducerText.Frame = new CGRect(0, 0, this.Width, 100);
-					lblProducerText.Text = data.Producer;
-					lblProducerText.TextAlignment = UITextAlignment.Justified;
-					//lblProducerText.BackgroundColor = UIColor.LightGray;
-					sTemp = new CGSize(this.Width, 100);
-					sTemp = lblProducerText.SizeThatFits(sTemp);
-					lblProducerText.Frame = new CGRect(0, 0, this.Width, sTemp.Height);
-					vw = lblProducerText;
-					break;
-				case 16:
-					vw = LoadReviews();
-					break;
-				default:
-					break;
+						vw = ratingView2;
+						break;
+					case 10:
+						var starDownLine = new UIImageView(new CGRect(4, 10, this.Width - 8, 1));
+						starDownLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+						starDownLine.Image = UIImage.FromFile("separator.png");
+						starDownLine.ContentMode = UIViewContentMode.ScaleAspectFill;
+						starDownLine.ClipsToBounds = true;
+						starDownLine.Layer.BorderColor = UIColor.White.CGColor;
+						starDownLine.BackgroundColor = UIColor.LightGray;
+						vw = starDownLine;
+						break;
+					case 11:
+						var lblDesc = new UILabel();
+						lblDesc.Frame = new CGRect(4, 10, this.Width, 20);
+						lblDesc.Text = "Description: ";
+						lblDesc.TextAlignment = UITextAlignment.Left;
+						vw = lblDesc;
+						break;
+					case 12:
+						var lblDescText = new UITextView();
+						if (data.Description == null || data.Description == "")
+						{
+							lblDescText.Text = "Not available";
+						}
+						else
+						{
+							lblDescText.Text = data.Description;
+						}
+						lblDescText.TextAlignment = UITextAlignment.Justified;
+						//lblDescText.BackgroundColor = UIColor.LightGray;
+						CGSize sTemp = new CGSize(this.Width, 100);
+						sTemp = lblDescText.SizeThatFits(sTemp);
+						lblDescText.Frame = new CGRect(0, 0, this.Width, sTemp.Height);
+						vw = lblDescText;
+						break;
+					case 13:
+						table = new UITableView();
+						//string[,] tableItems 
+						table.Frame = new CGRect(0, 0, this.Width, data.WineProperties.Count * 22);
+						table.Source = new WineInfoTableSource(data.WineProperties);
+						table.AllowsSelection = false;
+						table.ScrollEnabled = false;
+						vw = table;
+						break;
+					case 14:
+						var lblProducer = new UILabel();
+						lblProducer.Frame = new CGRect(4, 0, this.Width, 20);
+						lblProducer.Text = "Producer: ";
+						lblProducer.TextAlignment = UITextAlignment.Left;
+						vw = lblProducer;
+						break;
+					case 15:
+						var lblProducerText = new UITextView();
+						//lblProducerText.Frame = new CGRect(0, 0, this.Width, 100);
+						if (data.Producer == null || data.Producer == "")
+						{
+							lblProducerText.Text = "Not available";
+						}
+						else
+						{
+							lblProducerText.Text = data.Producer;
+						}
+						lblProducerText.TextAlignment = UITextAlignment.Justified;
+						//lblProducerText.BackgroundColor = UIColor.LightGray;
+						sTemp = new CGSize(this.Width, 100);
+						sTemp = lblProducerText.SizeThatFits(sTemp);
+						lblProducerText.Frame = new CGRect(0, 0, this.Width, sTemp.Height);
+						vw = lblProducerText;
+						break;
+					case 16:
+						vw = LoadReviews();
+						break;
+					default:
+						break;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 			return vw;
 		}
@@ -297,10 +339,10 @@ namespace WineHangoutz
 				return 50;
 
 			if (indexPath.Item == 13) // table
-				return (nfloat)(data.WineProperties.Count * 22)+10;// 22 is hard coded height of rows
+				return (nfloat)(data.WineProperties.Count * 22) + 10;// 22 is hard coded height of rows
 
 			if (indexPath.Item == 16) // Reviews
-				return (nfloat)(data.Reviews.Count * 90)+35;// 90 is hard coded height of rows
+				return (nfloat)(data.Reviews.Count * 90) + 35;// 90 is hard coded height of rows
 
 			return (nfloat)Math.Min(height, this.Width);
 			//var viewCell = uiCell.GetPropertyValue<ViewCell>(uiCell.GetType(), "ViewCell");
@@ -319,5 +361,7 @@ namespace WineHangoutz
 			return reviewTable;
 		}
 	}
-
 }
+
+
+

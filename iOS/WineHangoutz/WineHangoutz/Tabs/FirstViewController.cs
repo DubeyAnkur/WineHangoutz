@@ -5,6 +5,7 @@ using Foundation;
 using System.Threading.Tasks;
 using BigTed;
 
+
 namespace WineHangoutz
 {
 	public partial class FirstViewController : UIViewController
@@ -13,9 +14,11 @@ namespace WineHangoutz
 		{
 			this.Title = "Locations";
 		}
+		private int screenid = 1;
 
 		public override void ViewDidLoad()
 		{
+	
 			//AboutController1.ViewDidLoad(base);
 
 			// Perform any additional setup after loading the view, typically from a nib.
@@ -30,9 +33,9 @@ namespace WineHangoutz
 			btnMan.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnPP.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnSec.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnMan.SetTitle("Manasquan",UIControlState.Normal);
+			btnMan.SetTitle("Wall",UIControlState.Normal);
 			btnSec.SetTitle("Secaucus",UIControlState.Normal);
-			btnPP.SetTitle("Point Pleasant", UIControlState.Normal);
+			btnPP.SetTitle("Pt. Pleasant Beach", UIControlState.Normal);
 			btnMan.SetBackgroundImage(new UIImage("Images/city.jpg"), UIControlState.Normal);
 			btnSec.SetBackgroundImage(new UIImage("Images/city1.jpg"), UIControlState.Normal);
 			btnPP.SetBackgroundImage(new UIImage("Images/beach.jpg"), UIControlState.Normal);
@@ -46,73 +49,93 @@ namespace WineHangoutz
 
 		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP, UIView parentView)
 		{
-			btnMan.TouchDown  += (sender, e) =>
+			try
 			{
-				BTProgressHUD.Show("Loading..."); //show spinner + text
-			};
-			btnPP.TouchDown += (sender, e) =>
-		    {
-			   BTProgressHUD.Show("Loading..."); //show spinner + text
-			};
-			btnMan.TouchUpInside += (sender, e) =>
-			{
-				//https://components.xamarin.com/gettingstarted/btprogresshud/true
-				//BTProgressHUD.Show(); //shows the spinner
 
-				nfloat width = UIScreen.MainScreen.Bounds.Width;
-				width = width / 2 - 15;
 
-				UICollectionViewFlowLayout flowLayout;
-				flowLayout = new UICollectionViewFlowLayout()
+
+				btnMan.TouchDown += (sender, e) =>
+			   {
+				   BTProgressHUD.Show("Loading..."); //show spinner + text
+			   };
+				btnPP.TouchDown += (sender, e) =>
 				{
-					ItemSize = new CGSize(width, 325.0f),
-					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
-					ScrollDirection = UICollectionViewScrollDirection.Vertical
+					BTProgressHUD.Show("Loading..."); //show spinner + text
 				};
-				NavigationController.NavigationBar.TopItem.Title = "Manasquan";
-				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
-
-				BTProgressHUD.Dismiss();
-			};
-			btnSec.TouchUpInside += (sender, e) => { 
-				UIAlertView alert = new UIAlertView()
+				btnMan.TouchUpInside += (sender, e) =>
 				{
-					Title = "Secaucus Store",
-					Message = "Coming Soon..."
+					//https://components.xamarin.com/gettingstarted/btprogresshud/true
+					//BTProgressHUD.Show(); //shows the spinner
+
+					nfloat width = UIScreen.MainScreen.Bounds.Width;
+					width = width / 2 - 15;
+
+					UICollectionViewFlowLayout flowLayout;
+					flowLayout = new UICollectionViewFlowLayout()
+					{
+						ItemSize = new CGSize(width, 325.0f),
+						SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+						ScrollDirection = UICollectionViewScrollDirection.Vertical
+					};
+					NavigationController.NavigationBar.TopItem.Title = "Locations";
+					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
+					LoggingClass.LogInfo("Entered into Wall", screenid);
+
+
+
+					BTProgressHUD.Dismiss();
 				};
-				alert.AddButton("OK");
-				alert.Show();
-
-				//LoginViewController yourController = new LoginViewController();
-				//yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-				//this.PresentModalViewController(yourController, false);
-
-			};
-
-			btnPP.TouchUpInside += (sender, e) =>
-			{
-				//async (sender, e)
-				//ServiceWrapper svc = new ServiceWrapper();
-				//string ret = await svc.GetDataAsync();
-				//((UIButton)sender).SetTitle(ret, UIControlState.Normal);
-				nfloat width = UIScreen.MainScreen.Bounds.Width;
-				width = width / 2 - 15;
-
-				UICollectionViewFlowLayout flowLayout;
-				flowLayout = new UICollectionViewFlowLayout()
+				btnSec.TouchUpInside += (sender, e) =>
 				{
-					//HeaderReferenceSize = new CGSize(width, 275.0f),
-					ItemSize = new CGSize(width, 325.0f),
-					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
-					//SectionInset = new UIEdgeInsets(20, 20, 20, 20),
-					ScrollDirection = UICollectionViewScrollDirection.Vertical
-					//MinimumInteritemSpacing = 50, // minimum spacing between cells
-					//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Secaucus Store",
+						Message = "Coming Soon..."
+					};
+					LoggingClass.LogInfo("Entered into seacuces", screenid);
+
+
+					alert.AddButton("OK");
+					alert.Show();
+
+					//LoginViewController yourController = new LoginViewController();
+					//yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+					//this.PresentModalViewController(yourController, false);
+
 				};
-				NavigationController.NavigationBar.TopItem.Title = "Point Plesant";
-				NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
-				BTProgressHUD.Dismiss();
-			};
+
+				btnPP.TouchUpInside += (sender, e) =>
+				{
+					//async (sender, e)
+					//ServiceWrapper svc = new ServiceWrapper();
+					//string ret = await svc.GetDataAsync();
+					//((UIButton)sender).SetTitle(ret, UIControlState.Normal);
+					nfloat width = UIScreen.MainScreen.Bounds.Width;
+					width = width / 2 - 15;
+
+					UICollectionViewFlowLayout flowLayout;
+					flowLayout = new UICollectionViewFlowLayout()
+					{
+						//HeaderReferenceSize = new CGSize(width, 275.0f),
+						ItemSize = new CGSize(width, 325.0f),
+						SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+						//SectionInset = new UIEdgeInsets(20, 20, 20, 20),
+						ScrollDirection = UICollectionViewScrollDirection.Vertical
+						//MinimumInteritemSpacing = 50, // minimum spacing between cells
+						//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
+					};
+					NavigationController.NavigationBar.TopItem.Title = "Locations";
+					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
+					LoggingClass.LogInfo("Entered into Point Pl", screenid);
+
+
+					BTProgressHUD.Dismiss();
+				};
+			}
+				catch (Exception ex)
+				{
+					LoggingClass.LogError (ex.ToString(), screenid,ex.StackTrace);
+				}
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -142,5 +165,6 @@ namespace WineHangoutz
 			//Login Check End
 
 		}
+
 	}
 }

@@ -14,11 +14,11 @@ using ImageIO;
 using System.IO;
 using System.Threading.Tasks;
 
-
 namespace WineHangoutz
 {
 	public partial class ProfileViewController : UIViewController
 	{
+		private int screenid = 8;
 		UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
 		//static NSCache ProfileImages;
@@ -29,89 +29,102 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-			//AboutController1.ViewDidLoad(base);
-
-			ServiceWrapper sw = new ServiceWrapper();
-			var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
-			txtFirstName.Text = cRes.customer.FirstName;
-			txtLastName.Text = cRes.customer.LastName;
-			txtCity.Text = cRes.customer.City;
-			txtEmail.Text = cRes.customer.Email;
-			txtPhone.Text = cRes.customer.PhoneNumber;
-			txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
-			txtState.Text = cRes.customer.State;
-			//imgProfile.Image = new UIImage("user.png");
-
-
-			imgEmail.Image = new UIImage("mail.png");
-
-			imgAddr.Image = new UIImage("add.png");
-
-			imgCity.Image = new UIImage("City1.png");
-
-			imgState.Image = new UIImage("state.png");
-
-			imgPhone.Image = new UIImage("phone1.png");
-	
-			//imgPhone
-
-			//var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
-			//if (imageBitmap == null)
-			//{
-			//	propicimage.SetImageResource(Resource.Drawable.user);
-			//}
-			//else
-			//	propicimage.SetImageBitmap(imageBitmap);
-
-
-			UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
-			if (prpicImage != null)
+			try
 			{
-				imgProfile.Image = prpicImage;
-			}
-			else
-			{
-				imgProfile.Image=new UIImage("user1.png");
-			}
 
-			btnUpdate.TouchDown += (sender, e) =>
-			{
-				BTProgressHUD.Show("Updating profile..."); //show spinner + text
-			};
+				//AboutController1.ViewDidLoad(base);
+				LoggingClass.LogInfo("Entered into Profile View", screenid);
+				LoggingClass.UploadErrorLogs();
 
-			btnUpdate.TouchUpInside += async (sender, e) =>
-			{
-				Customer cust = new Customer();
-				cust.CustomerID = CurrentUser.RetreiveUserId();
-				cust.Address1 = txtAddress.Text;
-				cust.FirstName = txtFirstName.Text;
-				cust.LastName = txtLastName.Text;
-				cust.City = txtCity.Text;
-				cust.Email = txtCity.Text;
-				cust.Email = txtEmail.Text;
-				cust.PhoneNumber = txtPhone.Text;
-				cust.State = txtState.Text;
-
-				await sw.UpdateCustomer(cust);
-				BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-			};
+				ServiceWrapper sw = new ServiceWrapper();
+				var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
+				txtFirstName.Text = cRes.customer.FirstName;
+				txtLastName.Text = cRes.customer.LastName;
+				txtCity.Text = cRes.customer.City;
+				txtEmail.Text = cRes.customer.Email;
+				txtPhone.Text = cRes.customer.PhoneNumber;
+				txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
+				txtState.Text = cRes.customer.State;
+				//imgProfile.Image = new UIImage("user.png");
 
 
-			btnEdit.TouchUpInside += (sender, e) =>
-			{
-				IsCameraAuthorized();
-				imagePicker = new UIImagePickerController();
-				imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-				imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+				imgEmail.Image = new UIImage("mail.png");
 
-				imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-				imagePicker.Canceled += Handle_Canceled;
-				NavCtrl.PresentModalViewController(imagePicker, true);
-				if (IsCameraAuthorized())
+				imgAddr.Image = new UIImage("add.png");
+
+				imgCity.Image = new UIImage("City1.png");
+
+				imgState.Image = new UIImage("state.png");
+
+				imgPhone.Image = new UIImage("phone1.png");
+
+				//imgPhone
+
+				//var imageBitmap = GetImageBitmapFromUrl("https://icsintegration.blob.core.windows.net/profileimages/" + userId + ".jpg");
+				//if (imageBitmap == null)
+				//{
+				//	propicimage.SetImageResource(Resource.Drawable.user);
+				//}
+				//else
+				//	propicimage.SetImageBitmap(imageBitmap);
+
+
+				UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
+				if (prpicImage != null)
 				{
-					this.PresentModalViewController(imagePicker, false);
+					imgProfile.Image = prpicImage;
 				}
-			};
+				else
+				{
+					imgProfile.Image = new UIImage("user1.png");
+				}
+
+				btnUpdate.TouchDown += (sender, e) =>
+				{
+					BTProgressHUD.Show("Updating profile..."); //show spinner + text
+				};
+
+				btnUpdate.TouchUpInside += async (sender, e) =>
+				{
+					Customer cust = new Customer();
+					cust.CustomerID = CurrentUser.RetreiveUserId();
+					cust.Address1 = txtAddress.Text;
+					cust.FirstName = txtFirstName.Text;
+					cust.LastName = txtLastName.Text;
+					cust.City = txtCity.Text;
+					cust.Email = txtCity.Text;
+					LoggingClass.LogInfo("Update button into Profile View", screenid);
+
+
+					cust.Email = txtEmail.Text;
+					cust.PhoneNumber = txtPhone.Text;
+					cust.State = txtState.Text;
+
+					await sw.UpdateCustomer(cust);
+					BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
+				};
+
+
+				btnEdit.TouchUpInside += (sender, e) =>
+				{
+					IsCameraAuthorized();
+					imagePicker = new UIImagePickerController();
+					imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+					imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+
+					imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+					imagePicker.Canceled += Handle_Canceled;
+					NavCtrl.PresentModalViewController(imagePicker, true);
+					if (IsCameraAuthorized())
+					{
+						this.PresentModalViewController(imagePicker, false);
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 
 		void Handle_Canceled(object sender, EventArgs e)
@@ -130,13 +143,13 @@ namespace WineHangoutz
 			try
 			{
 				string url = "https://icsintegration.blob.core.windows.net/profileimages/" + userid + ".jpg";
-					NSUrl imageURL = new NSUrl(url);
-					imgData = NSData.FromUrl(imageURL);
-					img = UIImage.LoadFromData(imgData);
+				NSUrl imageURL = new NSUrl(url);
+				imgData = NSData.FromUrl(imageURL);
+				img = UIImage.LoadFromData(imgData);
 				//ProfileImages.SetObjectforKey(img, NSObject.FromObject(usid));
 				//BlobWrapper bvb = new BlobWrapper();
 				//CachedImagePhysically(imgData, usid);
-				
+
 			}
 
 			catch (Exception)
@@ -171,65 +184,72 @@ namespace WineHangoutz
 
 		protected async void Handle_FinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs e)
 		{
-			// determine what was selected, video or image
-			bool isImage = false;
-			switch (e.Info[UIImagePickerController.MediaType].ToString())
+			try
 			{
-				case "public.image":
-					Console.WriteLine("Image selected");
-					isImage = true;
-					break;
-				case "public.video":
-					Console.WriteLine("Video selected");
-					break;
-			}
-
-			// get common info (shared between images and video)
-			NSUrl referenceURL = e.Info[new NSString("UIImagePickerControllerReferenceUrl")] as NSUrl;
-			if (referenceURL != null)
-				Console.WriteLine("Url:" + referenceURL.ToString());
-
-			// if it was an image, get the other image info
-			if (isImage)
-			{
-				// get the original image
-
-				UIImage originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
-				if (originalImage != null)
+				// determine what was selected, video or image
+				bool isImage = false;
+				switch (e.Info[UIImagePickerController.MediaType].ToString())
 				{
-					// do something with the image
+					case "public.image":
+						Console.WriteLine("Image selected");
+						isImage = true;
+						break;
+					case "public.video":
+						Console.WriteLine("Video selected");
+						break;
+				}
 
-					Console.WriteLine("got the original image");
-					imgProfile.Image = originalImage; // display
-					using (NSData imagedata = originalImage.AsJPEG())
+				// get common info (shared between images and video)
+				NSUrl referenceURL = e.Info[new NSString("UIImagePickerControllerReferenceUrl")] as NSUrl;
+				if (referenceURL != null)
+					Console.WriteLine("Url:" + referenceURL.ToString());
+
+				// if it was an image, get the other image info
+				if (isImage)
+				{
+					// get the original image
+
+					UIImage originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
+					if (originalImage != null)
 					{
-						byte[] myByteArray = new byte[imagedata.Length];
-						System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes,
-																	myByteArray, 0, Convert.ToInt32(imagedata.Length));
+						// do something with the image
+
+						Console.WriteLine("got the original image");
+						imgProfile.Image = originalImage; // display
+						using (NSData imagedata = originalImage.AsJPEG())
+						{
+							byte[] myByteArray = new byte[imagedata.Length];
+							System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes,
+																		myByteArray, 0, Convert.ToInt32(imagedata.Length));
 
 
-						byte[] img =BlobWrapper.ResizeImageIOS(myByteArray, 250, 300);
+							byte[] img = BlobWrapper.ResizeImageIOS(myByteArray, 250, 300);
 
 
-						int i = img.Length;
-						await BlobWrapper.UploadProfilePic(img,i);
+							int i = img.Length;
+							await BlobWrapper.UploadProfilePic(img, i);
+						}
+
+
+						//NetStandard.Library 1.6.0 is recommended else app will flicker.
 					}
-
-
-					//NetStandard.Library 1.6.0 is recommended else app will flicker.
 				}
-			}
-			else
-			{ // if it's a video
-			  // get video url
-				NSUrl mediaURL = e.Info[UIImagePickerController.MediaURL] as NSUrl;
-				if (mediaURL != null)
-				{
-					Console.WriteLine(mediaURL.ToString());
+				else
+				{ // if it's a video
+				  // get video url
+					NSUrl mediaURL = e.Info[UIImagePickerController.MediaURL] as NSUrl;
+					if (mediaURL != null)
+					{
+						Console.WriteLine(mediaURL.ToString());
+					}
 				}
+				// dismiss the picker
+				imagePicker.DismissModalViewController(true);
 			}
-			// dismiss the picker
-			imagePicker.DismissModalViewController(true);
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 		public override void DidReceiveMemoryWarning()
 		{
@@ -241,6 +261,7 @@ namespace WineHangoutz
 
 		public bool IsCameraAuthorized()
 		{
+
 			AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
 			if (authStatus == AVAuthorizationStatus.Authorized)
 			{
@@ -266,105 +287,107 @@ namespace WineHangoutz
 			{
 				return false;
 				// impossible, unknown authorization status
+
 			}
+			//public async void UploadProfilePic(byte[] myByteArray,int i)
+			//{
+
+			//	StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+			//	CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+			//	CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+			//	CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
+
+			//	await container.CreateIfNotExistsAsync();
+			//	//string[] FileEntries = App.System.IO._dir.GetFiles(path);
+
+
+			//	//foreach (string FilePath in FileEntries)
+			//	//{
+			//	//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
+			//	CloudBlockBlob blob = container.GetBlockBlobReference( CurrentUser.RetreiveUserId()+ ".jpg"); //(path);
+
+
+
+
+
+
+
+
+
+
+			//	//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+			//	//{
+
+			//	await blob.UploadFromByteArrayAsync(myByteArray,0,i) ;//  .UploadFromFileAsync(path);
+
+			//	//}
+			//	//}
+			//	// await container=
+
+
+
+			//}
+			//public static byte[] ResizeImageIOS(byte[] imageData, float width, float height)
+			//{
+			//	// Load the bitmap
+			//	UIImage originalImage1 = ImageFromByteArray(imageData);
+			//	//
+			//	var Hoehe = originalImage1.Size.Height;
+			//	var Breite = originalImage1.Size.Width;
+			//	//
+			//	nfloat ZielHoehe = 0;
+			//	nfloat ZielBreite = 0;
+			//	//
+
+			//	if (Hoehe > Breite) // Höhe (71 für Avatar) ist Master
+			//	{
+			//		ZielHoehe = height;
+			//		nfloat teiler = Hoehe / height;
+			//		ZielBreite = Breite / teiler;
+			//	}
+			//	else // Breite (61 for Avatar) ist Master
+			//	{
+			//		ZielBreite = width;
+			//		nfloat teiler = Breite / width;
+			//		ZielHoehe = Hoehe / teiler;
+			//	}
+			//	//
+			//	width = (float)ZielBreite;
+			//	height = (float)ZielHoehe;
+			//	//
+			//	UIGraphics.BeginImageContext(new SizeF(width, height));
+			//	originalImage1.Draw(new RectangleF(0, 0, width, height));
+			//	var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
+			//	UIGraphics.EndImageContext();
+			//	//
+			//	var bytesImagen = resizedImage.AsJPEG().ToArray();
+			//	resizedImage.Dispose();
+			//	return bytesImagen;
+			//}
+
+			//static UIImage ImageFromByteArray(byte[] imageData)
+			//{
+			//	{
+			//		if (imageData == null)
+			//		{
+			//			return null;
+			//		}
+			//		//
+			//		UIKit.UIImage image;
+			//		try
+			//		{
+			//			image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
+			//		}
+			//		catch (Exception e)
+			//		{
+			//			Console.WriteLine("Image load failed: " + e.Message);
+			//			return null;
+			//		}
+			//		return image;
+			//	}
+			//}
 		}
-		//public async void UploadProfilePic(byte[] myByteArray,int i)
-		//{
-
-		//	StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-		//	CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-		//	CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-		//	CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
-
-		//	await container.CreateIfNotExistsAsync();
-		//	//string[] FileEntries = App.System.IO._dir.GetFiles(path);
-
-
-		//	//foreach (string FilePath in FileEntries)
-		//	//{
-		//	//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
-		//	CloudBlockBlob blob = container.GetBlockBlobReference( CurrentUser.RetreiveUserId()+ ".jpg"); //(path);
-
-
-
-
-
-
-
-
-
-
-		//	//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-		//	//{
-
-		//	await blob.UploadFromByteArrayAsync(myByteArray,0,i) ;//  .UploadFromFileAsync(path);
-
-		//	//}
-		//	//}
-		//	// await container=
-
-
-
-		//}
-		//public static byte[] ResizeImageIOS(byte[] imageData, float width, float height)
-		//{
-		//	// Load the bitmap
-		//	UIImage originalImage1 = ImageFromByteArray(imageData);
-		//	//
-		//	var Hoehe = originalImage1.Size.Height;
-		//	var Breite = originalImage1.Size.Width;
-		//	//
-		//	nfloat ZielHoehe = 0;
-		//	nfloat ZielBreite = 0;
-		//	//
-
-		//	if (Hoehe > Breite) // Höhe (71 für Avatar) ist Master
-		//	{
-		//		ZielHoehe = height;
-		//		nfloat teiler = Hoehe / height;
-		//		ZielBreite = Breite / teiler;
-		//	}
-		//	else // Breite (61 for Avatar) ist Master
-		//	{
-		//		ZielBreite = width;
-		//		nfloat teiler = Breite / width;
-		//		ZielHoehe = Hoehe / teiler;
-		//	}
-		//	//
-		//	width = (float)ZielBreite;
-		//	height = (float)ZielHoehe;
-		//	//
-		//	UIGraphics.BeginImageContext(new SizeF(width, height));
-		//	originalImage1.Draw(new RectangleF(0, 0, width, height));
-		//	var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
-		//	UIGraphics.EndImageContext();
-		//	//
-		//	var bytesImagen = resizedImage.AsJPEG().ToArray();
-		//	resizedImage.Dispose();
-		//	return bytesImagen;
-		//}
-
-		//static UIImage ImageFromByteArray(byte[] imageData)
-		//{
-		//	{
-		//		if (imageData == null)
-		//		{
-		//			return null;
-		//		}
-		//		//
-		//		UIKit.UIImage image;
-		//		try
-		//		{
-		//			image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
-		//		}
-		//		catch (Exception e)
-		//		{
-		//			Console.WriteLine("Image load failed: " + e.Message);
-		//			return null;
-		//		}
-		//		return image;
-		//	}
-		//}
+	}
 }
-}
+
 

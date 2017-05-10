@@ -7,12 +7,14 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Hangout.Models;
 using System.Runtime;
+using Foundation;
 
 namespace WineHangoutz
 {
     public class ServiceWrapper
     {
         HttpClient client;
+		private int screenid=13;
         public ServiceWrapper()
         {
             client = new HttpClient();
@@ -32,34 +34,60 @@ namespace WineHangoutz
 
         public async Task<string> GetDataAsync()
         {
-            var uri = new Uri(ServiceURL + "TestService/1");
-            var response = await client.GetAsync(uri);
-            string output = "";
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-				output = JsonConvert.DeserializeObject<string>(content); // JsonConvert.DeserializeObject<string>(content);
-            }
-            return output;
+			
+				var uri = new Uri(ServiceURL + "TestService/1");
+				var response = await client.GetAsync(uri);
+				string output = "";
+				if (response.IsSuccessStatusCode)
+				{
+					var content = await response.Content.ReadAsStringAsync();
+					output = JsonConvert.DeserializeObject<string>(content); // JsonConvert.DeserializeObject<string>(content);
+				}
+				return output;
+
         }
 
         public async Task<ItemListResponse> GetItemList(int storeId,int userId)
         {
-            var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-            return output;
+			ItemListResponse output=null;
+			LoggingClass.LogServiceInfo("Service Call", "ItemList");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "ItemList");
+
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
 
-        public async Task<ItemDetailsResponse> GetItemDetails(int wineid)
+        public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
         {
-            var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
-            return output;
+			ItemDetailsResponse output = null;
+			LoggingClass.LogServiceInfo("Service Call", "GetItemDetails");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
         public async Task<int> InsertUpdateLike(SKULike skuLike)
         {
+			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateLike");
             try
             {
 
@@ -68,21 +96,74 @@ namespace WineHangoutz
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
+
+				LoggingClass.LogServiceInfo("Service Response", "InsertUpdateLike");
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //catch (Exception ex)
+           catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
             return 1;
         }
 
         public async Task<CustomerResponse> AuthencateUser(string UserName)
         {
-            var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-            return output;
+			CustomerResponse output = null;
+
+			LoggingClass.LogServiceInfo("Service Call", "AuthencateUser");
+			try
+			{
+				var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
+
+		public async Task<CustomerResponse> AuthencateUser1(string email)
+		{
+			CustomerResponse output = null;
+
+			LoggingClass.LogServiceInfo("Service Call", "AuthencateEmail");
+			try
+			{
+				var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			//Boolean output = true;
+			return output;
+		}
+		public async Task<DeviceToken> VerifyMail(string Uid)
+		{
+			DeviceToken output=null;
+
+			LoggingClass.LogServiceInfo("Service Call", "VerifyEmail");
+			try
+			{
+				var uri = new Uri(ServiceURL + "GetVerificationStatus/" + Uid);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<DeviceToken>(response);
+				LoggingClass.LogServiceInfo("Service Response", "Verify");
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			//Boolean output = true;
+			return  output;
+		}
 
         //public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
         //{
@@ -94,22 +175,49 @@ namespace WineHangoutz
 
         public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
         {
-            var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-            return output;
+			ItemReviewResponse output = null;
+			LoggingClass.LogServiceInfo("Service Call", "GetItemReviewsByWineID");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
+
+				LoggingClass.LogServiceInfo("Service Response", "GetItemReviewsByWineID");
+
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
 
         public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
         {
-            var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-            return output;
+			ItemReviewResponse output = null;
+			LoggingClass.LogServiceInfo("Service Call", "GetItemReviewUID");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "GetItemReviewUID");
+
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
+
         }
 
         public async Task<int> InsertUpdateReview(Review review)
         {
+			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateReview");
             try
             {
                 var uri = new Uri(ServiceURL + "InsertUpdateReview/");
@@ -117,15 +225,22 @@ namespace WineHangoutz
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
+				LoggingClass.LogServiceInfo("Service Response", "InsertUpdateReview");
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
             return 1;
         }
         public async Task<int> DeleteReview(Review review)
         {
+			LoggingClass.LogServiceInfo("Service Call", "DeleteReview");
+			
             try
             {
                 var uri = new Uri(ServiceURL + "DeleteReview/");
@@ -133,50 +248,112 @@ namespace WineHangoutz
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
+				LoggingClass.LogServiceInfo("Service Response", "DeleteReview");
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
             return 1;
         }
         public async Task<int> UpdateCustomer(Customer customer)
         {
-            try
+			LoggingClass.LogServiceInfo("Service Call", "UpdateCustomer");
+
+			try
             {
                 var uri = new Uri(ServiceURL + "UpdateCustomer/");
                 var content = JsonConvert.SerializeObject(customer);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                //var result = response.Content.ReadAsStringAsync().Result;
-            }
+               	//var result = response.Content.ReadAsStringAsync().Result;
+           				LoggingClass.LogServiceInfo("Service Response", "UpdateCustomer");
+			}
             catch (Exception ex)
-            {
-                throw ex;
-            }
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
             return 1;
         }
+		public async Task<int> InsertUpdateToken(string token,string user_id,int DeviceType)
+		{
+			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateToken");
+
+			try
+			{
+				var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + user_id + "/token/" + token.Replace(" ", "")+"/DeviceType/"+DeviceType);
+				var content = JsonConvert.SerializeObject(token);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+																  //var result = response.Content.ReadAsStringAsync().Result;
+			LoggingClass.LogServiceInfo("Service Response", "InsertUpdateToken");
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return 1;
+		}
         public async Task<ItemListResponse> GetItemFavsUID(int userId)
         {
-            var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-            return output;
+			LoggingClass.LogServiceInfo("Service Call", "GetItemFavsUID");
+			ItemListResponse output = null;
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+				LoggingClass.LogServiceInfo("Service Call", "GetItemFavsUID");
+			
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
         public async Task<CustomerResponse> GetCustomerDetails(int userID)
         {
-            var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-            return output;
+			CustomerResponse output=null;
+			LoggingClass.LogServiceInfo("Service Call", "GetCustomerDetails");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				LoggingClass.LogServiceInfo("Service Call", "GetCustomerDetails");
+
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
         public async Task<TastingListResponse> GetMyTastingsList(int customerid)
         {
-            //customerid = 38691;
-            var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<TastingListResponse>(response);
-            return output;
+			LoggingClass.LogServiceInfo("Service Call", "GetMyTastingsList");
+			TastingListResponse output = null;
+			try
+			{
+
+				//customerid = 38691;
+				var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			output = JsonConvert.DeserializeObject<TastingListResponse>(response);
+				LoggingClass.LogServiceInfo("Service Call", "GetMyTastingsList");
+
+			}catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
         }
     }
 }

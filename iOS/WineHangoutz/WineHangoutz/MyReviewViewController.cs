@@ -7,10 +7,13 @@ using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
 
+
 namespace WineHangoutz
 {
     public partial class MyReviewViewController : UITableViewController, IPopupParent
     {
+		private int screenid = 6;
+		
         public MyReviewViewController (IntPtr handle) : base (handle)
         {
 			
@@ -24,6 +27,8 @@ namespace WineHangoutz
 			//table = new UITableView(View.Bounds); // defaults to Plain style
 			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
 			//List<Reviews> tableItems = new List<Reviews>();>
+		 
+			LoggingClass.LogInfo("Entered into MyReviews View",screenid);
 
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
@@ -89,6 +94,7 @@ namespace WineHangoutz
 
 	public class MyReviewCellView : UITableViewCell
 	{
+		
 		UITextView WineName;
 		UILabel ReviewDate;
 		UITextView Comments;
@@ -103,83 +109,90 @@ namespace WineHangoutz
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		public int wineId;
-
+		private int screenid = 6;
 		public MyReviewCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
-			SelectionStyle = UITableViewCellSelectionStyle.Gray;
-			//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
-			imageView = new UIButton();
-			imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
-			imageView.ContentMode = UIViewContentMode.Center;
-			imageView.ClipsToBounds = true;
-
-			imageView.TouchUpInside += (object sender, EventArgs e) =>
+			try
 			{
+				SelectionStyle = UITableViewCellSelectionStyle.Gray;
+
+				//LoggingClass.UploadErrorLogs();
+				//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
+				imageView = new UIButton();
+				imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+				imageView.ContentMode = UIViewContentMode.Center;
+				imageView.ClipsToBounds = true;
+
+				imageView.TouchUpInside += (object sender, EventArgs e) =>
+				{
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
-			};
-			Review review = new Review();
+				};
+				Review review = new Review();
 
-			separator = new UIImageView();
-			WineName = new UITextView()
-			{
-				Font = UIFont.FromName("Verdana", 14f),
-				TextColor = UIColor.FromRGB(127, 51, 0),
-				BackgroundColor = UIColor.Clear
-				                         
-			};
-			ReviewDate = new UILabel()
-			{
-				Font = UIFont.FromName("AmericanTypewriter", 10f),
-				TextColor = UIColor.FromRGB(38, 127, 200),
-				//TextAlignment = UITextAlignment.Center,
-				BackgroundColor = UIColor.Clear
-			};
-			Comments = new UITextView()
-			{
-				Font = UIFont.FromName("AmericanTypewriter", 14f),
-				TextColor = UIColor.FromRGB(55, 127, 0),
-				TextAlignment = UITextAlignment.Justified,
-				//TextAlignment = UITextAlignment.Natural,
-				BackgroundColor = UIColor.Clear,
-				//LineBreakMode = UILineBreakMode.WordWrap
-				Editable = false,
-				Selectable = false
-			};
-			Vintage = new UILabel()
-			{
-				Font = UIFont.FromName("Verdana", 10f),
-				TextColor = UIColor.FromRGB(127, 51, 100),
-				BackgroundColor = UIColor.Clear
-			};
+				separator = new UIImageView();
+				WineName = new UITextView()
+				{
+					Font = UIFont.FromName("Verdana", 14f),
+					TextColor = UIColor.FromRGB(127, 51, 0),
+					BackgroundColor = UIColor.Clear
 
-			decimal averageRating = 0.0m;
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
-						filledImage: UIImage.FromBundle("Stars/star.png"),
-						chosenImage: UIImage.FromBundle("Stars/star.png"));
+				};
+				ReviewDate = new UILabel()
+				{
+					Font = UIFont.FromName("AmericanTypewriter", 10f),
+					TextColor = UIColor.FromRGB(38, 127, 200),
+					//TextAlignment = UITextAlignment.Center,
+					BackgroundColor = UIColor.Clear
+				};
+				Comments = new UITextView()
+				{
+					Font = UIFont.FromName("AmericanTypewriter", 14f),
+					TextColor = UIColor.FromRGB(55, 127, 0),
+					TextAlignment = UITextAlignment.Justified,
+					//TextAlignment = UITextAlignment.Natural,
+					BackgroundColor = UIColor.Clear,
+					//LineBreakMode = UILineBreakMode.WordWrap
+					Editable = false,
+					Selectable = false
+				};
+				Vintage = new UILabel()
+				{
+					Font = UIFont.FromName("Verdana", 10f),
+					TextColor = UIColor.FromRGB(127, 51, 100),
+					BackgroundColor = UIColor.Clear
+				};
 
-			stars = new PDRatingView(new CGRect(110, 60, 60, 20), ratingConfig, averageRating);
+				decimal averageRating = 0.0m;
+				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
+							filledImage: UIImage.FromBundle("Stars/star.png"),
+							chosenImage: UIImage.FromBundle("Stars/star.png"));
 
-			btnEdit = new UIButton();
-			//UIViewController that = Parent;
+				stars = new PDRatingView(new CGRect(110, 60, 60, 20), ratingConfig, averageRating);
 
-			btnEdit.TouchUpInside += (sender, e) =>
-			{
-				PopupView yourController = new PopupView(Convert.ToInt32(WineIdLabel.Text));
-				yourController.NavController = NavController;
-				yourController.parent = Parent;
-				yourController.StartsSelected = stars.AverageRating;
-				yourController.Comments = Comments.Text;
+				btnEdit = new UIButton();
+				//UIViewController that = Parent;
+
+				btnEdit.TouchUpInside += (sender, e) =>
+				{
+					PopupView yourController = new PopupView(Convert.ToInt32(WineIdLabel.Text));
+					yourController.NavController = NavController;
+					yourController.parent = Parent;
+					yourController.StartsSelected = stars.AverageRating;
+					yourController.Comments = Comments.Text;
+					LoggingClass.LogInfo("Editing the review", screenid);
+
+
 				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
 				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 				//this.PresentViewController(yourController, true, null);
 				Parent.PresentModalViewController(yourController, false);
-			};
-			btnDelete = new UIButton();
+				};
+				btnDelete = new UIButton();
 
 
-			btnDelete.TouchUpInside += (sender, e) =>
-			{
+				btnDelete.TouchUpInside += (sender, e) =>
+				{
 				//////DeletePopup deleteController = new DeletePopup(Convert.ToInt32(WineIdLabel.Text));
 				//////deleteController.NavController = NavController;
 				//////deleteController.parent = Parent;
@@ -192,74 +205,97 @@ namespace WineHangoutz
 
 				//Show the pop, Are you sure. With Yes & No Button.
 				//If Yes, Then delete, lse close the popup.
-
-				UIAlertView alert = new UIAlertView()
-				{
-					Title = "Delete Review",
-					Message = "Do you want to delete this review."
-				};
-				alert.AddButton("Yes");
-				alert.AddButton("No");
-
-				alert.Clicked += async(senderalert, buttonArgs) =>
-				{
-					if (buttonArgs.ButtonIndex == 0)
+				LoggingClass.LogInfo("Deleting the review", screenid);
+					UIAlertView alert = new UIAlertView()
 					{
+						Title = "Delete Review",
+						Message = "Do you want to delete this review."
+					};
+					alert.AddButton("Yes");
+					alert.AddButton("No");
+
+					alert.Clicked += async (senderalert, buttonArgs) =>
+					{
+						if (buttonArgs.ButtonIndex == 0)
+						{
 						//Review review = new Review();
 						ServiceWrapper sw = new ServiceWrapper();
-						review.WineId = Convert.ToInt32(WineIdLabel.Text);
+							review.WineId = Convert.ToInt32(WineIdLabel.Text);
 
-						review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+							review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 
-						await sw.DeleteReview(review);
+							await sw.DeleteReview(review);
+							LoggingClass.LogInfo("Deleting the review", screenid);
 
-						((IPopupParent)Parent).RefreshParent();
-					}
+
+							((IPopupParent)Parent).RefreshParent();
+						}
+					};
+
+					alert.Show();
+
 				};
 
-				alert.Show();
-
-			};
 
 
 
 
 
+				WineIdLabel = new UILabel();
+				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
 
-			WineIdLabel = new UILabel();
-			ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
-
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 
 		public void UpdateCell(Review review)
 		{
-			imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
-			separator.Image = UIImage.FromFile("separator.png");
-			WineName.Text = review.Name;
-			ReviewDate.Text = review.Date.ToString("d");
-			Comments.Text = review.RatingText;
-			Vintage.Text = review.Vintage.ToString();
-			WineIdLabel.Text = review.WineId.ToString();
-			//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
-			//ContentView.Bounds.Height = 90;
-			stars.AverageRating = Convert.ToDecimal(review.RatingStars);
-			btnEdit.SetBackgroundImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
-			btnDelete.SetBackgroundImage(UIImage.FromFile("delete.png"), UIControlState.Normal);
+			try
+			{
+
+				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
+				separator.Image = UIImage.FromFile("separator.png");
+				WineName.Text = review.Name;
+				ReviewDate.Text = review.Date.ToString("d");
+				Comments.Text = review.RatingText;
+				Vintage.Text = review.Vintage.ToString();
+				WineIdLabel.Text = review.WineId.ToString();
+
+				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
+				//ContentView.Bounds.Height = 90;
+				stars.AverageRating = Convert.ToDecimal(review.RatingStars);
+				btnEdit.SetBackgroundImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
+				btnDelete.SetBackgroundImage(UIImage.FromFile("delete.png"), UIControlState.Normal);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 		public override void LayoutSubviews()
 		{
-			base.LayoutSubviews();
-			int imageWidth = 110; // + 10;
-			imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
-			WineName.Frame = new CGRect(imageWidth-4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
-			Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
-			separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
-			ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
-			//stars.Frame = new CGRect(35, 50, 100, 20);
-			stars.UserInteractionEnabled = false;
-			Comments.Frame = new CGRect(imageWidth-4, 99, ContentView.Bounds.Width - imageWidth-2, 70);
-			btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
-			btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
+			try
+			{
+				base.LayoutSubviews();
+				int imageWidth = 110; // + 10;
+				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
+				WineName.Frame = new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
+				Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
+				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
+				ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
+				//stars.Frame = new CGRect(35, 50, 100, 20);
+				stars.UserInteractionEnabled = false;
+				Comments.Frame = new CGRect(imageWidth - 4, 99, ContentView.Bounds.Width - imageWidth - 2, 70);
+				btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
+				btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 	
 

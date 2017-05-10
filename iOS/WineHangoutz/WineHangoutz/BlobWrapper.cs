@@ -17,6 +17,7 @@ namespace WineHangoutz
 	public static class BlobWrapper
 	{
 		static NSCache wineBottles;
+		static int screenid = 14;
 		static NSCache profilePics;
 
 		static BlobWrapper()
@@ -40,8 +41,8 @@ namespace WineHangoutz
 				}
 				return image;
 			}
-			else
-				return null;
+
+				return new UIImage("wine3.png");
 		}
 		public static UIImage GetImageBitmapFromWineId(string wineId)
 		{
@@ -63,6 +64,10 @@ namespace WineHangoutz
 
 			UIImage img = UIImage.LoadFromData(imageData);
 			wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId));
+			if (img == null)
+			{
+				img =new UIImage("wine3.png");
+			}
 
 			return img;
 		}
@@ -83,8 +88,11 @@ namespace WineHangoutz
 				}
 				File.WriteAllBytes(filename, dataBytes);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+
+					LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
+
 				//ignore the error. Download it next time.
 			}
 		}
@@ -101,8 +109,11 @@ namespace WineHangoutz
 				return NSData.FromArray(dataBytes);
 
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+
+					LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
+
 				return null;
 			}
 		}
@@ -150,8 +161,11 @@ namespace WineHangoutz
 				profilePics.SetObjectforKey(img, NSObject.FromObject(userid));
 
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+
+					LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
+
 				return null;
 			}
 
@@ -159,40 +173,45 @@ namespace WineHangoutz
 		}
 		public static async Task UploadProfilePic(byte[] myByteArray, int i)
 		{
+			try
+			{
 
-			StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-			CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-			CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-			CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
+				StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+				CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+				CloudBlobContainer container = blobClient.GetContainerReference("profileimages");
 
-			await container.CreateIfNotExistsAsync();
-			//string[] FileEntries = App.System.IO._dir.GetFiles(path);
-
-
-			//foreach (string FilePath in FileEntries)
-			//{
-			//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
-			CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.RetreiveUserId() + ".jpg"); //(path);
+				await container.CreateIfNotExistsAsync();
+				//string[] FileEntries = App.System.IO._dir.GetFiles(path);
 
 
-
-
+				//foreach (string FilePath in FileEntries)
+				//{
+				//    string key = System.IO.Path.GetFileName(path);//.GetFileName(FilePath);
+				CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.RetreiveUserId() + ".jpg"); //(path);
 
 
 
 
 
 
-			//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-			//{
-
-			await blob.UploadFromByteArrayAsync(myByteArray, 0, i);//  .UploadFromFileAsync(path);
-
-			//}
-			//}
-			// await container=
 
 
+
+
+				//using (var fs = System.IO.File.Open(myByteArray, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+				//{
+
+				await blob.UploadFromByteArrayAsync(myByteArray, 0, i);//  .UploadFromFileAsync(path);
+
+				//}
+				//}
+				// await container=
+
+			}catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 
 		}
 		public static byte[] ResizeImageIOS(byte[] imageData, float width, float height)
@@ -235,24 +254,28 @@ namespace WineHangoutz
 
 		static UIImage ImageFromByteArray(byte[] imageData)
 		{
-			{
-				if (imageData == null)
+			
 				{
-					return null;
+					if (imageData == null)
+					{
+						return null;
+					}
+					//
+					UIKit.UIImage image;
+					try
+					{
+						image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine("Image load failed: " + e.Message);
+					LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
+			
+						return null;
+					}
+					return image;
 				}
-				//
-				UIKit.UIImage image;
-				try
-				{
-					image = new UIKit.UIImage(Foundation.NSData.FromArray(imageData));
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine("Image load failed: " + e.Message);
-					return null;
-				}
-				return image;
 			}
-		}
+
 	}
 }

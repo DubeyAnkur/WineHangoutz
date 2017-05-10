@@ -6,6 +6,8 @@ using PatridgeDev;
 using System.Collections.Generic;
 using Xamarin.Auth;
 using System.Linq;
+using Hangout.Models;
+
 
 namespace WineHangoutz
 {
@@ -14,6 +16,11 @@ namespace WineHangoutz
 	{
 		public UIViewController root;
 		public UINavigationController nav;
+		protected string deviceToken = string.Empty;
+		CustomerResponse cr = new CustomerResponse();
+		ServiceWrapper svc = new ServiceWrapper();
+		public string DeviceToken { get { return deviceToken; } }
+
 		public LoginViewController() : base()
 		{
 			this.Title = "Login";
@@ -61,23 +68,37 @@ namespace WineHangoutz
 
 			var lblCard = new UILabel();
 			lblCard.Frame = new CGRect(10, imageSize + 170, View.Frame.Width, h);
-			lblCard.Text = "Card # or Email or Phone:";
+			lblCard.Text = "Email";
 			lblCard.TextAlignment = UITextAlignment.Left;
 
 			var txtPassword = new UITextField
 			{
-				Placeholder = "Enter any of above",
+				Placeholder = "Enter your mail id",
 				BorderStyle = UITextBorderStyle.RoundedRect,
 				Frame = new CGRect(10, imageSize + 200, w - 20, h)
 			};
-
+			if (CurrentUser.RetreiveUserName() != "" && CurrentUser.GetEmail() != "")
+			{
+				usernameField.Text = CurrentUser.RetreiveUserName();
+				txtPassword.Text = CurrentUser.GetEmail();
+			}
 
 			UIButton btnLogin = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
 			btnLogin.SetTitle("Login", UIControlState.Normal);
 			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnLogin.TouchUpInside += (sender, e) =>
+			UIButton btnResendEmail = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+			btnResendEmail.SetTitle("ReSend", UIControlState.Normal);
+			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+			btnResendEmail.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+
+			btnResendEmail.TouchUpInside += async (sender, e) =>
+			{
+				await svc.AuthencateUser1(txtPassword.Text);
+			};
+
+			btnLogin.TouchUpInside += async (sender, e) =>
 			{
 				//var smsTo = NSUrl.FromString("sms:"+txtPassword.Text);
 				//UIApplication.SharedApplication.OpenUrl(smsTo);
@@ -90,16 +111,50 @@ namespace WineHangoutz
 				//{
 				//	// warn the user, or hide the button...
 				//}
+				//if (usernameField.Text == null || usernameField.Text == "")
+				//{
+				//	lblError.Text = "Please enter name";
+				//}
+				if (txtPassword.Text == null || txtPassword.Text == "")
+				{
+					lblError.Text = "Please enter email id";
+				}
+				else
+				{
+					CurrentUser.StoreEmail(txtPassword.Text);
+					cr = await svc.AuthencateUser1(CurrentUser.GetEmail());
+					CurrentUser.Store(cr.customer.CustomerID.ToString(),"Tester");
+					EmailVerification();
+					//2. Check if Email sent status.
+					// 2.1 Not sent, Call the service which sends email.
+					// 2.2 If sent, Ask them to verify
+					// 2.3 Call authenticate user and then Go to Tabs View.
 
 
 
+					try
+					{
+						View.AddSubview(btnResendEmail);
+
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message.ToString());
+					}
+					//nav.DismissViewController(true, null);
+				}
 				var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
 				View.AddSubview(loadPop);
 
-				var output = SaveUserDetails(usernameField.Text);
+				//var output = SaveUserDetails(usernameField.Text,txtPassword.Text);
 
-				if (output == true)
-					nav.DismissViewController(true, null);
+				//if (output == true)
+				//{
+				//	nav.DismissViewController(true, null);
+
+				//	int DeviceType = 2;
+				//	await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(),DeviceType);
+				//}
 
 				loadPop.Hide();
 			};
@@ -107,36 +162,74 @@ namespace WineHangoutz
 			View.BackgroundColor = UIColor.White;
 			View.AddSubview(imgLogo);
 			View.AddSubview(lblError);
-			View.AddSubview(lblFN);
+			//View.AddSubview(lblFN);
 			View.AddSubview(btnLogin);
-			View.AddSubview(usernameField);
+			//View.AddSubview(usernameField);
 			View.AddSubview(txtPassword);
 			View.AddSubview(lblCard);
 		}
 
-		public bool SaveUserDetails(string userName)
+		public async void EmailVerification()
 		{
-			ServiceWrapper svc = new ServiceWrapper();
+			DeviceToken Dt = new DeviceToken();
 
-			if (userName.Trim() == "")
-			{
-				lblError.Text = "Wrong First Name.";
-				return false;
-			}
+			//ServiceWrapper svc = new ServiceWrapper();
+			Dt = await svc.VerifyMail(CurrentUser.RetreiveUserId().ToString());
 
-			var myData = svc.AuthencateUser(userName).Result;
-			if (myData.customer.CustomerID != 0)
+			//dd = await svc.VerifyMail(CurrentUser.GetEmail());
+			try
 			{
-				lblError.Text = "";
-				CurrentUser.Store(myData.customer.CustomerID.ToString(), userName);
-				return true;
+				if (Dt.VerificationStatus == 1)
+				{
+					nav.DismissViewController(true, null);
+
+					int DeviceType = 2;
+					await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
+				}
+				else
+				{
+					lblError.Text = "If you don't get email click on resend";
+				}
 			}
-			else
+			catch (Exception Exe)
 			{
-				lblError.Text = "Wrong First Name.";
-				return false;
+
 			}
+			//return true;
+
 		}
+
+		//public bool SaveUserDetails(string userName,string email)
+		//{
+		//	ServiceWrapper svc = new ServiceWrapper();
+
+		//	if (userName.Trim() == "")
+		//	{
+		//		lblError.Text = "Wrong First Name.";
+		//		return false;
+		//	}
+		//	else if (email.Trim() == "")
+		//	{
+		//		lblError.Text = "Wrong Email id";
+		//	}
+
+		//	var myData = svc.AuthencateUser(userName).Result;
+		//	var Authen = svc.AuthencateUser1(email).Result;
+		//	//Boolean Authen = svc.AuthencateUser1(email).Result;
+		//	if (myData.customer.CustomerID != 0 && Authen!=null)
+		//	{
+		//		lblError.Text = "";
+		//		CurrentUser.Store(myData.customer.CustomerID.ToString(), userName);
+		//		CurrentUser.StoreEmail(email);
+		//		return true;
+		//		//return false;
+		//	}
+		//	else
+		//	{
+		//		lblError.Text = "Wrong Details.";
+		//		return false;
+		//	}
+		//}
 	}
 
 	public static class CurrentUser //: ISecuredDataProvider
@@ -152,14 +245,33 @@ namespace WineHangoutz
 			//Clear();
 			plist.SetString(userName, "userName");
 			plist.SetString(userId, "userId");
-		}
 
+		}
+		public static void StoreEmail(string email)
+		{ 
+			plist.SetString(email, "email");
+		}
+		public static string GetEmail()
+		{
+			string email = plist.StringForKey("email");
+			return email;
+		}
+		public static void SetToken(string token)
+		{
+			plist.SetString(token, "token");
+		}
+		public static string GetToken()
+		{
+			string token = plist.StringForKey("token");
+			return token;
+		}
 		public static void Clear()
 		{
 			plist.RemoveObject("userName");
 			plist.RemoveObject("userId");
+			plist.RemoveObject("email");
+			plist.RemoveObject("token");
 		}
-
 		public static string RetreiveUserName()
 		{
 			string savedUserName = plist.StringForKey("userName");

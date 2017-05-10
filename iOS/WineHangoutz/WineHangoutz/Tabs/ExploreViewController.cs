@@ -4,6 +4,7 @@ using UIKit;
 using Foundation;
 using BigTed;
 
+
 namespace WineHangoutz
 {
 	public partial class ExploreViewController : UIViewController
@@ -12,72 +13,87 @@ namespace WineHangoutz
 		{
 			this.Title = "Explore";
 		}
-
+		private int screenid = 3;
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
 			// Perform any additional setup after loading the view, typically from a nib.
-
-			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
-			ScreenHeight = (ScreenHeight - 100) / 3;
-			nfloat margin = 1;
-			nfloat start = 50;
-			UIButton btnBlog = new UIButton();
-			UIButton btnWineries = new UIButton();
-			UIButton btnRegions = new UIButton();
-
-			btnBlog.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnWineries.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnRegions.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnBlog.SetTitle("Profile", UIControlState.Normal);
-			btnWineries.SetTitle("Eno View", UIControlState.Normal);
-			btnRegions.SetTitle("Region", UIControlState.Normal);
-			btnBlog.SetBackgroundImage(new UIImage("Images/myprofile.jpg"), UIControlState.Normal);
-			btnWineries.SetBackgroundImage(new UIImage("Images/Wineries.jpg"), UIControlState.Normal);
-			btnRegions.SetBackgroundImage(new UIImage("Images/Region.jpg"), UIControlState.Normal);
-
-			View.AddSubview(btnBlog);
-			View.AddSubview(btnWineries);
-			View.AddSubview(btnRegions);
-			btnBlog.TouchDown += (sender, e) =>
+			try
 			{
-				BTProgressHUD.Show("Loading..."); //show spinner + text
-			};
+				nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
+				ScreenHeight = (ScreenHeight - 100) / 3;
+				nfloat margin = 1;
+				nfloat start = 50;
+				UIButton btnBlog = new UIButton();
+				UIButton btnWineries = new UIButton();
+				UIButton btnRegions = new UIButton();
 
-			//btnWineries.TouchDown += (sender, e) =>
-			//{
-			//	BTProgressHUD.Show("Loading..."); //show spinner + text
-			//};
 
+				btnBlog.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+				btnWineries.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+				btnRegions.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+				btnBlog.SetTitle("Profile", UIControlState.Normal);
+				btnWineries.SetTitle("Eno View Demo", UIControlState.Normal);
+				btnRegions.SetTitle("Region", UIControlState.Normal);
+				btnBlog.SetBackgroundImage(new UIImage("Images/myprofile.jpg"), UIControlState.Normal);
+				btnWineries.SetBackgroundImage(new UIImage("Images/Wineries.jpg"), UIControlState.Normal);
+				btnRegions.SetBackgroundImage(new UIImage("Images/Region.jpg"), UIControlState.Normal);
 
-			btnBlog.TouchUpInside += (sender, e) =>
-			{
-				NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
-				NavigationController.NavigationBar.TopItem.Title = "Profile";
-				BTProgressHUD.Dismiss();
-			};
-
-			btnRegions.TouchUpInside += (sender, e) =>
-			{
-
-				UIAlertView alert = new UIAlertView()
+				View.AddSubview(btnBlog);
+				View.AddSubview(btnWineries);
+				View.AddSubview(btnRegions);
+				btnBlog.TouchDown += (sender, e) =>
 				{
-					Title = "Region",
-					Message = "Coming Soon..."
-				};
-				alert.AddButton("OK");
-				alert.Show();
+					BTProgressHUD.Show("Loading..."); //show spinner + text
 			};
-			btnWineries.TouchUpInside += (sender, e) =>
-			{
 
-				UIAlertView alert = new UIAlertView()
+				//btnWineries.TouchDown += (sender, e) =>
+				//{
+				//	BTProgressHUD.Show("Loading..."); //show spinner + text
+				//};
+
+
+				btnBlog.TouchUpInside += (sender, e) =>
 				{
-					Title = "Eno View",
-					Message = "Coming Soon..."
+					NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
+					NavigationController.NavigationBar.TopItem.Title = "Profile";
+
+					LoggingClass.LogInfo("Entered into Profile View", screenid);
+
+
+					BTProgressHUD.Dismiss();
 				};
-				alert.AddButton("OK");
-				alert.Show();
+
+				btnRegions.TouchUpInside += (sender, e) =>
+				{
+
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Region",
+						Message = "Coming Soon..."
+					};
+
+
+					LoggingClass.LogInfo("Entered into Region", screenid);
+
+
+					alert.AddButton("OK");
+					alert.Show();
+				};
+				btnWineries.TouchUpInside += (sender, e) =>
+				{
+
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Eno View",
+						Message = "Coming Soon..."
+					};
+
+					LoggingClass.LogInfo("Entered into Wineries", screenid);
+
+
+					alert.AddButton("OK");
+					alert.Show();
 				//var lineLayout = new LineLayout()
 				//{
 				//	ItemSize = new CGSize(120, 300),
@@ -86,8 +102,13 @@ namespace WineHangoutz
 				//};
 
 				//NavigationController.PushViewController(new SimpleCollectionViewController(lineLayout,2), false);
-				//BTProgressHUD.Dismiss();
-			};
+				BTProgressHUD.Dismiss();
+				};
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
 		}
 		public override void ViewDidAppear(bool animated)
 		{
