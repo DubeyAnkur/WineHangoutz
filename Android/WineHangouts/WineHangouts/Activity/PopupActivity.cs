@@ -24,12 +24,14 @@ namespace WineHangouts
         private int WineId;
         private int ParentScreenId=17;
         Review _editObj;
+        string storeid;
         //List<Review> ReviewArray;
         public ReviewPopup(Context parent, Review EditObj)
         {
             Parent = parent;
             _editObj = EditObj;
             WineId = EditObj.WineId;
+            storeid = _editObj.PlantFinal;
         }
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
         {
@@ -98,6 +100,7 @@ namespace WineHangouts
                     review.RatingStars = Convert.ToInt32(custRating.Rating);
                     review.IsActive = true;
                     review.WineId = WineId;
+                    review.PlantFinal = storeid;
                     LoggingClass.LogInfo("Submitted review",screenid);
                     await sw.InsertUpdateReview(review);
                     ((IPopupParent)Parent).RefreshParent();

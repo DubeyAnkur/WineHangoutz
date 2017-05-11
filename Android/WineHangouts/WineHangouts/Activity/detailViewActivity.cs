@@ -90,7 +90,8 @@ namespace WineHangouts
                 Review edit = new Review()
                 {
                     WineId = wineid,
-                    RatingText = ""
+                    RatingText = "",
+                    PlantFinal = storeid.ToString()
                 };
                 var tempReview = ReviewArray.Find(x => x.ReviewUserId == Convert.ToInt32(CurrentUser.getUserId()));
                 if(tempReview != null)

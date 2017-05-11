@@ -44,9 +44,11 @@ namespace WineHangouts
                 wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
                 {
                     int WineID = myArr1[args.Position].WineId;
-					ProgressIndicator.Show(this);
+                    int storeID = Convert.ToInt32(myArr1[args.Position].PlantFinal);
+                    ProgressIndicator.Show(this);
 					var intent = new Intent(this, typeof(DetailViewActivity));
                     intent.PutExtra("WineID", WineID);
+                    intent.PutExtra("storeid", storeID);
                     StartActivity(intent);
                 };
                 ProgressIndicator.Hide();

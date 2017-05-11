@@ -18,6 +18,8 @@ namespace WineHangouts
         public string otp = "";
         private int screenid = 1;
         public string gplaystatus = "";
+        ServiceWrapper svc = new ServiceWrapper();
+        CustomerResponse authen = new CustomerResponse();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,7 +27,7 @@ namespace WineHangouts
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
             
-            EditText UserName = FindViewById<EditText>(Resource.Id.txtUsername);
+            //EditText UserName = FindViewById<EditText>(Resource.Id.txtUsername);
             EditText UserEmail = FindViewById<EditText>(Resource.Id.TxtUserEmail);
             ServiceWrapper svc = new ServiceWrapper();
             var TaskA = new System.Threading.Tasks.Task(() => {
@@ -64,18 +66,18 @@ namespace WineHangouts
                 //2. If it returns 1 save Username and go to Tab Activity.
                 //3. Else Show message, incorrect username.
                 //
-                if (UserName.Text == "" )//|| txtUserNumber.Text == "")
-                {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("Please enter name and email id");
-                    aler.SetNegativeButton("Ok", delegate { });
-                    Dialog dialog = aler.Create();
-                    dialog.Show();
-                    return;
+                //if (UserName.Text == "" )//|| txtUserNumber.Text == "")
+                //{
+                //    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                //    aler.SetTitle("Sorry");
+                //    aler.SetMessage("Please enter name and email id");
+                //    aler.SetNegativeButton("Ok", delegate { });
+                //    Dialog dialog = aler.Create();
+                //    dialog.Show();
+                //    return;
 
-                }
-                else if(UserEmail.Text == "")
+                //}
+                if(UserEmail.Text == "")
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
                     aler.SetTitle("Sorry");
@@ -88,29 +90,12 @@ namespace WineHangouts
                 else
                 {
                     CurrentUser.SaveMailId(UserEmail.Text);
-                    CustomerResponse authen = new CustomerResponse();
+                    
                     try
                     {
-                        authen = svc.AuthencateUser1(UserEmail.Text).Result;
-                        if (authen.customer != null && authen.customer.CustomerID != 0)
-                        {
-                            CurrentUser.SaveUserName(UserName.Text, authen.customer.CustomerID.ToString());
-                            SendRegistrationToAppServer(CurrentUser.getToken());                            
-                            LoggingClass.LogInfo("Clicked on login ", screenid);
-                            await svc.AuthencateUser1(CurrentUser.GetMailId());
-                            Intent intent = new Intent(this, typeof(VerificationActivity));
-                            StartActivity(intent);
-
-                        }
-                        else
-                        {
-                            AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                            aler.SetTitle("Sorry");
-                            aler.SetMessage("You entered wrong details or authentication failed");
-                            aler.SetNegativeButton("Ok", delegate { });
-                            Dialog dialog1 = aler.Create();
-                            dialog1.Show();
-                        };
+                        await svc.AuthencateUser1(CurrentUser.GetMailId());
+                        EmailVerification();
+                        
                     }
                     catch (Exception exception)
                     {
@@ -201,10 +186,62 @@ namespace WineHangouts
                 DeviceToken = token,
                 DeviceType = 1
             };
-            ServiceWrapper svc = new ServiceWrapper();
+           
             LoggingClass.LogInfo("Token sent to db",screenid);
             int x = await svc.InsertUpdateToken1(_token);
            
+        }
+        public async void EmailVerification()
+        {
+            DeviceToken DO = new DeviceToken();
+            authen = svc.AuthencateUser1(CurrentUser.GetMailId()).Result;
+            try
+            {
+                DO = await svc.CheckMail(authen.customer.CustomerID.ToString());
+
+                if (DO.VerificationStatus == 1)
+                {
+                    if (authen.customer != null && authen.customer.CustomerID != 0)
+                    {
+                        CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
+                        SendRegistrationToAppServer(CurrentUser.getToken());
+                        LoggingClass.LogInfo("Clicked on login ", screenid);
+                        Intent intent = new Intent(this, typeof(TabActivity));
+                        StartActivity(intent);
+                    }
+                    
+                    else
+                    {
+                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                        aler.SetTitle("Sorry");
+                        aler.SetMessage("You entered wrong details or authentication failed");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog1 = aler.Create();
+                        dialog1.Show();
+                    };                   
+                }
+                else
+                {
+                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                    aler.SetTitle("Sorry");
+                    aler.SetMessage("If you're verified by mail click on verify");
+                    aler.SetNegativeButton("Verify", delegate
+                    {
+                        EmailVerification();
+                    });
+                    aler.SetPositiveButton("Resend mail", async delegate
+                    {
+                        await svc.AuthencateUser1(CurrentUser.GetMailId());
+                    });
+                    Dialog dialog = aler.Create();
+                    dialog.Show();
+                }
+            }
+            catch (Exception exe)
+            {
+                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+            }
+
         }
 
         private bool IsPlayServicesAvailable()

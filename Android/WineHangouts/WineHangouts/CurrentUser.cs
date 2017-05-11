@@ -71,6 +71,10 @@ namespace WineHangouts
             string value1 = _pref.GetString("UserId", null);
             return value1;
         }
+        public static void ClearDetails()
+        {
+            _edit.Clear();
+        }
     }
 
     public class ProgressIndicator

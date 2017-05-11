@@ -6,6 +6,9 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Android.Util;
+using Hangout.Models;
+using Android.Content;
+using System.Collections.Generic;
 
 namespace WineHangouts
 {
@@ -14,6 +17,7 @@ namespace WineHangouts
     {
         public int customerid;
         private int screenid = 6;
+        List<Tastings> myArr1;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -28,15 +32,22 @@ namespace WineHangouts
                 ServiceWrapper svc = new ServiceWrapper();
 
                 var MYtastings = svc.GetMyTastingsList(customerid).Result;
-
-                //List<Tastings> myArr;
-
-                //  myArr1 = SampleData1();
+                myArr1 = MYtastings.TastingList.ToList();
 
                 ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
-                // myArr1 = SampleData1();
+                
                 MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
                 wineList.Adapter = adapter;
+                wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+                {
+                    int WineID = myArr1[args.Position].WineId;
+                    int storeID = myArr1[args.Position].PlantFinal;
+                    ProgressIndicator.Show(this);
+                    var intent = new Intent(this, typeof(DetailViewActivity));
+                    intent.PutExtra("WineID", WineID);
+                    intent.PutExtra("storeid", storeID);
+                    StartActivity(intent);
+                };
                 ProgressIndicator.Hide();
             }
 
