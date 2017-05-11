@@ -19,10 +19,14 @@ namespace WineHangoutz
 		public string Comments="";
 		public int WineId;
 		private int screenid = 11;
-		public PopupView(int Wine) : base ()
+		public int storeid;
+		public PopupView(int Wine,int storeiD ) : base ()
 		{
 			this.Title = "Popup";
 			WineId = Wine;
+			storeid = storeiD;
+			//storeid = storeId;
+
 			//this.TabBarItem.Image = UIImage.FromBundle("Images/first");
 		}
 		public override void ViewDidLoad()
@@ -133,6 +137,7 @@ namespace WineHangoutz
 					}
 					review.RatingText = txtComments.Text;
 					review.IsActive = true;
+					review.PlantFinal = storeid.ToString();
 					review.RatingStars = Convert.ToInt32(StartsSelected);
 				//review.SKU = SKU;
 				review.WineId = WineId;

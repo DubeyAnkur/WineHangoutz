@@ -74,7 +74,7 @@ namespace WineHangoutz
 			try
 			{
 
-				var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid);
+				var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid+"/user/"+storeid);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
 				LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");

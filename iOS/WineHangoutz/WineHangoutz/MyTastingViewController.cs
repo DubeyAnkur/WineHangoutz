@@ -98,6 +98,7 @@ namespace WineHangoutz
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		private int screenid = 7;
+		public int storeid;
 		public MyTastingCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			try
@@ -116,8 +117,11 @@ namespace WineHangoutz
 
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
+					Review r = new Review();
+					r.PlantFinal =storeid.ToString();
+
 				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
+					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
 				};
 				separator = new UIImageView();
 				WineName = new UILabel()

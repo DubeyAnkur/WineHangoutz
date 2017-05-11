@@ -154,6 +154,9 @@ namespace WineHangoutz
 			//Login Check Start
 			//user.Clear();
 			string validUser = CurrentUser.RetreiveUserName();
+
+
+
 			if (validUser == "" || validUser == null)
 			{
 				LoginViewController yourController = new LoginViewController();

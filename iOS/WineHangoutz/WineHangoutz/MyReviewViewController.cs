@@ -13,6 +13,8 @@ namespace WineHangoutz
     public partial class MyReviewViewController : UITableViewController, IPopupParent
     {
 		private int screenid = 6;
+		public int storeid;
+		ServiceWrapper sw = new ServiceWrapper();
 		
         public MyReviewViewController (IntPtr handle) : base (handle)
         {
@@ -33,6 +35,7 @@ namespace WineHangoutz
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
+
 			TableView.AllowsSelection = false;
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 		}
@@ -110,6 +113,8 @@ namespace WineHangoutz
 		public UIViewController Parent;
 		public int wineId;
 		private int screenid = 6;
+		public int storeid;
+		ServiceWrapper sw = new ServiceWrapper();
 		public MyReviewCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			try
@@ -125,8 +130,13 @@ namespace WineHangoutz
 
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
+					//ItemReviewResponse r = sw.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
+					////r.PlantFinal = storeid.ToString();
+					//storeid = Convert.ToInt32( r.Reviews.);
+					//int storeid = 2;
 				//NavigationController.PushViewController(new DetailViewController(), false);
-				NavController.PushViewController(new SKUDetailView(WineIdLabel.Text), false);
+					
+					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
 				};
 				Review review = new Review();
 
@@ -175,7 +185,7 @@ namespace WineHangoutz
 
 				btnEdit.TouchUpInside += (sender, e) =>
 				{
-					PopupView yourController = new PopupView(Convert.ToInt32(WineIdLabel.Text));
+					PopupView yourController = new PopupView(Convert.ToInt32(WineIdLabel.Text),storeid);
 					yourController.NavController = NavController;
 					yourController.parent = Parent;
 					yourController.StartsSelected = stars.AverageRating;
@@ -262,6 +272,7 @@ namespace WineHangoutz
 				ReviewDate.Text = review.Date.ToString("d");
 				Comments.Text = review.RatingText;
 				Vintage.Text = review.Vintage.ToString();
+				storeid =Convert.ToInt32(review.PlantFinal);
 				WineIdLabel.Text = review.WineId.ToString();
 
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);

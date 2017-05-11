@@ -35,7 +35,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			CurrentUser.Clear();
+			//CurrentUser.Clear();
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
@@ -137,7 +137,9 @@ namespace WineHangoutz
 					}
 					else
 					{
-						nav.PushViewController(new SKUDetailView(wineid), false);
+						
+						int storeid = 2;
+						nav.PushViewController(new SKUDetailView(wineid,storeid.ToString()), false);
 						BTProgressHUD.Dismiss();
 					}
 				}

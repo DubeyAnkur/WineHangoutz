@@ -11,7 +11,7 @@ namespace WineHangoutz
 	public class SimpleCollectionViewController : UICollectionViewController
 	{
 		public ItemListResponse myData;
-		public int storeId = 2;
+		public int storeId;
 		//public int userId = 2;
 		public bool FaviouriteView = false;
 		public SimpleCollectionViewController(UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
@@ -63,7 +63,8 @@ namespace WineHangoutz
 			//This do not work.
 			System.Diagnostics.Debug.WriteLine("code to perform action");
 			//NavigationController.PushViewController(new PopupView(), false);
-			NavigationController.PushViewController(new SKUDetailView(Convert.ToString(198)), false);
+
+			NavigationController.PushViewController(new SKUDetailView(Convert.ToString(198),storeId.ToString()), false);
 		}
 		public void BindData(BottleCell cell, NSIndexPath indexPath)
 		{

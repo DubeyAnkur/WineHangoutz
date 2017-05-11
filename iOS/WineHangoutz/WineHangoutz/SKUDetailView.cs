@@ -14,7 +14,7 @@ namespace WineHangoutz
 	{
 		
 		int _wineId;
-		int _storeId;
+		public int _storeId;
 		public SKUDetailView(string WineId,string storeid) : base()
 		{
 			_wineId = Convert.ToInt32(WineId);
@@ -26,24 +26,33 @@ namespace WineHangoutz
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
-			nfloat width = View.Frame.Width;
-			ServiceWrapper svc = new ServiceWrapper();
-			ItemDetailsResponse myData = svc.GetItemDetails(_wineId,_storeId).Result;
+			try
+			{
+				nfloat width = View.Frame.Width;
+				ServiceWrapper svc = new ServiceWrapper();
+				ItemDetailsResponse myData = svc.GetItemDetails(_wineId, _storeId).Result;
+				ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
+				TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+				TableView.AllowsSelection = false;
+				//TableView.AutosizesSubviews = true;
+				//TableView.Unev
+				TableView.RowHeight = UITableView.AutomaticDimension;
+				//TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails);
+				TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails,_storeId);
+			}
+			catch (Exception ex)
+			{ 
 
-			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-			TableView.AllowsSelection = false;
-			//TableView.AutosizesSubviews = true;
-			//TableView.Unev
-			TableView.RowHeight = UITableView.AutomaticDimension;
-			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails);
-
+			}
 		}
 		public void RefreshParent()
 		{
 			nfloat width = View.Frame.Width;
 			ServiceWrapper svc = new ServiceWrapper();
-			ItemDetailsResponse myData = svc.GetItemDetails(_wineId).Result;
-			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails);
+			ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
+
+			ItemDetailsResponse myData = svc.GetItemDetails(_wineId,_storeId).Result;
+			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails,_storeId);
 			TableView.ReloadData();
 		}
 	}
@@ -60,12 +69,12 @@ namespace WineHangoutz
 		UIViewController Parent;
 		UINavigationController NavigationController;
 		ItemDetails data;
-
-		public SKUDetailTableSource(nfloat wid, UIViewController parent, UINavigationController navCtrl, ItemDetails Data)
+		public int _store;
+		public SKUDetailTableSource(nfloat wid, UIViewController parent, UINavigationController navCtrl, ItemDetails Data,int storeid)
 		{
 			try
 			{
-
+				_store = storeid;
 				Width = wid;
 				Parent = parent;
 				NavigationController = navCtrl;
@@ -222,7 +231,9 @@ namespace WineHangoutz
 						UIViewController that = Parent;
 						ratingView2.RatingChosen += (sender, e) =>
 						{
-							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId));
+							
+						//	storeid = Convert.ToInt16( rev.PlantFinal);
+							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId),_store);
 							yourController.NavController = NavigationController;
 							yourController.parent = that;
 							yourController.StartsSelected = e.Rating;

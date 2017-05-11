@@ -16,6 +16,8 @@ namespace WineHangoutz
 	{
 		public UIViewController root;
 		public UINavigationController nav;
+		public UIButton btnResendEmail;
+		public UIButton btnVerify;
 		protected string deviceToken = string.Empty;
 		CustomerResponse cr = new CustomerResponse();
 		ServiceWrapper svc = new ServiceWrapper();
@@ -40,7 +42,7 @@ namespace WineHangoutz
 			var imgLogo = new UIImageView();
 			imgLogo.Frame = new CGRect((w - imageSize)/3, 70, imageSize, imageSize);
 			imgLogo.Image = UIImage.FromFile("logo5.png");
-
+			//EmailVerification();
 
 			lblError = new UILabel();
 			lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h);
@@ -88,10 +90,15 @@ namespace WineHangoutz
 			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			UIButton btnResendEmail = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
-			btnResendEmail.SetTitle("ReSend", UIControlState.Normal);
+			btnResendEmail = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+			btnResendEmail.SetTitle("Resend", UIControlState.Normal);
 			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 			btnResendEmail.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+
+			btnVerify = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+			btnVerify.SetTitle("Verify", UIControlState.Normal);
+			btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+			btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
 			btnResendEmail.TouchUpInside += async (sender, e) =>
 			{
@@ -123,7 +130,7 @@ namespace WineHangoutz
 				{
 					CurrentUser.StoreEmail(txtPassword.Text);
 					cr = await svc.AuthencateUser1(CurrentUser.GetEmail());
-					CurrentUser.Store(cr.customer.CustomerID.ToString(),"Tester");
+					//CurrentUser.Store(cr.customer.CustomerID.ToString(),"Tester");
 					EmailVerification();
 					//2. Check if Email sent status.
 					// 2.1 Not sent, Call the service which sends email.
@@ -132,15 +139,15 @@ namespace WineHangoutz
 
 
 
-					try
-					{
-						View.AddSubview(btnResendEmail);
+					//try
+					//{
+					//	View.AddSubview(btnResendEmail);
 
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(ex.Message.ToString());
-					}
+					//}
+					//catch (Exception ex)
+					//{
+					//	Console.WriteLine(ex.Message.ToString());
+					//}
 					//nav.DismissViewController(true, null);
 				}
 				var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
@@ -174,13 +181,15 @@ namespace WineHangoutz
 			DeviceToken Dt = new DeviceToken();
 
 			//ServiceWrapper svc = new ServiceWrapper();
-			Dt = await svc.VerifyMail(CurrentUser.RetreiveUserId().ToString());
+			Dt = await svc.VerifyMail(cr.customer.CustomerID.ToString());
 
 			//dd = await svc.VerifyMail(CurrentUser.GetEmail());
 			try
 			{
 				if (Dt.VerificationStatus == 1)
 				{
+					
+					CurrentUser.Store(cr.customer.CustomerID.ToString(), "Tester");
 					nav.DismissViewController(true, null);
 
 					int DeviceType = 2;
@@ -188,7 +197,17 @@ namespace WineHangoutz
 				}
 				else
 				{
-					lblError.Text = "If you don't get email click on resend";
+					try
+					{
+						View.AddSubview(btnResendEmail);
+
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message.ToString());
+					}
+
+					//lblError.Text = "If you don't get email click on resend";
 				}
 			}
 			catch (Exception Exe)

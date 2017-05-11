@@ -18,18 +18,21 @@ namespace WineHangoutz
 		public int storeId = 2;
 		//public int userId = 2;
 
+
 		public bool FaviouriteView = false;
         public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
         {
-			storeId = StoreId;
+			
 			FaviouriteView = favView;
 			if (StoreId == 1)
 			{
 				this.Title = "Wall";
+				storeId = StoreId;
 			}
 			else if (StoreId == 2)
 			{
 				this.Title = "Pt. Pleasant Beach";
+				storeId = StoreId;
 			}
         }
 
