@@ -41,32 +41,44 @@ namespace WineHangouts
             }
 
         }
-        public static Bitmap Bottleimages(int wineid)
+        public static Bitmap Bottleimages(int wineid,int storeid)
         {
-            Bitmap imageBitmap;
+			Bitmap imageBitmap = null ;
             ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             Path = pppd.CreateDirectoryForPictures();
             //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-            if (wineImages.Contains(wineid))
+            if (wineImages.Contains(storeid + "_" + wineid))
             {
-                return (Bitmap)wineImages[wineid];
+                return (Bitmap)wineImages[storeid + "_" + wineid];
             }
 
-            var filePath = System.IO.Path.Combine(Path + "/" + wineid + ".jpg");
-            if (System.IO.File.Exists(filePath))
-            {
-                imageBitmap = BitmapFactory.DecodeFile(filePath);
-                wineImages.Add(wineid, imageBitmap);
-                
-            }
-            else
-            {
-                var uri = new Uri(ServiceURL + "bottleimages/" + wineid + ".jpg");
-                imageBitmap = GetImageBitmapFromUrl(uri.ToString());
-                wineImages.Add(wineid, imageBitmap);
-                
-            }
+            var filePath = System.IO.Path.Combine(Path + "/" + storeid + "_" + wineid + ".jpg");
+			if (System.IO.File.Exists(filePath))
+			{
+				imageBitmap = BitmapFactory.DecodeFile(filePath);
+				wineImages.Add(storeid + "_" + wineid, imageBitmap);
+
+			}
+			else if (storeid == 1)
+			{
+
+
+				var uri = new Uri(ServiceURL + "imagebottlewall/" + wineid + ".jpg");
+
+
+				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+				wineImages.Add(storeid + "_" + wineid, imageBitmap);
+
+			}
+			else
+			{
+				var uri = new Uri(ServiceURL + "imagebottlepp/" + wineid + ".jpg");
+
+
+				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
+				wineImages.Add(storeid + "_" + wineid, imageBitmap);
+			}
             //Canvas canvas = new Canvas(imageBitmap);
             //canvas.DrawColor(Color.White);
             //canvas.DrawBitmap(imageBitmap, 0, 0, null);
@@ -123,21 +135,42 @@ namespace WineHangouts
                 for (int i = 0; i < y; i++)
                 {
                     bool ispresent = di.GetFiles(x[i].WineId + ".").Any();
-                    if (!ispresent)
-                    {
-                        var uri = new Uri(ServiceURL + "bottleimages/" + x[i].WineId + ".jpg");
-                        Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
-                        try
-                        {
-                            var filePath = System.IO.Path.Combine(path + "/" + x[i].WineId + ".jpg");
-                            var stream = new FileStream(filePath, FileMode.Create);
-                            bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
-                            stream.Close();
-                        }
-                        catch (Exception e)
-                        {
-                            string Exe = e.ToString();
-                        }
+					if (!ispresent)
+					{
+						if (j == 1)
+						{
+							var uri = new Uri(ServiceURL + "imagebottlewall/" + x[i].WineId + ".jpg");
+							Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
+							try
+							{
+								var filePath = System.IO.Path.Combine(path + "/"+ j + "_"+x[i].WineId + ".jpg");
+								var stream = new FileStream(filePath, FileMode.Create);
+								bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
+								stream.Close();
+							}
+
+							catch (Exception e)
+							{
+								string Exe = e.ToString();
+							}
+						}
+						else if (j == 2)
+						{
+							var uri = new Uri(ServiceURL + "imagebottlepp/" + x[i].WineId + ".jpg");
+							Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
+							try
+							{
+								var filePath = System.IO.Path.Combine(path + "/"  +j + "_"+ x[i].WineId + ".jpg");
+								var stream = new FileStream(filePath, FileMode.Create);
+								bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
+								stream.Close();
+							}
+
+							catch (Exception e)
+							{
+								string Exe = e.ToString();
+							}
+						}
                     }
 
                 }

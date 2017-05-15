@@ -34,8 +34,10 @@ namespace WineHangouts
 				output = sw.GetItemFavsUID(userId).Result;
 				List<Item> myArr;
 				myArr = output.ItemList.ToList();
+				
 				var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
 				MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
+
 				gridview.SetNumColumns(2);
 				gridview.Adapter = adapter;
 				gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)

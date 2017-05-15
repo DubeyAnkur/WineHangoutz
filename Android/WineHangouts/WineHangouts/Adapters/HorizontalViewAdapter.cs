@@ -56,8 +56,8 @@ namespace WineHangouts
 
             TextView txtName = row.FindViewById<TextView>(Resource.Id.txtWinename);
             ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-            Bitmap imagebitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
-            imgWine.SetImageBitmap(imagebitmap);
+            //Bitmap imagebitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+            //imgWine.SetImageBitmap(imagebitmap);
             txtName.Text = myItems[position].Name;
             //TextView txtRatings = row.FindViewById<TextView>(Resource.Id.txtRatings);
             //TextView txtVintage = row.FindViewById<TextView>(Resource.Id.txtVintage);

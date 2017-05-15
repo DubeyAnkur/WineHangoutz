@@ -133,7 +133,7 @@ namespace WineHangouts
 			}
 			else
 			{
-				imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+				imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId,myItems[position].PlantFinal);
 				Wine.SetImageBitmap(imageBitmap);
 			}
 			//Wine.SetImageBitmap(imageBitmap);

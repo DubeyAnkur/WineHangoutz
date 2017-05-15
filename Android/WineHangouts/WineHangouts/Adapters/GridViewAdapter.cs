@@ -27,6 +27,7 @@ namespace WineHangouts
         private List<Item> myItems;
         private Context myContext;
         private int screenid = 15;
+		public int storeid;
         //private Hashtable wineImages;
 
         public void ClearData()
@@ -47,11 +48,11 @@ namespace WineHangouts
             }
         }
 
-        public GridViewAdapter(Context con, List<Item> strArr)
+        public GridViewAdapter(Context con, List<Item> strArr,int storeId)
         {
             myContext = con;
             myItems = strArr;
-           
+			storeid = storeId;
         }
         public override int Count
         {
@@ -144,7 +145,7 @@ namespace WineHangouts
                 };
             }
             Bitmap imageBitmap;
-            imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId);
+            imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId,storeid);
             var place = new FrameLayout.LayoutParams(650, 650);
             place.LeftMargin = -70; //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
             imgWine.LayoutParameters = place;

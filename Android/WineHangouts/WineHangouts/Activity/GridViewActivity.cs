@@ -107,7 +107,7 @@ namespace WineHangouts
                 List<Item> myArr = output.ItemList.ToList();
 
                 var gridview = FindViewById<GridView>(Resource.Id.gridview);
-                adapter = new GridViewAdapter(this, myArr);
+                adapter = new GridViewAdapter(this, myArr,StoreId);
                 gridview.SetNumColumns(2);
                 gridview.Adapter = adapter;
 

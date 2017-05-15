@@ -225,14 +225,23 @@ namespace WineHangouts
         public async void DownloadAsync(object sender, System.EventArgs ea, int wineid)
         {
             webClient = new WebClient();
-            var url = new Uri("https://icsintegration.blob.core.windows.net/bottleimagesdetails/" + wineid + ".jpg");
-            byte[] imageBytes = null;
-            //progressLayout.Visibility = ViewStates.Visible;
-            try
-            {
-                imageBytes = await webClient.DownloadDataTaskAsync(url);
+			string url=null;
+			if (storeid == 1)
+			{
+				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/" + wineid + ".jpg";
+			}
+			else if (storeid == 2)
+			{
+				 url = "https://icsintegration.blob.core.windows.net/bottleimagesdetailspp/" + wineid + ".jpg";
+			}
+				byte[] imageBytes = null;
+				//progressLayout.Visibility = ViewStates.Visible;
+				try
+				{
+					imageBytes = await webClient.DownloadDataTaskAsync(url);
 
-            }
+				}
+				
             catch (TaskCanceledException)
             {
                 //this.progressLayout.Visibility = ViewStates.Gone;
@@ -244,7 +253,7 @@ namespace WineHangouts
                 //progressLayout.Visibility = ViewStates.Gone;
                 //downloadButton.Click += downloadAsync;
                 //downloadButton.Text = "Download Image";
-                Bitmap imgWine=BlobWrapper.Bottleimages(wineid);
+                Bitmap imgWine=BlobWrapper.Bottleimages(wineid,storeid);
                 HighImageWine.SetImageBitmap(imgWine);
                 return;
             }
