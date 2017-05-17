@@ -116,6 +116,7 @@ namespace WineHangouts
                         Bottom.Text = "Secaucus";
                         Bottom.SetTextColor(Color.White);
                         Bottom.TextSize = 20;
+						
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
@@ -144,7 +145,11 @@ namespace WineHangouts
                             Dialog dialog = aler.Create();
                             dialog.Show();
                         };
-                    }
+						Top.Dispose();
+						Bottom.Dispose();
+						Middle.Dispose();
+
+					}
                     catch (Exception exe)
                     {
                         LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
@@ -191,6 +196,9 @@ namespace WineHangouts
                             intent.PutExtra("MyData", "My Favorites");
                             StartActivity(intent);
                         };
+						Top.Dispose();
+						Bottom.Dispose();
+						Middle.Dispose();
                     }
                     catch (Exception exe)
                     {
@@ -257,7 +265,11 @@ namespace WineHangouts
                             //intent.PutExtra("MyData", "Regions");
                             //StartActivity(intent);
                         };
-                    }
+						Top.Dispose();
+						Bottom.Dispose();
+						Middle.Dispose();
+
+					}
                     catch (Exception exe)
                     {
                         LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());

@@ -94,10 +94,13 @@ namespace WineHangouts
                     try
                     {
                         await svc.AuthencateUser1(CurrentUser.GetMailId());
-                        EmailVerification();
-                        
-                    }
-                    catch (Exception exception)
+						ProgressIndicator.Show(this);
+						EmailVerification();
+						
+					}
+					
+
+					catch (Exception exception)
                     {
                         if (exception.Message.ToString() == "One or more errors occurred.")
                         {
@@ -129,55 +132,57 @@ namespace WineHangouts
                     //StartActivity(intent);
 
                 }
-                //CustomerResponse authen = new CustomerResponse();
-                //try
-                //{
-                //    authen = svc.AuthencateUser(username.Text).Result;
-                //    if (authen.customer != null && authen.customer.CustomerID != 0)
-                //    {
-                //        CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
-                //        Intent intent = new Intent(this, typeof(TabActivity));
-                //        StartActivity(intent);
+				//CustomerResponse authen = new CustomerResponse();
+				//try
+				//{
+				//    authen = svc.AuthencateUser(username.Text).Result;
+				//    if (authen.customer != null && authen.customer.CustomerID != 0)
+				//    {
+				//        CurrentUser.SaveUserName(username.Text, authen.customer.CustomerID.ToString());
+				//        Intent intent = new Intent(this, typeof(TabActivity));
+				//        StartActivity(intent);
 
-                //    }
-                //    else
-                //    {
-                //        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                //        aler.SetTitle("Sorry");
-                //        aler.SetMessage("Incorrect Details");
-                //        aler.SetNegativeButton("Ok", delegate { });
-                //        Dialog dialog = aler.Create();
-                //        dialog.Show();
-                //    };
-                //}
-                //catch(Exception exception)
-                //{
-                //    if (exception.Message.ToString() == "One or more errors occurred.")
-                //    {
-                //        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                //        aler.SetTitle("Sorry");
-                //        aler.SetMessage("Please check your internet connection");
-                //        aler.SetNegativeButton("Ok", delegate { });
-                //        Dialog dialog = aler.Create();
-                //        dialog.Show();
-                //    }
-                //    else {
-                //        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                //        aler.SetTitle("Sorry");
-                //        aler.SetMessage("We're under maintanence");
-                //        aler.SetNegativeButton("Ok", delegate { });
-                //        Dialog dialog = aler.Create();
-                //        dialog.Show();
+				//    }
+				//    else
+				//    {
+				//        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+				//        aler.SetTitle("Sorry");
+				//        aler.SetMessage("Incorrect Details");
+				//        aler.SetNegativeButton("Ok", delegate { });
+				//        Dialog dialog = aler.Create();
+				//        dialog.Show();
+				//    };
+				//}
+				//catch(Exception exception)
+				//{
+				//    if (exception.Message.ToString() == "One or more errors occurred.")
+				//    {
+				//        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+				//        aler.SetTitle("Sorry");
+				//        aler.SetMessage("Please check your internet connection");
+				//        aler.SetNegativeButton("Ok", delegate { });
+				//        Dialog dialog = aler.Create();
+				//        dialog.Show();
+				//    }
+				//    else {
+				//        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+				//        aler.SetTitle("Sorry");
+				//        aler.SetMessage("We're under maintanence");
+				//        aler.SetNegativeButton("Ok", delegate { });
+				//        Dialog dialog = aler.Create();
+				//        dialog.Show();
 
-                //    }
-                    
-                //}
-             
+				//    }
 
-            };                 
+				//}
+				login.Text = string.Format("Resend");
 
-            
-        }
+
+			};
+			
+
+
+		}
         public async void SendRegistrationToAppServer(string token)
         {
             TokenModel _token = new TokenModel()
@@ -206,7 +211,8 @@ namespace WineHangouts
                         CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
                         SendRegistrationToAppServer(CurrentUser.getToken());
                         LoggingClass.LogInfo("Clicked on login ", screenid);
-                        Intent intent = new Intent(this, typeof(TabActivity));
+						ProgressIndicator.Hide();
+						Intent intent = new Intent(this, typeof(TabActivity));
                         StartActivity(intent);
                     }
                     
@@ -233,8 +239,8 @@ namespace WineHangouts
                     {
                         await svc.AuthencateUser1(CurrentUser.GetMailId());
                     });
-                    Dialog dialog = aler.Create();
-                    dialog.Show();
+                    //Dialog dialog = aler.Create();
+                    //dialog.Show();
                 }
             }
             catch (Exception exe)

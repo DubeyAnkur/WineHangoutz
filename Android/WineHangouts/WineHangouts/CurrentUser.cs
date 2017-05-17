@@ -90,7 +90,7 @@ namespace WineHangouts
         {
             progress = new Android.App.ProgressDialog(_parent);
             progress.Indeterminate = true;
-			progress.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+			progress.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Purple));
 			progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
 			//progress.SetProgressStyle(ProgressDialogStyle.Spinner);
 			

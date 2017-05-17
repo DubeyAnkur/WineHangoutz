@@ -76,6 +76,7 @@ namespace WineHangouts
                     Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
                     StartActivity(intent);
                 };
+				changepropic.Dispose();
                 EditText Firstname = FindViewById<EditText>(Resource.Id.txtFirstName);
                 Firstname.Text = output.customer.FirstName;
                 EditText Lastname = FindViewById<EditText>(Resource.Id.txtLastName);
@@ -192,6 +193,7 @@ namespace WineHangouts
                         propicimage.SetImageResource(Resource.Drawable.user1);
                     }
                     propicimage.SetImageBitmap(bitmap);
+					
                 }
                 catch (Exception exe)
                 {
