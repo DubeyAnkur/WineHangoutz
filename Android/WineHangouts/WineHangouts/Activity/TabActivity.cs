@@ -29,7 +29,7 @@ namespace WineHangouts
                 Log.Error("Hangouts", exe.Message);
             }
             this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-            LoggingClass.LogInfo("Entered into ",screenid);
+            LoggingClass.LogInfo("Entered into Tab Activity",screenid);
             AddTab("Locations", 1, new SampleTabFragment("Locations", this));
             AddTab("My Hangouts", 1, new SampleTabFragment("My Hangouts", this));
             //AddTab("Explore",1, new SampleTabFragment("Explore", this));

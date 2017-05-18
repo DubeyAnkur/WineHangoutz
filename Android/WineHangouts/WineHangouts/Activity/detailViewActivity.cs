@@ -114,7 +114,7 @@ namespace WineHangouts
 
                 };
                 ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into ", screenid);
+                LoggingClass.LogInfo("Entered into detail view", screenid);
                 Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
             }
             catch (Exception exe)
@@ -147,7 +147,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from ", screenid);
+                LoggingClass.LogInfo("Exited from Detail View", screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);
@@ -249,7 +249,7 @@ namespace WineHangouts
             }
             catch (Exception exe)
             {
-                LoggingClass.LogError("while downloading image "+exe.Message, screenid, exe.StackTrace.ToString());
+                LoggingClass.LogError("while downloading image of wine id"+wineid+"  "+exe.Message, screenid, exe.StackTrace.ToString());
                 //progressLayout.Visibility = ViewStates.Gone;
                 //downloadButton.Click += downloadAsync;
                 //downloadButton.Text = "Download Image";

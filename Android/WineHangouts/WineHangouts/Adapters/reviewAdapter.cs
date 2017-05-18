@@ -20,7 +20,9 @@ namespace WineHangouts
     {
         private List<Review> myItems;
         private Context myContext;
-        int userId = Convert.ToInt32(CurrentUser.getUserId());
+		private int screenid = 24;
+
+		int userId = Convert.ToInt32(CurrentUser.getUserId());
         public override Review this[int position]
         {
             get
@@ -57,8 +59,8 @@ namespace WineHangouts
             TextView date = row.FindViewById<TextView>(Resource.Id.textView67);
             RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
             ImageView Image = row.FindViewById<ImageView>(Resource.Id.imageButton2);
-
-            Bitmap imageBitmap = BlobWrapper.ProfileImages(myItems[position].ReviewUserId);
+			Image.SetScaleType(ImageView.ScaleType.CenterCrop);
+			Bitmap imageBitmap = BlobWrapper.ProfileImages(myItems[position].ReviewUserId);
             if (imageBitmap == null)
             {
                 Image.SetImageResource(Resource.Drawable.ProfileEmpty);
@@ -68,7 +70,9 @@ namespace WineHangouts
             else
             { 
             Image.SetImageBitmap(imageBitmap);
-            }
+				
+			}
+			imageBitmap.Dispose();
             //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             //string path = pppd.CreateDirectoryForPictures();
             ////string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
@@ -97,9 +101,10 @@ namespace WineHangouts
             Comments.Text = myItems[position].RatingText;
             date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
             rb.Rating = myItems[position].RatingStars;
-            //Image.SetImageBitmap(imageBitmap);
-            Image.SetScaleType(ImageView.ScaleType.CenterCrop);
+			//Image.SetImageBitmap(imageBitmap);
 			
+			
+			LoggingClass.LogInfo("Entered into my review Adapter", screenid);
 			return row;
         }
 

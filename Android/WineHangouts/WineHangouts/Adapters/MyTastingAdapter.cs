@@ -20,7 +20,9 @@ namespace WineHangouts
     {
         private List<Tastings> myItems;
         private Context myContext;
-        public override Tastings this[int position]
+		private int screenid = 24;
+
+		public override Tastings this[int position]
         {
             get
             {
@@ -100,8 +102,8 @@ namespace WineHangouts
             txtDate.Focusable = false;
 
 
-
-            return row;
+			LoggingClass.LogInfo("Entered into My tastings Adapter", screenid);
+			return row;
         }
     }
 }

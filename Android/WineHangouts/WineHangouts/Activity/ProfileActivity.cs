@@ -28,7 +28,7 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Profile);
             try
             {
-                LoggingClass.LogInfo("Entered into ",screenid);
+                LoggingClass.LogInfo("Entered into Profile Activity",screenid);
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                 int userId = Convert.ToInt32(CurrentUser.getUserId());
@@ -72,7 +72,7 @@ namespace WineHangouts
                 ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
                 changepropic.Click += delegate
                 {
-                    LoggingClass.LogInfo("Clicked on chang propic",screenid);
+                    LoggingClass.LogInfo("Clicked on change propic",screenid);
                     Intent intent = new Intent(this, typeof(ProfilePicturePickDialog));
                     StartActivity(intent);
                 };

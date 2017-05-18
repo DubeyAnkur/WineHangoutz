@@ -20,6 +20,7 @@ namespace WineHangouts
     {
         private List<Review> myItems;
         private Context myContext;
+		private int screenid = 23;
        
         public override Review this[int position]
         {
@@ -144,9 +145,9 @@ namespace WineHangouts
 				txtDate.Focusable = false;
 
 			}
-
-            return row;
-        }
+			LoggingClass.LogInfo("Entered into My review Adapter", screenid);
+			return row;
+		}
 
         public void PerformItemClick(object sender, EventArgs e, Review edit)
         {

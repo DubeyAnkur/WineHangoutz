@@ -47,13 +47,13 @@ namespace WineHangouts
         {
             ItemListResponse output = null;
 
-            LoggingClass.LogServiceInfo("Service called", "itemlist");
+            LoggingClass.LogServiceInfo("Service called", "GetItemList");
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-                LoggingClass.LogServiceInfo("Service Response", "itemlist");
+                LoggingClass.LogServiceInfo("Service Response", "GetItemList");
             }
             catch (Exception exe)
             {
@@ -65,13 +65,13 @@ namespace WineHangouts
         public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
         {
             ItemDetailsResponse output = null;
-            LoggingClass.LogServiceInfo("Service Called", "itemdetails");
+            LoggingClass.LogServiceInfo("Service Called", "GetItemDetails");
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid+"/user/"+storeid);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
-                LoggingClass.LogServiceInfo("Service Response", "itemdetails");
+                LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");
             }
             catch (Exception exe)
             {
@@ -83,13 +83,13 @@ namespace WineHangouts
         {
             try
             {
-                LoggingClass.LogServiceInfo("service called", "like");
+                LoggingClass.LogServiceInfo("service called", "InsertUpdateLike");
                 var uri = new Uri(ServiceURL + "InsertUpdateLike/");
                 var content = JsonConvert.SerializeObject(skuLike);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
-                LoggingClass.LogServiceInfo("service response", "like");
+                LoggingClass.LogServiceInfo("service response", "InsertUpdateLike");
             }
             catch (Exception exe)
             {
@@ -103,11 +103,11 @@ namespace WineHangouts
             CustomerResponse output = null;
             try
             {
-                LoggingClass.LogServiceInfo("service called", "authen");
+                LoggingClass.LogServiceInfo("service called", "AuthencateUser");
                 var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-                LoggingClass.LogServiceInfo("service response", "like");
+                LoggingClass.LogServiceInfo("service response", "AuthencateUser");
             }
             catch (Exception exe)
             {
@@ -120,11 +120,11 @@ namespace WineHangouts
             CustomerResponse output = null;
             try
             {
-                LoggingClass.LogServiceInfo("service called", "authen1");
+                LoggingClass.LogServiceInfo("service called", "AuthencateUser1");
                 var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-                LoggingClass.LogServiceInfo("service response", "authen1");
+                LoggingClass.LogServiceInfo("service response", "AuthencateUser1");
             }
             catch (Exception exe)
             {
@@ -137,11 +137,11 @@ namespace WineHangouts
             DeviceToken output = null;
             try
             {
-                LoggingClass.LogServiceInfo("service called", "authen1");
+                LoggingClass.LogServiceInfo("service called", "CheckMail");
                 var uri = new Uri(ServiceURL + "GetVerificationStatus/" + uid);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<DeviceToken>(response);
-                LoggingClass.LogServiceInfo("service response", "authen1");
+                LoggingClass.LogServiceInfo("service response", "CheckMail");
             }
             catch (Exception exe)
             {
@@ -154,12 +154,12 @@ namespace WineHangouts
         {
             try
             {
-                LoggingClass.LogServiceInfo("service called", "tok");
+                LoggingClass.LogServiceInfo("service called", "InsertUpdateToken1");
                 var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + token.User_id + "/token/" + token.DeviceToken.Replace(":", ",") + "/DeviceType/" + token.DeviceType);
                 var content = JsonConvert.SerializeObject(token);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                LoggingClass.LogServiceInfo("service responce", "tok");
+                LoggingClass.LogServiceInfo("service responce", "InsertUpdateToken1");
                 //var result = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception exe)
@@ -171,21 +171,21 @@ namespace WineHangouts
 
         public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
         {
-            LoggingClass.LogServiceInfo("service called", "itemrev");
+            LoggingClass.LogServiceInfo("service called", "GetItemReviewsByWineID");
             var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-            LoggingClass.LogServiceInfo("service responce", "itemrev");
+            LoggingClass.LogServiceInfo("service responce", "GetItemReviewsByWineID");
             return output;
         }
 
         public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
         {
-            LoggingClass.LogServiceInfo("service called", "userrev");
+            LoggingClass.LogServiceInfo("service called", "GetItemReviewUID");
             var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-            LoggingClass.LogServiceInfo("service responce", "userrev");
+            LoggingClass.LogServiceInfo("service responce", "GetItemReviewUID");
             return output;
         }
 
@@ -193,12 +193,12 @@ namespace WineHangouts
         {
             try
             {
-                LoggingClass.LogServiceInfo("service called", "updatrev");
+                LoggingClass.LogServiceInfo("service called", "InsertUpdateReview");
                 var uri = new Uri(ServiceURL + "InsertUpdateReview/");
                 var content = JsonConvert.SerializeObject(review);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont);
-                LoggingClass.LogServiceInfo("service responce", "updatrev");
+                LoggingClass.LogServiceInfo("service responce", "InsertUpdateReview");
                 // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
             }
@@ -212,12 +212,12 @@ namespace WineHangouts
         {
             try
             {
-                LoggingClass.LogServiceInfo("service called", "deleterev");
+                LoggingClass.LogServiceInfo("service called", "InsertUpdateReview");
                 var uri = new Uri(ServiceURL + "DeleteReview/");
                 var content = JsonConvert.SerializeObject(review);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                LoggingClass.LogServiceInfo("service responce", "deleterev");
+                LoggingClass.LogServiceInfo("service responce", "InsertUpdateReview");
                 //var result = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception exe)
@@ -230,12 +230,12 @@ namespace WineHangouts
         {
             try
             {
-                LoggingClass.LogServiceInfo("service called", "updatcs");
+                LoggingClass.LogServiceInfo("service called", "UpdateCustomer");
                 var uri = new Uri(ServiceURL + "UpdateCustomer/");
                 var content = JsonConvert.SerializeObject(customer);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                LoggingClass.LogServiceInfo("service responce", "updatcs");
+                LoggingClass.LogServiceInfo("service responce", "UpdateCustomer");
                 //var result = response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception exe)
@@ -255,21 +255,21 @@ namespace WineHangouts
         }
         public async Task<CustomerResponse> GetCustomerDetails(int userID)
         {
-            LoggingClass.LogServiceInfo("service called", "getcsdet");
+            LoggingClass.LogServiceInfo("service called", "GetCustomerDetails");
             var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-            LoggingClass.LogServiceInfo("service responce", "getcsdet");
+            LoggingClass.LogServiceInfo("service responce", "GetCustomerDetails");
             return output;
         }
         public async Task<TastingListResponse> GetMyTastingsList(int customerid)
         {
             //customerid = 38691;
-            LoggingClass.LogServiceInfo("service called", "cstast");
+            LoggingClass.LogServiceInfo("service called", "GetMyTastingsList");
             var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<TastingListResponse>(response);
-            LoggingClass.LogServiceInfo("service responce", "cstast");
+            LoggingClass.LogServiceInfo("service responce", "GetMyTastingsList");
             return output;
         }
     }

@@ -22,7 +22,7 @@ namespace WineHangouts
             SetContentView(Resource.Layout.AboutLayout);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            LoggingClass.LogInfo("Entered into ",screenid);
+            LoggingClass.LogInfo("Entered into About Us",screenid);
             // Create your application here
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -30,7 +30,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                LoggingClass.LogInfo("Exited from ",screenid);
+                LoggingClass.LogInfo("Exited from About Us", screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

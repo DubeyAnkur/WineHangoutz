@@ -32,7 +32,8 @@ namespace WineHangouts
            
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.DeleteReviewPop, container, false);
-            ServiceWrapper sw = new ServiceWrapper();
+			LoggingClass.LogInfo("Entered into Delete review popup with" + WineId, screenid);
+			ServiceWrapper sw = new ServiceWrapper();
             Review review = new Review();
             Button Delete = view.FindViewById<Button>(Resource.Id.button1);
             Button Cancel = view.FindViewById<Button>(Resource.Id.button2);
@@ -47,8 +48,10 @@ namespace WineHangouts
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
                     myDialog.Dismiss();
+					LoggingClass.LogInfo("User deleted winereview" + WineId, screenid);
 
-                };
+
+				};
             }
             catch(Exception exe)
             {

@@ -76,6 +76,7 @@ namespace WineHangouts
             base.OnCreate(bundle);
             Window.RequestFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.ProfilePickLayout);
+			LoggingClass.LogInfo("Entered into ProfilePicturePickDialog", screenid);
             if (IsThereAnAppToTakePictures())
             {
                 CreateDirectoryForPictures();

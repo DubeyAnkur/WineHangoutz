@@ -25,7 +25,7 @@ namespace WineHangouts
             SetContentView(Resource.Layout.MyTasting);
             try
             {
-                LoggingClass.LogInfo("Entered into ",screenid);
+                LoggingClass.LogInfo("Entered into My Tasting", screenid);
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -69,7 +69,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                LoggingClass.LogInfo("Exited from ",screenid);
+                LoggingClass.LogInfo("Exited from My Tasting", screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

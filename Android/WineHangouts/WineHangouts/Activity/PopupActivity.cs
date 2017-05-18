@@ -85,7 +85,7 @@ namespace WineHangouts
         close.SetScaleType(ImageView.ScaleType.CenterCrop);
                 editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
                 editDialog.Show();
-                LoggingClass.LogInfo("Entered into ", screenid);
+                LoggingClass.LogInfo("Entered into CreatePopup", screenid);
                 close.Click += delegate
                 {
                     editDialog.Dismiss();
@@ -135,10 +135,12 @@ namespace WineHangouts
                 RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
                 Comments.Text = _editObj.RatingText;
                 custRating.Rating = _editObj.RatingStars;
-                //ibs.SetImageResource(Resource.Drawable.wine_review);
-                //ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-                //close.SetImageResource(Resource.Drawable.Close);
-                close.SetScaleType(ImageView.ScaleType.CenterCrop);
+				//ibs.SetImageResource(Resource.Drawable.wine_review);
+				//ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
+				//close.SetImageResource(Resource.Drawable.Close);
+				LoggingClass.LogInfo("Entered into EditPopup", screenid);
+
+				close.SetScaleType(ImageView.ScaleType.CenterCrop);
                 editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
                 editDialog.Show();
                 close.Click += delegate

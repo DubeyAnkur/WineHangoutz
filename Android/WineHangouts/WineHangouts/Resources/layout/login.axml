@@ -97,6 +97,31 @@
             android:layout_marginLeft="250dp"
             android:background="#800080" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/lblPassword"
+        android:layout_below="@+id/txtUsername"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Note:"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:typeface="sans" />
+    <TextView
+        android:id="@+id/lblPassword"
+        android:layout_below="@+id/txtUsername"
+        android:layout_height="91.0dp"
+        android:layout_width="306.0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Please check the mail and verify, you didn't receive mail click on Resend."
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp" />
     <LinearLayout
         android:id="@+id/linearLayoutBtns"
         android:layout_below="@+id/txtPassword"

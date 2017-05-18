@@ -65,7 +65,7 @@ namespace WineHangouts
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                
                 ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into ", screenid);
+                LoggingClass.LogInfo("Entered into gridview activity", screenid);
             }
             catch (Exception exe)
             {
@@ -116,7 +116,7 @@ namespace WineHangouts
                     WineID = myArr[args.Position].WineId;
                     ProgressIndicator.Show(this);
                     var intent = new Intent(this, typeof(DetailViewActivity));
-                    LoggingClass.LogInfo("Clicked on "+WineID+" to enter into wine details",screenid);
+                    LoggingClass.LogInfo("Clicked on " + myArr[args.Position].WineId + " to enter into wine details",screenid);
                     intent.PutExtra("WineID", WineID);
                     intent.PutExtra("storeid", StoreId);
                     StartActivity(intent);
@@ -140,7 +140,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from ",screenid);
+                LoggingClass.LogInfo("Exited from Gridview Activity",screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

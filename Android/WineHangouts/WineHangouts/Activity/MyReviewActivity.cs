@@ -52,7 +52,7 @@ namespace WineHangouts
                     StartActivity(intent);
                 };
                 ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into ", screenid);
+                LoggingClass.LogInfo("Entered into My Review", screenid);
             }
             catch (Exception exe)
             {
@@ -72,7 +72,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                LoggingClass.LogInfo("Exited from ",screenid);
+                LoggingClass.LogInfo("Exited from My Review", screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

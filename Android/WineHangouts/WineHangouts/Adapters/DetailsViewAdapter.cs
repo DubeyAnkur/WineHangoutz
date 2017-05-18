@@ -20,6 +20,7 @@ namespace WineHangouts
 {
     class DetailsViewAdapter : BaseAdapter<Item>
     {
+		private int screenid = 22;
         private List<Item> myItems;
         private Context myContext;
         public override Item this[int position]
@@ -52,7 +53,7 @@ namespace WineHangouts
             View row = convertView;
             if (row == null)
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.WinePropertiesCell, null, false);
-            
+			LoggingClass.LogInfo("Entered into DetailsViewAdapter", screenid);
             TextView Type = row.FindViewById<TextView>(Resource.Id.textView12);
             TextView Value = row.FindViewById<TextView>(Resource.Id.textView13);
             Type.LayoutParameters.Width = 550;

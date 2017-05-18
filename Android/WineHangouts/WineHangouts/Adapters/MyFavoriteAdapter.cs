@@ -154,8 +154,12 @@ namespace WineHangouts
 			Vintage.Focusable = false;
 			Price.Focusable = false;
 			Wine.Focusable = false;
+			Wine.Dispose();
+			Heart.Dispose();
+			heartLP.Dispose();
 
 			NotifyDataSetChanged();
+			LoggingClass.LogInfo("Entered into my fav Adapter", screenid);
 			return row;
 		}
 		private int ConvertPixelsToDp(float pixelValue)

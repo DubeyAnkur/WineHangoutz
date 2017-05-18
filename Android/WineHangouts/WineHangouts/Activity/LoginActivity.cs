@@ -53,6 +53,7 @@ namespace WineHangouts
             else
             {
                 LoggingClass.LogInfo("Logged In ",screenid);
+				LoggingClass.LogInfo("User entering into Tab activity", screenid);
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
                 SendRegistrationToAppServer(CurrentUser.getToken());
@@ -62,22 +63,23 @@ namespace WineHangouts
 
             login.Click += async delegate
             {
-                //1. Call Auth service and check for this user, it returns one.
-                //2. If it returns 1 save Username and go to Tab Activity.
-                //3. Else Show message, incorrect username.
-                //
-                //if (UserName.Text == "" )//|| txtUserNumber.Text == "")
-                //{
-                //    AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                //    aler.SetTitle("Sorry");
-                //    aler.SetMessage("Please enter name and email id");
-                //    aler.SetNegativeButton("Ok", delegate { });
-                //    Dialog dialog = aler.Create();
-                //    dialog.Show();
-                //    return;
+				ProgressIndicator.Show(this);
+				//1. Call Auth service and check for this user, it returns one.
+				//2. If it returns 1 save Username and go to Tab Activity.
+				//3. Else Show message, incorrect username.
+				//
+				//if (UserName.Text == "" )//|| txtUserNumber.Text == "")
+				//{
+				//    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+				//    aler.SetTitle("Sorry");
+				//    aler.SetMessage("Please enter name and email id");
+				//    aler.SetNegativeButton("Ok", delegate { });
+				//    Dialog dialog = aler.Create();
+				//    dialog.Show();
+				//    return;
 
-                //}
-                if(UserEmail.Text == "")
+				//}
+				if (UserEmail.Text == "")
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
                     aler.SetTitle("Sorry");
@@ -94,7 +96,7 @@ namespace WineHangouts
                     try
                     {
                         await svc.AuthencateUser1(CurrentUser.GetMailId());
-						ProgressIndicator.Show(this);
+						
 						EmailVerification();
 						
 					}
@@ -176,6 +178,7 @@ namespace WineHangouts
 
 				//}
 				login.Text = string.Format("Resend");
+				ProgressIndicator.Hide();
 
 
 			};
@@ -200,7 +203,8 @@ namespace WineHangouts
         {
             DeviceToken DO = new DeviceToken();
             authen = svc.AuthencateUser1(CurrentUser.GetMailId()).Result;
-            try
+		
+			try
             {
                 DO = await svc.CheckMail(authen.customer.CustomerID.ToString());
 
@@ -208,10 +212,11 @@ namespace WineHangouts
                 {
                     if (authen.customer != null && authen.customer.CustomerID != 0)
                     {
-                        CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
+						//ProgressIndicator.Hide();
+						CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
                         SendRegistrationToAppServer(CurrentUser.getToken());
-                        LoggingClass.LogInfo("Clicked on login ", screenid);
-						ProgressIndicator.Hide();
+                        LoggingClass.LogInfo("User verified and Logging in", screenid);
+						LoggingClass.LogInfo("User entering  into Tab Activity", screenid);
 						Intent intent = new Intent(this, typeof(TabActivity));
                         StartActivity(intent);
                     }
@@ -224,8 +229,9 @@ namespace WineHangouts
                         aler.SetNegativeButton("Ok", delegate { });
                         Dialog dialog1 = aler.Create();
                         dialog1.Show();
-                    };                   
-                }
+                    };
+				
+				}
                 else
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this);

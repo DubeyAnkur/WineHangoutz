@@ -169,7 +169,7 @@ namespace WineHangouts
             txtVintage.Focusable = false;
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
-        
+			LoggingClass.LogInfo("Entered into Grid View Adapter", screenid);
             return row;
         }
      

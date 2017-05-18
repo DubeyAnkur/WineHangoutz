@@ -23,7 +23,7 @@ namespace WineHangouts
             if (StoreName == "")
                 StoreName = Intent.GetStringExtra("MyData");
             this.Title = StoreName;
-
+			//LoggingClass.LogInfo("Entered into Potrait Activity", screenid);
             int StoreId = 1;
             //if (StoreName == "Wall Store")
             //    StoreId = 1;

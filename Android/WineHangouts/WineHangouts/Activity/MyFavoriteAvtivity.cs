@@ -51,7 +51,7 @@ namespace WineHangouts
                     StartActivity(intent);
 				};
 				ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into ", screenid);
+                LoggingClass.LogInfo("Entered into My Favorites Activity", screenid);
 			}
 
 			catch (Exception exe)
@@ -71,7 +71,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from ",screenid);
+                LoggingClass.LogInfo("Exited from My Favorites", screenid);
                 return false;
             }
             return base.OnOptionsItemSelected(item);

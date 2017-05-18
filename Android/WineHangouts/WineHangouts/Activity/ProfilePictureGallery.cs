@@ -19,7 +19,7 @@ namespace WineHangouts
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-            LoggingClass.LogInfo("Entered into ",screenid);
+            LoggingClass.LogInfo("Entered into ProfilePictureGallery", screenid);
             if (resultCode == Result.Ok)
             {
                 string Path = GetRealPathFromURI(data.Data);
