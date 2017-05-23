@@ -198,7 +198,7 @@ namespace WineHangoutz
 			catch (Exception e)
 			{
 
-					LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
+					//LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
 
 				return null;
 			}

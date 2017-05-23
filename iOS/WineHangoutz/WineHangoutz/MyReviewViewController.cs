@@ -231,8 +231,8 @@ namespace WineHangoutz
 				LoggingClass.LogInfo("Deleting the review", screenid);
 					UIAlertView alert = new UIAlertView()
 					{
-						Title = "Delete Review",
-						Message = "Do you want to delete this review."
+						Title = "Delete Review ",
+						Message = "Do you want to delete this review?"
 					};
 					alert.AddButton("Yes");
 					alert.AddButton("No");
@@ -281,10 +281,10 @@ namespace WineHangoutz
 
 				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155),review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
-				WineName.Text = review.Name;
+				WineName.Text = review.Name+" "+review.Vintage.ToString();
 				ReviewDate.Text = review.Date.ToString("d");
 				Comments.Text = review.RatingText;
-				Vintage.Text = "Vintage:"+review.Vintage.ToString();
+				//Vintage.Text = " ";//"Vintage:"+review.Vintage.ToString();
 				storeid =Convert.ToInt32(review.PlantFinal);
 				WineIdLabel.Text = review.WineId.ToString();
 
@@ -307,7 +307,7 @@ namespace WineHangoutz
 				int imageWidth = 110; // + 10;
 				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
 				WineName.Frame = new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
-				Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
+				//Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
 				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
 				//stars.Frame = new CGRect(35, 50, 100, 20);

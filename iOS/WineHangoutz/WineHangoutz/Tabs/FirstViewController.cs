@@ -22,7 +22,7 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 
 			// Perform any additional setup after loading the view, typically from a nib.
-			LoggingClass.UploadErrorLogs();
+			//LoggingClass.UploadErrorLogs();
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
 			nfloat margin = 1;

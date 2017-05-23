@@ -56,19 +56,17 @@ namespace WineHangoutz
 				CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
 				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
 				CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
-
 				await container.CreateIfNotExistsAsync();
-
 				CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.RetreiveUserId() + ".csv"); //(path);
 
-				CloudAppendBlob append = container.GetAppendBlobReference(CurrentUser.RetreiveUserId()+".csv");
-				if (!await append.ExistsAsync())
-				{
-					await append.CreateOrReplaceAsync();
-				}
+				//CloudAppendBlob append = container.GetAppendBlobReference(CurrentUser.RetreiveUserId()+".csv");
+				//if (!await append.ExistsAsync())
+				//{
+				//	await append.CreateOrReplaceAsync();
+				//}
 				//await append.AppendBlockAsync("aksfhgaUKGdfkAUSFDAUSGFD");
 				//await append.UploadTextAsync(string.Format("Exception,Test,Test,Test"));
-				await append.AppendTextAsync(string.Format("Exception,Test1,Test1,Test1"));
+				//await append.AppendTextAsync(string.Format("Exception,Test1,Test1,Test1"));
 
 				using (var fs = System.IO.File.Open(LogPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
 				{

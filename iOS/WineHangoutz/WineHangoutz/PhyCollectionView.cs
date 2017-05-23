@@ -16,6 +16,7 @@ namespace WineHangoutz
 
 		public ItemListResponse myData;
 		public int storeId = 2;
+		Boolean fav = false;
 		UIImage img = new UIImage("Wines/bottle.jpg");
 		//public int userId = 2;
 
@@ -38,7 +39,9 @@ namespace WineHangoutz
 			else
 			{
 				this.Title = "My favourites";
+
 			}
+
         }
 
 		public override void ViewDidLoad()
@@ -50,6 +53,7 @@ namespace WineHangoutz
 				if (FaviouriteView)
 				{
 					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+					fav = true;
 					if (myData.ItemList.Count== 0)
 					{
 						UIAlertView alert = new UIAlertView()
@@ -92,7 +96,7 @@ namespace WineHangoutz
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = collectionView.DequeueReusableCell(APLCollectionViewCell.Key, indexPath) as APLCollectionViewCell;
-			BindData(cell, indexPath);
+			BindData(cell, indexPath, fav);
 
 			cell.Layer.BorderWidth = 1;
 			cell.Layer.BorderColor = new CGColor(0.768f, 0.768f, 0.768f);
@@ -116,7 +120,7 @@ namespace WineHangoutz
 			System.Diagnostics.Debug.WriteLine("code to perform action");
 			//NavigationController.PushViewController(new PopupView(), false);
 		}
-		public void BindData(APLCollectionViewCell cell, NSIndexPath indexPath)
+		public void BindData(APLCollectionViewCell cell, NSIndexPath indexPath, Boolean fav)
 		{
 			cell.NavigationController = NavigationController;
 			//cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
@@ -129,8 +133,14 @@ namespace WineHangoutz
 			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
 			cell.WineId = myData.ItemList[index].WineId.ToString();
-			cell.storeId =storeId.ToString();
-			//cell.storeId = storeId;
+			if (fav == true)
+			{
+				cell.storeId = myData.ItemList[index].PlantFinal.ToString();
+			}
+			else
+			{
+				cell.storeId = storeId.ToString();
+			}
 			cell.lblName.Text = myData.ItemList[index].Name;
 			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
 			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C",Cultures.UnitedState);
@@ -146,7 +156,7 @@ namespace WineHangoutz
 				cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 			}
 			//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
-			UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds,storeId.ToString());
+			UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds,cell.storeId.ToString());
 			if (image != null)
 			{
 				cell.btlImage.SetImage(image, UIControlState.Normal);

@@ -13,6 +13,7 @@ namespace WineHangoutz
 		public UIViewController root;
 		public UINavigationController nav;
 		public UIButton btnResendEmail;
+		public UILabel lblIns;
 		public UIButton btnVerify;
 		protected string deviceToken = string.Empty;
 		CustomerResponse cr = new CustomerResponse();
@@ -52,9 +53,14 @@ namespace WineHangoutz
 			lblFN.Text = "First Name:";
 			lblFN.TextAlignment = UITextAlignment.Left;
 
-			//var lblName = new UILabel();
+			var lblName = new UILabel();
+			lblName.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
+			lblName.Text = "Please Login here with registered email id.";
+			lblName.TextAlignment = UITextAlignment.Center;
+
+			//var lblIns = new UILabel();
 			//lblName.Frame = new CGRect(0, 150, View.Frame.Width, 20);
-			//lblName.Text = "Please Login here.";
+			//lblName.Text = "Verify your mail.";
 			//lblName.TextAlignment = UITextAlignment.Center;
 
 			usernameField = new UITextField
@@ -164,7 +170,7 @@ namespace WineHangoutz
 			View.BackgroundColor = UIColor.White;
 			View.AddSubview(imgLogo);
 			View.AddSubview(lblError);
-			//View.AddSubview(lblFN);
+			View.AddSubview(lblName);
 			View.AddSubview(btnLogin);
 			//View.AddSubview(usernameField);
 			View.AddSubview(txtPassword);
@@ -195,7 +201,7 @@ namespace WineHangoutz
 					try
 					{
 						View.AddSubview(btnResendEmail);
-
+						View.AddSubview(lblIns);
 					}
 					catch (Exception ex)
 					{
