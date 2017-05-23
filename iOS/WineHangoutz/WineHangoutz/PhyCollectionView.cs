@@ -16,6 +16,7 @@ namespace WineHangoutz
 
 		public ItemListResponse myData;
 		public int storeId = 2;
+		UIImage img = new UIImage("Wines/bottle.jpg");
 		//public int userId = 2;
 
 
@@ -34,6 +35,10 @@ namespace WineHangoutz
 				this.Title = "Pt. Pleasant Beach";
 				storeId = StoreId;
 			}
+			else
+			{
+				this.Title = "My favourites";
+			}
         }
 
 		public override void ViewDidLoad()
@@ -43,7 +48,22 @@ namespace WineHangoutz
 			{
 				ServiceWrapper svc = new ServiceWrapper();
 				if (FaviouriteView)
+				{
 					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+					if (myData.ItemList.Count== 0)
+					{
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "Sorry you didn't tell us your favorite wines",
+							//Message = "Coming Soon..."
+						};
+						//LoggingClass.LogInfo("Entered into seacuces", screenid);
+
+
+						alert.AddButton("OK");
+						alert.Show();
+					}
+				}	
 				else
 					myData = svc.GetItemList(storeId, CurrentUser.RetreiveUserId()).Result;
 			
@@ -125,13 +145,14 @@ namespace WineHangoutz
 			{
 				cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 			}
-			UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds);
+			//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
+			UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds,storeId.ToString());
 			if (image != null)
 			{
 				cell.btlImage.SetImage(image, UIControlState.Normal);
 			}
 			else
-				cell.btlImage.SetImage(null, UIControlState.Normal);
+				cell.btlImage.SetImage(img, UIControlState.Normal);
 		}
 		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
 		{

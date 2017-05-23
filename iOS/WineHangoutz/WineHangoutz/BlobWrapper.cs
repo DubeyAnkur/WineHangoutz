@@ -19,6 +19,9 @@ namespace WineHangoutz
 		static NSCache wineBottles;
 		static int screenid = 14;
 		static NSCache profilePics;
+		static string  baseurl = "https://icsintegration.blob.core.windows.net";
+		static string url = null;
+		static string storeid = "2";
 
 		static BlobWrapper()
 		{
@@ -26,9 +29,9 @@ namespace WineHangoutz
 			profilePics = new NSCache();
 		}
 
-		public static UIImage GetResizedImage(string wineId, CGRect bounds)
+		public static UIImage GetResizedImage(string wineId, CGRect bounds,string storeid)
 		{
-			UIImage image = BlobWrapper.GetImageBitmapFromWineId(wineId);
+			UIImage image = BlobWrapper.GetImageBitmapFromWineId(wineId,storeid);
 			if (image != null)
 			{
 				nfloat boxHeight = bounds.Height;
@@ -42,31 +45,112 @@ namespace WineHangoutz
 				return image;
 			}
 
-				return new UIImage("wine3.png");
+			return null;//new UIImage("Wines/wine3.png");
 		}
-		public static UIImage GetImageBitmapFromWineId(string wineId)
+		public static UIImage GetImageBitmapFromWineId(string wineid,string storeid)
 		{
-			NSObject btl = wineBottles.ObjectForKey(NSObject.FromObject(wineId));
-
-			if (btl != null)
-				return (UIImage)btl;
-			
-			NSData imageData = ReadPhysicalCache(wineId);
-			if (imageData == null)
+			UIImage img = null;
+			try
 			{
-				string url = "https://icsintegration.blob.core.windows.net/bottleimages/" + wineId + ".jpg";
-				NSUrl imageURL = new NSUrl(url);
-				imageData = NSData.FromUrl(imageURL);
-				CachedImagePhysically(imageData, wineId);
-			}
-			if (imageData == null)
-				return null;
+				NSUrl imageURL = null;
+				NSData imageData = null;
+				imageData = ReadPhysicalCache(storeid + "_" + wineid);
+				if (imageData == null)
+				{
+					//	NSUrl imageURL = new NSUrl(url);
+					//	imageData = NSData.FromUrl(imageURL);
+					//	CachedImagePhysically(imageData, wineId);
+					//}
+					//NSObject btl = wineBottles.ObjectForKey(NSObject.FromObject(wineId));
+					//string url = null;
+					//if (btl != null)
+					//	return (UIImage)btl;
+					if (storeid == "1")
+					{
+						url = baseurl + "/imagebottlewall/" + wineid + ".jpg";
+						imageURL = new NSUrl(url);
+						imageData = NSData.FromUrl(imageURL);
+						CachedImagePhysically(imageData, storeid + "_" + wineid);
+						img = UIImage.LoadFromData(imageData);
+					}
+					else if (storeid == "2")
+					{
+						url = baseurl + "/imagebottlepp/" + wineid + ".jpg";
+						imageURL = new NSUrl(url);
+						imageData = NSData.FromUrl(imageURL);
+						CachedImagePhysically(imageData, storeid + "_" + wineid);
+						img = UIImage.LoadFromData(imageData);
+					}
+				}
+				else
+				{
+					img = UIImage.LoadFromData(imageData);
+					wineBottles.SetObjectforKey(img, NSObject.FromObject(storeid + "_" + wineid));
 
-			UIImage img = UIImage.LoadFromData(imageData);
-			wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId));
+				}
+				if (img == null)
+				{
+					img = new UIImage("Wines/bottle.jpg");
+				}
+
+
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+			return img;
+		}
+		public static UIImage GetGoodImage(string wineId, string storeid)
+		{
+			//NSObject btl = wineBottles.ObjectForKey(NSObject.FromObject(wineId));
+			NSData imageData = ReadPhysicalCache(storeid + "_" + wineId);//ReadPhysicalCache(wineId);
+			UIImage img = null;
+			if (imageData != null)
+			{
+				img = UIImage.LoadFromData(imageData);
+			}
+			else
+			{
+				//ReadPhysicalCache(storeid+"_"+wineId);
+				if (img == null)
+				{
+					if (storeid == "1")
+					{
+						url = baseurl + "/bottleimagedetailswall/" + wineId + ".jpg";
+
+						if (imageData == null)
+						{
+							NSUrl imageURL = new NSUrl(url);
+							imageData = NSData.FromUrl(imageURL);
+							CachedImagePhysically(imageData, wineId + "_" + storeid);
+							//wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId + "_" + storeid));
+						}
+						if (imageData == null)
+							return null;
+					}
+					else if (storeid == "2")
+					{
+						url = baseurl + "/bottleimagedetailspp/" + wineId + ".jpg";
+						if (imageData == null)
+						{
+							NSUrl imageURL = new NSUrl(url);
+							imageData = NSData.FromUrl(imageURL);
+							CachedImagePhysically(imageData, "d"+wineId + "_" + storeid);
+							//wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId + "_" + storeid));
+						}
+						//if (imageData == null)
+						//	return null;
+					}
+				}
+				img = UIImage.LoadFromData(imageData);
+			}
+			//if (btl != null)
+			//	return (UIImage)btl;
+			//wineBottles.SetObjectforKey(img, NSObject.FromObject(wineId+"_"+storeid));
 			if (img == null)
 			{
-				img =new UIImage("wine3.png");
+				img = new UIImage("Wines/bottle.jpg");
 			}
 
 			return img;
@@ -76,16 +160,17 @@ namespace WineHangoutz
 		{
 			try
 			{
-				var cache = Path.Combine("Library/Caches/", "WineHangoutz");
-				var filename = Path.Combine(cache, wineId + ".jpg");
+				var documents=Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				//var cache = Path.Combine("Library/Caches/", "WineHangoutz");
+				var filename = Path.Combine(documents, wineId + ".jpg");
 
 				byte[] dataBytes = new byte[image.Length];
 
 				System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
-				if (!Directory.Exists(cache))
-				{ 
-					Directory.CreateDirectory(cache);
-				}
+				//if (!Directory.Exists(cache))
+				//{ 
+				//	Directory.CreateDirectory(cache);
+				//}
 				File.WriteAllBytes(filename, dataBytes);
 			}
 			catch (Exception e)
@@ -101,9 +186,10 @@ namespace WineHangoutz
 		{
 			try
 			{
-				var cache = Path.Combine("Library/Caches/", "WineHangoutz");
+				var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				//var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 
-				var filename = Path.Combine(cache, wineId + ".jpg");
+				var filename = Path.Combine(documents, wineId + ".jpg");
 
 				byte[] dataBytes = File.ReadAllBytes(filename);
 				return NSData.FromArray(dataBytes);
@@ -127,18 +213,19 @@ namespace WineHangoutz
 
 				foreach (var wine in myData.ItemList)
 				{
-					GetImageBitmapFromWineId(wine.WineId.ToString());
+					GetImageBitmapFromWineId(wine.WineId.ToString(),"1");
 				}
 
 				myData = svc.GetItemList(2, CurrentUser.RetreiveUserId()).Result;
 
 				foreach (var wine in myData.ItemList)
 				{
-					GetImageBitmapFromWineId(wine.WineId.ToString());
+					GetImageBitmapFromWineId(wine.WineId.ToString(),"2");
 				}
 
 			});
 		}
+	
 		public static UIImage GetProfileImageforUser(int userid)
 		{
 			//String usid =Convert.ToString(CurrentUser.RetreiveUserId());
@@ -276,6 +363,23 @@ namespace WineHangoutz
 					return image;
 				}
 			}
+		public static UIImage GetImageFromUrl(string url)
+		{
+			NSData imgData = null;
+			UIImage img = null;
+			try
+			{
+				NSUrl imageURL = new NSUrl(url);
+				imgData = NSData.FromUrl(imageURL);
+				img = UIImage.LoadFromData(imgData);
+
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+			}
+			return img;
+		}
 
 	}
 }

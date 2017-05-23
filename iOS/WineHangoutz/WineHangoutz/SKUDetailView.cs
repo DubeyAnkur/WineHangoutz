@@ -69,6 +69,7 @@ namespace WineHangoutz
 		UIViewController Parent;
 		UINavigationController NavigationController;
 		ItemDetails data;
+		//UIImage img = new UIImage("Wines/bottle.jpg");
 		public int _store;
 		public SKUDetailTableSource(nfloat wid, UIViewController parent, UINavigationController navCtrl, ItemDetails Data,int storeid)
 		{
@@ -79,7 +80,6 @@ namespace WineHangoutz
 				Parent = parent;
 				NavigationController = navCtrl;
 				data = Data;
-
 				//data.Name = "Arzenton Pinot Nero";
 				//data.Vintage = "2013";
 				//data.Description = "Deep ruby. Perfumes alive and intense of red berry fruit enveloped by fresh spiciness of black pepper, cloves with a finish of cinnamon stick and sensations resinous toasted. In the background, flavors of wild berries. Tannnin vibrant, but already silky and enveloping connotes tasting soft, round but at the same time fresh with a tasty thin vein of great elegance.";
@@ -110,6 +110,7 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 		}
+
 
 		public override nint RowsInSection(UITableView tableview, nint section)
 		{
@@ -164,7 +165,7 @@ namespace WineHangoutz
 					case 4:
 						var btlBack = new UIImageView();
 						btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
-						btlBack.Image = UIImage.FromFile("placeholder.jpeg");
+						btlBack.Image = UIImage.FromFile("Wines/bottle.jpg");
 
 						//nfloat height = this.Width;
 						//nfloat width = (height / 233) * 92;
@@ -173,7 +174,7 @@ namespace WineHangoutz
 
 						//btlImage.Image = UIImage.FromFile(data.LargeImageUrl);
 
-						var image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString());
+						UIImage image = BlobWrapper.GetGoodImage(data.WineId.ToString(),_store.ToString());
 						if (image != null)
 						{
 							CGRect rect = btlBack.Bounds;
@@ -188,7 +189,7 @@ namespace WineHangoutz
 							btlImage.Image = image;
 						}
 						else
-							btlImage.Image = null;
+							btlImage.Image = new UIImage("placeholder.png");
 
 						vw = btlBack;
 						vw.AddSubview(btlImage);

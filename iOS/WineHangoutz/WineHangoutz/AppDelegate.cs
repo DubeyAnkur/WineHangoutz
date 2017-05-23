@@ -36,6 +36,7 @@ namespace WineHangoutz
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
 			//CurrentUser.Clear();
+			//CurrentUser.Store("1", "Tester");//for direct login
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);

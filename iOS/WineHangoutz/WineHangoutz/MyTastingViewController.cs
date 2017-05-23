@@ -26,16 +26,29 @@ namespace WineHangoutz
 		
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-			var myData = svc.GetItemReviewUID(userId).Result;
+			var myData = svc.GetMyTastingsList(userId).Result;
+			if (myData.TastingList.Count == 0)
+			{
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Sorry you haven't tasted our wines",
+					//Message = "Coming Soon..."
+				};
+				//LoggingClass.LogInfo("Entered into seacuces", screenid);
+
+
+				alert.AddButton("OK");
+				alert.Show();
+			}
 			TableView.AllowsSelection = false;
-			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
+			TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
 		}
 		public void RefreshParent()
 		{
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-			var myData = svc.GetItemReviewUID(userId).Result;
-			TableView.Source = new MyTastingTableSource(myData.Reviews.ToList(), NavigationController, this);
+			var myData = svc.GetMyTastingsList(userId).Result;
+			TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
 			TableView.ReloadData();
 			
 		}
@@ -44,12 +57,12 @@ namespace WineHangoutz
 	public class MyTastingTableSource : UITableViewSource
 	{
 
-		List<Review> TableItems;
+		List<Tastings> TableItems;
 		string CellIdentifier = "TableCell";
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyTastingTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
+		public MyTastingTableSource(List<Tastings>  items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -64,7 +77,7 @@ namespace WineHangoutz
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			MyTastingCellView cell = tableView.DequeueReusableCell(CellIdentifier) as MyTastingCellView;
-			Review item = TableItems[indexPath.Row];
+			Tastings item = TableItems[indexPath.Row];
 
 
 			//---- if there are no cells to reuse, create a new one
@@ -94,7 +107,7 @@ namespace WineHangoutz
 		UIImageView separator;
 		UIButton imageView;
 		UILabel WineIdLabel;
-
+		Tastings r = new Tastings();
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		private int screenid = 7;
@@ -117,8 +130,8 @@ namespace WineHangoutz
 
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					Review r = new Review();
-					r.PlantFinal =storeid.ToString();
+					
+					r.PlantFinal =storeid;
 
 				//NavigationController.PushViewController(new DetailViewController(), false);
 					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
@@ -153,14 +166,15 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 		}
-		public void UpdateCell(Review review)
+        public void UpdateCell(Tastings review)
 		{
+			
 			try
 			{
-				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
+				imageView.SetImage(BlobWrapper.GetResizedImage(r.WineId.ToString(), new CGRect(0, 0, 100, 155),r.PlantFinal.ToString()), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
 				WineName.Text = review.Name;
-				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
+				ReviewDate.Text = review.TastingDate.ToString("MM-dd-yyyy");
 				Vintage.Text = review.Vintage.ToString();
 				WineIdLabel.Text = review.WineId.ToString();
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);

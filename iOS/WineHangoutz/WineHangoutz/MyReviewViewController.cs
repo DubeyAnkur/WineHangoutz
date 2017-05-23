@@ -36,6 +36,19 @@ namespace WineHangoutz
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
 
+			if (myData.Reviews.Count == 0)
+			{
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Sorry you haven't reviewed our wines",
+					//Message = "Coming Soon..."
+				};
+				//LoggingClass.LogInfo("Entered into seacuces", screenid);
+
+
+				alert.AddButton("OK");
+				alert.Show();
+			}
 			TableView.AllowsSelection = false;
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 		}
@@ -266,12 +279,12 @@ namespace WineHangoutz
 			try
 			{
 
-				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155)), UIControlState.Normal);
+				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155),review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
 				WineName.Text = review.Name;
 				ReviewDate.Text = review.Date.ToString("d");
 				Comments.Text = review.RatingText;
-				Vintage.Text = review.Vintage.ToString();
+				Vintage.Text = "Vintage:"+review.Vintage.ToString();
 				storeid =Convert.ToInt32(review.PlantFinal);
 				WineIdLabel.Text = review.WineId.ToString();
 

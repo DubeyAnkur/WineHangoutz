@@ -2,16 +2,12 @@
 using UIKit;
 using CoreGraphics;
 using Foundation;
-using PatridgeDev;
-using System.Collections.Generic;
-using Xamarin.Auth;
-using System.Linq;
 using Hangout.Models;
 
 
 namespace WineHangoutz
 {
-	
+
 	public class LoginViewController : UIViewController
 	{
 		public UIViewController root;
@@ -40,7 +36,7 @@ namespace WineHangoutz
 			nfloat imageSize = 150;
 
 			var imgLogo = new UIImageView();
-			imgLogo.Frame = new CGRect((w - imageSize)/3, 70, imageSize, imageSize);
+			imgLogo.Frame = new CGRect((w - imageSize) / 3, 70, imageSize, imageSize);
 			imgLogo.Image = UIImage.FromFile("logo5.png");
 			//EmailVerification();
 
@@ -52,7 +48,7 @@ namespace WineHangoutz
 
 
 			lblFN = new UILabel();
-			lblFN.Frame = new CGRect(10, imageSize+ 100, View.Frame.Width, h);
+			lblFN.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
 			lblFN.Text = "First Name:";
 			lblFN.TextAlignment = UITextAlignment.Left;
 
@@ -112,7 +108,6 @@ namespace WineHangoutz
 				//if (UIApplication.SharedApplication.CanOpenUrl(smsTo))
 				//{
 				//	UIApplication.SharedApplication.OpenUrl(smsTo);
-
 				//}
 				//else
 				//{
@@ -188,7 +183,7 @@ namespace WineHangoutz
 			{
 				if (Dt.VerificationStatus == 1)
 				{
-					
+
 					CurrentUser.Store(cr.customer.CustomerID.ToString(), "Tester");
 					nav.DismissViewController(true, null);
 
@@ -267,7 +262,7 @@ namespace WineHangoutz
 
 		}
 		public static void StoreEmail(string email)
-		{ 
+		{
 			plist.SetString(email, "email");
 		}
 		public static string GetEmail()

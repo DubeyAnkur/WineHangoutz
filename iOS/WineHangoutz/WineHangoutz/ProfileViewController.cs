@@ -34,7 +34,7 @@ namespace WineHangoutz
 
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
-				LoggingClass.UploadErrorLogs();
+				//LoggingClass.UploadErrorLogs();
 
 				ServiceWrapper sw = new ServiceWrapper();
 				var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
