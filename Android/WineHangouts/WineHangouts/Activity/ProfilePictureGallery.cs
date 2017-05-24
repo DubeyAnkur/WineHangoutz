@@ -38,13 +38,14 @@ namespace WineHangouts
                     pppd.UploadProfilePic(filePath);
                     Intent intent = new Intent(this, typeof(TabActivity));
                     StartActivity(intent);
-                    propic.Dispose();
-                    resized.Dispose();
+                   
+                    
                 }
                 catch (Exception exe)
                 {
                     LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 }
+				
             }
             
         }

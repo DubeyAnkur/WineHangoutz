@@ -53,6 +53,7 @@ namespace WineHangouts
             else
             {
                 LoggingClass.LogInfo("Logged In ",screenid);
+			
 				LoggingClass.LogInfo("User entering into Tab activity", screenid);
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);

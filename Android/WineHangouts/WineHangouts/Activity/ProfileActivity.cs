@@ -28,7 +28,8 @@ namespace WineHangouts
             SetContentView(Resource.Layout.Profile);
             try
             {
-                LoggingClass.LogInfo("Entered into Profile Activity",screenid);
+				///LoggingClass.UploadErrorLogs(LoggingClass.CreateDirectoryForLogs());
+				LoggingClass.LogInfo("Entered into Profile Activity",screenid);
                 ActionBar.SetHomeButtonEnabled(true);
                 ActionBar.SetDisplayHomeAsUpEnabled(true);
                 int userId = Convert.ToInt32(CurrentUser.getUserId());

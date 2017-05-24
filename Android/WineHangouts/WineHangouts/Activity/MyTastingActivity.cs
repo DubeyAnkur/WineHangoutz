@@ -17,6 +17,7 @@ namespace WineHangouts
     {
         public int customerid;
         private int screenid = 6;
+		public Context parent;
         List<Tastings> myArr1;
         protected override void OnCreate(Bundle bundle)
         {
@@ -33,23 +34,36 @@ namespace WineHangouts
 
                 var MYtastings = svc.GetMyTastingsList(customerid).Result;
                 myArr1 = MYtastings.TastingList.ToList();
+				if (MYtastings.TastingList.Count == 0)
+				{
+					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					//aler.SetTitle("No Reviews Avalilable");
+					aler.SetMessage("Sorry you haven't Tasted our wines");
+					aler.SetNegativeButton("Ok", delegate { Finish(); });
+					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
+					Dialog dialog = aler.Create();
+					dialog.Show();
+				}
+				else
+				{
+					ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
 
-                ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
-                
-                MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
-                wineList.Adapter = adapter;
-                wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-                {
-                    int WineID = myArr1[args.Position].WineId;
-                    int storeID = myArr1[args.Position].PlantFinal;
-                    ProgressIndicator.Show(this);
-                    var intent = new Intent(this, typeof(DetailViewActivity));
-                    intent.PutExtra("WineID", WineID);
-                    intent.PutExtra("storeid", storeID);
-                    StartActivity(intent);
-                };
-                ProgressIndicator.Hide();
-            }
+					MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
+					wineList.Adapter = adapter;
+					wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+					{
+						int WineID = myArr1[args.Position].WineId;
+						int storeID = myArr1[args.Position].PlantFinal;
+						ProgressIndicator.Show(this);
+						var intent = new Intent(this, typeof(DetailViewActivity));
+						intent.PutExtra("WineID", WineID);
+						intent.PutExtra("storeid", storeID);
+						StartActivity(intent);
+					};
+					
+				}
+				ProgressIndicator.Hide();
+			}
 
             catch (Exception exe)
             {

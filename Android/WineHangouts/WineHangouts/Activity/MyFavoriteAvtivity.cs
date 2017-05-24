@@ -17,6 +17,7 @@ namespace WineHangouts
 	{
 		public string StoreName = "";
         private int screenid = 7;
+		public Context parent;
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
@@ -34,24 +35,38 @@ namespace WineHangouts
 				output = sw.GetItemFavsUID(userId).Result;
 				List<Item> myArr;
 				myArr = output.ItemList.ToList();
-				
-				var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
-				MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
-
-				gridview.SetNumColumns(2);
-				gridview.Adapter = adapter;
-				gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+				if (output.ItemList.Count == 0)
 				{
-					int WineID = myArr[args.Position].WineId;
-                    int storeid = myArr[args.Position].PlantFinal;
-                    ProgressIndicator.Show(this);
-					var intent = new Intent(this, typeof(DetailViewActivity));
-					intent.PutExtra("WineID", WineID);
-                    intent.PutExtra("storeid", storeid);
-                    StartActivity(intent);
-				};
+					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					//aler.SetTitle("No Reviews Avalilable");
+					aler.SetMessage("Sorry you didn't tell us your Favourite wines");
+					aler.SetNegativeButton("Ok", delegate { Finish(); });
+					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
+					Dialog dialog = aler.Create();
+					dialog.Show();
+				}
+				else
+				{
+
+					var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
+					MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
+
+					gridview.SetNumColumns(2);
+					gridview.Adapter = adapter;
+					gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+					{
+						int WineID = myArr[args.Position].WineId;
+						int storeid = myArr[args.Position].PlantFinal;
+						ProgressIndicator.Show(this);
+						var intent = new Intent(this, typeof(DetailViewActivity));
+						intent.PutExtra("WineID", WineID);
+						intent.PutExtra("storeid", storeid);
+						StartActivity(intent);
+					};
+					
+					LoggingClass.LogInfo("Entered into My Favorites Activity", screenid);
+				}
 				ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into My Favorites Activity", screenid);
 			}
 
 			catch (Exception exe)

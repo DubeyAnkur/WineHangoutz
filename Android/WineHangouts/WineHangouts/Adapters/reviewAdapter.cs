@@ -72,7 +72,7 @@ namespace WineHangouts
             Image.SetImageBitmap(imageBitmap);
 				
 			}
-			imageBitmap.Dispose();
+			///imageBitmap.Dispose();
             //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             //string path = pppd.CreateDirectoryForPictures();
             ////string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);

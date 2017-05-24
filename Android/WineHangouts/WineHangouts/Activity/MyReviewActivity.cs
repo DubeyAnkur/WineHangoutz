@@ -17,7 +17,7 @@ namespace WineHangouts
     {
         public int uid;
         private int screenid = 5;
-        //Context parent;
+        Context parent;
         public int x;
         protected override void OnCreate(Bundle bundle)
         {
@@ -34,26 +34,44 @@ namespace WineHangouts
                 uidreviews = svc.GetItemReviewUID(uid).Result;
                 List<Review> myArr1;
                 myArr1 = uidreviews.Reviews.ToList();
-                var wineList = FindViewById<ListView>(Resource.Id.listView1);
-                // myArr1 = SampleData1();
-                Review edit = new Review();
-                ReviewPopup editPopup = new ReviewPopup(this, edit);
-                MyReviewAdapter adapter = new MyReviewAdapter(this, myArr1);
-                wineList.Adapter = adapter;
-                
-                wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-                {
-                    int WineID = myArr1[args.Position].WineId;
-                    int storeID = Convert.ToInt32(myArr1[args.Position].PlantFinal);
-                    ProgressIndicator.Show(this);
-					var intent = new Intent(this, typeof(DetailViewActivity));
-                    intent.PutExtra("WineID", WineID);
-                    intent.PutExtra("storeid", storeID);
-                    StartActivity(intent);
-                };
-                ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into My Review", screenid);
-            }
+				int c = uidreviews.Reviews.Count;
+				if (c == 0)
+				{
+					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					//aler.SetTitle("No Reviews Avalilable");
+					aler.SetMessage("Sorry you haven't Reviewed our wines");
+					aler.SetNegativeButton("Ok", delegate {
+						Finish();
+						
+					});
+					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
+					Dialog dialog = aler.Create();
+					dialog.Show();
+				}
+				else
+				{
+					var wineList = FindViewById<ListView>(Resource.Id.listView1);
+					// myArr1 = SampleData1();
+					Review edit = new Review();
+					ReviewPopup editPopup = new ReviewPopup(this, edit);
+					MyReviewAdapter adapter = new MyReviewAdapter(this, myArr1);
+					wineList.Adapter = adapter;
+
+					wineList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+					{
+						int WineID = myArr1[args.Position].WineId;
+						int storeID = Convert.ToInt32(myArr1[args.Position].PlantFinal);
+						ProgressIndicator.Show(this);
+						var intent = new Intent(this, typeof(DetailViewActivity));
+						intent.PutExtra("WineID", WineID);
+						intent.PutExtra("storeid", storeID);
+						StartActivity(intent);
+					};
+					
+					LoggingClass.LogInfo("Entered into My Review", screenid);
+				}
+				ProgressIndicator.Hide();
+			}
             catch (Exception exe)
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
@@ -65,6 +83,7 @@ namespace WineHangouts
                 Dialog dialog = aler.Create();
                 dialog.Show();
             }
+
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

@@ -101,7 +101,7 @@ namespace WineHangouts
                     review.IsActive = true;
                     review.WineId = WineId;
                     review.PlantFinal = storeid;
-                    LoggingClass.LogInfo("Submitted review",screenid);
+                    LoggingClass.LogInfo("Submitted review" + review.RatingStars+ review.RatingText + review.PlantFinal+ review.WineId+"jdshc",screenid);
                     await sw.InsertUpdateReview(review);
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
@@ -159,7 +159,7 @@ namespace WineHangouts
                     try
                     {
                         await sw.InsertUpdateReview(review);
-                        LoggingClass.LogInfo("Edited Review submitted",screenid);
+                        LoggingClass.LogInfo("Edited Review "+ review.RatingText+ review.RatingStars+ review.WineId+ review.PlantFinal+"submitted",screenid);
                     }
 
                     catch (Exception exe)

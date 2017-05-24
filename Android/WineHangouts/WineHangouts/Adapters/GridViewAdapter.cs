@@ -100,6 +100,7 @@ namespace WineHangouts
             var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
             var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
             heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 110; // 110 = 80 + 30
+			
             heartLP.TopMargin = 5;
             heartImg.LayoutParameters = heartLP;
             heartImg.Layout(50, 50, 50, 50);
@@ -147,12 +148,24 @@ namespace WineHangouts
             Bitmap imageBitmap;
             imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId,storeid);
             var place = new FrameLayout.LayoutParams(650, 650);
-            place.LeftMargin = -70; //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
+			
+			 //-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
             imgWine.LayoutParameters = place;
             if (imageBitmap != null)
             {
-                float ratio = (float)650 / imageBitmap.Height;
-                imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, Convert.ToInt32(imageBitmap.Width * ratio), 650, true);
+				if (heartLP.LeftMargin <= 250)
+				{
+					place.LeftMargin = -140;
+					float ratio = (float)500 / imageBitmap.Height;
+					imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, Convert.ToInt32(imageBitmap.Width * ratio), 550, true);
+				}
+				else
+				{
+					place.LeftMargin = -70;
+					float ratio = (float)650 / imageBitmap.Height;
+					imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, Convert.ToInt32(imageBitmap.Width * ratio), 650, true);
+				}
+				
                
                 imgWine.SetImageBitmap(imageBitmap);
 
@@ -169,6 +182,8 @@ namespace WineHangouts
             txtVintage.Focusable = false;
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
+			imgWine.Dispose();
+			
 			LoggingClass.LogInfo("Entered into Grid View Adapter", screenid);
             return row;
         }

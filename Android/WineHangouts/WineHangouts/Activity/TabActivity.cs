@@ -22,8 +22,9 @@ namespace WineHangouts
             try
             {
                 LoggingClass.UploadErrorLogs(LoggingClass.CreateDirectoryForLogs());
-                //File.Delete(LoggingClass.CreateDirectoryForLogs());
-            }
+				//LoggingClass.Upload(LoggingClass.CreateDirectoryForLogs());
+				//File.Delete(LoggingClass.CreateDirectoryForLogs());
+			}
             catch (Exception exe)
             {
                 Log.Error("Hangouts", exe.Message);
