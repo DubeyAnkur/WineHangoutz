@@ -105,8 +105,8 @@ namespace WineHangouts
                 ItemListResponse output = sw.GetItemList(StoreId, userId).Result;
 
                 List<Item> myArr = output.ItemList.ToList();
-
-                var gridview = FindViewById<GridView>(Resource.Id.gridview);
+				LoggingClass.LogInfo("entered into "+StoreName, screenid);
+				var gridview = FindViewById<GridView>(Resource.Id.gridview);
                 adapter = new GridViewAdapter(this, myArr,StoreId);
                 gridview.SetNumColumns(2);
                 gridview.Adapter = adapter;

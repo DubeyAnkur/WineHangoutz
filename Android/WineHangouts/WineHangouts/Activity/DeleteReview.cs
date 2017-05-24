@@ -48,7 +48,7 @@ namespace WineHangouts
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
                     myDialog.Dismiss();
-					LoggingClass.LogInfo("User deleted winereview" + WineId, screenid);
+					LoggingClass.LogInfo("User deleted winereview" + WineId +review.PlantFinal, screenid);
 
 
 				};

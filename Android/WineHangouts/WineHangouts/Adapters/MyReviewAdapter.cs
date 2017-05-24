@@ -104,11 +104,13 @@ namespace WineHangouts
 					//edit.SetTag(1, 5757);
 					edit.Click += (sender, args) =>
 					{
+
 						int WineId = myItems[position].WineId;
 						Review _review = new Review();
 						_review.WineId = WineId;
 						_review.RatingStars = myItems[position].RatingStars;
 						_review.RatingText = myItems[position].RatingText;
+						LoggingClass.LogInfo("clicked on edit  an item"+WineId, screenid);
 						PerformItemClick(sender, args, _review);
 					};
 					//delete.Click += Delete_Click;
@@ -118,7 +120,7 @@ namespace WineHangouts
 
 						Review _review = new Review();
 						_review.WineId = WineId;
-
+						LoggingClass.LogInfo("clicked on delete item" + WineId, screenid);
 						PerformdeleteClick(sender, args, _review);
 
 					};

@@ -61,6 +61,7 @@ namespace WineHangouts
 					{
 						int WineID = myArr1[args.Position].WineId;
 						int storeID = Convert.ToInt32(myArr1[args.Position].PlantFinal);
+						LoggingClass.LogInfo("Clicked on " + myArr1[args.Position].WineId + " to enter into wine details", screenid);
 						ProgressIndicator.Show(this);
 						var intent = new Intent(this, typeof(DetailViewActivity));
 						intent.PutExtra("WineID", WineID);

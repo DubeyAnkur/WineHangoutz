@@ -114,7 +114,7 @@ namespace WineHangouts
 
                 };
                 ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into detail view", screenid);
+                LoggingClass.LogInfo("Entered into detail view"+wineid, screenid);
                 Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
             }
             catch (Exception exe)

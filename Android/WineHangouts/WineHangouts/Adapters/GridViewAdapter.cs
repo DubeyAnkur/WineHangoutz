@@ -125,13 +125,15 @@ namespace WineHangouts
                     if (count == false)
                     {
                         heartImg.SetImageResource(Resource.Drawable.HeartFull);
-                        x = true;
+						LoggingClass.LogInfo("Liked an item" + myItems[position].WineId, screenid);
+						x = true;
                         count = true;
                     }
                     else
                     {
                         heartImg.SetImageResource(Resource.Drawable.Heart_emp);
-                        x = false;
+						LoggingClass.LogInfo("UnLiked an item" + myItems[position].WineId, screenid);
+						x = false;
                         count = false;
                     }
                     SKULike like = new SKULike();
@@ -183,6 +185,7 @@ namespace WineHangouts
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
 			imgWine.Dispose();
+			imageBitmap.Dispose();
 			
 			LoggingClass.LogInfo("Entered into Grid View Adapter", screenid);
             return row;
