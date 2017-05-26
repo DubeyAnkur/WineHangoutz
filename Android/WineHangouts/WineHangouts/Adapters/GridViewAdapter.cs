@@ -185,7 +185,7 @@ namespace WineHangouts
             txtPrice.Focusable = false;
             imgWine.Focusable = false;
 			imgWine.Dispose();
-			imageBitmap.Dispose();
+			
 			
 			LoggingClass.LogInfo("Entered into Grid View Adapter", screenid);
             return row;

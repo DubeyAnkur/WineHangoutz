@@ -7,6 +7,7 @@ using Android.Widget;
 using Hangout.Models;
 using Android.Telephony;
 using Android.Gms.Common;
+using Android.Views;
 
 namespace WineHangouts
 
@@ -26,9 +27,10 @@ namespace WineHangouts
             
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
-            
-            //EditText UserName = FindViewById<EditText>(Resource.Id.txtUsername);
-            EditText UserEmail = FindViewById<EditText>(Resource.Id.TxtUserEmail);
+			Button Resend = FindViewById<Button>(Resource.Id.btnLoginRs);
+			Resend.Visibility = ViewStates.Invisible;
+			//EditText UserName = FindViewById<EditText>(Resource.Id.txtUsername);
+			EditText UserEmail = FindViewById<EditText>(Resource.Id.TxtUserEmail);
             ServiceWrapper svc = new ServiceWrapper();
             var TaskA = new System.Threading.Tasks.Task(() => {
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
@@ -60,9 +62,9 @@ namespace WineHangouts
                 SendRegistrationToAppServer(CurrentUser.getToken());
             }
 
+			
 
-
-            login.Click += async delegate
+			login.Click += async delegate
             {
 				ProgressIndicator.Show(this);
 				//1. Call Auth service and check for this user, it returns one.
@@ -178,13 +180,14 @@ namespace WineHangouts
 				//    }
 
 				//}
-				login.Text = string.Format("Resend");
+				
 				ProgressIndicator.Hide();
 
+				Resend.Visibility = ViewStates.Visible;
 
 			};
-			
 
+			
 
 		}
         public async void SendRegistrationToAppServer(string token)

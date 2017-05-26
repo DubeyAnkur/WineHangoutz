@@ -5,12 +5,12 @@
   <string name="openCamera">Click from camera</string>
   <string name="openGallery">pick from gallery</string>
   <string name="WHATWEOFFER">
-    We offer- not just the wines and beers, but an experience of enjoyment.\nUpon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:\n
-    \n	Pick the Choice: Guest is displayed with all the available wines for tasting.
-    \n	My Tasting: See the list of wines you have tasted and choose more from the remaining surprises.
-    \n	My Reviews: View your ratings and reviews and let other wine lovers explore it along with you.
-    \n	My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting.
-    \n	My Profile: Protect your credentials and update it as and when you wish.
+    We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:\n
+    \n	--> Pick the Choice: Guest is displayed with all the available wines for tasting.
+    \n	--> My Tasting: See the list of wines you have tasted and choose more from the remaining surprises.
+    \n	--> My Reviews: View your ratings and reviews and let other wine lovers explore it along with you.
+    \n	--> My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting.
+    \n	--> My Profile: Protect your credentials and update it as and when you wish.
 
   </string>
   <string name="whoweare">

@@ -101,9 +101,11 @@ namespace WineHangouts
                 Top.LayoutParameters.Height = height;
                 Middle.LayoutParameters.Height = height;
                 Bottom.LayoutParameters.Height = height;
-                if (tabName == "Locations")
+				
+				if (tabName == "Locations")
                 {
-                    try
+					LoggingClass.LogInfo("Clicked on " + tabName, screenid);
+					try
                     {
                         Top.SetBackgroundResource(Resource.Drawable.city);
                         Top.Text = "Wall";
@@ -146,9 +148,7 @@ namespace WineHangouts
                             Dialog dialog = aler.Create();
                             dialog.Show();
                         };
-						Top.Dispose();
-						Bottom.Dispose();
-						Middle.Dispose();
+						
 
 					}
                     catch (Exception exe)
@@ -158,7 +158,8 @@ namespace WineHangouts
                 }
                 if (tabName == "My Hangouts")
                 {
-                    try
+					LoggingClass.LogInfo("Clicked on " + tabName, screenid);
+					try
                     {
                         Top.SetBackgroundResource(Resource.Drawable.winereviews);
                         Top.Text = "My Reviews";
@@ -197,9 +198,7 @@ namespace WineHangouts
                             intent.PutExtra("MyData", "My Favorites");
                             StartActivity(intent);
                         };
-						Top.Dispose();
-						Bottom.Dispose();
-						Middle.Dispose();
+						
                     }
                     catch (Exception exe)
                     {
@@ -266,16 +265,17 @@ namespace WineHangouts
                             //intent.PutExtra("MyData", "Regions");
                             //StartActivity(intent);
                         };
-						Top.Dispose();
-						Bottom.Dispose();
-						Middle.Dispose();
+						
 
 					}
                     catch (Exception exe)
                     {
                         LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
-                }
+					Top.Dispose();
+					Bottom.Dispose();
+					Middle.Dispose();
+				}
 
                 return view;
 

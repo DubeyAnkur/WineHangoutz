@@ -62,7 +62,7 @@
         android:id="@+id/TxtUserEmail"
         android:layout_below="@+id/lblPassword"
         android:inputType="textEmailAddress"
-        android:layout_height="30.5dp"
+        android:layout_height="38.5dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:hint="Enter your email here"
@@ -82,7 +82,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <Button
+            android:id="@+id/btnLoginRs"
+            android:layout_width="wrap_content"
+            android:layout_height="33.5dp"
+            android:textSize="25dp"
+            android:text="Resend"
+            android:typeface="sans"
+            android:textColor="#800080"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="141.0dp"
+            android:background="@null" />
         <Button
             android:id="@+id/btnLoginLL"
             android:layout_width="wrap_content"
@@ -90,12 +104,11 @@
             android:textSize="25dp"
             android:text="Login"
             android:typeface="sans"
-            android:textColor="#ffffffff"
-            android:textStyle="bold"
+            android:textColor="#800080"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="250dp"
-            android:background="#800080" />
+            android:layout_marginLeft="35.5dp"
+            android:background="@null" />
     </LinearLayout>
     <TextView
         android:id="@+id/lblPassword"
@@ -140,4 +153,14 @@
         android:layout_marginBottom="20dp"
         android:minWidth="25px"
         android:minHeight="25px" />
+    <Button
+        android:id="@+id/btnLoginLL"
+        android:textSize="25dp"
+        android:text="Login"
+        android:typeface="sans"
+        android:textColor="#800080"
+        android:gravity="center_horizontal"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
