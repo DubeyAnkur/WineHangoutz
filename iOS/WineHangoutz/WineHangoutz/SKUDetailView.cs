@@ -8,6 +8,8 @@ using Hangout.Models;
 using System.Linq;
 using BigTed;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
 namespace WineHangoutz
 {
@@ -85,9 +87,10 @@ namespace WineHangoutz
 
 	public class SKUDetailTableSource : UITableViewSource
 	{
-
+		UIImageView btlImage = new UIImageView();
 		PDRatingView ratingView;
 		nfloat Width;
+		NSData HighImgData = null;
 		UITableView table;
 		UIViewController Parent;
 		UINavigationController NavigationController;
@@ -111,7 +114,7 @@ namespace WineHangoutz
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
 				data.Reviews = ratings.Reviews.ToList();
-
+				//DownloadAsync(data.WineId, _store);
 			}
 			catch (Exception ex)
 			{
@@ -172,7 +175,7 @@ namespace WineHangoutz
 						btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
 						btlBack.Image = UIImage.FromFile("Wines/bottle.jpg");
 
-						var btlImage = new UIImageView(); //92 * 233
+						 //92 * 233
 
 						UIImage image = BlobWrapper.GetGoodImage(data.WineId.ToString(),_store.ToString());
 						if (image != null)
@@ -190,6 +193,16 @@ namespace WineHangoutz
 						}
 						else
 							btlImage.Image = new UIImage("placeholder.png");
+
+						//if (HighImgData != null)
+						//{
+						//	btlImage.Image = UIImage.LoadFromData(HighImgData);
+						//}
+						//else
+						//{
+						//	btlImage.Image = new UIImage("Wines/wine1.png");
+						//}
+
 
 						vw = btlImage; //btlBack;
 						//vw.AddSubview(btlImage);
@@ -369,6 +382,53 @@ namespace WineHangoutz
 			reviewTable.AllowsSelection = false;
 			reviewTable.ScrollEnabled = false;
 			return reviewTable;
+		}
+		public async void DownloadAsync(int wineid, int storeid)
+		{
+			
+			UIImage HighresImg = null;
+			WebClient webClient = new WebClient(); 
+			string url = null;
+				if ( storeid== 1)
+				{
+				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/"+wineid+".jpg";
+				}
+				else if (storeid == 2)
+				{	
+				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailspp/"+wineid+".jpg";
+				}
+				byte[] imageBytes = null;
+			try
+			{
+				imageBytes = await webClient.DownloadDataTaskAsync(url);
+				HighImgData = NSData.FromStream(new MemoryStream(imageBytes));
+			}
+			catch (TaskCanceledException)
+			{
+				//this.progressLayout.Visibility = ViewStates.Gone;
+				return;
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError("while downloading image of wine id" + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
+			}
+					
+			//HighresImg  =UIImage.LoadFromData(HighImgData);
+			try
+			{
+				if (HighImgData != null)
+				{
+					btlImage.Image = UIImage.LoadFromData(HighImgData);
+				}
+				else
+				{
+					btlImage.Image = new UIImage("Wines/wine1.png");
+				}
+			}
+			catch (Exception Ex)
+			{
+				LoggingClass.LogError(Ex.Message, screenid, Ex.StackTrace.ToString());
+			}
 		}
 	}
 }
