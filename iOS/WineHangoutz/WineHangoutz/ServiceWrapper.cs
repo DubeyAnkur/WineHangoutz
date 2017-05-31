@@ -131,6 +131,7 @@ namespace WineHangoutz
 			CustomerResponse output = null;
 
 			LoggingClass.LogServiceInfo("Service Call", "AuthencateEmail");
+			LoggingClass.LogServiceInfo("Tried to login with " + email+" From IOS Device", "");
 			try
 			{
 				var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);

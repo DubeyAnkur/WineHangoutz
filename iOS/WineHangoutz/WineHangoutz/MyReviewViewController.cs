@@ -25,17 +25,11 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			//AboutController1.ViewDidLoad(base);
-			//table = new UITableView(View.Bounds); // defaults to Plain style
-			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
-			//List<Reviews> tableItems = new List<Reviews>();>
-		 
 			LoggingClass.LogInfo("Entered into MyReviews View",screenid);
 
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
-
 			if (myData.Reviews.Count == 0)
 			{
 				UIAlertView alert = new UIAlertView()
@@ -43,9 +37,6 @@ namespace WineHangoutz
 					Title = "Sorry you haven't reviewed our wines",
 					//Message = "Coming Soon..."
 				};
-				//LoggingClass.LogInfo("Entered into seacuces", screenid);
-
-
 				alert.AddButton("OK");
 				alert.Show();
 			}
@@ -59,13 +50,11 @@ namespace WineHangoutz
 			var myData = svc.GetItemReviewUID(userId).Result;
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
-			
 		}
     }
 
 	public class MyReviewTableSource : UITableViewSource
 	{
-
 		List<Review> TableItems;
 		string CellIdentifier = "TableCell";
 		UINavigationController NavController;
@@ -143,12 +132,6 @@ namespace WineHangoutz
 
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					//ItemReviewResponse r = sw.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
-					////r.PlantFinal = storeid.ToString();
-					//storeid = Convert.ToInt32( r.Reviews.);
-					//int storeid = 2;
-				//NavigationController.PushViewController(new DetailViewController(), false);
-					
 					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
 				};
 				Review review = new Review();
@@ -158,7 +141,8 @@ namespace WineHangoutz
 				{
 					Font = UIFont.FromName("Verdana", 14f),
 					TextColor = UIColor.FromRGB(127, 51, 0),
-					BackgroundColor = UIColor.Clear
+					BackgroundColor = UIColor.Clear,
+					Editable = false
 
 				};
 				ReviewDate = new UILabel()
@@ -203,7 +187,7 @@ namespace WineHangoutz
 					yourController.parent = Parent;
 					yourController.StartsSelected = stars.AverageRating;
 					yourController.Comments = Comments.Text;
-					LoggingClass.LogInfo("Editing the review", screenid);
+					LoggingClass.LogInfo("Edited the review of "+wineId, screenid);
 
 
 				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
@@ -216,19 +200,6 @@ namespace WineHangoutz
 
 				btnDelete.TouchUpInside += (sender, e) =>
 				{
-				//////DeletePopup deleteController = new DeletePopup(Convert.ToInt32(WineIdLabel.Text));
-				//////deleteController.NavController = NavController;
-				//////deleteController.parent = Parent;
-				//yourController.StartsSelected = stars.AverageRating;
-				//yourController.Comments = Comments.Text;
-				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
-				//yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-				//this.PresentViewController(yourController, true, null);
-				//////Parent.PresentModalViewController(deleteController, false);
-
-				//Show the pop, Are you sure. With Yes & No Button.
-				//If Yes, Then delete, lse close the popup.
-				LoggingClass.LogInfo("Deleting the review", screenid);
 					UIAlertView alert = new UIAlertView()
 					{
 						Title = "Delete Review ",
@@ -241,15 +212,12 @@ namespace WineHangoutz
 					{
 						if (buttonArgs.ButtonIndex == 0)
 						{
-						//Review review = new Review();
-						ServiceWrapper sw = new ServiceWrapper();
 							review.WineId = Convert.ToInt32(WineIdLabel.Text);
 
 							review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 
 							await sw.DeleteReview(review);
-							LoggingClass.LogInfo("Deleting the review", screenid);
-
+							LoggingClass.LogInfo("Deleting the review of "+wineId, screenid);
 
 							((IPopupParent)Parent).RefreshParent();
 						}

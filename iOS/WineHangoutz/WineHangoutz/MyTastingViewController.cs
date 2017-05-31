@@ -119,7 +119,7 @@ namespace WineHangoutz
 				SelectionStyle = UITableViewCellSelectionStyle.Gray;
 
 
-				LoggingClass.LogInfo("Tasting View", screenid);
+				LoggingClass.LogInfo("Entered Into Tasting View", screenid);
 
 
 				//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
@@ -132,8 +132,6 @@ namespace WineHangoutz
 				{
 					
 					r.PlantFinal =storeid;
-
-				//NavigationController.PushViewController(new DetailViewController(), false);
 					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
 				};
 				separator = new UIImageView();

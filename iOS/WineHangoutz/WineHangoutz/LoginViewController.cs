@@ -19,6 +19,7 @@ namespace WineHangoutz
 		CustomerResponse cr = new CustomerResponse();
 		ServiceWrapper svc = new ServiceWrapper();
 		public string DeviceToken { get { return deviceToken; } }
+		private int screenid = 111;
 
 		public LoginViewController() : base()
 		{
@@ -50,12 +51,12 @@ namespace WineHangoutz
 
 			lblFN = new UILabel();
 			lblFN.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
-			lblFN.Text = "First Name:";
+			lblFN.Text = "";
 			lblFN.TextAlignment = UITextAlignment.Left;
 
 			var lblName = new UILabel();
-			lblName.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
-			lblName.Text = "Please Login here with registered email id.";
+			lblName.Frame = new CGRect(10, imageSize + 90, 300, h);
+			lblName.Text = "Please Login with registered email id.";
 			lblName.TextAlignment = UITextAlignment.Center;
 
 			//var lblIns = new UILabel();
@@ -97,7 +98,7 @@ namespace WineHangoutz
 			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 			btnResendEmail.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnVerify = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+			btnVerify = new UIButton(new CGRect(14, imageSize + 270, 240, 20));
 			btnVerify.SetTitle("Verify", UIControlState.Normal);
 			btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 			btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
@@ -106,7 +107,10 @@ namespace WineHangoutz
 			{
 				await svc.AuthencateUser1(txtPassword.Text);
 			};
-
+			btnVerify.TouchUpInside += (sender, e) =>
+			{
+                EmailVerification();
+			};
 			btnLogin.TouchUpInside += async (sender, e) =>
 			{
 				//var smsTo = NSUrl.FromString("sms:"+txtPassword.Text);
@@ -131,41 +135,21 @@ namespace WineHangoutz
 				{
 					CurrentUser.StoreEmail(txtPassword.Text);
 					cr = await svc.AuthencateUser1(CurrentUser.GetEmail());
-					//CurrentUser.Store(cr.customer.CustomerID.ToString(),"Tester");
+					if (cr.customer.IsMailSent == 1)
+					{
+						CurrentUser.PutEmailStatus(true);
+					}
+					LoggingClass.LogInfo(txtPassword.Text+" tried to login", screenid);
 					EmailVerification();
-					//2. Check if Email sent status.
-					// 2.1 Not sent, Call the service which sends email.
-					// 2.2 If sent, Ask them to verify
-					// 2.3 Call authenticate user and then Go to Tabs View.
+					lblName.Hidden = true;
 
-
-
-					//try
-					//{
-					//	View.AddSubview(btnResendEmail);
-
-					//}
-					//catch (Exception ex)
-					//{
-					//	Console.WriteLine(ex.Message.ToString());
-					//}
-					//nav.DismissViewController(true, null);
 				}
 				var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
 				View.AddSubview(loadPop);
-
-				//var output = SaveUserDetails(usernameField.Text,txtPassword.Text);
-
-				//if (output == true)
-				//{
-				//	nav.DismissViewController(true, null);
-
-				//	int DeviceType = 2;
-				//	await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(),DeviceType);
-				//}
-
 				loadPop.Hide();
 			};
+
+
 
 			View.BackgroundColor = UIColor.White;
 			View.AddSubview(imgLogo);
@@ -180,76 +164,50 @@ namespace WineHangoutz
 		public async void EmailVerification()
 		{
 			DeviceToken Dt = new DeviceToken();
-
-			//ServiceWrapper svc = new ServiceWrapper();
 			Dt = await svc.VerifyMail(cr.customer.CustomerID.ToString());
 
-			//dd = await svc.VerifyMail(CurrentUser.GetEmail());
 			try
 			{
-				if (Dt.VerificationStatus == 1)
+				int sentstatus=cr.customer.IsMailSent;
+				if (sentstatus == 0)
 				{
+					lblError.Text = "Entered email is doesn't exist with us please update at our store.";
 
-					CurrentUser.Store(cr.customer.CustomerID.ToString(), "Tester");
-					nav.DismissViewController(true, null);
-
-					int DeviceType = 2;
-					await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
 				}
-				else
+				if (CurrentUser.GetEmailStatus() == true)
 				{
-					try
-					{
-						View.AddSubview(btnResendEmail);
-						View.AddSubview(lblIns);
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(ex.Message.ToString());
-					}
-
-					//lblError.Text = "If you don't get email click on resend";
+					lblFN.Text = "Mail sent please verify and come back here";
 				}
+					View.AddSubview(lblFN);
+					if (Dt.VerificationStatus == 1)
+					{
+						CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName+cr.customer.LastName);
+						nav.DismissViewController(true, null);
+						int DeviceType = 2;
+						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
+						LoggingClass.LogInfo("user logged in with" + CurrentUser.RetreiveUserId(), screenid);
+					}
+					else
+					{
+						try
+						{
+							View.AddSubview(btnResendEmail);
+							View.AddSubview(lblIns);
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine(ex.Message.ToString());
+						}
+					}
+						lblError.Text = "If you don't receive verification email click on resend";
+						
 			}
 			catch (Exception Exe)
 			{
-
+				Console.WriteLine(Exe.Message);
 			}
-			//return true;
 
 		}
-
-		//public bool SaveUserDetails(string userName,string email)
-		//{
-		//	ServiceWrapper svc = new ServiceWrapper();
-
-		//	if (userName.Trim() == "")
-		//	{
-		//		lblError.Text = "Wrong First Name.";
-		//		return false;
-		//	}
-		//	else if (email.Trim() == "")
-		//	{
-		//		lblError.Text = "Wrong Email id";
-		//	}
-
-		//	var myData = svc.AuthencateUser(userName).Result;
-		//	var Authen = svc.AuthencateUser1(email).Result;
-		//	//Boolean Authen = svc.AuthencateUser1(email).Result;
-		//	if (myData.customer.CustomerID != 0 && Authen!=null)
-		//	{
-		//		lblError.Text = "";
-		//		CurrentUser.Store(myData.customer.CustomerID.ToString(), userName);
-		//		CurrentUser.StoreEmail(email);
-		//		return true;
-		//		//return false;
-		//	}
-		//	else
-		//	{
-		//		lblError.Text = "Wrong Details.";
-		//		return false;
-		//	}
-		//}
 	}
 
 	public static class CurrentUser //: ISecuredDataProvider
@@ -275,6 +233,15 @@ namespace WineHangoutz
 		{
 			string email = plist.StringForKey("email");
 			return email;
+		}
+		public static void PutEmailStatus(Boolean status)
+		{
+			plist.SetBool(status, "status");
+		}
+		public static Boolean GetEmailStatus()
+		{
+			Boolean status = plist.BoolForKey("status");
+			return status;
 		}
 		public static void SetToken(string token)
 		{

@@ -23,6 +23,7 @@ namespace WineHangoutz {
 		public string WineId = "0";
 		public string storeId = "2";
 		public Item myItem;
+		public UIView parent;
 
 		public void Dowork()
 		{
@@ -36,7 +37,7 @@ namespace WineHangoutz {
 			//NavigationController.NavigationBar.TopItem.Title = "List";
 
 
-			LoggingClass.LogInfo("Entered into Grid View",screenid);
+
 
 			try
 			{
@@ -52,23 +53,7 @@ namespace WineHangoutz {
 				ImageView.ClipsToBounds = true;
 				ImageView.Layer.BorderColor = UIColor.White.CGColor;
 				ImageView.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-				//ImageView.SetBackgroundImage(UIImage.FromFile("placeholder.jpeg"), UIControlState.Normal);
 
-				//ImageView.TouchDown += (object sender, EventArgs e) =>
-				// {
-				//	 BTProgressHUD.Show("Loading...");
-				// };
-
-				//ImageView.TouchUpInside += (object sender, EventArgs e) =>
-				//{
-				//	//NavigationController.PushViewController(new DetailViewController(), false);
-
-				//	NavigationController.PushViewController(new SKUDetailView(WineId), false);
-				//	BTProgressHUD.Dismiss();
-				//};
-
-				//box.Width = (box.Width/ 240) * 92; //box.Width / 2;
-				//box.X = (Bounds.Width-box.Width) / 2;
 				box.Y = 3;
 				btlImage = new UIButton(box);
 				btlImage.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
@@ -77,41 +62,25 @@ namespace WineHangoutz {
 				btlImage.Layer.BorderColor = UIColor.White.CGColor;
 				btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 
-				btlImage.TouchDown += (object sender, EventArgs e) =>
-				{
-				//BTProgressHUD.Show("Thread running");
-
-
-			};
 
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
-				//Thread.Sleep(5000);
-				//NavigationController.PushViewController(new DetailViewController(), false);
-
+					BTProgressHUD.Show();
 					NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
-				//l.LogInfo("Entered "+WineId+"into Detail View");
-				LoggingClass.LogInfo("Enter into detailview from gridview ", screenid);
-					BTProgressHUD.Dismiss();
+					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
 
-				//ThreadStart thr = new ThreadStart(Dowork);
-				//Thread mythr = new Thread(thr);
-				//mythr.Start();
-			};
+				};
 
 				box.Height = 25;
 				box.Width = 25;
 				box.X = (Bounds.Width - 30);
 				box.Y = 5;
 				heartImage = new UIButton(box);
-				//heartImage.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
-				//heartImage.ContentMode = UIViewContentMode.ScaleToFill;
 				heartImage.ClipsToBounds = true;
-				//heartImage.Layer.BorderWidth = 3.0f;
 				heartImage.Layer.BorderColor = UIColor.White.CGColor;
 				heartImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 				heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
-				heartImage.Tag = 0; // Empty;
+				heartImage.Tag = 0;
 
 				heartImage.TouchUpInside += async (object sender, EventArgs e) =>
 				{
@@ -122,20 +91,20 @@ namespace WineHangoutz {
 						heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 						temp.Tag = 1;
 						myItem.IsLike = true;
+						LoggingClass.LogInfo("Liked Wine "+WineId, screenid);
 					}
 					else
 					{
 						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 						temp.Tag = 0;
 						myItem.IsLike = false;
+						LoggingClass.LogInfo("Unliked Wine "+WineId, screenid);
 					}
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				SKULike like = new SKULike();
 					like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
 					like.WineId = Convert.ToInt32(WineId);
 					like.Liked = Convert.ToBoolean(temp.Tag);
-					LoggingClass.LogInfo("Liked Wine", screenid);
-
 
 					ServiceWrapper sw = new ServiceWrapper();
 					await sw.InsertUpdateLike(like);
@@ -188,7 +157,7 @@ namespace WineHangoutz {
 				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
 							filledImage: UIImage.FromBundle("Stars/star.png"),
 							chosenImage: UIImage.FromBundle("Stars/star.png"));
-				decimal averageRating = 3.25m;
+				//decimal averageRating = 3.25m;
 
 				ratingView = new PDRatingView(new CGRect(Bounds.Width * 1 / 4, Bounds.Height - 40, Bounds.Width / 2, 14f), ratingConfig, averageRating);
 				ratingView.UserInteractionEnabled = false;

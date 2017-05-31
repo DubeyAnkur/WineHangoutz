@@ -154,7 +154,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="931" id="932">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -238,5 +238,6 @@
         <image name="logo5.png" width="1000" height="1000"/>
         <image name="logo5.jpg" width="1000" height="1000"/>
         <image name="user1.png" width="500" height="466"/>
+        <image name="Wines/bottle.jpg" width="750" height="750"/>
     </resources>
 </document>

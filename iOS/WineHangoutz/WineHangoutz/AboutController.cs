@@ -26,9 +26,9 @@ namespace WineHangoutz
 				//lblRateTitle.TextAlignment = UITextAlignment.Center;
 				//lblRateTitle.Font = UIFont.FromName("Verdana-Bold", 16f);
 				//lblRateTitle.TextColor = UIColor.Purple;
-				LoggingClass.UploadErrorLogs();
+				//LoggingClass.UploadErrorLogs();
 
-				LoggingClass.LogInfo("Entered into About View", screenid);
+				LoggingClass.LogInfo("Entered into About View ", screenid);
 
 
 				UITextView About = new UITextView();

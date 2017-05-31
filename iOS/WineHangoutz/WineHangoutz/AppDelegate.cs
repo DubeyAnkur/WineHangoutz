@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using BigTed;
 using WindowsAzure.Messaging;
 using System;
-
+using Security;
 
 namespace WineHangoutz
 {
@@ -14,12 +14,9 @@ namespace WineHangoutz
 	[Register("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
-
 		protected string deviceToken = string.Empty;
-
+		protected int screenid = 1;
 		public string DeviceToken {get { return deviceToken; } }
-
 		public override UIWindow Window
 		{
 			get;
@@ -28,8 +25,8 @@ namespace WineHangoutz
 		UINavigationController nav;
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			//Download all images in background.
 			BlobWrapper.DownloadAllImages();
+			//string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
@@ -138,7 +135,6 @@ namespace WineHangoutz
 					}
 					else
 					{
-						
 						int storeid = 2;
 						nav.PushViewController(new SKUDetailView(wineid,storeid.ToString()), false);
 						BTProgressHUD.Dismiss();
@@ -173,6 +169,9 @@ namespace WineHangoutz
 			explore = ResizeImage(explore, 35, 35);
 			t2.Image = explore;
 			t2.SelectedImage = explore;
+			t2.Enabled = false;
+			//RootTab[2].RemoveFromParentViewController();
+
 
 		}
 
@@ -184,6 +183,32 @@ namespace WineHangoutz
 			UIGraphics.EndImageContext();
 			return resultImage;
 		}
+
+		//public override string UniqueID
+		//{
+		//	get
+		//	{
+		//		var query = new SecRecord(SecKind.GenericPassword);
+		//		query.Service = NSBundle.MainBundle.BundleIdentifier;
+		//		query.Account = "UniqueID";
+
+		//		NSData uniqueId = SecKeyChain.QueryAsData(query);
+		//		if (uniqueId == null)
+		//		{
+		//			query.ValueData = NSData.FromString(System.Guid.NewGuid().ToString());
+		//			var err = SecKeyChain.Add(query);
+		//			if (err != SecStatusCode.Success && err != SecStatusCode.DuplicateItem)
+		//				throw new Exception("Cannot store Unique ID");
+
+		//			return query.ValueData.ToString();
+		//		}
+		//		else
+		//		{
+		//			return uniqueId.ToString();
+		//		}
+		//	}
+		//}
+
 
 		public override void OnResignActivation(UIApplication application)
 		{

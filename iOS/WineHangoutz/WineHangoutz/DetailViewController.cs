@@ -75,7 +75,6 @@ namespace WineHangoutz
 			UIViewController that = this;
 			ratingView.RatingChosen += (sender, e) =>
 			{
-				//(new UIAlertView("Rated!", e.Rating.ToString() + " stars", null, "Ok")).Show();
 				PopupView yourController = new PopupView(0,1);
 				yourController.NavController = NavigationController;
 				yourController.parent = that;

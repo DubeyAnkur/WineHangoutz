@@ -42,7 +42,9 @@ namespace WineHangoutz
 					Font = UIFont.FromName("AmericanTypewriter", 14f),
 					TextColor = UIColor.FromRGB(255, 127, 0),
 					//TextAlignment = UITextAlignment.Center,
-					BackgroundColor = UIColor.Clear
+					BackgroundColor = UIColor.Clear,
+					Editable = false
+					                         
 				};
 				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/star-silver2.png"),
 							filledImage: UIImage.FromBundle("Stars/star.png"),

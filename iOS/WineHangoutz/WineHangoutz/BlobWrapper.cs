@@ -164,14 +164,21 @@ namespace WineHangoutz
 				//var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 				var filename = Path.Combine(documents, wineId + ".jpg");
 
-				byte[] dataBytes = new byte[image.Length];
+				if (image != null)
+				{
+					byte[] dataBytes = new byte[image.Length];
 
-				System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
-				//if (!Directory.Exists(cache))
-				//{ 
-				//	Directory.CreateDirectory(cache);
-				//}
-				File.WriteAllBytes(filename, dataBytes);
+					System.Runtime.InteropServices.Marshal.Copy(image.Bytes, dataBytes, 0, Convert.ToInt32(image.Length));
+					//if (!Directory.Exists(cache))
+					//{ 
+					//	Directory.CreateDirectory(cache);
+					//}
+					File.WriteAllBytes(filename, dataBytes);
+				}
+				else
+				{
+					LoggingClass.LogError(wineId+"wine image not exist in blob", screenid, "no line number");
+				}
 			}
 			catch (Exception e)
 			{

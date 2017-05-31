@@ -81,9 +81,6 @@ namespace WineHangoutz
 					NavigationController.NavigationBar.TopItem.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 					LoggingClass.LogInfo("Entered into Wall", screenid);
-
-
-
 					BTProgressHUD.Dismiss();
 				};
 				btnSec.TouchUpInside += (sender, e) =>
@@ -93,7 +90,7 @@ namespace WineHangoutz
 						Title = "Secaucus Store",
 						Message = "Coming Soon..."
 					};
-					LoggingClass.LogInfo("Entered into seacuces", screenid);
+					LoggingClass.LogInfo("Clicked on seacuces", screenid);
 
 
 					alert.AddButton("OK");
@@ -124,11 +121,11 @@ namespace WineHangoutz
 						ScrollDirection = UICollectionViewScrollDirection.Vertical
 						//MinimumInteritemSpacing = 50, // minimum spacing between cells
 						//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
+						
 					};
+					LoggingClass.LogInfo("Entered into Point Plesant", screenid);
 					NavigationController.NavigationBar.TopItem.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
-					LoggingClass.LogInfo("Entered into Point Pl", screenid);
-
 
 					BTProgressHUD.Dismiss();
 				};
@@ -150,13 +147,9 @@ namespace WineHangoutz
 			base.ViewDidAppear(animated);
 			//NavigationController.Title = "Locations";
 			NavigationController.NavigationBar.TopItem.Title = "Locations";
-
-
-			//Login Check Start
-			//user.Clear();
 			string validUser = CurrentUser.RetreiveUserName();
 
-
+			LoggingClass.LogInfo("opened app "+validUser,screenid);
 
 			if (validUser == "" || validUser == null)
 			{

@@ -6,6 +6,8 @@ using PatridgeDev;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
+using BigTed;
+using System.Threading.Tasks;
 
 namespace WineHangoutz
 {
@@ -15,12 +17,15 @@ namespace WineHangoutz
 		
 		int _wineId;
 		public int _storeId;
+		private int screenid = 112;
 		public SKUDetailView(string WineId,string storeid) : base()
 		{
 			_wineId = Convert.ToInt32(WineId);
 			_storeId = Convert.ToInt32(storeid);
 			this.Title = "Wine Details";
+
 		}
+
 
 
 		public override void ViewDidLoad()
@@ -28,21 +33,27 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
+				//Task task2 = new Task(delegate
+				//{
+				//           	   getData();
+				//});
+				//task2.Start();
+				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
+				BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
 				ServiceWrapper svc = new ServiceWrapper();
 				ItemDetailsResponse myData = svc.GetItemDetails(_wineId, _storeId).Result;
 				ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-				TableView.AllowsSelection = false;
-				//TableView.AutosizesSubviews = true;
-				//TableView.Unev
-				TableView.RowHeight = UITableView.AutomaticDimension;
-				//TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails);
-				TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails,_storeId);
+											TableView.AllowsSelection = false;
+											TableView.RowHeight = UITableView.AutomaticDimension;
+											TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails, _storeId);
+				BTProgressHUD.Dismiss();
+
 			}
 			catch (Exception ex)
-			{ 
-
+			{
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 			}
 		}
 		public void RefreshParent()
@@ -55,6 +66,18 @@ namespace WineHangoutz
 			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails,_storeId);
 			TableView.ReloadData();
 		}
+		//public void getData()
+		//{
+		//	nfloat width = View.Frame.Width;
+		//	ServiceWrapper svc = new ServiceWrapper();
+		//	ItemDetailsResponse myData = svc.GetItemDetails(_wineId, _storeId).Result;
+		//	ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
+		//	TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+		//					TableView.AllowsSelection = false;
+		//					TableView.RowHeight = UITableView.AutomaticDimension;
+		//					TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails, _storeId);
+		//	BTProgressHUD.Dismiss();
+		//}
 	}
 
 
@@ -80,9 +103,6 @@ namespace WineHangoutz
 				Parent = parent;
 				NavigationController = navCtrl;
 				data = Data;
-				//data.Name = "Arzenton Pinot Nero";
-				//data.Vintage = "2013";
-				//data.Description = "Deep ruby. Perfumes alive and intense of red berry fruit enveloped by fresh spiciness of black pepper, cloves with a finish of cinnamon stick and sensations resinous toasted. In the background, flavors of wild berries. Tannnin vibrant, but already silky and enveloping connotes tasting soft, round but at the same time fresh with a tasty thin vein of great elegance.";
 				data.LargeImageUrl = "Wines/wine2.png";
 				data.Producer = Data.Producer;// "Arzenton company was found in 1968, with the accomodation of the hilly area of spessa of Cividale del Friuli: thus in one of the places most suited to vityculture of the capital Doc Coli Orientali bel Friuli. The company consist of 14 hectare of which 10 are devoted to vineyards in soil consist of alternating layers of marl and sandstones that represnt the best soil of viticulture hilly.";
 				data.AverageRating = Data.AverageRating;// 4.25m;
@@ -91,19 +111,7 @@ namespace WineHangoutz
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
 				data.Reviews = ratings.Reviews.ToList();
-				//var review1 = new Rating();
-				//review1.RatingText = "Comments";
-				//review1.Date = DateTime.Now;
-				//review1.RatingStars = 4.2m;
-				//review1.Username = "Ankur";
-				//data.Ratings.Add(review1);
 
-				//var review2 = new Rating();
-				//review2.RatingText = "More Comments";
-				//review2.Date = DateTime.Now;
-				//review2.RatingStars = 3.5m;
-				//review2.Username = "Alpana";
-				//data.Ratings.Add(review2);
 			}
 			catch (Exception ex)
 			{
@@ -135,9 +143,6 @@ namespace WineHangoutz
 
 													chosenImage: UIImage.FromBundle("Stars/star.png"));
 
-				LoggingClass.LogInfo("In Detail View", screenid);
-
-
 				switch (index)
 				{
 					case 1:
@@ -167,12 +172,7 @@ namespace WineHangoutz
 						btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
 						btlBack.Image = UIImage.FromFile("Wines/bottle.jpg");
 
-						//nfloat height = this.Width;
-						//nfloat width = (height / 233) * 92;
-						//nfloat X = (this.Width - width) / 2;
 						var btlImage = new UIImageView(); //92 * 233
-
-						//btlImage.Image = UIImage.FromFile(data.LargeImageUrl);
 
 						UIImage image = BlobWrapper.GetGoodImage(data.WineId.ToString(),_store.ToString());
 						if (image != null)
@@ -191,8 +191,8 @@ namespace WineHangoutz
 						else
 							btlImage.Image = new UIImage("placeholder.png");
 
-						vw = btlBack;
-						vw.AddSubview(btlImage);
+						vw = btlImage; //btlBack;
+						//vw.AddSubview(btlImage);
 						break;
 					case 5:
 						ratingView = new PDRatingView(new CGRect(this.Width * 3 / 8 + 2, 10, this.Width / 4, 20f), ratingConfig, data.AverageRating);
@@ -232,16 +232,14 @@ namespace WineHangoutz
 						UIViewController that = Parent;
 						ratingView2.RatingChosen += (sender, e) =>
 						{
-							
-						//	storeid = Convert.ToInt16( rev.PlantFinal);
+							LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
 							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId),_store);
 							yourController.NavController = NavigationController;
 							yourController.parent = that;
 							yourController.StartsSelected = e.Rating;
 
 							yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-						//this.PresentViewController(yourController, true, null);
-						that.PresentModalViewController(yourController, false);
+							that.PresentModalViewController(yourController, false);
 
 						//ShowModal(false);
 					};
@@ -266,9 +264,11 @@ namespace WineHangoutz
 						break;
 					case 12:
 						var lblDescText = new UITextView();
+						lblDescText.Editable = false;
 						if (data.Description == null || data.Description == "")
 						{
 							lblDescText.Text = "Not available";
+
 						}
 						else
 						{
@@ -299,6 +299,7 @@ namespace WineHangoutz
 						break;
 					case 15:
 						var lblProducerText = new UITextView();
+						lblProducerText.Editable = false;
 						//lblProducerText.Frame = new CGRect(0, 0, this.Width, 100);
 						if (data.Producer == null || data.Producer == "")
 						{
@@ -363,13 +364,10 @@ namespace WineHangoutz
 		public UITableView LoadReviews()
 		{
 			var reviewTable = new UITableView();
-
-
 			reviewTable.Frame = new CGRect(0, 0, this.Width, (data.Reviews.Count * 90) + 35);
 			reviewTable.Source = new ReviewTableSource(data.Reviews);
 			reviewTable.AllowsSelection = false;
 			reviewTable.ScrollEnabled = false;
-
 			return reviewTable;
 		}
 	}

@@ -19,7 +19,7 @@ namespace WineHangoutz
 		Boolean fav = false;
 		UIImage img = new UIImage("Wines/bottle.jpg");
 		//public int userId = 2;
-
+		LoadingOverlay loadPop;
 
 		public bool FaviouriteView = false;
         public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
@@ -49,9 +49,12 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
+				
+
 				ServiceWrapper svc = new ServiceWrapper();
 				if (FaviouriteView)
 				{
+					LoggingClass.LogInfo("Entered into favorite", screenid);
 					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
 					fav = true;
 					if (myData.ItemList.Count== 0)
@@ -124,6 +127,8 @@ namespace WineHangoutz
 		{
 			cell.NavigationController = NavigationController;
 			//cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
+			cell.parent = this.View;
+			   
 
 			int index = (int)indexPath.Item;
 

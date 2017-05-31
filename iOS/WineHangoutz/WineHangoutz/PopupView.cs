@@ -119,7 +119,7 @@ namespace WineHangoutz
 				btnSave.SetTitle("SAVE", UIControlState.Normal);
 				btnSave.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 				btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-
+				LoggingClass.LogInfo("Added review to the "+ WineId, screenid);
 				this.View.AddSubview(btnSave);
 				btnSave.TouchDown += (sender, e) =>
 				{

@@ -27,7 +27,7 @@ namespace WineHangoutz
 				UIButton btnReviews = new UIButton();
 				UIButton btnTastings = new UIButton();
 				UIButton btnFavourites = new UIButton();
-
+				LoggingClass.LogInfo("Entered into My Hangouts", screenid);
 				btnReviews.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				btnTastings.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				btnFavourites.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
@@ -56,7 +56,7 @@ namespace WineHangoutz
 
 					var MyReview = new MyReviewViewController();
 					NavigationController.PushViewController(MyReview, false);
-					LoggingClass.LogInfo("Entered into Review View", screenid);
+					LoggingClass.LogInfo("Entered into My Reviews", screenid);
 
 
 					BTProgressHUD.Dismiss();
@@ -68,7 +68,7 @@ namespace WineHangoutz
 				{
 					var MyTaste = new MyTastingViewController();
 					NavigationController.PushViewController(MyTaste, false);
-					LoggingClass.LogInfo("Entered into Tasting View", screenid);
+					LoggingClass.LogInfo("Entered into My Tastings", screenid);
 
 
 					BTProgressHUD.Dismiss();
