@@ -35,6 +35,8 @@ namespace WineHangoutz
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
 				//LoggingClass.UploadErrorLogs();
+
+				//imgProfile.Image = new UIImage("Images/loading.gif");
 				DownloadAsync();
 				ServiceWrapper sw = new ServiceWrapper();
 				var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
@@ -235,8 +237,17 @@ namespace WineHangoutz
 		{
 			NSData HighImgData = null;
 			//UIImage HighresImg = null;
+			try
+			{
+				imgProfile.Image = new UIImage("Images/loadin.png");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 			WebClient webClient = new WebClient();
-			string url = "https://icsintegration.blob.core.windows.net/profileimages/"+CurrentUser.RetreiveUserId()+".jpg";
+			string url = "http://www.my-hd-wallpapers.com/wall/1405244488_moutain-reflect-on-a-lake_800.jpg";
+			//string url = "https://icsintegration.blob.core.windows.net/profileimages/"+CurrentUser.RetreiveUserId()+".jpg";
 			byte[] imageBytes = null;
 			try
 			{
