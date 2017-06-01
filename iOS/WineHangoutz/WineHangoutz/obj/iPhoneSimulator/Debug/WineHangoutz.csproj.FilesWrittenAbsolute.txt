@@ -170,3 +170,4 @@
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3/optimized/logo5.png
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3/optimized/user1.png
 /Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3/optimized/
+/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3/optimized/Images/loadin.png

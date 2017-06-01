@@ -246,8 +246,8 @@ namespace WineHangoutz
 				Console.WriteLine(ex.Message);
 			}
 			WebClient webClient = new WebClient();
-			string url = "http://www.my-hd-wallpapers.com/wall/1405244488_moutain-reflect-on-a-lake_800.jpg";
-			//string url = "https://icsintegration.blob.core.windows.net/profileimages/"+CurrentUser.RetreiveUserId()+".jpg";
+			//string url = "http://www.my-hd-wallpapers.com/wall/1405244488_moutain-reflect-on-a-lake_800.jpg";
+			string url = "https://icsintegration.blob.core.windows.net/profileimages/"+CurrentUser.RetreiveUserId()+".jpg";
 			byte[] imageBytes = null;
 			try
 			{

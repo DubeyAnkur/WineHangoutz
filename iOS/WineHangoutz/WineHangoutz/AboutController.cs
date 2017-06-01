@@ -21,11 +21,12 @@ namespace WineHangoutz
 			{
 				base.ViewDidLoad();
 
-				nfloat h = View.Frame.Height*2;
+
 				LoggingClass.LogInfo("Entered into About View ", screenid);
 				UITextView Title1 = new UITextView();
-				Title1.Frame = new CGRect(45, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
+				Title1.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				Title1.Text = "Wine Hangouts";
+				Title1.TextAlignment = UITextAlignment.Center;
 				Title1.TextColor = UIColor.Black;
 				Title1.Font=UIFont.FromName("AmericanTypewriter", 35f);
 				Title1.Editable = false;
@@ -33,6 +34,8 @@ namespace WineHangoutz
 				UITextView Heading1 = new UITextView();
 				Heading1.Frame = new CGRect(5, 45, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				Heading1.Text = "Uncork the Merriment";
+				Heading1.TextAlignment = UITextAlignment.Left;
+				Heading1.TextAlignment = UITextAlignment.Justified;
 				Heading1.TextColor = UIColor.Black;
 				Heading1.Font=UIFont.FromName("AmericanTypewriter", 25f);
 				Heading1.Editable = false;
@@ -41,6 +44,7 @@ namespace WineHangoutz
 				p1.Frame = new CGRect(5, 85, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				p1.Text = "A delicious bottled wine is the way to the perfect blend of joy. Wine Hangouts is thus,developed to facilitate the wine lovers to deliver a complete wine experience through the internationally acclaimed wines and beers. Sticking strict to the quality, Wine Hangouts brings in the best self-serve partners in the industry: Enomatic- The World’s #1Wine Dispenser and Wine Preservation System and iPoruIt – A revolutionary self-serve solution for beers, to elevate the merriment of our guests to the best.";
 				p1.TextColor = UIColor.Black;
+				p1.TextAlignment = UITextAlignment.Left;
 				p1.Font=UIFont.FromName("AmericanTypewriter", 13f);
 				p1.Editable = false;
 
@@ -48,6 +52,7 @@ namespace WineHangoutz
 				Heading2.Frame = new CGRect(5, 230, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				Heading2.Text = "WHO WE ARE";
 				Heading2.TextColor = UIColor.Black;
+				Heading2.TextAlignment = UITextAlignment.Left;
 				Heading2.Font=UIFont.FromName("AmericanTypewriter", 20f);
 				Heading2.Editable = false;
 
@@ -57,6 +62,7 @@ namespace WineHangoutz
 				p2.TextColor = UIColor.Black;
 				p2.Font=UIFont.FromName("AmericanTypewriter", 13f);
 				p2.Editable = false;
+				p2.TextAlignment = UITextAlignment.Left;
 
 				UITextView Heading3 = new UITextView();
 				Heading3.Frame = new CGRect(5, 395, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
@@ -64,6 +70,7 @@ namespace WineHangoutz
 				Heading3.TextColor = UIColor.Black;
 				Heading3.Font=UIFont.FromName("AmericanTypewriter", 20f);
 				Heading3.Editable = false;
+				Heading3.TextAlignment = UITextAlignment.Left;
 
 				UITextView p3 = new UITextView();
 				p3.Frame = new CGRect(5, 430, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
@@ -71,6 +78,7 @@ namespace WineHangoutz
 				p3.TextColor = UIColor.Black;
 				p3.Font=UIFont.FromName("AmericanTypewriter", 13f);
 				p3.Editable = false;
+				p3.TextAlignment = UITextAlignment.Left;
 
 				UITextView p4 = new UITextView();
 				p4.Frame = new CGRect(5, 630, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
@@ -78,6 +86,7 @@ namespace WineHangoutz
 				p4.TextColor = UIColor.Black;
 				p4.Font=UIFont.FromName("AmericanTypewriter", 18f);
 				p4.Editable = false;
+				p4.TextAlignment = UITextAlignment.Left;
 
 				UITextView p5 = new UITextView();
 				p5.Frame = new CGRect(5, 655, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
@@ -85,6 +94,7 @@ namespace WineHangoutz
 				p5.TextColor = UIColor.Black;
 				p5.Font=UIFont.FromName("AmericanTypewriter", 18f);
 				p5.Editable = false;
+				p5.TextAlignment = UITextAlignment.Left;
 
 				UITextView p6 = new UITextView();
 				p6.Frame = new CGRect(5, 655, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
@@ -92,11 +102,13 @@ namespace WineHangoutz
 				p5.TextColor = UIColor.Black;
 				p6.Font=UIFont.FromName("AmericanTypewriter", 18f);
 				p6.Editable = false;
+				p6.TextAlignment = UITextAlignment.Left;
+
 
 				scrollView = new UIScrollView
 				{
 					Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, View.Frame.Height),
-					ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h),
+					ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, View.Frame.Height),
 					BackgroundColor = UIColor.White,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight
 				};
