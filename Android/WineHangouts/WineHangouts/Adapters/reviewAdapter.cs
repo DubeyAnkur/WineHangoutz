@@ -104,7 +104,7 @@ namespace WineHangouts
 			//Image.SetImageBitmap(imageBitmap);
 			
 			
-			LoggingClass.LogInfo("Entered into my review Adapter", screenid);
+			
 			return row;
         }
 

@@ -16,6 +16,7 @@ namespace WineHangouts
     {
         public string path;
         private int screenid = 13;
+		
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -38,15 +39,17 @@ namespace WineHangouts
                     pppd.UploadProfilePic(filePath);
                     Intent intent = new Intent(this, typeof(TabActivity));
                     StartActivity(intent);
-                   
+					
                     
                 }
-                catch (Exception exe)
+			
+				catch (Exception exe)
                 {
-                    LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+				
+					LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                 }
 				
-            }
+			}
             
         }
 

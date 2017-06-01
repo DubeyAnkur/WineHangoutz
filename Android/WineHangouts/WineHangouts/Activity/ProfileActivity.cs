@@ -208,7 +208,8 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
-                return false;
+				LoggingClass.LogInfo("Exited from profile ", screenid);
+				return false;
             }
             return base.OnOptionsItemSelected(item);
         }
@@ -237,7 +238,19 @@ namespace WineHangouts
             matrix.PreScale(scaleWidth, scaleHeight);
             return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
         }
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in Profile activity", screenid);
 
-    }
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in Profile activity", screenid);
+		}
+
+	}
 
 }

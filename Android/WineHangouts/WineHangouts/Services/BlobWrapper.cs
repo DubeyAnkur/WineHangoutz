@@ -50,12 +50,14 @@ namespace WineHangouts
 
             if (wineImages.Contains(storeid + "_" + wineid))
             {
-                return (Bitmap)wineImages[storeid + "_" + wineid];
+				
+				return (Bitmap)wineImages[storeid + "_" + wineid];
             }
 
             var filePath = System.IO.Path.Combine(Path + "/" + storeid + "_" + wineid + ".jpg");
 			if (System.IO.File.Exists(filePath))
 			{
+
 				imageBitmap = BitmapFactory.DecodeFile(filePath);
 				wineImages.Add(storeid + "_" + wineid, imageBitmap);
 
@@ -65,7 +67,7 @@ namespace WineHangouts
 
 
 				var uri = new Uri(ServiceURL + "imagebottlewall/" + wineid + ".jpg");
-
+				LoggingClass.LogInfo(" WineImage is dosent Existing Download"+wineid+"Wall", screenid);
 
 				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
 				wineImages.Add(storeid + "_" + wineid, imageBitmap);
@@ -74,7 +76,7 @@ namespace WineHangouts
 			else
 			{
 				var uri = new Uri(ServiceURL + "imagebottlepp/" + wineid + ".jpg");
-
+				LoggingClass.LogInfo(" WineImage is dosent Existing Download" + wineid + " PP", screenid);
 
 				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
 				wineImages.Add(storeid + "_" + wineid, imageBitmap);

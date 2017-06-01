@@ -41,7 +41,8 @@ namespace WineHangouts
         
             try
             {
-                if (StoreName == "")
+				
+				if (StoreName == "")
                     StoreName = Intent.GetStringExtra("MyData");
                 this.Title = StoreName;
                 this.ActionBar.SetHomeButtonEnabled(true);
@@ -99,7 +100,8 @@ namespace WineHangouts
             else
                 StoreId = 3;
             try
-            { 
+            {
+				
                 int userId = Convert.ToInt32(CurrentUser.getUserId());
                 ServiceWrapper sw = new ServiceWrapper();
                 ItemListResponse output = sw.GetItemList(StoreId, userId).Result;
@@ -108,7 +110,8 @@ namespace WineHangouts
 				LoggingClass.LogInfo("entered into "+StoreName, screenid);
 				var gridview = FindViewById<GridView>(Resource.Id.gridview);
                 adapter = new GridViewAdapter(this, myArr,StoreId);
-                gridview.SetNumColumns(2);
+				LoggingClass.LogInfoEx("Entered into Grid View Adapter", screenid);
+				gridview.SetNumColumns(2);
                 gridview.Adapter = adapter;
 
                 gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
@@ -121,18 +124,44 @@ namespace WineHangouts
                     intent.PutExtra("storeid", StoreId);
                     StartActivity(intent);
                 };
-            }
+				TokenModel devInfo = new TokenModel();
+				var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
+
+				ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+				activityManager.GetMemoryInfo(memInfo);
+
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+
+				devInfo.AvailableMainMemory = memInfo.AvailMem;
+				devInfo.IsLowMainMemory = memInfo.LowMemory;
+				devInfo.TotalMainMemory = memInfo.TotalMem;
+			}
             catch(Exception exe)
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
         }
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in Gridview activity"+StoreName, screenid);
 
-        private void MSwipeRefreshLayout_Refresh(object sender, EventArgs e)
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in Gridview activity"+StoreName, screenid);
+		}
+
+		private void MSwipeRefreshLayout_Refresh(object sender, EventArgs e)
         {
             BindGridData();
             SwipeRefreshLayout mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.PullDownRefresh);
-            mSwipeRefreshLayout.Refreshing =false;
+			LoggingClass.LogInfo("Refreshed GridView", screenid);
+			mSwipeRefreshLayout.Refreshing =false;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -141,7 +170,20 @@ namespace WineHangouts
             {
                 base.OnBackPressed();
                 LoggingClass.LogInfo("Exited from Gridview Activity",screenid);
-                return false;
+				TokenModel devInfo = new TokenModel();
+				var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
+
+				ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+				activityManager.GetMemoryInfo(memInfo);
+
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+
+				devInfo.AvailableMainMemory = memInfo.AvailMem;
+				devInfo.IsLowMainMemory = memInfo.LowMemory;
+				devInfo.TotalMainMemory = memInfo.TotalMem;
+				return false;
             }
             return base.OnOptionsItemSelected(item);
         }

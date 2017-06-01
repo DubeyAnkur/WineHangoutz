@@ -39,6 +39,7 @@ namespace WineHangouts
 					AlertDialog.Builder aler = new AlertDialog.Builder(this);
 					//aler.SetTitle("No Reviews Avalilable");
 					aler.SetMessage("Sorry you haven't Tasted our wines");
+					LoggingClass.LogInfo("Sorry you haven't Tasted our wines alert", screenid);
 					aler.SetNegativeButton("Ok", delegate { Finish(); });
 					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
 					Dialog dialog = aler.Create();
@@ -54,7 +55,7 @@ namespace WineHangouts
 					{
 						int WineID = myArr1[args.Position].WineId;
 						int storeID = myArr1[args.Position].PlantFinal;
-						LoggingClass.LogInfo("Clicked on " + myArr1[args.Position].WineId + " to enter into wine details", screenid);
+						LoggingClass.LogInfo("Clicked on " + myArr1[args.Position].WineId + " to enter into wine from tasting  details", screenid);
 						ProgressIndicator.Show(this);
 						var intent = new Intent(this, typeof(DetailViewActivity));
 						intent.PutExtra("WineID", WineID);
@@ -89,8 +90,19 @@ namespace WineHangouts
             }
             return base.OnOptionsItemSelected(item);
         }
-       
-        private int ConvertPixelsToDp(float pixelValue)
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in MyTasting ativity", screenid);
+
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in MyTasting activity", screenid);
+		}
+		private int ConvertPixelsToDp(float pixelValue)
         {
             var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
             return dp;

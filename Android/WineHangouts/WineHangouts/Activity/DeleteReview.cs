@@ -44,11 +44,12 @@ namespace WineHangouts
                     review.WineId = WineId;
                     ProgressIndicator.Show(Parent);
                     review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
-                    await sw.DeleteReview(review);
+					
+					await sw.DeleteReview(review);
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
                     myDialog.Dismiss();
-					LoggingClass.LogInfo("User deleted winereview" + WineId +review.PlantFinal, screenid);
+					LoggingClass.LogInfoEx("User deleted winereview" + WineId +review.PlantFinal, screenid);
 
 
 				};
@@ -59,7 +60,8 @@ namespace WineHangouts
             }
             Cancel.Click += delegate
             {
-                myDialog.Dismiss();
+				LoggingClass.LogInfo("clicked on cancel" + WineId + review.PlantFinal, screenid);
+				myDialog.Dismiss();
             };
 
             return view;

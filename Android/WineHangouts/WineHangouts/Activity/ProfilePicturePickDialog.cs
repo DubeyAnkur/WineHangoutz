@@ -60,7 +60,7 @@ namespace WineHangouts
                 catch (Exception exe)
                 {
                     LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-                    Intent intent1 = new Intent(this, typeof(TabActivity));
+                    Intent intent1 = new Intent(this, typeof(ProfileActivity));
                     StartActivity(intent1);
                 }
                 Resize();
@@ -81,8 +81,9 @@ namespace WineHangouts
             {
                 CreateDirectoryForPictures();
                 ImageButton BtnCamera = FindViewById<ImageButton>(Resource.Id.btnCamera);
-                // _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
-                BtnCamera.Click += TakeAPicture;
+				LoggingClass.LogInfo("clicked on camera", screenid);
+				// _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
+				BtnCamera.Click += TakeAPicture;
             }
             ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.imgbtnGallery);
 

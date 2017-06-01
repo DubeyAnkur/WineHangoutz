@@ -65,7 +65,8 @@ namespace WineHangouts
                 SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
                 ReviewArray = SkuRating.Reviews.ToList();
                 reviewAdapter comments = new reviewAdapter(this, ReviewArray);
-                commentsView.Adapter = comments;
+				
+				commentsView.Adapter = comments;
                 setListViewHeightBasedOnChildren1(commentsView);
                 WineName.Text = myData.ItemDetails.Name;
                 WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
@@ -98,6 +99,7 @@ namespace WineHangouts
                     edit.RatingText = tempReview.RatingText;
                 ReviewPopup editPopup = new ReviewPopup(this, edit);
                 RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
+			
                 RatingInput.RatingBarChange +=   editPopup.CreatePopup;                   
                 var metrics = Resources.DisplayMetrics;
                 var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
@@ -128,27 +130,63 @@ namespace WineHangouts
                 dialog.Show();
 
             }
-            //downloadButton = FindViewById<Button>(Resource.Id.Download);
-            //try
-            //{
-            //    //downloadButton.Enabled = true;
-            //    downloadButton.Click += downloadAsync;
-            //    //downloadButton.Enabled = false;
+			//downloadButton = FindViewById<Button>(Resource.Id.Download);
+			//try
+			//{
+			//    //downloadButton.Enabled = true;
+			//    downloadButton.Click += downloadAsync;
+			//    //downloadButton.Enabled = false;
 
-            //}
+			//}
 
-            //catch (Exception e) { }
+			//catch (Exception e) { }
+			TokenModel devInfo = new TokenModel();
+			var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 
-        }
+			ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+			activityManager.GetMemoryInfo(memInfo);
 
+			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+			devInfo.AvailableMainMemory = memInfo.AvailMem;
+			devInfo.IsLowMainMemory = memInfo.LowMemory;
+			devInfo.TotalMainMemory = memInfo.TotalMem;
+		}
+
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in Gridview activity--->" + storeid, screenid);
+
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in Gridview activity--->" + storeid, screenid);
+		}
+		public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 base.OnBackPressed();
                 LoggingClass.LogInfo("Exited from Detail View", screenid);
-                return false;
+				TokenModel devInfo = new TokenModel();
+				var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
+
+				ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+				activityManager.GetMemoryInfo(memInfo);
+
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+
+				devInfo.AvailableMainMemory = memInfo.AvailMem;
+				devInfo.IsLowMainMemory = memInfo.LowMemory;
+				devInfo.TotalMainMemory = memInfo.TotalMem;
+				return false;
             }
             return base.OnOptionsItemSelected(item);
         }
@@ -229,10 +267,12 @@ namespace WineHangouts
 			if (storeid == 1)
 			{
 				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/" + wineid + ".jpg";
+				LoggingClass.LogInfo("Download Async image in detail view" + wineid+ + ',' + storeid , screenid);
 			}
 			else if (storeid == 2)
 			{
 				 url = "https://icsintegration.blob.core.windows.net/bottleimagesdetailspp/" + wineid + ".jpg";
+				LoggingClass.LogInfo("Download Async image in detail view" + wineid + +',' + storeid, screenid);
 			}
 				byte[] imageBytes = null;
 				//progressLayout.Visibility = ViewStates.Visible;

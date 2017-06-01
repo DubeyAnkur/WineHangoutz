@@ -110,7 +110,7 @@ namespace WineHangouts
 						_review.WineId = WineId;
 						_review.RatingStars = myItems[position].RatingStars;
 						_review.RatingText = myItems[position].RatingText;
-						LoggingClass.LogInfo("clicked on edit  an item"+WineId, screenid);
+						LoggingClass.LogInfo("clicked on edit  an item---->"+WineId +"----->"+ _review.RatingStars+"---->"+_review.RatingText, screenid);
 						PerformItemClick(sender, args, _review);
 					};
 					//delete.Click += Delete_Click;
@@ -120,7 +120,7 @@ namespace WineHangouts
 
 						Review _review = new Review();
 						_review.WineId = WineId;
-						LoggingClass.LogInfo("clicked on delete item" + WineId, screenid);
+						LoggingClass.LogInfo("clicked on delete item--->" + WineId, screenid);
 						PerformdeleteClick(sender, args, _review);
 
 					};
@@ -161,10 +161,12 @@ namespace WineHangouts
 					txtDate.Focusable = false;
 
 				}
-				LoggingClass.LogInfo("Entered into My review Adapter", screenid);
+				
 			}
-				return row;
+			LoggingClass.LogInfo("Entered into My Review Adapter", screenid);
+			return row;
 			
+
 		}
 
         public void PerformItemClick(object sender, EventArgs e, Review edit)

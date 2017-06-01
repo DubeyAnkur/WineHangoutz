@@ -114,8 +114,9 @@ namespace WineHangouts
 				txtDate.Focusable = false;
 
 
-				LoggingClass.LogInfo("Entered into My tastings Adapter", screenid);
+				
 			}
+			LoggingClass.LogInfo("Entered into My tastings Adapter", screenid);
 			return row;
         }
     }

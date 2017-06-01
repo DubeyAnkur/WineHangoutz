@@ -15,6 +15,7 @@ namespace WineHangouts
     [Activity(Label = "Alert")]
     public class AlertActivity : Activity
     {
+		public int screenid = 25;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);          
@@ -24,7 +25,8 @@ namespace WineHangouts
         public void IncorrectDetailsAlert()
         {
             AlertDialog.Builder aler = new AlertDialog.Builder(this);
-            aler.SetTitle("Sorry");
+			LoggingClass.LogInfo("Entered Incorrect Details", screenid);
+			aler.SetTitle("Sorry");
             aler.SetMessage("Incorrect Details");
             aler.SetNegativeButton("Ok", delegate { });
             Dialog dialog = aler.Create();
@@ -33,7 +35,8 @@ namespace WineHangouts
         public void ThankuYouAlert()
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Successfully you logged in");
+			LoggingClass.LogInfo("Successfully you logged in", screenid);
+			alert.SetTitle("Successfully you logged in");
             alert.SetMessage("Thank You");
             alert.SetNegativeButton("Ok", delegate { });
             Dialog dialog = alert.Create();
@@ -52,7 +55,8 @@ namespace WineHangouts
         {
             AlertDialog.Builder aler = new AlertDialog.Builder(this);
             aler.SetTitle("Sorry");
-            aler.SetMessage("Please check your internet connection");
+			LoggingClass.LogInfo("Please check your internet connection", screenid);
+			aler.SetMessage("Please check your internet connection");
             aler.SetNegativeButton("Ok", delegate { });
             Dialog dialog = aler.Create();
             dialog.Show();
@@ -61,7 +65,8 @@ namespace WineHangouts
         {
             AlertDialog.Builder aler = new AlertDialog.Builder(this);
             aler.SetTitle("Sorry");
-            aler.SetMessage("We're under maintanence");
+			LoggingClass.LogInfo("We're under maintanence", screenid);
+			aler.SetMessage("We're under maintanence");
             aler.SetNegativeButton("Ok", delegate { });
             Dialog dialog = aler.Create();
             dialog.Show();

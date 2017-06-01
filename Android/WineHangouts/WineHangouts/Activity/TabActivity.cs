@@ -19,9 +19,10 @@ namespace WineHangouts
             base.OnCreate(bundle);
             this.TitleColor = Color.LightGray;
             SetContentView(Resource.Layout.Fragment);
-            try
-            {
-                LoggingClass.UploadErrorLogs(LoggingClass.CreateDirectoryForLogs());
+			
+			try
+			{
+               // LoggingClass.UploadErrorLogs();
 				//LoggingClass.Upload(LoggingClass.CreateDirectoryForLogs());
 				//File.Delete(LoggingClass.CreateDirectoryForLogs());
 			}
@@ -101,10 +102,13 @@ namespace WineHangouts
                 Top.LayoutParameters.Height = height;
                 Middle.LayoutParameters.Height = height;
                 Bottom.LayoutParameters.Height = height;
+			
 				
 				if (tabName == "Locations")
                 {
+					
 					LoggingClass.LogInfo("Clicked on " + tabName, screenid);
+
 					try
                     {
                         Top.SetBackgroundResource(Resource.Drawable.city);
@@ -119,13 +123,14 @@ namespace WineHangouts
                         Bottom.Text = "Secaucus";
                         Bottom.SetTextColor(Color.White);
                         Bottom.TextSize = 20;
-						
+						OnPause();{ }
                         Top.Click += (sender, e) =>
                         {
                             ProgressIndicator.Show(_parent);
                             LoggingClass.LogInfo("Clicked on Wall", screenid);
                             var intent = new Intent(Activity, typeof(GridViewActivity));
                             intent.PutExtra("MyData", "Wall Store");
+
                             StartActivity(intent);
 
 
@@ -212,7 +217,7 @@ namespace WineHangouts
 
                     try
                     {
-
+						
                         Top.SetBackgroundResource(Resource.Drawable.myprofile);
                         Top.Text = "My Profile";
                         Top.SetTextColor(Color.White);
@@ -229,6 +234,7 @@ namespace WineHangouts
 
                         Top.Click += (sender, e) =>
                         {
+							
                             ProgressIndicator.Show(_parent);
                             LoggingClass.LogInfo("Clicked on My Profile",screenid);
                             var intent = new Intent(Activity, typeof(ProfileActivity));
@@ -272,15 +278,27 @@ namespace WineHangouts
                     {
                         LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
-					Top.Dispose();
-					Bottom.Dispose();
-					Middle.Dispose();
+					//Top.Dispose();
+					//Bottom.Dispose();
+					//Middle.Dispose();
 				}
 
-                return view;
 
+				TokenModel devInfo = new TokenModel();
+				      var activityManager = (ActivityManager)this.Context.GetSystemService(Context.ActivityService);
 
-            }
+        ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+        activityManager.GetMemoryInfo(memInfo);
+
+        System.Diagnostics.Debug.WriteLine ("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+        System.Diagnostics.Debug.WriteLine ("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+        System.Diagnostics.Debug.WriteLine ("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+
+        devInfo.AvailableMainMemory = memInfo.AvailMem;
+        devInfo.IsLowMainMemory = memInfo.LowMemory;
+        devInfo.TotalMainMemory = memInfo.TotalMem;
+				return view;
+			}
             private int PixelsToDp(int pixels)
             {
                 return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
@@ -292,9 +310,35 @@ namespace WineHangouts
         public override void OnBackPressed()
         {
             MoveTaskToBack(true);
-        }
+			LoggingClass.LogInfo("Clicked on back button", screenid);
+			TokenModel devInfo = new TokenModel();
+			var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+			ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+			activityManager.GetMemoryInfo(memInfo);
+
+			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+
+			devInfo.AvailableMainMemory = memInfo.AvailMem;
+			devInfo.IsLowMainMemory = memInfo.LowMemory;
+			devInfo.TotalMainMemory = memInfo.TotalMem;
+		}
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in tab activity", screenid);
+
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in tab activity", screenid);
+
+		}
+		public override bool OnOptionsItemSelected(IMenuItem item)
         {
 
             Intent intent = null;
@@ -342,15 +386,17 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
-                return false;
+				LoggingClass.LogInfo("Clicked on Exit", screenid);
+				return false;
             }
             return base.OnOptionsItemSelected(item);
         }
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Drawable.options_menu, menu);
+			
 
-            return true;
+			return true;
         }
     }
 

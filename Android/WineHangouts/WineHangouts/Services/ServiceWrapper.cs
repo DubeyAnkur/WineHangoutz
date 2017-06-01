@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Hangout.Models;
+using System.Timers;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -18,6 +20,7 @@ namespace WineHangouts
             client = new HttpClient();
             //client.MaxResponseContentBufferSize = 256000;
         }
+	
 
         public string ServiceURL
         {
@@ -29,8 +32,24 @@ namespace WineHangouts
             }
 
         }
+		private static System.Timers.Timer aTimer;
+		private static void SetTimer()
+		{
+			// Create a timer with a two second interval.
+			aTimer = new System.Timers.Timer(2000);
+			// Hook up the Elapsed event for the timer. 
+			aTimer.Elapsed += OnTimedEvent;
+			aTimer.AutoReset = true;
+			aTimer.Enabled = true;
+		}
 
-        public async Task<string> GetDataAsync()
+		private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+		{
+			Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
+							  e.SignalTime);
+		}
+
+		public async Task<string> GetDataAsync()
         {
             var uri = new Uri(ServiceURL + "TestService/1");
             var response = await client.GetAsync(uri);
@@ -42,12 +61,17 @@ namespace WineHangouts
             }
             return output;
         }
-
+		
         public async Task<ItemListResponse> GetItemList(int storeId, int userId)
         {
             ItemListResponse output = null;
+			SetTimer();
 
-            LoggingClass.LogServiceInfo("Service called", "GetItemList");
+			Console.WriteLine("\nPress the Enter key to exit the application...\n");
+			Console.WriteLine("The application started at {0:HH:mm:ss.fff}", DateTime.Now);
+			Console.ReadLine();
+			
+			LoggingClass.LogServiceInfo("Service called", "GetItemList");
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
@@ -59,8 +83,11 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return output;
-        }
+			aTimer.Stop();
+			aTimer.Dispose();
+			return output;
+			
+		}
 
         public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
         {
@@ -124,7 +151,7 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-                LoggingClass.LogServiceInfo("service response", "AuthencateUser1");
+                LoggingClass.LogServiceInfo("service response"+email, "AuthencateUser1");
             }
             catch (Exception exe)
             {

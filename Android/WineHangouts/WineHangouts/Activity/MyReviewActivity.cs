@@ -61,7 +61,7 @@ namespace WineHangouts
 					{
 						int WineID = myArr1[args.Position].WineId;
 						int storeID = Convert.ToInt32(myArr1[args.Position].PlantFinal);
-						LoggingClass.LogInfo("Clicked on " + myArr1[args.Position].WineId + " to enter into wine details", screenid);
+						LoggingClass.LogInfoEx("Clicked on " + myArr1[args.Position].WineId + " to enter into wine details From ReviewAct", screenid);
 						ProgressIndicator.Show(this);
 						var intent = new Intent(this, typeof(DetailViewActivity));
 						intent.PutExtra("WineID", WineID);
@@ -86,8 +86,21 @@ namespace WineHangouts
             }
 
         }
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in MyREview ativity" , screenid);
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in MyREview activity" , screenid);
+		}
+
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
@@ -99,7 +112,8 @@ namespace WineHangouts
         }
         private void Close_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+			LoggingClass.LogInfo("Exited from My Review", screenid);
+			throw new NotImplementedException();
         }
 
         private int ConvertPixelsToDp(float pixelValue)

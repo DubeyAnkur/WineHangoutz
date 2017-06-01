@@ -40,6 +40,7 @@ namespace WineHangouts
 					AlertDialog.Builder aler = new AlertDialog.Builder(this);
 					//aler.SetTitle("No Reviews Avalilable");
 					aler.SetMessage("Sorry you didn't tell us your Favourite wines");
+					LoggingClass.LogInfo("Sorry you didn't tell us your Favourite wines", screenid);
 					aler.SetNegativeButton("Ok", delegate { Finish(); });
 					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
 					Dialog dialog = aler.Create();
@@ -50,7 +51,7 @@ namespace WineHangouts
 
 					var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
 					MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
-
+					LoggingClass.LogInfo("Entered into Favourite Adapter", screenid);
 					gridview.SetNumColumns(2);
 					gridview.Adapter = adapter;
 					gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
@@ -59,6 +60,7 @@ namespace WineHangouts
 						int storeid = myArr[args.Position].PlantFinal;
 						ProgressIndicator.Show(this);
 						var intent = new Intent(this, typeof(DetailViewActivity));
+						LoggingClass.LogInfo("Clicked on " + myArr[args.Position].WineId + " to enter into wine details", screenid);
 						intent.PutExtra("WineID", WineID);
 						intent.PutExtra("storeid", storeid);
 						StartActivity(intent);
@@ -81,7 +83,20 @@ namespace WineHangouts
 				dialog.Show();
             }
 		}
-        public override bool OnOptionsItemSelected(IMenuItem item)
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in Favourite activity---->" + StoreName, screenid);
+
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in Favourite activity--->" + StoreName, screenid);
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {

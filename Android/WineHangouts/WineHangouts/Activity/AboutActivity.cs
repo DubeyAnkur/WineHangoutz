@@ -35,6 +35,18 @@ namespace WineHangouts
             }
             return base.OnOptionsItemSelected(item);
         }
+		protected override void OnPause()
+		{
+			base.OnPause();
+			LoggingClass.LogInfo("OnPause state in About activity", screenid);
 
-    }
+		}
+
+		protected override void OnResume()
+		{
+			base.OnResume();
+			LoggingClass.LogInfo("OnResume state in About activity", screenid);
+		}
+
+	}
 }
