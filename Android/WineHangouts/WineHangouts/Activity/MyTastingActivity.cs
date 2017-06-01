@@ -9,6 +9,7 @@ using Android.Util;
 using Hangout.Models;
 using Android.Content;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -21,7 +22,9 @@ namespace WineHangouts
         List<Tastings> myArr1;
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
+			Stopwatch st = new Stopwatch();
+			st.Start();
+			base.OnCreate(bundle);
             customerid = Convert.ToInt32(CurrentUser.getUserId());
             SetContentView(Resource.Layout.MyTasting);
             try
@@ -77,8 +80,9 @@ namespace WineHangouts
                 Dialog dialog = aler.Create();
                 dialog.Show();
             }
-
-        }
+			st.Stop();
+			LoggingClass.LogTime("Tastingactivity", st.Elapsed.TotalSeconds.ToString());
+		}
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Android.Util;
+using System.Diagnostics;
 using Hangout.Models;
 
 namespace WineHangouts
@@ -21,6 +22,7 @@ namespace WineHangouts
     {
 
         Context Parent;
+		Stopwatch st;
         private int WineId;
         private int ParentScreenId=17;
         Review _editObj;
@@ -35,6 +37,8 @@ namespace WineHangouts
         }
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
         {
+			st.Start();
+
 
             try
             {
@@ -114,11 +118,14 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
-
+			st.Stop();
+			LoggingClass.LogTime("create popup",st.Elapsed.TotalSeconds.ToString());
         }
 
         public void EditPopup(object sender, EventArgs e)
         {
+			st.Start();
+
             try
             {
                 Dialog editDialog = new Dialog(Parent);
@@ -177,6 +184,8 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
+			st.Stop();
+			LoggingClass.LogTime("Edit Popup time ", st.Elapsed.TotalSeconds.ToString());
         }
     }
 

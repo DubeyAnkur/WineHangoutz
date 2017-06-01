@@ -7,15 +7,18 @@ using Android.OS;
 using Android.Util;
 using Android.Graphics;
 using System.IO;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
     [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
     public class TabActivity : Activity
     {
+		Stopwatch st;
         public int screenid = 2;
         protected override void OnCreate(Bundle bundle)
         {
+			
             base.OnCreate(bundle);
             this.TitleColor = Color.LightGray;
             SetContentView(Resource.Layout.Fragment);
@@ -90,7 +93,9 @@ namespace WineHangouts
             }
             public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
             {
-                base.OnCreateView(inflater, container, savedInstanceState);
+				Stopwatch sr = new Stopwatch(); ;
+				sr.Start();
+				base.OnCreateView(inflater, container, savedInstanceState);
                 var view = inflater.Inflate(Resource.Layout.LocationLayout, null);
                 Button Top = view.FindViewById<Button>(Resource.Id.btnTop);
                 Button Middle = view.FindViewById<Button>(Resource.Id.btnMiddle);
@@ -272,7 +277,7 @@ namespace WineHangouts
                             //StartActivity(intent);
                         };
 						
-
+						
 					}
                     catch (Exception exe)
                     {
@@ -281,9 +286,9 @@ namespace WineHangouts
 					//Top.Dispose();
 					//Bottom.Dispose();
 					//Middle.Dispose();
+					
 				}
-
-
+				
 				TokenModel devInfo = new TokenModel();
 				      var activityManager = (ActivityManager)this.Context.GetSystemService(Context.ActivityService);
 
@@ -297,6 +302,8 @@ namespace WineHangouts
         devInfo.AvailableMainMemory = memInfo.AvailMem;
         devInfo.IsLowMainMemory = memInfo.LowMemory;
         devInfo.TotalMainMemory = memInfo.TotalMem;
+				sr.Stop();
+				LoggingClass.LogTime("tab activity time",sr.Elapsed.TotalSeconds.ToString());
 				return view;
 			}
             private int PixelsToDp(int pixels)

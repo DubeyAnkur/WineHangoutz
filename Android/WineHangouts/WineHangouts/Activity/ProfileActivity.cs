@@ -11,6 +11,7 @@ using System.Net;
 using Hangout.Models;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 //using System.Drawing.Drawing2D;
 
 namespace WineHangouts
@@ -18,11 +19,13 @@ namespace WineHangouts
     [Activity(Label = "My Profile")]
     public class ProfileActivity : Activity, IPopupParent
     {
+		Stopwatch st;
         ImageView propicimage;
         WebClient webClient;
         private int screenid = 8;
         protected override void OnCreate(Bundle bundle)
         {
+			st.Start();
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Profile);
@@ -136,10 +139,13 @@ namespace WineHangouts
                 Dialog dialog = aler.Create();
                 dialog.Show();
             }
+			st.Stop();
+			LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
             ProgressIndicator.Hide();
         }
         public async void DownloadAsync(object sender, System.EventArgs ea)
         {
+			st.Start();
             Bitmap img = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
             if (img != null)
             {
@@ -200,6 +206,8 @@ namespace WineHangouts
                 {
                     LoggingClass.LogError(exe.Message,screenid,exe.StackTrace.ToString());
                 }
+				st.Stop();
+				LoggingClass.LogTime("Download aSync image profile", st.Elapsed.TotalSeconds.ToString());
                 propicimage.Dispose();
             }
         }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
 using Android.Util;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -20,6 +21,8 @@ namespace WineHangouts
 		public Context parent;
 		protected override void OnCreate(Bundle bundle)
 		{
+			Stopwatch st = new Stopwatch();
+			st.Start();
 			base.OnCreate(bundle);
            try
 			{
@@ -68,6 +71,8 @@ namespace WineHangouts
 					
 					LoggingClass.LogInfo("Entered into My Favorites Activity", screenid);
 				}
+				st.Stop();
+				LoggingClass.LogTime("Favouriteactivity", st.Elapsed.TotalSeconds.ToString());
 				ProgressIndicator.Hide();
 			}
 

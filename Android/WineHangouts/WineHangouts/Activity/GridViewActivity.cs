@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 
 namespace WineHangouts
@@ -35,7 +36,9 @@ namespace WineHangouts
       
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
+			Stopwatch st = new Stopwatch();
+			st.Start();
+			base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Main);
         
@@ -81,7 +84,8 @@ namespace WineHangouts
 
             }
 
-
+			st.Stop();
+			LoggingClass.LogTime("Gridactivity",st.Elapsed.TotalSeconds.ToString());
         }
 
         public async Task SomeAsync()

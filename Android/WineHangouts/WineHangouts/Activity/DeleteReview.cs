@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Diagnostics;
 using Hangout.Models;
 
 namespace WineHangouts
@@ -16,6 +17,7 @@ namespace WineHangouts
    
     class DeleteReview : DialogFragment
     {
+	 
         //Review _editObj;
         public Dialog myDialog;
         private int WineId;
@@ -29,8 +31,9 @@ namespace WineHangouts
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-           
-            base.OnCreateView(inflater, container, savedInstanceState);
+			Stopwatch st=new Stopwatch();
+			st.Start();
+			base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.DeleteReviewPop, container, false);
 			LoggingClass.LogInfo("Entered into Delete review popup with" + WineId, screenid);
 			ServiceWrapper sw = new ServiceWrapper();
@@ -63,7 +66,8 @@ namespace WineHangouts
 				LoggingClass.LogInfo("clicked on cancel" + WineId + review.PlantFinal, screenid);
 				myDialog.Dismiss();
             };
-
+			st.Stop();
+			LoggingClass.LogTime("Deletereview time", st.Elapsed.TotalSeconds.ToString());
             return view;
         }
 

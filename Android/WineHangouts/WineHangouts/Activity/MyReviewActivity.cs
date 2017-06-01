@@ -9,6 +9,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using Hangout.Models;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -21,7 +22,9 @@ namespace WineHangouts
         public int x;
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
+			Stopwatch st = new Stopwatch();
+			st.Start();
+			base.OnCreate(bundle);
             uid = Convert.ToInt32(CurrentUser.getUserId());
             
             SetContentView(Resource.Layout.Tasting);
@@ -84,8 +87,9 @@ namespace WineHangouts
                 Dialog dialog = aler.Create();
                 dialog.Show();
             }
-
-        }
+			st.Stop();
+			LoggingClass.LogTime("Reviewactivity", st.Elapsed.TotalSeconds.ToString());
+		}
 		protected override void OnPause()
 		{
 			base.OnPause();

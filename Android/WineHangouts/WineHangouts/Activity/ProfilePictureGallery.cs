@@ -8,6 +8,7 @@ using Uri = Android.Net.Uri;
 using Android.Views;
 using System.IO;
 using Android.Database;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -16,9 +17,10 @@ namespace WineHangouts
     {
         public string path;
         private int screenid = 13;
-		
+		Stopwatch st;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
+			st.Start();
             base.OnActivityResult(requestCode, resultCode, data);
             LoggingClass.LogInfo("Entered into ProfilePictureGallery", screenid);
             if (resultCode == Result.Ok)
@@ -50,7 +52,8 @@ namespace WineHangouts
                 }
 				
 			}
-            
+			st.Stop();
+			LoggingClass.LogTime("profile pic gall time", st.Elapsed.TotalSeconds.ToString());
         }
 
         protected override void OnCreate(Bundle bundle)

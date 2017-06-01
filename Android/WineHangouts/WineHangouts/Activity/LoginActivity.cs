@@ -8,7 +8,7 @@ using Hangout.Models;
 using Android.Telephony;
 using Android.Gms.Common;
 using Android.Views;
-
+using System.Diagnostics;
 namespace WineHangouts
 
 {
@@ -23,7 +23,9 @@ namespace WineHangouts
         CustomerResponse authen = new CustomerResponse();
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+			Stopwatch st = new Stopwatch();
+			st.Start();
+			base.OnCreate(savedInstanceState);
             
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
@@ -174,7 +176,8 @@ namespace WineHangouts
 				ProgressIndicator.Hide();
 
 				Resend.Visibility = ViewStates.Visible;
-
+				st.Stop();
+				LoggingClass.LogTime("login activity",st.Elapsed.TotalSeconds.ToString());
 			};
 
 			

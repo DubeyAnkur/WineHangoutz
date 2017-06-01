@@ -7,7 +7,9 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Hangout.Models;
 using System.Timers;
+using System.Windows;
 using System.Diagnostics;
+
 
 namespace WineHangouts
 {
@@ -32,23 +34,26 @@ namespace WineHangouts
             }
 
         }
-		private static System.Timers.Timer aTimer;
-		private static void SetTimer()
-		{
-			// Create a timer with a two second interval.
-			aTimer = new System.Timers.Timer(2000);
-			// Hook up the Elapsed event for the timer. 
-			aTimer.Elapsed += OnTimedEvent;
-			aTimer.AutoReset = true;
-			aTimer.Enabled = true;
-		}
+		//private static System.Timers.Timer aTimer;
+		//private static void SetTimer()
+		//{
+		//	// Create a timer with a two second interval.
+		//	aTimer = new System.Timers.Timer(2000);
+		//	// Hook up the Elapsed event for the timer. 
+		//	aTimer.Elapsed += OnTimedEvent;
+		//	aTimer.AutoReset = true;
+		//	aTimer.Enabled = true;
+		//}
 
-		private static void OnTimedEvent(Object source, ElapsedEventArgs e)
-		{
-			Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
-							  e.SignalTime);
-		}
+		//private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+		//{
+		//	Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
+		//					  e.SignalTime);
+		//}
 
+
+		Stopwatch sw = new Stopwatch();
+		
 		public async Task<string> GetDataAsync()
         {
             var uri = new Uri(ServiceURL + "TestService/1");
@@ -64,14 +69,14 @@ namespace WineHangouts
 		
         public async Task<ItemListResponse> GetItemList(int storeId, int userId)
         {
+			
             ItemListResponse output = null;
-			SetTimer();
-
-			Console.WriteLine("\nPress the Enter key to exit the application...\n");
-			Console.WriteLine("The application started at {0:HH:mm:ss.fff}", DateTime.Now);
-			Console.ReadLine();
+			//SetTimer();
+			sw.Start();
+			
 			
 			LoggingClass.LogServiceInfo("Service called", "GetItemList");
+
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
@@ -83,8 +88,11 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-			aTimer.Stop();
-			aTimer.Dispose();
+			//aTimer.Stop();Console.WriteLine("The timer ran for " + sw.Elapsed.TotalSeconds);
+			//aTimer.Dispose();
+			sw.Stop();
+			
+			LoggingClass.LogTime("The total time to  start and end the service getItemList", "The timer ran for " + sw.Elapsed.TotalSeconds);
 			return output;
 			
 		}
@@ -92,7 +100,9 @@ namespace WineHangouts
         public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
         {
             ItemDetailsResponse output = null;
-            LoggingClass.LogServiceInfo("Service Called", "GetItemDetails");
+			sw.Start();
+
+			LoggingClass.LogServiceInfo("Service Called", "GetItemDetails");
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid+"/user/"+storeid);
@@ -104,11 +114,16 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service GetItemDetails", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
         }
         public async Task<int> InsertUpdateLike(SKULike skuLike)
         {
-            try
+			sw.Start();
+			try
             {
                 LoggingClass.LogServiceInfo("service called", "InsertUpdateLike");
                 var uri = new Uri(ServiceURL + "InsertUpdateLike/");
@@ -122,12 +137,17 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return 1;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service InsertUpdateLike", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return 1;
         }
 
         public async Task<CustomerResponse> AuthencateUser(string UserName)
         {
-            CustomerResponse output = null;
+			sw.Start();
+			CustomerResponse output = null;
             try
             {
                 LoggingClass.LogServiceInfo("service called", "AuthencateUser");
@@ -140,11 +160,16 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service AuthencateUser", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
         }
         public async Task<CustomerResponse> AuthencateUser1(string email)
         {
-            CustomerResponse output = null;
+			sw.Start();
+			CustomerResponse output = null;
             try
             {
                 LoggingClass.LogServiceInfo("service called", "AuthencateUser1");
@@ -157,11 +182,16 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service AuthencateUser1", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
         }
         public async Task<DeviceToken> CheckMail(string uid)
         {
-            DeviceToken output = null;
+			sw.Start();
+			DeviceToken output = null;
             try
             {
                 LoggingClass.LogServiceInfo("service called", "CheckMail");
@@ -174,12 +204,17 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service CheckMail", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
         }
 
         public async Task<int> InsertUpdateToken1(TokenModel token)
         {
-            try
+			sw.Start();
+			try
             {
                 LoggingClass.LogServiceInfo("service called", "InsertUpdateToken1");
                 var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + token.User_id + "/token/" + token.DeviceToken.Replace(":", ",") + "/DeviceType/" + token.DeviceType);
@@ -193,32 +228,48 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return 1;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service InsertUpdateToken1", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return 1;
         }
 
         public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
         {
-            LoggingClass.LogServiceInfo("service called", "GetItemReviewsByWineID");
+			sw.Start();
+			LoggingClass.LogServiceInfo("service called", "GetItemReviewsByWineID");
             var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "GetItemReviewsByWineID");
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service GetItemReviewsByWineID", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
+
         }
 
         public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
         {
-            LoggingClass.LogServiceInfo("service called", "GetItemReviewUID");
+			sw.Start();
+			LoggingClass.LogServiceInfo("service called", "GetItemReviewUID");
             var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "GetItemReviewUID");
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service GetItemReviewUID", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
         }
 
         public async Task<int> InsertUpdateReview(Review review)
         {
-            try
+			sw.Start();
+			try
             {
                 LoggingClass.LogServiceInfo("service called", "InsertUpdateReview");
                 var uri = new Uri(ServiceURL + "InsertUpdateReview/");
@@ -233,11 +284,16 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return 1;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service InsertUpdateReview", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return 1;
         }
         public async Task<int> DeleteReview(Review review)
         {
-            try
+			sw.Start();
+			try
             {
                 LoggingClass.LogServiceInfo("service called", "DeleteReview");
                 var uri = new Uri(ServiceURL + "DeleteReview/");
@@ -251,11 +307,16 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return 1;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service DeleteReview", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return 1;
         }
         public async Task<int> UpdateCustomer(Customer customer)
         {
-            try
+			sw.Start();
+			try
             {
                 LoggingClass.LogServiceInfo("service called", "UpdateCustomer");
                 var uri = new Uri(ServiceURL + "UpdateCustomer/");
@@ -269,34 +330,54 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
             }
-            return 1;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service UpdateCustomer", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return 1;
         }
         public async Task<ItemListResponse> GetItemFavsUID(int userId)
         {
-            LoggingClass.LogServiceInfo("service called", "csfavs");
+			sw.Start();
+			LoggingClass.LogServiceInfo("service called", "csfavs");
             var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "csfavs");
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service GetItemFavsUID", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			return output;
         }
         public async Task<CustomerResponse> GetCustomerDetails(int userID)
         {
-            LoggingClass.LogServiceInfo("service called", "GetCustomerDetails");
+			sw.Start();
+			LoggingClass.LogServiceInfo("service called", "GetCustomerDetails");
             var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<CustomerResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "GetCustomerDetails");
-            return output;
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service GetCustomerDetails", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+
+			return output;
         }
         public async Task<TastingListResponse> GetMyTastingsList(int customerid)
         {
-            //customerid = 38691;
-            LoggingClass.LogServiceInfo("service called", "GetMyTastingsList");
+			sw.Start();
+			//customerid = 38691;
+			LoggingClass.LogServiceInfo("service called", "GetMyTastingsList");
             var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
             var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<TastingListResponse>(response);
-            LoggingClass.LogServiceInfo("service responce", "GetMyTastingsList");
+			sw.Stop();
+
+			LoggingClass.LogTime("The total time to  start and end the service GetMyTastingsList", "The timer ran for " + sw.Elapsed.TotalSeconds);
+
+			LoggingClass.LogServiceInfo("service responce", "GetMyTastingsList");
             return output;
         }
     }

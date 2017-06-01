@@ -16,6 +16,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.IO;
 using Android.Support;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -36,7 +37,9 @@ namespace WineHangouts
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+			Stopwatch st = new Stopwatch();
+			st.Start();
+			base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.detailedView);
             wineid = Intent.GetIntExtra("WineID", 123);
             storeid = Intent.GetIntExtra("storeid",1);
@@ -140,6 +143,8 @@ namespace WineHangouts
 			//}
 
 			//catch (Exception e) { }
+			st.Stop();
+			LoggingClass.LogTime("Detail activity",st.Elapsed.TotalSeconds.ToString());
 			TokenModel devInfo = new TokenModel();
 			var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 

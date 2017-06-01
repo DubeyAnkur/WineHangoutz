@@ -16,11 +16,11 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
 using System.IO;
 using Android.Util;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
-
-
+	
     public static class App
     {
         public static Java.IO.File _file;
@@ -32,12 +32,13 @@ namespace WineHangouts
     [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@android:style/Theme.Dialog")]
     public class ProfilePicturePickDialog : Activity
     {
-
+		Stopwatch st;
         //private ImageView _imageView;
         public string path;
         private int screenid = 14;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
+			st.Start();
             base.OnActivityResult(requestCode, resultCode, data);
             if (resultCode.ToString() == "Canceled")
             {
@@ -68,6 +69,8 @@ namespace WineHangouts
                 Intent intent = new Intent(this, typeof(TabActivity));
                 StartActivity(intent);
                 GC.Collect();
+				st.Stop();
+				LoggingClass.LogTime("profile  piccture ",st.Elapsed.TotalSeconds.ToString());
             }
         }
 
@@ -151,16 +154,19 @@ namespace WineHangouts
 
         private void TakeAPicture(object sender, EventArgs eventArgs)
         {
+			st.Start();
             Intent intent = new Intent(MediaStore.ActionImageCapture);
             App._file = new Java.IO.File(App._dir, String.Format(Convert.ToInt32(CurrentUser.getUserId()) + ".jpg", Guid.NewGuid()));
             path += "/" + CurrentUser.getUserId() + ".jpg";
             intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(App._file));
             StartActivityForResult(intent, 0);
+			st.Stop();
+			LoggingClass.LogTime("Tak pic",st.Elapsed.TotalSeconds.ToString());
         }
 
         public async void UploadProfilePic(string path)
         {
-
+			st.Start();
             StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
             CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
             CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
@@ -174,6 +180,8 @@ namespace WineHangouts
                 await blob.UploadFromStreamAsync(fs);
                 LoggingClass.LogInfo("Profile picture uploaded into blob",screenid);
             }
+			st.Stop();
+			LoggingClass.LogTime("Upload profile pic ", st.Elapsed.TotalSeconds.ToString());
         }
     }
 

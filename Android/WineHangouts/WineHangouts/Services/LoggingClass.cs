@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Android.Util;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace WineHangouts
 {
@@ -164,8 +165,26 @@ namespace WineHangouts
                 Log.Error("Error", exe.Message);
             }
         }
-       
-	
+		public static void LogTime(string info,string time)
+		{
+			try
+			{
+				append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
+				DateTime date2 = DateTime.UtcNow;
+				append.AppendTextAsync(string.Format("{0},{1},{2},{3}", "Time", date2.ToString("MM/dd/yyyy hh:mm:ss.fff"), info, time+ "\n"));
+				//var csv = new StringBuilder();
+				//var newLine = string.Format("{0},{1},{2},{3},{4}", "Exception", DateTime.Now, error,lineno,screenid);
+				//csv.AppendLine(newLine);
+				//File.AppendAllText(logspath, csv.ToString());
+
+			}
+			catch (Exception exe)
+			{
+				Log.Error("Error", exe.Message);
+			}
+		}
+
+
 
 	}
 }
