@@ -1,13 +1,10 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/SKUDetailView.cs">
     <Files>
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="250" Column="4" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="36" Column="14" />
-      <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
-      <File FileName="WineHangoutz/AboutController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/SKUDetailView.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ReSendEmailController.cs" relfile="WineHangoutz/ReSendEmailController.cs" line="106" column="9" />
@@ -20,6 +17,6 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="WineHangoutz/AppDelegate.cs" line="31" offsetX="602" offsetY="450" expression="identifier" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.C2C4B429-B43D-4135-B635-01609A418090" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
   <MultiItemStartupConfigurations />
 </Properties>

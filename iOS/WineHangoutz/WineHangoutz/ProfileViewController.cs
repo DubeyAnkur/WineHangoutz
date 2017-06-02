@@ -47,6 +47,48 @@ namespace WineHangoutz
 				txtPhone.Text = cRes.customer.PhoneNumber;
 				txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
 				txtState.Text = cRes.customer.State;
+
+				txtState.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+				txtFirstName.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+				txtLastName.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+
+				txtCity.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+
+
+				txtEmail.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+				txtPhone.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+				txtAddress.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
+
+
+
 				//imgProfile.Image = new UIImage("user.png");
 
 

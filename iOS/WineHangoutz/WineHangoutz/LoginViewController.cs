@@ -35,10 +35,11 @@ namespace WineHangoutz
 
 			nfloat h = 31.0f;
 			nfloat w = View.Bounds.Width;
-			nfloat imageSize = 150;
+			nfloat imageSize = 50;
 
 			var imgLogo = new UIImageView();
-			imgLogo.Frame = new CGRect((w - imageSize) / 3, 70, imageSize, imageSize);
+			//start,top,width,height
+			imgLogo.Frame = new CGRect(70, 30, 70, 70);
 			imgLogo.Image = UIImage.FromFile("logo5.png");
 			//EmailVerification();
 
@@ -55,9 +56,9 @@ namespace WineHangoutz
 			lblFN.TextAlignment = UITextAlignment.Left;
 
 			var lblName = new UILabel();
-			lblName.Frame = new CGRect(10, imageSize + 90, 300, h);
+			lblName.Frame = new CGRect(10, imageSize + 90, View.Frame.Width, h);
 			lblName.Text = "Please Login with registered email id.";
-			lblName.TextAlignment = UITextAlignment.Center;
+			lblName.TextAlignment = UITextAlignment.Left;
 
 			//var lblIns = new UILabel();
 			//lblName.Frame = new CGRect(0, 150, View.Frame.Width, 20);
@@ -82,6 +83,11 @@ namespace WineHangoutz
 				BorderStyle = UITextBorderStyle.RoundedRect,
 				Frame = new CGRect(10, imageSize + 200, w - 20, h)
 			};
+			txtPassword.ShouldReturn += (TextField) =>
+			  {
+				  ((UITextField)TextField).ResignFirstResponder();
+				  return true;
+			  };
 			if (CurrentUser.RetreiveUserName() != "" && CurrentUser.GetEmail() != "")
 			{
 				usernameField.Text = CurrentUser.RetreiveUserName();
@@ -93,9 +99,9 @@ namespace WineHangoutz
 			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnResendEmail = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+			btnResendEmail = new UIButton(new CGRect((View.Frame.Width - 28)-20, imageSize + 270, View.Frame.Width - 28, 20));
 			btnResendEmail.SetTitle("Resend", UIControlState.Normal);
-			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnResendEmail.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
 			btnVerify = new UIButton(new CGRect(14, imageSize + 270, 240, 20));
@@ -169,11 +175,6 @@ namespace WineHangoutz
 			try
 			{
 				int sentstatus=cr.customer.IsMailSent;
-				if (sentstatus == 0)
-				{
-					lblError.Text = "Entered email is doesn't exist with us please update at our store.";
-
-				}
 				if (CurrentUser.GetEmailStatus() == true)
 				{
 					lblFN.Text = "Mail sent please verify and come back here";
@@ -199,12 +200,19 @@ namespace WineHangoutz
 							Console.WriteLine(ex.Message.ToString());
 						}
 					}
-						lblError.Text = "If you don't receive verification email click on resend";
-						
+				if (sentstatus == 0)
+				{
+					lblError.Text = "Entered email is doesn't exist with us please update at our store.";
+					lblFN.Hidden = true;
+				}
+				else
+				{
+					lblError.Text = "If you don't receive verification email click on resend";
+				}
 			}
 			catch (Exception Exe)
 			{
-				Console.WriteLine(Exe.Message);
+				LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace.ToString());
 			}
 
 		}
