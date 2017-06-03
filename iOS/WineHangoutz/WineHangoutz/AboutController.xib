@@ -86,5 +86,7 @@
         <image name="logo5.png" width="1000" height="1000"/>
         <image name="logo5.jpg" width="1000" height="1000"/>
         <image name="user1.png" width="500" height="466"/>
+        <image name="Wines/bottle.jpg" width="750" height="750"/>
+        <image name="Images/loadin.png" width="512" height="512"/>
     </resources>
 </document>

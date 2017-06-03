@@ -97,7 +97,11 @@ namespace WineHangoutz
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e.Message);
+				if (img == null)
+				{
+					img = new UIImage("Wines/bottle.jpg");
+				}
+				LoggingClass.LogError(e.Message, screenid, e.StackTrace.ToString());
 			}
 			return img;
 		}

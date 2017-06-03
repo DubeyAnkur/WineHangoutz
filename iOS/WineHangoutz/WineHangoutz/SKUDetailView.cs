@@ -10,6 +10,7 @@ using BigTed;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Threading;
 
 namespace WineHangoutz
 {
@@ -26,6 +27,7 @@ namespace WineHangoutz
 			_storeId = Convert.ToInt32(storeid);
 			this.Title = "Wine Details";
 
+
 		}
 
 
@@ -40,6 +42,7 @@ namespace WineHangoutz
 				//           	   getData();
 				//});
 				//task2.Start();
+
 				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
 				BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
@@ -89,6 +92,7 @@ namespace WineHangoutz
 	{
 		UIImageView btlImage = new UIImageView();
 		PDRatingView ratingView;
+		UIImageView HighresImg = new UIImageView();
 		nfloat Width;
 		NSData HighImgData = null;
 		UITableView table;
@@ -106,15 +110,14 @@ namespace WineHangoutz
 				Parent = parent;
 				NavigationController = navCtrl;
 				data = Data;
-				data.LargeImageUrl = "Wines/wine2.png";
-				data.Producer = Data.Producer;// "Arzenton company was found in 1968, with the accomodation of the hilly area of spessa of Cividale del Friuli: thus in one of the places most suited to vityculture of the capital Doc Coli Orientali bel Friuli. The company consist of 14 hectare of which 10 are devoted to vineyards in soil consist of alternating layers of marl and sandstones that represnt the best soil of viticulture hilly.";
+                DownloadAsync(data.WineId, _store);
+				data.Producer = Data.Producer;
 				data.AverageRating = Data.AverageRating;// 4.25m;
-				data.WineProperties = new Dictionary<string, string>(); //new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012" }, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat" }, { "Bottle size", "750ml" }, { "Serving at:", "15 °C" } };
-
+				data.WineProperties = new Dictionary<string, string>(); 
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
 				data.Reviews = ratings.Reviews.ToList();
-				//DownloadAsync(data.WineId, _store);
+
 			}
 			catch (Exception ex)
 			{
@@ -139,6 +142,7 @@ namespace WineHangoutz
 		public UIView GetViewForSKUCell(nint index)
 		{
 			UIView vw = new UIView();
+			//UIImage image = new UIImage();
 			try
 			{
 				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
@@ -174,10 +178,12 @@ namespace WineHangoutz
 						var btlBack = new UIImageView();
 						btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
 						btlBack.Image = UIImage.FromFile("Wines/bottle.jpg");
+						UIImageView btlImage = new UIImageView();
 
-						 //92 * 233
+						UIImage image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString(),_store.ToString());
+						//image = new UIImage("Images/loadin.png");
 
-						UIImage image = BlobWrapper.GetGoodImage(data.WineId.ToString(),_store.ToString());
+
 						if (image != null)
 						{
 							CGRect rect = btlBack.Bounds;
@@ -188,24 +194,25 @@ namespace WineHangoutz
 							image = image.Scale(newSize);
 							nfloat X = (boxHeight - image.Size.Width) / 2;
 							btlImage.Frame = new CGRect(X, 0, image.Size.Width, image.Size.Height);
-
 							btlImage.Image = image;
+
+							//var TaskB = new System.Threading.Tasks.Task(() =>
+							//{
+							//	if (HighresImg.Image != null)
+							//	{
+							//	btlImage.Image = HighresImg.Image;
+							//	}
+							//});
+							//TaskB.Wait(100);
+							//TaskB.Start();
+
 						}
 						else
-							btlImage.Image = new UIImage("placeholder.png");
+						{
+							btlImage.Image = new UIImage("Wines/bottle.jpg");
+						}
+						vw = btlImage;
 
-						//if (HighImgData != null)
-						//{
-						//	btlImage.Image = UIImage.LoadFromData(HighImgData);
-						//}
-						//else
-						//{
-						//	btlImage.Image = new UIImage("Wines/wine1.png");
-						//}
-
-
-						vw = btlImage; //btlBack;
-						//vw.AddSubview(btlImage);
 						break;
 					case 5:
 						ratingView = new PDRatingView(new CGRect(this.Width * 3 / 8 + 2, 10, this.Width / 4, 20f), ratingConfig, data.AverageRating);
@@ -255,7 +262,7 @@ namespace WineHangoutz
 							that.PresentModalViewController(yourController, false);
 
 						//ShowModal(false);
-					};
+						};
 						vw = ratingView2;
 						break;
 					case 10:
@@ -386,7 +393,7 @@ namespace WineHangoutz
 		public async void DownloadAsync(int wineid, int storeid)
 		{
 			
-			UIImage HighresImg = null;
+
 			WebClient webClient = new WebClient(); 
 			string url = null;
 				if ( storeid== 1)
@@ -418,11 +425,12 @@ namespace WineHangoutz
 			{
 				if (HighImgData != null)
 				{
+					
 					btlImage.Image = UIImage.LoadFromData(HighImgData);
 				}
 				else
 				{
-					btlImage.Image = new UIImage("Wines/wine1.png");
+					btlImage.Image = new UIImage("Wines/bottle.jpg");
 				}
 			}
 			catch (Exception Ex)

@@ -32,7 +32,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			//CurrentUser.Clear();
+			CurrentUser.Clear();
 			//CurrentUser.Store("1", "Tester");//for direct login
 
 			UIImage profile = UIImage.FromFile("profile.png");

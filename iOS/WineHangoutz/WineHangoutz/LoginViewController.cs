@@ -99,7 +99,7 @@ namespace WineHangoutz
 			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnResendEmail = new UIButton(new CGRect((View.Frame.Width - 28)-20, imageSize + 270, View.Frame.Width - 28, 20));
+			btnResendEmail = new UIButton(new CGRect(70, imageSize + 270, View.Frame.Width - 28, 20));
 			btnResendEmail.SetTitle("Resend", UIControlState.Normal);
 			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 			btnResendEmail.SetTitleColor(UIColor.Purple, UIControlState.Normal);
