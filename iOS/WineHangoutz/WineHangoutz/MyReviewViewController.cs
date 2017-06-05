@@ -34,7 +34,7 @@ namespace WineHangoutz
 			{
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "Sorry you haven't reviewed our wines",
+					Title = "You have not reviewed our products yet. Please provide your vaulable inputs."
 					//Message = "Coming Soon..."
 				};
 				alert.AddButton("OK");

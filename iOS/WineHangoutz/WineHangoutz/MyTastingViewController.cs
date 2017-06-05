@@ -11,6 +11,7 @@ namespace WineHangoutz
 {
     public partial class MyTastingViewController : UITableViewController, IPopupParent
     {
+		private int screenid = 14;
         public MyTastingViewController (IntPtr handle) : base (handle)
         {
         }
@@ -19,11 +20,6 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			//AboutController1.ViewDidLoad(base);
-			//table = new UITableView(View.Bounds); // defaults to Plain style
-			//string[] tableItems = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
-			//List<Reviews> tableItems = new List<Reviews>();>
-		
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetMyTastingsList(userId).Result;
@@ -31,12 +27,10 @@ namespace WineHangoutz
 			{
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "Sorry you haven't tasted our wines",
+					Title = "Please start tasting our amazing selection of wines.",
 					//Message = "Coming Soon..."
 				};
-				//LoggingClass.LogInfo("Entered into seacuces", screenid);
-
-
+				LoggingClass.LogInfo("There are no tastings for this user " + CurrentUser.RetreiveUserName(), screenid);
 				alert.AddButton("OK");
 				alert.Show();
 			}

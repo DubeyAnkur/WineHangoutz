@@ -18,8 +18,8 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-	
-			//AboutController1.ViewDidLoad(base);
+				
+		//AboutController1.ViewDidLoad(base);
 
 			// Perform any additional setup after loading the view, typically from a nib.
 			//LoggingClass.UploadErrorLogs();

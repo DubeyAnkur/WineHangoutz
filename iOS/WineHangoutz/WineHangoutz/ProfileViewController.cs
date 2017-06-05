@@ -118,6 +118,7 @@ namespace WineHangoutz
 					BTProgressHUD.Show("Updating profile..."); //show spinner + text
 				};
 
+
 				btnUpdate.TouchUpInside += async (sender, e) =>
 				{
 					Customer cust = new Customer();

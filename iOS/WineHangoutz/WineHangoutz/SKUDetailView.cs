@@ -99,6 +99,7 @@ namespace WineHangoutz
 		UIViewController Parent;
 		UINavigationController NavigationController;
 		ItemDetails data;
+		UITableViewCell[] temp;
 		//UIImage img = new UIImage("Wines/bottle.jpg");
 		public int _store;
 		public SKUDetailTableSource(nfloat wid, UIViewController parent, UINavigationController navCtrl, ItemDetails Data,int storeid)
@@ -117,6 +118,7 @@ namespace WineHangoutz
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
 				data.Reviews = ratings.Reviews.ToList();
+				//temp = new UITableViewCell[17];
 
 			}
 			catch (Exception ex)
@@ -134,8 +136,11 @@ namespace WineHangoutz
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			UITableViewCell cell = new UITableViewCell();
-			cell.Add(GetViewForSKUCell(indexPath.Item));
-
+			//if (temp[Convert.ToInt32(indexPath)] != null)
+			{
+				cell.Add(GetViewForSKUCell(indexPath.Item));
+				//temp[Convert.ToInt32(indexPath)] = cell;
+			}
 			return cell;
 		}
 		private int screenid = 5;
@@ -178,10 +183,10 @@ namespace WineHangoutz
 						var btlBack = new UIImageView();
 						btlBack.Frame = new CGRect(0, 10, this.Width, this.Width);
 						btlBack.Image = UIImage.FromFile("Wines/bottle.jpg");
-						UIImageView btlImage = new UIImageView();
+						btlImage = new UIImageView();
 
-						UIImage image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString(),_store.ToString());
-						//image = new UIImage("Images/loadin.png");
+						//UIImage image = BlobWrapper.GetImageBitmapFromWineId(data.WineId.ToString(),_store.ToString());
+						UIImage image = new UIImage("Images/loadin.png");
 
 
 						if (image != null)

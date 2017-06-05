@@ -250,6 +250,10 @@
     </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="LoggingClass.cs" />
+    <Compile Include="UIBotton.cs" />
+    <Compile Include="UIBotton.designer.cs">
+      <DependentUpon>UIBotton.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />

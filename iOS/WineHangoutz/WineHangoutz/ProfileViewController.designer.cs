@@ -16,7 +16,7 @@ namespace WineHangoutz
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton btnEdit { get; set; }
+        WineHangoutz.UIBotton btnEdit { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

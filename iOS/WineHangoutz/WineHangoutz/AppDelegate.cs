@@ -32,10 +32,10 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			CurrentUser.Clear();
-			//CurrentUser.Store("1", "Tester");//for direct login
+			//CurrentUser.Clear();
+			CurrentUser.Store("10", "Admin");//for direct login
 
-			UIImage profile = UIImage.FromFile("profile.png");
+			UIImage profile = UIImage.FromFile("profile.png") ;
 			profile = ResizeImage(profile, 25, 25);
 
 			UIImage info = UIImage.FromFile("Info.png");
@@ -52,7 +52,7 @@ namespace WineHangoutz
 			{
 				BTProgressHUD.Show("Loading,,,");
 				nav.PushViewController(new AboutController1(nav), false);
-				nav.NavigationBar.TopItem.Title = "About";
+				nav.NavigationBar.TopItem.Title = "About Us";
 				BTProgressHUD.Dismiss();
 			});
 			ManageTabBar(RootTab);

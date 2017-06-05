@@ -19,7 +19,6 @@ namespace WineHangoutz
 		Boolean fav = false;
 		UIImage img = new UIImage("Wines/bottle.jpg");
 		//public int userId = 2;
-		LoadingOverlay loadPop;
 
 		public bool FaviouriteView = false;
         public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
@@ -61,7 +60,7 @@ namespace WineHangoutz
 					{
 						UIAlertView alert = new UIAlertView()
 						{
-							Title = "Sorry you didn't tell us your favorite wines",
+							Title = "Pick your favorites and we will notify you when it is available for tasting.",
 							//Message = "Coming Soon..."
 						};
 						//LoggingClass.LogInfo("Entered into seacuces", screenid);
