@@ -38,8 +38,10 @@ namespace WineHangoutz
 
 			var imgLogo = new UIImageView();
 			//start,top,width,height
-			imgLogo.Frame = new CGRect(150, 30, 70, 70);
+			imgLogo.Frame = new CGRect(130, 30, 100, 100);
 			imgLogo.Image = UIImage.FromFile("logo5.png");
+
+			//imgLogo.ali
 			//EmailVerification();
 			//imgLogo.ali
 
@@ -55,10 +57,12 @@ namespace WineHangoutz
 			lblFN.Text = "";
 			lblFN.TextAlignment = UITextAlignment.Left;
 
+
 			var lblIns = new UITextView();
 			lblIns.Frame = new CGRect(10, imageSize + 80, View.Frame.Width, h);
 			lblIns.Text = "Please enter your Card ID and a valid Email address.";
 			lblIns.TextAlignment = UITextAlignment.Left;
+			lblIns.Editable = false;
 
 			var lblName = new UILabel();
 			lblName.Frame = new CGRect(10, imageSize + 120, View.Frame.Width, 20);
@@ -77,11 +81,12 @@ namespace WineHangoutz
 			lblEmail.Text = "Email";
 			lblEmail.TextAlignment = UITextAlignment.Left;
 
+
 			var txtEmail = new UITextField
 			{
 				Placeholder = "e.g. john@wineoutlet.com",
 				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(10, imageSize + 200, View.Frame.Width, h)
+				Frame = new CGRect(10, imageSize + 220, View.Frame.Width, h)
 			};
 			txtEmail.ShouldReturn += (TextField) =>
 			  {
@@ -144,7 +149,8 @@ namespace WineHangoutz
 					cr = await svc.AuthencateUser(txtEmail.Text, txtCardID.Text,uid_device);
 					if (cr.customer != null)
 					{
-						
+						CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
+						nav.DismissViewController(true, null);
 					}
 					LoggingClass.LogInfo(txtEmail.Text + " tried to login", screenid);
 					//if (cr.customer.IsMailSent == 1)

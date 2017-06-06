@@ -138,6 +138,7 @@ namespace WineHangoutz
 					await sw.UpdateCustomer(cust);
 					BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
 				};
+				btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 
 
 				btnEdit.TouchUpInside += (sender, e) =>

@@ -111,7 +111,7 @@ namespace WineHangoutz
 				Parent = parent;
 				NavigationController = navCtrl;
 				data = Data;
-                DownloadAsync(data.WineId, _store);
+                
 				data.Producer = Data.Producer;
 				data.AverageRating = Data.AverageRating;// 4.25m;
 				data.WineProperties = new Dictionary<string, string>(); 
@@ -199,17 +199,10 @@ namespace WineHangoutz
 							image = image.Scale(newSize);
 							nfloat X = (boxHeight - image.Size.Width) / 2;
 							btlImage.Frame = new CGRect(X, 0, image.Size.Width, image.Size.Height);
+							nfloat wid = this.Width;
+							nfloat hei = this.Width;
 							btlImage.Image = image;
-
-							//var TaskB = new System.Threading.Tasks.Task(() =>
-							//{
-							//	if (HighresImg.Image != null)
-							//	{
-							//	btlImage.Image = HighresImg.Image;
-							//	}
-							//});
-							//TaskB.Wait(100);
-							//TaskB.Start();
+							DownloadAsync(data.WineId, _store,btlImage,X,wid,hei);
 
 						}
 						else
@@ -395,7 +388,7 @@ namespace WineHangoutz
 			reviewTable.ScrollEnabled = false;
 			return reviewTable;
 		}
-		public async void DownloadAsync(int wineid, int storeid)
+		public async void DownloadAsync(int wineid, int storeid, UIImageView btlImage, nfloat X, nfloat wid, nfloat hei)
 		{
 			
 
@@ -430,8 +423,9 @@ namespace WineHangoutz
 			{
 				if (HighImgData != null)
 				{
-					
+					btlImage.Frame = new CGRect(X, 0, wid, hei);
 					btlImage.Image = UIImage.LoadFromData(HighImgData);
+				
 				}
 				else
 				{

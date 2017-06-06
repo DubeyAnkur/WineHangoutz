@@ -156,7 +156,7 @@ namespace WineHangoutz
 				LoginViewController yourController = new LoginViewController();
 				yourController.nav = NavigationController;
 				yourController.root = this;
-				yourController.ModalPresentationStyle = UIModalPresentationStyle.FormSheet;
+				yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
 				this.PresentModalViewController(yourController, false);
 			}
 			//Login Check End

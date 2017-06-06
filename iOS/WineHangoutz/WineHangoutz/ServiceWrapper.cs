@@ -114,7 +114,7 @@ namespace WineHangoutz
 			LoggingClass.LogServiceInfo("Service Call", "AuthencateUser");
 			try
 			{
-				var uri = new Uri(ServiceURL + "AuthenticateUser/" + Email);
+				var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardId+"/email/"+Email+"/DeviceId/"+uid);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
 				LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
