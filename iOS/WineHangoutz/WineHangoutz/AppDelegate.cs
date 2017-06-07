@@ -26,13 +26,11 @@ namespace WineHangoutz
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			BlobWrapper.DownloadAllImages();
-			//string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
-
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			CurrentUser.Clear();
+			//CurrentUser.Clear();
 			//CurrentUser.Store("10", "Admin");//for direct login
 
 			UIImage profile = UIImage.FromFile("profile.png") ;

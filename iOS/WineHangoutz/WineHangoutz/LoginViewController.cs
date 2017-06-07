@@ -38,7 +38,7 @@ namespace WineHangoutz
 
 			var imgLogo = new UIImageView();
 			//start,top,width,height
-			imgLogo.Frame = new CGRect(130, 30, 100, 100);
+			imgLogo.Frame = new CGRect(130, 30, 70, 70);
 			imgLogo.Image = UIImage.FromFile("logo5.png");
 
 			//imgLogo.ali
@@ -135,24 +135,27 @@ namespace WineHangoutz
 				//{
 				//	// warn the user, or hide the button...
 				//}
+				lblIns.Hidden = true;
+
 				if (txtCardID.Text == null || txtCardID.Text == "")
 				{
-					lblError.Text = "Please enter Card ID";
+					lblError.Text = "Please enter a valid Card ID";
 				}
-				if (txtEmail.Text == null || txtEmail.Text == "")
+				else if (txtEmail.Text == null || txtEmail.Text == "")
 				{
 					lblError.Text = "Please enter a valid Email Address.";
 				}
 				else
 				{
-					CurrentUser.StoreEmail(txtEmail.Text);
+					//CurrentUser.StoreEmail(txtEmail.Text);
 					cr = await svc.AuthencateUser(txtEmail.Text, txtCardID.Text,uid_device);
-					if (cr.customer != null)
+					if (cr.customer.CustomerID !=0)
 					{
 						CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
 						nav.DismissViewController(true, null);
 					}
 					LoggingClass.LogInfo(txtEmail.Text + " tried to login", screenid);
+					//lblError.Text = svc.error;
 					//if (cr.customer.IsMailSent == 1)
 					//{
 					//	CurrentUser.PutEmailStatus(t

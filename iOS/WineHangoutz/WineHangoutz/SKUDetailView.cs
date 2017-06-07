@@ -34,15 +34,9 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-			//AboutController1.ViewDidLoad(base);
+			
 			try
 			{
-				//Task task2 = new Task(delegate
-				//{
-				//           	   getData();
-				//});
-				//task2.Start();
-
 				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
 				BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
@@ -99,7 +93,7 @@ namespace WineHangoutz
 		UIViewController Parent;
 		UINavigationController NavigationController;
 		ItemDetails data;
-		UITableViewCell[] temp;
+		//UITableViewCell[] temp;
 		//UIImage img = new UIImage("Wines/bottle.jpg");
 		public int _store;
 		public SKUDetailTableSource(nfloat wid, UIViewController parent, UINavigationController navCtrl, ItemDetails Data,int storeid)
@@ -152,8 +146,7 @@ namespace WineHangoutz
 			{
 				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
 													filledImage: UIImage.FromBundle("Stars/star.png"),
-
-													chosenImage: UIImage.FromBundle("Stars/star.png"));
+				                                    chosenImage: UIImage.FromBundle("Stars/star.png"));
 
 				switch (index)
 				{
@@ -202,7 +195,7 @@ namespace WineHangoutz
 							nfloat wid = this.Width;
 							nfloat hei = this.Width;
 							btlImage.Image = image;
-							DownloadAsync(data.WineId, _store,btlImage,X,wid,hei);
+							DownloadAsync(data.WineId, _store,btlImage,boxHeight);
 
 						}
 						else
@@ -388,7 +381,7 @@ namespace WineHangoutz
 			reviewTable.ScrollEnabled = false;
 			return reviewTable;
 		}
-		public async void DownloadAsync(int wineid, int storeid, UIImageView btlImage, nfloat X, nfloat wid, nfloat hei)
+		public async void DownloadAsync(int wineid, int storeid, UIImageView btlImage, nfloat boxHeight)
 		{
 			
 
@@ -423,9 +416,14 @@ namespace WineHangoutz
 			{
 				if (HighImgData != null)
 				{
-					btlImage.Frame = new CGRect(X, 0, wid, hei);
-					btlImage.Image = UIImage.LoadFromData(HighImgData);
-				
+					UIImage image = UIImage.LoadFromData(HighImgData);
+					nfloat imgHeight = image.Size.Height;
+					nfloat ratio = boxHeight / imgHeight;
+					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+					image = image.Scale(newSize);
+					nfloat X = (boxHeight - image.Size.Width) / 2;
+					btlImage.Frame = new CGRect(X, 0, image.Size.Width, image.Size.Height);
+					btlImage.Image = image;
 				}
 				else
 				{

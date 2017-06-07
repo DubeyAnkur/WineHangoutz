@@ -135,13 +135,6 @@ namespace WineHangoutz
 					LoggingClass.LogError (ex.ToString(), screenid,ex.StackTrace);
 				}
 		}
-
-		public override void DidReceiveMemoryWarning()
-		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
-		}
-
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
@@ -149,18 +142,28 @@ namespace WineHangoutz
 			NavigationController.NavigationBar.TopItem.Title = "Locations";
 			string validUser = CurrentUser.RetreiveUserName();
 
-			LoggingClass.LogInfo("opened app "+validUser,screenid);
+			LoggingClass.LogInfo("opened app " + validUser, screenid);
 
 			if (validUser == "" || validUser == null)
 			{
-				LoginViewController yourController = new LoginViewController();
-				yourController.nav = NavigationController;
-				yourController.root = this;
-				yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
-				this.PresentModalViewController(yourController, false);
+						LoginViewController yourController = new LoginViewController();
+						yourController.nav = NavigationController;
+						yourController.root = this;
+						yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+						this.PresentModalViewController(yourController, false);
+				//ProfileViewController yourController = new ProfileViewController();
+				//yourController.NavCtrl = NavigationController;
+				//yourController.root = this;
+				//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+				//this.PresentModalViewController(yourController, false);
 			}
-			//Login Check End
+			//login check in
+		}
 
+		public override void DidReceiveMemoryWarning()
+		{
+			base.DidReceiveMemoryWarning();
+			// Release any cached data, images, etc that aren't in use.
 		}
 
 	}

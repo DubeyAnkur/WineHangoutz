@@ -15,9 +15,11 @@ namespace WineHangoutz
     {
         HttpClient client;
 		private int screenid=13;
+		public string error = null;
         public ServiceWrapper()
         {
             client = new HttpClient();
+
             //client.MaxResponseContentBufferSize = 256000;
         }
 

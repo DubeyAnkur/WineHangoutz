@@ -18,13 +18,20 @@ namespace WineHangoutz
 {
 	public partial class ProfileViewController : UIViewController
 	{
+		
+		public UIViewController root;
+		//public UINavigationController nav;
 		private int screenid = 8;
-		UINavigationController NavCtrl;
+		public UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
 		{
 			NavCtrl = navCtrl;
+		}
+		public ProfileViewController() : base()
+		{
+			this.Title = "Profile";
 		}
 
 		public override void ViewDidLoad()
@@ -325,7 +332,22 @@ namespace WineHangoutz
 				LoggingClass.LogError(Ex.Message, screenid, Ex.StackTrace.ToString());
 			}
 		}
-
+		//public override void ViewDidAppear(bool animated)
+		//{
+		//	base.ViewDidAppear(animated);
+		//	//NavigationController.Title = "Locations";
+		//	//NavigationController.NavigationBar.TopItem.Title = "Locations";
+		//	string validUser = CurrentUser.RetreiveUserName();
+		//	LoggingClass.LogInfo("opened app " + validUser, screenid);
+		//	if (validUser == "" || validUser == null)
+		//	{
+		//		LoginViewController yourController = new LoginViewController();
+		//		yourController.nav = NavigationController;
+		//		yourController.root = this;
+		//		yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+		//		this.PresentModalViewController(yourController, false);
+		//	}
+		//}
 	}
 }
 
