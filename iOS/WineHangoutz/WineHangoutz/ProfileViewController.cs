@@ -1,5 +1,8 @@
 using System;
 using UIKit;
+using Foundation;
+using System.Threading.Tasks;
+using BigTed;
 using Hangout.Models;
 using Foundation;
 using AVFoundation;
@@ -24,6 +27,7 @@ namespace WineHangoutz
 		private int screenid = 8;
 		public UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
+		public IntPtr handle;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
 		{
@@ -42,127 +46,148 @@ namespace WineHangoutz
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
 				//LoggingClass.UploadErrorLogs();
-
-				//imgProfile.Image = new UIImage("Images/loading.gif");
-				DownloadAsync();
-				ServiceWrapper sw = new ServiceWrapper();
-				var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
-				txtFirstName.Text = cRes.customer.FirstName;
-				txtLastName.Text = cRes.customer.LastName;
-				txtCity.Text = cRes.customer.City;
-				txtEmail.Text = cRes.customer.Email;
-				txtPhone.Text = cRes.customer.PhoneNumber;
-				txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
-				txtState.Text = cRes.customer.State;
-
-				txtState.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-				txtFirstName.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-				txtLastName.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-
-				txtCity.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-
-
-				txtEmail.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-				txtPhone.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-				txtAddress.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-
-
-
-				//imgProfile.Image = new UIImage("user.png");
-
-
-				imgEmail.Image = new UIImage("mail.png");
-
-				imgAddr.Image = new UIImage("add.png");
-
-				imgCity.Image = new UIImage("City1.png");
-
-				imgState.Image = new UIImage("state.png");
-
-				imgPhone.Image = new UIImage("phone1.png");
-
-
-				//UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
-				//if (prpicImage != null)
-				//{
-				//	imgProfile.Image = prpicImage;
-				//}
-				//else
-				//{
-				//	imgProfile.Image = new UIImage("user1.png");
-				//}
-
-				btnUpdate.TouchDown += (sender, e) =>
+				if (CurrentUser.RetreiveUserId() == 0)
 				{
-					BTProgressHUD.Show("Updating profile..."); //show spinner + text
-				};
-
-
-				btnUpdate.TouchUpInside += async (sender, e) =>
-				{
-					Customer cust = new Customer();
-					cust.CustomerID = CurrentUser.RetreiveUserId();
-					cust.Address1 = txtAddress.Text;
-					cust.FirstName = txtFirstName.Text;
-					cust.LastName = txtLastName.Text;
-					cust.City = txtCity.Text;
-					cust.Email = txtCity.Text;
-					LoggingClass.LogInfo("Update button into Profile View", screenid);
-
-
-					cust.Email = txtEmail.Text;
-					cust.PhoneNumber = txtPhone.Text;
-					cust.State = txtState.Text;
-
-					await sw.UpdateCustomer(cust);
-					BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-				};
-				btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-
-
-				btnEdit.TouchUpInside += (sender, e) =>
-				{
-					IsCameraAuthorized();
-					imagePicker = new UIImagePickerController();
-					imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-					imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
-
-					imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-					imagePicker.Canceled += Handle_Canceled;
-					NavCtrl.PresentModalViewController(imagePicker, true);
-					if (IsCameraAuthorized())
+					UIAlertView alert = new UIAlertView()
 					{
-						this.PresentModalViewController(imagePicker, false);
-					}
+						Title = "This feature is allowed only for VIP Card holders",
+						//Message = "Coming Soon..."
+					};
+
+					alert.AddButton("OK");
+					alert.Show();
+				}
+				else
+				{
+					//imgProfile.Image = new UIImage("Images/loading.gif");
+					DownloadAsync();
+					ServiceWrapper sw = new ServiceWrapper();
+					var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
+					txtFirstName.Text = cRes.customer.FirstName;
+					txtLastName.Text = cRes.customer.LastName;
+					txtCity.Text = cRes.customer.City;
+					txtEmail.Text = cRes.customer.Email;
+					txtPhone.Text = cRes.customer.PhoneNumber;
+					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
+					txtState.Text = cRes.customer.State;
+
+					txtState.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+					txtFirstName.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+					txtLastName.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+
+					txtCity.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+
+
+					txtEmail.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+					txtPhone.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+					txtAddress.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+
+
+
+					//imgProfile.Image = new UIImage("user.png");
+
+
+					imgEmail.Image = new UIImage("mail.png");
+
+					imgAddr.Image = new UIImage("add.png");
+
+					imgCity.Image = new UIImage("City1.png");
+
+					imgState.Image = new UIImage("state.png");
+
+					imgPhone.Image = new UIImage("phone1.png");
+
+
+					//UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
+					//if (prpicImage != null)
+					//{
+					//	imgProfile.Image = prpicImage;
+					//}
+					//else
+					//{
+					//	imgProfile.Image = new UIImage("user1.png");
+					//}
+
+					btnUpdate.TouchDown += (sender, e) =>
+					{
+						BTProgressHUD.Show("Updating profile..."); //show spinner + text
 				};
+
+
+					btnUpdate.TouchUpInside += async (sender, e) =>
+					{
+						Customer cust = new Customer();
+						cust.CustomerID = CurrentUser.RetreiveUserId();
+						cust.Address1 = txtAddress.Text;
+						cust.FirstName = txtFirstName.Text;
+						cust.LastName = txtLastName.Text;
+						cust.City = txtCity.Text;
+						cust.Email = txtCity.Text;
+						LoggingClass.LogInfo("Update button into Profile View", screenid);
+
+
+						cust.Email = txtEmail.Text;
+						cust.PhoneNumber = txtPhone.Text;
+						cust.State = txtState.Text;
+
+						await sw.UpdateCustomer(cust);
+						BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
+						try
+						{
+							NavCtrl.PushViewController(new FirstViewController(handle), false);
+						}
+						catch (Exception exe)
+						{
+							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+						}
+					};
+					btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+
+
+					btnEdit.TouchUpInside += (sender, e) =>
+					{
+						IsCameraAuthorized();
+						imagePicker = new UIImagePickerController();
+						imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+						imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+
+						imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+						imagePicker.Canceled += Handle_Canceled;
+						NavCtrl.PresentModalViewController(imagePicker, true);
+						if (IsCameraAuthorized())
+						{
+							this.PresentModalViewController(imagePicker, false);
+						}
+					};
+				}
 			}
 			catch (Exception ex)
 			{

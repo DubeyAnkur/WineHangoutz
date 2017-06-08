@@ -12,7 +12,7 @@ namespace WineHangoutz
 	{
 		public UIViewController root;
 		public UINavigationController nav;
-		public UIButton btnResendEmail;
+		public UIButton btnGuestLogin;
 		public UILabel lblIns;
 		public UIButton btnVerify;
 		protected string deviceToken = string.Empty;
@@ -29,159 +29,196 @@ namespace WineHangoutz
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
-
-			UITextField txtCardID;
-
-			nfloat h = 31.0f;
-			nfloat w = View.Bounds.Width;
-			nfloat imageSize = 50;
-
-			var imgLogo = new UIImageView();
-			//start,top,width,height
-			imgLogo.Frame = new CGRect(130, 30, 70, 70);
-			imgLogo.Image = UIImage.FromFile("logo5.png");
-
-			//imgLogo.ali
-			//EmailVerification();
-			//imgLogo.ali
-
-			lblError = new UILabel();
-			lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h);
-			lblError.Text = "";
-			lblError.TextColor = UIColor.Red;
-			lblError.TextAlignment = UITextAlignment.Left;
-
-
-			lblFN = new UILabel();
-			lblFN.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
-			lblFN.Text = "";
-			lblFN.TextAlignment = UITextAlignment.Left;
-
-
-			var lblIns = new UITextView();
-			lblIns.Frame = new CGRect(10, imageSize + 80, View.Frame.Width, h);
-			lblIns.Text = "Please enter your Card ID and a valid Email address.";
-			lblIns.TextAlignment = UITextAlignment.Left;
-			lblIns.Editable = false;
-
-			var lblName = new UILabel();
-			lblName.Frame = new CGRect(10, imageSize + 120, View.Frame.Width, 20);
-			lblName.TextAlignment = UITextAlignment.Left;
-			lblName.Text = "Card ID";
-
-			txtCardID = new UITextField
+			try
 			{
-				Placeholder = "e.g. 1234 5678 8765 4321",
-				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(10, imageSize + 145, View.Frame.Width, h)
-			};
+				UITextField txtCardID;
 
-			var lblEmail = new UILabel();
-			lblEmail.Frame = new CGRect(10, imageSize + 180, View.Frame.Width, h);
-			lblEmail.Text = "Email";
-			lblEmail.TextAlignment = UITextAlignment.Left;
+				nfloat h = 31.0f;
+				nfloat w = View.Bounds.Width;
+				nfloat imageSize = 50;
+
+				var imgLogo = new UIImageView();
+				//start,top,width,height
+				imgLogo.Frame = new CGRect(130, 30, 70, 70);
+				imgLogo.Image = UIImage.FromFile("logo5.png");
+
+				//imgLogo.ali
+				//EmailVerification();
+				//imgLogo.ali
+
+				lblError = new UILabel();
+				lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h);
+				lblError.Text = "";
+				lblError.TextColor = UIColor.Red;
+				lblError.TextAlignment = UITextAlignment.Left;
 
 
-			var txtEmail = new UITextField
-			{
-				Placeholder = "e.g. john@wineoutlet.com",
-				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(10, imageSize + 220, View.Frame.Width, h)
-			};
-			txtEmail.ShouldReturn += (TextField) =>
-			  {
-				  ((UITextField)TextField).ResignFirstResponder();
-				  return true;
-			  };
-			if (CurrentUser.RetreiveUserName() != "" && CurrentUser.GetEmail() != "")
-			{
-				txtCardID.Text = CurrentUser.RetreiveUserName();
-				txtEmail.Text = CurrentUser.GetEmail();
-			}
+				lblFN = new UILabel();
+				lblFN.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
+				lblFN.Text = "";
+				lblFN.TextAlignment = UITextAlignment.Left;
 
-			UIButton btnLogin = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
-			btnLogin.SetTitle("Login", UIControlState.Normal);
-			btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
-			btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
-			btnResendEmail = new UIButton(new CGRect(70, imageSize + 270, View.Frame.Width - 28, 20));
-			btnResendEmail.SetTitle("Resend", UIControlState.Normal);
-			btnResendEmail.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
-			btnResendEmail.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				var lblIns = new UITextView();
+				lblIns.Frame = new CGRect(10, imageSize + 80, View.Frame.Width, h);
+				lblIns.Text = "Please enter your Card ID and a valid Email address.";
+				lblIns.TextAlignment = UITextAlignment.Left;
+				lblIns.Editable = false;
 
-			btnVerify = new UIButton(new CGRect(14, imageSize + 270, 240, 20));
-			btnVerify.SetTitle("Verify", UIControlState.Normal);
-			btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
-			btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-			//for 
-			string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
-			btnResendEmail.TouchUpInside += async (sender, e) =>
-			{
-				await svc.AuthencateUser1(txtEmail.Text);
-			};
-			//btnVerify.TouchUpInside += (sender, e) =>
-			//{
-			//	//EmailVerification();
-			//};
-			btnLogin.TouchUpInside += async (sender, e) =>
-			{
-				//var smsTo = NSUrl.FromString("sms:"+txtPassword.Text);
-				//UIApplication.SharedApplication.OpenUrl(smsTo);
-				//if (UIApplication.SharedApplication.CanOpenUrl(smsTo))
-				//{
-				//	UIApplication.SharedApplication.OpenUrl(smsTo);
-				//}
-				//else
-				//{
-				//	// warn the user, or hide the button...
-				//}
-				lblIns.Hidden = true;
+				var lblName = new UILabel();
+				lblName.Frame = new CGRect(10, imageSize + 120, View.Frame.Width, 20);
+				lblName.TextAlignment = UITextAlignment.Left;
+				lblName.Text = "Card ID";
 
-				if (txtCardID.Text == null || txtCardID.Text == "")
+				txtCardID = new UITextField
 				{
-					lblError.Text = "Please enter a valid Card ID";
+					Placeholder = "e.g. 1234 5678 8765 4321",
+					BorderStyle = UITextBorderStyle.RoundedRect,
+					Frame = new CGRect(10, imageSize + 145, View.Frame.Width, h)
+				};
+
+				var lblEmail = new UILabel();
+				lblEmail.Frame = new CGRect(10, imageSize + 180, View.Frame.Width, h);
+				lblEmail.Text = "Email";
+				lblEmail.TextAlignment = UITextAlignment.Left;
+
+
+				var txtEmail = new UITextField
+				{
+					Placeholder = "e.g. john@wineoutlet.com",
+					BorderStyle = UITextBorderStyle.RoundedRect,
+					Frame = new CGRect(10, imageSize + 220, View.Frame.Width, h)
+				};
+				txtEmail.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+				if (CurrentUser.RetreiveUserName() != "" && CurrentUser.GetEmail() != "")
+				{
+					txtCardID.Text = CurrentUser.RetreiveUserName();
+					txtEmail.Text = CurrentUser.GetEmail();
 				}
-				else if (txtEmail.Text == null || txtEmail.Text == "")
+
+				UIButton btnLogin = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+				btnLogin.SetTitle("Login", UIControlState.Normal);
+				btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+				btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+
+				btnGuestLogin = new UIButton(new CGRect(70, imageSize + 270, View.Frame.Width - 28, 20));
+				btnGuestLogin.SetTitle("Guest Login", UIControlState.Normal);
+				btnGuestLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+				btnGuestLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+
+
+				btnVerify = new UIButton(new CGRect(14, imageSize + 270, 240, 20));
+				btnVerify.SetTitle("Verify", UIControlState.Normal);
+				btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+				btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				//for 
+				string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
+				btnGuestLogin.TouchDown += (sender, e) =>
+			   {
+					CurrentUser.Store("0", "Guest");
+				   nav.DismissViewController(true, null);
+			   };
+				//btnVerify.TouchUpInside += (sender, e) =>
+				//{
+				//	//EmailVerification();
+				//};
+				btnLogin.TouchUpInside += async (sender, e) =>
 				{
-					lblError.Text = "Please enter a valid Email Address.";
-				}
-				else
-				{
-					//CurrentUser.StoreEmail(txtEmail.Text);
-					cr = await svc.AuthencateUser(txtEmail.Text, txtCardID.Text,uid_device);
-					if (cr.customer.CustomerID !=0)
-					{
-						CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
-						nav.DismissViewController(true, null);
-					}
-					LoggingClass.LogInfo(txtEmail.Text + " tried to login", screenid);
-					//lblError.Text = svc.error;
-					//if (cr.customer.IsMailSent == 1)
+					//var smsTo = NSUrl.FromString("sms:"+txtPassword.Text);
+					//UIApplication.SharedApplication.OpenUrl(smsTo);
+					//if (UIApplication.SharedApplication.CanOpenUrl(smsTo))
 					//{
-					//	CurrentUser.PutEmailStatus(t
+					//	UIApplication.SharedApplication.OpenUrl(smsTo);
 					//}
+					//else
+					//{
+					//	// warn the user, or hide the button...
+					//}
+					lblIns.Hidden = true;
 
-					//EmailVerification();
-					//.Hidden = true;
+					if (txtCardID.Text == null || txtCardID.Text == "")
+					{
+						lblError.Text = "Please enter a valid Card ID";
+					}
+					else if (txtEmail.Text == null || txtEmail.Text == "")
+					{
+						lblError.Text = "Please enter a valid Email Address.";
+					}
+					else
+					{
+						//CurrentUser.StoreEmail(txtEmail.Text);
+						cr = await svc.AuthencateUser(txtEmail.Text, txtCardID.Text, uid_device);
+						if (cr.customer.CustomerID != 0)
+						{
+							CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
+							//nav.DismissViewController(true, null);
+							nav.PushViewController(new ProfileViewController(), false);
+							nav.DismissViewController(true, null);
+						}
+						LoggingClass.LogInfo(txtEmail.Text + " tried to login", screenid);
+						lblError.Text = cr.ErrorDescription;
 
-				}
-				var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
-				View.AddSubview(loadPop);
-				loadPop.Hide();
-			};
+						//if (cr.customer.IsMailSent == 1)
+						//{
+						//	CurrentUser.PutEmailStatus(t
+						//}
+
+						//EmailVerification();
+						//.Hidden = true;
+
+					}
+					//var loadPop = new LoadingOverlay(UIScreen.MainScreen.Bounds);
+					//View.AddSubview(loadPop);
+					//loadPop.Hide();
+				};
 
 
 
-			View.BackgroundColor = UIColor.White;
-			View.AddSubview(imgLogo);
-			View.AddSubview(lblError);
-			View.AddSubview(lblEmail);
-			View.AddSubview(btnLogin);
-			View.AddSubview(txtCardID);
-			View.AddSubview(txtEmail);
-			View.AddSubview(lblName);
-			View.AddSubview(lblIns);
+
+				View.BackgroundColor = UIColor.White;
+				View.AddSubview(imgLogo);
+				View.AddSubview(lblError);
+				View.AddSubview(lblEmail);
+				View.AddSubview(btnLogin);
+				View.AddSubview(btnGuestLogin);
+				View.AddSubview(txtCardID);
+				View.AddSubview(txtEmail);
+				View.AddSubview(lblName);
+				View.AddSubview(lblIns);
+			}
+			catch (Exception exe)
+			{
+				Console.WriteLine(exe.Message);
+			}
 		}
+			//public override void ViewDidAppear(bool animated)
+			//{
+			//	base.ViewDidAppear(animated);
+			//	//NavigationController.Title = "Locations";
+			//	//NavigationController.NavigationBar.TopItem.Title = "Locations";
+			//	//string validUser = CurrentUser.RetreiveUserName();
+
+			////	LoggingClass.LogInfo("opened app " + validUser, screenid);
+
+			//	//if (validUser == "" || validUser == null)
+			//	//{
+			//		ProfileViewController yourController = new ProfileViewController();
+			//		yourController.NavCtrl = NavigationController;
+			//		yourController.root = this;
+			//		yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+			//		this.PresentModalViewController(yourController, false);
+			//		//ProfileViewController yourController = new ProfileViewController();
+			//		//yourController.NavCtrl = NavigationController;
+			//		//yourController.root = this;
+			//		//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+			//		//this.PresentModalViewController(yourController, false);
+			//	//}
+			//	//login check 
+			//}
 	}
 		//	public async void EmailVerification()
 		//	{

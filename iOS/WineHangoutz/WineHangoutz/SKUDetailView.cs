@@ -241,10 +241,11 @@ namespace WineHangoutz
 						PDRatingView ratingView2 = new PDRatingView(new CGRect(this.Width * 2 / 8, 0, this.Width / 2, 36f), ratingConfig, 0m);
 						// [Optional] Do something when the user selects a rating.
 						UIViewController that = Parent;
+
 						ratingView2.RatingChosen += (sender, e) =>
 						{
 							LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
-							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId),_store);
+							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId), _store);
 							yourController.NavController = NavigationController;
 							yourController.parent = that;
 							yourController.StartsSelected = e.Rating;
@@ -252,7 +253,7 @@ namespace WineHangoutz
 							yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 							that.PresentModalViewController(yourController, false);
 
-						//ShowModal(false);
+								//ShowModal(false);
 						};
 						vw = ratingView2;
 						break;

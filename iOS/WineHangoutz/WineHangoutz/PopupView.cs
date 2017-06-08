@@ -121,35 +121,78 @@ namespace WineHangoutz
 				btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 				LoggingClass.LogInfo("Added review to the "+ WineId, screenid);
 				this.View.AddSubview(btnSave);
+				//if (CurrentUser.RetreiveUserId() == 0)
+				//{
+				//			UIAlertView alert = new UIAlertView()
+				//			{
+				//				Title = "This feature is allowed only for VIP Card holders",
+				//				//Message = "Coming Soon..."
+				//			};
+				//	//LoggingClass.LogInfo("Clicked on seacuces", screenid);
+				//			alert.AddButton("OK");
+				//			alert.Show();
+				//}
+				//else
+				//{
 				btnSave.TouchDown += (sender, e) =>
 				{
-					BTProgressHUD.Show("Saving review..."); //show spinner + text
-			};
+					if (CurrentUser.RetreiveUserId() == 0)
+					{
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "This feature is allowed only for VIP Card holders",
+							//Message = "Coming Soon..."
+						};
+						//LoggingClass.LogInfo("Clicked on seacuces", screenid);
+						alert.AddButton("OK");
+						alert.Show();
+
+					}
+					else
+					{
+						BTProgressHUD.Show("Saving review..."); //show spinner + text
+					}
+				};
 				btnSave.TouchUpInside += async (sender, e) =>
 				{
-					ServiceWrapper sw = new ServiceWrapper();
-					Review review = new Review();
-					review.ReviewDate = DateTime.Now;
-					review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-					if (txtComments.Text == "Describe your tasting")
+					if (CurrentUser.RetreiveUserId() == 0)
 					{
-						txtComments.Text = " ";
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "This feature is allowed only for VIP Card holders",
+							//Message = "Coming Soon..."
+						};
+						//LoggingClass.LogInfo("Clicked on seacuces", screenid);
+						alert.AddButton("OK");
+						alert.Show();
 					}
-					review.RatingText = txtComments.Text;
-					review.IsActive = true;
-					review.PlantFinal = storeid.ToString();
-					review.RatingStars = Convert.ToInt32(StartsSelected);
-				//review.SKU = SKU;
-				review.WineId = WineId;
+					else
+					{
 
-					await sw.InsertUpdateReview(review);
+						ServiceWrapper sw = new ServiceWrapper();
+						Review review = new Review();
+						review.ReviewDate = DateTime.Now;
+						review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+						if (txtComments.Text == "Describe your tasting")
+						{
+							txtComments.Text = " ";
+						}
+						review.RatingText = txtComments.Text;
+						review.IsActive = true;
+						review.PlantFinal = storeid.ToString();
+						review.RatingStars = Convert.ToInt32(StartsSelected);
+						//review.SKU = SKU;
+						review.WineId = WineId;
 
-					((IPopupParent)parent).RefreshParent();
+						await sw.InsertUpdateReview(review);
 
-					NavController.DismissViewController(true, null);
-				//Save Service Call.
-				//txtComments
-				BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
+						((IPopupParent)parent).RefreshParent();
+
+						NavController.DismissViewController(true, null);
+						//Save Service Call.
+						//txtComments
+						BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
+					}
 				};
 			}
 			catch (Exception ex)

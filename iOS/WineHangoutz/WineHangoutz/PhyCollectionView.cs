@@ -53,10 +53,11 @@ namespace WineHangoutz
 				ServiceWrapper svc = new ServiceWrapper();
 				if (FaviouriteView)
 				{
-					LoggingClass.LogInfo("Entered into favorite", screenid);
-					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
-					fav = true;
-					if (myData.ItemList.Count== 0)
+					
+						LoggingClass.LogInfo("Entered into favorite", screenid);
+						myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+						fav = true;
+					if (myData.ItemList.Count == 0)
 					{
 						UIAlertView alert = new UIAlertView()
 						{

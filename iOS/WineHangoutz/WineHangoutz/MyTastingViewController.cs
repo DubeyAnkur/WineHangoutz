@@ -22,20 +22,34 @@ namespace WineHangoutz
 		{
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-			var myData = svc.GetMyTastingsList(userId).Result;
-			if (myData.TastingList.Count == 0)
+			if (userId == 0)
 			{
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "Please start tasting our amazing selection of wines.",
+					Title = "This feature is allowed only for VIP Card holders",
 					//Message = "Coming Soon..."
 				};
-				LoggingClass.LogInfo("There are no tastings for this user " + CurrentUser.RetreiveUserName(), screenid);
+
 				alert.AddButton("OK");
 				alert.Show();
 			}
-			TableView.AllowsSelection = false;
-			TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
+			else
+			{
+				var myData = svc.GetMyTastingsList(userId).Result;
+				if (myData.TastingList.Count == 0)
+				{
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Please start tasting our amazing selection of wines.",
+						//Message = "Coming Soon..."
+					};
+					LoggingClass.LogInfo("There are no tastings for this user " + CurrentUser.RetreiveUserName(), screenid);
+					alert.AddButton("OK");
+					alert.Show();
+				}
+				TableView.AllowsSelection = false;
+				TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
+			}
 		}
 		public void RefreshParent()
 		{

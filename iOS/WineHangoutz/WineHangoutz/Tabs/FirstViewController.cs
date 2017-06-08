@@ -10,7 +10,7 @@ namespace WineHangoutz
 {
 	public partial class FirstViewController : UIViewController
 	{
-		protected FirstViewController(IntPtr handle) : base(handle)
+		public FirstViewController(IntPtr handle) : base(handle)
 		{
 			this.Title = "Locations";
 		}
