@@ -59,6 +59,14 @@ namespace WineHangoutz
 				}
 				else
 				{
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "Please update your mail id",
+							//Message = "Coming Soon..."
+						};
+
+						alert.AddButton("OK");
+						alert.Show();
 					//imgProfile.Image = new UIImage("Images/loading.gif");
 					DownloadAsync();
 					ServiceWrapper sw = new ServiceWrapper();
@@ -160,6 +168,14 @@ namespace WineHangoutz
 
 						await sw.UpdateCustomer(cust);
 						BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
+						UIAlertView alert1 = new UIAlertView()
+						{
+							Title = "Please click on the locations on top left corner.",
+							//Message = "Coming Soon..."
+						};
+
+						alert1.AddButton("OK");
+						alert1.Show();
 						try
 						{
 							NavCtrl.PushViewController(new FirstViewController(handle), false);

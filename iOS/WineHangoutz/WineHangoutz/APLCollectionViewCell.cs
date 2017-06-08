@@ -62,6 +62,10 @@ namespace WineHangoutz {
 				btlImage.Layer.BorderColor = UIColor.White.CGColor;
 				btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 
+				btlImage.TouchDown += (sender, e) =>
+				{
+						BTProgressHUD.Show("Loading..."); //show spinner + text
+				};
 
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{

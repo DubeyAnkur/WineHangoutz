@@ -46,6 +46,8 @@ namespace WineHangoutz
 					};
 
 					alert1.AddButton("OK");
+					//alert1.AddButton("Login");
+
 					alert1.Show();
 
 
