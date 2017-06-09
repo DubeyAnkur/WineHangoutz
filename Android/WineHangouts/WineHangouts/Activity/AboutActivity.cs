@@ -22,16 +22,16 @@ namespace WineHangouts
         private int screenid = 11;
         protected override void OnCreate(Bundle savedInstanceState)
         {
-			sw.Start();
+			
 
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.AboutLayout);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             LoggingClass.LogInfo("Entered into About Us",screenid);
-			sw.Stop();
+			
 
-			LoggingClass.LogTime("Aboutus time", sw.Elapsed.Seconds.ToString());
+			//LoggingClass.LogTime("Aboutus time", sw.Elapsed.Seconds.ToString());
             // Create your application here
         }
         public override bool OnOptionsItemSelected(IMenuItem item)

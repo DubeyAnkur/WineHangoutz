@@ -17,6 +17,7 @@ namespace WineHangouts
     {
         HttpClient client;
         private int screenid = 19;
+		public string error;
         public ServiceWrapper()
         {
             client = new HttpClient();
@@ -144,17 +145,37 @@ namespace WineHangouts
 			return 1;
         }
 
-        public async Task<CustomerResponse> AuthencateUser(string UserName)
+        public async Task<CustomerResponse> AuthencateUser(string CardID,string Email,string DeviceID)
         {
 			sw.Start();
 			CustomerResponse output = null;
             try
             {
                 LoggingClass.LogServiceInfo("service called", "AuthencateUser");
-                var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
+				var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardID + "/email/" + Email + "/DeviceId/" + DeviceID);
+				//var uri = new Uri(ServiceURL + "AuthenticateUser/" + UserName);
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-                output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-                LoggingClass.LogServiceInfo("service response", "AuthencateUser");
+				//{ "customer":{ "CustomerID"0,"FirstName""UNKNOWN","LastName"null,"PhoneNumber"null,
+				//		"Phone2"null,"Email"null,"Address1"null,"Address2"null,"City"null,"State"null,
+				//		"CustomerType":null,"CustsomerAdded":"0001-01-01T00:00:00","CardNumber":null,"Notes1":
+				//		null,"IsUpdated":0,"PreferredStore":0,"IsMailSent":0},"ErorCode":0,"ErrorDescription":The credentials you entered did not match our records. \nPlease double-check and try again.
+				//	"The credentials you entered did not match our records. \nPlease double-check and try again."}
+			//	error = response.ToString();
+			//	error = error.Replace(":", "");
+			//	error = error.Replace(",", "");
+			//error = error.Replace('"', ' ');
+				
+			//	error = error.Replace('{', ' ');
+			//	error = error.Replace('}', ' ');
+			//	error = error.Replace("customer    CustomerID  0  FirstName   UNKNOWN   LastName  null  PhoneNumber  null  Phone2  null  Email  null  Address1  null", "");
+			//	error = error.Replace("Address2  null  City  null  State  null  CustomerType  null  CustsomerAdded   0001-01-01T00 00 00   CardNumber  null  Notes1  null  IsUpdated  0  PreferredStore  0  IsMailSent  0   ErorCode  0  ErrorDescription  ","" ); ;
+			//	error = error.Replace(' ',' ');
+			
+					
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				error = output.ErrorDescription;
+
+				LoggingClass.LogServiceInfo("service response", "AuthencateUser");
             }
             catch (Exception exe)
             {

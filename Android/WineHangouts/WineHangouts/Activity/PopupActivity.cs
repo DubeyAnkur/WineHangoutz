@@ -37,7 +37,7 @@ namespace WineHangouts
         }
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
         {
-			st.Start();
+			
 
 
             try
@@ -97,20 +97,32 @@ namespace WineHangouts
                 };
                 btnSubmitReview.Click += async delegate
                 {
-                    ProgressIndicator.Show(Parent);
-                    review.ReviewDate = DateTime.Now;
-                    review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
-                    review.Username = CurrentUser.getUserName();
-                    review.RatingText = Comments.Text;
-                    review.RatingStars = Convert.ToInt32(custRating.Rating);
-                    review.IsActive = true;
-                    review.WineId = WineId;
-                    review.PlantFinal = storeid;
-                    LoggingClass.LogInfo("Submitted review---->"+review.RatingStars+ " ---->"+review.RatingText +"---->" +review.PlantFinal+ "---->"+review.WineId,screenid);
-                    await sw.InsertUpdateReview(review);
-                    ((IPopupParent)Parent).RefreshParent();
-                    ProgressIndicator.Hide();
-                    editDialog.Dismiss();
+					if (CurrentUser.getUserId() == null)
+					{
+						AlertDialog.Builder aler = new AlertDialog.Builder(Parent);
+						aler.SetTitle("Sorry");
+						aler.SetMessage("This Feature is available for VIP Users only");
+						aler.SetNegativeButton("Ok", delegate { });
+						Dialog dialog1 = aler.Create();
+						dialog1.Show();
+					}
+					else
+					{
+						ProgressIndicator.Show(Parent);
+						review.ReviewDate = DateTime.Now;
+						review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
+						review.Username = CurrentUser.getUserName();
+						review.RatingText = Comments.Text;
+						review.RatingStars = Convert.ToInt32(custRating.Rating);
+						review.IsActive = true;
+						review.WineId = WineId;
+						review.PlantFinal = storeid;
+						LoggingClass.LogInfo("Submitted review---->" + review.RatingStars + " ---->" + review.RatingText + "---->" + review.PlantFinal + "---->" + review.WineId, screenid);
+						await sw.InsertUpdateReview(review);
+						((IPopupParent)Parent).RefreshParent();
+						ProgressIndicator.Hide();
+						editDialog.Dismiss();
+					}
 
                 };
             }
@@ -118,13 +130,13 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
-			st.Stop();
-			LoggingClass.LogTime("create popup",st.Elapsed.TotalSeconds.ToString());
+		
+			//LoggingClass.LogTime("create popup",st.Elapsed.TotalSeconds.ToString());
         }
 
         public void EditPopup(object sender, EventArgs e)
         {
-			st.Start();
+		
 
             try
             {
@@ -158,6 +170,7 @@ namespace WineHangouts
                 };
                 btnSubmitReview.Click += async delegate
                 {
+					
                     ProgressIndicator.Show(Parent);
                     review.ReviewDate = DateTime.Now;
                     review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
@@ -184,8 +197,8 @@ namespace WineHangouts
             {
                 LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
-			st.Stop();
-			LoggingClass.LogTime("Edit Popup time ", st.Elapsed.TotalSeconds.ToString());
+		
+			//LoggingClass.LogTime("Edit Popup time ", st.Elapsed.TotalSeconds.ToString());
         }
     }
 

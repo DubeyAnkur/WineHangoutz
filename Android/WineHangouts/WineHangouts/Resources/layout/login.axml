@@ -9,31 +9,31 @@
     <ImageView
         android:src="@drawable/logo5"
         android:layout_width="wrap_content"
-        android:layout_height="180dp"
+        android:layout_height="124.5dp"
         android:id="@+id/imageView1"
         android:scaleType="fitCenter"
         android:layout_marginTop="20dp" />
-<!--<TextView
+    <TextView
         android:id="@+id/lblUsername"
         android:layout_below="@+id/titleLogin"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:text="First Name:"
+        android:text="CardID:"
         android:textColor="#000000"
         android:textSize="20dp"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:typeface="sans" />
-        <EditText
+    <EditText
         android:inputType="textEmailAddress"
         android:id="@+id/txtUsername"
         android:layout_below="@+id/lblUsername"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginLeft="20.0dp"
-        android:hint="Enter your name here"
+        android:hint="Enter your CardId here"
         android:textColor="@android:color/black"
         android:paddingLeft="5dp"
         android:paddingTop="1dp"
@@ -44,7 +44,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:textColorHint="@android:color/darker_gray"
-        android:background="@android:drawable/editbox_background" />-->
+        android:background="@android:drawable/editbox_background" />
     <TextView
         android:id="@+id/lblPassword"
         android:layout_below="@+id/txtUsername"
@@ -84,18 +84,19 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:minWidth="25px"
-        android:minHeight="25px">
+        android:minHeight="25px"
+        android:layout_marginLeft="0.0dp">
         <Button
             android:id="@+id/btnLoginRs"
             android:layout_width="wrap_content"
             android:layout_height="33.5dp"
             android:textSize="25dp"
-            android:text="Resend"
+            android:text="Guest Login"
             android:typeface="sans"
             android:textColor="#800080"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="141.0dp"
+            android:layout_marginLeft="88.5dp"
             android:background="@null" />
         <Button
             android:id="@+id/btnLoginLL"
@@ -107,10 +108,10 @@
             android:textColor="#800080"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="35.5dp"
+            android:layout_marginLeft="28.5dp"
             android:background="@null" />
     </LinearLayout>
-    <TextView
+<!--<TextView
         android:id="@+id/lblPassword"
         android:layout_below="@+id/txtUsername"
         android:layout_height="wrap_content"
@@ -134,7 +135,7 @@
         android:textColor="#000000"
         android:textSize="20dp"
         android:paddingLeft="5dp"
-        android:paddingTop="2dp" />
+        android:paddingTop="2dp" />-->
     <LinearLayout
         android:id="@+id/linearLayoutBtns"
         android:layout_below="@+id/txtPassword"
@@ -153,7 +154,7 @@
         android:layout_marginBottom="20dp"
         android:minWidth="25px"
         android:minHeight="25px" />
-    <Button
+<!--<Button
         android:id="@+id/btnLoginLL"
         android:textSize="25dp"
         android:text="Login"
@@ -162,5 +163,5 @@
         android:gravity="center_horizontal"
         android:background="@null"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
 </LinearLayout>

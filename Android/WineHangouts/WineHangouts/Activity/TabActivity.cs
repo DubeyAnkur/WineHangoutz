@@ -170,50 +170,77 @@ namespace WineHangouts
                 {
 					LoggingClass.LogInfo("Clicked on " + tabName, screenid);
 					try
-                    {
-                        Top.SetBackgroundResource(Resource.Drawable.winereviews);
-                        Top.Text = "My Reviews";
-                        Top.SetTextColor(Color.White);
-                        Top.TextSize = 20;
-                        Middle.SetBackgroundResource(Resource.Drawable.winetasting);
-                        Middle.Text = "My Tastings";
-                        Middle.SetTextColor(Color.White);
-                        Middle.TextSize = 20;
-                        Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
-                        Bottom.Text = "My Favorites";
-                        Bottom.SetTextColor(Color.White);
-                        Bottom.TextSize = 20;
+					{
+						Top.SetBackgroundResource(Resource.Drawable.winereviews);
+						Top.Text = "My Reviews";
+						Top.SetTextColor(Color.White);
+						Top.TextSize = 20;
+						Middle.SetBackgroundResource(Resource.Drawable.winetasting);
+						Middle.Text = "My Tastings";
+						Middle.SetTextColor(Color.White);
+						Middle.TextSize = 20;
+						Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
+						Bottom.Text = "My Favorites";
+						Bottom.SetTextColor(Color.White);
+						Bottom.TextSize = 20;
+						if (CurrentUser.getUserId() == null)
+						{
 
-                        Top.Click += (sender, e) =>
-                        {
-                            ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Reviews",screenid);
-                            var intent = new Intent(Activity, typeof(MyReviewActivity));
-                            intent.PutExtra("MyData", "My Reviews");
-                            StartActivity(intent);
-                        };
-                        Middle.Click += (sender, e) =>
-                        {
-                            ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Tastings",screenid);
-                            var intent = new Intent(Activity, typeof(MyTastingActivity));
-                            intent.PutExtra("MyData", "My Tastings");
-                            StartActivity(intent);
-                        };
-                        Bottom.Click += (sender, e) =>
-                        {
-                            ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Favorites",screenid);
-                            var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
-                            intent.PutExtra("MyData", "My Favorites");
-                            StartActivity(intent);
-                        };
-						
-                    }
-                    catch (Exception exe)
-                    {
-                        LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-                    }
+							AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+							aler.SetTitle("Sorry");
+							aler.SetMessage("This Feature is available for VIP Users only");
+							aler.SetNegativeButton("Ok", delegate { });
+							Dialog dialog1 = aler.Create();
+							dialog1.Show();
+							Top.Click += (sender, e) => {
+								
+								Dialog dialog11 = aler.Create();
+								dialog1.Show();
+							};
+							Middle.Click += (sender, e) => {
+								
+								Dialog dialog12 = aler.Create();
+								dialog1.Show();
+							};
+							Bottom.Click += (sender, e) => {
+								
+								Dialog dialog13 = aler.Create();
+								dialog1.Show();
+							};
+						}
+						else
+						{
+							Top.Click += (sender, e) =>
+							{
+								ProgressIndicator.Show(_parent);
+								LoggingClass.LogInfo("Clicked on My Reviews", screenid);
+								var intent = new Intent(Activity, typeof(MyReviewActivity));
+								intent.PutExtra("MyData", "My Reviews");
+								StartActivity(intent);
+							};
+							Middle.Click += (sender, e) =>
+							{
+								ProgressIndicator.Show(_parent);
+								LoggingClass.LogInfo("Clicked on My Tastings", screenid);
+								var intent = new Intent(Activity, typeof(MyTastingActivity));
+								intent.PutExtra("MyData", "My Tastings");
+								StartActivity(intent);
+							};
+							Bottom.Click += (sender, e) =>
+							{
+								ProgressIndicator.Show(_parent);
+								LoggingClass.LogInfo("Clicked on My Favorites", screenid);
+								var intent = new Intent(Activity, typeof(MyFavoriteAvtivity));
+								intent.PutExtra("MyData", "My Favorites");
+								StartActivity(intent);
+							};
+
+						}
+					}
+					catch (Exception exe)
+					{
+						LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+					}
 
                     //};
                 }

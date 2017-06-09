@@ -9,6 +9,9 @@ using Android.Telephony;
 using Android.Gms.Common;
 using Android.Views;
 using System.Diagnostics;
+using Java.Util;
+
+
 namespace WineHangouts
 
 {
@@ -18,20 +21,23 @@ namespace WineHangouts
     {
         public string otp = "";
         private int screenid = 1;
-        public string gplaystatus = "";
+		private Context myContext;
+		public string gplaystatus = "";
         ServiceWrapper svc = new ServiceWrapper();
         CustomerResponse authen = new CustomerResponse();
         protected override void OnCreate(Bundle savedInstanceState)
         {
 			Stopwatch st = new Stopwatch();
 			st.Start();
+			//for direct login
+			//CurrentUser.SaveUserName("user","3");
 			base.OnCreate(savedInstanceState);
             
             SetContentView(Resource.Layout.login);
             Button login = FindViewById<Button>(Resource.Id.btnLoginLL);
 			Button Resend = FindViewById<Button>(Resource.Id.btnLoginRs);
-			Resend.Visibility = ViewStates.Invisible;
-			//EditText UserName = FindViewById<EditText>(Resource.Id.txtUsername);
+			///Resend.Visibility = ViewStates.Invisible;
+			EditText CardID = FindViewById<EditText>(Resource.Id.txtUsername);
 			EditText UserEmail = FindViewById<EditText>(Resource.Id.TxtUserEmail);
             ServiceWrapper svc = new ServiceWrapper();
             var TaskA = new System.Threading.Tasks.Task(() => {
@@ -57,78 +63,166 @@ namespace WineHangouts
             }
             else
             {
-				string ap = "Logged In with userid" + CurrentUser.GetMailId();
-				LoggingClass.UploadErrorLogs();	
-                LoggingClass.LogInfoEx(ap,screenid);
-				LoggingClass.LogInfoEx("User entering into Tab activity", screenid);
-				
+				//string ap = "Logged In with userid" + CurrentUser.GetMailId();
+				//LoggingClass.UploadErrorLogs();	
+				//            LoggingClass.LogInfoEx(ap,screenid);
+				//LoggingClass.LogInfoEx("User entering into Tab activity", screenid);
+
 				Intent intent = new Intent(this, typeof(TabActivity));
-			
+				ProgressIndicator.Show(this);
 				StartActivity(intent);
-                SendRegistrationToAppServer(CurrentUser.getToken());
-            }
 
-			
+				//            SendRegistrationToAppServer(CurrentUser.getToken());
+			}
 
-			login.Click += async delegate
+			var telephonyDeviceID = string.Empty;
+			var telephonySIMSerialNumber = string.Empty;
+			TelephonyManager telephonyManager = (TelephonyManager)this.ApplicationContext.GetSystemService(Context.TelephonyService);
+			if (telephonyManager != null)
+			{
+				if (!string.IsNullOrEmpty(telephonyManager.DeviceId))
+					telephonyDeviceID = telephonyManager.DeviceId;
+				if (!string.IsNullOrEmpty(telephonyManager.SimSerialNumber))
+					telephonySIMSerialNumber = telephonyManager.SimSerialNumber;
+			}
+			var androidID = Android.Provider.Settings.Secure.GetString(this.ApplicationContext.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
+			var deviceUuid = new UUID(androidID.GetHashCode(), ((long)telephonyDeviceID.GetHashCode() << 32) | telephonySIMSerialNumber.GetHashCode());
+			var DeviceID = deviceUuid.ToString();
+
+			//DeleteReview1 dr = new DeleteReview1();
+			//dr.Show(((Activity)myContext).FragmentManager, "");
+
+
+
+
+			//ShowExitDialog();
+			Resend.Click += delegate
+			{
+
+				Intent intent = new Intent(this, typeof(TabActivity));
+				ProgressIndicator.Show(this);
+				string i = CurrentUser.getUserId();
+				StartActivity(intent);
+
+			};
+
+		login.Click += async delegate
             {
 				ProgressIndicator.Show(this);
-				
+				var DeviceD = Android.OS.Build.Serial;
 				if (UserEmail.Text == "")
-                {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("Please enter email id please");
-                    aler.SetNegativeButton("Ok", delegate { });
-                    Dialog dialog = aler.Create();
-                    dialog.Show();
-                    return;
-                }
-                else
-                {
-                    CurrentUser.SaveMailId(UserEmail.Text);
-                    
-                    try
-                    {
-                        await svc.AuthencateUser1(CurrentUser.GetMailId());
-						LoggingClass.LogInfoEx("user---->" + UserEmail.Text, screenid);
-						EmailVerification();
+				{
+					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					aler.SetTitle("Sorry");
+					aler.SetMessage("Please enter email id please");
+					aler.SetNegativeButton("Ok", delegate { });
+					Dialog dialog = aler.Create();
+					dialog.Show();
+					return;
+				}
+				else if (CardID.Text == "")
+				{
+					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					aler.SetTitle("Sorry");
+					aler.SetMessage("Please enter CardID please");
+					aler.SetNegativeButton("Ok", delegate { });
+					Dialog dialog = aler.Create();
+					dialog.Show();
+					return;
+				}
+
+				else
+				{
+					CurrentUser.SaveMailId(UserEmail.Text);
+
+					try
+					{
 						
+						authen = await svc.AuthencateUser(CardID.Text, UserEmail.Text, DeviceID);
+						if (authen.customer != null && authen.customer.CustomerID != 0)
+						{
+							
+							CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
+							SendRegistrationToAppServer(CurrentUser.getToken());
+
+
+							ProgressIndicator.Show(this);
+							Intent intentq = new Intent(this, typeof(ProfileActivity));
+							LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetMailId(), screenid);
+							StartActivity(intentq);
+
+						}
+
+						else
+						{
+							AlertDialog.Builder aler = new AlertDialog.Builder(this);
+							aler.SetTitle("Sorry");
+							string mess = authen.ErrorDescription;
+							aler.SetMessage(mess);
+							aler.SetNegativeButton("Ok", delegate { });
+							Dialog dialog1 = aler.Create();
+							dialog1.Show();
+						
+						};
+
+
+
+
+
+
+
+
+
+
+
+						//CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
+						//SendRegistrationToAppServer(CurrentUser.getToken());
+
+
+
+						//Intent intent = new Intent(this, typeof(TabActivity));
+						//LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetMailId(), screenid);
+						//StartActivity(intent);
+
+						LoggingClass.LogInfoEx("user---->" + UserEmail.Text, screenid);
+						//EmailVerification();
+
 					}
-					
+
 
 					catch (Exception exception)
-                    {
-                        if (exception.Message.ToString() == "One or more errors occurred.")
-                        {
-                            
-                            AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                            aler.SetTitle("Sorry");
-                            aler.SetMessage("Please check your internet connection");
-                            aler.SetNegativeButton("Ok", delegate { });
-                            Dialog dialog2 = aler.Create();
-                            dialog2.Show();
-                        }
-                        else
-                        {
-                            AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                            aler.SetTitle("Sorry");
-                            aler.SetMessage("We're under maintanence");
-                            aler.SetNegativeButton("Ok", delegate { });
-                            Dialog dialog3 = aler.Create();
-                            dialog3.Show();
+					{
+						if (exception.Message.ToString() == "One or more errors occurred.")
+						{
 
-                        }
-                    }
+							AlertDialog.Builder aler = new AlertDialog.Builder(this);
+							aler.SetTitle("Sorry");
+							aler.SetMessage("Please check your internet connection");
+							aler.SetNegativeButton("Ok", delegate { });
+							Dialog dialog2 = aler.Create();
+							dialog2.Show();
+						}
+						else
+						{
+							AlertDialog.Builder aler = new AlertDialog.Builder(this);
+							aler.SetTitle("Sorry");
+							aler.SetMessage("We're under maintanence");
+							aler.SetNegativeButton("Ok", delegate { });
+							Dialog dialog3 = aler.Create();
+							dialog3.Show();
 
-                   //SendSmsgs(txtUserNumber.Text);
-                    //var intent = new Intent(this, typeof(VerificationActivity));
-                    ////var intent = new Intent(this, typeof(TabActivity));
-                    //intent.PutExtra("otp", otp);
-                    //intent.PutExtra("username", username.Text);
-                    //StartActivity(intent);
+						}
+						ProgressIndicator.Hide();
+					}
 
-                }
+					//SendSmsgs(txtUserNumber.Text);
+					//var intent = new Intent(this, typeof(VerificationActivity));
+					////var intent = new Intent(this, typeof(TabActivity));
+					//intent.PutExtra("otp", otp);
+					//intent.PutExtra("username", username.Text);
+					//StartActivity(intent);
+
+				}
 				//CustomerResponse authen = new CustomerResponse();
 				//try
 				//{
@@ -175,14 +269,15 @@ namespace WineHangouts
 				
 				ProgressIndicator.Hide();
 
-				Resend.Visibility = ViewStates.Visible;
+				//Resend.Visibility = ViewStates.Visible;
 				st.Stop();
 				LoggingClass.LogTime("login activity",st.Elapsed.TotalSeconds.ToString());
 			};
 
 			
 
-		}
+
+	}
         public async void SendRegistrationToAppServer(string token)
         {
             TokenModel _token = new TokenModel()
@@ -196,67 +291,77 @@ namespace WineHangouts
             int x = await svc.InsertUpdateToken1(_token);
            
         }
-        public async void EmailVerification()
-        {
-            DeviceToken DO = new DeviceToken();
-            authen = svc.AuthencateUser1(CurrentUser.GetMailId()).Result;
-		
-			try
-            {
-                DO = await svc.CheckMail(authen.customer.CustomerID.ToString());
+		//     public async void EmailVerification()
+		//     {
+		//         DeviceToken DO = new DeviceToken();
+		//         authen = svc.AuthencateUser1(CurrentUser.GetMailId()).Result;
 
-                if (DO.VerificationStatus == 1)
-                {
-                    if (authen.customer != null && authen.customer.CustomerID != 0)
-                    {
-						//ProgressIndicator.Hide();
-						CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
-                        SendRegistrationToAppServer(CurrentUser.getToken());
+		//try
+		//         {
+		//             DO = await svc.CheckMail(authen.customer.CustomerID.ToString());
 
-					
-						
-						Intent intent = new Intent(this, typeof(TabActivity));
-						LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetMailId(), screenid);
-						StartActivity(intent);
-						
-					}
-                    
-                    else
-                    {
-                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                        aler.SetTitle("Sorry");
-                        aler.SetMessage("You entered wrong details or authentication failed");
-                        aler.SetNegativeButton("Ok", delegate { });
-                        Dialog dialog1 = aler.Create();
-                        dialog1.Show();
-                    };
-				
-				}
-                else
-                {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("If you're verified by mail click on verify");
-                    aler.SetNegativeButton("Verify", delegate
-                    {
-                        EmailVerification();
-                    });
-                    aler.SetPositiveButton("Resend mail", async delegate
-                    {
-                        await svc.AuthencateUser1(CurrentUser.GetMailId());
-                    });
-                    //Dialog dialog = aler.Create();
-                    //dialog.Show();
-                }
-            }
-            catch (Exception exe)
-            {
-                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-            }
+		//             if (DO.VerificationStatus == 1)
+		//             {
+		//                 if (authen.customer != null && authen.customer.CustomerID != 0)
+		//                 {
+		//			//ProgressIndicator.Hide();
+		//			CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
+		//                     SendRegistrationToAppServer(CurrentUser.getToken());
 
-        }
 
-        private bool IsPlayServicesAvailable()
+
+		//			Intent intent = new Intent(this, typeof(TabActivity));
+		//			LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetMailId(), screenid);
+		//			StartActivity(intent);
+
+		//		}
+
+		//                 else
+		//                 {
+		//                     AlertDialog.Builder aler = new AlertDialog.Builder(this);
+		//                     aler.SetTitle("Sorry");
+		//                     aler.SetMessage("You entered wrong details or authentication failed");
+		//                     aler.SetNegativeButton("Ok", delegate { });
+		//                     Dialog dialog1 = aler.Create();
+		//                     dialog1.Show();
+		//                 };
+
+		//	}
+		//             else
+		//             {
+		//                 AlertDialog.Builder aler = new AlertDialog.Builder(this);
+		//                 aler.SetTitle("Sorry");
+		//                 aler.SetMessage("If you're verified by mail click on verify");
+		//                 aler.SetNegativeButton("Verify", delegate
+		//                 {
+		//                     EmailVerification();
+		//                 });
+		//                 aler.SetPositiveButton("Resend mail", async delegate
+		//                 {
+		//                     await svc.AuthencateUser1(CurrentUser.GetMailId());
+		//                 });
+		//                 //Dialog dialog = aler.Create();
+		//                 //dialog.Show();
+		//             }
+		//         }
+		//         catch (Exception exe)
+		//         {
+		//             LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+		//         }
+
+		//     }
+		private  void ShowExitDialog()
+		{
+			AlertDialog.Builder aler = new AlertDialog.Builder(this);
+			aler.SetTitle("Sorry");
+			string mess = authen.ErrorDescription;
+			aler.SetMessage(mess);
+			aler.SetNegativeButton("Ok", delegate { });
+			Dialog dialog1 = aler.Create();
+			dialog1.Show();
+		}
+
+		private bool IsPlayServicesAvailable()
         {
             int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
             if (resultCode != ConnectionResult.Success)

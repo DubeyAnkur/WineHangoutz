@@ -86,7 +86,7 @@ namespace WineHangouts
                 ServiceWrapper svc = new ServiceWrapper();
                 try
                 {
-                    authen = svc.AuthencateUser(username).Result;
+                   /// authen = svc.AuthencateUser(username).Result;
                     if (authen.customer != null && authen.customer.CustomerID != 0)
                     {
                         CurrentUser.SaveUserName(username, authen.customer.CustomerID.ToString());

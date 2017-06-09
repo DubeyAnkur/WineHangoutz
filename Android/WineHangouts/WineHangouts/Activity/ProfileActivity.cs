@@ -25,11 +25,12 @@ namespace WineHangouts
         private int screenid = 8;
         protected override void OnCreate(Bundle bundle)
         {
-			st.Start();
+			
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Profile);
-            try
+			//st.Start();
+			try
             {
 				///LoggingClass.UploadErrorLogs(LoggingClass.CreateDirectoryForLogs());
 				LoggingClass.LogInfo("Entered into Profile Activity",screenid);
@@ -108,24 +109,38 @@ namespace WineHangouts
                 //updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
                 updatebtn.Click += async delegate
                 {
-                    Customer customer = new Customer()
-                    {
-                        FirstName = Firstname.Text,
-                        LastName = Lastname.Text,
-                        PhoneNumber = Mobilenumber.Text,
-                        Address1 = Address.Text,
-                        Email = Email.Text,
-                        CustomerID = userId,
-                        State = State.Text,
-                        City = City.Text
-                    };
-                    LoggingClass.LogInfo("Clicked on update info",screenid);
-                    var x = await sw.UpdateCustomer(customer);
-                    if (x == 1)
-                    {
-                        Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
-                    }
-                };
+					if (CurrentUser.getUserId() == null)
+					{
+						AlertDialog.Builder aler = new AlertDialog.Builder(this);
+						aler.SetTitle("Sorry");
+						aler.SetMessage("This Feature is available for VIP Users only");
+						aler.SetNegativeButton("Ok", delegate { });
+						Dialog dialog1 = aler.Create();
+						dialog1.Show();
+					}
+					else
+					{
+						Customer customer = new Customer()
+						{
+							FirstName = Firstname.Text,
+							LastName = Lastname.Text,
+							PhoneNumber = Mobilenumber.Text,
+							Address1 = Address.Text,
+							Email = Email.Text,
+							CustomerID = userId,
+							State = State.Text,
+							City = City.Text
+						};
+						LoggingClass.LogInfo("Clicked on update info", screenid);
+						var x = await sw.UpdateCustomer(customer);
+						if (x == 1)
+						{
+							Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
+						}
+					}
+					var intent = new Intent(this, typeof(TabActivity));
+					StartActivity(intent);
+				};
 
 
             }
@@ -139,86 +154,98 @@ namespace WineHangouts
                 Dialog dialog = aler.Create();
                 dialog.Show();
             }
-			st.Stop();
-			LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
+			//st.Stop();
+		//LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
             ProgressIndicator.Hide();
         }
         public async void DownloadAsync(object sender, System.EventArgs ea)
         {
-			st.Start();
-            Bitmap img = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
-            if (img != null)
-            {
-                propicimage.SetImageBitmap(img);
-            }
-            else
-            {
-                webClient = new WebClient();
-                var url = new Uri("https://icsintegration.blob.core.windows.net/profileimages/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg");
-                byte[] imageBytes = null;
-                //progressLayout.Visibility = ViewStates.Visible;
-                try
-                {
-                    imageBytes = await webClient.DownloadDataTaskAsync(url);
+			try
+			{
+				//st.Start();
+				Bitmap img = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
+				if (img != null)
+				{
+					propicimage.SetImageBitmap(img);
+				}
+				else
+				{
+					webClient = new WebClient();
+					var url = new Uri("https://icsintegration.blob.core.windows.net/profileimages/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg");
+					byte[] imageBytes = null;
+					//progressLayout.Visibility = ViewStates.Visible;
+					try
+					{
+						imageBytes = await webClient.DownloadDataTaskAsync(url);
 
-                }
-                catch (TaskCanceledException)
-                {
-                    //this.progressLayout.Visibility = ViewStates.Gone;
-                    return;
-                }
-                catch (Exception exe)
-                {
-                    LoggingClass.LogError(exe.Message,screenid,exe.StackTrace.ToString());
-                    //progressLayout.Visibility = ViewStates.Gone;
-                    //downloadButton.Click += downloadAsync;
-                    //downloadButton.Text = "Download Image";
-                    Bitmap imgWine = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
-                    propicimage.SetImageBitmap(imgWine);
-                    return;
-                }
+					}
+					catch (TaskCanceledException)
+					{
+						//this.progressLayout.Visibility = ViewStates.Gone;
+						return;
+					}
+					catch (Exception exe)
+					{
+						LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+						//progressLayout.Visibility = ViewStates.Gone;
+						//downloadButton.Click += downloadAsync;
+						//downloadButton.Text = "Download Image";
+						Bitmap imgWine = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
+						propicimage.SetImageBitmap(imgWine);
+						return;
+					}
 
-                try
-                {
-                    string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                    string localFilename = "user.png";
-                    string localPath = System.IO.Path.Combine(documentsPath, localFilename);
+					try
+					{
+						string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+						string localFilename = "user.png";
+						string localPath = System.IO.Path.Combine(documentsPath, localFilename);
 
-                    FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
-                    await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
-                    //Console.WriteLine("Saving image in local path: " + localPath);
-                    fs.Close();
-                    BitmapFactory.Options options = new BitmapFactory.Options()
-                    {
-                        InJustDecodeBounds = true
-                    };
-                    await BitmapFactory.DecodeFileAsync(localPath, options);
+						FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
+						await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
+						//Console.WriteLine("Saving image in local path: " + localPath);
+						fs.Close();
+						BitmapFactory.Options options = new BitmapFactory.Options()
+						{
+							InJustDecodeBounds = true
+						};
+						await BitmapFactory.DecodeFileAsync(localPath, options);
 
-                    Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
-                    if (bitmap == null)
-                    {
-                        propicimage.SetImageResource(Resource.Drawable.user1);
-                    }
-                    propicimage.SetImageBitmap(bitmap);
-					
-                }
-                catch (Exception exe)
-                {
-                    LoggingClass.LogError(exe.Message,screenid,exe.StackTrace.ToString());
-                }
-				st.Stop();
-				LoggingClass.LogTime("Download aSync image profile", st.Elapsed.TotalSeconds.ToString());
-                propicimage.Dispose();
-            }
+						Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
+						if (bitmap == null)
+						{
+							propicimage.SetImageResource(Resource.Drawable.user1);
+						}
+						propicimage.SetImageBitmap(bitmap);
+
+					}
+					catch (Exception exe)
+					{
+						LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+					}
+					st.Stop();
+					LoggingClass.LogTime("Download aSync image profile", st.Elapsed.TotalSeconds.ToString());
+					propicimage.Dispose();
+				}
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+			}
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
-                base.OnBackPressed();
-				LoggingClass.LogInfo("Exited from profile ", screenid);
-				return false;
-            }
+				//MoveTaskToBack(true);
+				//Finish();
+				//LoggingClass.LogInfo("Exited from profile ", screenid);
+				//return false;
+				var intent = new Intent(this, typeof(TabActivity));
+				LoggingClass.LogInfo("Clicked on options menu About", screenid);
+				StartActivity(intent);
+
+			}
             return base.OnOptionsItemSelected(item);
         }
 
