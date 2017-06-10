@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace WineHangoutz
 {
-	public class DetailViewController : UIViewController
+	public class DetailViewController : UIViewController, IPopupParent
 	{
 		int _wineId;
 		public int _storeId;
@@ -29,6 +29,11 @@ namespace WineHangoutz
 		}
 		UIScrollView scrollView;
 		PDRatingView ratingView;
+
+		public void RefreshParent()
+		{
+			this.ViewDidLoad();		
+		}
 		public override void ViewDidLoad()
 		{
 			try
