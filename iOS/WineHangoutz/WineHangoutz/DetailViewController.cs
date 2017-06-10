@@ -32,9 +32,21 @@ namespace WineHangoutz
 
 		public void RefreshParent()
 		{
-			this.ViewDidLoad();		
+			//this.ViewDidLoad();		
 		}
-		public override void ViewDidLoad()
+
+		public override async void ViewDidLoad()
+		{
+			await Internal_ViewDidLoad();
+
+			//Task.Factory.StartNew(() =>
+			//{
+			//	int a = 0;
+
+			//});
+		}
+
+		public async Task Internal_ViewDidLoad()
 		{
 			try
 			{
@@ -45,8 +57,6 @@ namespace WineHangoutz
 				ItemDetailsResponse mydata = svc.GetItemDetails(_wineId, _storeId).Result;
 				//ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				var data = mydata.ItemDetails;
-				ItemReviewResponse ratings = svc.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
-				data.Reviews = ratings.Reviews.ToList();
 
 
 				var lblName = new UILabel();
@@ -149,7 +159,7 @@ namespace WineHangoutz
 				if (data.Description == null || data.Description == "")
 				{
 					lblDescText.Text = "Not available";
-					//lblRateTitle.Font = UIFont.FromName("Verdana-Italic", 10f);
+					lblDescText.Font = UIFont.FromName("EuphemiaUCAS-Italic", 10f);
 				}
 				else
 				{
@@ -179,6 +189,7 @@ namespace WineHangoutz
 				if (data.Producer == null || data.Producer == "")
 				{
 					lblProducerText.Text = "Not available";
+					lblProducerText.Font = UIFont.FromName("EuphemiaUCAS-Italic", 10f);
 				}
 				else
 				{
@@ -189,6 +200,8 @@ namespace WineHangoutz
 				sTemp = lblProducerText.SizeThatFits(sTemp);
 				lblProducerText.Frame = new CGRect(0, Y, width, sTemp.Height);
 
+				ItemReviewResponse ratings = await svc.GetItemReviewsByWineID(Convert.ToInt32(data.WineId));
+				data.Reviews = ratings.Reviews.ToList();
 				Y = Y + lblProducerText.Frame.Size.Height;
 				var review = LoadReviews(data, Y, width);
 				Y = Y + review.Frame.Size.Height;
@@ -217,6 +230,8 @@ namespace WineHangoutz
 				scrollView.AddSubview(table);
 				scrollView.AddSubview(lblProducer);
 				scrollView.AddSubview(lblProducerText);
+
+
 				scrollView.AddSubview(review);
 
 				View.AddSubview(scrollView);
