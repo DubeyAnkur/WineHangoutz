@@ -32,21 +32,21 @@ namespace WineHangoutz
 
 		public void RefreshParent()
 		{
-			//this.ViewDidLoad();		
+			this.ViewDidLoad();		
 		}
 
-		public override async void ViewDidLoad()
+		public override void ViewDidLoad()
 		{
-			await Internal_ViewDidLoad();
-
-			//Task.Factory.StartNew(() =>
-			//{
-			//	int a = 0;
-
-			//});
+			View.BackgroundColor = UIColor.White;
+			Task.Factory.StartNew(() =>
+			{
+                 InvokeOnMainThread( () => {	
+				 	Internal_ViewDidLoad();
+				});
+			});
 		}
 
-		public async Task Internal_ViewDidLoad()
+		public void Internal_ViewDidLoad()
 		{
 			try
 			{
@@ -200,7 +200,7 @@ namespace WineHangoutz
 				sTemp = lblProducerText.SizeThatFits(sTemp);
 				lblProducerText.Frame = new CGRect(0, Y, width, sTemp.Height);
 
-				ItemReviewResponse ratings = await svc.GetItemReviewsByWineID(Convert.ToInt32(data.WineId));
+				ItemReviewResponse ratings = svc.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
 				data.Reviews = ratings.Reviews.ToList();
 				Y = Y + lblProducerText.Frame.Size.Height;
 				var review = LoadReviews(data, Y, width);
@@ -208,11 +208,14 @@ namespace WineHangoutz
 
 				scrollView = new UIScrollView
 				{
-					Frame = new CGRect(0, 0, View.Frame.Width, View.Frame.Height),
-					ContentSize = new CGSize(View.Frame.Width, Y),
+					Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height),
+					ContentSize = new CGSize(View.Frame.Width, Y + 70),
 					BackgroundColor = UIColor.White,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight
 				};
+				//When making it async the Frame.Y is messing up by image Y. So changing it to 70. Ideally it should be 0.
+				//Same will apply to ContentSize.Y
+				View.AddSubview(scrollView);
 
 				scrollView.AddSubview(lblName);
 				//scrollView.AddSubview(Separator);
@@ -234,7 +237,7 @@ namespace WineHangoutz
 
 				scrollView.AddSubview(review);
 
-				View.AddSubview(scrollView);
+
 
 				BTProgressHUD.Dismiss();
 			}
