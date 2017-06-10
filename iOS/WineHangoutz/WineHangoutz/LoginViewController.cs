@@ -3,7 +3,7 @@ using UIKit;
 using CoreGraphics;
 using Foundation;
 using Hangout.Models;
-
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -31,6 +31,7 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
+				DismissKeyboardOnBackgroundTap();
 				UITextField txtCardID;
 
 				nfloat h = 31.0f;
@@ -47,8 +48,10 @@ namespace WineHangoutz
 				//imgLogo.ali
 
 				lblError = new UILabel();
-				lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h);
+				lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h * 2);
 				lblError.Text = "";
+				lblError.LineBreakMode = UILineBreakMode.WordWrap;
+				lblError.Lines = 0;
 				lblError.TextColor = UIColor.Red;
 				lblError.TextAlignment = UITextAlignment.Left;
 
@@ -59,11 +62,13 @@ namespace WineHangoutz
 				lblFN.TextAlignment = UITextAlignment.Left;
 
 
-				var lblIns = new UITextView();
-				lblIns.Frame = new CGRect(10, imageSize + 80, View.Frame.Width, h);
+				var lblIns = new UILabel();
+				lblIns.Frame = new CGRect(10, imageSize + 80, View.Frame.Width - 200, h);
+				lblIns.LineBreakMode = UILineBreakMode.WordWrap;
+				lblIns.Lines = 0;
 				lblIns.Text = "Please enter your Card ID and a valid Email address.";
 				lblIns.TextAlignment = UITextAlignment.Left;
-				lblIns.Editable = false;
+				//lblIns.Editable = false;
 
 				var lblName = new UILabel();
 				lblName.Frame = new CGRect(10, imageSize + 120, View.Frame.Width, 20);
@@ -76,6 +81,14 @@ namespace WineHangoutz
 					BorderStyle = UITextBorderStyle.RoundedRect,
 					Frame = new CGRect(10, imageSize + 145, View.Frame.Width, h)
 				};
+
+				UIToolbar toolbar = new UIToolbar(new CGRect(0.0f, 0.0f, this.View.Frame.Size.Width, 44.0f));
+				toolbar.Items = new UIBarButtonItem[] { 
+					new UIBarButtonItem(UIBarButtonSystemItem.Done, delegate {
+						txtCardID.ResignFirstResponder();
+	    			})
+				};
+				txtCardID.InputAccessoryView = toolbar;
 
 				var lblEmail = new UILabel();
 				lblEmail.Frame = new CGRect(10, imageSize + 180, View.Frame.Width, h);
@@ -119,7 +132,8 @@ namespace WineHangoutz
 				string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 				btnGuestLogin.TouchDown += (sender, e) =>
 			   {
-					CurrentUser.Store("0", "Guest");
+				   CurrentUser.Store("0", "Guest");
+				   //CurrentUser.PutGuestLoginStatus(true);
 				   nav.DismissViewController(true, null);
 			   };
 				//btnVerify.TouchUpInside += (sender, e) =>
@@ -150,18 +164,32 @@ namespace WineHangoutz
 					}
 					else
 					{
+						BTProgressHUD.Show("Validating Credentials...");
 						//CurrentUser.StoreEmail(txtEmail.Text);
-						cr = await svc.AuthencateUser(txtEmail.Text, txtCardID.Text, uid_device);
+						try
+						{
+							cr = await svc.AuthencateUser(txtEmail.Text, txtCardID.Text, uid_device);
+						
 						if (cr.customer.CustomerID != 0)
 						{
 							CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
 							//nav.DismissViewController(true, null);
-							nav.PushViewController(new ProfileViewController(), false);
+							CurrentUser.PutLoginStatus(true);
+							BTProgressHUD.ShowSuccessWithStatus("Success");
+							nav.PushViewController(new ProfileViewController(nav), false);
+							BTProgressHUD.Dismiss();
 							nav.DismissViewController(true, null);
+							lblError.Hidden = true;
 						}
+						BTProgressHUD.Dismiss();
 						LoggingClass.LogInfo(txtEmail.Text + " tried to login", screenid);
-						lblError.Text = cr.ErrorDescription;
+						lblError.Text = "Card ID is invalid";//cr.ErrorDescription;
 
+						}
+						catch (Exception ex)
+						{
+							lblError.Text = cr.ErrorDescription;
+						}
 						//if (cr.customer.IsMailSent == 1)
 						//{
 						//	CurrentUser.PutEmailStatus(t
@@ -195,30 +223,37 @@ namespace WineHangoutz
 				Console.WriteLine(exe.Message);
 			}
 		}
-			//public override void ViewDidAppear(bool animated)
-			//{
-			//	base.ViewDidAppear(animated);
-			//	//NavigationController.Title = "Locations";
-			//	//NavigationController.NavigationBar.TopItem.Title = "Locations";
-			//	//string validUser = CurrentUser.RetreiveUserName();
+		//public override void ViewDidAppear(bool animated)
+		//{
+		//	base.ViewDidAppear(animated);
+		//	//NavigationController.Title = "Locations";
+		//	//NavigationController.NavigationBar.TopItem.Title = "Locations";
+		//	//string validUser = CurrentUser.RetreiveUserName();
 
-			////	LoggingClass.LogInfo("opened app " + validUser, screenid);
+		////	LoggingClass.LogInfo("opened app " + validUser, screenid);
 
-			//	//if (validUser == "" || validUser == null)
-			//	//{
-			//		ProfileViewController yourController = new ProfileViewController();
-			//		yourController.NavCtrl = NavigationController;
-			//		yourController.root = this;
-			//		yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
-			//		this.PresentModalViewController(yourController, false);
-			//		//ProfileViewController yourController = new ProfileViewController();
-			//		//yourController.NavCtrl = NavigationController;
-			//		//yourController.root = this;
-			//		//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
-			//		//this.PresentModalViewController(yourController, false);
-			//	//}
-			//	//login check 
-			//}
+		//	//if (validUser == "" || validUser == null)
+		//	//{
+		//		ProfileViewController yourController = new ProfileViewController();
+		//		yourController.NavCtrl = NavigationController;
+		//		yourController.root = this;
+		//		yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+		//		this.PresentModalViewController(yourController, false);
+		//		//ProfileViewController yourController = new ProfileViewController();
+		//		//yourController.NavCtrl = NavigationController;
+		//		//yourController.root = this;
+		//		//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+		//		//this.PresentModalViewController(yourController, false);
+		//	//}
+		//	//login check 
+		//}
+
+		protected void DismissKeyboardOnBackgroundTap()
+		{
+			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+			tap.AddTarget(() => View.EndEditing(true));
+			View.AddGestureRecognizer(tap);
+		}
 	}
 		//	public async void EmailVerification()
 		//	{
@@ -296,11 +331,11 @@ namespace WineHangoutz
 				string email = plist.StringForKey("email");
 				return email;
 			}
-			public static void PutEmailStatus(Boolean status)
+			public static void PutLoginStatus(Boolean status)
 			{
 				plist.SetBool(status, "status");
 			}
-			public static Boolean GetEmailStatus()
+			public static Boolean GetLoginStatus()
 			{
 				Boolean status = plist.BoolForKey("status");
 				return status;
@@ -335,4 +370,5 @@ namespace WineHangoutz
 				return Convert.ToInt32(savedUserId);
 			}
 		}
+
 	}

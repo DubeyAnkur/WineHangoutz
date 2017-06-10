@@ -70,7 +70,8 @@ namespace WineHangoutz {
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show();
-					NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
+					//NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
+					NavigationController.PushViewController(new DetailViewController(WineId, storeId), false);
 					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
 
 				};

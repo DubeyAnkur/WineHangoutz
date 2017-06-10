@@ -42,7 +42,7 @@ namespace WineHangoutz
 		{
 			try
 			{
-
+				DismissKeyboardOnBackgroundTap();
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
 				//LoggingClass.UploadErrorLogs();
@@ -59,6 +59,9 @@ namespace WineHangoutz
 				}
 				else
 				{
+					if (CurrentUser.GetLoginStatus() == true) 
+					{
+
 						UIAlertView alert = new UIAlertView()
 						{
 							Title = "Please update your mail id",
@@ -67,6 +70,7 @@ namespace WineHangoutz
 
 						alert.AddButton("OK");
 						alert.Show();
+					}
 					//imgProfile.Image = new UIImage("Images/loading.gif");
 					DownloadAsync();
 					ServiceWrapper sw = new ServiceWrapper();
@@ -175,15 +179,18 @@ namespace WineHangoutz
 						};
 
 						alert1.AddButton("OK");
-						alert1.Show();
+						//alert1.Show();
 						try
 						{
-							NavCtrl.PushViewController(new FirstViewController(handle), false);
+                            NavCtrl.PopViewController(true);
+							//NavCtrl.PushViewController(new FirstViewController(handle), false);
 						}
 						catch (Exception exe)
 						{
 							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
 						}
+
+
 					};
 					btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 
@@ -209,6 +216,13 @@ namespace WineHangoutz
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+		}
+
+		protected void DismissKeyboardOnBackgroundTap()
+		{
+			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+			tap.AddTarget(() => View.EndEditing(true));
+			View.AddGestureRecognizer(tap);
 		}
 
 		void Handle_Canceled(object sender, EventArgs e)

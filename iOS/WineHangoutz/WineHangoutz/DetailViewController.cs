@@ -4,193 +4,233 @@ using CoreGraphics;
 using Foundation;
 using PatridgeDev;
 using System.Collections.Generic;
+using BigTed;
+using Hangout.Models;
+using System.Threading.Tasks;
+using System.Net;
+using System.IO;
+using System.Linq;
 
 namespace WineHangoutz
 {
 	public class DetailViewController : UIViewController
 	{
-		
-		public DetailViewController() : base ()
+		int _wineId;
+		public int _storeId;
+		private int screenid = 112;
+		NSData HighImgData = null;
+
+		public DetailViewController(string WineId,string storeid) : base ()
 		{
-			this.Title = "Details";
+			_wineId = Convert.ToInt32(WineId);
+			_storeId = Convert.ToInt32(storeid);
+            this.Title = "Wine Details";
+
 		}
 		UIScrollView scrollView;
 		PDRatingView ratingView;
 		public override void ViewDidLoad()
 		{
-			//AboutController1.ViewDidLoad(base);
+			try
+			{
+				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
+				BTProgressHUD.Show();
+				nfloat width = View.Frame.Width;
+				ServiceWrapper svc = new ServiceWrapper();
+				ItemDetailsResponse mydata = svc.GetItemDetails(_wineId, _storeId).Result;
+				//ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
+				var data = mydata.ItemDetails;
+				ItemReviewResponse ratings = svc.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
+				data.Reviews = ratings.Reviews.ToList();
+
+
+				var lblName = new UILabel();
+				lblName.Frame = new CGRect(0, 0, width, 40);
+				lblName.Text = data.Name;
+				lblName.Font = UIFont.FromName("Verdana-Bold", 16f);
+				lblName.TextAlignment = UITextAlignment.Center;
+				lblName.TextColor = UIColor.Purple;
+
+				//var Separator = new UIImageView();
+				//Separator.Frame = new CGRect(0, 50, View.Frame.Width, 2);
+				//Separator.Image = UIImage.FromFile("separator.png");
+
+				var lblVintage = new UILabel();
+				lblVintage.Frame = new CGRect(View.Frame.Width/2 - 10, 40, 40, 20);
+				lblVintage.Text = data.Vintage.ToString();
+				lblVintage.Font = UIFont.FromName("Verdana", 12f);
+				lblVintage.TextAlignment = UITextAlignment.Center;
+				lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("line123.png"));
+
+
+				var btlImage = new UIImageView(); //92 * 233
+				btlImage.Frame = new CGRect(0, 10, width, width);
+				UIImage image = new UIImage("Images/loadin.png");
+
+				CGRect rect = btlImage.Bounds;
+				nfloat boxHeight = rect.Height; // which is = width;
+				nfloat imgHeight = image.Size.Height;
+				nfloat ratio = boxHeight / imgHeight;
+				CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+				image = image.Scale(newSize);
+				nfloat X = (boxHeight - image.Size.Width) / 2;
+				btlImage.Frame = new CGRect(X, 70, image.Size.Width, image.Size.Height);
+				btlImage.Image = image;
+				DownloadAsync(data.WineId, _storeId, btlImage, boxHeight, 70);
 
 
 
-			var lblName = new UILabel();
-			lblName.Frame = new CGRect(0, 0, View.Frame.Width, 20);
-			lblName.Text = "Arzenton Pinot Nero";
-			lblName.TextAlignment = UITextAlignment.Center;
-
-
-			var Separator = new UIImageView();
-			Separator.Frame = new CGRect(0, 50, View.Frame.Width, 2);
-			Separator.Image = UIImage.FromFile("separator.png");
-
-			var lblVintage = new UILabel();
-			lblVintage.Frame = new CGRect(View.Frame.Width/2 - 10, 40, 40, 20);
-			lblVintage.Text = "2013";
-			lblVintage.TextAlignment = UITextAlignment.Center;
-			lblVintage.BackgroundColor = UIColor.LightGray;
-
-			var btlBack = new UIImageView();
-			btlBack.Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Width);
-			btlBack.Image = UIImage.FromFile("placeholder.jpeg");
-
-			nfloat height = View.Frame.Width - 20;
-			nfloat width = (height / 233) * 92;
-			nfloat X = (View.Frame.Width - width) / 2;
-			var btlImage = new UIImageView(); //92 * 233
-			btlImage.Frame = new CGRect(X, 90, width, height);
-			btlImage.Image = UIImage.FromFile("Wines/wine2.png");
-
-			var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
+				var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
 												filledImage: UIImage.FromBundle("Stars/star.png"),
 												chosenImage: UIImage.FromBundle("Stars/star.png"));
+				nfloat Y = 70 + View.Frame.Width;
+				ratingView = new PDRatingView(new CGRect(width* 3 / 8 + 2, Y, width / 4, 20f), ratingConfig, data.AverageRating);
+				ratingView.UserInteractionEnabled = false;
 
-			nfloat Y = 70 + View.Frame.Width;
-			// Create the view.
-			decimal averageRating = 3.25m;
-			ratingView = new PDRatingView(new CGRect(View.Bounds.Width * 3 / 8, Y, View.Bounds.Width / 4, 25f), ratingConfig, averageRating);
-			ratingView.UserInteractionEnabled = false;
 
-			var lblRateTitle = new UILabel();
-			lblRateTitle.Frame = new CGRect(4, Y+40, View.Frame.Width, 20);
-			lblRateTitle.Text = "Rate this Wine";
-			lblRateTitle.TextAlignment = UITextAlignment.Center;
+				var lblRateTitle = new UILabel();
+				lblRateTitle.Frame = new CGRect(4, Y+40, width, 50);
+				lblRateTitle.Text = "Rate this Wine";
+				lblRateTitle.TextAlignment = UITextAlignment.Center;
+				lblRateTitle.Font = UIFont.FromName("Verdana-Bold", 16f);
+				lblRateTitle.TextColor = UIColor.Purple;
+			
+				var lblRateRequest = new UILabel();
+				lblRateRequest.Frame = new CGRect(4, Y+75, width, 10);
+				lblRateRequest.Text = "Select number of Stars";
+				lblRateRequest.Font = UIFont.FromName("AmericanTypewriter", 10f);
+				lblRateRequest.TextAlignment = UITextAlignment.Center;
 
-			var lblRateRequest = new UILabel();
-			lblRateRequest.Frame = new CGRect(4, Y+60, View.Frame.Width, 20);
-			lblRateRequest.Text = "Select number of Stars";
-			lblRateRequest.Font = UIFont.FromName("AmericanTypewriter", 10f);
-			lblRateRequest.TextAlignment = UITextAlignment.Center;
+				var starUpLine = new UIImageView(new CGRect(4, Y+90, width - 8, 1));
+				starUpLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+				starUpLine.Image = UIImage.FromFile("separator.png");
+				starUpLine.ContentMode = UIViewContentMode.ScaleAspectFill;
+				starUpLine.ClipsToBounds = true;
+				starUpLine.Layer.BorderColor = UIColor.White.CGColor;
+				starUpLine.BackgroundColor = UIColor.LightGray;
+				Y = Y + 10;
+				PDRatingView ratingViewSelect = new PDRatingView(new CGRect(width * 2 / 8, Y + 82, width / 2, 36f), ratingConfig, 0m);
+				UIViewController that = this;
 
-			ratingView = new PDRatingView(new CGRect(View.Bounds.Width * 2 / 8, Y+82, View.Bounds.Width / 2, 36f), ratingConfig, 0m);
-			// [Optional] Do something when the user selects a rating.
-			UIViewController that = this;
-			ratingView.RatingChosen += (sender, e) =>
+				ratingViewSelect.RatingChosen += (sender, e) =>
+				{
+					LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
+					PopupView yourController = new PopupView(Convert.ToInt32(data.WineId), _storeId);
+					yourController.NavController = NavigationController;
+					yourController.parent = that;
+					yourController.StartsSelected = e.Rating;
+
+					yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+					that.PresentModalViewController(yourController, false);
+				};
+
+				var starDownLine = new UIImageView(new CGRect(4, Y + 120, View.Frame.Width - 8, 1));
+				starDownLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+				starDownLine.Image = UIImage.FromFile("separator.png");
+				starDownLine.ContentMode = UIViewContentMode.ScaleAspectFill;
+				starDownLine.ClipsToBounds = true;
+				starDownLine.Layer.BorderColor = UIColor.White.CGColor;
+				starDownLine.BackgroundColor = UIColor.LightGray;
+
+				Y = Y + 140;
+				var lblDesc = new UILabel();
+				lblDesc.Frame = new CGRect(4, Y, View.Frame.Width, 20);
+				lblDesc.Text = "Description: ";
+				lblDesc.TextAlignment = UITextAlignment.Left;
+
+				Y = Y + 20;
+				var lblDescText = new UITextView();
+				lblDescText.Editable = false;
+				if (data.Description == null || data.Description == "")
+				{
+					lblDescText.Text = "Not available";
+					//lblRateTitle.Font = UIFont.FromName("Verdana-Italic", 10f);
+				}
+				else
+				{
+					lblDescText.Text = data.Description;
+				}
+				lblDescText.TextAlignment = UITextAlignment.Justified;
+				CGSize sTemp = new CGSize(width, 100);
+				sTemp = lblDescText.SizeThatFits(sTemp);
+				lblDescText.Frame = new CGRect(0, Y, width, sTemp.Height);
+
+				Y = Y + lblDescText.Frame.Size.Height;
+				var table = new UITableView(); 
+				table.Frame = new CGRect(0, Y, width, data.WineProperties.Count* 22);
+				table.Source = new WineInfoTableSource(data.WineProperties);
+				table.AllowsSelection = false;
+				table.ScrollEnabled = false;
+
+				Y = Y + table.Frame.Size.Height + 10;
+				var lblProducer = new UILabel();
+				lblProducer.Frame = new CGRect(4, Y, width, 20);
+				lblProducer.Text = "Producer: ";
+				lblProducer.TextAlignment = UITextAlignment.Left;
+
+				Y = Y + 20;
+				var lblProducerText = new UITextView();
+				lblProducerText.Editable = false;
+				if (data.Producer == null || data.Producer == "")
+				{
+					lblProducerText.Text = "Not available";
+				}
+				else
+				{
+					lblProducerText.Text = data.Producer;
+				}
+				lblProducerText.TextAlignment = UITextAlignment.Justified;
+				sTemp = new CGSize(width, 100);
+				sTemp = lblProducerText.SizeThatFits(sTemp);
+				lblProducerText.Frame = new CGRect(0, Y, width, sTemp.Height);
+
+				Y = Y + lblProducerText.Frame.Size.Height;
+				var review = LoadReviews(data, Y, width);
+				Y = Y + review.Frame.Size.Height;
+
+				scrollView = new UIScrollView
+				{
+					Frame = new CGRect(0, 0, View.Frame.Width, View.Frame.Height),
+					ContentSize = new CGSize(View.Frame.Width, Y),
+					BackgroundColor = UIColor.White,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight
+				};
+
+				scrollView.AddSubview(lblName);
+				//scrollView.AddSubview(Separator);
+				scrollView.AddSubview(lblVintage);
+				//scrollView.AddSubview(btlBack);
+				scrollView.AddSubview(btlImage);
+				scrollView.AddSubview(ratingView);
+				scrollView.AddSubview(lblRateTitle);
+				scrollView.AddSubview(lblRateRequest);
+				scrollView.AddSubview(ratingViewSelect);
+				scrollView.AddSubview(starUpLine);
+				scrollView.AddSubview(starDownLine);
+				scrollView.AddSubview(lblDesc);
+				scrollView.AddSubview(lblDescText);
+				scrollView.AddSubview(table);
+				scrollView.AddSubview(lblProducer);
+				scrollView.AddSubview(lblProducerText);
+				scrollView.AddSubview(review);
+
+				View.AddSubview(scrollView);
+
+				BTProgressHUD.Dismiss();
+			}
+			catch (Exception ex)
 			{
-				PopupView yourController = new PopupView(0,1);
-				yourController.NavController = NavigationController;
-				yourController.parent = that;
-				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-				//this.PresentViewController(yourController, true, null);
-				this.PresentModalViewController(yourController, false);
-
-				//ShowModal(false);
-			};
-			var starUpLine = new UIImageView(new CGRect(4, Y + 80, View.Frame.Width-8, 1));
-			starUpLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-			starUpLine.Image = UIImage.FromFile("separator.png");
-			starUpLine.ContentMode = UIViewContentMode.ScaleAspectFill;
-			starUpLine.ClipsToBounds = true;
-			starUpLine.Layer.BorderColor = UIColor.White.CGColor;
-			starUpLine.BackgroundColor = UIColor.LightGray;
-
-
-
-			var starDownLine = new UIImageView(new CGRect(4, Y + 120, View.Frame.Width - 8, 1));
-			starDownLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-			starDownLine.Image = UIImage.FromFile("separator.png");
-			starDownLine.ContentMode = UIViewContentMode.ScaleAspectFill;
-			starDownLine.ClipsToBounds = true;
-			starDownLine.Layer.BorderColor = UIColor.White.CGColor;
-			starDownLine.BackgroundColor = UIColor.LightGray;
-
-			Y = Y + 140;
-			var lblDesc = new UILabel();
-			lblDesc.Frame = new CGRect(4, Y, View.Frame.Width, 20);
-			lblDesc.Text = "Description: ";
-			lblDesc.TextAlignment = UITextAlignment.Left;
-
-			var lblDescText = new UITextView();
-			lblDescText.Text = "Deep ruby. Perfumes alive and intense of red berry fruit enveloped by fresh spiciness of black pepper, cloves with a finish of cinnamon stick and sensations resinous toasted. In the background, flavors of wild berries. Tannnin vibrant, but already silky and enveloping connotes tasting soft, round but at the same time fresh with a tasty thin vein of great elegance.";
-			lblDescText.TextAlignment = UITextAlignment.Justified;
-			lblDescText.BackgroundColor = UIColor.LightGray;
-
-			CGSize sTemp = new CGSize(View.Frame.Width, 100);
-			sTemp = lblDescText.SizeThatFits(sTemp);
-			lblDescText.Frame = new CGRect(0, Y + 30, View.Frame.Width, sTemp.Height);
-			//lblDescText.SizeToFit();
-
-			var table = new UITableView();
-			//string[,] tableItems = new string[,] { { "Name", "Arzenton Pinot Nero" }, { "Classification", "Friuli Colli Orientali DOC" }, { "Grape Type:", "Pinot Nero" }, { "Alchol", "13.5%" }, { "Vintage year", "2012"}, { "Aromas", "Red fruits" }, { "Food pairings", "White Meat"}, { "Bottle size", "750ml"}, {"Serving at:","15 °C"} };
-			//table.Frame = new CGRect(0, Y + 140, View.Frame.Width, tableItems.Length * 22);
-			//table.Source = new WineInfoTableSource(tableItems);
-			//table.AllowsSelection = false;
-
-
-			//Y = Y + 160 + tableItems.Length * 22;
-			var lblProducer = new UILabel();
-			lblProducer.Frame = new CGRect(4, Y, View.Frame.Width, 20);
-			lblProducer.Text = "Producer: ";
-			lblProducer.TextAlignment = UITextAlignment.Left;
-
-			var lblProducerText = new UITextView();
-			lblProducerText.Frame = new CGRect(0, Y + 40, View.Frame.Width, 100);
-			lblProducerText.Text = "Arzenton company was found in 1968, with the accomodation of the hilly area of spessa of Cividale del Friuli: thus in one of the places most suited to vityculture of the capital Doc Coli Orientali bel Friuli. The company consist of 14 hectare of which 10 are devoted to vineyards in soil consist of alternating layers of marl and sandstones that represnt the best soil of viticulture hilly.";
-			lblProducerText.TextAlignment = UITextAlignment.Justified;
-			lblProducerText.BackgroundColor = UIColor.LightGray;
-
-			nfloat h = View.Frame.Height * 2.3f;
-			nfloat w = UIScreen.MainScreen.Bounds.Width;
-
-			scrollView = new UIScrollView
-			{
-				Frame = new CGRect(0, 20, View.Frame.Width, View.Frame.Height),
-				ContentSize = new CGSize(View.Frame.Width, h),
-				BackgroundColor = UIColor.LightGray,
-				AutoresizingMask = UIViewAutoresizing.FlexibleHeight
-			};
-
-			scrollView.AddSubview(lblName);
-			scrollView.AddSubview(Separator);
-			scrollView.AddSubview(lblVintage);
-			scrollView.AddSubview(btlBack);
-			scrollView.AddSubview(btlImage);
-			scrollView.AddSubview(ratingView);
-			scrollView.AddSubview(lblRateTitle);
-			scrollView.AddSubview(lblRateRequest);
-			scrollView.AddSubview(ratingView);
-			scrollView.AddSubview(starUpLine);
-			scrollView.AddSubview(starDownLine);
-			scrollView.AddSubview(lblDesc);
-			scrollView.AddSubview(lblDescText);
-			scrollView.AddSubview(table);
-			scrollView.AddSubview(lblProducer);
-			scrollView.AddSubview(lblProducerText);
-			scrollView.AddSubview(LoadReviews());
-
-			View.AddSubview(scrollView);
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+			}
 		}
 
-		public UITableView LoadReviews()
+		public UITableView LoadReviews(ItemDetails data, nfloat Y, nfloat width)
 		{
 			var reviewTable = new UITableView();
-			List<ReviewModel> reviewData = new List<ReviewModel>();
-			var review1 = new ReviewModel();
-			review1.Comments = "Comments";
-			review1.reviewDate = DateTime.Now;
-			review1.Stars = 4.2m;
-			review1.userName = "Ankur";
-			reviewData.Add(review1);
-
-			var review2 = new ReviewModel();
-			review2.Comments = "More Comments";
-			review2.reviewDate = DateTime.Now;
-			review2.Stars = 3.2m;
-			review2.userName = "Advait";
-			reviewData.Add(review2);
-
-			reviewTable.Frame = new CGRect(0, 1300, View.Frame.Width, (reviewData.Count * 90) + 35);
-			//reviewTable.Source = new ReviewTableSource(reviewData);
+			reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count * 90) + 35);
+			reviewTable.Source = new ReviewTableSource(data.Reviews);
 			reviewTable.AllowsSelection = false;
-
+			reviewTable.ScrollEnabled = false;
 			return reviewTable;
 		}
 
@@ -228,5 +268,59 @@ namespace WineHangoutz
 			modalView.Alpha = 0;
 			//FluentAnimate.EaseIn(AnimationDuration, () => modalView.Alpha = 1).Start();
 		}
+public async void DownloadAsync(int wineid, int storeid, UIImageView btlImage, nfloat boxHeight, int Y)
+{
+
+
+	WebClient webClient = new WebClient();
+	string url = null;
+	if (storeid == 1)
+	{
+		url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/" + wineid + ".jpg";
+	}
+	else if (storeid == 2)
+	{
+		url = "https://icsintegration.blob.core.windows.net/bottleimagedetailspp/" + wineid + ".jpg";
+	}
+	byte[] imageBytes = null;
+	try
+	{
+		imageBytes = await webClient.DownloadDataTaskAsync(url);
+		HighImgData = NSData.FromStream(new MemoryStream(imageBytes));
+	}
+	catch (TaskCanceledException)
+	{
+		//this.progressLayout.Visibility = ViewStates.Gone;
+		return;
+	}
+	catch (Exception exe)
+	{
+		LoggingClass.LogError("while downloading image of wine id" + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
+	}
+
+	//HighresImg  =UIImage.LoadFromData(HighImgData);
+	try
+	{
+		if (HighImgData != null)
+		{
+			UIImage image = UIImage.LoadFromData(HighImgData);
+			nfloat imgHeight = image.Size.Height;
+			nfloat ratio = boxHeight / imgHeight;
+			CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+			image = image.Scale(newSize);
+			nfloat X = (boxHeight - image.Size.Width) / 2;
+			btlImage.Frame = new CGRect(X, Y, image.Size.Width, image.Size.Height);
+			btlImage.Image = image;
+		}
+		else
+		{
+			btlImage.Image = new UIImage("Wines/bottle.jpg");
+		}
+	}
+	catch (Exception Ex)
+	{
+		LoggingClass.LogError(Ex.Message, screenid, Ex.StackTrace.ToString());
+	}
+	}
 	}
 }

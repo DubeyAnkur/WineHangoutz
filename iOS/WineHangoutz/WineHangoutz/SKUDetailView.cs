@@ -250,7 +250,7 @@ namespace WineHangoutz
 							yourController.parent = that;
 							yourController.StartsSelected = e.Rating;
 
-							yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+							yourController.ModalPresentationStyle = UIModalPresentationStyle.Popover;
 							that.PresentModalViewController(yourController, false);
 
 								//ShowModal(false);

@@ -18,8 +18,8 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
-				
-		//AboutController1.ViewDidLoad(base);
+
+			//AboutController1.ViewDidLoad(base);
 
 			// Perform any additional setup after loading the view, typically from a nib.
 			//LoggingClass.UploadErrorLogs();
@@ -156,7 +156,9 @@ namespace WineHangoutz
 				//yourController.root = this;
 				//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
 				//this.PresentModalViewController(yourController, false);
+				CurrentUser.PutLoginStatus(false);
 			}
+			CurrentUser.PutLoginStatus(false);
 			//login check in
 		}
 

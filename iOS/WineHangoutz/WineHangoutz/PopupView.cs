@@ -33,6 +33,7 @@ namespace WineHangoutz
 		{
 			try
 			{
+				DismissKeyboardOnBackgroundTap();
 				//AboutController1.ViewDidLoad(base);
 				this.View.BackgroundColor = new UIColor(0, 0, 0, 0.8f);
 
@@ -199,6 +200,12 @@ namespace WineHangoutz
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+		}
+		protected void DismissKeyboardOnBackgroundTap()
+		{
+			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+			tap.AddTarget(() => View.EndEditing(true));
+			View.AddGestureRecognizer(tap);
 		}
 	}
 
