@@ -1,27 +1,39 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/DetailViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/PopupView.cs">
     <Files>
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="209" Column="7" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="75" Column="6" />
-      <File FileName="WineHangoutz/AboutController.cs" Line="135" Column="16" />
-      <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="268" Column="13" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="67" Column="40" />
+      <File FileName="WineHangoutz/AboutController.cs" Line="29" Column="50" />
       <File FileName="WineHangoutz/LoggingClass.cs" Line="55" Column="1" />
       <File FileName="WineHangoutz/ServiceWrapper.cs" Line="179" Column="69" />
-      <File FileName="WineHangoutz/BlobWrapper.cs" Line="218" Column="39" />
+      <File FileName="WineHangoutz/BlobWrapper.cs" Line="237" Column="7" />
       <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="139" Column="4" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="34" Column="4" />
+      <File FileName="WineHangoutz/LoginViewController.cs" Line="68" Column="4" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="214" Column="6" />
+      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="128" Column="4" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/SKUDetailView.cs" Line="271" Column="1" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="198" Column="1" />
+      <File FileName="WineHangoutz/Info.plist" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ReSendEmailController.cs" relfile="WineHangoutz/ReSendEmailController.cs" line="106" column="9" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/BlobWrapper.cs" relfile="WineHangoutz/BlobWrapper.cs" line="370" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="25" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" relfile="WineHangoutz/ServiceWrapper.cs" line="229" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/SKUDetailView.cs" relfile="WineHangoutz/SKUDetailView.cs" line="262" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" relfile="WineHangoutz/ServiceWrapper.cs" line="226" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PopupView.cs" relfile="WineHangoutz/PopupView.cs" line="176" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PopupView.cs" relfile="WineHangoutz/PopupView.cs" line="183" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PopupView.cs" relfile="WineHangoutz/PopupView.cs" line="199" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="WineHangoutz/AppDelegate.cs" line="31" offsetX="602" offsetY="450" expression="identifier" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B6972546-F518-4E2D-9C81-C5AAB8462B29" />
   <MultiItemStartupConfigurations />
 </Properties>

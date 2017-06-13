@@ -244,15 +244,28 @@ namespace WineHangoutz
 
 						ratingView2.RatingChosen += (sender, e) =>
 						{
-							LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
-							PopupView yourController = new PopupView(Convert.ToInt32(data.WineId), _store);
-							yourController.NavController = NavigationController;
-							yourController.parent = that;
-							yourController.StartsSelected = e.Rating;
-
-							yourController.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-							that.PresentModalViewController(yourController, false);
-
+							if (CurrentUser.RetreiveUserId() == 0)
+							{
+								UIAlertView alert = new UIAlertView()
+								{
+									Title = "This feature is allowed only for VIP Card holders",
+									//Message = "Coming Soon..."
+								};
+								//LoggingClass.LogInfo("Clicked on seacuces", screenid);
+								alert.AddButton("OK");
+								alert.Show();
+								ratingView2.ChosenRating = 0;
+							}
+							else
+							{
+								LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
+								PopupView yourController = new PopupView(Convert.ToInt32(data.WineId), _store);
+								yourController.NavController = NavigationController;
+								yourController.parent = that;
+								yourController.StartsSelected = e.Rating;
+								yourController.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+								that.PresentModalViewController(yourController, false);
+							}
 								//ShowModal(false);
 						};
 						vw = ratingView2;

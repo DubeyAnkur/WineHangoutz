@@ -32,7 +32,7 @@ namespace WineHangoutz
 
 		public void RefreshParent()
 		{
-			this.ViewDidLoad();		
+			Internal_ViewDidLoad();	
 		}
 
 		public override void ViewDidLoad()

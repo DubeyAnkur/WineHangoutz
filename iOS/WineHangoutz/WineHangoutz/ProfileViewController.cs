@@ -127,15 +127,6 @@ namespace WineHangoutz
 					//imgProfile.Image = new UIImage("user.png");
 
 
-					imgEmail.Image = new UIImage("mail.png");
-
-					imgAddr.Image = new UIImage("add.png");
-
-					imgCity.Image = new UIImage("City1.png");
-
-					imgState.Image = new UIImage("state.png");
-
-					imgPhone.Image = new UIImage("phone1.png");
 
 
 					//UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
@@ -211,6 +202,16 @@ namespace WineHangoutz
 						}
 					};
 				}
+
+					imgEmail.Image = new UIImage("mail.png");
+
+					imgAddr.Image = new UIImage("add.png");
+
+					imgCity.Image = new UIImage("City1.png");
+
+					imgState.Image = new UIImage("state.png");
+
+					imgPhone.Image = new UIImage("phone1.png");
 			}
 			catch (Exception ex)
 			{

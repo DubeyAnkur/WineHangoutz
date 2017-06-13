@@ -35,7 +35,7 @@ namespace WineHangoutz
 				Heading1.Frame = new CGRect(5, 45, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				Heading1.Text = "Uncork the Merriment";
 				Heading1.TextAlignment = UITextAlignment.Left;
-				Heading1.TextAlignment = UITextAlignment.Justified;
+				//Heading1.TextAlignment = UITextAlignment.Justified;
 				Heading1.TextColor = UIColor.Black;
 				Heading1.Font=UIFont.FromName("AmericanTypewriter", 25f);
 				Heading1.Editable = false;
@@ -44,7 +44,7 @@ namespace WineHangoutz
 				p1.Frame = new CGRect(5, 95, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				p1.Text = "A delicious bottled wine is the way to the perfect blend of joy. Wine Hangouts is thus,developed to facilitate the wine lovers to deliver a complete wine experience through the internationally acclaimed wines and beers. Sticking strict to the quality, Wine Hangouts brings in the best self-serve partners in the industry: Enomatic- The World’s #1Wine Dispenser and Wine Preservation System and iPoruIt – A revolutionary self-serve solution for beers, to elevate the merriment of our guests to the best.";
 				p1.TextColor = UIColor.Black;
-				p1.TextAlignment = UITextAlignment.Left;
+				p1.TextAlignment = UITextAlignment.Justified;
 				p1.Font=UIFont.FromName("AmericanTypewriter", 13f);
 				p1.Editable = false;
 
@@ -52,7 +52,7 @@ namespace WineHangoutz
 				Heading2.Frame = new CGRect(5, 240, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				Heading2.Text = "WHO WE ARE";
 				Heading2.TextColor = UIColor.Black;
-				Heading2.TextAlignment = UITextAlignment.Left;
+				Heading2.TextAlignment = UITextAlignment.Justified;
 				Heading2.Font=UIFont.FromName("AmericanTypewriter", 20f);
 				Heading2.Editable = false;
 
@@ -60,6 +60,7 @@ namespace WineHangoutz
 				p2.Frame = new CGRect(5, 250 , UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				p2.Text = "Wine Hangouts ensures the perfect backdrop to relish and to hang out with the wine and beer lovers, through over 24 assorted wines from the world’s best wineries. Each of our wine outlets is assured with one of the largest inventories of wine you can experience in New Jersey. The exclusive opportunity for our privileged customers makes it more enticing by offering FREE tasting of the 24 wines out of our huge collection.So, isn’t it time for a Wine Dine?";
 				p2.TextColor = UIColor.Black;
+				p2.TextAlignment = UITextAlignment.Justified;
 				p2.Font=UIFont.FromName("AmericanTypewriter", 13f);
 				p2.Editable = false;
 				p2.TextAlignment = UITextAlignment.Left;
@@ -67,6 +68,7 @@ namespace WineHangoutz
 				UITextView Heading3 = new UITextView();
 				Heading3.Frame = new CGRect(5, 405, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				Heading3.Text = "WHAT WE OFFER";
+				Heading3.TextAlignment = UITextAlignment.Justified;
 				Heading3.TextColor = UIColor.Black;
 				Heading3.Font=UIFont.FromName("AmericanTypewriter", 20f);
 				Heading3.Editable = false;
@@ -76,6 +78,7 @@ namespace WineHangoutz
 				p3.Frame = new CGRect(5, 440, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				p3.Text = "We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:  Pick the Choice: Guest is displayed with all the available wines for tasting. My Tasting: See the list of wines you have tasted and choose more from the remaining surprises. My Reviews: View your ratings and reviews and let other wine lovers explore it along with you. My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting. My Profile: Protect your credentials and update it as and when you wish.";
 				p3.TextColor = UIColor.Black;
+				p3.TextAlignment = UITextAlignment.Justified;
 				p3.Font=UIFont.FromName("AmericanTypewriter", 13f);
 				p3.Editable = false;
 				p3.TextAlignment = UITextAlignment.Left;
@@ -84,6 +87,7 @@ namespace WineHangoutz
 				p4.Frame = new CGRect(5, 640, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				p4.Text = "Rate and Review";
 				p4.TextColor = UIColor.Black;
+				p4.TextAlignment = UITextAlignment.Justified;
 				p4.Font=UIFont.FromName("AmericanTypewriter", 18f);
 				p4.Editable = false;
 				p4.TextAlignment = UITextAlignment.Left;
@@ -92,9 +96,10 @@ namespace WineHangoutz
 				p5.Frame = new CGRect(5, 665, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 				p5.Text = "Let them also know the best choice of yours.";
 				p5.TextColor = UIColor.Black;
+				p5.TextAlignment = UITextAlignment.Justified;
 				p5.Font=UIFont.FromName("AmericanTypewriter", 18f);
 				p5.Editable = false;
-				p5.TextAlignment = UITextAlignment.Left;
+				//p5.TextAlignment = UITextAlignment.Left;
 
 				UITextView p6 = new UITextView();
 				p6.Frame = new CGRect(5, 695, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
@@ -102,7 +107,8 @@ namespace WineHangoutz
 				p5.TextColor = UIColor.Black;
 				p6.Font=UIFont.FromName("AmericanTypewriter", 18f);
 				p6.Editable = false;
-				p6.TextAlignment = UITextAlignment.Left;
+				p6.TextAlignment = UITextAlignment.Justified;
+				//p6.TextAlignment = UITextAlignment.Left;
 
 				nfloat h = 0;
 
@@ -125,7 +131,7 @@ namespace WineHangoutz
 				scrollView.AddSubview(p6);
 				for (int i = 0; i<scrollView.Subviews.Length ; i++)
 				{
-					h = scrollView.Subviews[i].Frame.Size.Height;
+					h = scrollView.Subviews[i].Frame.Size.Height+120;
 				}
 				scrollView.ContentSize = new CGSize(View.Frame.Width, h);
 				View = (scrollView);

@@ -190,8 +190,6 @@ namespace WineHangoutz
 						((IPopupParent)parent).RefreshParent();
 
 						NavController.DismissViewController(true, null);
-						//Save Service Call.
-						//txtComments
 						BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
 					}
 				};

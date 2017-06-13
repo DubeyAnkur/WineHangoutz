@@ -79,7 +79,7 @@ namespace WineHangoutz
 				{
 					Placeholder = "e.g. 1234 5678 8765 4321",
 					BorderStyle = UITextBorderStyle.RoundedRect,
-					Frame = new CGRect(10, imageSize + 145, View.Frame.Width, h)
+					Frame = new CGRect(10, imageSize + 145, 300, h)
 				};
 
 				UIToolbar toolbar = new UIToolbar(new CGRect(0.0f, 0.0f, this.View.Frame.Size.Width, 44.0f));
@@ -89,6 +89,7 @@ namespace WineHangoutz
 	    			})
 				};
 				txtCardID.InputAccessoryView = toolbar;
+				txtCardID.KeyboardType = UIKeyboardType.PhonePad;
 
 				var lblEmail = new UILabel();
 				lblEmail.Frame = new CGRect(10, imageSize + 180, View.Frame.Width, h);
@@ -100,28 +101,32 @@ namespace WineHangoutz
 				{
 					Placeholder = "e.g. john@wineoutlet.com",
 					BorderStyle = UITextBorderStyle.RoundedRect,
-					Frame = new CGRect(10, imageSize + 220, View.Frame.Width, h)
+					Frame = new CGRect(10, imageSize + 220, 300, h)
 				};
 				txtEmail.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
 				  };
+				txtEmail.InputAccessoryView = toolbar;
+				txtEmail.KeyboardType = UIKeyboardType.EmailAddress;
 				if (CurrentUser.RetreiveUserName() != "" && CurrentUser.GetEmail() != "")
 				{
 					txtCardID.Text = CurrentUser.RetreiveUserName();
 					txtEmail.Text = CurrentUser.GetEmail();
 				}
 
-				UIButton btnLogin = new UIButton(new CGRect(14, imageSize + 270, View.Frame.Width - 28, 20));
+				UIButton btnLogin = new UIButton(new CGRect(0, imageSize + 270, View.Frame.Width - 28, 20));
 				btnLogin.SetTitle("Login", UIControlState.Normal);
-				btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+				btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 				btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				//btnLogin.SetImage(UIImage.FromFile ("Images/gl.png"), UIControlState.Normal);
 
-				btnGuestLogin = new UIButton(new CGRect(70, imageSize + 270, View.Frame.Width - 28, 20));
+				btnGuestLogin = new UIButton(new CGRect(120, imageSize + 400, 125, 75));
 				btnGuestLogin.SetTitle("Guest Login", UIControlState.Normal);
 				btnGuestLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-				btnGuestLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				//btnGuestLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				btnGuestLogin.SetImage(UIImage.FromFile ("Images/gl.png"), UIControlState.Normal);
 
 
 				btnVerify = new UIButton(new CGRect(14, imageSize + 270, 240, 20));

@@ -6,7 +6,7 @@ using CoreGraphics;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
-
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -130,6 +130,10 @@ namespace WineHangoutz
 				imageView.ContentMode = UIViewContentMode.Center;
 				imageView.ClipsToBounds = true;
 
+				imageView.TouchDown += (object sender, EventArgs e) =>
+				{
+					BTProgressHUD.Show("Loading...");
+				};
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
