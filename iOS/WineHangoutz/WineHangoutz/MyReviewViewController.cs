@@ -214,15 +214,16 @@ namespace WineHangoutz
 
 					alert.Clicked += async (senderalert, buttonArgs) =>
 					{
+						
 						if (buttonArgs.ButtonIndex == 0)
 						{
 							review.WineId = Convert.ToInt32(WineIdLabel.Text);
 
 							review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-
+							BTProgressHUD.Show("Deleting review");
 							await sw.DeleteReview(review);
 							LoggingClass.LogInfo("Deleting the review of "+wineId, screenid);
-
+							BTProgressHUD.ShowSuccessWithStatus("Done");
 							((IPopupParent)Parent).RefreshParent();
 						}
 					};

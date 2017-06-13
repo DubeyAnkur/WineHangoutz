@@ -18,8 +18,7 @@
                 <outlet property="txtEmail" destination="kMM-fk-dR1" id="name-outlet-kMM-fk-dR1"/>
                 <outlet property="txtPhone" destination="yyb-Jg-EyD" id="name-outlet-yyb-Jg-EyD"/>
                 <outlet property="txtAddress" destination="XcZ-ng-kdI" id="name-outlet-XcZ-ng-kdI"/>
-                <outlet property="txtCity" destination="8O9-mw-hc0" id="name-outlet-8O9-mw-hc0"/>
-                <outlet property="txtState" destination="4eu-KU-YJ7" id="name-outlet-4eu-KU-YJ7"/>
+                <outlet property="txtState" destination="8O9-mw-hc0" id="name-outlet-8O9-mw-hc0"/>
                 <outlet property="btnUpdate" destination="40" id="name-outlet-40"/>
                 <outlet property="btnEdit" destination="LfK-xJ-7ke" id="name-outlet-LfK-xJ-7ke"/>
                 <outlet property="imgProfile" destination="ZZc-Ii-OEa" id="name-outlet-ZZc-Ii-OEa"/>
@@ -27,12 +26,13 @@
                 <outlet property="imgPhone" destination="ObV-oq-ciG" id="name-outlet-ObV-oq-ciG"/>
                 <outlet property="imgAddr" destination="clt-zy-yBE" id="name-outlet-clt-zy-yBE"/>
                 <outlet property="imgCity" destination="rwq-Sg-y8D" id="name-outlet-rwq-Sg-y8D"/>
-                <outlet property="imgState" destination="3uE-3M-sd5" id="name-outlet-3uE-3M-sd5"/>
+                <outlet property="imgCard" destination="3uE-3M-sd5" id="name-outlet-3uE-3M-sd5"/>
+                <outlet property="txtCardID" destination="4eu-KU-YJ7" id="name-outlet-4eu-KU-YJ7"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinX="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZc-Ii-OEa">
@@ -117,8 +117,8 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLE-at-WZh">
-                    <rect key="frame" x="64" y="412" width="537" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="State:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLE-at-WZh">
+                    <rect key="frame" x="64" y="412" width="297" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -131,8 +131,8 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="State:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-MV-IjR">
-                    <rect key="frame" x="64" y="474" width="537" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Card ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-MV-IjR">
+                    <rect key="frame" x="64" y="474" width="297" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -176,7 +176,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40" customClass="UIButton">
-                    <rect key="frame" x="153" y="533" width="95" height="30"/>
+                    <rect key="frame" x="129" y="544" width="95" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17" weight="heavy"/>
                     <state key="normal" title="Update"/>
@@ -256,6 +256,8 @@
         <image name="user1.png" width="500" height="466"/>
         <image name="Wines/bottle.jpg" width="750" height="750"/>
         <image name="Images/loadin.png" width="512" height="512"/>
+        <image name="Images/gl.png" width="250" height="150"/>
+        <image name="card.png" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedScreenMetrics key="destination" type="retina47"/>

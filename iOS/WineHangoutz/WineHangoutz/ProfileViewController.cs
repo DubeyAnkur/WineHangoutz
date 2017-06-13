@@ -59,6 +59,7 @@ namespace WineHangoutz
 				}
 				else
 				{
+					imgCard.Hidden = true;
 					if (CurrentUser.GetLoginStatus() == true) 
 					{
 
@@ -77,10 +78,10 @@ namespace WineHangoutz
 					var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
 					txtFirstName.Text = cRes.customer.FirstName;
 					txtLastName.Text = cRes.customer.LastName;
-					txtCity.Text = cRes.customer.City;
+					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
-					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2;
+					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2+cRes.customer.City;
 					txtState.Text = cRes.customer.State;
 
 					txtState.ShouldReturn += (TextField) =>
@@ -99,7 +100,7 @@ namespace WineHangoutz
 					  return true;
 				  };
 
-					txtCity.ShouldReturn += (TextField) =>
+					txtCardID.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
@@ -147,16 +148,12 @@ namespace WineHangoutz
 
 					btnUpdate.TouchUpInside += async (sender, e) =>
 					{
+						LoggingClass.LogInfo("Update button into Profile View", screenid);
 						Customer cust = new Customer();
 						cust.CustomerID = CurrentUser.RetreiveUserId();
 						cust.Address1 = txtAddress.Text;
 						cust.FirstName = txtFirstName.Text;
 						cust.LastName = txtLastName.Text;
-						cust.City = txtCity.Text;
-						cust.Email = txtCity.Text;
-						LoggingClass.LogInfo("Update button into Profile View", screenid);
-
-
 						cust.Email = txtEmail.Text;
 						cust.PhoneNumber = txtPhone.Text;
 						cust.State = txtState.Text;
@@ -209,7 +206,7 @@ namespace WineHangoutz
 
 					imgCity.Image = new UIImage("City1.png");
 
-					imgState.Image = new UIImage("state.png");
+					imgCard.Image = new UIImage("card.png");
 
 					imgPhone.Image = new UIImage("phone1.png");
 			}

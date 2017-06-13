@@ -187,6 +187,7 @@
     <InterfaceDefinition Include="SimpleControllerViewController.xib" />
     <InterfaceDefinition Include="ProfileViewController.xib" />
     <InterfaceDefinition Include="AboutController.xib" />
+    <InterfaceDefinition Include="DummyViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -253,6 +254,10 @@
     <Compile Include="UIBotton.cs" />
     <Compile Include="UIBotton.designer.cs">
       <DependentUpon>UIBotton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DummyViewController.cs" />
+    <Compile Include="DummyViewController.designer.cs">
+      <DependentUpon>DummyViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +331,7 @@
     <BundleResource Include="Wines\bottle.jpg" />
     <BundleResource Include="Images\loadin.png" />
     <BundleResource Include="Images\gl.png" />
+    <BundleResource Include="Resources\card.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

@@ -35,10 +35,6 @@ namespace WineHangoutz {
 		public APLCollectionViewCell (CGRect frame) : base (frame)
 		{
 			//NavigationController.NavigationBar.TopItem.Title = "List";
-
-
-
-
 			try
 			{
 				CGRect box = new CGRect(Bounds.Location, Bounds.Size);
@@ -125,6 +121,7 @@ namespace WineHangoutz {
 				lblName.LineBreakMode = UILineBreakMode.WordWrap;
 				lblName.Lines = 0;
 
+
 				lower.Y = 245;
 				lower.Height = 1;
 				lower.Width = lower.Width - 20;
@@ -175,6 +172,7 @@ namespace WineHangoutz {
 				ContentView.AddSubview(lblYear);
 				ContentView.AddSubview(lblRegPrice);
 				ContentView.AddSubview(ratingView);
+
 			}
 			catch (Exception ex)
 			{

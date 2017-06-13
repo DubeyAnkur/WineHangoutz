@@ -34,6 +34,7 @@ namespace WineHangoutz
 			try
 			{
 				DismissKeyboardOnBackgroundTap();
+
 				//AboutController1.ViewDidLoad(base);
 				this.View.BackgroundColor = new UIColor(0, 0, 0, 0.8f);
 
@@ -42,6 +43,7 @@ namespace WineHangoutz
 				lblProducer.Text = "My Tasting";
 				lblProducer.BackgroundColor = UIColor.Purple;
 				lblProducer.TextAlignment = UITextAlignment.Center;
+				lblProducer.TextColor = UIColor.White;
 				this.View.AddSubview(lblProducer);
 
 				//this.View.Alpha = 0.5f;
@@ -51,9 +53,6 @@ namespace WineHangoutz
 
 				btnClose.TouchUpInside += (sender, e) =>
 				{
-				//var viewCtrl = NavController.PopViewController(false);
-				//viewCtrl.Dispose();
-				//NavController.PopToViewController(parent,false);
 				NavController.DismissViewController(true, null);
 
 				};
@@ -205,6 +204,7 @@ namespace WineHangoutz
 			tap.AddTarget(() => View.EndEditing(true));
 			View.AddGestureRecognizer(tap);
 		}
+
 	}
 
 	public interface IPopupParent

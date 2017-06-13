@@ -263,7 +263,7 @@ namespace WineHangoutz
 								yourController.NavController = NavigationController;
 								yourController.parent = that;
 								yourController.StartsSelected = e.Rating;
-								yourController.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+								yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
 								that.PresentModalViewController(yourController, false);
 							}
 								//ShowModal(false);
@@ -317,7 +317,7 @@ namespace WineHangoutz
 						break;
 					case 14:
 						var lblProducer = new UILabel();
-						lblProducer.Frame = new CGRect(4, 0, this.Width, 20);
+						lblProducer.Frame = new CGRect(4, 10, this.Width, 20);
 						lblProducer.Text = "Producer: ";
 						lblProducer.TextAlignment = UITextAlignment.Left;
 						vw = lblProducer;
