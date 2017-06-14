@@ -16,6 +16,27 @@ namespace WineHangoutz
 		}
 		private int screenid = 1;
 
+		public override bool ShouldAutorotate()
+		{
+		return false;
+		}
+
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+		{
+		return UIInterfaceOrientationMask.Portrait;
+		}
+
+		public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
+		{
+		return UIInterfaceOrientation.Portrait;
+		}
+
+		void RestrictRotation(bool restriction)
+		{
+			AppDelegate app = (AppDelegate)UIApplication.SharedApplication.Delegate;
+			app.RestrictRotation = restriction;
+		}
+
 		public override void ViewDidLoad()
 		{
 
@@ -23,6 +44,7 @@ namespace WineHangoutz
 
 			// Perform any additional setup after loading the view, typically from a nib.
 			//LoggingClass.UploadErrorLogs();
+			this.RestrictRotation(false);
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
 			nfloat margin = 1;

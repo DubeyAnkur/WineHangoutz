@@ -10,6 +10,8 @@ namespace WineHangoutz
 
 	public class LoginViewController : UIViewController
 	{
+		
+
 		public UIViewController root;
 		UIImageView imgSampleCard;
 		public UINavigationController nav;
@@ -32,6 +34,8 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
+
+
 				DismissKeyboardOnBackgroundTap();
 				UITextField txtCardID;
 
