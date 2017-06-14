@@ -55,6 +55,19 @@ namespace WineHangoutz
 					};
 
 					alert.AddButton("OK");
+					alert.AddButton("Log in");
+					alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								LoginViewController yourController = new LoginViewController();
+								yourController.nav = NavigationController;
+								yourController.root = this;
+								yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+								this.PresentModalViewController(yourController, false);
+							}
+						};
 					alert.Show();
 					btnUpdate.SetTitle("Register", UIControlState.Normal);
 				}
@@ -73,6 +86,7 @@ namespace WineHangoutz
 						};
 
 						alert.AddButton("OK");
+
 						alert.Show();
 					}
 					//imgProfile.Image = new UIImage("Images/loading.gif");

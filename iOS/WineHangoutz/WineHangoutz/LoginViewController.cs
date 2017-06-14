@@ -10,8 +10,6 @@ namespace WineHangoutz
 
 	public class LoginViewController : UIViewController
 	{
-		
-
 		public UIViewController root;
 		UIImageView imgSampleCard;
 		public UINavigationController nav;
@@ -34,8 +32,6 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
-
-
 				DismissKeyboardOnBackgroundTap();
 				UITextField txtCardID;
 
@@ -81,20 +77,21 @@ namespace WineHangoutz
 				UIButton btnInfo = new UIButton();
 				btnInfo.Frame = new CGRect(70, imageSize + 120, 20, 20);
 				btnInfo.SetBackgroundImage(new UIImage("Info.png"), UIControlState.Normal);
-				btnInfo.TouchUpInside += (sender, e) =>
-			   {
-					imgSampleCard = new UIImageView();
-				   imgSampleCard.Image=UIImage.FromFile("logo5.png");
-					imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
-				   View.AddSubview(imgSampleCard);
+				//btnInfo.TouchUpInside += (sender, e) =>
+			 //  {
+				//	imgSampleCard = new UIImageView();
+				//   imgSampleCard.Image=UIImage.FromFile("logo5.png");
+				//	imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
+				//   View.AddSubview(imgSampleCard);
 
-			   };
+			 //  };
 
 				txtCardID = new UITextField
 				{
 					Placeholder = "e.g. 1234 5678 8765 4321",
 					BorderStyle = UITextBorderStyle.RoundedRect,
 					Frame = new CGRect(10, imageSize + 145, 300, h)
+						
 				};
 
 				UIToolbar toolbar = new UIToolbar(new CGRect(0.0f, 0.0f, this.View.Frame.Size.Width, 44.0f));
@@ -286,8 +283,7 @@ namespace WineHangoutz
 		{
 			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
 			tap.AddTarget(() => View.EndEditing(true));
-			View.AddGestureRecognizer(tap);
-			//imgSampleCard.Hidden = true;
+			View.AddGestureRecognizer(tap);	
 		}
 	}
 		//	public async void EmailVerification()
