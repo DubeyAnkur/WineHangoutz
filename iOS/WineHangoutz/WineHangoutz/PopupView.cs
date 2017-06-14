@@ -121,19 +121,6 @@ namespace WineHangoutz
 				btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 				LoggingClass.LogInfo("Added review to the "+ WineId, screenid);
 				this.View.AddSubview(btnSave);
-				//if (CurrentUser.RetreiveUserId() == 0)
-				//{
-				//			UIAlertView alert = new UIAlertView()
-				//			{
-				//				Title = "This feature is allowed only for VIP Card holders",
-				//				//Message = "Coming Soon..."
-				//			};
-				//	//LoggingClass.LogInfo("Clicked on seacuces", screenid);
-				//			alert.AddButton("OK");
-				//			alert.Show();
-				//}
-				//else
-				//{
 				btnSave.TouchDown += (sender, e) =>
 				{
 					if (CurrentUser.RetreiveUserId() == 0)

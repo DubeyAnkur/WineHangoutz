@@ -11,6 +11,7 @@ namespace WineHangoutz
 	public class LoginViewController : UIViewController
 	{
 		public UIViewController root;
+		UIImageView imgSampleCard;
 		public UINavigationController nav;
 		public UIButton btnGuestLogin;
 		public UILabel lblIns;
@@ -43,9 +44,7 @@ namespace WineHangoutz
 				imgLogo.Frame = new CGRect(130, 30, 70, 70);
 				imgLogo.Image = UIImage.FromFile("logo5.png");
 
-				//imgLogo.ali
 				//EmailVerification();
-				//imgLogo.ali
 
 				lblError = new UILabel();
 				lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h * 2);
@@ -74,6 +73,18 @@ namespace WineHangoutz
 				lblName.Frame = new CGRect(10, imageSize + 120, View.Frame.Width, 20);
 				lblName.TextAlignment = UITextAlignment.Left;
 				lblName.Text = "Card ID";
+
+				UIButton btnInfo = new UIButton();
+				btnInfo.Frame = new CGRect(70, imageSize + 120, 20, 20);
+				btnInfo.SetBackgroundImage(new UIImage("Info.png"), UIControlState.Normal);
+				btnInfo.TouchUpInside += (sender, e) =>
+			   {
+					imgSampleCard = new UIImageView();
+				   imgSampleCard.Image=UIImage.FromFile("logo5.png");
+					imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
+				   View.AddSubview(imgSampleCard);
+
+			   };
 
 				txtCardID = new UITextField
 				{
@@ -166,6 +177,11 @@ namespace WineHangoutz
 					else if (txtEmail.Text == null || txtEmail.Text == "")
 					{
 						lblError.Text = "Please enter a valid Email Address.";
+						
+					}
+					else if (txtEmail.Text.Contains("@") == false || txtEmail.Text.Contains(".") == false)
+					{ 
+							lblError.Text = "Please enter a valid Email Address.";
 					}
 					else
 					{
@@ -194,6 +210,7 @@ namespace WineHangoutz
 						catch (Exception ex)
 						{
 							lblError.Text = cr.ErrorDescription;
+							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 						}
 						//if (cr.customer.IsMailSent == 1)
 						//{
@@ -222,12 +239,20 @@ namespace WineHangoutz
 				View.AddSubview(txtEmail);
 				View.AddSubview(lblName);
 				View.AddSubview(lblIns);
+				View.AddSubview(btnInfo);
 			}
 			catch (Exception exe)
 			{
 				Console.WriteLine(exe.Message);
 			}
 		}
+		//private void OnDoubleTap(UIGestureRecognizer gesture)
+		//{
+		//	if (scrollView.ZoomScale >= 1)
+		//		scrollView.SetZoomScale(0.25f, true);
+		//	else
+		//		scrollView.SetZoomScale(2f, true);
+		//}
 		//public override void ViewDidAppear(bool animated)
 		//{
 		//	base.ViewDidAppear(animated);
@@ -258,6 +283,7 @@ namespace WineHangoutz
 			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
 			tap.AddTarget(() => View.EndEditing(true));
 			View.AddGestureRecognizer(tap);
+			//imgSampleCard.Hidden = true;
 		}
 	}
 		//	public async void EmailVerification()

@@ -52,6 +52,26 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblAddress { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblCard { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblEmail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblMobile { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblState { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtAddress { get; set; }
 
         [Outlet]
@@ -123,6 +143,31 @@ namespace WineHangoutz
             if (imgProfile != null) {
                 imgProfile.Dispose ();
                 imgProfile = null;
+            }
+
+            if (lblAddress != null) {
+                lblAddress.Dispose ();
+                lblAddress = null;
+            }
+
+            if (lblCard != null) {
+                lblCard.Dispose ();
+                lblCard = null;
+            }
+
+            if (lblEmail != null) {
+                lblEmail.Dispose ();
+                lblEmail = null;
+            }
+
+            if (lblMobile != null) {
+                lblMobile.Dispose ();
+                lblMobile = null;
+            }
+
+            if (lblState != null) {
+                lblState.Dispose ();
+                lblState = null;
             }
 
             if (txtAddress != null) {

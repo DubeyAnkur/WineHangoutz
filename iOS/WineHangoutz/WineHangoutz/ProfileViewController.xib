@@ -28,6 +28,11 @@
                 <outlet property="imgCity" destination="rwq-Sg-y8D" id="name-outlet-rwq-Sg-y8D"/>
                 <outlet property="imgCard" destination="3uE-3M-sd5" id="name-outlet-3uE-3M-sd5"/>
                 <outlet property="txtCardID" destination="4eu-KU-YJ7" id="name-outlet-4eu-KU-YJ7"/>
+                <outlet property="lblEmail" destination="vtd-Gl-ltE" id="name-outlet-vtd-Gl-ltE"/>
+                <outlet property="lblMobile" destination="nex-uj-Xae" id="name-outlet-nex-uj-Xae"/>
+                <outlet property="lblAddress" destination="W5z-YU-CTD" id="name-outlet-W5z-YU-CTD"/>
+                <outlet property="lblState" destination="iLE-at-WZh" id="name-outlet-iLE-at-WZh"/>
+                <outlet property="lblCard" destination="oyy-MV-IjR" id="name-outlet-oyy-MV-IjR"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

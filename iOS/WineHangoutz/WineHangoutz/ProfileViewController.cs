@@ -15,7 +15,6 @@ using System.Net;
 using System.Drawing;
 using ImageIO;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace WineHangoutz
 {
@@ -48,6 +47,7 @@ namespace WineHangoutz
 				//LoggingClass.UploadErrorLogs();
 				if (CurrentUser.RetreiveUserId() == 0)
 				{
+					DownloadAsync();
 					UIAlertView alert = new UIAlertView()
 					{
 						Title = "This feature is allowed only for VIP Card holders",
@@ -56,10 +56,13 @@ namespace WineHangoutz
 
 					alert.AddButton("OK");
 					alert.Show();
+					btnUpdate.SetTitle("Register", UIControlState.Normal);
 				}
 				else
 				{
 					imgCard.Hidden = true;
+					txtCardID.Hidden = true;
+					lblCard.Hidden = true;
 					if (CurrentUser.GetLoginStatus() == true) 
 					{
 
@@ -160,14 +163,6 @@ namespace WineHangoutz
 
 						await sw.UpdateCustomer(cust);
 						BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-						UIAlertView alert1 = new UIAlertView()
-						{
-							Title = "Please click on the locations on top left corner.",
-							//Message = "Coming Soon..."
-						};
-
-						alert1.AddButton("OK");
-						//alert1.Show();
 						try
 						{
                             NavCtrl.PopViewController(true);
