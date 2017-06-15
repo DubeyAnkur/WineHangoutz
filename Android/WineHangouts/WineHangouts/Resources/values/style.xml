@@ -21,5 +21,7 @@
     <item name="android:background">#800080</item>
     <item name="colorAccent">@color/Tab_Highlighter</item>
   </style>
- 
+ <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="android:background">#ffffff</item>
+  </style>
 </resources>

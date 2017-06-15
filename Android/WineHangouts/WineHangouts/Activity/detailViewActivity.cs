@@ -20,60 +20,70 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/logo5")]
-    public class DetailViewActivity : Activity, IPopupParent
-    {
-        public int sku;
-        private int screenid = 4;
-        private int storeid = 0;
-        //Button downloadButton;
-        WebClient webClient;
-        ImageView HighImageWine;
-        //ImageView imgWine;
-        int wineid;
-        //LinearLayout progressLayout;
-        //List<ItemDetails> DetailsArray;
-        List<Review> ReviewArray;
+	[Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/logo5")]
+	public class DetailViewActivity : Activity, IPopupParent
+	{
+		public int sku;
+		private int screenid = 4;
+		private int storeid = 0;
+		//Button downloadButton;
+		WebClient webClient;
+		ImageView HighImageWine;
+		//ImageView imgWine;
+		int wineid;
+		//LinearLayout progressLayout;
+		//List<ItemDetails> DetailsArray;
+		List<Review> ReviewArray;
 
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
+		protected override void OnCreate(Bundle savedInstanceState)
+		{
 			Stopwatch st = new Stopwatch();
 			st.Start();
 			base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.detailedView);
-            wineid = Intent.GetIntExtra("WineID", 123);
-            storeid = Intent.GetIntExtra("storeid",1);
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ServiceWrapper svc = new ServiceWrapper();
-            ItemDetailsResponse myData = new ItemDetailsResponse();
-            ItemReviewResponse SkuRating = new ItemReviewResponse();
-            this.Title = "Wine Details";
-            var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-            TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
-            WineName.Focusable = false;
-            TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
-            WineProducer.Focusable = false;
-            TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
-            Vintage.Focusable = false;
-            TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
-            WineDescription.Focusable = false;
-            RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
-            AvgRating.Focusable = false;
-            TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
-            try
-            {
-                DownloadAsync(this, System.EventArgs.Empty, wineid);
-                myData = svc.GetItemDetails(wineid,storeid).Result;
-                SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
-                ReviewArray = SkuRating.Reviews.ToList();
-                reviewAdapter comments = new reviewAdapter(this, ReviewArray);
-				
-				commentsView.Adapter = comments;
-                setListViewHeightBasedOnChildren1(commentsView);
-                WineName.Text = myData.ItemDetails.Name;
-                WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
-                Vintage.Text = myData.ItemDetails.Vintage.ToString();
+			SetContentView(Resource.Layout.detailedView);
+			wineid = Intent.GetIntExtra("WineID", 123);
+			storeid = Intent.GetIntExtra("storeid", 1);
+			ActionBar.SetHomeButtonEnabled(true);
+			ActionBar.SetDisplayHomeAsUpEnabled(true);
+			ServiceWrapper svc = new ServiceWrapper();
+			ItemDetailsResponse myData = new ItemDetailsResponse();
+			ItemReviewResponse SkuRating = new ItemReviewResponse();
+			this.Title = "Wine Details";
+			var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+			TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
+			WineName.Focusable = false;
+			TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
+			WineProducer.Focusable = false;
+			TextView Vintage = FindViewById<TextView>(Resource.Id.txtVintage);
+			Vintage.Focusable = false;
+			TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
+			WineDescription.Focusable = false;
+			RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
+			AvgRating.Focusable = false;
+			TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
+			try
+			{
+				DownloadAsync(this, System.EventArgs.Empty, wineid);
+				myData = svc.GetItemDetails(wineid, storeid).Result;
+				SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+				ReviewArray = SkuRating.Reviews.ToList();
+				reviewAdapter comments = new reviewAdapter(this, ReviewArray);
+				if (comments.Count == 0)
+				{
+					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+					aler.SetTitle("No Reviews");
+					aler.SetMessage("Be the first one to Review");
+					aler.SetNegativeButton("Ok", delegate { });
+
+					Dialog dialog = aler.Create();
+					dialog.Show();
+				}
+				else
+					commentsView.Adapter = comments;
+				setListViewHeightBasedOnChildren1(commentsView);
+				WineName.Text = myData.ItemDetails.Name;
+				WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
+				Vintage.Text = myData.ItemDetails.Vintage.ToString();
 				if (myData.ItemDetails.Producer == null || myData.ItemDetails.Producer == "")
 				{
 					WineProducer.Text = "Not Available";
@@ -91,48 +101,48 @@ namespace WineHangouts
 					WineDescription.Text = myData.ItemDetails.Producer;
 				}
 				AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
-                Review edit = new Review()
-                {
-                    WineId = wineid,
-                    RatingText = "",
-                    PlantFinal = storeid.ToString()
-                };
-                var tempReview = ReviewArray.Find(x => x.ReviewUserId == Convert.ToInt32(CurrentUser.getUserId()));
-                if(tempReview != null)
-                    edit.RatingText = tempReview.RatingText;
-                ReviewPopup editPopup = new ReviewPopup(this, edit);
-                RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
-			
-                RatingInput.RatingBarChange +=   editPopup.CreatePopup;                   
-                var metrics = Resources.DisplayMetrics;
-                var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
-                var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+				Review edit = new Review()
+				{
+					WineId = wineid,
+					RatingText = "",
+					PlantFinal = storeid.ToString()
+				};
+				var tempReview = ReviewArray.Find(x => x.ReviewUserId == Convert.ToInt32(CurrentUser.getUserId()));
+				if (tempReview != null)
+					edit.RatingText = tempReview.RatingText;
+				ReviewPopup editPopup = new ReviewPopup(this, edit);
+				RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
 
-               
-                HighImageWine = FindViewById<ImageView>(Resource.Id.WineImage);
-                
-                BitmapFactory.Options options = new BitmapFactory.Options
-                {
-                    InJustDecodeBounds = false,
-                    OutHeight = 75,
-                    OutWidth = 75
+				RatingInput.RatingBarChange += editPopup.CreatePopup;
+				var metrics = Resources.DisplayMetrics;
+				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
+				var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
 
-                };
-                ProgressIndicator.Hide();
-                LoggingClass.LogInfo("Entered into detail view"+wineid, screenid);
-                Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
-            }
-            catch (Exception exe)
-            {
-                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Sorry");
-                alert.SetMessage("We're under maintainence");
-                alert.SetNegativeButton("Ok", delegate { });
-                Dialog dialog = alert.Create();
-                dialog.Show();
 
-            }
+				HighImageWine = FindViewById<ImageView>(Resource.Id.WineImage);
+
+				BitmapFactory.Options options = new BitmapFactory.Options
+				{
+					InJustDecodeBounds = false,
+					OutHeight = 75,
+					OutWidth = 75
+
+				};
+				ProgressIndicator.Hide();
+				LoggingClass.LogInfo("Entered into detail view" + wineid, screenid);
+				Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				alert.SetTitle("Sorry");
+				alert.SetMessage("We're under maintainence");
+				alert.SetNegativeButton("Ok", delegate { });
+				Dialog dialog = alert.Create();
+				dialog.Show();
+
+			}
 			//downloadButton = FindViewById<Button>(Resource.Id.Download);
 			//try
 			//{
@@ -144,7 +154,7 @@ namespace WineHangouts
 
 			//catch (Exception e) { }
 			st.Stop();
-			LoggingClass.LogTime("Detail activity",st.Elapsed.TotalSeconds.ToString());
+			LoggingClass.LogTime("Detail activity", st.Elapsed.TotalSeconds.ToString());
 			TokenModel devInfo = new TokenModel();
 			var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 
@@ -173,172 +183,180 @@ namespace WineHangouts
 			LoggingClass.LogInfo("OnResume state in Gridview activity--->" + storeid, screenid);
 		}
 		public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            if (item.ItemId == Android.Resource.Id.Home)
-            {
-                base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from Detail View", screenid);
-				TokenModel devInfo = new TokenModel();
-				var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
+		{
+			if (item.ItemId == Android.Resource.Id.Home)
+			{
+				base.OnBackPressed();
+				LoggingClass.LogInfo("Exited from Detail View", screenid);
+				//TokenModel devInfo = new TokenModel();
+				//var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 
-				ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-				activityManager.GetMemoryInfo(memInfo);
+				//ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+				//activityManager.GetMemoryInfo(memInfo);
 
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
 
-				devInfo.AvailableMainMemory = memInfo.AvailMem;
-				devInfo.IsLowMainMemory = memInfo.LowMemory;
-				devInfo.TotalMainMemory = memInfo.TotalMem;
+				//devInfo.AvailableMainMemory = memInfo.AvailMem;
+				//devInfo.IsLowMainMemory = memInfo.LowMemory;
+				//devInfo.TotalMainMemory = memInfo.TotalMem;
+				ProgressIndicator.Hide();
 				return false;
-            }
-            return base.OnOptionsItemSelected(item);
-        }
+			}
+			return base.OnOptionsItemSelected(item);
+		}
 
-        private int ConvertPixelsToDp(float pixelValue)
-        {
-            var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
-            return dp;
-        }
-        public void setListViewHeightBasedOnChildren(ListView listView)
-        {
-            DetailsViewAdapter listAdapter = (DetailsViewAdapter)listView.Adapter;
-            if (listAdapter == null)
-                return;
+		private int ConvertPixelsToDp(float pixelValue)
+		{
+			var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
+			return dp;
+		}
+		public void setListViewHeightBasedOnChildren(ListView listView)
+		{
+			DetailsViewAdapter listAdapter = (DetailsViewAdapter)listView.Adapter;
+			if (listAdapter == null)
+				return;
 
-            int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView.Width, MeasureSpecMode.Unspecified);
-            int heightMeasureSpec = View.MeasureSpec.MakeMeasureSpec(ViewGroup.LayoutParams.WrapContent, MeasureSpecMode.Exactly);
-            int totalHeight = 0;
-            View view = null;
-            for (int i = 0; i < listAdapter.Count; i++)
-            {
-                view = listAdapter.GetView(i, view, listView);
-                if (i == 0)
-                    view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, WindowManagerLayoutParams.WrapContent);
+			int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView.Width, MeasureSpecMode.Unspecified);
+			int heightMeasureSpec = View.MeasureSpec.MakeMeasureSpec(ViewGroup.LayoutParams.WrapContent, MeasureSpecMode.Exactly);
+			int totalHeight = 0;
+			View view = null;
+			for (int i = 0; i < listAdapter.Count; i++)
+			{
+				view = listAdapter.GetView(i, view, listView);
+				if (i == 0)
+					view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, WindowManagerLayoutParams.WrapContent);
 
-                view.Measure(desiredWidth, heightMeasureSpec);
-                totalHeight += view.MeasuredHeight;
-            }
-            ViewGroup.LayoutParams params1 = listView.LayoutParameters;
-            params1.Height = totalHeight + (listView.DividerHeight * (listAdapter.Count - 1));
-            listView.LayoutParameters = params1;
-        }
-        public void setListViewHeightBasedOnChildren1(ListView listView1)
-        {
-            reviewAdapter listAdapter = (reviewAdapter)listView1.Adapter;
-            if (listAdapter == null)
-                return;
+				view.Measure(desiredWidth, heightMeasureSpec);
+				totalHeight += view.MeasuredHeight;
+			}
+			ViewGroup.LayoutParams params1 = listView.LayoutParameters;
+			params1.Height = totalHeight + (listView.DividerHeight * (listAdapter.Count - 1));
+			listView.LayoutParameters = params1;
+		}
+		public void setListViewHeightBasedOnChildren1(ListView listView1)
+		{
+			reviewAdapter listAdapter = (reviewAdapter)listView1.Adapter;
+			if (listAdapter == null)
+				return;
 
-            int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView1.Width, MeasureSpecMode.Unspecified);
-            int heightMeasureSpec = View.MeasureSpec.MakeMeasureSpec(ViewGroup.LayoutParams.WrapContent, MeasureSpecMode.Exactly);
-            int totalHeight = 0;
-            View view = null;
-            for (int i = 0; i < listAdapter.Count; i++)
-            {
-                view = listAdapter.GetView(i, view, listView1);
-                if (i == 0)
-                    view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, WindowManagerLayoutParams.WrapContent);
+			int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView1.Width, MeasureSpecMode.Unspecified);
+			int heightMeasureSpec = View.MeasureSpec.MakeMeasureSpec(ViewGroup.LayoutParams.WrapContent, MeasureSpecMode.Exactly);
+			int totalHeight = 0;
+			View view = null;
+			for (int i = 0; i < listAdapter.Count; i++)
+			{
+				view = listAdapter.GetView(i, view, listView1);
+				if (i == 0)
+					view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, WindowManagerLayoutParams.WrapContent);
 
-                view.Measure(desiredWidth, heightMeasureSpec);
-                totalHeight += view.MeasuredHeight;
-            }
-            ViewGroup.LayoutParams params1 = listView1.LayoutParameters;
-            params1.Height = totalHeight + (listView1.DividerHeight * (listAdapter.Count - 1));
-            listView1.LayoutParameters = params1;
-        }
+				view.Measure(desiredWidth, heightMeasureSpec);
+				totalHeight += view.MeasuredHeight;
+			}
+			ViewGroup.LayoutParams params1 = listView1.LayoutParameters;
+			params1.Height = totalHeight + (listView1.DividerHeight * (listAdapter.Count - 1));
+			listView1.LayoutParameters = params1;
+		}
 
-        public int PixelsToDp(int pixels)
-        {
-            return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
-        }
-        public void RefreshParent()
-        {
-            ServiceWrapper svc = new ServiceWrapper();
-            int wineid = Intent.GetIntExtra("WineID", 138);
-            ItemDetailsResponse myData = svc.GetItemDetails(wineid,storeid).Result;
-            var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
-            this.Title = "Wine Details";
-            var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-            reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
-            commentsView.Adapter = comments;
-            comments.NotifyDataSetChanged();
-        }
+		public int PixelsToDp(int pixels)
+		{
+			return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
+		}
+		public void RefreshParent()
+		{
+			ServiceWrapper svc = new ServiceWrapper();
+			int wineid = Intent.GetIntExtra("WineID", 138);
+			ItemDetailsResponse myData = svc.GetItemDetails(wineid, storeid).Result;
+			var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+			this.Title = "Wine Details";
+			var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+			reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
+			commentsView.Adapter = comments;
+			comments.NotifyDataSetChanged();
+		}
 
-        public async void DownloadAsync(object sender, System.EventArgs ea, int wineid)
-        {
-            webClient = new WebClient();
-			string url=null;
+		public async void DownloadAsync(object sender, System.EventArgs ea, int wineid)
+		{
+			webClient = new WebClient();
+			string url = null;
+			
+
 			if (storeid == 1)
 			{
 				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/" + wineid + ".jpg";
-				LoggingClass.LogInfo("Download Async image in detail view" + wineid+ + ',' + storeid , screenid);
+				LoggingClass.LogInfo("Download Async image in detail view" + wineid + +',' + storeid, screenid);
 			}
 			else if (storeid == 2)
 			{
-				 url = "https://icsintegration.blob.core.windows.net/bottleimagesdetailspp/" + wineid + ".jpg";
+				url = "https://icsintegration.blob.core.windows.net/bottleimagesdetailspp/" + wineid + ".jpg";
 				LoggingClass.LogInfo("Download Async image in detail view" + wineid + +',' + storeid, screenid);
 			}
-				byte[] imageBytes = null;
-				//progressLayout.Visibility = ViewStates.Visible;
-				try
-				{
+			byte[] imageBytes = null;
+			//progressLayout.Visibility = ViewStates.Visible;
+			try
+			{
+
+			
+		
 					imageBytes = await webClient.DownloadDataTaskAsync(url);
-
-				}
 				
-            catch (TaskCanceledException)
-            {
-                //this.progressLayout.Visibility = ViewStates.Gone;
-                return;
-            }
-            catch (Exception exe)
-            {
-                LoggingClass.LogError("while downloading image of wine id"+wineid+"  "+exe.Message, screenid, exe.StackTrace.ToString());
-                //progressLayout.Visibility = ViewStates.Gone;
-                //downloadButton.Click += downloadAsync;
-                //downloadButton.Text = "Download Image";
-                Bitmap imgWine=BlobWrapper.Bottleimages(wineid,storeid);
-                HighImageWine.SetImageBitmap(imgWine);
-                return;
-            }
 
-            try
-            {
-                string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                string localFilename = "Wine.png";
-                string localPath = System.IO.Path.Combine(documentsPath, localFilename);
+			}
+			
 
-                FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
-                await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
-                fs.Close();
+			catch (TaskCanceledException)
+			{
+				//this.progressLayout.Visibility = ViewStates.Gone;
+				return;
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError("while downloading image of wine id" + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
+				//progressLayout.Visibility = ViewStates.Gone;
+				//downloadButton.Click += downloadAsync;
+				//downloadButton.Text = "Download Image";
+				Bitmap imgWine = BlobWrapper.Bottleimages(wineid, storeid);
+				HighImageWine.SetImageBitmap(imgWine);
+				return;
+			}
 
-                BitmapFactory.Options options = new BitmapFactory.Options()
-                {
-                    InJustDecodeBounds = true
-                };
-                await BitmapFactory.DecodeFileAsync(localPath, options);
-                
-                Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
-                if (bitmap == null)
-                {
-                    HighImageWine.SetImageResource(Resource.Drawable.wine7);
-                }
-                HighImageWine.SetImageBitmap(bitmap);
-            }
-            catch (Exception exe)
-            {
-                LoggingClass.LogError("While setting High resulution image" + exe.Message, screenid, exe.StackTrace.ToString());
-                
-            }
+			try
+			{
+				string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+				string localFilename = "Wine.png";
+				string localPath = System.IO.Path.Combine(documentsPath, localFilename);
 
-            //progressLayout.Visibility = ViewStates.Gone;
-            //downloadButton.Click += downloadAsync;
-            //downloadButton.Enabled = false;
-            HighImageWine.Dispose();
-            //downloadButton.Text = "Download Image";
-        }
-    }
+				FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
+				await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
+				fs.Close();
+
+				BitmapFactory.Options options = new BitmapFactory.Options()
+				{
+					InJustDecodeBounds = true
+				};
+				await BitmapFactory.DecodeFileAsync(localPath, options);
+
+				Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
+				if (bitmap == null)
+				{
+					HighImageWine.SetImageResource(Resource.Drawable.bottle);
+				}
+				HighImageWine.SetImageBitmap(bitmap);
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError("While setting High resulution image" + exe.Message, screenid, exe.StackTrace.ToString());
+
+			}
+
+			//progressLayout.Visibility = ViewStates.Gone;
+			//downloadButton.Click += downloadAsync;
+			//downloadButton.Enabled = false;
+			HighImageWine.Dispose();
+			//downloadButton.Text = "Download Image";
+		}
+	}
 
 }
 

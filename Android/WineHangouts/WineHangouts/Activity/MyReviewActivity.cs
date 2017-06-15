@@ -40,7 +40,7 @@ namespace WineHangouts
 				int c = uidreviews.Reviews.Count;
 				if (c == 0)
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
 					//aler.SetTitle("No Reviews Avalilable");
 					aler.SetMessage("Sorry you haven't Reviewed our wines");
 					aler.SetNegativeButton("Ok", delegate {

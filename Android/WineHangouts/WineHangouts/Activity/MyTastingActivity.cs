@@ -39,7 +39,7 @@ namespace WineHangouts
                 myArr1 = MYtastings.TastingList.ToList();
 				if (MYtastings.TastingList.Count == 0)
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
 					//aler.SetTitle("No Reviews Avalilable");
 					aler.SetMessage("Sorry you haven't Tasted our wines");
 					LoggingClass.LogInfo("Sorry you haven't Tasted our wines alert", screenid);

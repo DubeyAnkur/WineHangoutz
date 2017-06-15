@@ -99,10 +99,13 @@ namespace WineHangouts
                 {
 					if (CurrentUser.getUserId() == null)
 					{
-						AlertDialog.Builder aler = new AlertDialog.Builder(Parent);
+						AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
 						aler.SetTitle("Sorry");
 						aler.SetMessage("This Feature is available for VIP Users only");
-						aler.SetNegativeButton("Ok", delegate { });
+						aler.SetNegativeButton("Ok", delegate {
+							LoggingClass.LogInfo("Closed PoPup", screenid);
+							editDialog.Dismiss();
+						});
 						Dialog dialog1 = aler.Create();
 						dialog1.Show();
 					}

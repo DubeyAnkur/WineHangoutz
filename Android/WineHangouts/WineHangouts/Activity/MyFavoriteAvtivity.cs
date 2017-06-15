@@ -17,14 +17,14 @@ namespace WineHangouts
 	public class MyFavoriteAvtivity : Activity
 	{
 		public string StoreName = "";
-        private int screenid = 7;
+		private int screenid = 7;
 		public Context parent;
 		protected override void OnCreate(Bundle bundle)
 		{
 			Stopwatch st = new Stopwatch();
 			st.Start();
 			base.OnCreate(bundle);
-           try
+			try
 			{
 				SetContentView(Resource.Layout.MyFavoriteGridView);
 				ActionBar.SetHomeButtonEnabled(true);
@@ -40,7 +40,7 @@ namespace WineHangouts
 				myArr = output.ItemList.ToList();
 				if (output.ItemList.Count == 0)
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this);
+					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
 					//aler.SetTitle("No Reviews Avalilable");
 					aler.SetMessage("Sorry you didn't tell us your Favourite wines");
 					LoggingClass.LogInfo("Sorry you didn't tell us your Favourite wines", screenid);
@@ -68,7 +68,7 @@ namespace WineHangouts
 						intent.PutExtra("storeid", storeid);
 						StartActivity(intent);
 					};
-					
+
 					LoggingClass.LogInfo("Entered into My Favorites Activity", screenid);
 				}
 				st.Stop();
@@ -78,15 +78,15 @@ namespace WineHangouts
 
 			catch (Exception exe)
 			{
-                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-                ProgressIndicator.Hide();
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+				ProgressIndicator.Hide();
 				AlertDialog.Builder aler = new AlertDialog.Builder(this);
 				aler.SetTitle("Sorry");
 				aler.SetMessage("We're under maintainence");
 				aler.SetNegativeButton("Ok", delegate { });
 				Dialog dialog = aler.Create();
 				dialog.Show();
-            }
+			}
 		}
 		protected override void OnPause()
 		{
@@ -102,14 +102,14 @@ namespace WineHangouts
 		}
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            if (item.ItemId == Android.Resource.Id.Home)
-            {
-                base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from My Favorites", screenid);
-                return false;
-            }
-            return base.OnOptionsItemSelected(item);
-        }
+		{
+			if (item.ItemId == Android.Resource.Id.Home)
+			{
+				base.OnBackPressed();
+				LoggingClass.LogInfo("Exited from My Favorites", screenid);
+				return false;
+			}
+			return base.OnOptionsItemSelected(item);
+		}
 	}
 }

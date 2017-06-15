@@ -28,7 +28,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100.5dp"
                 android:id="@+id/propicview"
-                android:src="@drawable/ic_action_person"
+                android:src="@drawable/profileempty"
                 app:civ_border_width="0.3dp"
                 app:civ_border_color="#808080" />
             <ImageButton
@@ -264,15 +264,15 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/ic_action_place"
-                    android:layout_width="match_parent"
+                    android:src="@drawable/card"
+                    android:layout_width="17.5dp"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
                     android:layout_gravity="left" />
                 <TextView
-                    android:text="City"
+                    android:text="Card Number"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView17"

@@ -321,7 +321,7 @@ namespace WineHangouts
 				}
 				else
 				{
-					imgWine.SetImageResource(Resource.Drawable.wine7);
+					imgWine.SetImageResource(Resource.Drawable.bottle);
 				}
 
 				txtName.Focusable = false;

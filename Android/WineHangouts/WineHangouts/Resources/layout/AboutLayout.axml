@@ -8,77 +8,84 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minWidth="25px"
-        android:minHeight="25px">
+        android:minHeight="25px"
+        android:background="#ffffff">
         <TextView
             android:text="Wine Hangouts"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="67.0dp"
             android:id="@+id/textView1"
             android:gravity="center"
-            android:textSize="50dp" />
+            android:textSize="50dp"
+            android:textColor="#800080" />
         <TextView
-            android:text="Uncork the Merriment"
+            android:text="Uncork the Merriment:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
-            android:gravity="center"
-            android:textSize="30dp" />
+            android:gravity="left"
+            android:textSize="25dp"
+            android:textColor="#000000" />
         <TextView
             android:text="A delicious bottled wine is the way to the perfect blend of joy. Wine Hangouts is thus, developed to facilitate the wine lovers to deliver a complete wine experience through the internationally acclaimed wines and beers. Sticking strict to the quality, Wine Hangouts brings in the best self-serve partners in the industry: Enomatic- The World’s #1Wine Dispenser and Wine Preservation System and iPoruIt – A revolutionary self-serve solution for beers, to elevate the merriment of our guests to the best. "
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:textColor="#000000" />
         <TextView
-            android:text="WHO WE ARE"
+            android:text="WHO WE ARE:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:gravity="left"
-            android:textSize="30dp"
-            android:paddingLeft="15dp" />
+            android:textSize="25dp"
+            android:textColor="#000000" />
         <TextView
             android:text="@string/whoweare"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:textColor="#000000" />
         <TextView
-            android:text="WHAT WE OFFER"
+            android:text="WHAT WE OFFER:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:gravity="left"
-            android:textSize="30dp"
-            android:paddingLeft="15dp" />
+            android:textSize="25dp"
+            android:textColor="#000000" />
         <TextView
             android:text="@string/WHATWEOFFER"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:textColor="#000000" />
         <TextView
-            android:text="Rate and Review"
+            android:text="Rate and Review:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:gravity="left"
-            android:textSize="30dp"
-            android:paddingLeft="15dp" />
+            android:textSize="25dp"
+            android:textColor="#000000" />
         <TextView
             android:text="@string/RandR"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:textColor="#000000" />
     </LinearLayout>
 </ScrollView>
