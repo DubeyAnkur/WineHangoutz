@@ -32,6 +32,7 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
+                this.View.InsertSubview (new UIImageView(UIImage.FromBundle("Info.png")),9000);
 				DismissKeyboardOnBackgroundTap();
 				UITextField txtCardID;
 
@@ -47,7 +48,7 @@ namespace WineHangoutz
 				//EmailVerification();
 
 				lblError = new UILabel();
-				lblError.Frame = new CGRect(10, imageSize + 70, View.Frame.Width, h * 2);
+				lblError.Frame = new CGRect(20, imageSize + 60, View.Frame.Width, h * 2);
 				lblError.Text = "";
 				lblError.LineBreakMode = UILineBreakMode.WordWrap;
 				lblError.Lines = 0;
@@ -56,31 +57,31 @@ namespace WineHangoutz
 
 
 				lblFN = new UILabel();
-				lblFN.Frame = new CGRect(10, imageSize + 100, View.Frame.Width, h);
+				lblFN.Frame = new CGRect(20, imageSize + 100, View.Frame.Width, h);
 				lblFN.Text = "";
 				lblFN.TextAlignment = UITextAlignment.Left;
 
 
 				var lblIns = new UILabel();
-				lblIns.Frame = new CGRect(10, imageSize + 80, View.Frame.Width - 200, h);
-				lblIns.LineBreakMode = UILineBreakMode.WordWrap;
+				lblIns.Frame = new CGRect(20, imageSize + 80, View.Frame.Width - 150, h);
+				//lblIns.LineBreakMode = UILineBreakMode.WordWrap;
 				lblIns.Lines = 0;
-				lblIns.Text = "Please enter your Card ID and a valid Email address.";
+				lblIns.Text = "Enter your details to Log In";
 				lblIns.TextAlignment = UITextAlignment.Left;
 				//lblIns.Editable = false;
 
 				var lblName = new UILabel();
-				lblName.Frame = new CGRect(10, imageSize + 120, View.Frame.Width, 20);
+				lblName.Frame = new CGRect(20, imageSize + 120, View.Frame.Width, 20);
 				lblName.TextAlignment = UITextAlignment.Left;
 				lblName.Text = "Card ID";
 
 				UIButton btnInfo = new UIButton();
-				btnInfo.Frame = new CGRect(70, imageSize + 120, 20, 20);
+				btnInfo.Frame = new CGRect(80, imageSize + 120, 15, 15);
 				btnInfo.SetBackgroundImage(new UIImage("Info.png"), UIControlState.Normal);
 				//btnInfo.TouchUpInside += (sender, e) =>
 			 //  {
 				//	imgSampleCard = new UIImageView();
-				//   imgSampleCard.Image=UIImage.FromFile("logo5.png");
+				//   imgSampleCard.Image=UIImage.FromFile("card.jpg");
 				//	imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
 				//   View.AddSubview(imgSampleCard);
 
@@ -88,9 +89,9 @@ namespace WineHangoutz
 
 				txtCardID = new UITextField
 				{
-					Placeholder = "e.g. 1234 5678 8765 4321",
+					Placeholder = "e.g. 123456789123",
 					BorderStyle = UITextBorderStyle.RoundedRect,
-					Frame = new CGRect(10, imageSize + 145, 300, h)
+					Frame = new CGRect(20, imageSize + 145, 300, h)
 						
 				};
 
@@ -104,7 +105,7 @@ namespace WineHangoutz
 				txtCardID.KeyboardType = UIKeyboardType.PhonePad;
 
 				var lblEmail = new UILabel();
-				lblEmail.Frame = new CGRect(10, imageSize + 180, View.Frame.Width, h);
+				lblEmail.Frame = new CGRect(20, imageSize + 195, View.Frame.Width, h);
 				lblEmail.Text = "Email";
 				lblEmail.TextAlignment = UITextAlignment.Left;
 
@@ -113,7 +114,7 @@ namespace WineHangoutz
 				{
 					Placeholder = "e.g. john@wineoutlet.com",
 					BorderStyle = UITextBorderStyle.RoundedRect,
-					Frame = new CGRect(10, imageSize + 220, 300, h)
+					Frame = new CGRect(20, imageSize + 225, 300, h)
 				};
 				txtEmail.ShouldReturn += (TextField) =>
 				  {
@@ -128,20 +129,28 @@ namespace WineHangoutz
 					txtEmail.Text = CurrentUser.GetEmail();
 				}
 
-				UIButton btnLogin = new UIButton(new CGRect(0, imageSize + 270, View.Frame.Width - 28, 20));
-				btnLogin.SetTitle("Login", UIControlState.Normal);
+				UIButton btnLogin = new UIButton(new CGRect(130, imageSize + 280, 120, 30));
+				btnLogin.SetTitle("Log In", UIControlState.Normal);
 				btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-				btnLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+				btnLogin.BackgroundColor = UIColor.Purple;
 				//btnLogin.SetImage(UIImage.FromFile ("Images/gl.png"), UIControlState.Normal);
 
-				btnGuestLogin = new UIButton(new CGRect(120, imageSize + 400, 125, 75));
-				btnGuestLogin.SetTitle("Guest Login", UIControlState.Normal);
+				var lblGuest = new UILabel();
+				lblGuest.Frame = new CGRect(20, imageSize + 340, View.Frame.Width, h);
+				lblGuest.Text = "Not a VIP Member?";
+				lblGuest.TextAlignment = UITextAlignment.Left;
+				lblGuest.Font = UIFont.ItalicSystemFontOfSize(17);
+
+				btnGuestLogin = new UIButton(new CGRect(180, imageSize + 340, 120, 30));
+				btnGuestLogin.SetTitle("Guest Log In", UIControlState.Normal);
 				btnGuestLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-				//btnGuestLogin.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-				btnGuestLogin.SetImage(UIImage.FromFile ("Images/gl.png"), UIControlState.Normal);
+				btnGuestLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+				btnGuestLogin.BackgroundColor = UIColor.Purple;
+				//btnGuestLogin.SetImage(UIImage.FromFile ("Images/gl.png"), UIControlState.Normal);
 
 
-				btnVerify = new UIButton(new CGRect(14, imageSize + 270, 240, 20));
+				btnVerify = new UIButton(new CGRect(24, imageSize + 270, 240, 20));
 				btnVerify.SetTitle("Verify", UIControlState.Normal);
 				btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 				btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
@@ -241,6 +250,7 @@ namespace WineHangoutz
 				View.AddSubview(lblName);
 				View.AddSubview(lblIns);
 				View.AddSubview(btnInfo);
+				View.AddSubview(lblGuest);
 			}
 			catch (Exception exe)
 			{

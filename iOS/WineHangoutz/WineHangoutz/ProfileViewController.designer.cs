@@ -32,14 +32,6 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView imgCard { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView imgCity { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView imgEmail { get; set; }
 
         [Outlet]
@@ -56,10 +48,6 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblCard { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblEmail { get; set; }
 
         [Outlet]
@@ -69,6 +57,10 @@ namespace WineHangoutz
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblState { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblZipcode { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -120,16 +112,6 @@ namespace WineHangoutz
                 imgAddr = null;
             }
 
-            if (imgCard != null) {
-                imgCard.Dispose ();
-                imgCard = null;
-            }
-
-            if (imgCity != null) {
-                imgCity.Dispose ();
-                imgCity = null;
-            }
-
             if (imgEmail != null) {
                 imgEmail.Dispose ();
                 imgEmail = null;
@@ -150,11 +132,6 @@ namespace WineHangoutz
                 lblAddress = null;
             }
 
-            if (lblCard != null) {
-                lblCard.Dispose ();
-                lblCard = null;
-            }
-
             if (lblEmail != null) {
                 lblEmail.Dispose ();
                 lblEmail = null;
@@ -168,6 +145,11 @@ namespace WineHangoutz
             if (lblState != null) {
                 lblState.Dispose ();
                 lblState = null;
+            }
+
+            if (lblZipcode != null) {
+                lblZipcode.Dispose ();
+                lblZipcode = null;
             }
 
             if (txtAddress != null) {

@@ -73,9 +73,9 @@ namespace WineHangoutz
 				}
 				else
 				{
-					imgCard.Hidden = true;
-					txtCardID.Hidden = true;
-					lblCard.Hidden = true;
+					//imgCard.Hidden = true;
+					//txtCardID.Hidden = true;
+					//lblCard.Hidden = true;
 					if (CurrentUser.GetLoginStatus() == true) 
 					{
 
@@ -213,9 +213,9 @@ namespace WineHangoutz
 
 					imgAddr.Image = new UIImage("add.png");
 
-					imgCity.Image = new UIImage("City1.png");
+					//imgCity.Image = new UIImage("City1.png");
 
-					imgCard.Image = new UIImage("card.png");
+					//imgCard.Image = new UIImage("card.png");
 
 					imgPhone.Image = new UIImage("phone1.png");
 			}

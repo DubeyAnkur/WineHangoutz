@@ -72,6 +72,7 @@ namespace WineHangoutz
 					}
 				}	
 				else
+					
 					myData = svc.GetItemList(storeId, CurrentUser.RetreiveUserId()).Result;
 			
 
@@ -115,7 +116,25 @@ namespace WineHangoutz
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section)
 		{
-			return myData.ItemList.Count;
+			nint cou = 0;
+			try
+			{
+				cou= myData.ItemList.Count;
+				//myData.ErrorDescription
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Sorry",
+					Message = "We are under maintenance"
+				};
+
+				alert.AddButton("OK");
+				alert.Show();
+			}
+			return cou;
 		}
 		public override void PerformAction(UICollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender)
 		{
@@ -125,49 +144,64 @@ namespace WineHangoutz
 		}
 		public void BindData(APLCollectionViewCell cell, NSIndexPath indexPath, Boolean fav)
 		{
-			cell.NavigationController = NavigationController;
-			//cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
-			cell.parent = this.View;
-			   
+			try
+			{
+				cell.NavigationController = NavigationController;
+				//cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
+				cell.parent = this.View;
 
-			int index = (int)indexPath.Item;
 
-			//Data from Model
-			//cell.WineName = myData.ItemList[index].Name;
-			cell.Vintage = myData.ItemList[index].Vintage.ToString();
-			cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
-			cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-			cell.WineId = myData.ItemList[index].WineId.ToString();
-			if (fav == true)
-			{
-				cell.storeId = myData.ItemList[index].PlantFinal.ToString();
-			}
-			else
-			{
-				cell.storeId = storeId.ToString();
-			}
-			cell.lblName.Text = myData.ItemList[index].Name;
-			cell.lblYear.Text= myData.ItemList[index].Vintage.ToString();
-			cell.lblRegPrice.Text= myData.ItemList[index].RegPrice.ToString("C",Cultures.UnitedState);
-			cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
-			cell.myItem = myData.ItemList[index];
+				int index = (int)indexPath.Item;
 
-			if (myData.ItemList[index].IsLike == true)
-			{
-				cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+				//Data from Model
+				//cell.WineName = myData.ItemList[index].Name;
+				cell.Vintage = myData.ItemList[index].Vintage.ToString();
+				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
+				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
+				cell.WineId = myData.ItemList[index].WineId.ToString();
+				if (fav == true)
+				{
+					cell.storeId = myData.ItemList[index].PlantFinal.ToString();
+				}
+				else
+				{
+					cell.storeId = storeId.ToString();
+				}
+				cell.lblName.Text = myData.ItemList[index].Name;
+				cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
+				cell.lblRegPrice.Text = myData.ItemList[index].RegPrice.ToString("C", Cultures.UnitedState);
+				cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
+				cell.myItem = myData.ItemList[index];
+
+				if (myData.ItemList[index].IsLike == true)
+				{
+					cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+				}
+				else
+				{
+					cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				}
+				//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
+				UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds, cell.storeId.ToString());
+				if (image != null)
+				{
+					cell.btlImage.SetImage(image, UIControlState.Normal);
+				}
+				else
+					cell.btlImage.SetImage(img, UIControlState.Normal);
 			}
-			else
+			catch (Exception ex)
 			{
-				cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "We are under ma",
+					//Message = "Coming Soon..."
+				};
+
+				alert.AddButton("OK");
+				alert.Show();
 			}
-			//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
-			UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds,cell.storeId.ToString());
-			if (image != null)
-			{
-				cell.btlImage.SetImage(image, UIControlState.Normal);
-			}
-			else
-				cell.btlImage.SetImage(img, UIControlState.Normal);
 		}
 		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
 		{

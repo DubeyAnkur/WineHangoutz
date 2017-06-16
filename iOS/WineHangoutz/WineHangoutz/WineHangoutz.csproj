@@ -259,6 +259,10 @@
     <Compile Include="DummyViewController.designer.cs">
       <DependentUpon>DummyViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI.cs" />
+    <Compile Include="UI.designer.cs">
+      <DependentUpon>UI.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
@@ -332,6 +336,7 @@
     <BundleResource Include="Images\loadin.png" />
     <BundleResource Include="Images\gl.png" />
     <BundleResource Include="Resources\card.png" />
+    <BundleResource Include="Resources\card.jpg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">
