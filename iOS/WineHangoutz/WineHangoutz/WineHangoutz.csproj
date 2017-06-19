@@ -113,6 +113,15 @@
     <Reference Include="Hangouts.Models">
       <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
     </Reference>
+    <Reference Include="ZXing.Net.Mobile.Core">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.portable">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\Xamarin.iOS10\zxing.portable.dll</HintPath>
+    </Reference>
+    <Reference Include="ZXingNetMobile">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -188,6 +197,7 @@
     <InterfaceDefinition Include="ProfileViewController.xib" />
     <InterfaceDefinition Include="AboutController.xib" />
     <InterfaceDefinition Include="DummyViewController.xib" />
+    <InterfaceDefinition Include="TestController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -262,6 +272,10 @@
     <Compile Include="UI.cs" />
     <Compile Include="UI.designer.cs">
       <DependentUpon>UI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestController.cs" />
+    <Compile Include="TestController.designer.cs">
+      <DependentUpon>TestController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +363,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="azure-messaging">
       <Version>1.2.5.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="zxing.net.mobile">
+      <Version>2.1.12</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

@@ -4,6 +4,7 @@ using CoreGraphics;
 using Foundation;
 using Hangout.Models;
 using BigTed;
+using ZXing.Mobile;
 
 namespace WineHangoutz
 {
@@ -29,13 +30,14 @@ namespace WineHangoutz
 		UILabel lblError;
 		public override void ViewDidLoad()
 		{
+			
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
-                this.View.InsertSubview (new UIImageView(UIImage.FromBundle("Info.png")),9000);
+               // this.View.InsertSubview (new UIImageView(UIImage.FromBundle("Info.png")),9000);
 				DismissKeyboardOnBackgroundTap();
 				UITextField txtCardID;
-
+				MobileBarcodeScanner scanner = new MobileBarcodeScanner();
 				nfloat h = 31.0f;
 				nfloat w = View.Bounds.Width;
 				nfloat imageSize = 50;
@@ -75,18 +77,6 @@ namespace WineHangoutz
 				lblName.TextAlignment = UITextAlignment.Left;
 				lblName.Text = "Card ID";
 
-				UIButton btnInfo = new UIButton();
-				btnInfo.Frame = new CGRect(80, imageSize + 120, 15, 15);
-				btnInfo.SetBackgroundImage(new UIImage("Info.png"), UIControlState.Normal);
-				//btnInfo.TouchUpInside += (sender, e) =>
-			 //  {
-				//	imgSampleCard = new UIImageView();
-				//   imgSampleCard.Image=UIImage.FromFile("card.jpg");
-				//	imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
-				//   View.AddSubview(imgSampleCard);
-
-			 //  };
-
 				txtCardID = new UITextField
 				{
 					Placeholder = "e.g. 123456789123",
@@ -94,6 +84,32 @@ namespace WineHangoutz
 					Frame = new CGRect(20, imageSize + 145, 300, h)
 						
 				};
+
+				UIButton btnInfo = new UIButton();
+				btnInfo.Frame = new CGRect(80, imageSize + 120, 25, 25);
+				btnInfo.SetBackgroundImage(new UIImage("Info.png"), UIControlState.Normal);
+				btnInfo.TouchUpInside += async (sender, e) =>
+			   {
+				   try
+				   {
+					   scanner.UseCustomOverlay = false;
+					   var result = await scanner.Scan();
+
+					   if (result != null)
+						   txtCardID.Text = result.Text;//Console.WriteLine("Scanned Barcode: " + result.Text);
+				   }
+				   catch (Exception exe)
+				   { 
+						
+					}
+					//imgSampleCard = new UIImageView();
+				 //  imgSampleCard.Image=UIImage.FromFile("card.jpg");
+					//imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
+				 //  View.AddSubview(imgSampleCard);
+
+			   };
+
+
 
 				UIToolbar toolbar = new UIToolbar(new CGRect(0.0f, 0.0f, this.View.Frame.Size.Width, 44.0f));
 				toolbar.Items = new UIBarButtonItem[] { 

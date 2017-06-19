@@ -3,6 +3,8 @@ using CoreGraphics;
 using UIKit;
 using Foundation;
 using BigTed;
+using ZXing.Mobile;
+
 namespace WineHangoutz
 {
 	public class AboutController1:UIViewController
@@ -20,7 +22,32 @@ namespace WineHangoutz
 			try
 			{
 				base.ViewDidLoad();
-
+				MobileBarcodeScanningOptions options=null;
+				MobileBarcodeScanner hi = new MobileBarcodeScanner();
+				UIButton btnInfo = new UIButton();
+				btnInfo.Frame = new CGRect(40, 40, 35, 35);
+				btnInfo.SetBackgroundImage(new UIImage("Info.png"), UIControlState.Normal);
+				btnInfo.TouchUpInside += async(sender, e) =>
+				{
+					//NavigationController.PushViewController(new TestController(options,hi), false);
+					try
+					{
+						
+						//var scanner = new MobileBarcodeScanner(this.NavigationController);
+						var result = await hi.Scan();
+						hi.UseCustomOverlay = false;
+						if (result != null)
+							Console.WriteLine("Scanned Barcode: " + result.Text);
+						//imgSampleCard = new UIImageView();
+						//  imgSampleCard.Image=UIImage.FromFile("card.jpg");
+						//imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);
+						//  View.AddSubview(imgSampleCard);
+					}
+					catch (Exception exe)
+					{
+						Console.WriteLine(exe.StackTrace.ToString());
+					}
+				};
 
 				LoggingClass.LogInfo("Entered into About View ", screenid);
 				UITextView Title1 = new UITextView();
@@ -129,6 +156,7 @@ namespace WineHangoutz
 				scrollView.AddSubview(p4);
 				scrollView.AddSubview(p5);
 				scrollView.AddSubview(p6);
+				scrollView.AddSubview(btnInfo);
 				for (int i = 0; i<scrollView.Subviews.Length ; i++)
 				{
 					h = scrollView.Subviews[i].Frame.Size.Height+120;
