@@ -38,6 +38,15 @@ namespace WineHangoutz
 						hi.UseCustomOverlay = false;
 						if (result != null)
 							Console.WriteLine("Scanned Barcode: " + result.Text);
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = result.Text,
+							//Message = "Coming Soon..."
+						};
+
+						alert.AddButton("OK");
+
+						alert.Show();
 						//imgSampleCard = new UIImageView();
 						//  imgSampleCard.Image=UIImage.FromFile("card.jpg");
 						//imgSampleCard.Frame = new CGRect(10, imageSize + 120, 200, 100);

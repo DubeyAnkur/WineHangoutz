@@ -49,25 +49,14 @@ namespace WineHangoutz
 			UIImage info = UIImage.FromFile("Info.png");
 			info = ResizeImage(info, 25, 25);
 
-			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
-			{
-				BTProgressHUD.Show("Loading,,,");
-				nav.PushViewController(new ProfileViewController(nav), false);
-				nav.NavigationBar.TopItem.Title = "Profile";
-				BTProgressHUD.Dismiss();
-			});
-			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
-			{
-				BTProgressHUD.Show("Loading,,,");
-				nav.PushViewController(new AboutController1(nav), false);
-				nav.NavigationBar.TopItem.Title = "About Us";
-				BTProgressHUD.Dismiss();
-			});
+
 			ManageTabBar(RootTab);
 
-			nav = new UINavigationController(Window.RootViewController);
-			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
-			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
+			var login = new LoginViewController();
+			login.RootTabs = Window.RootViewController;
+			login._window = Window;
+
+			nav = new UINavigationController(login);
 
 			Window.RootViewController = nav;
 
@@ -135,11 +124,17 @@ namespace WineHangoutz
 				wineid = wine;
 				if (!fromFinishedLaunching)
 				{
-					if (wineid == "")
+					if (wineid == ""||wineid==null)
 					{
-						alert = "Sorry";
-						UIAlertView avAlert = new UIAlertView("we were unable to find tasted wines", alert, null, "Ok", null);
-						avAlert.Show();
+						UIAlertView alert1 = new UIAlertView()
+						{
+							Title = "We didn't find tasted wine.",
+
+						};
+
+						alert1.AddButton("OK");
+
+						alert1.Show();
 					}
 					else
 					{
@@ -251,4 +246,3 @@ namespace WineHangoutz
 
 	}
 }
-

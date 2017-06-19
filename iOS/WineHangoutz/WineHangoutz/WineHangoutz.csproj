@@ -350,7 +350,6 @@
     <BundleResource Include="Images\loadin.png" />
     <BundleResource Include="Images\gl.png" />
     <BundleResource Include="Resources\card.png" />
-    <BundleResource Include="Resources\card.jpg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

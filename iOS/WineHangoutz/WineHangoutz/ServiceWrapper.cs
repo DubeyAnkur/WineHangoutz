@@ -128,15 +128,15 @@ namespace WineHangoutz
 			return output;
         }
 
-		public async Task<CustomerResponse> AuthencateUser1(string email)
+		public async Task<CustomerResponse> AuthencateUser1(string cardnumber)
 		{
 			CustomerResponse output = null;
 
 			LoggingClass.LogServiceInfo("Service Call", "AuthencateEmail");
-			LoggingClass.LogServiceInfo("Tried to login with " + email+" From IOS Device", "");
+			LoggingClass.LogServiceInfo("Tried to login with " + cardnumber+" From IOS Device", "");
 			try
 			{
-				var uri = new Uri(ServiceURL + "AuthenticateUser1/" + email);
+				var uri = new Uri(ServiceURL + "AuthenticateUser1/" + cardnumber);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
 				LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
