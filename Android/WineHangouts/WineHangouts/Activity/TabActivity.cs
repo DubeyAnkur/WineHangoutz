@@ -186,7 +186,7 @@ namespace WineHangouts
 						if (CurrentUser.getUserId() == null)
 						{
 
-							AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+							AlertDialog.Builder aler = new AlertDialog.Builder(Activity,Resource.Style.MyDialogTheme);
 							aler.SetTitle("Sorry");
 							aler.SetMessage("This Feature is available for VIP Users only");
 							aler.SetNegativeButton("Ok", delegate { });
@@ -276,7 +276,7 @@ namespace WineHangouts
                         };
                         Middle.Click += (sender, e) =>
                         {
-                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
                             aler.SetTitle("Wineries Section");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
@@ -292,7 +292,7 @@ namespace WineHangouts
                         };
                         Bottom.Click += (sender, e) =>
                         {
-                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
+                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
                             aler.SetTitle("Regions Section");
                             aler.SetMessage("Coming Soon");
                             aler.SetNegativeButton("Ok", delegate { });
