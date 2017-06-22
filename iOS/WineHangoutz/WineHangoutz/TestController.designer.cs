@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio from the outlets and
 // actions declared in your storyboard file.
@@ -11,11 +11,37 @@ using UIKit;
 
 namespace WineHangoutz
 {
-	[Register("TestController")]
-	partial class TestController
-	{
-		void ReleaseDesignerOutlets()
-		{
-		}
-	}
+    [Register ("TestController")]
+    partial class TestController
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIScrollView scrollview { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIPickerView statePicker { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField txtEdit { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+            if (scrollview != null) {
+                scrollview.Dispose ();
+                scrollview = null;
+            }
+
+            if (statePicker != null) {
+                statePicker.Dispose ();
+                statePicker = null;
+            }
+
+            if (txtEdit != null) {
+                txtEdit.Dispose ();
+                txtEdit = null;
+            }
+        }
+    }
 }

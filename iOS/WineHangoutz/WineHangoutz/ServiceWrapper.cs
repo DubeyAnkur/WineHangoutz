@@ -68,6 +68,26 @@ namespace WineHangoutz
 			}
 			return output;
         }
+		public async Task<ItemListResponse> GetItemLists(int storeId, int userId)
+		{
+			ItemListResponse output = null;
+			LoggingClass.LogServiceInfo("Service Call", "ItemList");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetItemLists/" + storeId + "/user/" + userId);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "ItemList");
+
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;  
+		}
+
 
         public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
         {
@@ -87,6 +107,26 @@ namespace WineHangoutz
 			}
 			return output;
         }
+
+		public async Task<ItemDetailsResponse> GetItemDetailsBarcode(string wineid, int storeid)
+		{
+			ItemDetailsResponse output = null;
+			LoggingClass.LogServiceInfo("Service Call", "GetItemDetails");
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "GetItemDetailsBarcode/" + wineid + "/user/" + storeid);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
+				LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return output;
+		}
+
         public async Task<int> InsertUpdateLike(SKULike skuLike)
         {
 			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateLike");
@@ -168,25 +208,16 @@ namespace WineHangoutz
 			return  output;
 		}
 
-        //public async Task<ItemReviewResponse> GetItemReviewSKU(int sku)
-        //{
-        //    var uri = new Uri(ServiceURL + "/GetItemReviewsSKU/" + sku);
-        //    var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-        //    var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-        //    return output;
-        //}
-
-        public async Task<ItemReviewResponse> GetItemReviewsByWineID(int WineID)
+		public async Task<ItemReviewResponse> GetItemReviewsByWineID(string WineID)
         {
 			ItemReviewResponse output = null;
 			LoggingClass.LogServiceInfo("Service Call", "GetItemReviewsByWineID");
 			try
 			{
 
-				var uri = new Uri(ServiceURL + "/GetItemReviewsWineID/" + WineID);
+				var uri = new Uri(ServiceURL + "/GetReviewsBarcode/" + WineID);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-
+				output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
 				LoggingClass.LogServiceInfo("Service Response", "GetItemReviewsByWineID");
 
 			}
@@ -308,7 +339,7 @@ namespace WineHangoutz
 			try
 			{
 
-				var uri = new Uri(ServiceURL + "GetItemFavsUID/" + userId);
+				var uri = new Uri(ServiceURL + "GetItemFavUID/" + userId);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
 				LoggingClass.LogServiceInfo("Service Call", "GetItemFavsUID");

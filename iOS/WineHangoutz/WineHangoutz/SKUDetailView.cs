@@ -110,7 +110,7 @@ namespace WineHangoutz
 				data.AverageRating = Data.AverageRating;// 4.25m;
 				data.WineProperties = new Dictionary<string, string>(); 
 				ServiceWrapper sw = new ServiceWrapper();
-				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
+				ItemReviewResponse ratings = sw.GetItemReviewsByWineID(data.Barcode).Result;
 				data.Reviews = ratings.Reviews.ToList();
 				//temp = new UITableViewCell[17];
 
@@ -259,7 +259,7 @@ namespace WineHangoutz
 							else
 							{
 								LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
-								PopupView yourController = new PopupView(Convert.ToInt32(data.WineId), _store);
+								PopupView yourController = new PopupView(data.Barcode, _store);
 								yourController.NavController = NavigationController;
 								yourController.parent = that;
 								yourController.StartsSelected = e.Rating;

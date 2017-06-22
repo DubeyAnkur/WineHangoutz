@@ -28,7 +28,7 @@ namespace WineHangoutz
 			if (FaviouriteView)
 				myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
 			else
-				myData = svc.GetItemList(storeId, CurrentUser.RetreiveUserId()).Result;
+				myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
 
 			//View.BackgroundColor = UIColor.White;
 			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);

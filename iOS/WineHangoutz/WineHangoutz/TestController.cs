@@ -1,212 +1,104 @@
 ﻿using System;
-using System.Threading.Tasks;
-using CoreGraphics;
+using System.Collections.Generic;
 using UIKit;
-using ZXing.Mobile;
+using Hangout.Models;
 
 namespace WineHangoutz
 {
-	public partial class TestController : UIViewController, IScannerViewController
+	public partial class TestController : UIViewController
 	{
-		ZXingScannerView scannerView;
-
-		public event Action<ZXing.Result> OnScannedResult;
-
-		public MobileBarcodeScanningOptions ScanningOptions { get; set; }
-		public MobileBarcodeScanner Scanner { get; set; }
-		public bool ContinuousScanning { get; set; }
-
-		UIActivityIndicatorView loadingView;
-		UIView loadingBg;
-
-		public UIView CustomLoadingView { get; set; }
-	
-
-		public TestController(MobileBarcodeScanningOptions options, MobileBarcodeScanner scanner)
+		//UIPickerView samplePicker;
+		PickerDataModel pickerDataModel;
+		public TestController() : base()
 		{
-			this.ScanningOptions = options;
-			this.Scanner = scanner;
-
-			var appFrame = UIScreen.MainScreen.ApplicationFrame;
-
-			this.View.Frame = new CGRect(0, 0, appFrame.Width, appFrame.Height);
-			this.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		}
-
-		public UIViewController AsViewController()
-		{
-			return this;
-		}
-
-		public void Cancel()
-		{
-			this.InvokeOnMainThread(scannerView.StopScanning);
-		}
-
-		UIStatusBarStyle originalStatusBarStyle = UIStatusBarStyle.Default;
-
 
 		public override void ViewDidLoad()
 		{
-			loadingBg = new UIView(this.View.Frame) { BackgroundColor = UIColor.Black, AutoresizingMask = UIViewAutoresizing.FlexibleDimensions };
-			loadingView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
-			{
-				AutoresizingMask = UIViewAutoresizing.FlexibleMargins
-						};
-			loadingView.Frame = new CGRect((this.View.Frame.Width - loadingView.Frame.Width) / 2, 
-							(this.View.Frame.Height - loadingView.Frame.Height) / 2,
-							loadingView.Frame.Width, 
-							loadingView.Frame.Height);
+			base.ViewDidLoad();
 
-			loadingBg.AddSubview (loadingView);
-			View.AddSubview (loadingBg);
-			loadingView.StartAnimating ();
-			try
-			{
-				scannerView = new ZXingScannerView(new CGRect(0, 0, View.Frame.Width, View.Frame.Height));
-				scannerView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-				scannerView.UseCustomOverlayView = this.Scanner.UseCustomOverlay;
-				scannerView.CustomOverlayView = this.Scanner.CustomOverlay;
-				scannerView.TopText = this.Scanner.TopText;
-				scannerView.BottomText = this.Scanner.BottomText;
-				scannerView.CancelButtonText = this.Scanner.CancelButtonText;
-				scannerView.FlashButtonText = this.Scanner.FlashButtonText;
-
-				scannerView.OnCancelButtonPressed += delegate
-				{
-					Scanner.Cancel();
-				};
-
-				//this.View.AddSubview(scannerView);
-				this.View.InsertSubviewBelow(scannerView, loadingView);
-
-				this.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-			}
-			catch (Exception exe)
-			{ 
-			}
-
+		// Perform any additional setup after loading the view, typically from a nib.
+		// create our simple picker model
+			pickerDataModel = new PickerDataModel();
+			pickerDataModel.Items.Add("blue");
+			pickerDataModel.Items.Add("red");
+		 //pickerDataModel.Items.Add(“Purple”);
+		 //pickerDataModel.Items.Add(“White”);
+		 
+		 // set it on our picker class
+		statePicker.Model = pickerDataModel;
+		 
+		 // wire up the value change method
+		 pickerDataModel.ValueChanged += (s, e) =>
+		 {
+		// colorValueLabel.Text = pickerDataModel.SelectedItem;
+		 };
+		 
+		 // set our initial selection on the label
+		 //colorValueLabel.Text = pickerDataModel.SelectedItem;
+		 
 		}
+	}
+	public class PickerDataModel : UIPickerViewModel
 
-			public void Torch(bool on)
-			{
-			if (scannerView != null)
-			scannerView.Torch(on);
-			}
+	{
+		public event EventHandler<EventArgs> ValueChanged;
 
-			public void ToggleTorch()
-			{
-				if (scannerView != null)
-					scannerView.ToggleTorch();
-			}
-			public void PauseAnalysis()
-			{
-			scannerView.PauseAnalysis();   
-			}
-			public void ResumeAnalysis()
-			{
-			scannerView.ResumeAnalysis();
-			}
-		public bool IsTorchOn
+		/// <summary>
+		/// The items to show up in the picker
+		/// </summary>
+		public List<string> Items { get; private set; }
+
+		/// <summary>
+		/// The current selected item
+		/// </summary>
+		public string SelectedItem
 		{
-		get { return scannerView.IsTorchOn; }
+			get { return Items[selectedIndex]; }
 		}
 
-			public override void ViewDidAppear(bool animated)
-			{
-				scannerView.OnScannerSetupComplete += HandleOnScannerSetupComplete;
+		int selectedIndex = 0;
 
-				originalStatusBarStyle = UIApplication.SharedApplication.StatusBarStyle;
+		public PickerDataModel()
+		{
+			Items = new List<string>();
+		}
 
-				if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
+		/// <summary>
+		/// Called by the picker to determine how many rows are in a given spinner item
+		/// </summary>
+		public override nint GetRowsInComponent(UIPickerView picker, nint component)
+		{
+			return Items.Count;
+		}
+
+		/// <summary>
+		/// called by the picker to get the text for a particular row in a particular
+		/// spinner item
+		/// </summary>
+		public override string GetTitle(UIPickerView picker, nint row, nint component)
+		{
+			return Items[(int)row];
+		}
+
+		/// <summary>
+		/// called by the picker to get the number of spinner items
+		/// </summary>
+		public override nint GetComponentCount(UIPickerView picker)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// called when a row is selected in the spinner
+		/// </summary>
+		public override void Selected(UIPickerView picker, nint row, nint component)
+		{
+			selectedIndex = (int)row;
+				if (ValueChanged != null)
 				{
-					UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.Default;
-					SetNeedsStatusBarAppearanceUpdate();
+					ValueChanged(this, new EventArgs());
 				}
-				else
-					UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackTranslucent, false);
-
-				Console.WriteLine("Starting to scan...");
-
-				Task.Factory.StartNew(() =>
-				   {
-					   BeginInvokeOnMainThread(() => scannerView.StartScanning(result =>
-					   {
-
-						   if (!ContinuousScanning)
-						   {
-							   Console.WriteLine("Stopping scan...");
-							   scannerView.StopScanning();
-						   }
-
-						   var evt = this.OnScannedResult;
-						   if (evt != null)
-							   evt(result);
-
-					   }, this.ScanningOptions));
-				   });
-			}
-			public override void ViewDidDisappear(bool animated)
-			{
-			if (scannerView != null)
-			scannerView.StopScanning();
-
-			scannerView.OnScannerSetupComplete -= HandleOnScannerSetupComplete;
-			}
-
-			public override void ViewWillDisappear(bool animated)
-			{
-			UIApplication.SharedApplication.SetStatusBarStyle(originalStatusBarStyle, false);
-			}
-
-			public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
-			{
-			if (scannerView != null)
-			scannerView.DidRotate(this.InterfaceOrientation);
-
-			//overlayView.LayoutSubviews();
-			}
-			public override bool ShouldAutorotate()
-			{
-			if (ScanningOptions.AutoRotate != null)
-			{
-			return (bool)ScanningOptions.AutoRotate;
-			}
-			return false;
-			}
-
-			public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
-			{
-			return UIInterfaceOrientationMask.All;
-			}
-			void HandleOnScannerSetupComplete()
-			{
-				BeginInvokeOnMainThread(() =>
-			   {
-				   if (loadingView != null && loadingBg != null && loadingView.IsAnimating)
-				   {
-					   loadingView.StopAnimating();
-
-					   UIView.BeginAnimations("zoomout");
-
-					   UIView.SetAnimationDuration(2.0f);
-					   UIView.SetAnimationCurve(UIViewAnimationCurve.EaseOut);
-
-					   loadingBg.Transform = CGAffineTransform.MakeScale(2.0f, 2.0f);
-					   loadingBg.Alpha = 0.0f;
-
-					   UIView.CommitAnimations();
-
-
-					   loadingBg.RemoveFromSuperview();
-				   }
-		   		});
-			}
-
-		public override void DidReceiveMemoryWarning()
-		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
 		}
 	}
 }

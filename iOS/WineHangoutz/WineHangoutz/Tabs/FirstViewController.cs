@@ -87,9 +87,6 @@ namespace WineHangoutz
 				};
 				btnMan.TouchUpInside += (sender, e) =>
 				{
-					//https://components.xamarin.com/gettingstarted/btprogresshud/true
-					//BTProgressHUD.Show(); //shows the spinner
-
 					nfloat width = UIScreen.MainScreen.Bounds.Width;
 					width = width / 2 - 15;
 
@@ -117,11 +114,6 @@ namespace WineHangoutz
 
 					alert.AddButton("OK");
 					alert.Show();
-
-					//LoginViewController yourController = new LoginViewController();
-					//yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-					//this.PresentModalViewController(yourController, false);
-
 				};
 
 				btnPP.TouchUpInside += (sender, e) =>
@@ -160,27 +152,27 @@ namespace WineHangoutz
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-			//NavigationController.Title = "Locations";
+			NavigationController.Title = "Locations";
 			NavigationController.NavigationBar.TopItem.Title = "Locations";
-			string validUser = CurrentUser.RetreiveUserName();
+			//string validUser = CurrentUser.GetId();
 
-			LoggingClass.LogInfo("opened app " + validUser, screenid);
+			//LoggingClass.LogInfo("opened app " + validUser, screenid);
 
-			if (validUser == "" || validUser == null)
-			{
-						LoginViewController yourController = new LoginViewController();
-						yourController.nav = NavigationController;
-						yourController.root = this;
-						yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
-						this.PresentModalViewController(yourController, false);
-				//ProfileViewController yourController = new ProfileViewController();
-				//yourController.NavCtrl = NavigationController;
-				//yourController.root = this;
-				//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
-				//this.PresentModalViewController(yourController, false);
-				CurrentUser.PutLoginStatus(false);
-			}
-			CurrentUser.PutLoginStatus(false);
+			//if (validUser == "" || validUser == null)
+			//{
+			//			LoginViewController yourController = new LoginViewController();
+			//			yourController.nav = NavigationController;
+			//			yourController.root = this;
+			//			yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+			//			this.PresentModalViewController(yourController, false);
+			//	//ProfileViewController yourController = new ProfileViewController();
+			//	//yourController.NavCtrl = NavigationController;
+			//	//yourController.root = this;
+			//	//yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
+			//	//this.PresentModalViewController(yourController, false);
+			//	CurrentUser.PutLoginStatus(false);
+			//}
+			//CurrentUser.PutLoginStatus(false);
 			//login check in
 		}
 

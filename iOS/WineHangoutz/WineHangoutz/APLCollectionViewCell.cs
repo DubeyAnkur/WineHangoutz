@@ -25,11 +25,11 @@ namespace WineHangoutz {
 		public Item myItem;
 		public UIView parent;
 
-		public void Dowork()
-		{
+		//public void Dowork()
+		//{
 			
-			NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
-		}
+		//	NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
+		//}
 
 		[Export ("initWithFrame:")]
 		public APLCollectionViewCell (CGRect frame) : base (frame)

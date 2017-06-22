@@ -17,10 +17,10 @@ namespace WineHangoutz
 		//Possible Inputss
 		public decimal StartsSelected;
 		public string Comments="";
-		public int WineId;
+		public string WineId;
 		private int screenid = 11;
 		public int storeid;
-		public PopupView(int Wine,int storeiD ) : base ()
+		public PopupView(string Wine,int storeiD ) : base ()
 		{
 			this.Title = "Popup";
 			WineId = Wine;
@@ -169,7 +169,7 @@ namespace WineHangoutz
 						review.PlantFinal = storeid.ToString();
 						review.RatingStars = Convert.ToInt32(StartsSelected);
 						//review.SKU = SKU;
-						review.WineId = WineId;
+						review.Barcode = WineId;
 
 						await sw.InsertUpdateReview(review);
 

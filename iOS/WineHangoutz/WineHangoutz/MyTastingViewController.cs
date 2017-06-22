@@ -177,7 +177,7 @@ namespace WineHangoutz
 			
 			try
 			{
-				imageView.SetImage(BlobWrapper.GetResizedImage(r.WineId.ToString(), new CGRect(0, 0, 100, 155),r.PlantFinal.ToString()), UIControlState.Normal);
+				imageView.SetImage(BlobWrapper.GetResizedImage(r.Barcode.ToString(), new CGRect(0, 0, 100, 155),r.PlantFinal.ToString()), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
 				WineName.Text = review.Name;
 				ReviewDate.Text = review.TastingDate.ToString("MM-dd-yyyy");

@@ -10,22 +10,22 @@ using BigTed;
 
 namespace WineHangoutz
 {
-    public partial class MyReviewViewController : UITableViewController, IPopupParent
-    {
+	public partial class MyReviewViewController : UITableViewController, IPopupParent
+	{
 		private int screenid = 6;
 		public int storeid;
 		ServiceWrapper sw = new ServiceWrapper();
-		
-        public MyReviewViewController (IntPtr handle) : base (handle)
-        {
-			
-        }
+
+		public MyReviewViewController(IntPtr handle) : base(handle)
+		{
+
+		}
 		public MyReviewViewController() : base()
 		{
 		}
 		public override void ViewDidLoad()
 		{
-			LoggingClass.LogInfo("Entered into MyReviews View",screenid);
+			LoggingClass.LogInfo("Entered into MyReviews View", screenid);
 
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
@@ -51,7 +51,7 @@ namespace WineHangoutz
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
 		}
-    }
+	}
 
 	public class MyReviewTableSource : UITableViewSource
 	{
@@ -60,7 +60,7 @@ namespace WineHangoutz
 		UINavigationController NavController;
 		UIViewController Parent;
 
-		public MyReviewTableSource(List<Review>  items, UINavigationController NavigationController, UIViewController parent)
+		public MyReviewTableSource(List<Review> items, UINavigationController NavigationController, UIViewController parent)
 		{
 			TableItems = items;
 			NavController = NavigationController;
@@ -99,7 +99,7 @@ namespace WineHangoutz
 
 	public class MyReviewCellView : UITableViewCell
 	{
-		
+
 		UITextView WineName;
 		UILabel ReviewDate;
 		UITextView Comments;
@@ -113,7 +113,7 @@ namespace WineHangoutz
 
 		public UINavigationController NavController;
 		public UIViewController Parent;
-		public int wineId;
+		public string wineId;
 		private int screenid = 6;
 		public int storeid;
 		ServiceWrapper sw = new ServiceWrapper();
@@ -136,7 +136,7 @@ namespace WineHangoutz
 				};
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
+					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text, storeid.ToString()), false);
 				};
 				Review review = new Review();
 
@@ -183,24 +183,24 @@ namespace WineHangoutz
 
 				btnEdit = new UIButton();
 				//UIViewController that = Parent;
-
+				btnEdit.SetImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
 				btnEdit.TouchUpInside += (sender, e) =>
 				{
-					PopupView yourController = new PopupView(Convert.ToInt32(WineIdLabel.Text),storeid);
+					PopupView yourController = new PopupView(WineIdLabel.ToString(), storeid);
 					yourController.NavController = NavController;
 					yourController.parent = Parent;
 					yourController.StartsSelected = stars.AverageRating;
 					yourController.Comments = Comments.Text;
-					LoggingClass.LogInfo("Edited the review of "+wineId, screenid);
+					LoggingClass.LogInfo("Edited the review of " + wineId, screenid);
 
 
-				//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
-				yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-				//this.PresentViewController(yourController, true, null);
-				Parent.PresentModalViewController(yourController, false);
+					//yourController.WineId = Convert.ToInt32(WineIdLabel.Text);
+					yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+					//this.PresentViewController(yourController, true, null);
+					Parent.PresentModalViewController(yourController, false);
 				};
 				btnDelete = new UIButton();
-
+				btnDelete.SetImage(UIImage.FromFile("delete.png"), UIControlState.Normal);
 
 				btnDelete.TouchUpInside += (sender, e) =>
 				{
@@ -214,15 +214,15 @@ namespace WineHangoutz
 
 					alert.Clicked += async (senderalert, buttonArgs) =>
 					{
-						
+
 						if (buttonArgs.ButtonIndex == 0)
 						{
-							review.WineId = Convert.ToInt32(WineIdLabel.Text);
+							review.Barcode = WineIdLabel.Text;
 
 							review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 							BTProgressHUD.Show("Deleting review");
 							await sw.DeleteReview(review);
-							LoggingClass.LogInfo("Deleting the review of "+wineId, screenid);
+							LoggingClass.LogInfo("Deleting the review of " + wineId, screenid);
 							BTProgressHUD.ShowSuccessWithStatus("Done");
 							((IPopupParent)Parent).RefreshParent();
 						}
@@ -252,20 +252,20 @@ namespace WineHangoutz
 			try
 			{
 
-				imageView.SetImage(BlobWrapper.GetResizedImage(review.WineId.ToString(), new CGRect(0, 0, 100, 155),review.PlantFinal), UIControlState.Normal);
+				imageView.SetImage(BlobWrapper.GetResizedImage(review.Barcode, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
-				WineName.Text = review.Name+" "+review.Vintage.ToString();
+				WineName.Text = review.Name + " " + review.Vintage.ToString();
 				ReviewDate.Text = review.Date.ToString("d");
 				Comments.Text = review.RatingText;
 				//Vintage.Text = " ";//"Vintage:"+review.Vintage.ToString();
-				storeid =Convert.ToInt32(review.PlantFinal);
-				WineIdLabel.Text = review.WineId.ToString();
+				storeid = Convert.ToInt32(review.PlantFinal);
+				WineIdLabel.Text = review.Barcode.ToString();
 
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 				//ContentView.Bounds.Height = 90;
 				stars.AverageRating = Convert.ToDecimal(review.RatingStars);
-				btnEdit.SetBackgroundImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
-				btnDelete.SetBackgroundImage(UIImage.FromFile("delete.png"), UIControlState.Normal);
+				//btnEdit.SetBackgroundImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
+				//btnDelete.SetBackgroundImage(UIImage.FromFile("delete.png"), UIControlState.Normal);
 			}
 			catch (Exception ex)
 			{
@@ -294,7 +294,7 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 		}
-	
+
 
 	}
 

@@ -4,28 +4,22 @@ using Foundation;
 using System.Threading.Tasks;
 using BigTed;
 using Hangout.Models;
-using Foundation;
 using AVFoundation;
-using BigTed;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using CoreGraphics;
 using System.Net;
-using System.Drawing;
-using ImageIO;
 using System.IO;
+using System.Drawing;
 
 namespace WineHangoutz
 {
 	public partial class ProfileViewController : UIViewController
 	{
-		
+
 		public UIViewController root;
 		//public UINavigationController nav;
 		private int screenid = 8;
 		public UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
+		PickerDataModel pickerDataModel;
 		public IntPtr handle;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
@@ -44,6 +38,59 @@ namespace WineHangoutz
 				DismissKeyboardOnBackgroundTap();
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
+				pickerDataModel = new PickerDataModel();
+				pickerDataModel.Items.Add("AL");
+				pickerDataModel.Items.Add("AK");
+				pickerDataModel.Items.Add("AZ");
+				pickerDataModel.Items.Add("AR");
+				pickerDataModel.Items.Add("CA");
+				pickerDataModel.Items.Add("CO");
+				pickerDataModel.Items.Add("CT");
+				pickerDataModel.Items.Add("DE");
+				pickerDataModel.Items.Add("FL");
+				pickerDataModel.Items.Add("GA");
+				pickerDataModel.Items.Add("HI");
+				pickerDataModel.Items.Add("ID");
+				pickerDataModel.Items.Add("IL");
+				pickerDataModel.Items.Add("IN");
+				pickerDataModel.Items.Add("IA");
+				pickerDataModel.Items.Add("KS");
+				pickerDataModel.Items.Add("KY");
+				pickerDataModel.Items.Add("LA");
+				pickerDataModel.Items.Add("ME");
+				pickerDataModel.Items.Add("MD");
+				pickerDataModel.Items.Add("MA");
+				pickerDataModel.Items.Add("MI");
+				pickerDataModel.Items.Add("MN");
+				pickerDataModel.Items.Add("MS");
+				pickerDataModel.Items.Add("MO");
+				pickerDataModel.Items.Add("MT");
+				pickerDataModel.Items.Add("NE");
+				pickerDataModel.Items.Add("NV");
+				pickerDataModel.Items.Add("NH");
+				pickerDataModel.Items.Add("NJ");
+				pickerDataModel.Items.Add("NM");
+				pickerDataModel.Items.Add("NY");
+				pickerDataModel.Items.Add("NC");
+				pickerDataModel.Items.Add("ND");
+				pickerDataModel.Items.Add("OH");
+				pickerDataModel.Items.Add("OK");
+				pickerDataModel.Items.Add("OR");
+				pickerDataModel.Items.Add("PA");
+				pickerDataModel.Items.Add("RI");
+				pickerDataModel.Items.Add("SC");
+				pickerDataModel.Items.Add("SD");
+				pickerDataModel.Items.Add("TN");
+				pickerDataModel.Items.Add("TX");
+				pickerDataModel.Items.Add("UT");
+				pickerDataModel.Items.Add("VT");
+				pickerDataModel.Items.Add("VA");
+				pickerDataModel.Items.Add("WA");
+				pickerDataModel.Items.Add("WV");
+				pickerDataModel.Items.Add("WI");
+				pickerDataModel.Items.Add("WY");
+				statePicker.Model = pickerDataModel;
+
 				//LoggingClass.UploadErrorLogs();
 				if (CurrentUser.RetreiveUserId() == 0)
 				{
@@ -58,7 +105,7 @@ namespace WineHangoutz
 					alert.AddButton("Log in");
 					alert.Clicked += (senderalert, buttonArgs) =>
 						{
-							
+
 							if (buttonArgs.ButtonIndex == 1)
 							{
 								LoginViewController yourController = new LoginViewController();
@@ -69,27 +116,9 @@ namespace WineHangoutz
 							}
 						};
 					alert.Show();
-					btnUpdate.SetTitle("Register", UIControlState.Normal);
 				}
 				else
 				{
-					//imgCard.Hidden = true;
-					//txtCardID.Hidden = true;
-					//lblCard.Hidden = true;
-					if (CurrentUser.GetLoginStatus() == true) 
-					{
-
-						UIAlertView alert = new UIAlertView()
-						{
-							Title = "Please update your mail id",
-							//Message = "Coming Soon..."
-						};
-
-						alert.AddButton("OK");
-
-						alert.Show();
-					}
-					//imgProfile.Image = new UIImage("Images/loading.gif");
 					DownloadAsync();
 					ServiceWrapper sw = new ServiceWrapper();
 					var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
@@ -98,14 +127,12 @@ namespace WineHangoutz
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
-					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2+cRes.customer.City;
-					txtState.Text = cRes.customer.State;
-
-					txtState.ShouldReturn += (TextField) =>
-				  {
-					  ((UITextField)TextField).ResignFirstResponder();
-					  return true;
-				  };
+					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2 + cRes.customer.City;
+					//txtState.ShouldReturn += (TextField) =>
+					// {
+					//  ((UITextField)TextField).ResignFirstResponder();
+					//  return true;
+					// };
 					txtFirstName.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
@@ -134,6 +161,7 @@ namespace WineHangoutz
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
 				  };
+
 					txtAddress.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
@@ -160,31 +188,55 @@ namespace WineHangoutz
 					btnUpdate.TouchDown += (sender, e) =>
 					{
 						BTProgressHUD.Show("Updating profile..."); //show spinner + text
-				};
+					};
 
 
 					btnUpdate.TouchUpInside += async (sender, e) =>
 					{
-						LoggingClass.LogInfo("Update button into Profile View", screenid);
-						Customer cust = new Customer();
-						cust.CustomerID = CurrentUser.RetreiveUserId();
-						cust.Address1 = txtAddress.Text;
-						cust.FirstName = txtFirstName.Text;
-						cust.LastName = txtLastName.Text;
-						cust.Email = txtEmail.Text;
-						cust.PhoneNumber = txtPhone.Text;
-						cust.State = txtState.Text;
-
-						await sw.UpdateCustomer(cust);
-						BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-						try
+						if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
 						{
-                            NavCtrl.PopViewController(true);
-							//NavCtrl.PushViewController(new FirstViewController(handle), false);
+							BTProgressHUD.Dismiss();
+							UIAlertView alert = new UIAlertView()
+							{
+								Title = "Please enter correct phone number",
+								//Message = "Coming Soon..."
+							};
+							alert.AddButton("OK");
+							alert.Show();
 						}
-						catch (Exception exe)
+						else if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
 						{
-							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+							BTProgressHUD.Dismiss();
+							UIAlertView alert = new UIAlertView()
+							{
+								Title = "Please enter a valid email address",
+								//Message = "Coming Soon..."
+							};
+							alert.AddButton("OK");
+							alert.Show();
+						}
+						else
+						{
+							LoggingClass.LogInfo("Update button into Profile View", screenid);
+							Customer cust = new Customer();
+							cust.CustomerID = CurrentUser.RetreiveUserId();
+							cust.Address1 = txtAddress.Text;
+							cust.FirstName = txtFirstName.Text;
+							cust.LastName = txtLastName.Text;
+							cust.Email = txtEmail.Text;
+							cust.PhoneNumber = txtPhone.Text;
+							//cust.State = txtState.Text;
+							await sw.UpdateCustomer(cust);
+							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
+							try
+							{
+								NavCtrl.PopViewController(true);
+								//NavCtrl.PushViewController(new FirstViewController(handle), false);
+							}
+							catch (Exception exe)
+							{
+								LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+							}
 						}
 
 
@@ -209,34 +261,44 @@ namespace WineHangoutz
 					};
 				}
 
-					imgEmail.Image = new UIImage("mail.png");
+				imgEmail.Image = new UIImage("mail.png");
 
-					imgAddr.Image = new UIImage("add.png");
+				imgAddr.Image = new UIImage("add.png");
 
-					//imgCity.Image = new UIImage("City1.png");
+				//imgCity.Image = new UIImage("City1.png");
 
-					//imgCard.Image = new UIImage("card.png");
+				//imgCard.Image = new UIImage("card.png");
 
-					imgPhone.Image = new UIImage("phone1.png");
+				imgPhone.Image = new UIImage("phone1.png");
 			}
+
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			//View.AddSubview(imgAddr);
+			//scrollView.ContentSize = new CGSize(View.Frame.Width, 300);
+			//View = (scrollView);
 		}
-
+		//public override UIView GetView(UIPickerView pickerView, int row, int component, UIView view)
+		//{
+		//	UILabel lbl = new UILabel(new RectangleF(0, 0, 130f, 40f));
+		//	lbl.TextColor = UIColor.Black;
+		//	lbl.Font = UIFont.SystemFontOfSize(12f);
+		//	lbl.TextAlignment = UITextAlignment.Center;
+		//	lbl.Text = "Test";//values[row];
+		//	return lbl;
+		//	}
 		protected void DismissKeyboardOnBackgroundTap()
 		{
 			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
 			tap.AddTarget(() => View.EndEditing(true));
 			View.AddGestureRecognizer(tap);
 		}
-
 		void Handle_Canceled(object sender, EventArgs e)
 		{
 			imagePicker.DismissModalViewController(true);
 		}
-
 		protected async void Handle_FinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs e)
 		{
 			try
@@ -311,9 +373,6 @@ namespace WineHangoutz
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
-
-
-
 		public bool IsCameraAuthorized()
 		{
 
@@ -360,7 +419,7 @@ namespace WineHangoutz
 			}
 			WebClient webClient = new WebClient();
 			//string url = "http://www.my-hd-wallpapers.com/wall/1405244488_moutain-reflect-on-a-lake_800.jpg";
-			string url = "https://icsintegration.blob.core.windows.net/profileimages/"+CurrentUser.RetreiveUserId()+".jpg";
+			string url = "https://icsintegration.blob.core.windows.net/profileimages/" + CurrentUser.RetreiveUserId() + ".jpg";
 			byte[] imageBytes = null;
 			try
 			{

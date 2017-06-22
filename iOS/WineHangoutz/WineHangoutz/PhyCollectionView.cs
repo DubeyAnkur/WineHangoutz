@@ -10,8 +10,8 @@ using BigTed;
 
 namespace WineHangoutz
 {
-    public partial class PhyCollectionView : UICollectionViewController
-    {
+	public partial class PhyCollectionView : UICollectionViewController
+	{
 		private int screenid = 12;
 
 		public ItemListResponse myData;
@@ -21,9 +21,9 @@ namespace WineHangoutz
 		//public int userId = 2;
 
 		public bool FaviouriteView = false;
-        public PhyCollectionView (UICollectionViewLayout layout, int StoreId, bool favView = false) : base (layout)
-        {
-			
+		public PhyCollectionView(UICollectionViewLayout layout, int StoreId, bool favView = false) : base(layout)
+		{
+
 			FaviouriteView = favView;
 			if (StoreId == 1)
 			{
@@ -41,22 +41,22 @@ namespace WineHangoutz
 
 			}
 
-        }
+		}
 
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
 			try
 			{
-				
+
 
 				ServiceWrapper svc = new ServiceWrapper();
 				if (FaviouriteView)
 				{
-					
-						LoggingClass.LogInfo("Entered into favorite", screenid);
-						myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
-						fav = true;
+
+					LoggingClass.LogInfo("Entered into favorite", screenid);
+					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+					fav = true;
 					if (myData.ItemList.Count == 0)
 					{
 						UIAlertView alert = new UIAlertView()
@@ -70,16 +70,16 @@ namespace WineHangoutz
 						alert.AddButton("OK");
 						alert.Show();
 					}
-				}	
-				else
-					
-					myData = svc.GetItemList(storeId, CurrentUser.RetreiveUserId()).Result;
-			
-
-			this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
-			this.CollectionView.BackgroundColor = UIColor.White;
-			CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
 				}
+				else
+
+					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+
+
+				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
+				this.CollectionView.BackgroundColor = UIColor.White;
+				CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
+			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
@@ -119,7 +119,7 @@ namespace WineHangoutz
 			nint cou = 0;
 			try
 			{
-				cou= myData.ItemList.Count;
+				cou = myData.ItemList.Count;
 				//myData.ErrorDescription
 			}
 			catch (Exception ex)
@@ -158,7 +158,7 @@ namespace WineHangoutz
 				cell.Vintage = myData.ItemList[index].Vintage.ToString();
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-				cell.WineId = myData.ItemList[index].WineId.ToString();
+				cell.WineId = myData.ItemList[index].Barcode;
 				if (fav == true)
 				{
 					cell.storeId = myData.ItemList[index].PlantFinal.ToString();
@@ -182,7 +182,7 @@ namespace WineHangoutz
 					cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				}
 				//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
-				UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].WineId.ToString(), cell.btlImage.Bounds, cell.storeId.ToString());
+				UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].Barcode.ToString(), cell.btlImage.Bounds, cell.storeId.ToString());
 				if (image != null)
 				{
 					cell.btlImage.SetImage(image, UIControlState.Normal);

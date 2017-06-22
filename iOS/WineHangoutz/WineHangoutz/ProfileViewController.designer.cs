@@ -64,6 +64,10 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIPickerView statePicker { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtAddress { get; set; }
 
         [Outlet]
@@ -85,10 +89,6 @@ namespace WineHangoutz
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtPhone { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField txtState { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -152,6 +152,11 @@ namespace WineHangoutz
                 lblZipcode = null;
             }
 
+            if (statePicker != null) {
+                statePicker.Dispose ();
+                statePicker = null;
+            }
+
             if (txtAddress != null) {
                 txtAddress.Dispose ();
                 txtAddress = null;
@@ -180,11 +185,6 @@ namespace WineHangoutz
             if (txtPhone != null) {
                 txtPhone.Dispose ();
                 txtPhone = null;
-            }
-
-            if (txtState != null) {
-                txtState.Dispose ();
-                txtState = null;
             }
         }
     }

@@ -1,44 +1,31 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/DetailViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/MyTastingViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="53" Column="18" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="131" Column="44" />
-      <File FileName="WineHangoutz/TestController.cs" Line="34" Column="1" />
-      <File FileName="WineHangoutz/Info.plist" />
-      <File FileName="WineHangoutz/AboutController.cs" Line="173" Column="20" />
-      <File FileName="WineHangoutz/ProfileViewController.cs" Line="90" Column="20" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="139" Column="71" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="343" Column="14" />
+      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="227" Column="11" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="133" Column="37" />
+      <File FileName="WineHangoutz/SKUDetailView.cs" Line="262" Column="9" />
+      <File FileName="WineHangoutz/PopupView.cs" Line="182" Column="1" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="143" Column="50" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="45" Column="4" />
+      <File FileName="WineHangoutz/ProfileViewController.cs" Line="41" Column="42" />
+      <File FileName="WineHangoutz/TestController.cs" Line="9" Column="3" />
+      <File FileName="WineHangoutz/Tabs/FirstViewController.cs" Line="64" Column="84" />
+      <File FileName="WineHangoutz/BlobWrapper.cs" Line="124" Column="40" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="114" Column="1" />
+      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="12" Column="76" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="WineHangoutz" expanded="True">
-            <Node name="WineHangoutz" expanded="True">
-              <Node name="Resources" expanded="True" />
-              <Node name="DetailViewController.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ReSendEmailController.cs" relfile="WineHangoutz/ReSendEmailController.cs" line="106" column="9" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/BlobWrapper.cs" relfile="WineHangoutz/BlobWrapper.cs" line="370" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" relfile="WineHangoutz/ServiceWrapper.cs" line="229" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ServiceWrapper.cs" relfile="WineHangoutz/ServiceWrapper.cs" line="226" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/TestController.cs" relfile="WineHangoutz/TestController.cs" line="86" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/TestController.cs" relfile="WineHangoutz/TestController.cs" line="67" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/TestController.cs" relfile="WineHangoutz/TestController.cs" line="28" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/TestController.cs" relfile="WineHangoutz/TestController.cs" line="85" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyTastingViewController.cs" relfile="WineHangoutz/MyTastingViewController.cs" line="180" column="61" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="WineHangoutz/AppDelegate.cs" line="31" offsetX="602" offsetY="450" expression="identifier" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B6972546-F518-4E2D-9C81-C5AAB8462B29" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
   <MultiItemStartupConfigurations />
 </Properties>

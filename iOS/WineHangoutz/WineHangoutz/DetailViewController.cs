@@ -15,14 +15,14 @@ namespace WineHangoutz
 {
 	public class DetailViewController : UIViewController, IPopupParent
 	{
-		int _wineId;
+		string _wineId;
 		public int _storeId;
 		private int screenid = 112;
 		NSData HighImgData = null;
 
 		public DetailViewController(string WineId,string storeid) : base ()
 		{
-			_wineId = Convert.ToInt32(WineId);
+			_wineId =WineId;
 			_storeId = Convert.ToInt32(storeid);
             this.Title = "Wine Details";
 
@@ -54,7 +54,7 @@ namespace WineHangoutz
 				BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
 				ServiceWrapper svc = new ServiceWrapper();
-				ItemDetailsResponse mydata = svc.GetItemDetails(_wineId, _storeId).Result;
+				ItemDetailsResponse mydata = svc.GetItemDetailsBarcode(_wineId, _storeId).Result;
 				//ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				var data = mydata.ItemDetails;
 
@@ -130,7 +130,7 @@ namespace WineHangoutz
 				ratingViewSelect.RatingChosen += (sender, e) =>
 				{
 					LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
-					PopupView yourController = new PopupView(Convert.ToInt32(data.WineId), _storeId);
+					PopupView yourController = new PopupView(data.Barcode, _storeId);
 					yourController.NavController = NavigationController;
 					yourController.parent = that;
 					yourController.StartsSelected = e.Rating;
@@ -200,7 +200,7 @@ namespace WineHangoutz
 				sTemp = lblProducerText.SizeThatFits(sTemp);
 				lblProducerText.Frame = new CGRect(0, Y, width, sTemp.Height);
 
-				ItemReviewResponse ratings = svc.GetItemReviewsByWineID(Convert.ToInt32(data.WineId)).Result;
+				ItemReviewResponse ratings = svc.GetItemReviewsByWineID(data.Barcode).Result;
 				data.Reviews = ratings.Reviews.ToList();
 				Y = Y + lblProducerText.Frame.Size.Height;
 				var review = LoadReviews(data, Y, width);
