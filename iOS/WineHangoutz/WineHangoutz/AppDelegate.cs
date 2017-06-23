@@ -33,6 +33,7 @@ namespace WineHangoutz
 		}  
 
 		UINavigationController nav;
+
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			BlobWrapper.DownloadAllImages();
@@ -40,8 +41,9 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 
-			//CurrentUser.Clear();
-			CurrentUser.Store("1", "Lokesh");//for direct log in
+			CurrentUser.Clear();
+			//CurrentUser.Store("1", "Lokesh");//for direct log in
+			//CurrentUser.PutCardNumber("900497407491");
 
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
@@ -57,7 +59,8 @@ namespace WineHangoutz
 			login._window = Window;
 
 			nav = new UINavigationController(login);
-
+			//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
+			UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
 			Window.RootViewController = nav;
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))

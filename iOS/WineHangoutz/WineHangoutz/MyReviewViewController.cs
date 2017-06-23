@@ -136,7 +136,7 @@ namespace WineHangoutz
 				};
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text, storeid.ToString()), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString()), false);
 				};
 				Review review = new Review();
 
@@ -186,7 +186,7 @@ namespace WineHangoutz
 				btnEdit.SetImage(UIImage.FromFile("edit.png"), UIControlState.Normal);
 				btnEdit.TouchUpInside += (sender, e) =>
 				{
-					PopupView yourController = new PopupView(WineIdLabel.ToString(), storeid);
+					PopupView yourController = new PopupView(WineIdLabel.Text, storeid);
 					yourController.NavController = NavController;
 					yourController.parent = Parent;
 					yourController.StartsSelected = stars.AverageRating;
@@ -255,7 +255,7 @@ namespace WineHangoutz
 				imageView.SetImage(BlobWrapper.GetResizedImage(review.Barcode, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
 				WineName.Text = review.Name + " " + review.Vintage.ToString();
-				ReviewDate.Text = review.Date.ToString("d");
+				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 				Comments.Text = review.RatingText;
 				//Vintage.Text = " ";//"Vintage:"+review.Vintage.ToString();
 				storeid = Convert.ToInt32(review.PlantFinal);

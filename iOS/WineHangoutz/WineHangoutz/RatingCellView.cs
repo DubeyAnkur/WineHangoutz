@@ -75,7 +75,7 @@ namespace WineHangoutz
 					imageView.Image = new UIImage("user1.png");
 				}
 				userName.Text = review.Username;
-				ReviewDate.Text = review.Date.ToString("d");
+				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 				Comments.Text = review.RatingText;
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 				//ContentView.Bounds.Height = 90;

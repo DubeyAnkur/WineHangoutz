@@ -129,7 +129,7 @@ namespace WineHangoutz
 
 				ratingViewSelect.RatingChosen += (sender, e) =>
 				{
-					LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
+					LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
 					PopupView yourController = new PopupView(data.Barcode, _storeId);
 					yourController.NavController = NavigationController;
 					yourController.parent = that;

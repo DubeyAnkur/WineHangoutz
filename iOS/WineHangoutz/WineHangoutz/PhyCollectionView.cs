@@ -75,7 +75,7 @@ namespace WineHangoutz
 
 					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
 
-
+				BTProgressHUD.Dismiss();
 				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 				this.CollectionView.BackgroundColor = UIColor.White;
 				CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
@@ -173,6 +173,7 @@ namespace WineHangoutz
 				cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.myItem = myData.ItemList[index];
 
+				cell.btnItemname.SetTitle(myData.ItemList[index].Name, UIControlState.Normal);
 				if (myData.ItemList[index].IsLike == true)
 				{
 					cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
@@ -195,7 +196,7 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "We are under ma",
+					Title = "We are under maintenance",
 					//Message = "Coming Soon..."
 				};
 

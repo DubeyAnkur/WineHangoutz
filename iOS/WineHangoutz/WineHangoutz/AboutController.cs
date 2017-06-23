@@ -76,7 +76,7 @@ namespace WineHangoutz
 
 				UITextView p3 = new UITextView();
 				p3.Frame = new CGRect(5, 440, UIScreen.MainScreen.Bounds.Width-20, UIScreen.MainScreen.Bounds.Height);
-				p3.Text = "We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:  Pick the Choice: Guest is displayed with all the available wines for tasting. My Tasting: See the list of wines you have tasted and choose more from the remaining surprises. My Reviews: View your ratings and reviews and let other wine lovers explore it along with you. My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting."+"/n"+" My Profile: Protect your credentials and update it as and when you wish.";
+				p3.Text = "We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:  Pick the Choice: Guest is displayed with all the available wines for tasting.\n My Tasting: See the list of wines you have tasted and choose more from the remaining surprises.\n My Reviews: View your ratings and reviews and let other wine lovers explore it along with you.\n My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting.\n My Profile: Protect your credentials and update it as and when you wish.";
 				p3.TextColor = UIColor.Black;
 				p3.TextAlignment = UITextAlignment.Justified;
 				p3.Font=UIFont.FromName("AmericanTypewriter", 13f);
@@ -133,7 +133,7 @@ namespace WineHangoutz
 				{
 					h = scrollView.Subviews[i].Frame.Size.Height+120;
 				}
-				scrollView.ContentSize = new CGSize(View.Frame.Width, h);
+				scrollView.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h);
 				View = (scrollView);
 			}
 			catch (Exception ex)

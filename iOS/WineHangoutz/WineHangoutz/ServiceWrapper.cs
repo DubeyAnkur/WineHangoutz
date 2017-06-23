@@ -235,7 +235,7 @@ namespace WineHangoutz
 			try
 			{
 
-				var uri = new Uri(ServiceURL + "GetItemReviewsUID/" + userId);
+				var uri = new Uri(ServiceURL + "GetReviewUID/" + userId);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
 				LoggingClass.LogServiceInfo("Service Response", "GetItemReviewUID");

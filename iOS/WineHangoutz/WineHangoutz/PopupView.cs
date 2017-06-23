@@ -188,8 +188,10 @@ namespace WineHangoutz
 		protected void DismissKeyboardOnBackgroundTap()
 		{
 			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
-			tap.AddTarget(() => View.EndEditing(true));
+			//tap.AddTarget(() => View.EndEditing(true));
+			tap.AddTarget(() =>  NavController.DismissViewController(true, null));
 			View.AddGestureRecognizer(tap);
+
 		}
 
 	}

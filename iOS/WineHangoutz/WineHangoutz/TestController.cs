@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UIKit;
 using Hangout.Models;
+using Foundation;
+using System.Drawing;
+using CoreGraphics;
 
 namespace WineHangoutz
 {
@@ -12,33 +15,113 @@ namespace WineHangoutz
 		public TestController() : base()
 		{
 		}
-
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
-		// Perform any additional setup after loading the view, typically from a nib.
-		// create our simple picker model
+			// Perform any additional setup after loading the view, typically from a nib.
+			// create our simple picker model
 			pickerDataModel = new PickerDataModel();
 			pickerDataModel.Items.Add("blue");
 			pickerDataModel.Items.Add("red");
-		 //pickerDataModel.Items.Add(“Purple”);
-		 //pickerDataModel.Items.Add(“White”);
-		 
-		 // set it on our picker class
-		statePicker.Model = pickerDataModel;
-		 
-		 // wire up the value change method
-		 pickerDataModel.ValueChanged += (s, e) =>
-		 {
-		// colorValueLabel.Text = pickerDataModel.SelectedItem;
-		 };
-		 
-		 // set our initial selection on the label
-		 //colorValueLabel.Text = pickerDataModel.SelectedItem;
-		 
+			//pickerDataModel.Items.Add(“Purple”);
+			//pickerDataModel.Items.Add(“White”);
+
+			// set it on our picker class
+			statePicker.Model = pickerDataModel;
+
+			// wire up the value change method
+			pickerDataModel.ValueChanged += (s, e) =>
+			{
+				// colorValueLabel.Text = pickerDataModel.SelectedItem;
+			};
+
+			// set our initial selection on the label
+			//colorValueLabel.Text = pickerDataModel.SelectedItem;
+
 		}
+		protected UIView ViewToCenterOnKeyboardShown;
+		public virtual bool HandlesKeyboardNotifications()
+		{
+			return false;
+		}
+
+		protected virtual void RegisterForKeyboardNotifications()
+		{
+			NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, OnKeyboardNotification);
+			NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillShowNotification, OnKeyboardNotification);
+		}
+		protected virtual UIView KeyboardGetActiveView()
+		{
+			return View.FindFirstResponder();
+		}
+
+		private void OnKeyboardNotification(NSNotification notification)
+		{
+			if (!IsViewLoaded) return;
+			var visible = notification.Name == UIKeyboard.WillShowNotification;
+			UIView.BeginAnimations("AnimateForKeyboard");
+			UIView.SetAnimationBeginsFromCurrentState(true);
+			UIView.SetAnimationDuration(UIKeyboard.AnimationDurationFromNotification(notification));
+			UIView.SetAnimationCurve((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification(notification));
+			bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
+			var keyboardFrame = visible
+									? UIKeyboard.FrameEndFromNotification(notification)
+									: UIKeyboard.FrameBeginFromNotification(notification);
+
+			//OnKeyboardChanged(visible, landscape.keyboardFrame.Width : keyboardFrame.Height);
+			UIView.CommitAnimations();
+		}
+		protected virtual void OnKeyboardChanged(bool visible, float keyboardHeight)
+		{
+			var activeView = ViewToCenterOnKeyboardShown ?? KeyboardGetActiveView();
+			if (activeView == null)
+				return;
+
+			var scrollView = activeView.FindSuperviewOfType(View, typeof(UIScrollView)) as UIScrollView;
+			if (scrollView == null)
+				return;
+			
+			if (!visible)
+				RestoreScrollPosition(scrollView);
+			else
+				CenterViewInScroll(activeView, scrollView, keyboardHeight);
+		}
+		protected virtual void CenterViewInScroll(UIView viewToCenter, UIScrollView scrollView, float keyboardHeight)
+		{
+			var contentInsets = new UIEdgeInsets(0.0f, 0.0f, keyboardHeight, 0.0f);
+			scrollView.ContentInset = contentInsets;
+			scrollView.ScrollIndicatorInsets = contentInsets;
+
+			CGRect box = new CGRect(View.Bounds.Location, View.Bounds.Size);
+			// Position of the active field relative isnside the scroll view
+			//RectangleF relativeFrame = viewToCenter.Superview.ConvertRectToView(bo) ;//viewToCenter.Superview.ConvertRectToView(viewToCenter.Frame, scrollView);
+
+			bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
+			var spaceAboveKeyboard = (landscape ? scrollView.Frame.Width : scrollView.Frame.Height) - keyboardHeight;
+
+			// Move the active field to the center of the available space
+			//var offset = relativeFrame.Y - (spaceAboveKeyboard - viewToCenter.Frame.Height) / 2;
+			scrollView.ContentOffset = new PointF(10, 10);
+		}
+		protected virtual void RestoreScrollPosition(UIScrollView scrollView)
+		{
+			scrollView.ContentInset = UIEdgeInsets.Zero;
+			scrollView.ScrollIndicatorInsets = UIEdgeInsets.Zero;
+		}
+		protected void DismissKeyboardOnBackgroundTap()
+		{
+			// Add gesture recognizer to hide keyboard
+			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+			tap.AddTarget(() => View.EndEditing(true));
+			View.AddGestureRecognizer(tap);
+		}
+		//public override bool HandlesKeyboardNotifications()
+		//{
+		//	return true;
 	}
+
+
 	public class PickerDataModel : UIPickerViewModel
 
 	{
@@ -101,5 +184,38 @@ namespace WineHangoutz
 				}
 		}
 	}
+	public static class ViewExtensions
+	{
+		public static UIView FindFirstResponder(this UIView view)
+		{
+			if (view.IsFirstResponder)
+			{
+				return view;
+			}
+			foreach (UIView subView in view.Subviews)
+			{
+				var firstResponder = subView.FindFirstResponder();
+				if (firstResponder != null)
+					return firstResponder;
+			}
+			return null;
+		}
+		public static UIView FindSuperviewOfType(this UIView view, UIView stopAt, Type type)
+		{
+			if (view.Superview != null)
+			{
+				if (type.IsAssignableFrom(view.Superview.GetType()))
+				{
+					return view.Superview;
+				}
+
+				if (view.Superview != stopAt)
+					return view.Superview.FindSuperviewOfType(stopAt, type);
+			}
+
+			return null;
+		}
+	}
+
 }
 

@@ -58,14 +58,14 @@ namespace WineHangoutz {
 				btlImage.Layer.BorderColor = UIColor.White.CGColor;
 				btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 
-				btlImage.TouchDown += (sender, e) =>
-				{
-						BTProgressHUD.Show("Loading..."); //show spinner + text
-				};
+				//btlImage.TouchDown += (sender, e) =>
+				//{
+				//		BTProgressHUD.Show("Loading..."); //show spinner + text
+				//};
 
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					BTProgressHUD.Show();
+					BTProgressHUD.Show("Loading...");
 					//NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
 					NavigationController.PushViewController(new DetailViewController(WineId, storeId), false);
 					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
@@ -104,7 +104,7 @@ namespace WineHangoutz {
 				//NavigationController.PushViewController(new DetailViewController(), false);
 				SKULike like = new SKULike();
 					like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
-					like.WineId = Convert.ToInt32(WineId);
+					like.BarCode = WineId;
 					like.Liked = Convert.ToBoolean(temp.Tag);
 
 					ServiceWrapper sw = new ServiceWrapper();
@@ -113,6 +113,20 @@ namespace WineHangoutz {
 
 				CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
 				lower.Y = 50; //lower.Y + (ratio)*(Bounds.Height);
+				btnItemname = new UIButton(lower);
+				btnItemname.SetTitle("", UIControlState.Normal);
+				btnItemname.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				btnItemname.Font = UIFont.FromName("Verdana-Bold", 13f);
+				btnItemname.LineBreakMode = UILineBreakMode.WordWrap;
+				btnItemname.TouchUpInside += (object sender, EventArgs e) =>
+				{
+					BTProgressHUD.Show("Loading...");
+					//NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
+					NavigationController.PushViewController(new DetailViewController(WineId, storeId), false);
+					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
+
+				};
+
 				lblName = new UILabel(lower);
 				lblName.Font = UIFont.FromName("Verdana-Bold", 13f);
 				lblName.TextColor = UIColor.Purple;
@@ -120,7 +134,6 @@ namespace WineHangoutz {
 				lblName.TextAlignment = UITextAlignment.Center;
 				lblName.LineBreakMode = UILineBreakMode.WordWrap;
 				lblName.Lines = 0;
-
 
 
 				lower.Y = 245;
@@ -168,7 +181,8 @@ namespace WineHangoutz {
 				ContentView.InsertSubviewAbove(btlImage, ImageView);
 				//ContentView.AddSubview(btlImage);
 				ContentView.AddSubview(heartImage);
-				ContentView.AddSubview(lblName);
+				//ContentView.AddSubview(lblName);
+				ContentView.AddSubview(btnItemname);
 				ContentView.AddSubview(Separator);
 				ContentView.AddSubview(lblYear);
 				ContentView.AddSubview(lblRegPrice);
@@ -185,6 +199,7 @@ namespace WineHangoutz {
 		public UIButton heartImage { get; private set; }
 		public UIButton btlImage { get; private set; }
         public UILabel lblName { get; private set; }
+		public UIButton btnItemname { get; private set; }
         public UIImageView Separator { get; private set; }
         public UILabel lblYear { get; private set; }
 		public UILabel lblRegPrice { get; private set; }
