@@ -13,7 +13,7 @@ namespace WineHangouts
         {
             // Extract the message received from GCM:
             var message = data.GetString("message");
-            string WineBarcode = data.GetString("wineid");
+            string WineBarcode = data.GetString("barcode");
             Log.Debug("MyGcmListenerService", "From:    " + from);
             Log.Debug("MyGcmListenerService", "Message: " + message);
             //var intent = new Intent(this, typeof(detailViewActivity));

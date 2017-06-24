@@ -104,19 +104,19 @@ namespace WineHangouts
                 //SendRegistrationToAppServer(CurrentUser.getToken());
             }
 
-            var telephonyDeviceID = string.Empty;
-            var telephonySIMSerialNumber = string.Empty;
-            TelephonyManager telephonyManager = (TelephonyManager)this.ApplicationContext.GetSystemService(Context.TelephonyService);
-            if (telephonyManager != null)
-            {
-                if (!string.IsNullOrEmpty(telephonyManager.DeviceId))
-                    telephonyDeviceID = telephonyManager.DeviceId;
-                if (!string.IsNullOrEmpty(telephonyManager.SimSerialNumber))
-                    telephonySIMSerialNumber = telephonyManager.SimSerialNumber;
-            }
-            var androidID = Android.Provider.Settings.Secure.GetString(this.ApplicationContext.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
-            var deviceUuid = new UUID(androidID.GetHashCode(), ((long)telephonyDeviceID.GetHashCode() << 32) | telephonySIMSerialNumber.GetHashCode());
-            var DeviceID = deviceUuid.ToString();
+            //var telephonyDeviceID = string.Empty;
+            //var telephonySIMSerialNumber = string.Empty;
+            //TelephonyManager telephonyManager = (TelephonyManager)this.ApplicationContext.GetSystemService(Context.TelephonyService);
+            //if (telephonyManager != null)
+            //{
+            //    if (!string.IsNullOrEmpty(telephonyManager.DeviceId))
+            //        telephonyDeviceID = telephonyManager.DeviceId;
+            //    if (!string.IsNullOrEmpty(telephonyManager.SimSerialNumber))
+            //        telephonySIMSerialNumber = telephonyManager.SimSerialNumber;
+            //}
+            //var androidID = Android.Provider.Settings.Secure.GetString(this.ApplicationContext.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
+            //var deviceUuid = new UUID(androidID.GetHashCode(), ((long)telephonyDeviceID.GetHashCode() << 32) | telephonySIMSerialNumber.GetHashCode());
+            //var DeviceID =deviceUuid.ToString();
         }
 
         //private static void BrandAlertDialog(Dialog dialog)

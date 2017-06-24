@@ -7,7 +7,7 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<permission android:name="com.savvyitsol.winehangoutz.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 	<uses-permission android:name="com.savvyitsol.winehangoutz.permission.C2D_MESSAGE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<application android:label="@string/ApplicationName" android:theme="@style/CustomActionBarTheme" android:icon="@drawable/logo5">
