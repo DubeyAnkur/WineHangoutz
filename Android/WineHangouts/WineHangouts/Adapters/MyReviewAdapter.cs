@@ -105,22 +105,23 @@ namespace WineHangouts
 					edit.Click += (sender, args) =>
 					{
 
-						int WineId = myItems[position].WineId;
+						string WineBarcode = myItems[position].Barcode;
 						Review _review = new Review();
-						_review.WineId = WineId;
+						_review.Barcode = WineBarcode;
 						_review.RatingStars = myItems[position].RatingStars;
 						_review.RatingText = myItems[position].RatingText;
-						LoggingClass.LogInfo("clicked on edit  an item---->"+WineId +"----->"+ _review.RatingStars+"---->"+_review.RatingText, screenid);
+                        _review.PlantFinal = myItems[position].PlantFinal;
+						LoggingClass.LogInfo("clicked on edit  an item---->"+ WineBarcode + "----->"+ _review.RatingStars+"---->"+_review.RatingText, screenid);
 						PerformItemClick(sender, args, _review);
 					};
 					//delete.Click += Delete_Click;
 					delete.Click += (sender, args) =>
 					{
-						int WineId = myItems[position].WineId;
+						string WineBarcode = myItems[position].Barcode;
 
 						Review _review = new Review();
-						_review.WineId = WineId;
-						LoggingClass.LogInfo("clicked on delete item--->" + WineId, screenid);
+						_review.Barcode = WineBarcode;
+						LoggingClass.LogInfo("clicked on delete item--->" + WineBarcode, screenid);
 						PerformdeleteClick(sender, args, _review);
 
 					};
@@ -138,7 +139,7 @@ namespace WineHangouts
 					ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 					string path = pppd.CreateDirectoryForPictures();
 					//string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-					var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+					var filePath = System.IO.Path.Combine(path + "/" + myItems[position].Barcode + ".jpg");
 					Bitmap imageBitmap;
 					if (System.IO.File.Exists(filePath))
 					{
@@ -147,7 +148,7 @@ namespace WineHangouts
 					}
 					else
 					{
-						imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId, Convert.ToInt32(myItems[position].PlantFinal));
+						imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, Convert.ToInt32(myItems[position].PlantFinal));
 
 						wineimage.SetImageBitmap(imageBitmap);
 					}

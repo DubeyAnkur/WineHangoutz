@@ -41,45 +41,45 @@ namespace WineHangouts
             }
 
         }
-        public static Bitmap Bottleimages(int wineid,int storeid)
+        public static Bitmap Bottleimages(string WineBarcode,int storeid)
         {
 			Bitmap imageBitmap = null ;
             ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
             Path = pppd.CreateDirectoryForPictures();
             //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-            if (wineImages.Contains(storeid + "_" + wineid))
+            if (wineImages.Contains(storeid + "_" + WineBarcode))
             {
 				
-				return (Bitmap)wineImages[storeid + "_" + wineid];
+				return (Bitmap)wineImages[storeid + "_" + WineBarcode];
             }
 
-            var filePath = System.IO.Path.Combine(Path + "/" + storeid + "_" + wineid + ".jpg");
+            var filePath = System.IO.Path.Combine(Path + "/" + storeid + "_" + WineBarcode + ".jpg");
 			if (System.IO.File.Exists(filePath))
 			{
 
 				imageBitmap = BitmapFactory.DecodeFile(filePath);
-				wineImages.Add(storeid + "_" + wineid, imageBitmap);
+				wineImages.Add(storeid + "_" + WineBarcode, imageBitmap);
 
 			}
 			else if (storeid == 1)
 			{
 
 
-				var uri = new Uri(ServiceURL + "imagebottlewall/" + wineid + ".jpg");
-				LoggingClass.LogInfo(" WineImage is dosent Existing Download"+wineid+"Wall", screenid);
+				var uri = new Uri(ServiceURL + "barcodepp/" + WineBarcode + ".jpg");
+				LoggingClass.LogInfo(" WineImage is dosent Existing Download"+ WineBarcode + "Wall", screenid);
 
 				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
-				wineImages.Add(storeid + "_" + wineid, imageBitmap);
+				wineImages.Add(storeid + "_" + WineBarcode, imageBitmap);
 
 			}
 			else
 			{
-				var uri = new Uri(ServiceURL + "imagebottlepp/" + wineid + ".jpg");
-				LoggingClass.LogInfo(" WineImage is dosent Existing Download" + wineid + " PP", screenid);
+				var uri = new Uri(ServiceURL + "barcodepp/" + WineBarcode + ".jpg");
+				LoggingClass.LogInfo(" WineImage is dosent Existing Download" + WineBarcode + " PP", screenid);
 
 				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
-				wineImages.Add(storeid + "_" + wineid, imageBitmap);
+				wineImages.Add(storeid + "_" + WineBarcode, imageBitmap);
 			}
             //Canvas canvas = new Canvas(imageBitmap);
             //canvas.DrawColor(Color.White);
@@ -136,16 +136,16 @@ namespace WineHangouts
                 int y = x.Count;
                 for (int i = 0; i < y; i++)
                 {
-                    bool ispresent = di.GetFiles(x[i].WineId + ".").Any();
+                    bool ispresent = di.GetFiles(x[i].Barcode + ".").Any();
 					if (!ispresent)
 					{
 						if (j == 1)
 						{
-							var uri = new Uri(ServiceURL + "imagebottlewall/" + x[i].WineId + ".jpg");
+							var uri = new Uri(ServiceURL + "barcodepp/" + x[i].Barcode + ".jpg");
 							Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
 							try
 							{
-								var filePath = System.IO.Path.Combine(path + "/"+ j + "_"+x[i].WineId + ".jpg");
+								var filePath = System.IO.Path.Combine(path + "/"+ j + "_"+x[i].Barcode + ".jpg");
 								var stream = new FileStream(filePath, FileMode.Create);
 								bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
 								stream.Close();
@@ -158,11 +158,11 @@ namespace WineHangouts
 						}
 						else if (j == 2)
 						{
-							var uri = new Uri(ServiceURL + "imagebottlepp/" + x[i].WineId + ".jpg");
+							var uri = new Uri(ServiceURL + "barcodepp/" + x[i].Barcode + ".jpg");
 							Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
 							try
 							{
-								var filePath = System.IO.Path.Combine(path + "/"  +j + "_"+ x[i].WineId + ".jpg");
+								var filePath = System.IO.Path.Combine(path + "/"  +j + "_"+ x[i].Barcode + ".jpg");
 								var stream = new FileStream(filePath, FileMode.Create);
 								bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
 								stream.Close();

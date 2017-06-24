@@ -92,7 +92,7 @@ namespace WineHangouts
 				ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 				string path = pppd.CreateDirectoryForPictures();
 				//string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-				var filePath = System.IO.Path.Combine(path + "/" + myItems[position].WineId + ".jpg");
+				var filePath = System.IO.Path.Combine(path + "/" + myItems[position].Barcode + ".jpg");
 				Bitmap imageBitmap;
 				if (System.IO.File.Exists(filePath))
 				{
@@ -101,7 +101,7 @@ namespace WineHangouts
 				}
 				else
 				{
-					imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId, myItems[position].PlantFinal);
+					imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, myItems[position].Vintage);
 
 					wineimage.SetImageBitmap(imageBitmap);
 				}

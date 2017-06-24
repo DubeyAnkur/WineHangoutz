@@ -22,9 +22,7 @@ namespace WineHangouts
         {
             _pref = Application.Context.GetSharedPreferences(_perf, FileCreationMode.Private);
             _edit = _pref.Edit();
-
         }
-
         public static void SaveUserName(string UserName, string UserId)
         {
 
@@ -32,23 +30,21 @@ namespace WineHangouts
             _edit.PutString("UserId", UserId);
             _edit.Apply();
         }
-
-        public static void SaveMailId(string email)
+        public static void SaveCardNumber(string CardNumber)
         {
-            _edit.PutString("UserEmail", email);
+            _edit.PutString("CardNumber", CardNumber);
             _edit.Apply();
         }
-        public static string GetMailId()
+        public static string GetCardNumber()
         {
-            string MailId = _pref.GetString("UserEmail", null);
-            return MailId;
+            string CardNumber = _pref.GetString("CardNumber", null);
+            return CardNumber;
         }
-        
         public static void PutToken(string count)
         {
             _edit.PutString("token", count);
             _edit.Apply();
-           
+
         }
 
         public static string getToken()
@@ -59,8 +55,6 @@ namespace WineHangouts
 
         public static string getUserName()
         {
-
-
             string value1 = _pref.GetString("UserName", null);
             return value1;
 
@@ -83,18 +77,16 @@ namespace WineHangouts
         static ProgressDialog progress;
         static ProgressIndicator()
         {
-            
         }
-
         public static void Show(Context _parent)
         {
             progress = new Android.App.ProgressDialog(_parent);
             progress.Indeterminate = true;
-			progress.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Purple));
-			progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
-			//progress.SetProgressStyle(ProgressDialogStyle.Spinner);
-			
-			progress.SetMessage("Loading... Please Wait...");
+            progress.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Purple));
+            progress.SetProgressStyle(Android.App.ProgressDialogStyle.Spinner);
+            //progress.SetProgressStyle(ProgressDialogStyle.Spinner);
+
+            progress.SetMessage("Loading... Please Wait...");
             progress.SetCancelable(false);
             progress.Show();
         }

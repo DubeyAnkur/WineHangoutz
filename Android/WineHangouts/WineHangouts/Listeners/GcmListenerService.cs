@@ -13,20 +13,20 @@ namespace WineHangouts
         {
             // Extract the message received from GCM:
             var message = data.GetString("message");
-            var wineId = data.GetString("wineid");
+            string WineBarcode = data.GetString("wineid");
             Log.Debug("MyGcmListenerService", "From:    " + from);
             Log.Debug("MyGcmListenerService", "Message: " + message);
             //var intent = new Intent(this, typeof(detailViewActivity));
             //intent.PutExtra("WineID", wineId);
             // Forward the received message in a local notification:
-            SendNotification(message, wineId);
+            SendNotification(message, WineBarcode);
         }
 
         // Use Notification Builder to create and launch the notification:
-        void SendNotification(string message, string wineid)
+        void SendNotification(string message, string WineBarcode)
         {
             var intent = new Intent(this, typeof(DetailViewActivity));
-            intent.PutExtra("WineID", wineid);
+            intent.PutExtra("WineBarcode", WineBarcode);
             intent.AddFlags(ActivityFlags.ClearTop);
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
 

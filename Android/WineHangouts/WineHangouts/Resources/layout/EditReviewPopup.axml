@@ -52,7 +52,7 @@
             android:background="#d7dae0">
             <RatingBar
                 android:layout_width="wrap_content"
-                android:layout_height="42.0dp"
+                android:layout_height="48.0dp"
                 android:id="@+id/rating"
                 android:isIndicator="false"
                 android:stepSize="1.0"

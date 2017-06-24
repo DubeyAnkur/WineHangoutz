@@ -23,7 +23,7 @@ namespace WineHangouts
 
         Context Parent;
 		Stopwatch st;
-        private int WineId;
+        private string WineBarcode;
         private int ParentScreenId=17;
         Review _editObj;
         string storeid;
@@ -32,7 +32,7 @@ namespace WineHangouts
         {
             Parent = parent;
             _editObj = EditObj;
-            WineId = EditObj.WineId;
+            WineBarcode = EditObj.Barcode;
             storeid = _editObj.PlantFinal;
         }
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
@@ -118,9 +118,9 @@ namespace WineHangouts
 						review.RatingText = Comments.Text;
 						review.RatingStars = Convert.ToInt32(custRating.Rating);
 						review.IsActive = true;
-						review.WineId = WineId;
+						review.Barcode =WineBarcode ;
 						review.PlantFinal = storeid;
-						LoggingClass.LogInfo("Submitted review---->" + review.RatingStars + " ---->" + review.RatingText + "---->" + review.PlantFinal + "---->" + review.WineId, screenid);
+						LoggingClass.LogInfo("Submitted review---->" + review.RatingStars + " ---->" + review.RatingText + "---->" + review.PlantFinal + "---->" + review.Barcode, screenid);
 						await sw.InsertUpdateReview(review);
 						((IPopupParent)Parent).RefreshParent();
 						ProgressIndicator.Hide();
@@ -180,11 +180,12 @@ namespace WineHangouts
                     review.RatingText = Comments.Text;
                     review.RatingStars = Convert.ToInt32(custRating.Rating);
                     review.IsActive = true;
-                    review.WineId = WineId;
+                    review.PlantFinal =storeid;
+                    review.Barcode = WineBarcode;
                     try
                     {
                         await sw.InsertUpdateReview(review);
-                        LoggingClass.LogInfo("Edited Review-----> "+ review.RatingText+"-----> "+review.RatingStars+ "----->"+review.WineId+ "----->"+review.PlantFinal+"submitted",screenid);
+                        LoggingClass.LogInfo("Edited Review-----> "+ review.RatingText+"-----> "+review.RatingStars+ "----->"+review.Barcode+ "----->"+review.PlantFinal+"submitted",screenid);
                     }
 
                     catch (Exception exe)

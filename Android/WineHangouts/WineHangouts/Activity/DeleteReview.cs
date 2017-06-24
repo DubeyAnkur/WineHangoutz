@@ -20,13 +20,13 @@ namespace WineHangouts
 	 
         //Review _editObj;
         public Dialog myDialog;
-        private int WineId;
+        private string WineBarcode;
         private int screenid = 12;
         Context Parent;
         public DeleteReview(Context parent,Review _editObj)
         {
             Parent = parent;
-            WineId=  _editObj.WineId;
+            WineBarcode =  _editObj.Barcode;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -35,7 +35,7 @@ namespace WineHangouts
 			st.Start();
 			base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.DeleteReviewPop, container, false);
-			LoggingClass.LogInfo("Entered into Delete review popup with" + WineId, screenid);
+			LoggingClass.LogInfo("Entered into Delete review popup with" + WineBarcode, screenid);
 			ServiceWrapper sw = new ServiceWrapper();
             Review review = new Review();
             Button Delete = view.FindViewById<Button>(Resource.Id.button1);
@@ -44,7 +44,7 @@ namespace WineHangouts
             {
                 Delete.Click += async delegate
                 {
-                    review.WineId = WineId;
+                    review.Barcode = WineBarcode;
                     ProgressIndicator.Show(Parent);
                     review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
 					
@@ -52,7 +52,7 @@ namespace WineHangouts
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
                     myDialog.Dismiss();
-					LoggingClass.LogInfoEx("User deleted winereview" + WineId +review.PlantFinal, screenid);
+					LoggingClass.LogInfoEx("User deleted winereview" + WineBarcode + "from "+review.PlantFinal+"st Store", screenid);
 
 
 				};
@@ -63,7 +63,7 @@ namespace WineHangouts
             }
             Cancel.Click += delegate
             {
-				LoggingClass.LogInfo("clicked on cancel" + WineId + review.PlantFinal, screenid);
+				LoggingClass.LogInfo("clicked on cancel" + WineBarcode + review.PlantFinal, screenid);
 				myDialog.Dismiss();
             };
 			st.Stop();

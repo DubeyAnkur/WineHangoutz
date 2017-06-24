@@ -271,14 +271,14 @@ namespace WineHangouts
 						if (count == false)
 						{
 							heartImg.SetImageResource(Resource.Drawable.HeartFull);
-							LoggingClass.LogInfoEx("Liked an item----->" + myItems[position].WineId, screenid);
+							LoggingClass.LogInfoEx("Liked an item----->" + myItems[position].Barcode, screenid);
 							x = true;
 							count = true;
 						}
 						else
 						{
 							heartImg.SetImageResource(Resource.Drawable.Heart_emp);
-							LoggingClass.LogInfoEx("UnLiked an item---->" + myItems[position].WineId, screenid);
+							LoggingClass.LogInfoEx("UnLiked an item---->" + myItems[position].Barcode, screenid);
 							x = false;
 							count = false;
 						}
@@ -287,14 +287,14 @@ namespace WineHangouts
 						like.SKU = Convert.ToInt32(myItems[actualPosition].SKU);
 						like.Liked = x;
 						myItems[actualPosition].IsLike = x;
-						like.WineId = myItems[actualPosition].WineId;
+						like.BarCode = myItems[actualPosition].Barcode;
 						LoggingClass.LogInfo("Liked an item", screenid);
 						ServiceWrapper sw = new ServiceWrapper();
 						await sw.InsertUpdateLike(like);
 					};
 				}
 				Bitmap imageBitmap;
-				imageBitmap = BlobWrapper.Bottleimages(myItems[position].WineId, myItems[position].PlantFinal);
+				imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, myItems[position].Vintage);
 				var place = new FrameLayout.LayoutParams(650, 650);
 
 				//-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;

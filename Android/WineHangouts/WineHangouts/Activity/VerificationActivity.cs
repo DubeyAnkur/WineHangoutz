@@ -30,12 +30,12 @@ namespace WineHangouts
             Button btnVerification = FindViewById<Button>(Resource.Id.btnVerify);
             Button btnResendMail = FindViewById<Button>(Resource.Id.btnResendMail);
             EditText editEmail = FindViewById<EditText>(Resource.Id.txtEmail);
-            editEmail.Text = CurrentUser.GetMailId();
+            editEmail.Text = CurrentUser.GetCardNumber();//GetMailId();
 
             btnResendMail.Click += async delegate
             {
-                CurrentUser.SaveMailId(editEmail.Text);
-                await sc.AuthencateUser1(CurrentUser.GetMailId());
+                CurrentUser.SaveCardNumber(editEmail.Text);
+                await sc.AuthencateUser1(CurrentUser.GetCardNumber());
             };
             btnVerification.Click += delegate
             {

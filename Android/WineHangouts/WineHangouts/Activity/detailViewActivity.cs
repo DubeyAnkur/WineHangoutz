@@ -26,11 +26,13 @@ namespace WineHangouts
 		public int sku;
 		private int screenid = 4;
 		private int storeid = 0;
-		//Button downloadButton;
-		WebClient webClient;
+        public ListView commentsview;
+        //Button downloadButton;
+        public reviewAdapter comments;
+        WebClient webClient;
 		ImageView HighImageWine;
 		//ImageView imgWine;
-		int wineid;
+		public string WineBarcode;
 		//LinearLayout progressLayout;
 		//List<ItemDetails> DetailsArray;
 		List<Review> ReviewArray;
@@ -41,7 +43,7 @@ namespace WineHangouts
 			st.Start();
 			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.detailedView);
-			wineid = Intent.GetIntExtra("WineID", 123);
+            WineBarcode = Intent.GetStringExtra("WineBarcode");
 			storeid = Intent.GetIntExtra("storeid", 1);
 			ActionBar.SetHomeButtonEnabled(true);
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -49,7 +51,7 @@ namespace WineHangouts
 			ItemDetailsResponse myData = new ItemDetailsResponse();
 			ItemReviewResponse SkuRating = new ItemReviewResponse();
 			this.Title = "Wine Details";
-			var commentsView = FindViewById<ListView>(Resource.Id.listView2);
+            commentsview = FindViewById<ListView>(Resource.Id.listView2);
 			TextView WineName = FindViewById<TextView>(Resource.Id.txtWineName); //Assigning values to respected Textfields
 			WineName.Focusable = false;
 			TextView WineProducer = FindViewById<TextView>(Resource.Id.txtProducer);
@@ -63,11 +65,11 @@ namespace WineHangouts
 			TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
 			try
 			{
-				DownloadAsync(this, System.EventArgs.Empty, wineid);
-				myData = svc.GetItemDetails(wineid, storeid).Result;
-				SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
+				DownloadAsync(this, System.EventArgs.Empty, WineBarcode);
+				myData = svc.GetItemDetails(WineBarcode, storeid).Result;
+				SkuRating = svc.GetItemReviewsByWineBarcode(WineBarcode).Result;
 				ReviewArray = SkuRating.Reviews.ToList();
-				reviewAdapter comments = new reviewAdapter(this, ReviewArray);
+                comments = new reviewAdapter(this, ReviewArray);
 				if (comments.Count == 0)
 				{
 					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
@@ -79,8 +81,8 @@ namespace WineHangouts
 					dialog.Show();
 				}
 				else
-					commentsView.Adapter = comments;
-				setListViewHeightBasedOnChildren1(commentsView);
+                commentsview.Adapter = comments;
+				setListViewHeightBasedOnChildren1(commentsview);
 				WineName.Text = myData.ItemDetails.Name;
 				WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
 				Vintage.Text = myData.ItemDetails.Vintage.ToString();
@@ -103,7 +105,7 @@ namespace WineHangouts
 				AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
 				Review edit = new Review()
 				{
-					WineId = wineid,
+					Barcode= WineBarcode,
 					RatingText = "",
 					PlantFinal = storeid.ToString()
 				};
@@ -129,7 +131,7 @@ namespace WineHangouts
 
 				};
 				ProgressIndicator.Hide();
-				LoggingClass.LogInfo("Entered into detail view" + wineid, screenid);
+				LoggingClass.LogInfo("Entered into detail view" + WineBarcode, screenid);
 				Bitmap result = BitmapFactory.DecodeResource(Resources, Resource.Drawable.placeholder_re, options);
 			}
 			catch (Exception exe)
@@ -266,43 +268,34 @@ namespace WineHangouts
 		public void RefreshParent()
 		{
 			ServiceWrapper svc = new ServiceWrapper();
-			int wineid = Intent.GetIntExtra("WineID", 138);
-			ItemDetailsResponse myData = svc.GetItemDetails(wineid, storeid).Result;
-			var SkuRating = svc.GetItemReviewsByWineID(wineid).Result;
-			this.Title = "Wine Details";
-			var commentsView = FindViewById<ListView>(Resource.Id.listView2);
-			reviewAdapter comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
-			commentsView.Adapter = comments;
+			//int wineid = Intent.GetIntExtra("WineID", 138);
+			ItemDetailsResponse myData = svc.GetItemDetails(WineBarcode, storeid).Result;
+			var SkuRating = svc.GetItemReviewsByWineBarcode(WineBarcode).Result;
+			comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
+            commentsview.Adapter = comments;
 			comments.NotifyDataSetChanged();
 		}
 
-		public async void DownloadAsync(object sender, System.EventArgs ea, int wineid)
+		public async void DownloadAsync(object sender, System.EventArgs ea, string WineBarcode)
 		{
 			webClient = new WebClient();
 			string url = null;
-			
-
 			if (storeid == 1)
 			{
-				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/" + wineid + ".jpg";
-				LoggingClass.LogInfo("Download Async image in detail view" + wineid + +',' + storeid, screenid);
+				url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + WineBarcode + ".jpg";
+				LoggingClass.LogInfo("Download Async image in detail view" + WineBarcode + +',' + storeid, screenid);
 			}
 			else if (storeid == 2)
 			{
-				url = "https://icsintegration.blob.core.windows.net/bottleimagesdetailspp/" + wineid + ".jpg";
-				LoggingClass.LogInfo("Download Async image in detail view" + wineid + +',' + storeid, screenid);
+				url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + WineBarcode + ".jpg";
+				LoggingClass.LogInfo("Download Async image in detail view" + WineBarcode + +',' + storeid, screenid);
 			}
 			byte[] imageBytes = null;
-			//progressLayout.Visibility = ViewStates.Visible;
-			try
-			{
-
-			
-		
-					imageBytes = await webClient.DownloadDataTaskAsync(url);
-				
-
-			}
+            //progressLayout.Visibility = ViewStates.Visible;
+            try
+            {
+                imageBytes = await webClient.DownloadDataTaskAsync(url);
+            }
 			
 
 			catch (TaskCanceledException)
@@ -312,11 +305,11 @@ namespace WineHangouts
 			}
 			catch (Exception exe)
 			{
-				LoggingClass.LogError("while downloading image of wine id" + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
+				LoggingClass.LogError("while downloading image of wine id" + WineBarcode + "  " + exe.Message, screenid, exe.StackTrace.ToString());
 				//progressLayout.Visibility = ViewStates.Gone;
 				//downloadButton.Click += downloadAsync;
 				//downloadButton.Text = "Download Image";
-				Bitmap imgWine = BlobWrapper.Bottleimages(wineid, storeid);
+				Bitmap imgWine = BlobWrapper.Bottleimages(WineBarcode, storeid);
 				HighImageWine.SetImageBitmap(imgWine);
 				return;
 			}

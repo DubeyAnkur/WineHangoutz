@@ -25,7 +25,7 @@ namespace WineHangouts
     public class GridViewActivity : Android.Support.V4.App.FragmentActivity
     {
        // bool loading;
-        public int WineID;
+        public string  WineBarcode;
         public string StoreName = "";
         private int screenid = 3;
         GridViewAdapter adapter;
@@ -120,11 +120,11 @@ namespace WineHangouts
 
                 gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
                 {
-                    WineID = myArr[args.Position].WineId;
+                    WineBarcode = myArr[args.Position].Barcode;
                     ProgressIndicator.Show(this);
                     var intent = new Intent(this, typeof(DetailViewActivity));
-                    LoggingClass.LogInfo("Clicked on " + myArr[args.Position].WineId + " to enter into wine details",screenid);
-                    intent.PutExtra("WineID", WineID);
+                    LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details",screenid);
+                    intent.PutExtra("WineBarcode", WineBarcode);
                     intent.PutExtra("storeid", StoreId);
                     StartActivity(intent);
                 };

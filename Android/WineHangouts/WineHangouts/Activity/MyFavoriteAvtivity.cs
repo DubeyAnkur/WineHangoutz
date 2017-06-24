@@ -59,12 +59,12 @@ namespace WineHangouts
 					gridview.Adapter = adapter;
 					gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
 					{
-						int WineID = myArr[args.Position].WineId;
-						int storeid = myArr[args.Position].PlantFinal;
+						string WineBarcode = myArr[args.Position].Barcode;
+                        int storeid = myArr[args.Position].PlantFinal;
 						ProgressIndicator.Show(this);
 						var intent = new Intent(this, typeof(DetailViewActivity));
-						LoggingClass.LogInfo("Clicked on " + myArr[args.Position].WineId + " to enter into wine details", screenid);
-						intent.PutExtra("WineID", WineID);
+						LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details", screenid);
+						intent.PutExtra("WineBarcode", WineBarcode);
 						intent.PutExtra("storeid", storeid);
 						StartActivity(intent);
 					};
