@@ -57,6 +57,7 @@ namespace WineHangoutz
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
+				LoggingClass.LogError(ex.Message, 6, ex.StackTrace);
 			}
 		}
 	}

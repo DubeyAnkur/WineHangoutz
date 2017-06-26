@@ -132,18 +132,29 @@ namespace WineHangoutz
 				btnVerify.SetTitle("Verify", UIControlState.Normal);
 				btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 				btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-				//for 
+
 				string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 				btnGuestLogin.TouchDown += (sender, e) =>
-			   {
-				   CurrentUser.Store("0", "Guest");
-					   //NavigationController.PushViewController(new TestController(), false);
-					   //CurrentUser.PutGuestLoginStatus(true);
-					   //nav.DismissViewController(true, null);
-					   nav = new UINavigationController(RootTabs);
-				   AddNavigationButtons(nav);
-				   _window.RootViewController = nav;
-			   };
+			   	{
+						CurrentUser.Store("0", "Guest");
+					   if (RootTabs == null || _window == null)
+					   {
+						_window = CurrentUser.window;
+						RootTabs = CurrentUser.RootTabs;
+						nav = new UINavigationController(RootTabs);
+						//AddNavigationButtons(nav);
+						_window.RootViewController = nav;
+						   //nav.DismissViewController(true);
+						}
+
+					   	nav = new UINavigationController(RootTabs);
+						AddNavigationButtons(nav);
+						CurrentUser.RootTabs = RootTabs;
+						_window.RootViewController = nav;
+						CurrentUser.window = _window;
+                        //this.NavigationController.PopToRootViewController (true);
+					
+			   	};
 				//btnVerify.TouchUpInside += (sender, e) =>
 				//{
 				//	//EmailVerification();
@@ -165,7 +176,7 @@ namespace WineHangoutz
 			}
 			catch (Exception exe)
 			{
-				Console.WriteLine(exe.Message);
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 			}
 
 		}
@@ -277,38 +288,52 @@ namespace WineHangoutz
 			DeviceToken Dt = new DeviceToken();
 			Dt = await svc.VerifyMail(CurrentUser.GetId());
 
-								try
-								{
+			try
+			{
 
-									if (Dt.VerificationStatus == 1)
-									{
-										CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
-										nav = new UINavigationController(RootTabs);
-										AddNavigationButtons(nav);
-										_window.RootViewController = nav;
-										int DeviceType = 2;
-										await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
-										LoggingClass.LogInfo("The User logged in with" + CurrentUser.RetreiveUserId(), screenid);
-									}
-									else
-									{
-										try
-										{
-											View.AddSubview(btnResend);
-										}
-										catch (Exception ex)
-										{
-											Console.WriteLine(ex.Message.ToString());
-										}
-									}
-								}
-								catch (Exception Exe)
-								{
-									LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace.ToString());
-								}
-
-							}
+				if (Dt.VerificationStatus == 1)
+				{
+					CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
+					if (RootTabs == null || _window == null)
+					{
+						RootTabs = CurrentUser.RootTabs;
+						_window = CurrentUser.window;
+						nav = new UINavigationController(RootTabs);
+						AddNavigationButtons(nav);
+						_window.RootViewController = nav;
+						int DeviceType = 2;
+						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
+						LoggingClass.LogInfo("The User logged in with" + CurrentUser.RetreiveUserId(), screenid);
+					}
+					else
+					{
+						nav = new UINavigationController(RootTabs);
+						AddNavigationButtons(nav);
+						_window.RootViewController = nav;
+						int DeviceType = 2;
+						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
+						LoggingClass.LogInfo("The User logged in with" + CurrentUser.RetreiveUserId(), screenid);
+					}
+				}
+				else
+				{
+					try
+					{
+						View.AddSubview(btnResend);
+					}
+					catch (Exception ex)
+					{
+						LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+					}
+				}
+			}
+			catch (Exception Exe)
+			{
+				LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace.ToString());
+			}
 		}
+
+	}
 
 
 	public static class CurrentUser //: ISecuredDataProvider
@@ -335,6 +360,8 @@ namespace WineHangoutz
 			plist.SetString(userId, "userId");
 
 		}
+		public static UIViewController RootTabs { get; set; }
+		public static UIWindow window { get; set; }
 		public static void StoreId(string id)
 		{
 			plist.SetString(id, "id");

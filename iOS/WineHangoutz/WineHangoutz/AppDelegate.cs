@@ -40,9 +40,9 @@ namespace WineHangoutz
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-
-			CurrentUser.Clear();
-			//CurrentUser.Store("1", "Lokesh");//for direct log in
+			//CurrentUser.Clear();
+			CurrentUser.Store("1", "Lokesh"); 
+			//for direct log in
 			//CurrentUser.PutCardNumber("900497407491");
 
 			UIImage profile = UIImage.FromFile("profile.png");
@@ -142,7 +142,7 @@ namespace WineHangoutz
 					else
 					{
 						int storeid = 2;
-						nav.PushViewController(new SKUDetailView(wineid,storeid.ToString()), false);
+						nav.PushViewController(new DetailViewController(wineid,storeid.ToString()), false);
 						BTProgressHUD.Dismiss();
 					}
 				}

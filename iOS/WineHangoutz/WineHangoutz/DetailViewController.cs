@@ -127,18 +127,6 @@ namespace WineHangoutz
 				PDRatingView ratingViewSelect = new PDRatingView(new CGRect(width * 2 / 8, Y + 82, width / 2, 36f), ratingConfig, 0m);
 				UIViewController that = this;
 
-				ratingViewSelect.RatingChosen += (sender, e) =>
-				{
-					LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
-					PopupView yourController = new PopupView(data.Barcode, _storeId);
-					yourController.NavController = NavigationController;
-					yourController.parent = that;
-					yourController.StartsSelected = e.Rating;
-
-					yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-					that.PresentModalViewController(yourController, false);
-				};
-
 				var starDownLine = new UIImageView(new CGRect(4, Y + 120, View.Frame.Width - 8, 1));
 				starDownLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
 				starDownLine.Image = UIImage.FromFile("separator.png");
@@ -206,6 +194,26 @@ namespace WineHangoutz
 				var review = LoadReviews(data, Y, width);
 				Y = Y + review.Frame.Size.Height;
 
+				var currentReview = data.Reviews.Where(x => x.ReviewUserId == CurrentUser.RetreiveUserId()).FirstOrDefault();
+				string currComments = "";
+				if (currentReview != null)
+				{
+					currComments = currentReview.RatingText;
+				}
+
+				ratingViewSelect.RatingChosen += (sender, e) =>
+				{
+					LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
+					PopupView yourController = new PopupView(data.Barcode, _storeId);
+					yourController.NavController = NavigationController;
+					yourController.parent = that;
+					yourController.StartsSelected = e.Rating;
+					yourController.Comments = currComments;
+					yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+					that.PresentModalViewController(yourController, false);
+				};
+
+					
 				scrollView = new UIScrollView
 				{
 					Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height),

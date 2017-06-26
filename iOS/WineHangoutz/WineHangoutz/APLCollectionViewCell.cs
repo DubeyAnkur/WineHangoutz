@@ -85,30 +85,44 @@ namespace WineHangoutz {
 
 				heartImage.TouchUpInside += async (object sender, EventArgs e) =>
 				{
-				//Do some actionn
-				UIButton temp = (UIButton)sender;
-					if (temp.Tag == 0)
+					//Do some actionn
+					if (CurrentUser.RetreiveUserId() != 0)
 					{
-						heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
-						temp.Tag = 1;
-						myItem.IsLike = true;
-						LoggingClass.LogInfo("Liked Wine "+WineId, screenid);
+						UIButton temp = (UIButton)sender;
+						if (temp.Tag == 0)
+						{
+							heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+							temp.Tag = 1;
+							myItem.IsLike = true;
+							LoggingClass.LogInfo("Liked Wine " + WineId, screenid);
+						}
+						else
+						{
+							heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+							temp.Tag = 0;
+							myItem.IsLike = false;
+							LoggingClass.LogInfo("Unliked Wine " + WineId, screenid);
+						}
+						//NavigationController.PushViewController(new DetailViewController(), false);
+						SKULike like = new SKULike();
+						like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+						like.BarCode = WineId;
+						like.Liked = Convert.ToBoolean(temp.Tag);
+
+						ServiceWrapper sw = new ServiceWrapper();
+						await sw.InsertUpdateLike(like);
 					}
 					else
 					{
-						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
-						temp.Tag = 0;
-						myItem.IsLike = false;
-						LoggingClass.LogInfo("Unliked Wine "+WineId, screenid);
-					}
-				//NavigationController.PushViewController(new DetailViewController(), false);
-				SKULike like = new SKULike();
-					like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
-					like.BarCode = WineId;
-					like.Liked = Convert.ToBoolean(temp.Tag);
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "This feature is allowed only for VIP Card holders",
+							//Message = "Coming Soon..."
+						};
 
-					ServiceWrapper sw = new ServiceWrapper();
-					await sw.InsertUpdateLike(like);
+						alert.AddButton("OK");
+						alert.Show();
+					}
 				};
 
 				CGRect lower = new CGRect(Bounds.Location, Bounds.Size);

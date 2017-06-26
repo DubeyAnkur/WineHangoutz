@@ -346,7 +346,7 @@ namespace WineHangoutz
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine("Image load failed: " + e.Message);
+						//Console.WriteLine("Image load failed: " + e.Message);
 					LoggingClass.LogError(e.ToString(), screenid, e.StackTrace);
 			
 						return null;

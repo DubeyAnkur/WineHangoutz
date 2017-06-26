@@ -8,6 +8,7 @@ using AVFoundation;
 using System.Net;
 using System.IO;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace WineHangoutz
 {
@@ -90,7 +91,7 @@ namespace WineHangoutz
 				pickerDataModel.Items.Add("WI");
 				pickerDataModel.Items.Add("WY");
 				statePicker.Model = pickerDataModel;
-
+                //statePicker.Select(5, 0, true);
 				//LoggingClass.UploadErrorLogs();
 				if (CurrentUser.RetreiveUserId() == 0)
 				{
@@ -109,10 +110,11 @@ namespace WineHangoutz
 							if (buttonArgs.ButtonIndex == 1)
 							{
 								LoginViewController yourController = new LoginViewController();
-								yourController.nav = NavigationController;
-								yourController.root = this;
-								yourController.ModalPresentationStyle = UIModalPresentationStyle.FullScreen;
-								this.PresentModalViewController(yourController, false);
+								yourController.nav = NavCtrl;
+								yourController.RootTabs = CurrentUser.RootTabs;
+								NavCtrl.PushViewController(yourController, false);
+								//NavCtrl.PopViewController(false);
+								//NavCtrl.PopViewController(false);
 							}
 						};
 					alert.Show();
@@ -127,6 +129,13 @@ namespace WineHangoutz
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
+					string state = cRes.customer.State;
+					if (pickerDataModel.Items.Contains(state))
+					{
+						int i = pickerDataModel.Items.FindIndex(x => x == state);
+						statePicker.Select(i, 0, false);
+					}
+
 					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2 + cRes.customer.City;
 					//txtState.ShouldReturn += (TextField) =>
 					// {
@@ -308,18 +317,18 @@ namespace WineHangoutz
 				switch (e.Info[UIImagePickerController.MediaType].ToString())
 				{
 					case "public.image":
-						Console.WriteLine("Image selected");
+						//Console.WriteLine("Image selected");
 						isImage = true;
 						break;
 					case "public.video":
-						Console.WriteLine("Video selected");
+						//Console.WriteLine("Video selected");
 						break;
 				}
 
 				// get common info (shared between images and video)
 				NSUrl referenceURL = e.Info[new NSString("UIImagePickerControllerReferenceUrl")] as NSUrl;
 				if (referenceURL != null)
-					Console.WriteLine("Url:" + referenceURL.ToString());
+					//Console.WriteLine("Url:" + referenceURL.ToString());
 
 				// if it was an image, get the other image info
 				if (isImage)
@@ -331,7 +340,7 @@ namespace WineHangoutz
 					{
 						// do something with the image
 
-						Console.WriteLine("got the original image");
+						//Console.WriteLine("got the original image");
 						imgProfile.Image = originalImage; // display
 						using (NSData imagedata = originalImage.AsJPEG())
 						{
@@ -357,7 +366,7 @@ namespace WineHangoutz
 					NSUrl mediaURL = e.Info[UIImagePickerController.MediaURL] as NSUrl;
 					if (mediaURL != null)
 					{
-						Console.WriteLine(mediaURL.ToString());
+						//Console.WriteLine(mediaURL.ToString());
 					}
 				}
 				// dismiss the picker
@@ -415,7 +424,8 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				Console.WriteLine(ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 			}
 			WebClient webClient = new WebClient();
 			//string url = "http://www.my-hd-wallpapers.com/wall/1405244488_moutain-reflect-on-a-lake_800.jpg";
@@ -469,6 +479,53 @@ namespace WineHangoutz
 		//		this.PresentModalViewController(yourController, false);
 		//	}
 		//}
+	}
+	public class PickerDataModel : UIPickerViewModel
+
+	{
+		public event EventHandler<EventArgs> ValueChanged;
+
+
+		public List<string> Items { get; private set; }
+
+
+		public string SelectedItem
+		{
+			get { return Items[selectedIndex]; }
+		}
+
+		int selectedIndex = 0;
+
+		public PickerDataModel()
+		{
+			Items = new List<string>();
+		}
+
+
+		public override nint GetRowsInComponent(UIPickerView picker, nint component)
+		{
+			return Items.Count;
+		}
+
+		public override string GetTitle(UIPickerView picker, nint row, nint component)
+		{
+			return Items[(int)row];
+		}
+
+		public override nint GetComponentCount(UIPickerView picker)
+		{
+			return 1;
+		}
+
+
+		public override void Selected(UIPickerView picker, nint row, nint component)
+		{
+			selectedIndex = (int)row;
+			if (ValueChanged != null)
+			{
+				ValueChanged(this, new EventArgs());
+			}
+		}
 	}
 }
 

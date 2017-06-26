@@ -96,7 +96,7 @@ namespace WineHangoutz
 				ReviewDate.Frame = new CGRect(50, 20, ContentView.Bounds.Width - 35, 20);
 				//stars.Frame = new CGRect(35, 50, 100, 20);
 				stars.UserInteractionEnabled = false;
-				Comments.Frame = new CGRect(45, 30, ContentView.Bounds.Width - 35, 40);
+				Comments.Frame = new CGRect(45, 30, ContentView.Bounds.Width - 50, 150);
 			}
 			catch (Exception ex)
 			{

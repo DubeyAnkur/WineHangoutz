@@ -110,6 +110,7 @@ namespace WineHangoutz
 		UIButton btnEdit;
 		UIButton btnDelete;
 		UILabel WineIdLabel;
+		UIButton ReadMore;
 
 		public UINavigationController NavController;
 		public UIViewController Parent;
@@ -166,6 +167,11 @@ namespace WineHangoutz
 					//LineBreakMode = UILineBreakMode.WordWrap
 					Editable = false,
 					Selectable = false
+				};
+				ReadMore = new UIButton()
+				{
+					Font = UIFont.FromName("Verdana", 10f),
+					BackgroundColor = UIColor.White
 				};
 				Vintage = new UILabel()
 				{
@@ -232,13 +238,8 @@ namespace WineHangoutz
 
 				};
 
-
-
-
-
-
 				WineIdLabel = new UILabel();
-				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage, separator, btnEdit, btnDelete });
+				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage,separator, btnEdit, btnDelete });
 
 			}
 			catch (Exception ex)
@@ -257,10 +258,33 @@ namespace WineHangoutz
 				WineName.Text = review.Name + " " + review.Vintage.ToString();
 				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 				Comments.Text = review.RatingText;
+				//CGSize sTemp = new CGSize(ContentView.Frame.Width, 100);
+				//sTemp = Comments.SizeThatFits(sTemp);
+				if (review.RatingText.Length > 100)
+				{
+					ContentView.AddSubview(ReadMore);
+					ReadMore.TouchUpInside += delegate {
+						{
+							UIAlertView alert = new UIAlertView()
+							{
+								Title = review.RatingText,
+								//Message = "Coming Soon..."
+							};
+
+							alert.AddButton("OK");
+							alert.Show();
+						};
+					};
+					//ReadMore.Hidden = false;
+				}
 				//Vintage.Text = " ";//"Vintage:"+review.Vintage.ToString();
 				storeid = Convert.ToInt32(review.PlantFinal);
 				WineIdLabel.Text = review.Barcode.ToString();
+				ReadMore.SetTitle("... Read More", UIControlState.Normal);
+				ReadMore.SetTitleColor(UIColor.Blue, UIControlState.Normal);
 
+				//ReadMore.Hidden = true;
+					
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 				//ContentView.Bounds.Height = 90;
 				stars.AverageRating = Convert.ToDecimal(review.RatingStars);
@@ -281,13 +305,14 @@ namespace WineHangoutz
 				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
 				WineName.Frame = new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
 				//Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
-				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
+				separator.Frame = new CGRect(imageWidth, 79, WineName.Frame.Width-100, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
 				//stars.Frame = new CGRect(35, 50, 100, 20);
 				stars.UserInteractionEnabled = false;
 				Comments.Frame = new CGRect(imageWidth - 4, 99, ContentView.Bounds.Width - imageWidth - 2, 70);
 				btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
 				btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
+				ReadMore.Frame = new CGRect(ContentView.Bounds.Width - 80, 150, 75, 20);
 			}
 			catch (Exception ex)
 			{

@@ -197,7 +197,6 @@
     <InterfaceDefinition Include="ProfileViewController.xib" />
     <InterfaceDefinition Include="AboutController.xib" />
     <InterfaceDefinition Include="DummyViewController.xib" />
-    <InterfaceDefinition Include="TestController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -272,10 +271,6 @@
     <Compile Include="UI.cs" />
     <Compile Include="UI.designer.cs">
       <DependentUpon>UI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TestController.cs" />
-    <Compile Include="TestController.designer.cs">
-      <DependentUpon>TestController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

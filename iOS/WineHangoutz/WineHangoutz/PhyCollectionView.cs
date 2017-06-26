@@ -79,6 +79,17 @@ namespace WineHangoutz
 				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 				this.CollectionView.BackgroundColor = UIColor.White;
 				CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
+				var refreshControl = new UIRefreshControl();
+                this.CollectionView.Add(refreshControl);
+
+				refreshControl.ValueChanged += (rcSender, e) =>
+				{
+					//Refresh this view
+					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+					CollectionView.ReloadData();
+					refreshControl.EndRefreshing();
+				};
+				
 			}
 			catch (Exception ex)
 			{
