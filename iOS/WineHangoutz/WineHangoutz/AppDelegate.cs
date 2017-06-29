@@ -41,7 +41,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 			//CurrentUser.Clear();
-			CurrentUser.Store("1", "Lokesh"); 
+			CurrentUser.Store("48732", "Arnold"); 
 			//for direct log in
 			//CurrentUser.PutCardNumber("900497407491");
 
@@ -53,7 +53,6 @@ namespace WineHangoutz
 
 
 			ManageTabBar(RootTab);
-
 			var login = new LoginViewController();
 			login.RootTabs = Window.RootViewController;
 			login._window = Window;
@@ -114,37 +113,41 @@ namespace WineHangoutz
 		{
 			if (null != options && options.ContainsKey(new NSString("aps")))
 			{
-				
-				NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
-
-				string wine = options.ObjectForKey(new NSString("wineid")).ToString();
-
-				string alert = string.Empty;
-				string wineid = string.Empty;
-
-				if (aps.ContainsKey(new NSString("alert")))
-					alert = (aps[new NSString("alert")] as NSString).ToString();
-				wineid = wine;
-				if (!fromFinishedLaunching)
+				try
 				{
-					if (wineid == ""||wineid==null)
+					string wine = options.ObjectForKey(new NSString("barcode")).ToString();
+					string storeid=options.ObjectForKey(new NSString("storeid")).ToString();
+					NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
+					string alert = string.Empty;
+					string wineid = string.Empty;
+
+					if (aps.ContainsKey(new NSString("alert")))
+						alert = (aps[new NSString("alert")] as NSString).ToString();
+					wineid = wine;
+					if (!fromFinishedLaunching)
 					{
-						UIAlertView alert1 = new UIAlertView()
+						if (wineid == ""||wineid==null)
 						{
-							Title = "We didn't find tasted wine.",
+							UIAlertView alert1 = new UIAlertView()
+							{
+								Title = "We didn't find tasted wine.",
 
-						};
+							};
 
-						alert1.AddButton("OK");
+							alert1.AddButton("OK");
 
-						alert1.Show();
+							alert1.Show();
+						}
+						else
+						{
+								BTProgressHUD.Show("Loading...");
+								CurrentUser.navig.PushViewController(new DetailViewController(wineid,storeid), false);
+						}
 					}
-					else
-					{
-						int storeid = 2;
-						nav.PushViewController(new DetailViewController(wineid,storeid.ToString()), false);
-						BTProgressHUD.Dismiss();
-					}
+				}
+				catch (Exception ex)
+				{
+					LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 				}
 			}
 		}

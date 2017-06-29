@@ -6,6 +6,7 @@ using CoreGraphics;
 using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -115,7 +116,7 @@ namespace WineHangoutz
 		UIImageView separator;
 		UIButton imageView;
 		UILabel WineIdLabel;
-		Tastings r = new Tastings();
+		Tastings taste = new Tastings();
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		private int screenid = 7;
@@ -139,8 +140,8 @@ namespace WineHangoutz
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					
-					r.PlantFinal =storeid;
-					NavController.PushViewController(new SKUDetailView(WineIdLabel.Text,storeid.ToString()), false);
+					BTProgressHUD.Show("Loading...");
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text,storeid.ToString()), false);
 				};
 				separator = new UIImageView();
 				WineName = new UILabel()
@@ -169,20 +170,21 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 			}
 		}
-        public void UpdateCell(Tastings review)
+        public void UpdateCell(Tastings tasting)
 		{
 			
 			try
 			{
-				imageView.SetImage(BlobWrapper.GetResizedImage(r.Barcode.ToString(), new CGRect(0, 0, 100, 155),r.PlantFinal.ToString()), UIControlState.Normal);
+				imageView.SetImage(BlobWrapper.GetResizedImage(tasting.Barcode.ToString(), new CGRect(0, 0, 100, 155),tasting.PlantFinal.ToString()), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
-				WineName.Text = review.Name;
-				ReviewDate.Text = review.TastingDate.ToString("MM-dd-yyyy");
-				Vintage.Text = review.Vintage.ToString();
-				WineIdLabel.Text = review.WineId.ToString();
+				WineName.Text = tasting.Name;
+				ReviewDate.Text = tasting.TastingDate.ToString("MM-dd-yyyy");
+				Vintage.Text = tasting.Vintage.ToString();
+				WineIdLabel.Text = tasting.Barcode;
+				storeid = tasting.PlantFinal;
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 				//ContentView.Bounds.Height = 90;
 			}

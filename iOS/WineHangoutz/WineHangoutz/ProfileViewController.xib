@@ -164,7 +164,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40" customClass="UIButton">
-                    <rect key="frame" x="148" y="627" width="95" height="30"/>
+                    <rect key="frame" x="147" y="627" width="95" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17" weight="heavy"/>
                     <state key="normal" title="Update"/>

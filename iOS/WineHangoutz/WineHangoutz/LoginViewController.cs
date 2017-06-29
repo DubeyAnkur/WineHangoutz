@@ -134,36 +134,28 @@ namespace WineHangoutz
 				btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 
 				string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
-				btnGuestLogin.TouchDown += (sender, e) =>
+				btnGuestLogin.TouchDown += async (sender, e) =>
 			   	{
 						CurrentUser.Store("0", "Guest");
 					   if (RootTabs == null || _window == null)
 					   {
-						_window = CurrentUser.window;
-						RootTabs = CurrentUser.RootTabs;
-						nav = new UINavigationController(RootTabs);
-						//AddNavigationButtons(nav);
-						_window.RootViewController = nav;
+						   _window = CurrentUser.window;
+						   RootTabs = CurrentUser.RootTabs;
+						   nav = new UINavigationController(RootTabs);
+						   //AddNavigationButtons(nav);
+						   _window.RootViewController = nav;
 						   //nav.DismissViewController(true);
-						}
-
+					   }
 					   	nav = new UINavigationController(RootTabs);
 						AddNavigationButtons(nav);
 						CurrentUser.RootTabs = RootTabs;
 						_window.RootViewController = nav;
 						CurrentUser.window = _window;
+						await svc.InsertUpdateGuest(CurrentUser.GetToken());
+						
                         //this.NavigationController.PopToRootViewController (true);
 					
 			   	};
-				//btnVerify.TouchUpInside += (sender, e) =>
-				//{
-				//	//EmailVerification();
-				//};
-
-
-
-
-
 				View.BackgroundColor = UIColor.White;
 				View.AddSubview(imgLogo);
 				View.AddSubview(btnGuestLogin);
@@ -222,7 +214,7 @@ namespace WineHangoutz
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			cr = await svc.AuthencateUser("test", CardNumber, "test");
 			CurrentUser.PutCardNumber(CardNumber);
-			if (cr.customer.CustomerID != 0)
+			if (cr != null)
 			{
 				lblInfo.Text = " Hi " + cr.customer.FirstName + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 				lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
@@ -246,29 +238,18 @@ namespace WineHangoutz
 				View.AddSubview(btnResend);
 				View.AddSubview(btnLogin);
 				btnResend.TouchUpInside += async (send, eve) =>
-				 {
-					 await svc.AuthencateUser("", CardNumber, "");
-				 };
+				{
+					BTProgressHUD.Show("Sending verification email to"+cr.customer.Email);
+					await svc.AuthencateUser("", CardNumber, "");
+					BTProgressHUD.ShowSuccessWithStatus("Sent");
+				};
 				btnLogin.TouchUpInside += (sen, ev) =>
 				{
-
 					try
 					{
+						BTProgressHUD.Show("Checking email verifification");
 						EmailVerification();
-										//cr = await svc.AuthencateUser("Test", CardNumber, uid_device);
-
-										//if (cr.customer.CustomerID != 0)
-										//{
-										//	CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
-										//	//nav.DismissViewController(true, null);
-										//	CurrentUser.PutLoginStatus(true);
-										//	BTProgressHUD.ShowSuccessWithStatus("Success");
-										//	nav.PushViewController(new ProfileViewController(nav), false);
-										//	BTProgressHUD.Dismiss();
-										//	nav.DismissViewController(true, null);
-										//}
-										//BTProgressHUD.Dismiss();
-									}
+					}
 					catch (Exception ex)
 					{
 						LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
@@ -279,6 +260,7 @@ namespace WineHangoutz
 			else
 			{
 				lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
+				lblInfo.TextColor=UIColor.Red;
 				sTemp = lblInfo.SizeThatFits(sTemp);
 				lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
 			}
@@ -293,6 +275,7 @@ namespace WineHangoutz
 
 				if (Dt.VerificationStatus == 1)
 				{
+					
 					CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
 					if (RootTabs == null || _window == null)
 					{
@@ -314,11 +297,13 @@ namespace WineHangoutz
 						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
 						LoggingClass.LogInfo("The User logged in with" + CurrentUser.RetreiveUserId(), screenid);
 					}
+					BTProgressHUD.ShowSuccessWithStatus("Verified");
 				}
 				else
 				{
 					try
 					{
+						BTProgressHUD.ShowErrorWithStatus("Your email is not verified plesase check email and verify.");
 						View.AddSubview(btnResend);
 					}
 					catch (Exception ex)
@@ -389,6 +374,7 @@ namespace WineHangoutz
 			string token = plist.StringForKey("token");
 			return token;
 		}
+		public static UINavigationController navig { get; set; }
 		public static void Clear()
 		{
 			plist.RemoveObject("userName");
@@ -408,6 +394,15 @@ namespace WineHangoutz
 			if (savedUserId == "")
 				return 0;
 			return Convert.ToInt32(savedUserId);
+		}
+		public static void SaveAuthToken(string Authtoken)
+		{
+			plist.SetString(Authtoken, "Authtoken");
+		}
+		public static string GetAuthToken()
+		{
+			string token = plist.StringForKey("Authtoken");
+			return token;
 		}
 	}
 }

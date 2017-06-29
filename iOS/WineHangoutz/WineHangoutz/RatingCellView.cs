@@ -14,6 +14,7 @@ namespace WineHangoutz
 		UILabel ReviewDate;
 		UITextView Comments;
 		UIImageView imageView;
+		UIBotton Readmore;
 		PDRatingView stars;
 		private int screenid = 10;
 		public ReviewCellView(NSString cellId) : base (UITableViewCellStyle.Default, cellId)
@@ -77,6 +78,12 @@ namespace WineHangoutz
 				userName.Text = review.Username;
 				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 				Comments.Text = review.RatingText;
+				if (review.RatingText.Length > 20)
+				{
+					Readmore.SetTitle("...Readmore", UIControlState.Normal);
+					Readmore.Frame = new CGRect(ContentView.Bounds.Width - 80, 150, 75, 20);
+					ContentView.AddSubview(Readmore);
+				}
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 				//ContentView.Bounds.Height = 90;
 				stars.AverageRating = review.RatingStars;

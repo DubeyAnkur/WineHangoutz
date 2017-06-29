@@ -8,6 +8,10 @@ using Newtonsoft.Json;
 using Hangout.Models;
 using System.Runtime;
 using Foundation;
+using System.Text;
+using System.Net.Http.Headers;
+using UIKit;
+using System.Diagnostics;
 
 namespace WineHangoutz
 {
@@ -22,7 +26,7 @@ namespace WineHangoutz
 
             //client.MaxResponseContentBufferSize = 256000;
         }
-
+		Stopwatch sw = new Stopwatch();
         public string ServiceURL
         {
             get
@@ -49,292 +53,332 @@ namespace WineHangoutz
 
         }
 
-        public async Task<ItemListResponse> GetItemList(int storeId,int userId)
-        {
-			ItemListResponse output=null;
-			LoggingClass.LogServiceInfo("Service Call", "ItemList");
-			try
-			{
+   //     public async Task<ItemListResponse> GetItemList(int storeId,int userId)
+   //     {
+			//ItemListResponse output=null;
+			//LoggingClass.LogServiceInfo("Service Call", "ItemList");
+			//try
+			//{
 
-				var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
-				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "ItemList");
+			//	var uri = new Uri(ServiceURL + "GetItemList/" + storeId + "/user/" + userId);
+			//	var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			//	output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+			//	LoggingClass.LogServiceInfo("Service Response", "ItemList");
 
-			}
-			catch (Exception ex)
-			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
-			}
-			return output;
-        }
+			//}
+			//catch (Exception ex)
+			//{
+			//	LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			//}
+			//return output;
+   //     }
 		public async Task<ItemListResponse> GetItemLists(int storeId, int userId)
 		{
+			sw.Start();
 			ItemListResponse output = null;
-			LoggingClass.LogServiceInfo("Service Call", "ItemList");
 			try
 			{
 
 				var uri = new Uri(ServiceURL + "GetItemLists/" + storeId + "/user/" + userId);
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "ItemList");
+
 
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("GetItemList service Time Elapsed"+sw.Elapsed.TotalSeconds, "ItemList");
 			return output;  
 		}
 
 
-        public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
-        {
-			ItemDetailsResponse output = null;
-			LoggingClass.LogServiceInfo("Service Call", "GetItemDetails");
-			try
-			{
+   //     public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
+   //     {
+			//ItemDetailsResponse output = null;
+			//LoggingClass.LogServiceInfo("Service Call", "GetItemDetails");
+			//try
+			//{
 
-				var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid+"/user/"+storeid);
-				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");
-			}
-			catch (Exception ex)
-			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
-			}
-			return output;
-        }
+			//	var uri = new Uri(ServiceURL + "GetItemDetails/" + wineid+"/user/"+storeid);
+			//	var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			//	output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
+			//	LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");
+			//}
+			//catch (Exception ex)
+			//{
+			//	LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			//}
+			//return output;
+   //     }
 
 		public async Task<ItemDetailsResponse> GetItemDetailsBarcode(string wineid, int storeid)
 		{
+			sw.Start();
 			ItemDetailsResponse output = null;
-			LoggingClass.LogServiceInfo("Service Call", "GetItemDetails");
 			try
 			{
 
 				var uri = new Uri(ServiceURL + "GetItemDetailsBarcode/" + wineid + "/user/" + storeid);
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "GetItemDetails");
+
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemDetails");
 			return output;
 		}
 
         public async Task<int> InsertUpdateLike(SKULike skuLike)
         {
-			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateLike");
+			sw.Start();
             try
             {
 
                 var uri = new Uri(ServiceURL + "InsertUpdateLike/");
                 var content = JsonConvert.SerializeObject(skuLike);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
 
-				LoggingClass.LogServiceInfo("Service Response", "InsertUpdateLike");
+
             }
             //catch (Exception ex)
            catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateLike");
             return 1;
         }
 
 		public async Task<CustomerResponse> AuthencateUser(string Email,string CardId,string uid)
         {
+			sw.Start();
 			CustomerResponse output = null;
-
-			LoggingClass.LogServiceInfo("Service Call", "AuthencateUser");
 			try
 			{
-				var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardId+"/email/"+Email+"/DeviceId/"+uid);
-				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
+				var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardId + "/email/" + Email + "/DeviceId/" + uid);
+				var byteArray = new UTF8Encoding().GetBytes(CardId + ":password");
+				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+				var response = await client.GetAsync(uri).ConfigureAwait(false);
+				if (response.IsSuccessStatusCode)
+				{
+					string Token = response.RequestMessage.Headers.Authorization.Parameter;
+					CurrentUser.SaveAuthToken(Token);
+					output = JsonConvert.DeserializeObject<CustomerResponse>(response.Content.ReadAsStringAsync().Result);
+					//var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+					output = JsonConvert.DeserializeObject<CustomerResponse>(response.Content.ReadAsStringAsync().Result);
+				}
+				else
+				{
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Invalid Credentials ",
+						Message = "Barcode is invalid. Please try again.."
+					};
+					alert.AddButton("OK");
+					alert.Show();
+				}
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "Authencate Card and sending mail");
 			return output;
         }
 
-		public async Task<CustomerResponse> AuthencateUser1(string cardnumber)
-		{
-			CustomerResponse output = null;
+		//public async Task<CustomerResponse> AuthencateUser1(string cardnumber)
+		//{
+		//	CustomerResponse output = null;
+		//	LoggingClass.LogServiceInfo("Service Call", "AuthencateEmail");
+		//	LoggingClass.LogServiceInfo("Tried to login with " + cardnumber+" From IOS Device", "");
+		//	try
+		//	{
+		//		var uri = new Uri(ServiceURL + "AuthenticateUser1/" + cardnumber);
+		//		var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+		//		output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+		//		LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+		//	}
+		//	//Boolean output = true;
+		//	return output;
+		//}
 
-			LoggingClass.LogServiceInfo("Service Call", "AuthencateEmail");
-			LoggingClass.LogServiceInfo("Tried to login with " + cardnumber+" From IOS Device", "");
-			try
-			{
-				var uri = new Uri(ServiceURL + "AuthenticateUser1/" + cardnumber);
-				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
-			}
-			catch (Exception ex)
-			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
-			}
-			//Boolean output = true;
-			return output;
-		}
 		public async Task<DeviceToken> VerifyMail(string Uid)
 		{
+			sw.Start();
 			DeviceToken output=null;
-
-			LoggingClass.LogServiceInfo("Service Call", "VerifyEmail");
 			try
 			{
 				var uri = new Uri(ServiceURL + "GetVerificationStatus/" + Uid);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<DeviceToken>(response);
-				LoggingClass.LogServiceInfo("Service Response", "Verify");
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
-			//Boolean output = true;
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "Verify");
 			return  output;
 		}
 
 		public async Task<ItemReviewResponse> GetItemReviewsByWineID(string WineID)
         {
+			sw.Start();
 			ItemReviewResponse output = null;
-			LoggingClass.LogServiceInfo("Service Call", "GetItemReviewsByWineID");
 			try
 			{
 
 				var uri = new Uri(ServiceURL + "/GetReviewsBarcode/" + WineID);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "GetItemReviewsByWineID");
 
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemReviewsByWineID");
 			return output;
         }
 
         public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
         {
+			sw.Start();
 			ItemReviewResponse output = null;
-			LoggingClass.LogServiceInfo("Service Call", "GetItemReviewUID");
 			try
 			{
 
 				var uri = new Uri(ServiceURL + "GetReviewUID/" + userId);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
-				LoggingClass.LogServiceInfo("Service Response", "GetItemReviewUID");
-
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemReviewUID");
 			return output;
 
         }
 
         public async Task<int> InsertUpdateReview(Review review)
         {
-			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateReview");
-            try
-            {
-                var uri = new Uri(ServiceURL + "InsertUpdateReview/");
-                var content = JsonConvert.SerializeObject(review);
-                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                //var result = response.Content.ReadAsStringAsync().Result;
-				LoggingClass.LogServiceInfo("Service Response", "InsertUpdateReview");
-            }
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+			sw.Start();
+			try
+			{
+				var uri = new Uri(ServiceURL + "InsertUpdateReview/");
+				var content = JsonConvert.SerializeObject(review);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.PostAsync(uri, cont);
+			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateReview");
             return 1;
         }
         public async Task<int> DeleteReview(Review review)
         {
-			LoggingClass.LogServiceInfo("Service Call", "DeleteReview");
-			
-            try
-            {
-                var uri = new Uri(ServiceURL + "DeleteReview/");
-                var content = JsonConvert.SerializeObject(review);
-                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                //var result = response.Content.ReadAsStringAsync().Result;
-				LoggingClass.LogServiceInfo("Service Response", "DeleteReview");
-            }
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+			sw.Start();
+			try
+			{
+				var uri = new Uri(ServiceURL + "DeleteReview/");
+				var content = JsonConvert.SerializeObject(review);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				//var result = response.Content.ReadAsStringAsync().Result;
+			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "DeleteReview");
             return 1;
         }
         public async Task<int> UpdateCustomer(Customer customer)
         {
-			LoggingClass.LogServiceInfo("Service Call", "UpdateCustomer");
-
+			sw.Start();
 			try
             {
                 var uri = new Uri(ServiceURL + "UpdateCustomer/");
                 var content = JsonConvert.SerializeObject(customer);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                	//var result = response.Content.ReadAsStringAsync().Result;
-           				LoggingClass.LogServiceInfo("Service Response", "UpdateCustomer");
+           				
 			}
             catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "UpdateCustomer");
             return 1;
         }
 		public async Task<int> InsertUpdateToken(string token,string user_id,int DeviceType)
 		{
-			LoggingClass.LogServiceInfo("Service Call", "InsertUpdateToken");
-
+			sw.Start();
 			try
 			{
 				var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + user_id + "/token/" + token.Replace(" ", "")+"/DeviceType/"+DeviceType);
 				var content = JsonConvert.SerializeObject(token);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
 																  //var result = response.Content.ReadAsStringAsync().Result;
-			LoggingClass.LogServiceInfo("Service Response", "InsertUpdateToken");
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateToken");
 			return 1;
 		}
         public async Task<ItemListResponse> GetItemFavsUID(int userId)
         {
-			LoggingClass.LogServiceInfo("Service Call", "GetItemFavsUID");
+			sw.Start();
 			ItemListResponse output = null;
 			try
 			{
@@ -342,37 +386,37 @@ namespace WineHangoutz
 				var uri = new Uri(ServiceURL + "GetItemFavUID/" + userId);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-				LoggingClass.LogServiceInfo("Service Call", "GetItemFavsUID");
-			
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateToken");
 			return output;
         }
         public async Task<CustomerResponse> GetCustomerDetails(int userID)
         {
+			sw.Start();
 			CustomerResponse output=null;
-			LoggingClass.LogServiceInfo("Service Call", "GetCustomerDetails");
 			try
 			{
 
 				var uri = new Uri(ServiceURL + "GetCustomerDetails/" + userID);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-				LoggingClass.LogServiceInfo("Service Call", "GetCustomerDetails");
-
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetCustomerDetails");
 			return output;
         }
         public async Task<TastingListResponse> GetMyTastingsList(int customerid)
         {
-			LoggingClass.LogServiceInfo("Service Call", "GetMyTastingsList");
+			sw.Start();
 			TastingListResponse output = null;
 			try
 			{
@@ -380,14 +424,34 @@ namespace WineHangoutz
 				//customerid = 38691;
 				var uri = new Uri(ServiceURL + "GetMyTastingsList/" + customerid);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-			output = JsonConvert.DeserializeObject<TastingListResponse>(response);
-				LoggingClass.LogServiceInfo("Service Call", "GetMyTastingsList");
-
+				output = JsonConvert.DeserializeObject<TastingListResponse>(response);
 			}catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetMyTastingsList");
 			return output;
         }
+		public async Task<int> InsertUpdateGuest(string dt)
+		{
+			
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "InsertUpdateguests/"+dt+"/token/1");
+				var content = JsonConvert.SerializeObject(dt);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(uri, cont); 
+				// In debug mode it do not work, Else it works
+			}
+			//catch (Exception ex)
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			return 1;
+		}
+
     }
 }

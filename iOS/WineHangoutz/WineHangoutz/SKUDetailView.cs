@@ -14,16 +14,15 @@ using System.Threading;
 
 namespace WineHangoutz
 {
-
 	public class SKUDetailView : UITableViewController, IPopupParent
 	{
 		
-		int _wineId;
+		string _wineId;
 		public int _storeId;
 		private int screenid = 112;
 		public SKUDetailView(string WineId,string storeid) : base()
 		{
-			_wineId = Convert.ToInt32(WineId);
+			_wineId = WineId;
 			_storeId = Convert.ToInt32(storeid);
 			this.Title = "Wine Details";
 
@@ -41,7 +40,7 @@ namespace WineHangoutz
 				BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
 				ServiceWrapper svc = new ServiceWrapper();
-				ItemDetailsResponse myData = svc.GetItemDetails(_wineId, _storeId).Result;
+				ItemDetailsResponse myData = svc.GetItemDetailsBarcode(_wineId, _storeId).Result;
 				ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 											TableView.AllowsSelection = false;
@@ -60,8 +59,7 @@ namespace WineHangoutz
 			nfloat width = View.Frame.Width;
 			ServiceWrapper svc = new ServiceWrapper();
 			ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
-
-			ItemDetailsResponse myData = svc.GetItemDetails(_wineId,_storeId).Result;
+			ItemDetailsResponse myData = svc.GetItemDetailsBarcode(_wineId,_storeId).Result;
 			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails,_storeId);
 			TableView.ReloadData();
 		}
@@ -78,10 +76,6 @@ namespace WineHangoutz
 		//	BTProgressHUD.Dismiss();
 		//}
 	}
-
-
-	
-
 	public class SKUDetailTableSource : UITableViewSource
 	{
 		UIImageView btlImage = new UIImageView();

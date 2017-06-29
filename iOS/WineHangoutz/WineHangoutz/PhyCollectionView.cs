@@ -166,6 +166,7 @@ namespace WineHangoutz
 
 				//Data from Model
 				//cell.WineName = myData.ItemList[index].Name;
+				cell.AmountLeft.SetProgress(Convert.ToSingle(myData.ItemList[index].AvailableVolume),true);
 				cell.Vintage = myData.ItemList[index].Vintage.ToString();
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;

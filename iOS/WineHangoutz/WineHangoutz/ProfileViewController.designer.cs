@@ -68,6 +68,10 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIProgressView testProgress { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtAddress { get; set; }
 
         [Outlet]
@@ -155,6 +159,11 @@ namespace WineHangoutz
             if (statePicker != null) {
                 statePicker.Dispose ();
                 statePicker = null;
+            }
+
+            if (testProgress != null) {
+                testProgress.Dispose ();
+                testProgress = null;
             }
 
             if (txtAddress != null) {
