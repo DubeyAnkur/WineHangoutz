@@ -101,6 +101,7 @@ namespace WineHangoutz
 						if (result != null)
 						{
 							LoggingClass.LogInfo("User tried to login with" + result.Text, screenid);
+							BTProgressHUD.Show("Please wait...");
 							ShowInfo(result.Text);
 						}
 					}
@@ -214,6 +215,8 @@ namespace WineHangoutz
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			cr = await svc.AuthencateUser("test", CardNumber, "test");
 			CurrentUser.PutCardNumber(CardNumber);
+			CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+			EmailVerification();
 			if (cr != null)
 			{
 				lblInfo.Text = " Hi " + cr.customer.FirstName + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
@@ -351,6 +354,7 @@ namespace WineHangoutz
 		{
 			plist.SetString(id, "id");
 		}
+		public static string GuestId { get; set; }
 		public static string GetId()
 		{
 			string id = plist.StringForKey("id");
@@ -358,7 +362,7 @@ namespace WineHangoutz
 		}
 		public static void PutLoginStatus(Boolean status)
 		{
-			plist.SetBool(status, "status");
+			plist.SetBool(status, "sfalerttatus");
 		}
 		public static Boolean GetLoginStatus()
 		{
@@ -381,6 +385,7 @@ namespace WineHangoutz
 			plist.RemoveObject("userId");
 			plist.RemoveObject("email");
 			plist.RemoveObject("token");
+			plist.RemoveObject("CardNumber");
 		}
 		public static string RetreiveUserName()
 		{

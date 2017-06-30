@@ -203,14 +203,28 @@ namespace WineHangoutz
 
 					ratingViewSelect.RatingChosen += (sender, e) =>
 					{
-						LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
-						PopupView yourController = new PopupView(data.Barcode, _storeId);
-						yourController.NavController = NavigationController;
-						yourController.parent = that;
-						yourController.StartsSelected = e.Rating;
-						yourController.Comments = currComments;
-						yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
-						that.PresentModalViewController(yourController, false);
+						if (CurrentUser.RetreiveUserId() == 0)
+						{
+							UIAlertView alert = new UIAlertView()
+							{
+								Title = "This feature is allowed only for VIP Card holders",
+								//Message = "Coming Soon..."
+							};
+							alert.AddButton("OK");
+							alert.Show();
+							ratingViewSelect.ChosenRating = 0;
+						}
+						else
+						{
+							LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
+							PopupView yourController = new PopupView(data.Barcode, _storeId);
+							yourController.NavController = NavigationController;
+							yourController.parent = that;
+							yourController.StartsSelected = e.Rating;
+							yourController.Comments = currComments;
+							yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+							that.PresentModalViewController(yourController, false);
+						}
 					};
 
 
@@ -313,7 +327,7 @@ namespace WineHangoutz
 			//FluentAnimate.EaseIn(AnimationDuration, () => modalView.Alpha = 1).Start();
 		}
 		public async void DownloadAsync(string wineid, int storeid, UIImageView btlImage, nfloat boxHeight, int Y)
-{
+	{
 
 
 	WebClient webClient = new WebClient();

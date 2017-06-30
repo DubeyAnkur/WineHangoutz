@@ -433,24 +433,27 @@ namespace WineHangoutz
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetMyTastingsList");
 			return output;
         }
-		public async Task<int> InsertUpdateGuest(string dt)
+		public async Task<CustomerResponse> InsertUpdateGuest(string token)
 		{
-			
+			sw.Start();
+			CustomerResponse output = null;
 			try
 			{
 
-				var uri = new Uri(ServiceURL + "InsertUpdateguests/"+dt+"/token/1");
-				var content = JsonConvert.SerializeObject(dt);
+				var uri = new Uri(ServiceURL + "InsertUpdateguests/" + token+"/token/1");
+				var content = JsonConvert.SerializeObject(token);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(uri, cont); 
-				// In debug mode it do not work, Else it works
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				CurrentUser.GuestId = output.customer.CustomerID.ToString();
 			}
-			//catch (Exception ex)
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
-			return 1;
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Guest Service");
+			return output;
 		}
 
     }

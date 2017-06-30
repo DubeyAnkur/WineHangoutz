@@ -47,7 +47,12 @@ namespace WineHangoutz
 				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
 				CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
 				//await container.CreateIfNotExistsAsync();
-				CloudAppendBlob append = container.GetAppendBlobReference(CurrentUser.RetreiveUserId()+".csv");
+				string userid = CurrentUser.RetreiveUserId().ToString();
+				if (userid == "0")
+				{
+					userid ="g_"+CurrentUser.GuestId;
+				}
+				CloudAppendBlob append = container.GetAppendBlobReference(userid+".csv");
 				if (!await append.ExistsAsync())
 				{
 					await append.CreateOrReplaceAsync();
@@ -56,7 +61,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				//Console.WriteLine(ex.Message);
+				Console.WriteLine(ex.Message);
 				LoggingClass.LogError(ex.Message, 6, ex.StackTrace);
 			}
 		}

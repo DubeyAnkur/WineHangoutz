@@ -185,8 +185,17 @@ namespace WineHangoutz
 						{
 							if (buttonArgs.ButtonIndex == 1)
 							{
-								BTProgressHUD.Show("Saving review");
-								SaveReview();
+								if (CurrentUser.RetreiveUserId() == 0)
+								{
+									UIAlertView alert1 = new UIAlertView()
+									{
+										Title = "This feature is allowed only for VIP Card holders",
+										//Message = "Coming Soon..."
+									};
+									//LoggingClass.LogInfo("Clicked on seacuces", screenid);
+									alert1.AddButton("OK");
+									alert1.Show();
+								}
 							}
 							else if (buttonArgs.ButtonIndex == 0)
 							{
