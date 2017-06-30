@@ -26,7 +26,7 @@ namespace WineHangoutz
 			csv.AppendLine(newLine);
 			//File.AppendAllText(LogPath, csv.ToString());
 			string logg = csv.ToString();
-			UploadAsyncLogs(logg);
+			//UploadAsyncLogs(logg);
 		}
 		public static void LogServiceInfo(string Info, string servicename)
 		{
@@ -35,7 +35,7 @@ namespace WineHangoutz
 			csv.AppendLine(newLine);
 			//File.AppendAllText(LogPath, csv.ToString());
 			string logg = csv.ToString();
-			UploadAsyncLogs(logg);
+			//UploadAsyncLogs(logg);
 		}
 
 		public static async void UploadAsyncLogs(string log)

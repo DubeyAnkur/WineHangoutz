@@ -139,7 +139,7 @@ namespace WineHangoutz
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Sorry",
-					Message = "We are under maintenance"
+					Message = "Something went wrong. We are on it"
 				};
 
 				alert.AddButton("OK");
@@ -168,6 +168,7 @@ namespace WineHangoutz
 				//cell.WineName = myData.ItemList[index].Name;
 				//cell.AmountLeft.SetProgress(Convert.ToSingle(myData.ItemList[index].AvailableVolume),true);
 				cell.Vintage = myData.ItemList[index].Vintage.ToString();
+				cell.AmountLeft.Text="Wine left in bottle: "+myData.ItemList[index].AvailableVolume.ToString() + ".ml";
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.WineId = myData.ItemList[index].Barcode;
@@ -208,7 +209,7 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "We are under maintenance",
+					Title = "Something went wrong. We are on it"
 					//Message = "Coming Soon..."
 				};
 

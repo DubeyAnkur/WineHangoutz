@@ -41,7 +41,7 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 			//CurrentUser.Clear();
-			//CurrentUser.Store("48732", "Arnold"); 
+			//CurrentUser.Store("30019", "Arnold"); 
 			//for direct log in
 			//CurrentUser.PutCardNumber("900497407491");
 
@@ -107,6 +107,7 @@ namespace WineHangoutz
 		}
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 		{
+			LoggingClass.LogInfo("ReceivedRemoteNotification Got notification",screenid);
 			ProcessNotification(userInfo, false);
 		}
 		void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
@@ -140,8 +141,8 @@ namespace WineHangoutz
 						}
 						else
 						{
-								BTProgressHUD.Show("Loading...");
-								CurrentUser.navig.PushViewController(new DetailViewController(wineid,storeid), false);
+								LoggingClass.LogInfo(wineid + " got notification",screenid);
+								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, true), false);
 						}
 					}
 				}

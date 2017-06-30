@@ -24,7 +24,7 @@ namespace WineHangoutz {
 		public string storeId = "2";
 		public Item myItem;
 		public UIView parent;
-		public UIProgressView AmountLeft;
+		public UITextView AmountLeft;
 
 		//public void Dowork()
 		//{
@@ -67,7 +67,7 @@ namespace WineHangoutz {
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavigationController.PushViewController(new DetailViewController(WineId, storeId), false);
+					NavigationController.PushViewController(new DetailViewController(WineId, storeId, false), false);
 					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
 
 				};
@@ -135,7 +135,7 @@ namespace WineHangoutz {
 				btnItemname.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavigationController.PushViewController(new DetailViewController(WineId, storeId), false);
+					NavigationController.PushViewController(new DetailViewController(WineId, storeId, false), false);
 					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
 				};
 				lblName = new UILabel(lower);
@@ -188,14 +188,15 @@ namespace WineHangoutz {
 				ratingView.UserInteractionEnabled = false;
 				//ratingView.BackgroundColor = UIColor.White;
 
-				AmountLeft = new UIProgressView(new CGRect(0, Bounds.Height-20, Bounds.Width, 20));
-				AmountLeft.ProgressTintColor = UIColor.Blue;
+				AmountLeft = new UITextView(new CGRect(0, Bounds.Height-30, Bounds.Width, 20));
+				AmountLeft.TextAlignment = UITextAlignment.Center;
+				//AmountLeft.ProgressTintColor = UIColor.Blue;
 				//AmountLeft.SetProgress(1, true);
 				//AmountLeft.Progress = 30f;
 
 				ContentView.AddSubview(ImageView);
 				ContentView.InsertSubviewAbove(btlImage, ImageView);
-				//ContentView.AddSubview(AmountLeft);
+				ContentView.AddSubview(AmountLeft);
 				ContentView.AddSubview(heartImage);
 				//ContentView.AddSubview(lblName);
 				ContentView.AddSubview(btnItemname);

@@ -263,10 +263,10 @@ namespace WineHangoutz
 						imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
 						imagePicker.Canceled += Handle_Canceled;
 						NavCtrl.PresentModalViewController(imagePicker, true);
-						if (IsCameraAuthorized())
-						{
-							this.PresentModalViewController(imagePicker, false);
-						}
+						//if (IsCameraAuthorized())
+						//{
+						//	this.PresentModalViewController(imagePicker, false);
+						//}
 					};
 				}
 
@@ -317,7 +317,7 @@ namespace WineHangoutz
 				switch (e.Info[UIImagePickerController.MediaType].ToString())
 				{
 					case "public.image":
-						//Console.WriteLine("Image selected");
+						Console.WriteLine("Image selected");
 						isImage = true;
 						break;
 					case "public.video":
@@ -326,8 +326,8 @@ namespace WineHangoutz
 				}
 
 				// get common info (shared between images and video)
-				NSUrl referenceURL = e.Info[new NSString("UIImagePickerControllerReferenceUrl")] as NSUrl;
-				if (referenceURL != null)
+				//NSUrl referenceURL = e.Info[new NSString("UIImagePickerControllerReferenceUrl")] as NSUrl;
+				//if (referenceURL != null)
 					//Console.WriteLine("Url:" + referenceURL.ToString());
 
 				// if it was an image, get the other image info

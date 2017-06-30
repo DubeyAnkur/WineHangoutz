@@ -141,7 +141,7 @@ namespace WineHangoutz
 				{
 					
 					BTProgressHUD.Show("Loading...");
-					NavController.PushViewController(new DetailViewController(WineIdLabel.Text,storeid.ToString()), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
 				};
 				separator = new UIImageView();
 				WineName = new UILabel()
@@ -181,7 +181,7 @@ namespace WineHangoutz
 				imageView.SetImage(BlobWrapper.GetResizedImage(tasting.Barcode.ToString(), new CGRect(0, 0, 100, 155),tasting.PlantFinal.ToString()), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
 				WineName.Text = tasting.Name;
-				ReviewDate.Text = tasting.TastingDate.ToString("MM-dd-yyyy");
+				ReviewDate.Text ="Tasted on :"+tasting.TastingDate.ToString("MM-dd-yyyy");
 				Vintage.Text = tasting.Vintage.ToString();
 				WineIdLabel.Text = tasting.Barcode;
 				storeid = tasting.PlantFinal;

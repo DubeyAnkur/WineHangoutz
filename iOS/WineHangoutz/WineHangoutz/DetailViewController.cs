@@ -18,9 +18,10 @@ namespace WineHangoutz
 		string _wineId;
 		public int _storeId;
 		private int screenid = 112;
+		public UILabel nd;
 		NSData HighImgData = null;
 
-		public DetailViewController(string WineId,string storeid) : base ()
+		public DetailViewController(string WineId, string storeid, Boolean notification) : base ()
 		{
 			_wineId =WineId;
 			_storeId = Convert.ToInt32(storeid);
@@ -56,6 +57,7 @@ namespace WineHangoutz
 				ItemDetailsResponse mydata = svc.GetItemDetailsBarcode(_wineId, _storeId).Result;
 				//ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				var data = mydata.ItemDetails;
+
 				if (data.Barcode != null)
 				{
 
@@ -92,12 +94,21 @@ namespace WineHangoutz
 					btlImage.Frame = new CGRect(X, 70, image.Size.Width, image.Size.Height);
 					btlImage.Image = image;
 					DownloadAsync(data.Barcode, _storeId, btlImage, boxHeight, 70);
+					nfloat Y1 = 90 + View.Frame.Width;
 
-
+					UITextView uip = new UITextView(new CGRect(0, Y1 + 10, width, 40));
+					uip.Text = "Wine left in bottle: "+data.AvailableVolume.ToString() + ".ml";
+					uip.TextAlignment = UITextAlignment.Center;
+					//uip.SetProgress(Convert.ToSingle(data.AvailableVolume), false);
+					//uip.ProgressTintColor = UIColor.Green;
+					//uip.TintColor = UIColor.Gray;
+					//CGAffineTransform transform=CGAffineTransform.MakeScale(1.0f,Convert.ToSingle(data.AvailableVolume));
+					//uip.Transform = transform;
 
 					var ratingConfig = new RatingConfig(emptyImage: UIImage.FromBundle("Stars/empty.png"),
 													filledImage: UIImage.FromBundle("Stars/star.png"),
 													chosenImage: UIImage.FromBundle("Stars/star.png"));
+					
 					nfloat Y = 70 + View.Frame.Width;
 					ratingView = new PDRatingView(new CGRect(width * 3 / 8 + 2, Y, width / 4, 20f), ratingConfig, data.AverageRating);
 					ratingView.UserInteractionEnabled = false;
@@ -193,6 +204,18 @@ namespace WineHangoutz
 					Y = Y + lblProducerText.Frame.Size.Height;
 					var review = LoadReviews(data, Y, width);
 					Y = Y + review.Frame.Size.Height;
+					if (data.Reviews.Count == 0)
+					{
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "No Reviews",
+							Message = "Be the first one to Review"
+						};
+
+						alert.AddButton("OK");
+						alert.Show();
+
+					}
 
 					var currentReview = data.Reviews.Where(x => x.ReviewUserId == CurrentUser.RetreiveUserId()).FirstOrDefault();
 					string currComments = "";
@@ -230,7 +253,7 @@ namespace WineHangoutz
 
 					scrollView = new UIScrollView
 					{
-						Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height + 10),
+						Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height),
 						ContentSize = new CGSize(View.Frame.Width, Y + 70),
 						BackgroundColor = UIColor.White,
 						AutoresizingMask = UIViewAutoresizing.FlexibleHeight
@@ -240,9 +263,9 @@ namespace WineHangoutz
 					View.AddSubview(scrollView);
 
 					scrollView.AddSubview(lblName);
-					//scrollView.AddSubview(Separator);
+					scrollView.AddSubview(uip);
 					scrollView.AddSubview(lblVintage);
-					//scrollView.AddSubview(btlBack);
+					//scrollView.AddSubview(nd);
 					scrollView.AddSubview(btlImage);
 					scrollView.AddSubview(ratingView);
 					scrollView.AddSubview(lblRateTitle);
@@ -258,9 +281,7 @@ namespace WineHangoutz
 
 
 					scrollView.AddSubview(review);
-
-
-
+					//scrollView.
 					BTProgressHUD.Dismiss();
 				}
 				else
@@ -268,8 +289,8 @@ namespace WineHangoutz
 					BTProgressHUD.Dismiss();
 					UIAlertView alert = new UIAlertView()
 					{
-						Title = "No details found for this wine",
-						//Message = "Coming Soon..."
+						Title = "Sorry",
+						Message = "Something went wrong. We are on it"
 					};
 
 					alert.AddButton("OK");
@@ -285,11 +306,12 @@ namespace WineHangoutz
 		public UITableView LoadReviews(ItemDetails data, nfloat Y, nfloat width)
 		{
 			var reviewTable = new UITableView();
-			reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count * 90) + 35);
+			reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count* 90) + 35);
 			reviewTable.Source = new ReviewTableSource(data.Reviews);
 			reviewTable.AllowsSelection = false;
 			reviewTable.ScrollEnabled = false;
 			return reviewTable;
+			
 		}
 
 		public void ShowModal(bool animated = true)

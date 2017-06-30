@@ -137,7 +137,7 @@ namespace WineHangoutz
 				};
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString()), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
 				};
 				Review review = new Review();
 
@@ -262,7 +262,7 @@ namespace WineHangoutz
 				//sTemp = Comments.SizeThatFits(sTemp);
 				if (review.RatingText.Length > 100)
 				{
-					ContentView.AddSubview(ReadMore);
+					//ContentView.AddSubview(ReadMore);
 					ReadMore.TouchUpInside += delegate {
 						{
 							UIAlertView alert = new UIAlertView()

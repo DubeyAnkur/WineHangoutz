@@ -39,7 +39,7 @@
 	<key>CFBundleExecutable</key>
 	<string></string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2.0</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
 </dict>

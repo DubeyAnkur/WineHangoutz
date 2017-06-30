@@ -14,9 +14,9 @@ namespace WineHangoutz
 		public UIViewController root;
 		public UINavigationController nav;
 		public UIButton btnGuestLogin;
-		public UILabel lblIns;
+		public UILabel  lblIns;
 		public UIButton btnResend;
-		public UILabel lblInfo;
+		public UILabel  lblInfo;
 		public UIButton btnVerify;
 
 		public string CardNumber = null;
@@ -51,6 +51,7 @@ namespace WineHangoutz
 					nav = new UINavigationController(RootTabs);
 					AddNavigationButtons(nav);
 					_window.RootViewController = nav;
+					LoggingClass.LogInfo("", screenid);
 				}
 				//for backgroud
 				//var bGround = new UIImageView(UIImage.FromBundle("Info.png"));
@@ -219,13 +220,21 @@ namespace WineHangoutz
 			EmailVerification();
 			if (cr != null)
 			{
-				lblInfo.Text = " Hi " + cr.customer.FirstName + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+				lblInfo.Text = " Hi " + cr.customer.FirstName +" "+ cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 				lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 				lblInfo.Lines = 0;
 				sTemp = lblInfo.SizeThatFits(sTemp);
 				lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
 				lblInfo.TextAlignment = UITextAlignment.Left;
 				CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+
+				var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+				tap.AddTarget(() => { 
+				UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.wineoutlet.com/main.asp?request=CONTACTUS"));
+				});
+				lblInfo.UserInteractionEnabled = true;
+				lblInfo.AddGestureRecognizer(tap);
+		
 				strtbtn = start + lblInfo.Frame.Height + 10;
 				btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
 				btnLogin.SetTitle("Log In", UIControlState.Normal);
@@ -289,7 +298,7 @@ namespace WineHangoutz
 						_window.RootViewController = nav;
 						int DeviceType = 2;
 						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
-						LoggingClass.LogInfo("The User logged in with" + CurrentUser.RetreiveUserId(), screenid);
+						LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
 					}
 					else
 					{
@@ -298,9 +307,9 @@ namespace WineHangoutz
 						_window.RootViewController = nav;
 						int DeviceType = 2;
 						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
-						LoggingClass.LogInfo("The User logged in with" + CurrentUser.RetreiveUserId(), screenid);
+						LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
 					}
-					BTProgressHUD.ShowSuccessWithStatus("Verified");
+					BTProgressHUD.Dismiss();
 				}
 				else
 				{

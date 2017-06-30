@@ -21,6 +21,9 @@ namespace WineHangoutz
 		public UITextView txtComments;
 		private int screenid = 11;
 		public int storeid;
+		public UIImageView imgBtl;
+		UILabel lblWhite;
+		UILabel lblTrans;
 		public PopupView(string Wine,int storeiD ) : base ()
 		{
 			this.Title = "Popup";
@@ -34,8 +37,7 @@ namespace WineHangoutz
 		{
 			try
 			{
-				DismissKeyboardOnBackgroundTap();
-
+				
 				//AboutController1.ViewDidLoad(base);
 				this.View.BackgroundColor = new UIColor(0, 0, 0, 0.8f);
 				nfloat y = 40;
@@ -46,6 +48,10 @@ namespace WineHangoutz
 				lblProducer.TextAlignment = UITextAlignment.Center;
 				lblProducer.TextColor = UIColor.White;
 				this.View.AddSubview(lblProducer);
+				lblTrans = new UILabel();
+				lblTrans.Frame = new CGRect(0, 0, View.Frame.Width, View.Frame.Height);
+				lblTrans.BackgroundColor = new UIColor(0, 0, 0, 0.0f);
+                this.View.AddSubview(lblTrans);
 
 				//this.View.Alpha = 0.5f;
 				UIButton btnClose = new UIButton(new CGRect(9, 185-y, 20, 20));
@@ -58,13 +64,13 @@ namespace WineHangoutz
 
 				};
 
-				UIImageView imgBtl = new UIImageView(new CGRect(View.Frame.Width - 64, 149-y, 60, 60));
+				imgBtl = new UIImageView(new CGRect(View.Frame.Width - 64, 149-y, 60, 60));
 				imgBtl.Image = UIImage.FromFile("wine_review.png");
 				//imgBtl.BackgroundColor = UIColor.White;
 				this.View.AddSubview(imgBtl);
 
-				var lblWhite = new UILabel();
-				lblWhite.Frame = new CGRect(4, 210-y, View.Frame.Width - 8, 200);
+				lblWhite = new UILabel();
+				lblWhite.Frame = new CGRect(4, 210-y, View.Frame.Width - 8, 200); //200
 				lblWhite.BackgroundColor = UIColor.White;
 				lblWhite.TextAlignment = UITextAlignment.Center;
 				this.View.AddSubview(lblWhite);
@@ -161,6 +167,7 @@ namespace WineHangoutz
 						SaveReview();
 					}
 				};
+                DismissKeyboardOnBackgroundTap();
 			}
 			catch (Exception ex)
 			{
@@ -200,12 +207,13 @@ namespace WineHangoutz
 							else if (buttonArgs.ButtonIndex == 0)
 							{
 								NavController.DismissViewController(true, null);
+								BTProgressHUD.Dismiss();
 							}
 						};
 					alert.Show();
 				});
-			View.AddGestureRecognizer(tap);
-
+			lblTrans.UserInteractionEnabled = true;
+			lblTrans.AddGestureRecognizer(tap);
 		}
 
 		public async void SaveReview()
