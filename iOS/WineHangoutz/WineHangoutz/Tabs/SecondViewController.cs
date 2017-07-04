@@ -138,8 +138,8 @@ namespace WineHangoutz
 							SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
 							ScrollDirection = UICollectionViewScrollDirection.Vertical
 						};
-						NavigationController.NavigationBar.TopItem.Title = "My Favorites";
 						NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1, true), false);
+						NavigationController.NavigationBar.TopItem.Title = "My Favorites";
 						LoggingClass.LogInfo("Entered into Favourite View", screenid);
 
 

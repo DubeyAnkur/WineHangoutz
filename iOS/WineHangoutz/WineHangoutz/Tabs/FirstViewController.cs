@@ -156,9 +156,7 @@ namespace WineHangoutz
 			NavigationController.NavigationBar.TopItem.Title = "Locations";
 			CurrentUser.navig = NavigationController;
 			//string validUser = CurrentUser.GetId();
-
 			//LoggingClass.LogInfo("opened app " + validUser, screenid);
-
 			//if (validUser == "" || validUser == null)
 			//{
 			//			LoginViewController yourController = new LoginViewController();

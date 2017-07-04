@@ -13,6 +13,7 @@ namespace WineHangoutz
     public partial class MyTastingViewController : UITableViewController, IPopupParent
     {
 		private int screenid = 14;
+		ServiceWrapper svc = new ServiceWrapper();
         public MyTastingViewController (IntPtr handle) : base (handle)
         {
         }
@@ -21,40 +22,48 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			ServiceWrapper svc = new ServiceWrapper();
-			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-			if (userId == 0)
+			try
 			{
-				UIAlertView alert = new UIAlertView()
-				{
-					Title = "This feature is allowed only for VIP Card holders",
-					//Message = "Coming Soon..."
-				};
-
-				alert.AddButton("OK");
-				alert.Show();
-			}
-			else
-			{
-				var myData = svc.GetMyTastingsList(userId).Result;
-				if (myData.TastingList.Count == 0)
+				
+				UILabel lblNoTastings = new UILabel();
+				lblNoTastings.Text = "Please start tasting our amazing selection of wines.";
+				lblNoTastings.TextAlignment = UITextAlignment.Center;
+				lblNoTastings.LineBreakMode = UILineBreakMode.WordWrap;
+				lblNoTastings.Lines = 0;
+				CGSize sTemp = new CGSize(View.Frame.Width, 100);
+				sTemp = lblNoTastings.SizeThatFits(sTemp);
+				lblNoTastings.Frame = new CGRect(0, 50, View.Bounds.Width, sTemp.Height);
+				int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				if (userId == 0)
 				{
 					UIAlertView alert = new UIAlertView()
 					{
-						Title = "Please start tasting our amazing selection of wines.",
+						Title = "This feature is allowed only for VIP Card holders",
 						//Message = "Coming Soon..."
 					};
-					LoggingClass.LogInfo("There are no tastings for this user " + CurrentUser.RetreiveUserName(), screenid);
+
 					alert.AddButton("OK");
 					alert.Show();
 				}
-				TableView.AllowsSelection = false;
-				TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
+				else
+				{
+					var myData = svc.GetMyTastingsList(userId).Result;
+					if (myData.TastingList.Count == 0)
+					{
+						TableView.SeparatorColor = UIColor.Clear;
+						View.AddSubview(lblNoTastings);
+					}
+					TableView.AllowsSelection = false;
+					TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
+				}
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 			}
 		}
 		public void RefreshParent()
 		{
-			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetMyTastingsList(userId).Result;
 			TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
@@ -111,6 +120,7 @@ namespace WineHangoutz
 	public class MyTastingCellView : UITableViewCell
 	{
 		UILabel WineName;
+		//UILabel Notastings;
 		UILabel ReviewDate;
 		UILabel Vintage;
 		UIImageView separator;
@@ -175,23 +185,29 @@ namespace WineHangoutz
 		}
         public void UpdateCell(Tastings tasting)
 		{
-			
-			try
-			{
-				imageView.SetImage(BlobWrapper.GetResizedImage(tasting.Barcode.ToString(), new CGRect(0, 0, 100, 155),tasting.PlantFinal.ToString()), UIControlState.Normal);
-				separator.Image = UIImage.FromFile("separator.png");
-				WineName.Text = tasting.Name;
-				ReviewDate.Text ="Tasted on :"+tasting.TastingDate.ToString("MM-dd-yyyy");
-				Vintage.Text = tasting.Vintage.ToString();
-				WineIdLabel.Text = tasting.Barcode;
-				storeid = tasting.PlantFinal;
-				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
-				//ContentView.Bounds.Height = 90;
-			}
-			catch (Exception ex)
-			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
-			}
+				try
+				{
+					imageView.SetImage(BlobWrapper.GetResizedImage(tasting.Barcode.ToString(), new CGRect(0, 0, 100, 155), tasting.PlantFinal.ToString()), UIControlState.Normal);
+					separator.Image = UIImage.FromFile("separator.png");
+					WineName.Text = tasting.Name;
+					ReviewDate.Text = "Tasted on :" + tasting.TastingDate.ToString("MM-dd-yyyy");
+					Vintage.Text = tasting.Vintage.ToString();
+					WineIdLabel.Text = tasting.Barcode;
+					storeid = tasting.PlantFinal;
+					//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
+					//ContentView.Bounds.Height = 90;
+				}
+				catch (Exception ex)
+				{
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Sorry",
+						Message = "Something went wrong. We are on it"
+					};
+					alert.AddButton("OK");
+					alert.Show();
+					LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+				}
 		}
 		public override void LayoutSubviews()
 		{
@@ -205,6 +221,7 @@ namespace WineHangoutz
 				Vintage.Frame = new CGRect(imageWidth, 62, ContentView.Bounds.Width - imageWidth, 15);
 				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
+				//Notastings.Frame=new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
 				//stars.Frame = new CGRect(35, 50, 100, 20);
 			}
 			catch (Exception ex)

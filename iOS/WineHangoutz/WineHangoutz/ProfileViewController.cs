@@ -91,7 +91,7 @@ namespace WineHangoutz
 				pickerDataModel.Items.Add("WI");
 				pickerDataModel.Items.Add("WY");
 				statePicker.Model = pickerDataModel;
-                //statePicker.Select(5, 0, true);
+				//statePicker.Select(5, 0, true);
 				//LoggingClass.UploadErrorLogs();
 				if (CurrentUser.RetreiveUserId() == 0)
 				{
@@ -118,6 +118,8 @@ namespace WineHangoutz
 							}
 						};
 					alert.Show();
+					//btnEdit. =UIControlState.Disabled;
+					//btnUpdate.State = UIControlState.Disabled;
 				}
 				else
 				{
@@ -153,11 +155,11 @@ namespace WineHangoutz
 					  return true;
 				  };
 
-					txtCardID.ShouldReturn += (TextField) =>
-				  {
-					  ((UITextField)TextField).ResignFirstResponder();
-					  return true;
-				  };
+					//txtCardID.ShouldReturn += (TextField) =>
+				 // {
+					//  ((UITextField)TextField).ResignFirstResponder();
+					//  return true;
+				 // };
 
 
 					txtEmail.ShouldReturn += (TextField) =>
@@ -176,24 +178,13 @@ namespace WineHangoutz
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
 				  };
-
-
-
-					//imgProfile.Image = new UIImage("user.png");
-
-
-
-
-					//UIImage prpicImage = GetImageBitmapFromUrl(CurrentUser.RetreiveUserId());
-					//if (prpicImage != null)
-					//{
-					//	imgProfile.Image = prpicImage;
-					//}
-					//else
-					//{
-					//	imgProfile.Image = new UIImage("user1.png");
-					//}
-
+					txtZipCode.ShouldReturn += (TextField) =>
+				  {
+					  ((UITextField)TextField).ResignFirstResponder();
+					  return true;
+				  };
+					btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+					btnEdit.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 					btnUpdate.TouchDown += (sender, e) =>
 					{
 						BTProgressHUD.Show("Updating profile..."); //show spinner + text
@@ -234,6 +225,7 @@ namespace WineHangoutz
 							cust.LastName = txtLastName.Text;
 							cust.Email = txtEmail.Text;
 							cust.PhoneNumber = txtPhone.Text;
+							cust.Zip = txtZipCode.Text;
 							//cust.State = txtState.Text;
 							await sw.UpdateCustomer(cust);
 							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
@@ -255,18 +247,25 @@ namespace WineHangoutz
 
 					btnEdit.TouchUpInside += (sender, e) =>
 					{
-						IsCameraAuthorized();
-						imagePicker = new UIImagePickerController();
-						imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-						imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+						try
+						{
+							IsCameraAuthorized();
+							imagePicker = new UIImagePickerController();
+							imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+							imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
 
-						imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-						imagePicker.Canceled += Handle_Canceled;
-						NavCtrl.PresentModalViewController(imagePicker, true);
-						//if (IsCameraAuthorized())
-						//{
-						//	this.PresentModalViewController(imagePicker, false);
-						//}
+							imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+							imagePicker.Canceled += Handle_Canceled;
+							NavCtrl.PresentModalViewController(imagePicker, true);
+							//if (IsCameraAuthorized())
+							//{
+							//	this.PresentModalViewController(imagePicker, false);
+							//}
+						}
+						catch (Exception exe)
+						{
+							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+						}
 					};
 				}
 
@@ -285,9 +284,6 @@ namespace WineHangoutz
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
-			//View.AddSubview(imgAddr);
-			//scrollView.ContentSize = new CGSize(View.Frame.Width, 300);
-			//View = (scrollView);
 		}
 		//public override UIView GetView(UIPickerView pickerView, int row, int component, UIView view)
 		//{
@@ -384,35 +380,33 @@ namespace WineHangoutz
 		}
 		public bool IsCameraAuthorized()
 		{
+				AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
+				if (authStatus == AVAuthorizationStatus.Authorized)
+				{
+					// do your logic
+					return true;
+				}
+				else if (authStatus == AVAuthorizationStatus.Denied)
+				{
+					// denied
+					return false;
+				}
+				else if (authStatus == AVAuthorizationStatus.Restricted)
+				{
+					// restricted, normally won't happen
+					return false;
+				}
+				else if (authStatus == AVAuthorizationStatus.NotDetermined)
+				{
+					// not determined?!
+					return false;
+				}
+				else
+				{
+					return false;
+					// impossible, unknown authorization status
 
-			AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
-			if (authStatus == AVAuthorizationStatus.Authorized)
-			{
-				// do your logic
-				return true;
-			}
-			else if (authStatus == AVAuthorizationStatus.Denied)
-			{
-				// denied
-				return false;
-			}
-			else if (authStatus == AVAuthorizationStatus.Restricted)
-			{
-				// restricted, normally won't happen
-				return false;
-			}
-			else if (authStatus == AVAuthorizationStatus.NotDetermined)
-			{
-				// not determined?!
-				return false;
-			}
-			else
-			{
-				return false;
-				// impossible, unknown authorization status
-
-			}
-
+				}
 		}
 		public async void DownloadAsync()
 		{

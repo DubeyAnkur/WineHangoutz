@@ -17,6 +17,7 @@ namespace WineHangoutz
 		public ItemListResponse myData;
 		public int storeId = 2;
 		Boolean fav = false;
+		public UIRefreshControl refreshControl = new UIRefreshControl();
 		UIImage img = new UIImage("Wines/bottle.jpg");
 		//public int userId = 2;
 
@@ -25,74 +26,87 @@ namespace WineHangoutz
 		{
 
 			FaviouriteView = favView;
-			if (StoreId == 1)
+			if (favView == true)
 			{
-				this.Title = "Wall";
-				storeId = StoreId;
-			}
-			else if (StoreId == 2)
-			{
-				this.Title = "Pt. Pleasant Beach";
-				storeId = StoreId;
+				this.Title = "My Favorites";
 			}
 			else
 			{
-				this.Title = "My favourites";
-
+				if (StoreId == 1)
+				{
+					this.Title = "Wall";
+					storeId = StoreId;
+				}
+				else if (StoreId == 2)
+				{
+					this.Title = "Pt. Pleasant Beach";
+					storeId = StoreId;
+				}
 			}
 
 		}
 
 		public override void ViewDidLoad()
 		{
-			//AboutController1.ViewDidLoad(base);
 			try
 			{
+				UIImageView ImgIns = new UIImageView();
+				ImgIns.Image=UIImage.FromFile("FavIns.png");
 
 
+				UILabel NoFav = new UILabel();
+				NoFav.Text = "All your favorite wines will be listed here.\nTo mark a wine as favorite select the heart icon.";
+				NoFav.LineBreakMode = UILineBreakMode.WordWrap;
+				NoFav.Lines = 0;
+				CGSize sTemp = new CGSize(View.Frame.Width, 100);
+				sTemp = NoFav.SizeThatFits(sTemp);
+				NoFav.Frame = new CGRect(0, 50, View.Frame.Width-20, sTemp.Height);
+				NoFav.TextAlignment = UITextAlignment.Center;
+				//NoFav.TextAlignment = UITextAlignment.Justified;
+				ImgIns.Frame=new CGRect((View.Frame.Width / 2) - 100, 50+sTemp.Height+20, 202, 381);
 				ServiceWrapper svc = new ServiceWrapper();
 				if (FaviouriteView)
 				{
 
 					LoggingClass.LogInfo("Entered into favorite", screenid);
 					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+     				// this.CollectionView.Add(refreshControl);
+					//refreshControl.ValueChanged += (rcSender, e) =>
+					//{
+					////Refresh this view
+					//myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+					//CollectionView.ReloadData();
+					//refreshControl.EndRefreshing();
+					//};
 					fav = true;
 					if (myData.ItemList.Count == 0)
 					{
-						UIAlertView alert = new UIAlertView()
-						{
-							Title = "Pick your favorites and we will notify you when it is available for tasting.",
-							//Message = "Coming Soon..."
-						};
-						//LoggingClass.LogInfo("Entered into seacuces", screenid);
-
-
-						alert.AddButton("OK");
-						alert.Show();
+						CollectionView.AddSubview(NoFav);
+						CollectionView.AddSubview(ImgIns);
 					}
 				}
 				else
-
+				{
 					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+					this.CollectionView.Add(refreshControl);
+					refreshControl.ValueChanged += (rcSender, e) =>
+					{
+					//Refresh this view
+					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+					CollectionView.ReloadData();
+					refreshControl.EndRefreshing();
+					};
+				}
 
 				BTProgressHUD.Dismiss();
 				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 				this.CollectionView.BackgroundColor = UIColor.White;
 				CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
-				var refreshControl = new UIRefreshControl();
-                this.CollectionView.Add(refreshControl);
-
-				refreshControl.ValueChanged += (rcSender, e) =>
-				{
-					//Refresh this view
-					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
-					CollectionView.ReloadData();
-					refreshControl.EndRefreshing();
-				};
 				
 			}
 			catch (Exception ex)
 			{
+				BTProgressHUD.ShowErrorWithStatus("Something went wrong,We're on it.");
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 		}
@@ -171,10 +185,11 @@ namespace WineHangoutz
 				cell.AmountLeft.Text="Wine left in bottle: "+myData.ItemList[index].AvailableVolume.ToString() + ".ml";
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-				cell.WineId = myData.ItemList[index].Barcode;
+				cell.WineBarcode = myData.ItemList[index].Barcode;
 				if (fav == true)
 				{
 					cell.storeId = myData.ItemList[index].PlantFinal.ToString();
+					cell.AmountLeft.Hidden = true;
 				}
 				else
 				{
@@ -209,7 +224,7 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
-					Title = "Something went wrong. We are on it"
+					Title = "Something went wrong. We are on it."
 					//Message = "Coming Soon..."
 				};
 

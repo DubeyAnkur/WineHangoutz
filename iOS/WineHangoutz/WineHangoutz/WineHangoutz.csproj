@@ -81,9 +81,6 @@
       <HintPath>..\PDRating.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="BTProgressHUD">
-      <HintPath>..\..\..\..\..\Downloads\btprogresshud-1.20\lib\ios-unified\BTProgressHUD.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="Newtonsoft.Json">
@@ -110,9 +107,6 @@
     <Reference Include="Xamarin.Auth.iOS">
       <HintPath>Components\xamarin.auth-1.2.3.1\lib\ios-unified\Xamarin.Auth.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="Hangouts.Models">
-      <HintPath>..\..\..\..\Services\Hangout\bin\Hangouts.Models.dll</HintPath>
-    </Reference>
     <Reference Include="ZXing.Net.Mobile.Core">
       <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
     </Reference>
@@ -121,6 +115,12 @@
     </Reference>
     <Reference Include="ZXingNetMobile">
       <HintPath>..\packages\ZXing.Net.Mobile.2.1.12\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
+    </Reference>
+    <Reference Include="BTProgressHUD">
+      <HintPath>..\Components\btprogresshud-1.20\lib\ios-unified\BTProgressHUD.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangouts.Models">
+      <HintPath>..\..\..\..\..\Desktop\Hangouts.Models.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +345,9 @@
     <BundleResource Include="Images\loadin.png" />
     <BundleResource Include="Images\gl.png" />
     <BundleResource Include="Resources\card.png" />
+    <BundleResource Include="Resources\card-icon.png" />
+    <BundleResource Include="Resources\FavIns.png" />
+    <BundleResource Include="Resources\ReviewIns.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">
@@ -361,6 +364,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="zxing.net.mobile">
       <Version>2.1.12</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="btprogresshud">
+      <Version>1.20</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

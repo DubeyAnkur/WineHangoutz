@@ -12,6 +12,7 @@ using System.Text;
 using System.Net.Http.Headers;
 using UIKit;
 using System.Diagnostics;
+using BigTed;
 
 namespace WineHangoutz
 {
@@ -186,16 +187,6 @@ namespace WineHangoutz
 					output = JsonConvert.DeserializeObject<CustomerResponse>(response.Content.ReadAsStringAsync().Result);
 					//var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 					output = JsonConvert.DeserializeObject<CustomerResponse>(response.Content.ReadAsStringAsync().Result);
-				}
-				else
-				{
-					UIAlertView alert = new UIAlertView()
-					{
-						Title = "Invalid Credentials ",
-						Message = "Barcode is invalid. Please try again.."
-					};
-					alert.AddButton("OK");
-					alert.Show();
 				}
 			}
 			catch (Exception ex)

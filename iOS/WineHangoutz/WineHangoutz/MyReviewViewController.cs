@@ -14,6 +14,8 @@ namespace WineHangoutz
 	{
 		private int screenid = 6;
 		public int storeid;
+		public UILabel Noreviews;
+		public UIImageView ImgIns;
 		ServiceWrapper sw = new ServiceWrapper();
 
 		public MyReviewViewController(IntPtr handle) : base(handle)
@@ -25,29 +27,59 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			LoggingClass.LogInfo("Entered into MyReviews View", screenid);
-
-			ServiceWrapper svc = new ServiceWrapper();
-			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-			var myData = svc.GetItemReviewUID(userId).Result;
-			if (myData.Reviews.Count == 0)
+			try
 			{
-				UIAlertView alert = new UIAlertView()
+				LoggingClass.LogInfo("Entered into MyReviews View", screenid);
+				int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				var myData = sw.GetItemReviewUID(userId).Result;
+				var data = sw.GetMyTastingsList(userId).Result;
+				Noreviews = new UILabel();
+				if (data.TastingList.Count != 0)
 				{
-					Title = "You have not reviewed our products yet. Please provide your vaulable inputs."
-					//Message = "Coming Soon..."
-				};
-				alert.AddButton("OK");
-				alert.Show();
+					Noreviews.Text = "You have tasted " + data.TastingList.Count + " number of our wines. We would love to hear your feedback.";
+				}
+				else
+				{
+					Noreviews.Text = "Taste and then review.";
+				}
+				Noreviews.TextAlignment = UITextAlignment.Center;
+				Noreviews.LineBreakMode = UILineBreakMode.WordWrap;
+				Noreviews.Lines = 0;
+				Noreviews.TextColor = UIColor.Black;
+				CGSize sTemp = new CGSize(View.Frame.Width, 100);
+				sTemp = Noreviews.SizeThatFits(sTemp);
+				Noreviews.Frame = new CGRect(0, 50, View.Frame.Width, sTemp.Height);
+				ImgIns = new UIImageView();
+				ImgIns.Image=UIImage.FromFile("ReviewIns.png");
+				ImgIns.Frame=new CGRect((View.Frame.Width / 2)-150, 50+30, 300, 300);
+				if (myData.Reviews.Count == 0)
+				{
+					TableView.SeparatorColor = UIColor.Clear;
+					View.AddSubview(Noreviews);
+					View.AddSubview(ImgIns);
+				}
+				else
+				{
+					TableView.AllowsSelection = false;
+					TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
+				}
 			}
-			TableView.AllowsSelection = false;
-			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+			}
 		}
 		public void RefreshParent()
 		{
 			ServiceWrapper svc = new ServiceWrapper();
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 			var myData = svc.GetItemReviewUID(userId).Result;
+			if (myData.Reviews.Count == 0)
+				{
+					TableView.SeparatorColor = UIColor.Clear;
+					View.AddSubview(Noreviews);
+					View.AddSubview(ImgIns);
+				}
 			TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
 			TableView.ReloadData();
 		}
@@ -224,7 +256,6 @@ namespace WineHangoutz
 						if (buttonArgs.ButtonIndex == 0)
 						{
 							review.Barcode = WineIdLabel.Text;
-
 							review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 							BTProgressHUD.Show("Deleting review");
 							await sw.DeleteReview(review);

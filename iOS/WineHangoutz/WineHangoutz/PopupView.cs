@@ -115,9 +115,8 @@ namespace WineHangoutz
 				{
 					if (((UITextView)sender).Text == "Describe your tasting")
 					{
-						((UITextView)sender).Text = "   ";
+						((UITextView)sender).Text = "";
 					}
-
 				};
 				txtComments.BecomeFirstResponder();
 				this.View.AddSubview(txtComments);
@@ -203,6 +202,10 @@ namespace WineHangoutz
 									alert1.AddButton("OK");
 									alert1.Show();
 								}
+								else 
+								{
+                               		SaveReview();
+								}
 							}
 							else if (buttonArgs.ButtonIndex == 0)
 							{
@@ -218,6 +221,7 @@ namespace WineHangoutz
 
 		public async void SaveReview()
 		{
+						BTProgressHUD.Show("Saving the review...");
 						ServiceWrapper sw = new ServiceWrapper();
 						Review review = new Review();
 						review.ReviewDate = DateTime.Now;

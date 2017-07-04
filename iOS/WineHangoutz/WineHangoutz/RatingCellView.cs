@@ -14,7 +14,7 @@ namespace WineHangoutz
 		UILabel ReviewDate;
 		UITextView Comments;
 		UIImageView imageView;
-		UIBotton Readmore;
+		//UIBotton Readmore;
 		PDRatingView stars;
 		private int screenid = 10;
 		public ReviewCellView(NSString cellId) : base (UITableViewCellStyle.Default, cellId)
@@ -51,7 +51,7 @@ namespace WineHangoutz
 							filledImage: UIImage.FromBundle("Stars/star.png"),
 							chosenImage: UIImage.FromBundle("Stars/star.png"));
 
-				stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, 5.0m);
+				stars = new PDRatingView(new CGRect(ContentView.Bounds.Width-200, 20, 60, 20), ratingConfig, 5.0m);
 
 				ContentView.AddSubviews(new UIView[] { userName, ReviewDate, Comments, stars, imageView });
 			}

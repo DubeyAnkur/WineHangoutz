@@ -90,7 +90,7 @@ namespace WineHangoutz
 				nfloat hei = 180 + lblIns.Frame.Height + 10;
 				UIButton btnCardScanner = new UIButton();
 				btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 50, hei, 100, 100);
-				btnCardScanner.SetBackgroundImage(new UIImage("card.png"), UIControlState.Normal);
+				btnCardScanner.SetBackgroundImage(new UIImage("card-icon.png"), UIControlState.Normal);
 				start = hei + btnCardScanner.Frame.Height + 10;
 				btnCardScanner.TouchUpInside += async (sender, e) =>
 				{
@@ -202,7 +202,6 @@ namespace WineHangoutz
 
 
 		}
-
 		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
 		{
 			UIGraphics.BeginImageContext(new CGSize(width, height));
@@ -212,122 +211,142 @@ namespace WineHangoutz
 			return resultImage;
 		}
 		public async void  ShowInfo(string CardNumber)
-		{	
-			CGSize sTemp = new CGSize(View.Frame.Width, 100);
-			cr = await svc.AuthencateUser("test", CardNumber, "test");
-			CurrentUser.PutCardNumber(CardNumber);
-			CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-			EmailVerification();
-			if (cr != null)
-			{
-				lblInfo.Text = " Hi " + cr.customer.FirstName +" "+ cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
-				lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
-				lblInfo.Lines = 0;
-				sTemp = lblInfo.SizeThatFits(sTemp);
-				lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
-				lblInfo.TextAlignment = UITextAlignment.Left;
-				CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-
-				var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
-				tap.AddTarget(() => { 
-				UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.wineoutlet.com/main.asp?request=CONTACTUS"));
-				});
-				lblInfo.UserInteractionEnabled = true;
-				lblInfo.AddGestureRecognizer(tap);
-		
-				strtbtn = start + lblInfo.Frame.Height + 10;
-				btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
-				btnLogin.SetTitle("Log In", UIControlState.Normal);
-				btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-				btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
-				btnLogin.BackgroundColor = UIColor.Purple;
-
-				btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
-				btnResend.SetTitle("Resend Email", UIControlState.Normal);
-				btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-				btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
-				btnResend.BackgroundColor = UIColor.Purple;
-				View.AddSubview(btnResend);
-				View.AddSubview(btnLogin);
-				btnResend.TouchUpInside += async (send, eve) =>
-				{
-					BTProgressHUD.Show("Sending verification email to"+cr.customer.Email);
-					await svc.AuthencateUser("", CardNumber, "");
-					BTProgressHUD.ShowSuccessWithStatus("Sent");
-				};
-				btnLogin.TouchUpInside += (sen, ev) =>
-				{
-					try
-					{
-						BTProgressHUD.Show("Checking email verifification");
-						EmailVerification();
-					}
-					catch (Exception ex)
-					{
-						LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
-					}
-
-				};
-			}
-			else
-			{
-				lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
-				lblInfo.TextColor=UIColor.Red;
-				sTemp = lblInfo.SizeThatFits(sTemp);
-				lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
-			}
-		}
-		public async void EmailVerification()
 		{
-			DeviceToken Dt = new DeviceToken();
-			Dt = await svc.VerifyMail(CurrentUser.GetId());
-
 			try
 			{
-
-				if (Dt.VerificationStatus == 1)
+				CGSize sTemp = new CGSize(View.Frame.Width, 100);
+				cr = await svc.AuthencateUser("test", CardNumber, "test");
+				if (CardNumber != null)
 				{
-					
-					CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
-					if (RootTabs == null || _window == null)
+					CurrentUser.PutCardNumber(CardNumber);
+				}
+				//if (cr != null)
+				//{
+				//	CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+				// EmailVerification();
+				//}
+				if (cr != null)
+				{
+					//CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+					//EmailVerification();
+					lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+					lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
+					lblInfo.Lines = 0;
+					sTemp = lblInfo.SizeThatFits(sTemp);
+					lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+					lblInfo.TextAlignment = UITextAlignment.Left;
+					lblInfo.TextColor = UIColor.White;
+					CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+
+					var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+					tap.AddTarget(() =>
 					{
-						RootTabs = CurrentUser.RootTabs;
-						_window = CurrentUser.window;
-						nav = new UINavigationController(RootTabs);
-						AddNavigationButtons(nav);
-						_window.RootViewController = nav;
-						int DeviceType = 2;
-						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
-						LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
-					}
-					else
+						UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.wineoutlet.com/main.asp?request=CONTACTUS"));
+					});
+					lblInfo.UserInteractionEnabled = true;
+					lblInfo.AddGestureRecognizer(tap);
+
+					strtbtn = start + lblInfo.Frame.Height + 10;
+					btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
+					btnLogin.SetTitle("Log In", UIControlState.Normal);
+					btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+					btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+					btnLogin.BackgroundColor = UIColor.Purple;
+
+					btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
+					btnResend.SetTitle("Resend Email", UIControlState.Normal);
+					btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+					btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
+					btnResend.BackgroundColor = UIColor.Purple;
+					View.AddSubview(btnResend);
+					View.AddSubview(btnLogin);
+					btnResend.TouchUpInside += async (send, eve) =>
 					{
-						nav = new UINavigationController(RootTabs);
-						AddNavigationButtons(nav);
-						_window.RootViewController = nav;
-						int DeviceType = 2;
-						await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
-						LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
-					}
+						BTProgressHUD.Show("Sending verification email to" + cr.customer.Email);
+						await svc.AuthencateUser("", CardNumber, "");
+						BTProgressHUD.ShowSuccessWithStatus("Sent");
+					};
+					btnLogin.TouchUpInside += (sen, ev) =>
+					{
+						try
+						{
+							BTProgressHUD.Show("Checking email verifification");
+							EmailVerification();
+						}
+						catch (Exception ex)
+						{
+							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+						}
+
+					};
 					BTProgressHUD.Dismiss();
 				}
 				else
 				{
-					try
-					{
-						BTProgressHUD.ShowErrorWithStatus("Your email is not verified plesase check email and verify.");
-						View.AddSubview(btnResend);
-					}
-					catch (Exception ex)
-					{
-						LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
-					}
+					lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
+					lblInfo.TextColor = UIColor.Red;
+					sTemp = lblInfo.SizeThatFits(sTemp);
+					lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+					BTProgressHUD.Dismiss();
 				}
 			}
-			catch (Exception Exe)
+			catch (Exception exe)
 			{
-				LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace.ToString());
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 			}
+
+		}
+		public async void EmailVerification()
+		{
+			try
+			{
+				DeviceToken Dt = new DeviceToken();
+				if (CurrentUser.GetId() != null)
+				{
+					Dt = await svc.VerifyMail(CurrentUser.GetId());
+				}
+					if (Dt.VerificationStatus == 1)
+					{
+						CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
+						if (RootTabs == null || _window == null)
+						{
+							RootTabs = CurrentUser.RootTabs;
+							_window = CurrentUser.window;
+							nav = new UINavigationController(RootTabs);
+							AddNavigationButtons(nav);
+							_window.RootViewController = nav;
+							int DeviceType = 2;
+							await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
+							LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
+						}
+						else
+						{
+							nav = new UINavigationController(RootTabs);
+							AddNavigationButtons(nav);
+							_window.RootViewController = nav;
+							int DeviceType = 2;
+							await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
+							LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
+						}
+						BTProgressHUD.Dismiss();
+					}
+					else
+					{
+						try
+						{
+							BTProgressHUD.ShowErrorWithStatus("Your email is not verified plesase check email and verify.");
+							View.AddSubview(btnResend);
+						}
+						catch (Exception ex)
+						{
+							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+						}
+					}
+				}
+				catch (Exception Exe)
+				{
+					LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace.ToString());
+				}
 		}
 
 	}

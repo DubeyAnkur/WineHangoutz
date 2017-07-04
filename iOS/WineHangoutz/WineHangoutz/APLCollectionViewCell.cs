@@ -20,7 +20,7 @@ namespace WineHangoutz {
 		public string Vintage = "2012";
 		public string RegPrice = "9.99";
 		public decimal averageRating = 3.3m;
-		public string WineId = "0";
+		public string WineBarcode = "0";
 		public string storeId = "2";
 		public Item myItem;
 		public UIView parent;
@@ -67,8 +67,8 @@ namespace WineHangoutz {
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavigationController.PushViewController(new DetailViewController(WineId, storeId, false), false);
-					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
+					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
+					LoggingClass.LogInfo("Clicked on " + WineBarcode+ " to enter into Details", screenid);
 
 				};
 
@@ -82,7 +82,6 @@ namespace WineHangoutz {
 				heartImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 				heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				heartImage.Tag = 0;
-
 				heartImage.TouchUpInside += async (object sender, EventArgs e) =>
 				{
 					//Do some actionn
@@ -94,19 +93,19 @@ namespace WineHangoutz {
 							heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 							temp.Tag = 1;
 							myItem.IsLike = true;
-							LoggingClass.LogInfo("Liked Wine " + WineId, screenid);
+							LoggingClass.LogInfo("Liked Wine " + WineBarcode, screenid);
 						}
 						else
 						{
 							heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 							temp.Tag = 0;
 							myItem.IsLike = false;
-							LoggingClass.LogInfo("Unliked Wine " + WineId, screenid);
+							LoggingClass.LogInfo("Unliked Wine " + WineBarcode, screenid);
 						}
 						//NavigationController.PushViewController(new DetailViewController(), false);
 						SKULike like = new SKULike();
 						like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
-						like.BarCode = WineId;
+						like.BarCode = WineBarcode;
 						like.Liked = Convert.ToBoolean(temp.Tag);
 
 						ServiceWrapper sw = new ServiceWrapper();
@@ -135,8 +134,8 @@ namespace WineHangoutz {
 				btnItemname.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavigationController.PushViewController(new DetailViewController(WineId, storeId, false), false);
-					LoggingClass.LogInfo("Clicked on " + WineId + " to enter into Details", screenid);
+					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
+					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screenid);
 				};
 				lblName = new UILabel(lower);
 				lblName.Font = UIFont.FromName("Verdana-Bold", 13f);
@@ -190,6 +189,7 @@ namespace WineHangoutz {
 
 				AmountLeft = new UITextView(new CGRect(0, Bounds.Height-30, Bounds.Width, 20));
 				AmountLeft.TextAlignment = UITextAlignment.Center;
+				AmountLeft.Editable = false;
 				//AmountLeft.ProgressTintColor = UIColor.Blue;
 				//AmountLeft.SetProgress(1, true);
 				//AmountLeft.Progress = 30f;

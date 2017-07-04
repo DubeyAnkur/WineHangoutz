@@ -99,6 +99,7 @@ namespace WineHangoutz
 					UITextView uip = new UITextView(new CGRect(0, Y1 + 10, width, 40));
 					uip.Text = "Wine left in bottle: "+data.AvailableVolume.ToString() + ".ml";
 					uip.TextAlignment = UITextAlignment.Center;
+					uip.Editable = false;
 					//uip.SetProgress(Convert.ToSingle(data.AvailableVolume), false);
 					//uip.ProgressTintColor = UIColor.Green;
 					//uip.TintColor = UIColor.Gray;
@@ -204,19 +205,6 @@ namespace WineHangoutz
 					Y = Y + lblProducerText.Frame.Size.Height;
 					var review = LoadReviews(data, Y, width);
 					Y = Y + review.Frame.Size.Height;
-					if (data.Reviews.Count == 0)
-					{
-						UIAlertView alert = new UIAlertView()
-						{
-							Title = "No Reviews",
-							Message = "Be the first one to Review"
-						};
-
-						alert.AddButton("OK");
-						alert.Show();
-
-					}
-
 					var currentReview = data.Reviews.Where(x => x.ReviewUserId == CurrentUser.RetreiveUserId()).FirstOrDefault();
 					string currComments = "";
 					if (currentReview != null)
@@ -305,13 +293,12 @@ namespace WineHangoutz
 
 		public UITableView LoadReviews(ItemDetails data, nfloat Y, nfloat width)
 		{
-			var reviewTable = new UITableView();
-			reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count* 90) + 35);
-			reviewTable.Source = new ReviewTableSource(data.Reviews);
-			reviewTable.AllowsSelection = false;
-			reviewTable.ScrollEnabled = false;
-			return reviewTable;
-			
+				var reviewTable = new UITableView();
+				reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count * 90) + 35);
+				reviewTable.Source = new ReviewTableSource(data.Reviews);
+				reviewTable.AllowsSelection = false;
+				reviewTable.ScrollEnabled = false;
+				return reviewTable;
 		}
 
 		public void ShowModal(bool animated = true)
