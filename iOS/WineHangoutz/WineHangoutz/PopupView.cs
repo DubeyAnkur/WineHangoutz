@@ -5,7 +5,7 @@ using Foundation;
 using PatridgeDev;
 using Hangout.Models;
 using BigTed;
-
+using System.Drawing;
 
 namespace WineHangoutz
 {
@@ -37,7 +37,14 @@ namespace WineHangoutz
 		{
 			try
 			{
-				
+				UIToolbar toolbar = new UIToolbar(new RectangleF(0.0f, 0.0f,Convert.ToSingle(this.View.Frame.Size.Width), 44.0f));
+				//toolbar.TintColor = UIColor.White;
+		  		//toolbar.BarStyle = UIBarStyle.Black;
+		    	//toolbar.Translucent = true;
+				toolbar.Items = toolbar.Items = new UIBarButtonItem[]
+				{
+				new UIBarButtonItem(UIBarButtonSystemItem.Done, delegate {this.txtComments.ResignFirstResponder();})
+				};
 				//AboutController1.ViewDidLoad(base);
 				this.View.BackgroundColor = new UIColor(0, 0, 0, 0.8f);
 				nfloat y = 40;
@@ -110,7 +117,7 @@ namespace WineHangoutz
 				//txtComments.TextAlignment = UITextAlignment.Justified;
 				//txtComments.BackgroundColor = UIColor.LightGray;
 				txtComments.Text = Comments.Length > 0 ? Comments : "Describe your tasting";
-
+				txtComments.InputAccessoryView = toolbar;
 				txtComments.Started += (sender, e) =>
 				{
 					if (((UITextView)sender).Text == "Describe your tasting")
@@ -162,7 +169,7 @@ namespace WineHangoutz
 					}
 					else
 					{
-
+						NavController.DismissViewController(true, null);
 						SaveReview();
 					}
 				};
@@ -204,6 +211,7 @@ namespace WineHangoutz
 								}
 								else 
 								{
+									NavController.DismissViewController(true, null);
                                		SaveReview();
 								}
 							}

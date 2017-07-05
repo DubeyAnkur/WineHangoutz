@@ -79,7 +79,9 @@ namespace WineHangoutz
 
 				btnMan.TouchDown += (sender, e) =>
 			   {
-				   BTProgressHUD.Show("Loading..."); //show spinner + text
+					
+				   BTProgressHUD.Show("Loading...",500); //show spinner + text
+
 			   };
 				btnPP.TouchDown += (sender, e) =>
 				{

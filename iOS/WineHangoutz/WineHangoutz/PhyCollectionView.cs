@@ -50,20 +50,6 @@ namespace WineHangoutz
 		{
 			try
 			{
-				UIImageView ImgIns = new UIImageView();
-				ImgIns.Image=UIImage.FromFile("FavIns.png");
-
-
-				UILabel NoFav = new UILabel();
-				NoFav.Text = "All your favorite wines will be listed here.\nTo mark a wine as favorite select the heart icon.";
-				NoFav.LineBreakMode = UILineBreakMode.WordWrap;
-				NoFav.Lines = 0;
-				CGSize sTemp = new CGSize(View.Frame.Width, 100);
-				sTemp = NoFav.SizeThatFits(sTemp);
-				NoFav.Frame = new CGRect(0, 50, View.Frame.Width-20, sTemp.Height);
-				NoFav.TextAlignment = UITextAlignment.Center;
-				//NoFav.TextAlignment = UITextAlignment.Justified;
-				ImgIns.Frame=new CGRect((View.Frame.Width / 2) - 100, 50+sTemp.Height+20, 202, 381);
 				ServiceWrapper svc = new ServiceWrapper();
 				if (FaviouriteView)
 				{
@@ -81,6 +67,17 @@ namespace WineHangoutz
 					fav = true;
 					if (myData.ItemList.Count == 0)
 					{
+						UIImageView ImgIns = new UIImageView();
+						ImgIns.Image=UIImage.FromFile("FavIns.png");
+						UILabel NoFav = new UILabel();
+								NoFav.Text = myData.ErrorDescription;
+								NoFav.LineBreakMode = UILineBreakMode.WordWrap;
+								NoFav.Lines = 0;
+						CGSize sTemp = new CGSize(View.Frame.Width, 100);
+						sTemp = NoFav.SizeThatFits(sTemp);
+						NoFav.Frame = new CGRect(0, 50, View.Frame.Width-20, sTemp.Height);
+						NoFav.TextAlignment = UITextAlignment.Center;
+						ImgIns.Frame=new CGRect((View.Frame.Width / 2) - 100, 50+sTemp.Height+20, 202, 381);
 						CollectionView.AddSubview(NoFav);
 						CollectionView.AddSubview(ImgIns);
 					}

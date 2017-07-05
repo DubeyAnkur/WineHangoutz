@@ -36,6 +36,18 @@ namespace WineHangoutz
 		{
 			try
 			{
+				Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
+				if (internetStatus == false)
+				{
+					UIAlertView alert = new UIAlertView()
+					 {
+						 Title = "Sorry",
+						 Message = "Please check your internet connection and try again."
+					 };
+
+					alert.AddButton("OK");
+					alert.Show();
+				}
 				DismissKeyboardOnBackgroundTap();
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
@@ -131,6 +143,7 @@ namespace WineHangoutz
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
+					txtZipCode.Text = cRes.customer.Zip;
 					string state = cRes.customer.State;
 					if (pickerDataModel.Items.Contains(state))
 					{
@@ -195,25 +208,15 @@ namespace WineHangoutz
 					{
 						if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
 						{
-							BTProgressHUD.Dismiss();
-							UIAlertView alert = new UIAlertView()
-							{
-								Title = "Please enter correct phone number",
-								//Message = "Coming Soon..."
-							};
-							alert.AddButton("OK");
-							alert.Show();
+							BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
 						}
 						else if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
 						{
-							BTProgressHUD.Dismiss();
-							UIAlertView alert = new UIAlertView()
-							{
-								Title = "Please enter a valid email address",
-								//Message = "Coming Soon..."
-							};
-							alert.AddButton("OK");
-							alert.Show();
+							BTProgressHUD.ShowErrorWithStatus("Email is invalid");
+						}
+						else if ((txtZipCode.Text.Length!=5))
+						{
+							BTProgressHUD.ShowErrorWithStatus("Zipcode is invalid");
 						}
 						else
 						{
@@ -225,6 +228,7 @@ namespace WineHangoutz
 							cust.LastName = txtLastName.Text;
 							cust.Email = txtEmail.Text;
 							cust.PhoneNumber = txtPhone.Text;
+							cust.State = pickerDataModel.SelectedItem;
 							cust.Zip = txtZipCode.Text;
 							//cust.State = txtState.Text;
 							await sw.UpdateCustomer(cust);
@@ -410,6 +414,7 @@ namespace WineHangoutz
 		}
 		public async void DownloadAsync()
 		{
+			//Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
 			NSData HighImgData = null;
 			//UIImage HighresImg = null;
 			try

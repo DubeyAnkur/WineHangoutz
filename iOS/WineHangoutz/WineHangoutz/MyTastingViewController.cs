@@ -25,14 +25,7 @@ namespace WineHangoutz
 			try
 			{
 				
-				UILabel lblNoTastings = new UILabel();
-				lblNoTastings.Text = "Please start tasting our amazing selection of wines.";
-				lblNoTastings.TextAlignment = UITextAlignment.Center;
-				lblNoTastings.LineBreakMode = UILineBreakMode.WordWrap;
-				lblNoTastings.Lines = 0;
-				CGSize sTemp = new CGSize(View.Frame.Width, 100);
-				sTemp = lblNoTastings.SizeThatFits(sTemp);
-				lblNoTastings.Frame = new CGRect(0, 50, View.Bounds.Width, sTemp.Height);
+
 				int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 				if (userId == 0)
 				{
@@ -50,6 +43,14 @@ namespace WineHangoutz
 					var myData = svc.GetMyTastingsList(userId).Result;
 					if (myData.TastingList.Count == 0)
 					{
+						UILabel lblNoTastings = new UILabel();
+						lblNoTastings.Text = myData.ErrorDescription;
+						lblNoTastings.TextAlignment = UITextAlignment.Center;
+						lblNoTastings.LineBreakMode = UILineBreakMode.WordWrap;
+						lblNoTastings.Lines = 0;
+						CGSize sTemp = new CGSize(View.Frame.Width, 100);
+						sTemp = lblNoTastings.SizeThatFits(sTemp);
+						lblNoTastings.Frame = new CGRect(0, 50, View.Bounds.Width, sTemp.Height);
 						TableView.SeparatorColor = UIColor.Clear;
 						View.AddSubview(lblNoTastings);
 					}

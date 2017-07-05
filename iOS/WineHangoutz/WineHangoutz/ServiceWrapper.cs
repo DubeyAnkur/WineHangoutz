@@ -190,7 +190,7 @@ namespace WineHangoutz
 				}
 			}
 			catch (Exception ex)
-			{
+ 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 			sw.Stop();
