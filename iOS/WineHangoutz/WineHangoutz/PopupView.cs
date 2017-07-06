@@ -236,9 +236,11 @@ namespace WineHangoutz
 						review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
 						if (txtComments.Text == "Describe your tasting")
 						{
-							txtComments.Text = " ";
+							txtComments.Text = "";
 						}
-						review.RatingText = txtComments.Text;
+						string reviewtxt = txtComments.Text;
+						reviewtxt.Trim();
+						review.RatingText = reviewtxt;
 						review.IsActive = true;
 						review.PlantFinal = storeid.ToString();
 						review.RatingStars = Convert.ToInt32(StartsSelected);
@@ -246,11 +248,9 @@ namespace WineHangoutz
 						review.Barcode = WineId;
 
 						await sw.InsertUpdateReview(review);
-
+						//NavController.DismissViewController(true, null);
+						BTProgressHUD.ShowSuccessWithStatus("Thank you!!!",10000);
 						((IPopupParent)parent).RefreshParent();
-
-						NavController.DismissViewController(true, null);
-						BTProgressHUD.ShowSuccessWithStatus("Thank you!!!");
 		}
 	}
 

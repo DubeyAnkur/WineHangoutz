@@ -35,8 +35,9 @@ namespace WineHangoutz
 				{
 					Font = UIFont.FromName("AmericanTypewriter", 10f),
 					TextColor = UIColor.FromRGB(38, 127, 0),
+					BackgroundColor=UIColor.Clear,
 					//TextAlignment = UITextAlignment.Center,
-					BackgroundColor = UIColor.Clear
+					//BackgroundColor = UIColor.Clear
 				};
 				Comments = new UITextView()
 				{
@@ -51,7 +52,7 @@ namespace WineHangoutz
 							filledImage: UIImage.FromBundle("Stars/star.png"),
 							chosenImage: UIImage.FromBundle("Stars/star.png"));
 
-				stars = new PDRatingView(new CGRect(ContentView.Bounds.Width-200, 20, 60, 20), ratingConfig, 5.0m);
+				stars = new PDRatingView(new CGRect(ContentView.Bounds.Width-200, 20, 60, 25), ratingConfig, 5.0m);
 
 				ContentView.AddSubviews(new UIView[] { userName, ReviewDate, Comments, stars, imageView });
 			}
@@ -80,7 +81,7 @@ namespace WineHangoutz
 				Comments.Text = review.RatingText;
 				CGSize sTemp = new CGSize(ContentView.Bounds.Width - 50, 100);
 				sTemp = Comments.SizeThatFits(sTemp);
-				Comments.Frame = new CGRect(0, 30, ContentView.Bounds.Width - 50, sTemp.Height);
+				Comments.Frame = new CGRect(0, 40, ContentView.Bounds.Width - 50, sTemp.Height);
 
 				//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
 				//ContentView.Bounds.Height = 90;
@@ -98,10 +99,10 @@ namespace WineHangoutz
 				base.LayoutSubviews();
 				imageView.Frame = new CGRect(5, 5, 33, 33);
 				userName.Frame = new CGRect(50, 2, ContentView.Bounds.Width - 35, 20);
-				ReviewDate.Frame = new CGRect(50, 20, ContentView.Bounds.Width - 35, 20);
+				ReviewDate.Frame = new CGRect(50, 20, ContentView.Bounds.Width - 35, 25);
 				//stars.Frame = new CGRect(35, 50, 100, 20);
 				stars.UserInteractionEnabled = false;
-				Comments.Frame = new CGRect(45, 30, ContentView.Bounds.Width - 50, 150);
+				Comments.Frame = new CGRect(45, 45, ContentView.Bounds.Width - 50, 150);
 			}
 			catch (Exception ex)
 			{

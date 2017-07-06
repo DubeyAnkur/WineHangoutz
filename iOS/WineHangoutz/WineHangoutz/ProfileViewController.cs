@@ -196,6 +196,7 @@ namespace WineHangoutz
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
 				  };
+					txtZipCode.AccessibilityScroll(UIAccessibilityScrollDirection.Up);
 					btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 					btnEdit.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 					btnUpdate.TouchDown += (sender, e) =>
@@ -247,8 +248,6 @@ namespace WineHangoutz
 
 					};
 					btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-
-
 					btnEdit.TouchUpInside += (sender, e) =>
 					{
 						try

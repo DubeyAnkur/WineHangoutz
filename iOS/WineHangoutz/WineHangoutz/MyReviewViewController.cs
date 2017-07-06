@@ -36,11 +36,11 @@ namespace WineHangoutz
 				Noreviews = new UILabel();
 				if (data.TastingList.Count != 0)
 				{
-					Noreviews.Text = "You have tasted " + data.TastingList.Count + " number of our wines. We would love to hear your feedback.";
+					Noreviews.Text = "You have tasted " + data.TastingList.Count + " wines.\n We would love to hear your feedback.";
 				}
 				else
 				{
-					Noreviews.Text = "Taste and then review.";
+					Noreviews.Text = "Please taste and then review.";
 				}
 				Noreviews.TextAlignment = UITextAlignment.Center;
 				Noreviews.LineBreakMode = UILineBreakMode.WordWrap;
@@ -51,7 +51,7 @@ namespace WineHangoutz
 				Noreviews.Frame = new CGRect(0, 50, View.Frame.Width, sTemp.Height);
 				ImgIns = new UIImageView();
 				ImgIns.Image=UIImage.FromFile("ReviewIns.png");
-				ImgIns.Frame=new CGRect((View.Frame.Width / 2)-150, 50+30, 300, 300);
+				ImgIns.Frame=new CGRect((View.Frame.Width / 2)-150, 120, 300, 300);
 				if (myData.Reviews.Count == 0)
 				{
 					TableView.SeparatorColor = UIColor.Clear;

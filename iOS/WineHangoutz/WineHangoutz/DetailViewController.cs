@@ -20,6 +20,7 @@ namespace WineHangoutz
 		private int screenid = 112;
 		public UILabel nd;
 		NSData HighImgData = null;
+		ServiceWrapper svc = new ServiceWrapper();
 
 		public DetailViewController(string WineId, string storeid, Boolean notification) : base ()
 		{
@@ -37,6 +38,7 @@ namespace WineHangoutz
 
 		public override void ViewDidLoad()
 		{
+			//NavigationController.PresentViewController(DetailViewController.c
 			View.BackgroundColor = UIColor.White;
 			Task.Factory.StartNew(() =>
 			{
@@ -51,13 +53,12 @@ namespace WineHangoutz
 			try
 			{
 				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
-				BTProgressHUD.Show();
+				//BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
-				ServiceWrapper svc = new ServiceWrapper();
+
 				ItemDetailsResponse mydata = svc.GetItemDetailsBarcode(_wineId, _storeId).Result;
 				//ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				var data = mydata.ItemDetails;
-
 				if (data.Barcode != null)
 				{
 
@@ -86,12 +87,12 @@ namespace WineHangoutz
 
 					CGRect rect = btlImage.Bounds;
 					nfloat boxHeight = rect.Height; // which is = width;
-					nfloat imgHeight = image.Size.Height;
-					nfloat ratio = boxHeight / imgHeight;
-					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
-					image = image.Scale(newSize);
-					nfloat X = (boxHeight - image.Size.Width) / 2;
-					btlImage.Frame = new CGRect(X, 70, image.Size.Width, image.Size.Height);
+					//nfloat imgHeight = image.Size.Height;
+					//nfloat ratio = boxHeight / imgHeight;
+					//CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+					//image = image.Scale(newSize);
+					nfloat X = (rect.Width / 2)-50;
+					btlImage.Frame = new CGRect(X, btlImage.Bounds.Height/2, 100, 100);
 					btlImage.Image = image;
 					DownloadAsync(data.Barcode, _storeId, btlImage, boxHeight, 70);
 					nfloat Y1 = 90 + View.Frame.Width;
@@ -200,18 +201,32 @@ namespace WineHangoutz
 					sTemp = lblProducerText.SizeThatFits(sTemp);
 					lblProducerText.Frame = new CGRect(0, Y, width, sTemp.Height);
 
+
 					ItemReviewResponse ratings = svc.GetItemReviewsByWineID(data.Barcode).Result;
 					data.Reviews = ratings.Reviews.ToList();
 					Y = Y + lblProducerText.Frame.Size.Height;
 					var review = LoadReviews(data, Y, width);
 					Y = Y + review.Frame.Size.Height;
+						
+					//Y = Y + 20;
+					var NoReviews = new UITextView();
+					NoReviews.Hidden = true;
+					if (data.Reviews.Count == 0)
+					{
+						NoReviews.Text = ratings.ErrorDescription;
+						sTemp = NoReviews.SizeThatFits(sTemp);
+						NoReviews.Frame = new CGRect(0, Y, width, 40);
+						NoReviews.Editable = false;
+						NoReviews.TextAlignment = UITextAlignment.Center;
+						NoReviews.Hidden = false;
+					}
+
 					var currentReview = data.Reviews.Where(x => x.ReviewUserId == CurrentUser.RetreiveUserId()).FirstOrDefault();
 					string currComments = "";
 					if (currentReview != null)
 					{
 						currComments = currentReview.RatingText;
 					}
-
 					ratingViewSelect.RatingChosen += (sender, e) =>
 					{
 						if (CurrentUser.RetreiveUserId() == 0)
@@ -237,23 +252,20 @@ namespace WineHangoutz
 							that.PresentModalViewController(yourController, false);
 						}
 					};
-
-
 					scrollView = new UIScrollView
 					{
 						Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height),
-						ContentSize = new CGSize(View.Frame.Width, Y + 70),
+						ContentSize = new CGSize(View.Frame.Width, Y+ 70+40),
 						BackgroundColor = UIColor.White,
 						AutoresizingMask = UIViewAutoresizing.FlexibleHeight
 					};
 					//When making it async the Frame.Y is messing up by image Y. So changing it to 70. Ideally it should be 0.
 					//Same will apply to ContentSize.Y
 					View.AddSubview(scrollView);
-
+					//View.AddSubview(NoReviews);
 					scrollView.AddSubview(lblName);
 					scrollView.AddSubview(uip);
 					scrollView.AddSubview(lblVintage);
-					//scrollView.AddSubview(nd);
 					scrollView.AddSubview(btlImage);
 					scrollView.AddSubview(ratingView);
 					scrollView.AddSubview(lblRateTitle);
@@ -266,9 +278,8 @@ namespace WineHangoutz
 					scrollView.AddSubview(table);
 					scrollView.AddSubview(lblProducer);
 					scrollView.AddSubview(lblProducerText);
-
-
 					scrollView.AddSubview(review);
+					scrollView.AddSubview(NoReviews);
 					//scrollView.
 					BTProgressHUD.Dismiss();
 				}
@@ -345,7 +356,7 @@ namespace WineHangoutz
 	{
 		url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + wineid + ".jpg";
 	}
-	else if (storeid == 2)
+	else
 	{
 		url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + wineid + ".jpg";
 	}
@@ -362,7 +373,7 @@ namespace WineHangoutz
 	}
 	catch (Exception exe)
 	{
-		LoggingClass.LogError("while downloading image of wine id" + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
+		LoggingClass.LogError("while downloading image of wine id " + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
 	}
 
 	//HighresImg  =UIImage.LoadFromData(HighImgData);

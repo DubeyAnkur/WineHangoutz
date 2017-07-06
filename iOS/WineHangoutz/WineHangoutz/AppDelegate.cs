@@ -43,8 +43,7 @@ namespace WineHangoutz
 			//CurrentUser.Clear();
 			//CurrentUser.Store("10", "Admin");
 			//for direct log in
-			//CurrentUser.PutCardNumber("900497407491");
-
+			//CurrentUser.PutCardNumber("900497354894");
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
 
@@ -218,7 +217,6 @@ namespace WineHangoutz
 		//		}
 		//	}
 		//}
-
 
 		public override void OnResignActivation(UIApplication application)
 		{

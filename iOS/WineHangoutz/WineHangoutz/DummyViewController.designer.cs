@@ -14,8 +14,25 @@ namespace WineHangoutz
     [Register ("DummyViewController")]
     partial class DummyViewController
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIScrollView scrollview { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField txt { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (scrollview != null) {
+                scrollview.Dispose ();
+                scrollview = null;
+            }
+
+            if (txt != null) {
+                txt.Dispose ();
+                txt = null;
+            }
         }
     }
 }

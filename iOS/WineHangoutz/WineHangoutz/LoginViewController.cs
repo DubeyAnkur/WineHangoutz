@@ -166,7 +166,7 @@ namespace WineHangoutz
 						   CurrentUser.RootTabs = RootTabs;
 						   _window.RootViewController = nav;
 						   CurrentUser.window = _window;
-						   await svc.InsertUpdateGuest(CurrentUser.GetToken());
+					await svc.InsertUpdateGuest("Didn't get the token");
 
 						   //this.NavigationController.PopToRootViewController (true);
 

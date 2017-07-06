@@ -4,7 +4,6 @@ using UIKit;
 using Foundation;
 using BigTed;
 
-
 namespace WineHangoutz
 {
 	public partial class ExploreViewController : UIViewController
@@ -55,9 +54,9 @@ namespace WineHangoutz
 
 				btnBlog.TouchUpInside += (sender, e) =>
 				{
-					NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
-					NavigationController.NavigationBar.TopItem.Title = "Profile";
-
+					//NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
+					//NavigationController.NavigationBar.TopItem.Title = "Profile";
+					NavigationController.PushViewController(new DummyViewController(), false);
 					LoggingClass.LogInfo("Entered into Profile View", screenid);
 
 
