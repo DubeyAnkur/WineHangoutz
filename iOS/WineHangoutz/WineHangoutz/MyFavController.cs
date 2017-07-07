@@ -1,5 +1,5 @@
+﻿using System;
 using Foundation;
-using System;
 using UIKit;
 using System.Collections.Generic;
 using CoreGraphics;
@@ -7,86 +7,93 @@ using ObjCRuntime;
 using Hangout.Models;
 using System.Globalization;
 using BigTed;
-
 namespace WineHangoutz
 {
-	public partial class PhyCollectionView : UICollectionViewController
+	public class MyFavController : UICollectionViewController
 	{
+		
 		private int screenid = 12;
-		public ItemListResponse myData;
-		public int storeId = 2;
-		Boolean fav = false;
 		public UIRefreshControl refreshControl = new UIRefreshControl();
+		public ItemListResponse myData;
 		UIImage img = new UIImage("Wines/bottle.jpg");
-		public bool FaviouriteView = false;
-		public PhyCollectionView(UICollectionViewLayout layout, int StoreId, bool favView = false) : base(layout)
+		ServiceWrapper svc = new ServiceWrapper();
+		public MyFavController(UICollectionViewLayout layout) :base(layout)
 		{
-				if (StoreId == 1)
-				{
-					this.Title = "Wall";
-					storeId = StoreId;
-				}
-				else if (StoreId == 2)
-				{
-					this.Title = "Pt. Pleasant Beach";
-					storeId = StoreId;
-				}
-
+			this.Title = "My Favorites";
 		}
 		public override void ViewDidLoad()
 		{
+			LoggingClass.LogInfo("Entered into favorite", screenid);
 			try
 			{
-					ServiceWrapper svc = new ServiceWrapper();
-					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
-					this.CollectionView.Add(refreshControl);
+                	this.CollectionView.Add(refreshControl);
 					refreshControl.ValueChanged += (rcSender, e) =>
 					{
 					//Refresh this view
-					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
-					CollectionView.ReloadData();
-					refreshControl.EndRefreshing();
+						myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+						CollectionView.ReloadData();
+						refreshControl.EndRefreshing();	
 					};
 
+					myData = svc.GetItemFavsUID(CurrentUser.RetreiveUserId()).Result;
+				if (myData.ItemList.Count == 0)
+				{
+					UIImageView ImgIns = new UIImageView();
+					ImgIns.Image = UIImage.FromFile("FavIns.png");
+					UILabel NoFav = new UILabel();
+					NoFav.Text = myData.ErrorDescription;
+					NoFav.LineBreakMode = UILineBreakMode.WordWrap;
+					NoFav.Lines = 0;
+					CGSize sTemp = new CGSize(View.Frame.Width, 100);
+					sTemp = NoFav.SizeThatFits(sTemp);
+					NoFav.Frame = new CGRect(0, 50, View.Frame.Width - 20, sTemp.Height);
+					NoFav.TextAlignment = UITextAlignment.Center;
+					ImgIns.Frame = new CGRect((View.Frame.Width / 2) - 100, 50 + sTemp.Height + 20, 202, 381);
+					CollectionView.AddSubview(NoFav);
+					CollectionView.AddSubview(ImgIns);
+				}
 				BTProgressHUD.Dismiss();
 				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 				this.CollectionView.BackgroundColor = UIColor.White;
-				CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
-				
+				CollectionView.RegisterClassForCell(typeof(MyFavViewCell), MyFavViewCell.Key);
 			}
 			catch (Exception ex)
 			{
-				BTProgressHUD.ShowErrorWithStatus("Something went wrong,We're on it.");
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 			}
+			
 		}
-
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 		}
-
+		//public void RefreshParent()
+		//{
+		//	ServiceWrapper svc = new ServiceWrapper();
+		//	int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+		//	var myData = svc.GetItemFavsUID(userId).Result;
+		//	if (myData.ItemList.Count == 0)
+		//	{
+		//		TableView.SeparatorColor = UIColor.Clear;
+		//		View.AddSubview(Noreviews);
+		//		View.AddSubview(ImgIns);
+		//	}
+		//	TableView.Source = new MyReviewTableSource(myData.Reviews.ToList(), NavigationController, this);
+		//	TableView.ReloadData();
+		//}
 		public static class Cultures
 		{
 			public static readonly CultureInfo UnitedState =
 					CultureInfo.GetCultureInfo("en-US");
 		}
-
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = collectionView.DequeueReusableCell(APLCollectionViewCell.Key, indexPath) as APLCollectionViewCell;
-			BindData(cell, indexPath, fav);
-
-			cell.Layer.BorderWidth = 1;
-			cell.Layer.BorderColor = new CGColor(0.768f, 0.768f, 0.768f);
-
-			return cell;
-		}
-
-
-		public override nint NumberOfSections(UICollectionView collectionView)
-		{
-			return 1;
+				var cell = collectionView.DequeueReusableCell(MyFavViewCell.Key, indexPath) as MyFavViewCell;
+				BindData(cell, indexPath);
+				cell.Layer.BorderWidth = 1;
+				cell.Layer.BorderColor = new CGColor(0.768f, 0.768f, 0.768f);
+				return cell;
+			
 		}
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section)
@@ -111,13 +118,20 @@ namespace WineHangoutz
 			}
 			return cou;
 		}
+
+		public override nint NumberOfSections(UICollectionView collectionView)
+		{
+			return 1;
+		}
+
 		public override void PerformAction(UICollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender)
 		{
 			//This do not work.
 			System.Diagnostics.Debug.WriteLine("code to perform action");
-			//NavigationController.PushViewController(new PopupView(), false);
+			//NavigationController.PushViewController(new PopupView(), false
 		}
-		public void BindData(APLCollectionViewCell cell, NSIndexPath indexPath, Boolean fav)
+
+		public void BindData(MyFavViewCell cell, NSIndexPath indexPath)
 		{
 			try
 			{
@@ -132,25 +146,14 @@ namespace WineHangoutz
 				//cell.WineName = myData.ItemList[index].Name;
 				//cell.AmountLeft.SetProgress(Convert.ToSingle(myData.ItemList[index].AvailableVolume),true);
 				cell.Vintage = myData.ItemList[index].Vintage.ToString();
-				cell.AmountLeft.Text="Wine left in bottle: "+myData.ItemList[index].AvailableVolume.ToString() + ".ml";
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
-				cell.WineBarcode = myData.ItemList[index].Barcode;
-				if (fav == true)
-				{
-					cell.storeId = myData.ItemList[index].PlantFinal.ToString();
-					cell.AmountLeft.Hidden = true;
-				}
-				else
-				{
-					cell.storeId = storeId.ToString();
-				}
 				cell.lblName.Text = myData.ItemList[index].Name;
 				cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
 				cell.lblRegPrice.Text = myData.ItemList[index].RegPrice.ToString("C", Cultures.UnitedState);
 				cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.myItem = myData.ItemList[index];
-
+				cell.WineBarcode = myData.ItemList[index].Barcode;
 				cell.btnItemname.SetTitle(myData.ItemList[index].Name, UIControlState.Normal);
 				if (myData.ItemList[index].IsLike == true)
 				{

@@ -16,7 +16,7 @@ namespace WineHangoutz
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIScrollView scrollview { get; set; }
+        UIKit.UIScrollView scrl { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -24,9 +24,9 @@ namespace WineHangoutz
 
         void ReleaseDesignerOutlets ()
         {
-            if (scrollview != null) {
-                scrollview.Dispose ();
-                scrollview = null;
+            if (scrl != null) {
+                scrl.Dispose ();
+                scrl = null;
             }
 
             if (txt != null) {

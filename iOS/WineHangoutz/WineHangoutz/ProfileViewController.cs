@@ -42,7 +42,7 @@ namespace WineHangoutz
 					UIAlertView alert = new UIAlertView()
 					 {
 						 Title = "Sorry",
-						 Message = "Please check your internet connection and try again."
+						 Message = "Not connected to internet.Please connect and retry."
 					 };
 
 					alert.AddButton("OK");
@@ -116,6 +116,7 @@ namespace WineHangoutz
 
 					alert.AddButton("OK");
 					alert.AddButton("Log in");
+					alert.AddButton("Know more");
 					alert.Clicked += (senderalert, buttonArgs) =>
 						{
 
@@ -127,6 +128,13 @@ namespace WineHangoutz
 								NavCtrl.PushViewController(yourController, false);
 								//NavCtrl.PopViewController(false);
 								//NavCtrl.PopViewController(false);
+							}
+						};
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 2)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
 							}
 						};
 					alert.Show();

@@ -30,6 +30,7 @@ namespace WineHangoutz
 		public UIViewController RootTabs;
 		public UIWindow _window;
 		public UIButton btnLogin;
+		string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 		public LoginViewController() : base()
 		{
 			this.Title = "Login";
@@ -147,8 +148,6 @@ namespace WineHangoutz
 					btnVerify.SetTitle("Verify", UIControlState.Normal);
 					btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 					btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-
-					string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 					btnGuestLogin.TouchDown += async (sender, e) =>
 				   	{
 						   CurrentUser.Store("0", "Guest");
@@ -229,7 +228,7 @@ namespace WineHangoutz
 				try
 				{
 					CGSize sTemp = new CGSize(View.Frame.Width, 100);
-					cr = await svc.AuthencateUser("test", CardNumber, "test");
+					cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 					if (CardNumber != null)
 					{
 						CurrentUser.PutCardNumber(CardNumber);

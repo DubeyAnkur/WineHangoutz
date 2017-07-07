@@ -7,7 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DummyViewController">
             <connections>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
-                <outlet property="scrollview" destination="5" id="name-outlet-5"/>
+                <outlet property="scrl" destination="5" id="name-outlet-5"/>
                 <outlet property="txt" destination="6" id="name-outlet-6"/>
             </connections>
         </placeholder>

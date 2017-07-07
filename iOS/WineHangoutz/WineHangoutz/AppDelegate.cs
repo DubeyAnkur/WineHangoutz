@@ -178,7 +178,7 @@ namespace WineHangoutz
 			explore = ResizeImage(explore, 35, 35);
 			t2.Image = explore;
 			t2.SelectedImage = explore;
-			t2.Enabled = false;
+			t2.Enabled = true;
 			//RootTab[2].RemoveFromParentViewController();
 
 

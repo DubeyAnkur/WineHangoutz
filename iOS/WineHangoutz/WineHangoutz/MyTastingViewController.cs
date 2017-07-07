@@ -34,8 +34,15 @@ namespace WineHangoutz
 						Title = "This feature is allowed only for VIP Card holders",
 						//Message = "Coming Soon..."
 					};
-
 					alert.AddButton("OK");
+					alert.AddButton("Know more");
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 					alert.Show();
 				}
 				else

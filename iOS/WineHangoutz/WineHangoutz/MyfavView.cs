@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using CoreGraphics;
 using CoreAnimation;
 using Foundation;
@@ -10,11 +10,13 @@ using BigTed;
 using System.Globalization;
 using System.Threading;
 
-namespace WineHangoutz {
+namespace WineHangoutz
+{
 
-	public class APLCollectionViewCell : UICollectionViewCell {
+	public class MyFavViewCell : UICollectionViewCell
+	{
 		private int screenid = 4;
-		public static readonly NSString Key = new NSString ("APLCollectionViewCell");
+		public static readonly NSString Key = new NSString("MyFavViewCell");
 		public UINavigationController NavigationController;
 		public string WineName = "Wine Name";
 		public string Vintage = "2012";
@@ -24,16 +26,15 @@ namespace WineHangoutz {
 		public string storeId = "2";
 		public Item myItem;
 		public UIView parent;
-		public UITextView AmountLeft;
-
+		public static readonly UINib Nib;
 		//public void Dowork()
 		//{
-			
+
 		//	NavigationController.PushViewController(new SKUDetailView(WineId,storeId), false);
 		//}
 
-		[Export ("initWithFrame:")]
-		public APLCollectionViewCell (CGRect frame) : base (frame)
+		[Export("initWithFrame:")]
+		public MyFavViewCell(CGRect frame) : base(frame)
 		{
 			//NavigationController.NavigationBar.TopItem.Title = "List";
 			try
@@ -50,7 +51,6 @@ namespace WineHangoutz {
 				ImageView.ClipsToBounds = true;
 				ImageView.Layer.BorderColor = UIColor.White.CGColor;
 				ImageView.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-
 				box.Y = 3;
 				btlImage = new UIButton(box);
 				btlImage.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
@@ -58,20 +58,13 @@ namespace WineHangoutz {
 				btlImage.ClipsToBounds = true;
 				btlImage.Layer.BorderColor = UIColor.White.CGColor;
 				btlImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-
-				//btlImage.TouchDown += (sender, e) =>
-				//{
-				//		BTProgressHUD.Show("Loading..."); //show spinner + text
-				//};
-
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
 					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
-					LoggingClass.LogInfo("Clicked on " + WineBarcode+ " to enter into Details", screenid);
+					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screenid);
 
 				};
-
 				box.Height = 25;
 				box.Width = 25;
 				box.X = (Bounds.Width - 30);
@@ -90,15 +83,17 @@ namespace WineHangoutz {
 						UIButton temp = (UIButton)sender;
 						if (temp.Tag == 0)
 						{
-							heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
-							temp.Tag = 1;
+							heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+							temp.Tag = 0;
 							myItem.IsLike = true;
 							LoggingClass.LogInfo("Liked Wine " + WineBarcode, screenid);
+							//MyFavController ne = new MyFavController();
+							//ne.refreshControl = true;
 						}
 						else
 						{
-							heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
-							temp.Tag = 0;
+							heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+							temp.Tag = 1;
 							myItem.IsLike = false;
 							LoggingClass.LogInfo("Unliked Wine " + WineBarcode, screenid);
 						}
@@ -118,7 +113,6 @@ namespace WineHangoutz {
 							Title = "This feature is allowed only for VIP Card holders",
 							//Message = "Coming Soon..."
 						};
-
 						alert.AddButton("OK");
 						alert.AddButton("Know more");
 						alert.Clicked += (senderalert, buttonArgs) =>
@@ -194,17 +188,8 @@ namespace WineHangoutz {
 				ratingView = new PDRatingView(new CGRect(Bounds.Width * 1 / 4, Bounds.Height - 40, Bounds.Width / 2, 14f), ratingConfig, averageRating);
 				ratingView.UserInteractionEnabled = false;
 				//ratingView.BackgroundColor = UIColor.White;
-
-				AmountLeft = new UITextView(new CGRect(0, Bounds.Height-30, Bounds.Width, 20));
-				AmountLeft.TextAlignment = UITextAlignment.Center;
-				AmountLeft.Editable = false;
-				//AmountLeft.ProgressTintColor = UIColor.Blue;
-				//AmountLeft.SetProgress(1, true);
-				//AmountLeft.Progress = 30f;
-
 				ContentView.AddSubview(ImageView);
 				ContentView.InsertSubviewAbove(btlImage, ImageView);
-				ContentView.AddSubview(AmountLeft);
 				ContentView.AddSubview(heartImage);
 				//ContentView.AddSubview(lblName);
 				ContentView.AddSubview(btnItemname);
@@ -218,21 +203,21 @@ namespace WineHangoutz {
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
-        }
+		}
 
 		public UIButton ImageView { get; private set; }
 		public UIButton heartImage { get; private set; }
 		public UIButton btlImage { get; private set; }
-        public UILabel lblName { get; private set; }
+		public UILabel lblName { get; private set; }
 		public UIButton btnItemname { get; private set; }
-        public UIImageView Separator { get; private set; }
-        public UILabel lblYear { get; private set; }
+		public UIImageView Separator { get; private set; }
+		public UILabel lblYear { get; private set; }
 		public UILabel lblRegPrice { get; private set; }
-        public PDRatingView ratingView { get; private set; }
+		public PDRatingView ratingView { get; private set; }
 
 		private void NavigateToDetail()
 		{
-			
+
 		}
-    }
+	}
 }

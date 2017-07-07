@@ -2,7 +2,7 @@
 using CoreGraphics;
 using UIKit;
 using BigTed;
-
+using Foundation;
 
 namespace WineHangoutz
 {
@@ -46,6 +46,14 @@ namespace WineHangoutz
 					};
 
 					alert1.AddButton("OK");
+					alert1.AddButton("Know more");
+						alert1.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 					//alert1.AddButton("Login");
 
 					alert1.Show();
@@ -61,6 +69,14 @@ namespace WineHangoutz
 							};
 
 						alert.AddButton("OK");
+						alert.AddButton("Know more");
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 						alert.Show();
 					};
 					btnTastings.TouchDown += (sender, e) =>
@@ -72,6 +88,14 @@ namespace WineHangoutz
 							};
 
 						alert.AddButton("OK");
+						alert.AddButton("Know more");
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 						alert.Show();
 					};
 					btnFavourites.TouchDown += (sender, e) =>
@@ -83,6 +107,14 @@ namespace WineHangoutz
 							};
 
 						alert.AddButton("OK");
+						alert.AddButton("Know more");
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 						alert.Show();
 					};
 				}
@@ -138,10 +170,10 @@ namespace WineHangoutz
 							SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
 							ScrollDirection = UICollectionViewScrollDirection.Vertical
 						};
-						NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1, true), false);
-						NavigationController.NavigationBar.TopItem.Title = "My Favorites";
-						LoggingClass.LogInfo("Entered into Favourite View", screenid);
-
+							NavigationController.PushViewController(new MyFavController(flowLayout), false);
+							NavigationController.NavigationBar.TopItem.Title = "My Favorites";
+							LoggingClass.LogInfo("Entered into Favourite View", screenid);
+					
 
 						BTProgressHUD.Dismiss();
 					};

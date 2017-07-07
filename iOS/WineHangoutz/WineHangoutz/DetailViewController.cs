@@ -237,6 +237,14 @@ namespace WineHangoutz
 								//Message = "Coming Soon..."
 							};
 							alert.AddButton("OK");
+							alert.AddButton("Know more");
+							alert.Clicked += (senderalert, buttonArgs) =>
+							{
+								if (buttonArgs.ButtonIndex == 1)
+								{
+									UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+								}
+							};
 							alert.Show();
 							ratingViewSelect.ChosenRating = 0;
 						}

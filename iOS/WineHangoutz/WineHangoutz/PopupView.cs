@@ -146,6 +146,14 @@ namespace WineHangoutz
 						};
 						//LoggingClass.LogInfo("Clicked on seacuces", screenid);
 						alert.AddButton("OK");
+						alert.AddButton("Know more");
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 						alert.Show();
 
 					}
@@ -165,6 +173,14 @@ namespace WineHangoutz
 						};
 						//LoggingClass.LogInfo("Clicked on seacuces", screenid);
 						alert.AddButton("OK");
+						alert.AddButton("Know more");
+						alert.Clicked += (senderalert, buttonArgs) =>
+						{
+							if (buttonArgs.ButtonIndex == 1)
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+							}
+						};
 						alert.Show();
 					}
 					else
@@ -207,6 +223,14 @@ namespace WineHangoutz
 									};
 									//LoggingClass.LogInfo("Clicked on seacuces", screenid);
 									alert1.AddButton("OK");
+									alert1.AddButton("Know more");
+									alert1.Clicked += (sender, buttonArg) =>
+									{
+										if (buttonArgs.ButtonIndex == 1)
+										{
+											UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+										}
+									};
 									alert1.Show();
 								}
 								else 
