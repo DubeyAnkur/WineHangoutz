@@ -16,7 +16,7 @@ namespace WineHangoutz
 		UIImageView imageView;
 		//UIBotton Readmore;
 		PDRatingView stars;
-		private int screenid = 10;
+		public string screen= "Rating cell controller";
 		public ReviewCellView(NSString cellId) : base (UITableViewCellStyle.Default, cellId)
     	{
 			try
@@ -58,7 +58,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 
 		}
@@ -89,7 +89,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
 		public override void LayoutSubviews()
@@ -106,7 +106,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
 	}
@@ -116,7 +116,7 @@ namespace WineHangoutz
 		
 		//string CellIdentifier = "TableCell";
 		List<Review> Reviews;
-		private int screenid = 10;
+		private string screen = "ReviewTableSource";
 		public ReviewTableSource(List<Review> reviews)
 		{
 			Reviews = reviews;
@@ -143,7 +143,7 @@ namespace WineHangoutz
 
 			}
 			catch(Exception ex) { 
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			return cell;
 

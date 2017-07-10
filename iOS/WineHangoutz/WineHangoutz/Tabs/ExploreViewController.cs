@@ -12,7 +12,7 @@ namespace WineHangoutz
 		{
 			this.Title = "Explore";
 		}
-		private int screenid = 3;
+		private string screen = "ExploreViewController";
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
@@ -57,7 +57,7 @@ namespace WineHangoutz
 					//NavigationController.PushViewController(new ProfileViewController(NavigationController), false);
 					//NavigationController.NavigationBar.TopItem.Title = "Profile";
 					NavigationController.PushViewController(new DummyViewController(), false);
-					LoggingClass.LogInfo("Entered into Profile View", screenid);
+					LoggingClass.LogInfo("Entered into Profile View", screen);
 
 
 					BTProgressHUD.Dismiss();
@@ -73,7 +73,7 @@ namespace WineHangoutz
 					};
 
 
-					LoggingClass.LogInfo("Entered into Region", screenid);
+					LoggingClass.LogInfo("Entered into Region", screen);
 
 
 					alert.AddButton("OK");
@@ -88,7 +88,7 @@ namespace WineHangoutz
 						Message = "Coming Soon..."
 					};
 
-					LoggingClass.LogInfo("Entered into Wineries", screenid);
+					LoggingClass.LogInfo("Entered into Wineries", screen);
 
 
 					alert.AddButton("OK");
@@ -106,7 +106,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
 		public override void ViewDidAppear(bool animated)

@@ -24,7 +24,7 @@ namespace WineHangoutz
 		CustomerResponse cr = new CustomerResponse();
 		public ServiceWrapper svc = new ServiceWrapper();
 		public string DeviceToken { get { return deviceToken; } }
-		private int screenid = 1;
+		private string screenid = "LoginView Controller";
 		public nfloat start;
 		public nfloat strtbtn;
 		public UIViewController RootTabs;
@@ -64,7 +64,7 @@ namespace WineHangoutz
 						nav = new UINavigationController(RootTabs);
 						AddNavigationButtons(nav);
 						_window.RootViewController = nav;
-						LoggingClass.LogInfo("", screenid);
+					LoggingClass.LogInfo(CurrentUser.RetreiveUserName()+ "Logged in", screenid);
 					}
 					//for backgroud
 					//var bGround = new UIImageView(UIImage.FromBundle("Info.png"));
@@ -165,7 +165,7 @@ namespace WineHangoutz
 						   CurrentUser.RootTabs = RootTabs;
 						   _window.RootViewController = nav;
 						   CurrentUser.window = _window;
-					await svc.InsertUpdateGuest("Didn't get the token");
+							await svc.InsertUpdateGuest("Didn't get the token");
 
 						   //this.NavigationController.PopToRootViewController (true);
 
@@ -178,7 +178,7 @@ namespace WineHangoutz
 					View.AddSubview(lblInfo);
 					View.AddSubview(lblGuest);
 
-					View.BackgroundColor = UIColor.FromRGB(97, 100, 142);
+				View.BackgroundColor = UIColor.FromRGB(0, 0, 150);
 				
 			}
 			catch (Exception exe)
@@ -276,7 +276,14 @@ namespace WineHangoutz
 						btnResend.TouchUpInside += async (send, eve) =>
 						{
 							BTProgressHUD.Show("Sending verification email to" + cr.customer.Email);
-							await svc.AuthencateUser("", CardNumber, "");
+							if (CardNumber != null)
+							{
+								await svc.ResendEMail(CardNumber);
+							}
+							else
+							{
+								await svc.ResendEMail(CurrentUser.GetCardNumber());
+							}
 							BTProgressHUD.ShowSuccessWithStatus("Sent");
 						};
 						btnLogin.TouchUpInside += (sen, ev) =>
@@ -307,7 +314,6 @@ namespace WineHangoutz
 				{
 					LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 				}
-
 		}
 		public async void EmailVerification()
 		{
@@ -347,24 +353,21 @@ namespace WineHangoutz
 					{
 						try
 						{
-							BTProgressHUD.ShowErrorWithStatus("Your email is not verified plesase check email and verify.");
+							BTProgressHUD.ShowErrorWithStatus("Your email is not verified plesase check email and verify.",5000);
 							View.AddSubview(btnResend);
 						}
 						catch (Exception ex)
 						{
-							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 						}
 					}
 				}
 				catch (Exception Exe)
 				{
-					LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace.ToString());
+					LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace);
 				}
 		}
-
 	}
-
-
 	public static class CurrentUser //: ISecuredDataProvider
 	{
 		static NSUserDefaults plist;// = NSUserDefaults.StandardUserDefaults;

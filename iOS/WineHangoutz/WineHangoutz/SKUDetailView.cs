@@ -17,16 +17,14 @@ namespace WineHangoutz
 	public class SKUDetailView : UITableViewController, IPopupParent
 	{
 		
-		string _wineId;
+		string WineBarcode;
 		public int _storeId;
-		private int screenid = 112;
+		private string screenid = "SKU DetailView";
 		public SKUDetailView(string WineId,string storeid) : base()
 		{
-			_wineId = WineId;
+			WineBarcode = WineId;
 			_storeId = Convert.ToInt32(storeid);
 			this.Title = "Wine Details";
-
-
 		}
 
 
@@ -36,11 +34,11 @@ namespace WineHangoutz
 			
 			try
 			{
-				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
+				LoggingClass.LogInfo("Entered into detail view of " + WineBarcode, screenid);
 				BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
 				ServiceWrapper svc = new ServiceWrapper();
-				ItemDetailsResponse myData = svc.GetItemDetailsBarcode(_wineId, _storeId).Result;
+				ItemDetailsResponse myData = svc.GetItemDetailsBarcode(WineBarcode, _storeId).Result;
 				ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 											TableView.AllowsSelection = false;
@@ -59,7 +57,7 @@ namespace WineHangoutz
 			nfloat width = View.Frame.Width;
 			ServiceWrapper svc = new ServiceWrapper();
 			ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
-			ItemDetailsResponse myData = svc.GetItemDetailsBarcode(_wineId,_storeId).Result;
+			ItemDetailsResponse myData = svc.GetItemDetailsBarcode(WineBarcode,_storeId).Result;
 			TableView.Source = new SKUDetailTableSource(width, this, NavigationController, myData.ItemDetails,_storeId);
 			TableView.ReloadData();
 		}
@@ -80,6 +78,7 @@ namespace WineHangoutz
 	{
 		UIImageView btlImage = new UIImageView();
 		PDRatingView ratingView;
+		private string screenid = "SKUDetail TableSource";
 		UIImageView HighresImg = new UIImageView();
 		nfloat Width;
 		NSData HighImgData = null;
@@ -131,7 +130,6 @@ namespace WineHangoutz
 			}
 			return cell;
 		}
-		private int screenid = 5;
 		public UIView GetViewForSKUCell(nint index)
 		{
 			UIView vw = new UIView();
@@ -189,7 +187,7 @@ namespace WineHangoutz
 							nfloat wid = this.Width;
 							nfloat hei = this.Width;
 							btlImage.Image = image;
-							DownloadAsync(data.WineId, _store,btlImage,boxHeight);
+							DownloadAsync(data.Barcode, _store,btlImage,boxHeight);
 
 						}
 						else
@@ -260,7 +258,7 @@ namespace WineHangoutz
 							}
 							else
 							{
-								LoggingClass.LogInfo("Clicked on stars to give rating on " + data.WineId, screenid);
+								LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
 								PopupView yourController = new PopupView(data.Barcode, _store);
 								yourController.NavController = NavigationController;
 								yourController.parent = that;
@@ -397,7 +395,7 @@ namespace WineHangoutz
 			reviewTable.ScrollEnabled = false;
 			return reviewTable;
 		}
-		public async void DownloadAsync(int wineid, int storeid, UIImageView btlImage, nfloat boxHeight)
+		public async void DownloadAsync(string WineBarcode, int storeid, UIImageView btlImage, nfloat boxHeight)
 		{
 			
 
@@ -405,11 +403,11 @@ namespace WineHangoutz
 			string url = null;
 				if ( storeid== 1)
 				{
-				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/"+wineid+".jpg";
+				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailswall/"+WineBarcode+".jpg";
 				}
 				else if (storeid == 2)
 				{	
-				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailspp/"+wineid+".jpg";
+				url = "https://icsintegration.blob.core.windows.net/bottleimagedetailspp/"+WineBarcode+".jpg";
 				}
 				byte[] imageBytes = null;
 			try
@@ -424,7 +422,7 @@ namespace WineHangoutz
 			}
 			catch (Exception exe)
 			{
-				LoggingClass.LogError("while downloading image of wine id" + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
+				LoggingClass.LogError("while downloading image of wine id" + WineBarcode + "  " + exe.Message, screenid, exe.StackTrace.ToString());
 			}
 					
 			//HighresImg  =UIImage.LoadFromData(HighImgData);

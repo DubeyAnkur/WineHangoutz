@@ -52,6 +52,14 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblFirstname { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblLastname { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblMobile { get; set; }
 
         [Outlet]
@@ -60,11 +68,27 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblStore { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblStorePi { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblTitle { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblZipcode { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIPickerView statePicker { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIPickerView storePicker { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -137,6 +161,16 @@ namespace WineHangoutz
                 lblEmail = null;
             }
 
+            if (lblFirstname != null) {
+                lblFirstname.Dispose ();
+                lblFirstname = null;
+            }
+
+            if (lblLastname != null) {
+                lblLastname.Dispose ();
+                lblLastname = null;
+            }
+
             if (lblMobile != null) {
                 lblMobile.Dispose ();
                 lblMobile = null;
@@ -147,6 +181,21 @@ namespace WineHangoutz
                 lblState = null;
             }
 
+            if (lblStore != null) {
+                lblStore.Dispose ();
+                lblStore = null;
+            }
+
+            if (lblStorePi != null) {
+                lblStorePi.Dispose ();
+                lblStorePi = null;
+            }
+
+            if (lblTitle != null) {
+                lblTitle.Dispose ();
+                lblTitle = null;
+            }
+
             if (lblZipcode != null) {
                 lblZipcode.Dispose ();
                 lblZipcode = null;
@@ -155,6 +204,11 @@ namespace WineHangoutz
             if (statePicker != null) {
                 statePicker.Dispose ();
                 statePicker = null;
+            }
+
+            if (storePicker != null) {
+                storePicker.Dispose ();
+                storePicker = null;
             }
 
             if (txtAddress != null) {

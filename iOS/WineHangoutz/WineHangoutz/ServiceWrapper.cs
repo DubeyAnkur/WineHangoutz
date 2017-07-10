@@ -19,7 +19,7 @@ namespace WineHangoutz
     public class ServiceWrapper
     {
         HttpClient client;
-		private int screenid=13;
+		private string screen="ServiceWrapper";
 		public string error = null;
         public ServiceWrapper()
         {
@@ -91,7 +91,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("GetItemList service Time Elapsed"+sw.Elapsed.TotalSeconds, "ItemList");
@@ -135,7 +135,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemDetails");
@@ -162,7 +162,7 @@ namespace WineHangoutz
             //catch (Exception ex)
            catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateLike");
@@ -191,7 +191,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
  			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "Authencate Card and sending mail");
@@ -230,7 +230,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "Verify");
@@ -251,7 +251,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemReviewsByWineID");
@@ -271,7 +271,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemReviewUID");
@@ -294,7 +294,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateReview");
@@ -316,7 +316,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "DeleteReview");
@@ -339,7 +339,7 @@ namespace WineHangoutz
 			}
             catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "UpdateCustomer");
@@ -361,7 +361,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateToken");
@@ -380,7 +380,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateToken");
@@ -399,7 +399,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetCustomerDetails");
@@ -418,7 +418,7 @@ namespace WineHangoutz
 				output = JsonConvert.DeserializeObject<TastingListResponse>(response);
 			}catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetMyTastingsList");
@@ -440,10 +440,31 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Guest Service");
+			return output;
+		}
+		public async Task<int> ResendEMail(string CardNumber)
+		{
+			sw.Start();
+			int output = 0;
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "ResendEmail/" + CardNumber);
+				//var content = JsonConvert.SerializeObject(token);
+				//var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<int>(response);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
+			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Resend Email Service");
 			return output;
 		}
 

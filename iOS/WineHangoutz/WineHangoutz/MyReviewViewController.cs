@@ -12,7 +12,7 @@ namespace WineHangoutz
 {
 	public partial class MyReviewViewController : UITableViewController, IPopupParent
 	{
-		private int screenid = 6;
+		private string screenid = "MyReviewView Controller";
 		public int storeid;
 		public UILabel Noreviews;
 		public UIImageView ImgIns;
@@ -147,7 +147,7 @@ namespace WineHangoutz
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		public string wineId;
-		private int screenid = 6;
+		private string screenid = "MyReviewCellView";
 		public int storeid;
 		ServiceWrapper sw = new ServiceWrapper();
 		public MyReviewCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)

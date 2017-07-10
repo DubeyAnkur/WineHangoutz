@@ -31,6 +31,12 @@
                 <outlet property="lblState" destination="iLE-at-WZh" id="name-outlet-iLE-at-WZh"/>
                 <outlet property="lblZipcode" destination="oyy-MV-IjR" id="name-outlet-oyy-MV-IjR"/>
                 <outlet property="statePicker" destination="119" id="name-outlet-119"/>
+                <outlet property="lblFirstname" destination="8sM-Ei-V8M" id="name-outlet-8sM-Ei-V8M"/>
+                <outlet property="lblLastname" destination="7yv-JP-cKi" id="name-outlet-7yv-JP-cKi"/>
+                <outlet property="storePicker" destination="122" id="name-outlet-122"/>
+                <outlet property="lblTitle" destination="U1V-yx-m3P" id="name-outlet-U1V-yx-m3P"/>
+                <outlet property="lblStore" destination="187" id="name-outlet-187"/>
+                <outlet property="lblStorePi" destination="190" id="name-outlet-190"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -129,14 +135,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-MV-IjR" customClass="UILabel" text="Zipcode:">
-                    <rect key="frame" x="58" y="562" width="297" height="21"/>
+                    <rect key="frame" x="64" y="515" width="297" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eu-KU-YJ7" customClass="UITextField" placeholder="08736">
-                    <rect key="frame" x="58" y="589" width="297" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eu-KU-YJ7" customClass="UITextField" placeholder="E.g. 08736">
+                    <rect key="frame" x="64" y="544" width="297" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -165,21 +171,58 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40" customClass="UIButton" adjustsImageWhenDisabled="NO">
-                    <rect key="frame" x="147" y="627" width="95" height="30"/>
+                    <rect key="frame" x="161" y="721" width="95" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17" weight="heavy"/>
                     <state key="normal" title="Update"/>
                 </button>
-                <pickerView contentMode="bottom" id="119" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                    <rect key="frame" x="65" y="434" width="94" height="43"/>
+                <pickerView contentMode="scaleToFill" id="119" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <rect key="frame" x="65" y="434" width="296" height="73"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="YES"/>
                     </accessibility>
                 </pickerView>
+                <pickerView contentMode="scaleToFill" id="122" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <rect key="frame" x="64" y="611" width="296" height="85"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                </pickerView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone Number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="186">
+                    <rect key="frame" x="50" y="1262" width="297" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Preferred Store:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="187">
+                    <rect key="frame" x="64" y="582" width="297" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Preferred Store:" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="190" textAlignment="justified" adjustsFontSizeToFit="NO">
+                    <rect key="frame" x="64" y="582" width="297" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <point key="canvasLocation" x="34.5" y="54.5"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="186"/>
+                    <exclude reference="187"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="186"/>
+                    <include reference="187"/>
+                </mask>
+            </variation>
         </view>
     </objects>
     <resources>

@@ -13,7 +13,7 @@ using System.Threading;
 namespace WineHangoutz {
 
 	public class APLCollectionViewCell : UICollectionViewCell {
-		private int screenid = 4;
+		private string screen = "Grid view";
 		public static readonly NSString Key = new NSString ("APLCollectionViewCell");
 		public UINavigationController NavigationController;
 		public string WineName = "Wine Name";
@@ -68,7 +68,7 @@ namespace WineHangoutz {
 				{
 					BTProgressHUD.Show("Loading...");
 					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
-					LoggingClass.LogInfo("Clicked on " + WineBarcode+ " to enter into Details", screenid);
+					LoggingClass.LogInfo("Clicked on " + WineBarcode+ " to enter into Details", screen);
 
 				};
 
@@ -93,14 +93,14 @@ namespace WineHangoutz {
 							heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 							temp.Tag = 1;
 							myItem.IsLike = true;
-							LoggingClass.LogInfo("Liked Wine " + WineBarcode, screenid);
+							LoggingClass.LogInfo("Liked Wine " + WineBarcode, screen);
 						}
 						else
 						{
 							heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 							temp.Tag = 0;
 							myItem.IsLike = false;
-							LoggingClass.LogInfo("Unliked Wine " + WineBarcode, screenid);
+							LoggingClass.LogInfo("Unliked Wine " + WineBarcode, screen);
 						}
 						//NavigationController.PushViewController(new DetailViewController(), false);
 						SKULike like = new SKULike();
@@ -143,7 +143,7 @@ namespace WineHangoutz {
 				{
 					BTProgressHUD.Show("Loading...");
 					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
-					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screenid);
+					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screen);
 				};
 				lblName = new UILabel(lower);
 				lblName.Font = UIFont.FromName("Verdana-Bold", 13f);
@@ -216,7 +216,7 @@ namespace WineHangoutz {
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
         }
 

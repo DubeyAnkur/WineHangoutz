@@ -12,7 +12,7 @@ namespace WineHangoutz
 {
 	public partial class PhyCollectionView : UICollectionViewController
 	{
-		private int screenid = 12;
+		private string screen = "Gridview Controller";
 		public ItemListResponse myData;
 		public int storeId = 2;
 		Boolean fav = false;
@@ -57,7 +57,7 @@ namespace WineHangoutz
 			catch (Exception ex)
 			{
 				BTProgressHUD.ShowErrorWithStatus("Something went wrong,We're on it.");
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
 
@@ -99,7 +99,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Sorry",
@@ -171,7 +171,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Something went wrong. We are on it."

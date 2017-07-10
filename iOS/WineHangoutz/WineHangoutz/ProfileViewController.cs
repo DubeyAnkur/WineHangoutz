@@ -9,6 +9,7 @@ using System.Net;
 using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
+using CoreGraphics;
 
 namespace WineHangoutz
 {
@@ -16,11 +17,14 @@ namespace WineHangoutz
 	{
 
 		public UIViewController root;
+		public UIScrollView Scroll;
 		//public UINavigationController nav;
-		private int screenid = 8;
+		private string screenid = "ProfileViewController";
 		public UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
-		PickerDataModel pickerDataModel;
+		StatePickerDataModel pickerDataModel;
+		StorePickerDataModel StoreDataModel;
+
 		public IntPtr handle;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
@@ -51,7 +55,7 @@ namespace WineHangoutz
 				DismissKeyboardOnBackgroundTap();
 				//AboutController1.ViewDidLoad(base);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
-				pickerDataModel = new PickerDataModel();
+				pickerDataModel = new StatePickerDataModel();
 				pickerDataModel.Items.Add("AL");
 				pickerDataModel.Items.Add("AK");
 				pickerDataModel.Items.Add("AZ");
@@ -103,6 +107,11 @@ namespace WineHangoutz
 				pickerDataModel.Items.Add("WI");
 				pickerDataModel.Items.Add("WY");
 				statePicker.Model = pickerDataModel;
+				StoreDataModel = new StorePickerDataModel();
+				StoreDataModel.Items.Add("Wall");
+				StoreDataModel.Items.Add("Pt. Pleasant Beach");
+				StoreDataModel.Items.Add("All");
+				storePicker.Model = StoreDataModel;
 				//statePicker.Select(5, 0, true);
 				//LoggingClass.UploadErrorLogs();
 				if (CurrentUser.RetreiveUserId() == 0)
@@ -122,6 +131,7 @@ namespace WineHangoutz
 
 							if (buttonArgs.ButtonIndex == 1)
 							{
+								CurrentUser.Clear();
 								LoginViewController yourController = new LoginViewController();
 								yourController.nav = NavCtrl;
 								yourController.RootTabs = CurrentUser.RootTabs;
@@ -138,8 +148,6 @@ namespace WineHangoutz
 							}
 						};
 					alert.Show();
-					//btnEdit. =UIControlState.Disabled;
-					//btnUpdate.State = UIControlState.Disabled;
 				}
 				else
 				{
@@ -158,13 +166,9 @@ namespace WineHangoutz
 						int i = pickerDataModel.Items.FindIndex(x => x == state);
 						statePicker.Select(i, 0, false);
 					}
-
+					int prefStore = cRes.customer.PreferredStore;
+					storePicker.Select(prefStore, 0, false);
 					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2 + cRes.customer.City;
-					//txtState.ShouldReturn += (TextField) =>
-					// {
-					//  ((UITextField)TextField).ResignFirstResponder();
-					//  return true;
-					// };
 					txtFirstName.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
@@ -175,14 +179,6 @@ namespace WineHangoutz
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
 				  };
-
-					//txtCardID.ShouldReturn += (TextField) =>
-				 // {
-					//  ((UITextField)TextField).ResignFirstResponder();
-					//  return true;
-				 // };
-
-
 					txtEmail.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
@@ -193,7 +189,6 @@ namespace WineHangoutz
 					  ((UITextField)TextField).ResignFirstResponder();
 					  return true;
 				  };
-
 					txtAddress.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
@@ -211,8 +206,6 @@ namespace WineHangoutz
 					{
 						BTProgressHUD.Show("Updating profile..."); //show spinner + text
 					};
-
-
 					btnUpdate.TouchUpInside += async (sender, e) =>
 					{
 						if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
@@ -239,18 +232,19 @@ namespace WineHangoutz
 							cust.PhoneNumber = txtPhone.Text;
 							cust.State = pickerDataModel.SelectedItem;
 							cust.Zip = txtZipCode.Text;
+							cust.PreferredStore = StoreDataModel.SelectedItem;
 							//cust.State = txtState.Text;
 							await sw.UpdateCustomer(cust);
 							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-							try
-							{
-								NavCtrl.PopViewController(true);
-								//NavCtrl.PushViewController(new FirstViewController(handle), false);
-							}
-							catch (Exception exe)
-							{
-								LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-							}
+							//try
+							//{
+							//	NavCtrl.PopViewController(true);
+							//	//NavCtrl.PushViewController(new FirstViewController(handle), false);
+							//}
+							//catch (Exception exe)
+							//{
+							//	LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+							//}
 						}
 
 
@@ -279,18 +273,56 @@ namespace WineHangoutz
 						}
 					};
 				}
-
 				imgEmail.Image = new UIImage("mail.png");
-
 				imgAddr.Image = new UIImage("add.png");
-
-				//imgCity.Image = new UIImage("City1.png");
-
-				//imgCard.Image = new UIImage("card.png");
-
 				imgPhone.Image = new UIImage("phone1.png");
-			}
+				Scroll = new UIScrollView
+				{
+					Frame = new CGRect(0,0, View.Frame.Width, View.Frame.Height),
+					ContentSize = new CGSize(View.Frame.Width, View.Frame.Height),
+					BackgroundColor = UIColor.White,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight,
+				};
 
+				UIToolbar toolbar = new UIToolbar(new RectangleF(0.0f, 0.0f, Convert.ToSingle(this.View.Frame.Size.Width), 44.0f));
+				toolbar.TintColor = UIColor.White;
+				toolbar.BarStyle = UIBarStyle.Default;
+				toolbar.Translucent = true;
+
+
+				Scroll.AddSubview(imgAddr);
+				Scroll.AddSubview(imgPhone);
+				Scroll.AddSubview(imgEmail);
+				Scroll.AddSubview(txtEmail);
+				Scroll.AddSubview(statePicker);
+				Scroll.AddSubview(storePicker);
+				Scroll.AddSubview(txtPhone);
+				Scroll.AddSubview(txtZipCode);
+				Scroll.AddSubview(txtFirstName);
+				Scroll.AddSubview(txtLastName);
+				Scroll.AddSubview(txtAddress);
+				Scroll.AddSubview(imgProfile);
+				Scroll.AddSubview(btnEdit);
+				Scroll.AddSubview(btnUpdate);
+				Scroll.AddSubview(lblEmail);
+				Scroll.AddSubview(lblState);
+				Scroll.AddSubview(lblMobile);
+				Scroll.AddSubview(lblAddress);
+				Scroll.AddSubview(lblZipcode);
+				Scroll.AddSubview(lblFirstname);
+				Scroll.AddSubview(lblLastname);
+				Scroll.AddSubview(lblTitle);
+				Scroll.AddSubview(lblStorePi);
+				//View.AddSubview(Scroll);
+				nfloat h = 0;
+				for (int i = 0; i<Scroll.Subviews.Length ; i++)
+				{
+					nfloat n = Scroll.Subviews[i].Frame.Size.Height;
+					h = h + n;
+				}
+				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+100);
+				View = (Scroll);
+			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
@@ -486,7 +518,7 @@ namespace WineHangoutz
 		//	}
 		//}
 	}
-	public class PickerDataModel : UIPickerViewModel
+	public class StatePickerDataModel : UIPickerViewModel
 
 	{
 		public event EventHandler<EventArgs> ValueChanged;
@@ -502,7 +534,53 @@ namespace WineHangoutz
 
 		int selectedIndex = 0;
 
-		public PickerDataModel()
+		public StatePickerDataModel()
+		{
+			Items = new List<string>();
+		}
+
+
+		public override nint GetRowsInComponent(UIPickerView picker, nint component)
+		{
+			return Items.Count;
+		}
+
+		public override string GetTitle(UIPickerView picker, nint row, nint component)
+		{
+			return Items[(int)row];
+		}
+
+		public override nint GetComponentCount(UIPickerView picker)
+		{
+			return 1;
+		}
+
+
+		public override void Selected(UIPickerView picker, nint row, nint component)
+		{
+			selectedIndex = (int)row;
+			if (ValueChanged != null)
+			{
+				ValueChanged(this, new EventArgs());
+			}
+		}
+	}
+	public class StorePickerDataModel : UIPickerViewModel
+	{
+		public event EventHandler<EventArgs> ValueChanged;
+
+
+		public List<string> Items { get; private set; }
+
+
+		public int SelectedItem
+		{
+			get { return selectedIndex; }
+		}
+
+		int selectedIndex = 0;
+
+		public StorePickerDataModel()
 		{
 			Items = new List<string>();
 		}

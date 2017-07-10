@@ -10,19 +10,19 @@ namespace WineHangoutz
 	public static class LoggingClass
 	{
 		
-		public static void LogInfo(string info, int screenid)
+		public static void LogInfo(string info, string screen)
 		{
 			var csv = new StringBuilder();
-			var newLine = string.Format("{0},{1},{2},{3}", "Information", DateTime.Now, info, screenid);
+			var newLine = string.Format("{0},{1},{2},{3}", "Information", DateTime.Now, info, screen);
 			csv.AppendLine(newLine);
 			//File.AppendAllText(LogPath, csv.ToString());
 			string logg = csv.ToString();
 			UploadAsyncLogs(logg);
 		}
-		public static void LogError(string error, int screenid, string lineerror)
+		public static void LogError(string error, string screen, string lineerror)
 		{
 			var csv = new StringBuilder();
-			var newLine = string.Format("{0},{1},{2},{3}", "Exception", DateTime.Now, error, screenid);
+			var newLine = string.Format("{0},{1},{2},{3}", "Exception", DateTime.Now, error, screen);
 			csv.AppendLine(newLine);
 			//File.AppendAllText(LogPath, csv.ToString());
 			string logg = csv.ToString();
@@ -62,7 +62,7 @@ namespace WineHangoutz
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-				LoggingClass.LogError(ex.Message, 6, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, "Upload Log Blobs", ex.StackTrace);
 			}
 		}
 	}

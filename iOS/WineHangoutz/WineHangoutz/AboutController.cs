@@ -9,7 +9,7 @@ namespace WineHangoutz
 {
 	public class AboutController1:UIViewController
 	{
-		private int screenid = 9;
+		private string screen = "About Controller";
 		UINavigationController NavCtrl;
 		UIScrollView scrollView;
 
@@ -22,7 +22,7 @@ namespace WineHangoutz
 			try
 			{
 				base.ViewDidLoad();
-				LoggingClass.LogInfo("Entered into About View ", screenid);
+				LoggingClass.LogInfo("Entered into About View ", screen);
 				UITextView Title1 = new UITextView();
 				Title1.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width-20, UIScreen.MainScreen.Bounds.Height);
 				Title1.Text = "Wine Hangouts";
@@ -136,7 +136,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 
 		}

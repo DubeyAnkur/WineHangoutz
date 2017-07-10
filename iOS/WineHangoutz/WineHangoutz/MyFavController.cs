@@ -12,7 +12,7 @@ namespace WineHangoutz
 	public class MyFavController : UICollectionViewController
 	{
 		
-		private int screenid = 12;
+		private string screen = "MyFav Controller";
 		public UIRefreshControl refreshControl = new UIRefreshControl();
 		public ItemListResponse myData;
 		UIImage img = new UIImage("Wines/bottle.jpg");
@@ -23,7 +23,7 @@ namespace WineHangoutz
 		}
 		public override void ViewDidLoad()
 		{
-			LoggingClass.LogInfo("Entered into favorite", screenid);
+			LoggingClass.LogInfo("Entered into favorite", screen);
 			try
 			{
                 	this.CollectionView.Add(refreshControl);
@@ -59,7 +59,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
 			}
 			
 		}
@@ -106,7 +106,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Sorry",
@@ -174,7 +174,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace.ToString());
 				UIAlertView alert = new UIAlertView()
 				{
 					Title = "Something went wrong. We are on it."

@@ -15,7 +15,7 @@ namespace WineHangoutz
 	public class AppDelegate : UIApplicationDelegate
 	{
 		protected string deviceToken = string.Empty;
-		protected int screenid = 1;
+		protected string screen = "App Delegate";
 		public string DeviceToken {get { return deviceToken; } }
 		public override UIWindow Window
 		{
@@ -41,9 +41,9 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 			//CurrentUser.Clear();
-			//CurrentUser.Store("10", "Admin");
+			CurrentUser.Store("48732", "Admin");
 			//for direct log in
-			//CurrentUser.PutCardNumber("900497354894");
+			CurrentUser.PutCardNumber("8902519310330");
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
 
@@ -106,7 +106,7 @@ namespace WineHangoutz
 		}
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 		{
-			LoggingClass.LogInfo("ReceivedRemoteNotification Got notification",screenid);
+			LoggingClass.LogInfo("ReceivedRemoteNotification Got notification ",screen);
 			ProcessNotification(userInfo, false);
 		}
 		void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
@@ -140,14 +140,14 @@ namespace WineHangoutz
 						}
 						else
 						{
-								LoggingClass.LogInfo(wineid + " got notification",screenid);
+								LoggingClass.LogInfo(wineid + " got notification ",screen);
 								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, true), false);
 						}
 					}
 				}
 				catch (Exception ex)
 				{
-					LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+					LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
 				}
 			}
 		}
@@ -178,7 +178,7 @@ namespace WineHangoutz
 			explore = ResizeImage(explore, 35, 35);
 			t2.Image = explore;
 			t2.SelectedImage = explore;
-			t2.Enabled = true;
+			t2.Enabled = false;
 			//RootTab[2].RemoveFromParentViewController();
 
 

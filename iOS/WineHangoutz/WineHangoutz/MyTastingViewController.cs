@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using Hangout.Models;
 using System.Linq;
 using BigTed;
+using CoreAnimation;
 
 namespace WineHangoutz
 {
     public partial class MyTastingViewController : UITableViewController, IPopupParent
     {
-		private int screenid = 14;
+		private string screen = "MyTastingView Controller";
 		ServiceWrapper svc = new ServiceWrapper();
         public MyTastingViewController (IntPtr handle) : base (handle)
         {
@@ -67,7 +68,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
 			}
 		}
 		public void RefreshParent()
@@ -133,23 +134,20 @@ namespace WineHangoutz
 		UILabel Vintage;
 		UIImageView separator;
 		UIButton imageView;
+		UIButton heartImage;
 		UILabel WineIdLabel;
+		public Item myItem;
 		Tastings taste = new Tastings();
 		public UINavigationController NavController;
 		public UIViewController Parent;
-		private int screenid = 7;
+		private string screen = "MyTasting CellView";
 		public int storeid;
 		public MyTastingCellView(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			try
 			{
 				SelectionStyle = UITableViewCellSelectionStyle.Gray;
-
-
-				LoggingClass.LogInfo("Entered Into Tasting View", screenid);
-
-
-				//ContentView.BackgroundColor = UIColor.FromRGB(218, 255, 127);
+				LoggingClass.LogInfo("Entered Into Tasting View", screen);
 				imageView = new UIButton();
 				imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 				imageView.ContentMode = UIViewContentMode.Center;
@@ -182,13 +180,56 @@ namespace WineHangoutz
 					TextColor = UIColor.FromRGB(127, 51, 100),
 					BackgroundColor = UIColor.Clear
 				};
+				heartImage = new UIButton();
+				heartImage.ClipsToBounds = true;
+				heartImage.Layer.BorderColor = UIColor.White.CGColor;
+				heartImage.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
+				heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				heartImage.Tag = 0;
+				myItem = new Item();
+				heartImage.TouchUpInside += async (object sender, EventArgs e) =>
+				{
+					try
+					{
+						//Do some actionn
+						if (CurrentUser.RetreiveUserId() != 0)
+						{
+							UIButton temp = (UIButton)sender;
+							if (temp.Tag == 0)
+							{
+								heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+								temp.Tag = 1;
+								myItem.IsLike = true;
+								LoggingClass.LogInfo("Liked Wine " + WineIdLabel.Text, screen);
+							}
+							else
+							{
+								heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+								temp.Tag = 0;
+								myItem.IsLike = false;
+								LoggingClass.LogInfo("Unliked Wine " + WineIdLabel.Text, screen);
+							}
+							//NavigationController.PushViewController(new DetailViewController(), false);
+							SKULike like = new SKULike();
+							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+							like.BarCode = WineIdLabel.Text;
+							like.Liked = Convert.ToBoolean(temp.Tag);
 
+							ServiceWrapper sw = new ServiceWrapper();
+							await sw.InsertUpdateLike(like);
+						}
+					}
+					catch (Exception ex)
+					{
+						LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
+					}
+				};
 				WineIdLabel = new UILabel();
-				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, imageView, Vintage, separator });
+				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, imageView, Vintage, separator,heartImage });
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
 			}
 		}
         public void UpdateCell(Tastings tasting)
@@ -214,7 +255,7 @@ namespace WineHangoutz
 					};
 					alert.AddButton("OK");
 					alert.Show();
-					LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
 				}
 		}
 		public override void LayoutSubviews()
@@ -229,12 +270,13 @@ namespace WineHangoutz
 				Vintage.Frame = new CGRect(imageWidth, 62, ContentView.Bounds.Width - imageWidth, 15);
 				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
+				heartImage.Frame = new CGRect(ContentView.Bounds.Width - 30,2 , 25, 25);
 				//Notastings.Frame=new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
 				//stars.Frame = new CGRect(35, 50, 100, 20);
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
 	}

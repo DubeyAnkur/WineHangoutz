@@ -17,7 +17,7 @@ namespace WineHangoutz
 	{
 		string _wineId;
 		public int _storeId;
-		private int screenid = 112;
+		private string screen = "DetailView Controller";
 		public UILabel nd;
 		NSData HighImgData = null;
 		ServiceWrapper svc = new ServiceWrapper();
@@ -52,7 +52,7 @@ namespace WineHangoutz
 		{
 			try
 			{
-				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screenid);
+				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screen);
 				//BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
 
@@ -250,7 +250,7 @@ namespace WineHangoutz
 						}
 						else
 						{
-							LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screenid);
+							LoggingClass.LogInfo("Clicked on stars to give rating on " + data.Barcode, screen);
 							PopupView yourController = new PopupView(data.Barcode, _storeId);
 							yourController.NavController = NavigationController;
 							yourController.parent = that;
@@ -306,7 +306,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace.ToString());
 			}
 		}
 
@@ -355,58 +355,53 @@ namespace WineHangoutz
 			//FluentAnimate.EaseIn(AnimationDuration, () => modalView.Alpha = 1).Start();
 		}
 		public async void DownloadAsync(string wineid, int storeid, UIImageView btlImage, nfloat boxHeight, int Y)
-	{
-
-
-	WebClient webClient = new WebClient();
-	string url = null;
-	if (storeid == 1)
-	{
-		url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + wineid + ".jpg";
-	}
-	else
-	{
-		url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + wineid + ".jpg";
-	}
-	byte[] imageBytes = null;
-	try
-	{
-		imageBytes = await webClient.DownloadDataTaskAsync(url);
-		HighImgData = NSData.FromStream(new MemoryStream(imageBytes));
-	}
-	catch (TaskCanceledException)
-	{
-		//this.progressLayout.Visibility = ViewStates.Gone;
-		return;
-	}
-	catch (Exception exe)
-	{
-		LoggingClass.LogError("while downloading image of wine id " + wineid + "  " + exe.Message, screenid, exe.StackTrace.ToString());
-	}
-
-	//HighresImg  =UIImage.LoadFromData(HighImgData);
-	try
-	{
-		if (HighImgData != null)
 		{
-			UIImage image = UIImage.LoadFromData(HighImgData);
-			nfloat imgHeight = image.Size.Height;
-			nfloat ratio = boxHeight / imgHeight;
-			CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
-			image = image.Scale(newSize);
-			nfloat X = (boxHeight - image.Size.Width) / 2;
-			btlImage.Frame = new CGRect(X, Y, image.Size.Width, image.Size.Height);
-			btlImage.Image = image;
+
+
+			WebClient webClient = new WebClient();
+			string url = null;
+			if (storeid == 1)
+			{
+				url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + wineid + ".jpg";
+			}
+			else
+			{
+				url = "https://icsintegration.blob.core.windows.net/barcodeppdetail/" + wineid + ".jpg";
+			}
+			byte[] imageBytes = null;
+			try
+			{
+				imageBytes = await webClient.DownloadDataTaskAsync(url);
+				HighImgData = NSData.FromStream(new MemoryStream(imageBytes));
+			}
+			catch (Exception exe)
+			{
+						LoggingClass.LogError("while downloading image of wine id " + wineid + "  " + exe.Message, screen, exe.StackTrace.ToString());
+			}
+
+			//HighresImg  =UIImage.LoadFromData(HighImgData);
+			try
+			{
+				if (HighImgData != null)
+				{
+					UIImage image = UIImage.LoadFromData(HighImgData);
+					nfloat imgHeight = image.Size.Height;
+					nfloat ratio = boxHeight / imgHeight;
+					CGSize newSize = new CGSize(image.Size.Width * ratio, image.Size.Height * ratio);
+					image = image.Scale(newSize);
+					nfloat X = (boxHeight - image.Size.Width) / 2;
+					btlImage.Frame = new CGRect(X, Y, image.Size.Width, image.Size.Height);
+					btlImage.Image = image;
+				}
+				else
+				{
+					btlImage.Image = new UIImage("Wines/bottle.jpg");
+				}
+			}
+			catch (Exception Ex)
+			{
+						LoggingClass.LogError(Ex.Message, screen, Ex.StackTrace.ToString());
+			}
 		}
-		else
-		{
-			btlImage.Image = new UIImage("Wines/bottle.jpg");
-		}
-	}
-	catch (Exception Ex)
-	{
-		LoggingClass.LogError(Ex.Message, screenid, Ex.StackTrace.ToString());
-	}
-	}
 	}
 }

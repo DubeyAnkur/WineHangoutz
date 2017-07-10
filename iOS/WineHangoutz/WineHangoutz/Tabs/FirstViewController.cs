@@ -14,7 +14,7 @@ namespace WineHangoutz
 		{
 			this.Title = "Locations";
 		}
-		private int screenid = 1;
+		private string screen = "FirstViewController";
 
 		public override bool ShouldAutorotate()
 		{
@@ -101,7 +101,7 @@ namespace WineHangoutz
 					};
 					NavigationController.NavigationBar.TopItem.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
-					LoggingClass.LogInfo("Entered into Wall", screenid);
+					LoggingClass.LogInfo("Entered into Wall", screen);
 					BTProgressHUD.Dismiss();
 				};
 				btnSec.TouchUpInside += (sender, e) =>
@@ -111,7 +111,7 @@ namespace WineHangoutz
 						Title = "Secaucus Store",
 						Message = "Coming Soon..."
 					};
-					LoggingClass.LogInfo("Clicked on seacuces", screenid);
+					LoggingClass.LogInfo("Clicked on seacuces", screen);
 
 
 					alert.AddButton("OK");
@@ -139,7 +139,7 @@ namespace WineHangoutz
 						//MinimumLineSpacing = 50 // minimum spacing between rows if ScrollDirection is Vertical or between columns if Horizontal
 						
 					};
-					LoggingClass.LogInfo("Entered into Point Plesant", screenid);
+					LoggingClass.LogInfo("Entered into Point Plesant", screen);
 					NavigationController.NavigationBar.TopItem.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
 
@@ -148,7 +148,7 @@ namespace WineHangoutz
 			}
 				catch (Exception ex)
 				{
-					LoggingClass.LogError (ex.ToString(), screenid,ex.StackTrace);
+				LoggingClass.LogError (ex.ToString(), screen,ex.StackTrace);
 				}
 		}
 		public override void ViewDidAppear(bool animated)

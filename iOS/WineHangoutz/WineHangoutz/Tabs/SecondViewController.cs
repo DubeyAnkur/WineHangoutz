@@ -12,8 +12,7 @@ namespace WineHangoutz
 		{
 			this.Title = "My Hangouts";
 		}
-		private int screenid = 2;
-
+		private string screen = "SecondView Controller";
 		public override void ViewDidLoad()
 		{
 			//AboutController1.ViewDidLoad(base);
@@ -27,7 +26,7 @@ namespace WineHangoutz
 				UIButton btnReviews = new UIButton();
 				UIButton btnTastings = new UIButton();
 				UIButton btnFavourites = new UIButton();
-				LoggingClass.LogInfo("Entered into My Hangouts", screenid);
+				LoggingClass.LogInfo("Entered into My Hangouts", screen);
 				btnReviews.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				btnTastings.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				btnFavourites.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
@@ -60,7 +59,7 @@ namespace WineHangoutz
 
 
 
-					btnReviews.TouchDown += (sender, e) =>
+					btnReviews.TouchUpInside += (sender, e) =>
 					{
 						UIAlertView alert = new UIAlertView()
 						{
@@ -79,7 +78,7 @@ namespace WineHangoutz
 						};
 						alert.Show();
 					};
-					btnTastings.TouchDown += (sender, e) =>
+					btnTastings.TouchUpInside += (sender, e) =>
 					{
 						UIAlertView alert = new UIAlertView()
 						{
@@ -98,7 +97,7 @@ namespace WineHangoutz
 						};
 						alert.Show();
 					};
-					btnFavourites.TouchDown += (sender, e) =>
+					btnFavourites.TouchUpInside += (sender, e) =>
 					{
 						UIAlertView alert = new UIAlertView()
 						{
@@ -138,7 +137,7 @@ namespace WineHangoutz
 
 						var MyReview = new MyReviewViewController();
 						NavigationController.PushViewController(MyReview, false);
-						LoggingClass.LogInfo("Entered into My Reviews", screenid);
+						LoggingClass.LogInfo("Entered into My Reviews", screen);
 
 
 						BTProgressHUD.Dismiss();
@@ -150,7 +149,7 @@ namespace WineHangoutz
 					{
 						var MyTaste = new MyTastingViewController();
 						NavigationController.PushViewController(MyTaste, false);
-						LoggingClass.LogInfo("Entered into My Tastings", screenid);
+						LoggingClass.LogInfo("Entered into My Tastings", screen);
 
 
 						BTProgressHUD.Dismiss();
@@ -172,23 +171,21 @@ namespace WineHangoutz
 						};
 							NavigationController.PushViewController(new MyFavController(flowLayout), false);
 							NavigationController.NavigationBar.TopItem.Title = "My Favorites";
-							LoggingClass.LogInfo("Entered into Favourite View", screenid);
+						LoggingClass.LogInfo("Entered into Favourite View", screen);
 					
 
 						BTProgressHUD.Dismiss();
 					};
 				}
-
 				View.AddSubview(btnReviews);
 				View.AddSubview(btnTastings);
 				View.AddSubview(btnFavourites);
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
-
 		public override void DidReceiveMemoryWarning()
 		{
 			base.DidReceiveMemoryWarning();

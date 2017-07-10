@@ -19,7 +19,7 @@ namespace WineHangoutz
 		public string Comments="";
 		public string WineId;
 		public UITextView txtComments;
-		private int screenid = 11;
+		private string screen = "Popup Controller";
 		public int storeid;
 		public UIImageView imgBtl;
 		UILabel lblWhite;
@@ -133,7 +133,7 @@ namespace WineHangoutz
 				btnSave.SetTitle("SAVE", UIControlState.Normal);
 				btnSave.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 				btnSave.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-				LoggingClass.LogInfo("Added review to the "+ WineId, screenid);
+				LoggingClass.LogInfo("Added review to the "+ WineId, screen);
 				this.View.AddSubview(btnSave);
 				btnSave.TouchDown += (sender, e) =>
 				{
@@ -193,7 +193,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 		}
 		protected void DismissKeyboardOnBackgroundTap()
@@ -253,28 +253,35 @@ namespace WineHangoutz
 
 		public async void SaveReview()
 		{
-						BTProgressHUD.Show("Saving the review...");
-						ServiceWrapper sw = new ServiceWrapper();
-						Review review = new Review();
-						review.ReviewDate = DateTime.Now;
-						review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-						if (txtComments.Text == "Describe your tasting")
-						{
-							txtComments.Text = "";
-						}
-						string reviewtxt = txtComments.Text;
-						reviewtxt.Trim();
-						review.RatingText = reviewtxt;
-						review.IsActive = true;
-						review.PlantFinal = storeid.ToString();
-						review.RatingStars = Convert.ToInt32(StartsSelected);
-						//review.SKU = SKU;
-						review.Barcode = WineId;
+			try
+			{
+				BTProgressHUD.Show("Saving the review...");
+				ServiceWrapper sw = new ServiceWrapper();
+				Review review = new Review();
+				review.ReviewDate = DateTime.Now;
+				review.ReviewUserId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+				if (txtComments.Text == "Describe your tasting")
+				{
+					txtComments.Text = "";
+				}
+				string reviewtxt = txtComments.Text;
+				reviewtxt.Trim();
+				review.RatingText = reviewtxt;
+				review.IsActive = true;
+				review.PlantFinal = storeid.ToString();
+				review.RatingStars = Convert.ToInt32(StartsSelected);
+				//review.SKU = SKU;
+				review.Barcode = WineId;
 
-						await sw.InsertUpdateReview(review);
-						//NavController.DismissViewController(true, null);
-						BTProgressHUD.ShowSuccessWithStatus("Thank you!!!",10000);
-						((IPopupParent)parent).RefreshParent();
+				await sw.InsertUpdateReview(review);
+				//NavController.DismissViewController(true, null);
+				BTProgressHUD.ShowSuccessWithStatus("Thank you!!!", 10000);
+				((IPopupParent)parent).RefreshParent();
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
+			}
 		}
 	}
 
