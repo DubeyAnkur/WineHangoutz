@@ -7,6 +7,8 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Android.Util;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Net;
+using Android.App;
 
 namespace WineHangouts
 {
@@ -183,7 +185,7 @@ namespace WineHangouts
 				Log.Error("Error", exe.Message);
 			}
 		}
-
+		
 
 
 	}

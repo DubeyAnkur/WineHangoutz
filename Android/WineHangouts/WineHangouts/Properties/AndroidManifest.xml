@@ -10,6 +10,7 @@
 	<!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<application android:label="@string/ApplicationName" android:theme="@style/CustomActionBarTheme" android:icon="@drawable/logo5">
 		<receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>

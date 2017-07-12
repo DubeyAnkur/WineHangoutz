@@ -40,7 +40,19 @@ namespace WineHangouts
             string CardNumber = _pref.GetString("CardNumber", null);
             return CardNumber;
         }
-        public static void PutToken(string count)
+		public static void SavePrefered(int StoreName)
+		{
+			_edit.PutString("StoreName", StoreName.ToString());
+			_edit.Apply();
+		}
+		public static string GetPrefered()
+		{
+			string StoreName = _pref.GetString("StoreName", null);
+			return StoreName;
+		}
+
+
+		public static void PutToken(string count)
         {
             _edit.PutString("token", count);
             _edit.Apply();
@@ -69,7 +81,28 @@ namespace WineHangouts
         {
             _edit.Clear();
         }
-    }
+		public static void SaveToken(string Token)
+		{
+			_edit.PutString("Token", Token);
+			_edit.Apply();
+		}
+		public static string GetServiceToken()
+		{
+			string Token = _pref.GetString("Token", null);
+			return Token;
+		}
+		public static void SaveDeviceID(string DeviceID)
+		{
+			_edit.PutString("DeviceID", DeviceID);
+			_edit.Apply();
+		}
+		public static string GetDeviceID()
+		{
+			string DeviceID = _pref.GetString("DeviceID", null);
+			return DeviceID;
+		}
+		public static string GuestId { get; set; }
+	}
 
     public class ProgressIndicator
     {

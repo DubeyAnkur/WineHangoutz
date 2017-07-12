@@ -12,6 +12,8 @@ using System.Diagnostics;
 using Java.Util;
 using Android.Graphics.Drawables;
 using ZXing.Mobile;
+using AndroidHUD;
+using System.Net;
 
 namespace WineHangouts
 
@@ -24,17 +26,19 @@ namespace WineHangouts
         private int screenid = 1;
         public Button BtnLogin;
         public Button BtnResend;
-        private Context myContext;
         public string gplaystatus = "";
         public TextView TxtScanresult;
+		
         ServiceWrapper svc = new ServiceWrapper();
         CustomerResponse authen = new CustomerResponse();
         protected override void OnCreate(Bundle savedInstanceState)
         {
+			CheckInternetConnection();
             Stopwatch st = new Stopwatch();
             st.Start();
-            //for direct login
-            //CurrentUser.SaveUserName("Lokesh Android","1");
+			//for direct login
+			//CurrentUser.SaveUserName("Lokesh Android","1");
+			//ShowInfo(8019808172.ToString());
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.login);
             var TaskA = new System.Threading.Tasks.Task(() =>
@@ -42,14 +46,16 @@ namespace WineHangouts
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             });
             TaskA.Start();
-            ImageButton BtnScanner = FindViewById<ImageButton>(Resource.Id.btnScanner);
+			ImageButton BtnScanner = FindViewById<ImageButton>(Resource.Id.btnScanner);
             Button BtnGuestLogin = FindViewById<Button>(Resource.Id.btnGuestLogin);
+
             BtnScanner.Click += async delegate
             {
                 try
                 {
                     MobileBarcodeScanner.Initialize(Application);
                     var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+					scanner.UseCustomOverlay=false;
                     var result = await scanner.Scan();
                     if (result.Text != null)
                     {
@@ -63,13 +69,15 @@ namespace WineHangouts
                     LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
                 }
             };
-            BtnGuestLogin.Click += delegate
+            BtnGuestLogin.Click +=async  delegate
             {
-                 CurrentUser.SaveUserName("Guest", null);
+				//await svc.InsertUpdateGuest(CurrentUser.getToken());
+                 //CurrentUser.SaveUserName("Guest", null);
                  Intent intent = new Intent(this, typeof(TabActivity));
                  ProgressIndicator.Show(this);
                  StartActivity(intent);
-            };
+				await svc.InsertUpdateGuest(CurrentUser.getToken());
+			};
             TxtScanresult = FindViewById<TextView>(Resource.Id.txtScanresult);
             BtnLogin = FindViewById<Button>(Resource.Id.btnLogin);
             BtnResend = FindViewById<Button>(Resource.Id.btnResend);
@@ -94,56 +102,52 @@ namespace WineHangouts
             }
             else
             {
-                //string ap = "Logged In with userid" + CurrentUser.GetMailId();
-                //LoggingClass.UploadErrorLogs();	
-                //LoggingClass.LogInfoEx(ap,screenid);
-                //LoggingClass.LogInfoEx("User entering into Tab activity", screenid);
-                Intent intent = new Intent(this, typeof(TabActivity));
-                ProgressIndicator.Show(this);
-                StartActivity(intent);
-                //SendRegistrationToAppServer(CurrentUser.getToken());
+				int storename = Convert.ToInt32( CurrentUser.GetPrefered());
+				if (storename == 1)
+				{
+					Intent intent = new Intent(this, typeof(GridViewActivity));
+					intent.PutExtra("MyData", "Wall Store");
+					ProgressIndicator.Show(this);
+					StartActivity(intent);
+				}
+				else if (storename == 2)
+				{
+					Intent intent = new Intent(this, typeof(GridViewActivity));
+					intent.PutExtra("MyData", "Point Pleasant Store");
+					ProgressIndicator.Show(this);
+					StartActivity(intent);
+				}
+				else 
+				{
+					Intent intent = new Intent(this, typeof(TabActivity));
+					ProgressIndicator.Show(this);
+					StartActivity(intent);
+				}
+               
             }
-
-            //var telephonyDeviceID = string.Empty;
-            //var telephonySIMSerialNumber = string.Empty;
-            //TelephonyManager telephonyManager = (TelephonyManager)this.ApplicationContext.GetSystemService(Context.TelephonyService);
-            //if (telephonyManager != null)
-            //{
-            //    if (!string.IsNullOrEmpty(telephonyManager.DeviceId))
-            //        telephonyDeviceID = telephonyManager.DeviceId;
-            //    if (!string.IsNullOrEmpty(telephonyManager.SimSerialNumber))
-            //        telephonySIMSerialNumber = telephonyManager.SimSerialNumber;
-            //}
-            //var androidID = Android.Provider.Settings.Secure.GetString(this.ApplicationContext.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
-            //var deviceUuid = new UUID(androidID.GetHashCode(), ((long)telephonyDeviceID.GetHashCode() << 32) | telephonySIMSerialNumber.GetHashCode());
-            //var DeviceID =deviceUuid.ToString();
-        }
-
-        //private static void BrandAlertDialog(Dialog dialog)
-        //{
-        //	try
-        //	{
-        //		var resources = dialog.Context.Resources;
-        //		var color = dialog.Context.Resources.GetColor(Android.Graphics.Color.Purple);
-        //		//var background = dialog.Context.Resources.GetColor(Resource.Color.dialog_background);
-
-        //		var alertTitleId = resources.GetIdentifier("alertTitle", "id", "android");
-        //		var alertTitle = (TextView)dialog.Window.DecorView.FindViewById(alertTitleId);
-        //		alertTitle.SetTextColor(color); // change title text color
-
-        //		var titleDividerId = resources.GetIdentifier("titleDivider", "id", "android");
-        //		var titleDivider = dialog.Window.DecorView.FindViewById(titleDividerId);
-        //		//titleDivider.SetBackgroundColor(background); // change divider color
-        //	}
-        //	catch
-        //	{
-        //		//Can't change dialog brand color
-        //	}
-        //}
+			var telephonyDeviceID = string.Empty;
+			var telephonySIMSerialNumber = string.Empty;
+			TelephonyManager telephonyManager = (TelephonyManager)this.ApplicationContext.GetSystemService(Context.TelephonyService);
+			if (telephonyManager != null)
+			{
+				if (!string.IsNullOrEmpty(telephonyManager.DeviceId))
+					telephonyDeviceID = telephonyManager.DeviceId;
+				if (!string.IsNullOrEmpty(telephonyManager.SimSerialNumber))
+					telephonySIMSerialNumber = telephonyManager.SimSerialNumber;
+			}
+			var androidID = Android.Provider.Settings.Secure.GetString(this.ApplicationContext.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
+			var deviceUuid = new UUID(androidID.GetHashCode(), ((long)telephonyDeviceID.GetHashCode() << 32) | telephonySIMSerialNumber.GetHashCode());
+			var DeviceID = deviceUuid.ToString();
+			CurrentUser.SaveDeviceID(DeviceID);
+		}
         public async void ShowInfo(string Cardnumber)
         {
-            authen = await svc.AuthencateUser("test", Cardnumber,"test");
-            CurrentUser.SaveCardNumber(Cardnumber);
+
+			
+
+			authen = await svc.AuthencateUser("test", Cardnumber,CurrentUser.GetDeviceID());
+			if (Cardnumber != null) { CurrentUser.SaveCardNumber(Cardnumber); }
+            
             if (authen.customer.CustomerID != 0)
             {
                 TxtScanresult.Text = " Hi " + authen.customer.FirstName + authen.customer.LastName + ",\n We have sent an email at  " + authen.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
@@ -151,11 +155,24 @@ namespace WineHangouts
                 BtnLogin.Visibility = ViewStates.Visible;
                 BtnResend.Click += async delegate
                 {
-                    authen = await svc.AuthencateUser("test", Cardnumber, "test");
-                };
+					AndHUD.Shared.Show(this, "Status Message",Convert.ToInt32( MaskType.Clear));
+					//	ProgressIndicator.Show(this);
+					//BTProgressHUD.Show("Sending verification email to" + authen.customer.Email);
+					if (Cardnumber != null)
+					{
+						await svc.ResendEMail(Cardnumber);
+					}
+					else
+					{
+						await svc.ResendEMail(CurrentUser.GetCardNumber());
+					}
+					//BTProgressHUD.ShowSuccessWithStatus("Sent");
+					ProgressIndicator.Hide();
+				};
                 BtnLogin.Click += delegate
                 {
-                    EmailVerification();
+					ProgressIndicator.Show(this);
+					EmailVerification();
                 };
             }
             else
@@ -182,7 +199,7 @@ namespace WineHangouts
         }
         public async void EmailVerification()
         {
-            authen = await svc.AuthencateUser("test", CurrentUser.GetCardNumber(), "test");
+            authen = await svc.AuthencateUser("test", CurrentUser.GetCardNumber(), CurrentUser.GetDeviceID());
             DeviceToken DO = new DeviceToken();
             try
             {
@@ -192,12 +209,33 @@ namespace WineHangouts
                 {
                     if (authen.customer != null && authen.customer.CustomerID != 0)
                     {
-                        CurrentUser.SaveUserName("user", authen.customer.CustomerID.ToString());
+                        CurrentUser.SaveUserName(authen.customer.FirstName + authen.customer.LastName, authen.customer.CustomerID.ToString());
                         SendRegistrationToAppServer(CurrentUser.getToken());
-                        Intent intent = new Intent(this, typeof(TabActivity));
-                        LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetCardNumber(), screenid);
-                        StartActivity(intent);
-                    }
+						int storename = Convert.ToInt32(CurrentUser.GetPrefered());
+						if (storename == 1)
+						{
+							Intent intent = new Intent(this, typeof(GridViewActivity));
+							intent.PutExtra("MyData", "Wall Store");
+							ProgressIndicator.Show(this);
+
+							StartActivity(intent);
+						}
+						else if (storename == 2)
+						{
+							Intent intent = new Intent(this, typeof(GridViewActivity));
+							intent.PutExtra("MyData", "Point Pleasant Store");
+
+							ProgressIndicator.Show(this);
+							StartActivity(intent);
+						}
+						else 
+						{
+							Intent intent = new Intent(this, typeof(TabActivity));
+							ProgressIndicator.Show(this);
+							StartActivity(intent);
+						}
+						LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetCardNumber(), screenid);
+					}
                     else
                     {
                         AlertDialog.Builder aler = new AlertDialog.Builder(this);
@@ -219,12 +257,14 @@ namespace WineHangouts
                     });
                     aler.SetPositiveButton("Resend mail", async delegate
                     {
-                        await svc.AuthencateUser("",CurrentUser.GetCardNumber(), "");
+                        await svc.AuthencateUser("",CurrentUser.GetCardNumber(), CurrentUser.GetDeviceID());
                     });
                     //Dialog dialog = aler.Create();
                     //dialog.Show();
                 }
+				ProgressIndicator.Hide();
             }
+			
             catch (Exception exe)
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
@@ -287,5 +327,37 @@ namespace WineHangouts
             base.OnResume();
             LoggingClass.LogInfo("OnResume state in Login activity", screenid);
         }
-    }
+		public bool CheckInternetConnection()
+		{
+
+			string CheckUrl = "http://google.com";
+
+			try
+			{
+				HttpWebRequest iNetRequest = (HttpWebRequest)WebRequest.Create(CheckUrl);
+
+				iNetRequest.Timeout = 5000;
+
+				WebResponse iNetResponse = iNetRequest.GetResponse();
+
+				// Console.WriteLine ("...connection established..." + iNetRequest.ToString ());
+				iNetResponse.Close();
+
+				return true;
+
+			}
+			catch (WebException ex)
+			{
+				AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+				aler.SetTitle("Sorry");
+				LoggingClass.LogInfo("Please check your internet connection", screenid);
+				aler.SetMessage("Please check your internet connection");
+				aler.SetNegativeButton("Ok", delegate { });
+				Dialog dialog = aler.Create();
+				dialog.Show();
+				return false;
+			}
+		}
+
+	}
 }

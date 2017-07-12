@@ -114,14 +114,20 @@ namespace WineHangouts
 			}
 			else
 			{
+				//AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
+				//aler.SetTitle("No Reviews");
+				//aler.SetMessage("Be the first one to Review");
+				//aler.SetNegativeButton("Ok", delegate { });
 
-				AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
-				aler.SetTitle("No Reviews");
-				aler.SetMessage("Be the first one to Review");
-				aler.SetNegativeButton("Ok", delegate { });
+				//Dialog dialog = aler.Create();
+				//dialog.Show();
+				if (row == null)
+					row = LayoutInflater.From(myContext).Inflate(Resource.Layout.Dummy, null, false);
+				TextView Error = row.FindViewById<TextView>(Resource.Id.Error);
+				ServiceWrapper svc = new ServiceWrapper();
+				ItemDetailsResponse myData = new ItemDetailsResponse();
+				Error.Text = myData.ErrorDescription;
 
-				Dialog dialog = aler.Create();
-				dialog.Show();
 			}
 			return row;
 		}

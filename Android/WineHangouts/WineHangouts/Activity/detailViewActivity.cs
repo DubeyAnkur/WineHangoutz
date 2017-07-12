@@ -39,6 +39,7 @@ namespace WineHangouts
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
+			CheckInternetConnection();
 			Stopwatch st = new Stopwatch();
 			st.Start();
 			base.OnCreate(savedInstanceState);
@@ -62,6 +63,9 @@ namespace WineHangouts
 			WineDescription.Focusable = false;
 			RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
 			AvgRating.Focusable = false;
+			TextView ErrorDescription = FindViewById<TextView>(Resource.Id.Error);
+			ErrorDescription.Focusable = false;
+			ErrorDescription.Visibility = ViewStates.Invisible;
 			TableRow tr5 = FindViewById<TableRow>(Resource.Id.tableRow5);
 			try
 			{
@@ -72,13 +76,16 @@ namespace WineHangouts
                 comments = new reviewAdapter(this, ReviewArray);
 				if (comments.Count == 0)
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
-					aler.SetTitle("No Reviews");
-					aler.SetMessage("Be the first one to Review");
-					aler.SetNegativeButton("Ok", delegate { });
+					ErrorDescription.Text = SkuRating.ErrorDescription;
+					ErrorDescription.Visibility = ViewStates.Visible;
+					//AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+					//aler.SetTitle("No Reviews");
+					//aler.SetMessage("Be the first one to Review");
+					//aler.SetNegativeButton("Ok", delegate { });
 
-					Dialog dialog = aler.Create();
-					dialog.Show();
+					//Dialog dialog = aler.Create();
+					//dialog.Show();
+
 				}
 				else
                 commentsview.Adapter = comments;
@@ -100,7 +107,7 @@ namespace WineHangouts
 				}
 				else
 				{
-					WineDescription.Text = myData.ItemDetails.Producer;
+					WineDescription.Text = myData.ItemDetails.Description;
 				}
 				AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
 				Review edit = new Review()
@@ -177,6 +184,38 @@ namespace WineHangouts
 			base.OnPause();
 			LoggingClass.LogInfo("OnPause state in Gridview activity--->" + storeid, screenid);
 
+		}
+
+		public bool CheckInternetConnection()
+		{
+
+			string CheckUrl = "http://google.com";
+
+			try
+			{
+				HttpWebRequest iNetRequest = (HttpWebRequest)WebRequest.Create(CheckUrl);
+
+				iNetRequest.Timeout = 5000;
+
+				WebResponse iNetResponse = iNetRequest.GetResponse();
+
+				// Console.WriteLine ("...connection established..." + iNetRequest.ToString ());
+				iNetResponse.Close();
+
+				return true;
+
+			}
+			catch (WebException ex)
+			{
+				AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+				aler.SetTitle("Sorry");
+				LoggingClass.LogInfo("Please check your internet connection", screenid);
+				aler.SetMessage("Please check your internet connection");
+				aler.SetNegativeButton("Ok", delegate { });
+				Dialog dialog = aler.Create();
+				dialog.Show();
+				return false;
+			}
 		}
 
 		protected override void OnResume()

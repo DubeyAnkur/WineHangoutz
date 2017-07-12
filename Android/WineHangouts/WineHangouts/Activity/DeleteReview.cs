@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using System.Diagnostics;
 using Hangout.Models;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -52,6 +53,8 @@ namespace WineHangouts
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
                     myDialog.Dismiss();
+					AndHUD.Shared.ShowSuccess(Parent, "It Worked!", MaskType.Clear, TimeSpan.FromSeconds(2));
+					
 					LoggingClass.LogInfoEx("User deleted winereview" + WineBarcode + "from "+review.PlantFinal+"st Store", screenid);
 
 

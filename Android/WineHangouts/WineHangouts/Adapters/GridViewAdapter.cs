@@ -87,15 +87,15 @@ namespace WineHangouts
 				TextView txtName = row.FindViewById<TextView>(Resource.Id.txtName);
 
 				TextView txtVintage = row.FindViewById<TextView>(Resource.Id.txtVintage);
-
+				TextView AmountLeft = row.FindViewById<TextView>(Resource.Id.txtAmountLeft);
 				TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
 				ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-
 				ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
 				RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
 				rating.Rating = (float)myItems[position].AverageRating;
 				txtName.Text = myItems[position].Name;
 				txtPrice.Text = myItems[position].SalePrice.ToString("C", Cultures.UnitedState);
+				AmountLeft.Text = "Wine left in bottle: " + myItems[position].AvailableVolume.ToString() + ".ml";
 				txtVintage.Text = myItems[position].Vintage.ToString();
 				heartImg.SetImageResource(Resource.Drawable.Heart_emp);
 				var heartLP = new FrameLayout.LayoutParams(80, 80);
@@ -103,7 +103,6 @@ namespace WineHangouts
 				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
 				var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
 				heartLP.LeftMargin = parent.Resources.DisplayMetrics.WidthPixels / 2 - 110; // 110 = 80 + 30
-
 				heartLP.TopMargin = 5;
 				heartImg.LayoutParameters = heartLP;
 				heartImg.Layout(50, 50, 50, 50);
@@ -116,7 +115,6 @@ namespace WineHangouts
 				{
 					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
 				}
-
 				heartImg.Tag = position;
 
 				if (convertView == null)
@@ -156,7 +154,11 @@ namespace WineHangouts
 
 				//-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
 				imgWine.LayoutParameters = place;
-				if (imageBitmap != null)
+			//var place1 = new FrameLayout.LayoutParams(600, 500);
+
+			////-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;
+			//imgWine.LayoutParameters = place1;
+			if (imageBitmap != null)
 				{
 					if (heartLP.LeftMargin <= 250)
 					{
@@ -179,19 +181,24 @@ namespace WineHangouts
 				}
 				else
 				{
+				if (heartLP.LeftMargin <= 250)
+				{
+					place.LeftMargin = -140;
 					imgWine.SetImageResource(Resource.Drawable.bottle);
 				}
+				else
+				{
+					place.LeftMargin = -70;
+					imgWine.SetImageResource(Resource.Drawable.bottle);
+				}
+			}
 
 				txtName.Focusable = false;
-
+				AmountLeft.Focusable = false;
 				txtVintage.Focusable = false;
 				txtPrice.Focusable = false;
 				imgWine.Focusable = false;
 				imgWine.Dispose();
-
-				
-			
-			
 			return row;
 			
 		}

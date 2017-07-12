@@ -86,6 +86,8 @@ namespace WineHangouts
 					ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
 					ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
 					RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
+					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton4);
+					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
 					//edit.SetScaleType(ImageView.ScaleType.Center);
 					//delete.SetScaleType(ImageView.ScaleType.Center);
 					//edit.SetImageResource(Resource.Drawable.edit);
@@ -140,6 +142,52 @@ namespace WineHangouts
 					string path = pppd.CreateDirectoryForPictures();
 					//string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 					var filePath = System.IO.Path.Combine(path + "/" + myItems[position].Barcode + ".jpg");
+
+
+					bool count = true;//Convert.ToBoolean(myItems[position].IsLike);
+					if (count == true)
+					{
+						heartImg.SetImageResource(Resource.Drawable.HeartFull);
+					}
+					else
+					{
+						heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+					}
+					heartImg.Tag = position;
+
+					if (convertView == null)
+					{
+						heartImg.Click += async delegate
+						{
+							int actualPosition = Convert.ToInt32(heartImg.Tag);
+							bool x;
+							if (count == false)
+							{
+								heartImg.SetImageResource(Resource.Drawable.HeartFull);
+								LoggingClass.LogInfoEx("Liked an item------>" + myItems[position].Barcode, screenid);
+								x = true;
+								count = true;
+							}
+							else
+							{
+								heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+								LoggingClass.LogInfoEx("UnLiked an item" + "----->" + myItems[position].Barcode, screenid);
+								x = false;
+								count = false;
+							}
+							SKULike like = new SKULike();
+							like.UserID = Convert.ToInt32(CurrentUser.getUserId());
+							like.SKU = Convert.ToInt32(myItems[actualPosition].SKU);
+							like.Liked = x;
+							//myItems[actualPosition].IsLike = x;
+							like.BarCode = myItems[actualPosition].Barcode;
+							LoggingClass.LogInfo("Liked an item", screenid);
+							ServiceWrapper sw = new ServiceWrapper();
+							await sw.InsertUpdateLike(like);
+						};
+					}
+
+
 					Bitmap imageBitmap;
 					if (System.IO.File.Exists(filePath))
 					{

@@ -71,5 +71,15 @@ namespace WineHangouts
 			Dialog dialog = aler.Create();
 			dialog.Show();
 		}
+		public void UnAuthourised()
+		{
+			AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+			aler.SetTitle("Invalid Credentials");
+			LoggingClass.LogInfo("Invalid Credentials", screenid);
+			aler.SetMessage("BarCode is invalid. Please try again!");
+			aler.SetNegativeButton("Ok", delegate { });
+			Dialog dialog = aler.Create();
+			dialog.Show();
+		}
 	}
 }

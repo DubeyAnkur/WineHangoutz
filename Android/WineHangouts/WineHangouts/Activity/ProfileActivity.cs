@@ -12,6 +12,7 @@ using Hangout.Models;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Collections.Generic;
 //using System.Drawing.Drawing2D;
 
 namespace WineHangouts
@@ -25,7 +26,7 @@ namespace WineHangouts
 		private int screenid = 8;
 		protected override void OnCreate(Bundle bundle)
 		{
-
+			CheckInternetConnection();
 			base.OnCreate(bundle);
 
 			SetContentView(Resource.Layout.Profile);
@@ -108,10 +109,78 @@ namespace WineHangouts
 					City.Enabled = false;
 				}
 				else { City.Enabled = true; }
-				EditText State = FindViewById<EditText>(Resource.Id.txtState);
-				State.Text = output.customer.State;
+				EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
+				PinCode.Text = output.customer.Zip;
 				Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
-				//updatebtn.SetScaleType(ImageView.ScaleType.CenterCrop);
+				Spinner spn = FindViewById<Spinner>(Resource.Id.spinner);
+				Spinner Prefered = FindViewById<Spinner>(Resource.Id.spinner1);
+				//spn.SetSelection(4);
+
+				string state = output.customer.State;
+				int Preferedstore = output.customer.PreferredStore;
+				List<string> storelist = new List<string>();
+				storelist.Add("--select--");
+				storelist.Add("Wall");
+				storelist.Add("PointPleasent");
+				storelist.Add("Both");
+				
+				
+				List<string> StateList = new List<string>();
+				StateList.Add("AL");
+				StateList.Add("AK");
+				StateList.Add("AZ");
+				StateList.Add("AR");
+				StateList.Add("CA");
+				StateList.Add("CO");
+				StateList.Add("CT");
+				StateList.Add("DE");
+				StateList.Add("FL");
+				StateList.Add("GA");
+				StateList.Add("HI");
+				StateList.Add("ID");
+				StateList.Add("IL");
+				StateList.Add("IN");
+				StateList.Add("IA");
+				StateList.Add("KS");
+				StateList.Add("KY");
+				StateList.Add("LA");
+				StateList.Add("ME");
+				StateList.Add("MD");
+				StateList.Add("MA");
+				StateList.Add("MI");
+				StateList.Add("MN");
+				StateList.Add("MS");
+				StateList.Add("MO");
+				StateList.Add("MT");
+				StateList.Add("NE");
+				StateList.Add("NV");
+				StateList.Add("NH");
+				StateList.Add("NJ");
+				StateList.Add("NM");
+				StateList.Add("NY");
+				StateList.Add("NC");
+				StateList.Add("ND");
+				StateList.Add("OH");
+				StateList.Add("OK");
+				StateList.Add("OR");
+				StateList.Add("PA");
+				StateList.Add("RI");
+				StateList.Add("SC");
+				StateList.Add("SD");
+				StateList.Add("TN");
+				StateList.Add("TX");
+				StateList.Add("UT");
+				StateList.Add("VT");
+				StateList.Add("VA");
+				StateList.Add("WA");
+				StateList.Add("WV");
+				StateList.Add("WI");
+				StateList.Add("WY");
+				int i =		StateList.IndexOf(state.ToString());
+				spn.SetSelection(i);
+				//int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
+				Prefered.SetSelection(Preferedstore);
+				
 				if (CurrentUser.getUserId() == null)
 				{
 					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
@@ -129,7 +198,8 @@ namespace WineHangouts
 				{
 					updatebtn.Click += async delegate
 					{
-
+						//int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
+						//Prefered.SetSelection(p);
 						Customer customer = new Customer()
 						{
 							FirstName = Firstname.Text,
@@ -138,10 +208,17 @@ namespace WineHangouts
 							Address1 = Address.Text,
 							Email = Email.Text,
 							CustomerID = userId,
-							State = State.Text,
+							//State = State.Text,
+							State = spn.SelectedItem.ToString(),
+							
 							//City = City.Text
-							CardNumber = City.Text
-						};
+							CardNumber = City.Text,
+							Zip=PinCode.Text,
+							PreferredStore=Convert.ToInt32( Prefered.SelectedItemId)
+							
+
+					};
+						CurrentUser.SavePrefered(Convert.ToInt32(Prefered.SelectedItemId));
 						LoggingClass.LogInfo("Clicked on update info", screenid);
 						var x = await sw.UpdateCustomer(customer);
 						if (x == 1)
@@ -152,7 +229,6 @@ namespace WineHangouts
 						StartActivity(intent);
 
 					};
-
 
 				}
 			}
@@ -170,6 +246,39 @@ namespace WineHangouts
 			//LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
 			ProgressIndicator.Hide();
 		}
+	
+		public bool CheckInternetConnection()
+		{
+
+			string CheckUrl = "http://google.com";
+
+			try
+			{
+				HttpWebRequest iNetRequest = (HttpWebRequest)WebRequest.Create(CheckUrl);
+
+				iNetRequest.Timeout = 5000;
+
+				WebResponse iNetResponse = iNetRequest.GetResponse();
+
+				// Console.WriteLine ("...connection established..." + iNetRequest.ToString ());
+				iNetResponse.Close();
+
+				return true;
+
+			}
+			catch (WebException ex)
+			{
+				AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+				aler.SetTitle("Sorry");
+				LoggingClass.LogInfo("Please check your internet connection", screenid);
+				aler.SetMessage("Please check your internet connection");
+				aler.SetNegativeButton("Ok", delegate { });
+				Dialog dialog = aler.Create();
+				dialog.Show();
+				return false;
+			}
+		}
+
 		public async void DownloadAsync(object sender, System.EventArgs ea)
 		{
 			try

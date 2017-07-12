@@ -16,7 +16,7 @@ using System.Collections.Concurrent;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Diagnostics;
-
+using System.Net;
 
 namespace WineHangouts
 {
@@ -27,7 +27,8 @@ namespace WineHangouts
        // bool loading;
         public string  WineBarcode;
         public string StoreName = "";
-        private int screenid = 3;
+		
+		private int screenid = 3;
         GridViewAdapter adapter;
 
        // SwipeRefreshLayout refresher1;
@@ -45,6 +46,7 @@ namespace WineHangouts
             try
             {
 				
+				CheckInternetConnection();
 				if (StoreName == "")
                     StoreName = Intent.GetStringExtra("MyData");
                 this.Title = StoreName;
@@ -128,19 +130,19 @@ namespace WineHangouts
                     intent.PutExtra("storeid", StoreId);
                     StartActivity(intent);
                 };
-				TokenModel devInfo = new TokenModel();
-				var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
+				//TokenModel devInfo = new TokenModel();
+				//var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 
-				ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-				activityManager.GetMemoryInfo(memInfo);
+				//ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+				//activityManager.GetMemoryInfo(memInfo);
 
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
 
-				devInfo.AvailableMainMemory = memInfo.AvailMem;
-				devInfo.IsLowMainMemory = memInfo.LowMemory;
-				devInfo.TotalMainMemory = memInfo.TotalMem;
+				//devInfo.AvailableMainMemory = memInfo.AvailMem;
+				//devInfo.IsLowMainMemory = memInfo.LowMemory;
+				//devInfo.TotalMainMemory = memInfo.TotalMem;
 			}
             catch(Exception exe)
             {
@@ -153,6 +155,38 @@ namespace WineHangouts
 			LoggingClass.LogInfo("OnPause state in Gridview activity"+StoreName, screenid);
 
 		}
+		public  bool CheckInternetConnection()
+		{
+			
+			string CheckUrl = "http://google.com";
+
+			try
+			{
+				HttpWebRequest iNetRequest = (HttpWebRequest)WebRequest.Create(CheckUrl);
+
+				iNetRequest.Timeout = 5000;
+
+				WebResponse iNetResponse = iNetRequest.GetResponse();
+
+				// Console.WriteLine ("...connection established..." + iNetRequest.ToString ());
+				iNetResponse.Close();
+
+				return true;
+
+			}
+			catch (WebException ex)
+			{
+				AlertDialog.Builder aler = new AlertDialog.Builder(this,Resource.Style.MyDialogTheme);
+				aler.SetTitle("Sorry");
+				LoggingClass.LogInfo("Please check your internet connection", screenid);
+				aler.SetMessage("Please check your internet connection");
+				aler.SetNegativeButton("Ok", delegate { });
+				Dialog dialog = aler.Create();
+				dialog.Show();
+				return false;
+			}
+		}
+
 
 		protected override void OnResume()
 		{
@@ -172,21 +206,24 @@ namespace WineHangouts
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
-                base.OnBackPressed();
-                LoggingClass.LogInfo("Exited from Gridview Activity",screenid);
+				// base.OnBackPressed();
+				var intent = new Intent(this, typeof(TabActivity));
+				LoggingClass.LogInfo("Clicked on options menu About", screenid);
+				StartActivity(intent);
+				LoggingClass.LogInfo("Exited from Gridview Activity",screenid);
 				TokenModel devInfo = new TokenModel();
 				var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 
-				ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-				activityManager.GetMemoryInfo(memInfo);
+				//ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+				//activityManager.GetMemoryInfo(memInfo);
 
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
-				System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
+				//System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
 
-				devInfo.AvailableMainMemory = memInfo.AvailMem;
-				devInfo.IsLowMainMemory = memInfo.LowMemory;
-				devInfo.TotalMainMemory = memInfo.TotalMem;
+				//devInfo.AvailableMainMemory = memInfo.AvailMem;
+				//devInfo.IsLowMainMemory = memInfo.LowMemory;
+				//devInfo.TotalMainMemory = memInfo.TotalMem;
 				return false;
             }
             return base.OnOptionsItemSelected(item);

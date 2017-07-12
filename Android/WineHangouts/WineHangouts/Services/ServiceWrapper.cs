@@ -9,7 +9,9 @@ using Hangout.Models;
 using System.Timers;
 using System.Windows;
 using System.Diagnostics;
-
+using System.Text;
+using System.Net.Http.Headers;
+using Android.App;
 
 namespace WineHangouts
 {
@@ -30,8 +32,8 @@ namespace WineHangouts
             get
             {
 
-                string host = "https://hangoutz.azurewebsites.net/";
-                return host + "api/Item/";
+				string host = "https://hangoutz.azurewebsites.net/";
+				return host + "api/Item/";
             }
 
         }
@@ -53,13 +55,12 @@ namespace WineHangouts
         public async Task<ItemListResponse> GetItemList(int storeId, int userId)
         {
             ItemListResponse output = null;
-			//SetTimer();
 			sw.Start();
 			LoggingClass.LogServiceInfo("Service called", "GetItemList");
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemLists/" + storeId + "/user/" + userId);
-                var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 output = JsonConvert.DeserializeObject<ItemListResponse>(response);
                 LoggingClass.LogServiceInfo("Service Response", "GetItemList");
             }
@@ -81,8 +82,8 @@ namespace WineHangouts
             try
             {
                 var uri = new Uri(ServiceURL + "GetItemDetailsBarcode/" + WineBarcode + "/user/"+storeid);
-                var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-                output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
+				var response = await client.GetStringAsync(uri). ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<ItemDetailsResponse>(response);
             }
             catch (Exception exe)
             {
@@ -101,7 +102,10 @@ namespace WineHangouts
             {
                 LoggingClass.LogServiceInfo("service called", "InsertUpdateLike");
                 var uri = new Uri(ServiceURL + "InsertUpdateLike/");
-                var content = JsonConvert.SerializeObject(skuLike);
+				string Token = CurrentUser.GetServiceToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var content = JsonConvert.SerializeObject(skuLike);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
@@ -118,7 +122,30 @@ namespace WineHangouts
 			return 1;
         }
 
-        public async Task<CustomerResponse> AuthencateUser(string Email, string CardId, string uid)
+		public async Task<CustomerResponse> InsertUpdateGuest(string token)
+		{
+			sw.Start();
+			CustomerResponse output = null;
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "InsertUpdateguests/" + token + "/token/1");
+				var content = JsonConvert.SerializeObject(token);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				CurrentUser.GuestId = output.customer.CustomerID.ToString();
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Guest Service");
+			return output;
+		}
+
+		public async Task<CustomerResponse> AuthencateUser(string Email, string CardId, string uid)
         {
             sw.Start();
             CustomerResponse output = null;
@@ -126,9 +153,22 @@ namespace WineHangouts
             try
             {
                 var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardId + "/email/" + Email + "/DeviceId/" + uid);
-                var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-                output = JsonConvert.DeserializeObject<CustomerResponse>(response);
-                LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
+				var byteArray = new UTF8Encoding().GetBytes(CardId + ":password");
+				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+				var response = await client.GetAsync(uri).ConfigureAwait(false);
+				if (response.IsSuccessStatusCode)
+				{
+					string Token = response.RequestMessage.Headers.Authorization.Parameter;
+					CurrentUser.SaveToken(Token);
+					output = JsonConvert.DeserializeObject<CustomerResponse>(response.Content.ReadAsStringAsync().Result);
+					LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
+				}
+				else {
+					AlertActivity a = new AlertActivity();
+					a.UnAuthourised();
+					
+				}
             }
             catch (Exception ex)
             {
@@ -183,36 +223,39 @@ namespace WineHangouts
 			return output;
         }
 
-        public async Task<int> InsertUpdateToken1(TokenModel token)
-        {
+		public async Task<int> InsertUpdateToken1(TokenModel token)
+		{
 			sw.Start();
 			try
-            {
-                LoggingClass.LogServiceInfo("service called", "InsertUpdateToken1");
-                var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + token.User_id + "/token/" + token.DeviceToken.Replace(":", ",") + "/DeviceType/" + token.DeviceType);
-                var content = JsonConvert.SerializeObject(token);
-                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
-                LoggingClass.LogServiceInfo("service responce", "InsertUpdateToken1");
-                //var result = response.Content.ReadAsStringAsync().Result;
-            }
-            catch (Exception exe)
-            {
-                LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-            }
+			{
+				LoggingClass.LogServiceInfo("service called", "InsertUpdateToken1");
+				var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + token.User_id + "/token/" + token.DeviceToken.Replace(":", ",") + "/DeviceType/" + token.DeviceType);
+				var content = JsonConvert.SerializeObject(token);
+				string Token = CurrentUser.GetServiceToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				LoggingClass.LogServiceInfo("service responce", "InsertUpdateToken1");
+				//var result = response.Content.ReadAsStringAsync().Result;
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+			}
 			sw.Stop();
 
 			LoggingClass.LogTime("The total time to  start and end the service InsertUpdateToken1", "The timer ran for " + sw.Elapsed.TotalSeconds);
 
 			return 1;
-        }
+		}
 
-        public async Task<ItemReviewResponse> GetItemReviewsByWineBarcode(string WineBarcode)
+		public async Task<ItemReviewResponse> GetItemReviewsByWineBarcode(string WineBarcode)
         {
 			sw.Start();
 			LoggingClass.LogServiceInfo("service called", "GetItemReviewsByWineBarcode");
             var uri = new Uri(ServiceURL + "/GetReviewsBarcode/" + WineBarcode);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "GetItemReviewsByWineBarcode");
 			sw.Stop();
@@ -226,8 +269,8 @@ namespace WineHangouts
 			sw.Start();
 			LoggingClass.LogServiceInfo("service called", "GetItemReviewUID");
             var uri = new Uri(ServiceURL + "GetReviewUID/" + userId);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
-            var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var output = JsonConvert.DeserializeObject<ItemReviewResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "GetItemReviewUID");
 			sw.Stop();
 
@@ -245,7 +288,10 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "InsertUpdateReview/");
                 var content = JsonConvert.SerializeObject(review);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, cont);
+				string Token = CurrentUser.GetServiceToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.PostAsync(uri, cont);
                 LoggingClass.LogServiceInfo("service responce", "InsertUpdateReview");
                 // In debug mode it do not work, Else it works
                 //var result = response.Content.ReadAsStringAsync().Result;
@@ -269,7 +315,10 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "DeleteReview/");
                 var content = JsonConvert.SerializeObject(review);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				string Token = CurrentUser.GetServiceToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 LoggingClass.LogServiceInfo("service responce", "DeleteReview");
                 //var result = response.Content.ReadAsStringAsync().Result;
             }
@@ -292,7 +341,10 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "UpdateCustomer/");
                 var content = JsonConvert.SerializeObject(customer);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
+				string Token = CurrentUser.GetServiceToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
                 LoggingClass.LogServiceInfo("service responce", "UpdateCustomer");
                 //var result = response.Content.ReadAsStringAsync().Result;
             }
@@ -310,8 +362,8 @@ namespace WineHangouts
         {
 			sw.Start();
 			LoggingClass.LogServiceInfo("service called", "csfavs");
-            var uri = new Uri(ServiceURL + "GetItemFavUID/" + userId);
-            var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+			var uri = new Uri(ServiceURL + "GetItemFavUID/" + userId);
+			var response = await client.GetStringAsync(uri).ConfigureAwait(false);
             var output = JsonConvert.DeserializeObject<ItemListResponse>(response);
             LoggingClass.LogServiceInfo("service responce", "csfavs");
 			sw.Stop();
@@ -350,5 +402,26 @@ namespace WineHangouts
 			LoggingClass.LogServiceInfo("service responce", "GetMyTastingsList");
             return output;
         }
-    }
+		public async Task<int> ResendEMail(string CardNumber)
+		{
+			sw.Start();
+			int output = 0;
+			try
+			{
+
+				var uri = new Uri(ServiceURL + "ResendEmail/" + CardNumber);
+				//var content = JsonConvert.SerializeObject(token);
+				//var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<int>(response);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Resend Email Service");
+			return output;
+		}
+	}
 }
