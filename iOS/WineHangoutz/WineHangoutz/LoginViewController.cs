@@ -16,6 +16,7 @@ namespace WineHangoutz
 		public UINavigationController nav;
 		public UIButton btnGuestLogin;
 		public UILabel  lblIns;
+		public UILabel lblContactus;
 		public UIButton btnResend;
 		public UILabel  lblInfo;
 		public UIButton btnVerify;
@@ -39,6 +40,12 @@ namespace WineHangoutz
 		{
 			try
 			{
+				nfloat width = UIScreen.MainScreen.Bounds.Width;
+				width = width / 2 - 15; 				UICollectionViewFlowLayout flowLayout;
+				flowLayout = new UICollectionViewFlowLayout()
+				{
+					ItemSize = new CGSize(width, 325.0f), 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f), 					ScrollDirection = UICollectionViewScrollDirection.Vertical
+				} ; 
 				if (internetStatus == false)
 				{
 					UIAlertView alert = new UIAlertView()
@@ -50,22 +57,39 @@ namespace WineHangoutz
 					alert.AddButton("OK");
 					alert.Show();
 				}
-
-					CGSize sTemp = new CGSize(View.Frame.Width, 100);
-					//checking is cust is scanned card or not
 					if (CurrentUser.GetCardNumber() != null)
 					{
-						ShowInfo(CurrentUser.GetCardNumber());
+                        ShowInfo(CurrentUser.GetCardNumber());
 					}
-
+					CGSize sTemp = new CGSize(View.Frame.Width, 100);
+					//checking is cust is scanned card or not
+						if (CurrentUser.RetreiveUserId() != 0)
+						{
+							nav = new UINavigationController(RootTabs);
+							//if (CurrentUser.GetStore() == 0)
+							//{
+							//	NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
+							//}
+							//else if (CurrentUser.GetStore() == 1)
+							//{
+							//	NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
+							//}
+							//else
+							//{
+								AddNavigationButtons(nav);
+								_window.RootViewController = nav;
+								LoggingClass.LogInfo(CurrentUser.RetreiveUserName() + " Logged in", screenid);
+							//}
+						}
+						if(CurrentUser.GetCardNumber() != null)
+						{
+                            ShowInfo(CurrentUser.GetCardNumber());
+						}
 					//Checking user is logged in or not
-					if (CurrentUser.RetreiveUserId() != 0)
-					{
-						nav = new UINavigationController(RootTabs);
-						AddNavigationButtons(nav);
-						_window.RootViewController = nav;
-					LoggingClass.LogInfo(CurrentUser.RetreiveUserName()+ "Logged in", screenid);
-					}
+					//catch (Exception ex)
+					//{
+					//	LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+					//}
 					//for backgroud
 					//var bGround = new UIImageView(UIImage.FromBundle("Info.png"));
 					//bGround.Frame = new CGRect(0,0,View.Frame.Width, View.Frame.Height);
@@ -99,6 +123,10 @@ namespace WineHangoutz
 					lblInfo.TextAlignment = UITextAlignment.Center;
 					lblInfo.TextColor = UIColor.White;
 
+					lblContactus = new UILabel();
+					lblContactus.TextColor = UIColor.Red;
+					lblContactus.TextAlignment = UITextAlignment.Center;
+					lblContactus.Hidden = true;
 
 					nfloat hei = 180 + lblIns.Frame.Height + 10;
 					UIButton btnCardScanner = new UIButton();
@@ -116,7 +144,6 @@ namespace WineHangoutz
 							if (result != null)
 							{
 								LoggingClass.LogInfo("User tried to login with" + result.Text, screenid);
-								BTProgressHUD.Show("Please wait...");
 								ShowInfo(result.Text);
 							}
 						}
@@ -125,10 +152,7 @@ namespace WineHangoutz
 							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 						}
 					};
-
-
 					//nfloat strtguest = strtbtn + btnLogin.Frame.Height + 10;
-
 					UILabel lblGuest = new UILabel();
 					lblGuest.Frame = new CGRect(20, View.Frame.Height - 100, View.Frame.Width, h);
 					lblGuest.Text = "Not a VIP Member?";
@@ -177,8 +201,8 @@ namespace WineHangoutz
 					View.AddSubview(btnCardScanner);
 					View.AddSubview(lblInfo);
 					View.AddSubview(lblGuest);
-
-				View.BackgroundColor = UIColor.FromRGB(0, 0, 150);
+					View.AddSubview(lblContactus);
+					View.BackgroundColor = UIColor.FromRGB(70, 179, 252);
 				
 			}
 			catch (Exception exe)
@@ -225,10 +249,12 @@ namespace WineHangoutz
 		}
 		public async void  ShowInfo(string CardNumber)
 		{
-				try
-				{
-					CGSize sTemp = new CGSize(View.Frame.Width, 100);
-					cr = await svc.AuthencateUser("email", CardNumber, uid_device);
+			CGSize sTemp = new CGSize(View.Frame.Width, 100);
+			try
+			{
+				BTProgressHUD.Show("Please wait...");
+
+				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 					if (CardNumber != null)
 					{
 						CurrentUser.PutCardNumber(CardNumber);
@@ -238,82 +264,112 @@ namespace WineHangoutz
 					//	CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 					// EmailVerification();
 					//}
-					if (cr != null)
+					if (cr!= null)
 					{
-						//CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-						//EmailVerification();
-						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
-						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
-						lblInfo.Lines = 0;
-						sTemp = lblInfo.SizeThatFits(sTemp);
-						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
-						lblInfo.TextAlignment = UITextAlignment.Left;
-						lblInfo.TextColor = UIColor.White;
-						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-
-						var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
-						tap.AddTarget(() =>
+					//CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+					//EmailVerification();
+						if (cr.customer.Email != "" && cr.customer.Email != null)
 						{
-							UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.wineoutlet.com/main.asp?request=CONTACTUS"));
-						});
-						lblInfo.UserInteractionEnabled = true;
-						lblInfo.AddGestureRecognizer(tap);
+							lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+							lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
+							lblInfo.Lines = 0;
+							sTemp = lblInfo.SizeThatFits(sTemp);
+							lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+							lblInfo.TextAlignment = UITextAlignment.Left;
+							lblInfo.TextColor = UIColor.White;
+							CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 
-						strtbtn = start + lblInfo.Frame.Height + 10;
-						btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
-						btnLogin.SetTitle("Log In", UIControlState.Normal);
-						btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-						btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
-						btnLogin.BackgroundColor = UIColor.Purple;
+							var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+							tap.AddTarget(() =>
+							{
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.wineoutlet.com/main.asp?request=CONTACTUS"));
+							});
+							lblInfo.UserInteractionEnabled = true;
+							lblInfo.AddGestureRecognizer(tap);
 
-						btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
-						btnResend.SetTitle("Resend Email", UIControlState.Normal);
-						btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-						btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
-						btnResend.BackgroundColor = UIColor.Purple;
-						View.AddSubview(btnResend);
-						View.AddSubview(btnLogin);
-						btnResend.TouchUpInside += async (send, eve) =>
+							strtbtn = start + lblInfo.Frame.Height + 10;
+							btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
+							btnLogin.SetTitle("Log In", UIControlState.Normal);
+							btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+							btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+							btnLogin.BackgroundColor = UIColor.Purple;
+
+							btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
+							btnResend.SetTitle("Resend Email", UIControlState.Normal);
+							btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+							btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
+							btnResend.BackgroundColor = UIColor.Purple;
+							View.AddSubview(btnResend);
+							View.AddSubview(btnLogin);
+							btnResend.TouchUpInside += async (send, eve) =>
+							{
+								BTProgressHUD.Show("Sending verification email to" + cr.customer.Email);
+								if (CardNumber != null)
+								{
+									await svc.ResendEMail(CardNumber);
+								}
+								else
+								{
+									await svc.ResendEMail(CurrentUser.GetCardNumber());
+								}
+								BTProgressHUD.ShowSuccessWithStatus("Sent");
+							};
+							btnLogin.TouchUpInside += (sen, ev) =>
+							{
+								try
+								{
+									BTProgressHUD.Show("Checking email verifification");
+									EmailVerification();
+								}
+								catch (Exception ex)
+								{
+									LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
+								}
+
+							};
+							BTProgressHUD.Dismiss();
+						}
+						else
 						{
-							BTProgressHUD.Show("Sending verification email to" + cr.customer.Email);
-							if (CardNumber != null)
-							{
-								await svc.ResendEMail(CardNumber);
-							}
-							else
-							{
-								await svc.ResendEMail(CurrentUser.GetCardNumber());
-							}
-							BTProgressHUD.ShowSuccessWithStatus("Sent");
-						};
-						btnLogin.TouchUpInside += (sen, ev) =>
-						{
-							try
-							{
-								BTProgressHUD.Show("Checking email verifification");
-								EmailVerification();
-							}
-							catch (Exception ex)
-							{
-								LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
-							}
-
-						};
-						BTProgressHUD.Dismiss();
+							lblInfo.Text = cr.ErrorDescription;
+							lblInfo.TextColor = UIColor.Red;
+							sTemp = lblInfo.SizeThatFits(sTemp);
+							lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+							BTProgressHUD.Dismiss();
+						}
 					}
 					else
 					{
+					
 						lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
 						lblInfo.TextColor = UIColor.Red;
 						sTemp = lblInfo.SizeThatFits(sTemp);
 						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
-						BTProgressHUD.Dismiss();
+							try
+							{
+								if (btnLogin != null || btnResend != null)
+								{
+										btnLogin.Hidden = true;
+										btnResend.Hidden = true;
+								}
+							}
+							catch (Exception ex)
+							{
+								LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+							}
+							BTProgressHUD.Dismiss();
 					}
-				}
-				catch (Exception exe)
-				{
-					LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
-				}
+				BTProgressHUD.Dismiss();
+			}
+			catch (Exception exe)
+			{
+				lblInfo.Text = "Something went wrong.We're on it.";
+				lblInfo.TextColor = UIColor.Red;
+				sTemp = lblInfo.SizeThatFits(sTemp);
+				lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+			}
+			BTProgressHUD.Dismiss();
 		}
 		public async void EmailVerification()
 		{
@@ -384,6 +440,15 @@ namespace WineHangoutz
 		{
 			string CardNumber = plist.StringForKey("CardNumber");
 			return CardNumber;
+		}
+		public static void PutStore(int storeid)
+		{
+			plist.SetInt(storeid, "storeid");
+		}
+		public static nint GetStore()
+		{
+			nint storeid = plist.IntForKey("storeid");
+			return storeid;
 		}
 		public static void Store(string userId, string userName)
 		{

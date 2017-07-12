@@ -41,9 +41,9 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 			//CurrentUser.Clear();
-			CurrentUser.Store("48732", "Admin");
+			//CurrentUser.Store("48732", "Admin");
 			//for direct log in
-			CurrentUser.PutCardNumber("8902519310330");
+			//CurrentUser.PutCardNumber("8902519310330");
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
 
@@ -95,7 +95,7 @@ namespace WineHangoutz
 			var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
 
 			// Has the token changed?
-			if (string.IsNullOrEmpty(	oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
+			if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
 			{
 				//TODO: Put your own logic here to notify your server that the device token has changed/been created!
 			}

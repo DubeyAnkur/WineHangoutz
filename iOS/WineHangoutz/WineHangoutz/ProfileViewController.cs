@@ -24,7 +24,6 @@ namespace WineHangoutz
 		UIImagePickerController imagePicker;
 		StatePickerDataModel pickerDataModel;
 		StorePickerDataModel StoreDataModel;
-
 		public IntPtr handle;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
@@ -53,7 +52,8 @@ namespace WineHangoutz
 					alert.Show();
 				}
 				DismissKeyboardOnBackgroundTap();
-				//AboutController1.ViewDidLoad(base);
+				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
+				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
 				pickerDataModel = new StatePickerDataModel();
 				pickerDataModel.Items.Add("AL");
@@ -233,6 +233,7 @@ namespace WineHangoutz
 							cust.State = pickerDataModel.SelectedItem;
 							cust.Zip = txtZipCode.Text;
 							cust.PreferredStore = StoreDataModel.SelectedItem;
+							CurrentUser.PutStore(StoreDataModel.SelectedItem);
 							//cust.State = txtState.Text;
 							await sw.UpdateCustomer(cust);
 							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
@@ -320,7 +321,7 @@ namespace WineHangoutz
 					nfloat n = Scroll.Subviews[i].Frame.Size.Height;
 					h = h + n;
 				}
-				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+100);
+				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+50);
 				View = (Scroll);
 			}
 			catch (Exception ex)
@@ -328,15 +329,22 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 		}
-		//public override UIView GetView(UIPickerView pickerView, int row, int component, UIView view)
-		//{
-		//	UILabel lbl = new UILabel(new RectangleF(0, 0, 130f, 40f));
-		//	lbl.TextColor = UIColor.Black;
-		//	lbl.Font = UIFont.SystemFontOfSize(12f);
-		//	lbl.TextAlignment = UITextAlignment.Center;
-		//	lbl.Text = "Test";//values[row];
-		//	return lbl;
-		//	}
+		private void KeyBoardUpNotification(NSNotification notification)
+		{
+			// get the keyboard size
+			CGRect r = UIKeyboard.BoundsFromNotification(notification);
+			CGRect viewFrame = View.Bounds;
+			// get new height of the content view
+			nfloat currentViewHeight = viewFrame.Height + r.Height;
+			// update scrollViewFrame
+			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, currentViewHeight);
+		}
+		private void KeyBoardDownNotification(NSNotification notification)
+		{
+			// Get bounds of parent view
+			CGRect viewFrame = View.Bounds;
+			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
+		}
 		protected void DismissKeyboardOnBackgroundTap()
 		{
 			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };

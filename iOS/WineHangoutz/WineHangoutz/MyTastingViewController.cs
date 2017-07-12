@@ -14,7 +14,7 @@ namespace WineHangoutz
     public partial class MyTastingViewController : UITableViewController, IPopupParent
     {
 		private string screen = "MyTastingView Controller";
-		ServiceWrapper svc = new ServiceWrapper();
+		ServiceWrapper sw = new ServiceWrapper();
         public MyTastingViewController (IntPtr handle) : base (handle)
         {
         }
@@ -48,11 +48,11 @@ namespace WineHangoutz
 				}
 				else
 				{
-					var myData = svc.GetMyTastingsList(userId).Result;
-					if (myData.TastingList.Count == 0)
+					var tastingData = sw.GetMyTastingsList(userId).Result;
+					if (tastingData.TastingList.Count == 0)
 					{
 						UILabel lblNoTastings = new UILabel();
-						lblNoTastings.Text = myData.ErrorDescription;
+						lblNoTastings.Text = tastingData.ErrorDescription;
 						lblNoTastings.TextAlignment = UITextAlignment.Center;
 						lblNoTastings.LineBreakMode = UILineBreakMode.WordWrap;
 						lblNoTastings.Lines = 0;
@@ -63,7 +63,7 @@ namespace WineHangoutz
 						View.AddSubview(lblNoTastings);
 					}
 					TableView.AllowsSelection = false;
-					TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
+					TableView.Source = new MyTastingTableSource(tastingData.TastingList.ToList(), NavigationController, this);
 				}
 			}
 			catch (Exception ex)
@@ -74,8 +74,8 @@ namespace WineHangoutz
 		public void RefreshParent()
 		{
 			int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
-			var myData = svc.GetMyTastingsList(userId).Result;
-			TableView.Source = new MyTastingTableSource(myData.TastingList.ToList(), NavigationController, this);
+			var tastingData = sw.GetMyTastingsList(userId).Result;
+			TableView.Source = new MyTastingTableSource(tastingData.TastingList.ToList(), NavigationController, this);
 			TableView.ReloadData();
 			
 		}
@@ -137,6 +137,7 @@ namespace WineHangoutz
 		UIButton heartImage;
 		UILabel WineIdLabel;
 		public Item myItem;
+		ServiceWrapper sw = new ServiceWrapper();
 		Tastings taste = new Tastings();
 		public UINavigationController NavController;
 		public UIViewController Parent;
@@ -243,8 +244,10 @@ namespace WineHangoutz
 					Vintage.Text = tasting.Vintage.ToString();
 					WineIdLabel.Text = tasting.Barcode;
 					storeid = tasting.PlantFinal;
-					//stars = new PDRatingView(new CGRect(150, 2, 60, 20), ratingConfig, review.Stars);
-					//ContentView.Bounds.Height = 90;
+					if (tasting.IsLike == true)
+					{ 
+						heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+					}
 				}
 				catch (Exception ex)
 				{
@@ -255,7 +258,7 @@ namespace WineHangoutz
 					};
 					alert.AddButton("OK");
 					alert.Show();
-				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
+					LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
 				}
 		}
 		public override void LayoutSubviews()

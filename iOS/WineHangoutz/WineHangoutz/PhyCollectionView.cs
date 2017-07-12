@@ -47,7 +47,6 @@ namespace WineHangoutz
 					CollectionView.ReloadData();
 					refreshControl.EndRefreshing();
 					};
-
 				BTProgressHUD.Dismiss();
 				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 				this.CollectionView.BackgroundColor = UIColor.White;
