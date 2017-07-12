@@ -86,7 +86,7 @@ namespace WineHangouts
 					ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
 					ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
 					RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
-					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton4);
+					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton44);
 					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
 					//edit.SetScaleType(ImageView.ScaleType.Center);
 					//delete.SetScaleType(ImageView.ScaleType.Center);

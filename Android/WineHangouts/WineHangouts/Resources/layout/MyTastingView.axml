@@ -47,8 +47,8 @@
                             android:lines="2"
                             android:layout_width="225.0dp"
                             android:layout_height="41.0dp"
-                            android:layout_margin="2dp"
-                            android:translationX="12" />
+                            android:layout_margin="2dp"/>
+                            <!--android:translationX="12"--> 
                       <ImageView
                           android:src="@drawable/Heart_emp"
                             android:id="@+id/imageButton4"

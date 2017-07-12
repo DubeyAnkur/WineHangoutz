@@ -110,7 +110,7 @@ namespace WineHangouts
 				}
 				else { City.Enabled = true; }
 				EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
-				PinCode.Text = output.customer.Zip;
+                PinCode.Text = output.customer.Zip;
 				Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
 				Spinner spn = FindViewById<Spinner>(Resource.Id.spinner);
 				Spinner Prefered = FindViewById<Spinner>(Resource.Id.spinner1);
