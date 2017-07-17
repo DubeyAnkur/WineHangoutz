@@ -41,12 +41,7 @@ namespace WineHangoutz
 			try
 			{
 				nfloat width = UIScreen.MainScreen.Bounds.Width;
-				width = width / 2 - 15; 				UICollectionViewFlowLayout flowLayout;
-				flowLayout = new UICollectionViewFlowLayout()
-				{
-					ItemSize = new CGSize(width, 325.0f), 					SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f), 					ScrollDirection = UICollectionViewScrollDirection.Vertical
-				} ; 
-				if (internetStatus == false)
+				width = width / 2 - 15; 				if (internetStatus == false)
 				{
 					UIAlertView alert = new UIAlertView()
 					{
@@ -65,17 +60,7 @@ namespace WineHangoutz
 					//checking is cust is scanned card or not
 						if (CurrentUser.RetreiveUserId() != 0)
 						{
-							nav = new UINavigationController(RootTabs);
-							//if (CurrentUser.GetStore() == 0)
-							//{
-							//	NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
-							//}
-							//else if (CurrentUser.GetStore() == 1)
-							//{
-							//	NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
-							//}
-							//else
-							//{
+					nav = new UINavigationController(RootTabs);
 								AddNavigationButtons(nav);
 								_window.RootViewController = nav;
 								LoggingClass.LogInfo(CurrentUser.RetreiveUserName() + " Logged in", screenid);
@@ -390,8 +375,6 @@ namespace WineHangoutz
 							nav = new UINavigationController(RootTabs);
 							AddNavigationButtons(nav);
 							_window.RootViewController = nav;
-							int DeviceType = 2;
-							await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
 							LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
 						}
 						else
@@ -399,8 +382,6 @@ namespace WineHangoutz
 							nav = new UINavigationController(RootTabs);
 							AddNavigationButtons(nav);
 							_window.RootViewController = nav;
-							int DeviceType = 2;
-							await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(), DeviceType);
 							LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.RetreiveUserId(), screenid);
 						}
 						BTProgressHUD.Dismiss();
@@ -478,22 +459,14 @@ namespace WineHangoutz
 			Boolean status = plist.BoolForKey("status");
 			return status;
 		}
-		public static void SetToken(string token)
-		{
-			plist.SetString(token, "token");
-		}
-		public static string GetToken()
-		{
-			string token = plist.StringForKey("token");
-			return token;
-		}
+		public static UIApplication app { get; set; }
+		public static NSData dt { get; set; }
 		public static UINavigationController navig { get; set; }
 		public static void Clear()
 		{
 			plist.RemoveObject("userName");
 			plist.RemoveObject("userId");
 			plist.RemoveObject("email");
-			plist.RemoveObject("token");
 			plist.RemoveObject("CardNumber");
 		}
 		public static string RetreiveUserName()

@@ -67,6 +67,11 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
+				UIAlertView alert = new UIAlertView()
+				{
+					Title = "Something went wrong,we're on it.",
+				};
+				alert.AddButton("Ok");
 				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 			}
 		}
@@ -125,8 +130,6 @@ namespace WineHangoutz
 	}
 	public class MyReviewCellView : UITableViewCell
 	{
-
-		UITextView WineName;
 		UILabel ReviewDate;
 		UITextView Comments;
 		UILabel Vintage;
@@ -138,6 +141,7 @@ namespace WineHangoutz
 		UILabel WineIdLabel;
 		UIButton ReadMore;
 		UIButton btnLike;
+		UIButton btnItemname;
 		Item myItem;
 		public UINavigationController NavController;
 		public UIViewController Parent;
@@ -154,22 +158,28 @@ namespace WineHangoutz
 				imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 				imageView.ContentMode = UIViewContentMode.Center;
 				imageView.ClipsToBounds = true;
-				imageView.TouchDown += (object sender, EventArgs e) =>
-				{
-					BTProgressHUD.Show("Loading...");
-				};
+				//imageView.TouchDown += (object sender, EventArgs e) =>
+				//{
+				//	BTProgressHUD.Show("Loading...");
+				//};
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
+					BTProgressHUD.Show("Loading...");
 					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
 				};
 				Review review = new Review();
 				separator = new UIImageView();
-				WineName = new UITextView()
+
+				btnItemname = new UIButton();
+				btnItemname.SetTitle("", UIControlState.Normal);
+				btnItemname.SetTitleColor(UIColor.FromRGB(127, 51, 0), UIControlState.Normal);
+				btnItemname.Font = UIFont.FromName("Verdana-Bold", 13f);
+				btnItemname.LineBreakMode = UILineBreakMode.WordWrap;
+				btnItemname.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+				btnItemname.TouchUpInside += delegate
 				{
-					Font = UIFont.FromName("Verdana", 14f),
-					TextColor = UIColor.FromRGB(127, 51, 0),
-					BackgroundColor = UIColor.Clear,
-					Editable = false
+					BTProgressHUD.Show("Loading...");
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
 				};
 				ReviewDate = new UILabel()
 				{
@@ -259,29 +269,43 @@ namespace WineHangoutz
 				btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				btnLike.Tag = 0;
 				myItem = new Item();
+				bool count =Convert.ToBoolean( myItem.IsLike);
+				if (count == true)
+				{
+				btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);}
+				else
+				{ 
+					btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				}
 				btnLike.TouchUpInside += async(object sender, EventArgs e) =>
 				{
+					
 					try
 					{
-							UIButton temp = (UIButton)sender;
-							if (temp.Tag == 0)
+						UIButton temp = (UIButton)sender;
+						if (temp.Tag == 0)
 							{
 								btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 								temp.Tag = 1;
 								myItem.IsLike = true;
+
 								LoggingClass.LogInfo("Liked Wine " + WineIdLabel.Text, screenid);
+
 							}
 							else
 							{
 								btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 								temp.Tag = 0;
 								myItem.IsLike = false;
+
 								LoggingClass.LogInfo("Unliked Wine " + WineIdLabel.Text, screenid);
 							}
 							SKULike like = new SKULike();
 							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
 							like.BarCode = WineIdLabel.Text;
 							like.Liked = Convert.ToBoolean(temp.Tag);
+
+							myItem.IsLike = Convert.ToBoolean(temp.Tag);
 							await sw.InsertUpdateLike(like);
 					}
 					catch (Exception ex)
@@ -290,7 +314,7 @@ namespace WineHangoutz
 					}
 				};
 				WineIdLabel = new UILabel();
-				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, Comments, stars, imageView, Vintage,separator, btnEdit, btnDelete,btnLike });
+				ContentView.AddSubviews(new UIView[] { btnItemname,ReadMore, ReviewDate, Comments, stars, imageView, Vintage,separator, btnEdit, btnDelete,btnLike });
 			}
 			catch (Exception ex)
 			{
@@ -303,9 +327,41 @@ namespace WineHangoutz
 			{
 				imageView.SetImage(BlobWrapper.GetResizedImage(review.Barcode, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
-				WineName.Text = review.Name + " " + review.Vintage.ToString();
+				btnItemname.SetTitle(review.Name + " " + review.Vintage,UIControlState.Normal);
 				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 				Comments.Text = review.RatingText;
+				if (review.RatingText.Length > 97)
+				{
+					ReadMore.Frame = new CGRect(ContentView.Bounds.Width - 80, 150, 75, 20);
+					ReadMore.TouchUpInside += delegate {
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = review.RatingText,
+							//Message = "Coming Soon..."
+						};
+
+						alert.AddButton("OK");
+						alert.Show();
+					};
+				}
+				if (review.Liked ==1)
+				{
+					btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+					btnLike.TouchUpInside +=async delegate {
+						btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+							SKULike like = new SKULike();
+							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+							like.BarCode = WineIdLabel.Text;
+							like.Liked = Convert.ToBoolean(0);
+
+							myItem.IsLike = Convert.ToBoolean(0);
+							await sw.InsertUpdateLike(like);
+					};
+				}
+				else
+				{
+					btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				}
 				//if (review.  == true)
 				//	{ 
 				//		heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
@@ -346,18 +402,16 @@ namespace WineHangoutz
 			try
 			{
 				base.LayoutSubviews();
-				int imageWidth = 110; // + 10;
+				int imageWidth = 165; // + 10;
 				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
-				WineName.Frame = new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
-				//Vintage.Frame = new CGRect(imageWidth, 43, ContentView.Bounds.Width - imageWidth, 15);
-				separator.Frame = new CGRect(imageWidth, 79, WineName.Frame.Width-100, 3);
+				btnItemname.Frame=new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
+				separator.Frame = new CGRect(imageWidth, 79, btnItemname.Frame.Width-100, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);
-				//stars.Frame = new CGRect(35, 50, 100, 20);
+				stars.Frame=new CGRect(imageWidth - 4, 60, 60 ,20);
 				stars.UserInteractionEnabled = false;
 				Comments.Frame = new CGRect(imageWidth - 4, 99, ContentView.Bounds.Width - imageWidth - 2, 70);
 				btnEdit.Frame = new CGRect(ContentView.Bounds.Width - 60, 10, 25, 25);
 				btnDelete.Frame = new CGRect(ContentView.Bounds.Width - 30, 10, 25, 25);
-				ReadMore.Frame = new CGRect(ContentView.Bounds.Width - 80, 150, 75, 20);
 				btnLike.Frame = new CGRect(ContentView.Bounds.Width - 30, 40, 25, 25);
 			}
 			catch (Exception ex)

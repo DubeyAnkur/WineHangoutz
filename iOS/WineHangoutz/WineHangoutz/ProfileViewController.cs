@@ -25,6 +25,7 @@ namespace WineHangoutz
 		StatePickerDataModel pickerDataModel;
 		StorePickerDataModel StoreDataModel;
 		public IntPtr handle;
+		nfloat n;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
 		{
@@ -51,8 +52,11 @@ namespace WineHangoutz
 					alert.AddButton("OK");
 					alert.Show();
 				}
+				//UITapGestureRecognizer singleTap = new UITapGestureRecognizer();
+				//singleTap.CancelsTouchesInView = false;
+				//Scroll.AddGestureRecognizer(singleTap);
 				DismissKeyboardOnBackgroundTap();
-				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
+				//NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
 				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
 				pickerDataModel = new StatePickerDataModel();
@@ -106,7 +110,11 @@ namespace WineHangoutz
 				pickerDataModel.Items.Add("WV");
 				pickerDataModel.Items.Add("WI");
 				pickerDataModel.Items.Add("WY");
+
 				statePicker.Model = pickerDataModel;
+				//statePicker.BackgroundColor = UIColor.Red;
+				//statePicker = new UIPickerView(new CGRect(01,01,UIScreen.MainScreen.Bounds.Width,UIScreen.MainScreen.Bounds.Height));
+				//	//UIScreen.MainScreen.Bounds.X-UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width, 180));
 				StoreDataModel = new StorePickerDataModel();
 				StoreDataModel.Items.Add("Wall");
 				StoreDataModel.Items.Add("Pt. Pleasant Beach");
@@ -234,7 +242,6 @@ namespace WineHangoutz
 							cust.Zip = txtZipCode.Text;
 							cust.PreferredStore = StoreDataModel.SelectedItem;
 							CurrentUser.PutStore(StoreDataModel.SelectedItem);
-							//cust.State = txtState.Text;
 							await sw.UpdateCustomer(cust);
 							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
 							//try
@@ -338,16 +345,19 @@ namespace WineHangoutz
 			nfloat currentViewHeight = viewFrame.Height + r.Height;
 			// update scrollViewFrame
 			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, currentViewHeight);
+			Scroll.ContentOffset = new CGPoint(0, 100);
 		}
-		private void KeyBoardDownNotification(NSNotification notification)
-		{
-			// Get bounds of parent view
-			CGRect viewFrame = View.Bounds;
-			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
-		}
+		//private void KeyBoardDownNotification(NSNotification notification)
+		//{
+		//	// Get bounds of parent view
+		//	CGRect viewFrame = View.Bounds;
+		//	Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
+		//	Scroll.ContentOffset = new CGPoint(0,0);
+		//}
 		protected void DismissKeyboardOnBackgroundTap()
 		{
-			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+			var tap = new UITapGestureRecognizer 
+			{ CancelsTouchesInView = false };
 			tap.AddTarget(() => View.EndEditing(true));
 			View.AddGestureRecognizer(tap);
 		}
@@ -550,16 +560,19 @@ namespace WineHangoutz
 
 		public override nint GetRowsInComponent(UIPickerView picker, nint component)
 		{
+			
 			return Items.Count;
 		}
 
 		public override string GetTitle(UIPickerView picker, nint row, nint component)
 		{
+			
 			return Items[(int)row];
 		}
 
 		public override nint GetComponentCount(UIPickerView picker)
 		{
+			
 			return 1;
 		}
 
@@ -567,6 +580,8 @@ namespace WineHangoutz
 		public override void Selected(UIPickerView picker, nint row, nint component)
 		{
 			selectedIndex = (int)row;
+			picker = new UIPickerView(new CGRect(UIScreen.MainScreen.Bounds.X - UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height - 230, UIScreen.MainScreen.Bounds.Width, 180));
+			picker.BackgroundColor=UIColor.Black;
 			if (ValueChanged != null)
 			{
 				ValueChanged(this, new EventArgs());

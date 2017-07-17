@@ -12,6 +12,7 @@ namespace WineHangoutz
 {
 	public partial class PhyCollectionView : UICollectionViewController
 	{
+		
 		private string screen = "Gridview Controller";
 		public ItemListResponse myData;
 		public int storeId = 2;
@@ -34,9 +35,15 @@ namespace WineHangoutz
 
 		}
 		public override void ViewDidLoad()
-		{
+		{	
 			try
 			{
+				//                    this.NavigationItem.SetRightBarButtonItem(
+
+				//	new UIBarButtonItem(UIBarButtonSystemItem.Action, (sender, args) => {
+				//       // button was clicked
+				//})
+				//, true);
 					ServiceWrapper svc = new ServiceWrapper();
 					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
 					this.CollectionView.Add(refreshControl);
@@ -47,10 +54,10 @@ namespace WineHangoutz
 					CollectionView.ReloadData();
 					refreshControl.EndRefreshing();
 					};
-				BTProgressHUD.Dismiss();
-				this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
-				this.CollectionView.BackgroundColor = UIColor.White;
-				CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
+					BTProgressHUD.Dismiss();
+					this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
+					this.CollectionView.BackgroundColor = UIColor.White;
+					CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
 				
 			}
 			catch (Exception ex)
@@ -93,6 +100,7 @@ namespace WineHangoutz
 			nint cou = 0;
 			try
 			{
+				
 				cou = myData.ItemList.Count;
 				//myData.ErrorDescription
 			}
@@ -123,7 +131,7 @@ namespace WineHangoutz
 				cell.NavigationController = NavigationController;
 				//cell.btlImage.SetBackgroundImage(UIImage.FromFile("Wines/wine" + indexPath.Item % 8 + ".png"), UIControlState.Normal);
 				cell.parent = this.View;
-
+				//NavigationController.NavigationBar.TopItem.Title = "Locations";
 
 				int index = (int)indexPath.Item;
 

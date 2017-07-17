@@ -136,6 +136,7 @@ namespace WineHangoutz
 		UIButton imageView;
 		UIButton heartImage;
 		UILabel WineIdLabel;
+		UIButton btnItemname;
 		public Item myItem;
 		ServiceWrapper sw = new ServiceWrapper();
 		Tastings taste = new Tastings();
@@ -161,6 +162,16 @@ namespace WineHangoutz
 					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
 				};
 				separator = new UIImageView();
+				btnItemname = new UIButton();
+				btnItemname.SetTitle("", UIControlState.Normal);
+				btnItemname.SetTitleColor(UIColor.FromRGB(127, 51, 0), UIControlState.Normal);
+				btnItemname.Font = UIFont.FromName("Verdana-Bold", 13f);
+				btnItemname.LineBreakMode = UILineBreakMode.WordWrap;
+				btnItemname.TouchUpInside +=delegate
+				{
+					BTProgressHUD.Show("Loading...");
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
+				};
 				WineName = new UILabel()
 				{
 					Font = UIFont.FromName("Verdana", 14f),
@@ -188,6 +199,14 @@ namespace WineHangoutz
 				heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				heartImage.Tag = 0;
 				myItem = new Item();
+bool count = Convert.ToBoolean(myItem.IsLike);
+				if (count == true)
+				{
+heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);}
+				else
+				{ 
+heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				}
 				heartImage.TouchUpInside += async (object sender, EventArgs e) =>
 				{
 					try
@@ -215,7 +234,7 @@ namespace WineHangoutz
 							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
 							like.BarCode = WineIdLabel.Text;
 							like.Liked = Convert.ToBoolean(temp.Tag);
-
+							myItem.IsLike=Convert.ToBoolean(temp.Tag);
 							ServiceWrapper sw = new ServiceWrapper();
 							await sw.InsertUpdateLike(like);
 						}
@@ -226,7 +245,7 @@ namespace WineHangoutz
 					}
 				};
 				WineIdLabel = new UILabel();
-				ContentView.AddSubviews(new UIView[] { WineName, ReviewDate, imageView, Vintage, separator,heartImage });
+				ContentView.AddSubviews(new UIView[] { btnItemname, ReviewDate, imageView, Vintage, separator,heartImage });
 			}
 			catch (Exception ex)
 			{
@@ -243,10 +262,31 @@ namespace WineHangoutz
 					ReviewDate.Text = "Tasted on :" + tasting.TastingDate.ToString("MM-dd-yyyy");
 					Vintage.Text = tasting.Vintage.ToString();
 					WineIdLabel.Text = tasting.Barcode;
+					btnItemname.SetTitle(tasting.Name, UIControlState.Normal);
+					btnItemname.LineBreakMode = UILineBreakMode.WordWrap;
+					btnItemname.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
 					storeid = tasting.PlantFinal;
 					if (tasting.IsLike == true)
 					{ 
 						heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+//					heartImage.TouchUpInside +=async delegate {
+//						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+//							SKULike like = new SKULike();
+//							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+//							like.BarCode = WineIdLabel.Text;
+//							like.Liked = Convert.ToBoolean(0);
+//							myItem.IsLike = Convert.ToBoolean(0);
+//							ServiceWrapper sw = new ServiceWrapper();
+//await sw.InsertUpdateLike(like);
+
+//					};
+					}
+				else
+					{
+						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+
+
+
 					}
 				}
 				catch (Exception ex)
@@ -274,6 +314,7 @@ namespace WineHangoutz
 				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
 				heartImage.Frame = new CGRect(ContentView.Bounds.Width - 30,2 , 25, 25);
+				btnItemname.Frame = new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
 				//Notastings.Frame=new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
 				//stars.Frame = new CGRect(35, 50, 100, 20);
 			}

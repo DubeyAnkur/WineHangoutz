@@ -345,12 +345,12 @@ namespace WineHangoutz
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "UpdateCustomer");
             return 1;
         }
-		public async Task<int> InsertUpdateToken(string token,string user_id,int DeviceType)
+		public async Task<int> InsertUpdateToken(string token,string user_id)
 		{
 			sw.Start();
 			try
 			{
-				var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + user_id + "/token/" + token.Replace(" ", "")+"/DeviceType/"+DeviceType);
+				var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + user_id + "/token/" + token.Replace(" ", "")+"/DeviceType/2");
 				var content = JsonConvert.SerializeObject(token);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
 				string Token = CurrentUser.GetAuthToken();

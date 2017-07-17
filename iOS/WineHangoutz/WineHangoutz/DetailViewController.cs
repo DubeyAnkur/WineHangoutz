@@ -313,8 +313,8 @@ namespace WineHangoutz
 		public UITableView LoadReviews(ItemDetails data, nfloat Y, nfloat width)
 		{
 				var reviewTable = new UITableView();
-				reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count * 90) + 35);
-				reviewTable.Source = new ReviewTableSource(data.Reviews);
+				reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count * 90) + 90);
+				reviewTable.Source = new ReviewTableSource(data.Reviews);//,NavigationController,this);
 				reviewTable.AllowsSelection = false;
 				reviewTable.ScrollEnabled = false;
 				return reviewTable;

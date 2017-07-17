@@ -36,89 +36,89 @@ namespace WineHangoutz
 				btnReviews.SetBackgroundImage(new UIImage("Images/winereviews.jpg"), UIControlState.Normal);
 				btnTastings.SetBackgroundImage(new UIImage("Images/winetasting.jpg"), UIControlState.Normal);
 				btnFavourites.SetBackgroundImage(new UIImage("Images/myfavorate.jpg"), UIControlState.Normal);
-				if (CurrentUser.RetreiveUserId() == 0)
-				{
-					UIAlertView alert1 = new UIAlertView()
-					{
-						Title = "This feature is allowed only for VIP Card holders",
-						//Message = "Coming Soon..."
-					};
+				//if (CurrentUser.RetreiveUserId() == 0)
+				//{
+				//	UIAlertView alert1 = new UIAlertView()
+				//	{
+				//		Title = "This feature is allowed only for VIP Card holders",
+				//		//Message = "Coming Soon..."
+				//	};
 
-					alert1.AddButton("OK");
-					alert1.AddButton("Know more");
-						alert1.Clicked += (senderalert, buttonArgs) =>
-						{
-							if (buttonArgs.ButtonIndex == 1)
-							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
-							}
-						};
-					//alert1.AddButton("Login");
+				//	alert1.AddButton("OK");
+				//	alert1.AddButton("Know more");
+				//		alert1.Clicked += (senderalert, buttonArgs) =>
+				//		{
+				//			if (buttonArgs.ButtonIndex == 1)
+				//			{
+				//				UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+				//			}
+				//		};
+				//	//alert1.AddButton("Login");
 
-					alert1.Show();
+				//	alert1.Show();
 
 
 
-					btnReviews.TouchUpInside += (sender, e) =>
-					{
-						UIAlertView alert = new UIAlertView()
-						{
-							Title = "This feature is allowed only for VIP Card holders",
-								//Message = "Coming Soon..."
-							};
+				//	btnReviews.TouchUpInside += (sender, e) =>
+				//	{
+				//		UIAlertView alert = new UIAlertView()
+				//		{
+				//			Title = "This feature is allowed only for VIP Card holders",
+				//				//Message = "Coming Soon..."
+				//			};
 
-						alert.AddButton("OK");
-						alert.AddButton("Know more");
-						alert.Clicked += (senderalert, buttonArgs) =>
-						{
-							if (buttonArgs.ButtonIndex == 1)
-							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
-							}
-						};
-						alert.Show();
-					};
-					btnTastings.TouchUpInside += (sender, e) =>
-					{
-						UIAlertView alert = new UIAlertView()
-						{
-							Title = "This feature is allowed only for VIP Card holders",
-								//Message = "Coming Soon..."
-							};
+				//		alert.AddButton("OK");
+				//		alert.AddButton("Know more");
+				//		alert.Clicked += (senderalert, buttonArgs) =>
+				//		{
+				//			if (buttonArgs.ButtonIndex == 1)
+				//			{
+				//				UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+				//			}
+				//		};
+				//		alert.Show();
+				//	};
+				//	btnTastings.TouchUpInside += (sender, e) =>
+				//	{
+				//		UIAlertView alert = new UIAlertView()
+				//		{
+				//			Title = "This feature is allowed only for VIP Card holders",
+				//				//Message = "Coming Soon..."
+				//			};
 
-						alert.AddButton("OK");
-						alert.AddButton("Know more");
-						alert.Clicked += (senderalert, buttonArgs) =>
-						{
-							if (buttonArgs.ButtonIndex == 1)
-							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
-							}
-						};
-						alert.Show();
-					};
-					btnFavourites.TouchUpInside += (sender, e) =>
-					{
-						UIAlertView alert = new UIAlertView()
-						{
-							Title = "This feature is allowed only for VIP Card holders",
-								//Message = "Coming Soon..."
-							};
+				//		alert.AddButton("OK");
+				//		alert.AddButton("Know more");
+				//		alert.Clicked += (senderalert, buttonArgs) =>
+				//		{
+				//			if (buttonArgs.ButtonIndex == 1)
+				//			{
+				//				UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+				//			}
+				//		};
+				//		alert.Show();
+				//	};
+				//	btnFavourites.TouchUpInside += (sender, e) =>
+				//	{
+				//		UIAlertView alert = new UIAlertView()
+				//		{
+				//			Title = "This feature is allowed only for VIP Card holders",
+				//				//Message = "Coming Soon..."
+				//			};
 
-						alert.AddButton("OK");
-						alert.AddButton("Know more");
-						alert.Clicked += (senderalert, buttonArgs) =>
-						{
-							if (buttonArgs.ButtonIndex == 1)
-							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
-							}
-						};
-						alert.Show();
-					};
-				}
-				else
-				{
+				//		alert.AddButton("OK");
+				//		alert.AddButton("Know more");
+				//		alert.Clicked += (senderalert, buttonArgs) =>
+				//		{
+				//			if (buttonArgs.ButtonIndex == 1)
+				//			{
+				//				UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+				//			}
+				//		};
+				//		alert.Show();
+				//	};
+				//}
+				//else
+				//{
 					btnReviews.TouchDown += (sender, e) =>
 					{
 						BTProgressHUD.Show("Loading..."); //show spinner + text
@@ -134,49 +134,108 @@ namespace WineHangoutz
 
 					btnReviews.TouchUpInside += (sender, e) =>
 					{
-
-						var MyReview = new MyReviewViewController();
-						NavigationController.PushViewController(MyReview, false);
-						LoggingClass.LogInfo("Entered into My Reviews", screen);
-
-
-						BTProgressHUD.Dismiss();
-						NavigationController.NavigationBar.TopItem.Title = "My Reviews";
+						if (CurrentUser.RetreiveUserId() != 0)
+						{
+							var MyReview = new MyReviewViewController();
+							NavigationController.PushViewController(MyReview, false);
+							LoggingClass.LogInfo("Entered into My Reviews", screen);
+							BTProgressHUD.Dismiss();
+							NavigationController.NavigationBar.TopItem.Title = "My Reviews";
+						}
+						else
+						{
+							BTProgressHUD.Dismiss();
+							UIAlertView alert = new UIAlertView()
+							{
+							Title = "This feature is allowed only for VIP Card holders",
+							//Message = "Coming Soon..."
+							};
+							alert.AddButton("OK");
+							alert.AddButton("Know more");
+							alert.Clicked += (senderalert, buttonArgs) =>
+							{
+							if (buttonArgs.ButtonIndex == 1)
+								{
+										UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+									}
+								};
+								alert.Show();
+						}
 
 					};
 
 					btnTastings.TouchUpInside += (sender, e) =>
 					{
-						var MyTaste = new MyTastingViewController();
-						NavigationController.PushViewController(MyTaste, false);
-						LoggingClass.LogInfo("Entered into My Tastings", screen);
+						if (CurrentUser.RetreiveUserId() != 0)
+						{
+							var MyTaste = new MyTastingViewController();
+							NavigationController.PushViewController(MyTaste, false);
+							LoggingClass.LogInfo("Entered into My Tastings", screen);
+							BTProgressHUD.Dismiss();
+							NavigationController.NavigationBar.TopItem.Title = "My Tastings";
+						}
+						else
+						{ 
 
-
-						BTProgressHUD.Dismiss();
-
-						NavigationController.NavigationBar.TopItem.Title = "My Tastings";
+							BTProgressHUD.Dismiss();
+							UIAlertView alert = new UIAlertView()
+							{
+								Title = "This feature is allowed only for VIP Card holders",
+								//Message = "Coming Soon..."
+							};
+							alert.AddButton("OK");
+							alert.AddButton("Know more");
+							alert.Clicked += (senderalert, buttonArgs) =>
+							{
+							if (buttonArgs.ButtonIndex == 1)
+									{
+										UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+									}
+								};
+								alert.Show();
+						}
 					};
 
 					btnFavourites.TouchUpInside += (sender, e) =>
 					{
-						nfloat width = UIScreen.MainScreen.Bounds.Width;
-						width = width / 2 - 15;
-
-						UICollectionViewFlowLayout flowLayout;
-						flowLayout = new UICollectionViewFlowLayout()
+						if (CurrentUser.RetreiveUserId() != 0)
 						{
-							ItemSize = new CGSize(width, 325.0f),
-							SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
-							ScrollDirection = UICollectionViewScrollDirection.Vertical
-						};
+							nfloat width = UIScreen.MainScreen.Bounds.Width;
+							width = width / 2 - 15;
+							UICollectionViewFlowLayout flowLayout;
+							flowLayout = new UICollectionViewFlowLayout()
+							{
+								ItemSize = new CGSize(width, 325.0f),
+								SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+								ScrollDirection = UICollectionViewScrollDirection.Vertical
+							};
 							NavigationController.PushViewController(new MyFavController(flowLayout), false);
 							NavigationController.NavigationBar.TopItem.Title = "My Favorites";
-						LoggingClass.LogInfo("Entered into Favourite View", screen);
-					
+							LoggingClass.LogInfo("Entered into Favourite View", screen);
+							BTProgressHUD.Dismiss();
+						}
+						else
+						{
 
-						BTProgressHUD.Dismiss();
+							BTProgressHUD.Dismiss();
+							UIAlertView alert = new UIAlertView()
+							{
+								Title = "This feature is allowed only for VIP Card holders",
+								//Message = "Coming Soon..."
+							};
+							alert.AddButton("OK");
+							alert.AddButton("Know more");
+							alert.Clicked += (senderalert, buttonArgs) =>
+							{
+							if (buttonArgs.ButtonIndex == 1)
+									{
+										UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+									}
+								};
+								alert.Show();
+						}
 					};
-				}
+				//}
 				View.AddSubview(btnReviews);
 				View.AddSubview(btnTastings);
 				View.AddSubview(btnFavourites);

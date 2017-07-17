@@ -30,18 +30,43 @@ namespace WineHangoutz
 		{
 		return UIInterfaceOrientation.Portrait;
 		}
-
 		void RestrictRotation(bool restriction)
 		{
 			AppDelegate app = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			app.RestrictRotation = restriction;
 		}
-
 		public override void ViewDidLoad()
 		{
-
+			try
+			{
+				nfloat width = UIScreen.MainScreen.Bounds.Width;
+				width = width / 2 - 15;
+				UICollectionViewFlowLayout flowLayout;
+				flowLayout = new UICollectionViewFlowLayout()
+				{
+					ItemSize = new CGSize(width, 325.0f),
+									SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+									ScrollDirection = UICollectionViewScrollDirection.Vertical
+				} ;
+                TokenUpdate();
+				if (CurrentUser.GetStore() == 0)
+				{
+					BTProgressHUD.Show("Please wait...");
+					this.Title = "Locations";
+					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
+				}
+				else if (CurrentUser.GetStore() == 1)
+				{
+					BTProgressHUD.Show("Please wait...");
+                    this.Title = "Locations";
+					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
+				}
+			}
+			catch(Exception ex)
+			{
+				LoggingClass.LogError(ex.Message+" User not allowed to send notifications.", screen, ex.StackTrace);
+			}
 			//AboutController1.ViewDidLoad(base);
-
 			// Perform any additional setup after loading the view, typically from a nib.
 			//LoggingClass.UploadErrorLogs();
 			this.RestrictRotation(false);
@@ -52,7 +77,6 @@ namespace WineHangoutz
 			UIButton btnMan = new UIButton();
 			UIButton btnSec = new UIButton();
 			UIButton btnPP = new UIButton();
-
 			btnMan.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnPP.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnSec.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
@@ -69,14 +93,22 @@ namespace WineHangoutz
 
 			BindClicks(btnMan, btnSec, btnPP, View);
 		}
-
+		public void TokenUpdate()
+		{
+			try
+			{
+				AppDelegate ap = new AppDelegate();
+				ap.RegisteredForRemoteNotifications(CurrentUser.app,CurrentUser.dt);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.Message+" User not allowed to send notifications.", screen, ex.StackTrace);
+			}
+		}
 		public void BindClicks(UIButton btnMan, UIButton btnSec, UIButton btnPP, UIView parentView)
 		{
 			try
 			{
-
-
-
 				btnMan.TouchDown += (sender, e) =>
 			   {
 					
@@ -176,7 +208,6 @@ namespace WineHangoutz
 			//CurrentUser.PutLoginStatus(false);
 			//login check in
 		}
-
 		public override void DidReceiveMemoryWarning()
 		{
 			base.DidReceiveMemoryWarning();

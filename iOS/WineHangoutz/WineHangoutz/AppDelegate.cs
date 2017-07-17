@@ -41,9 +41,9 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 			//CurrentUser.Clear();
-			//CurrentUser.Store("48732", "Admin");
+			CurrentUser.Store("3", "sumanth");
 			//for direct log in
-			//CurrentUser.PutCardNumber("8902519310330");
+			CurrentUser.PutCardNumber("8902519310330");
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
 
@@ -82,26 +82,33 @@ namespace WineHangoutz
 
 		public override async void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 		{
-			var DeviceToken = deviceToken.Description;
-			if (!string.IsNullOrWhiteSpace(DeviceToken))
+			try
 			{
-				DeviceToken = DeviceToken.Trim('<').Trim('>');
-				CurrentUser.SetToken(DeviceToken);
-			}
-			ServiceWrapper svc = new ServiceWrapper();
-			int DeviceType = 2;
-			await svc.InsertUpdateToken(CurrentUser.GetToken(), CurrentUser.RetreiveUserId().ToString(),DeviceType);
-			// Get previous device token
-			var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
+				CurrentUser.app = application;
+				CurrentUser.dt = deviceToken;
+				var DeviceToken = deviceToken.Description;
+				if (!string.IsNullOrWhiteSpace(DeviceToken))
+				{
+					DeviceToken = DeviceToken.Trim('<').Trim('>');
+				}
+				ServiceWrapper svc = new ServiceWrapper();
+				await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
+				// Get previous device token
+				var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
 
-			// Has the token changed?
-			if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
+				// Has the token changed?
+				if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
+				{
+					//TODO: Put your own logic here to notify your server that the device token has changed/been created!
+				}
+
+				// Save new device token 
+				NSUserDefaults.StandardUserDefaults.SetString(DeviceToken, "PushDeviceToken");
+			}
+			catch (Exception ex)
 			{
-				//TODO: Put your own logic here to notify your server that the device token has changed/been created!
+				LoggingClass.LogError(ex.Message+" User not allowed to send notifications.", screen, ex.StackTrace);
 			}
-
-			// Save new device token 
-			NSUserDefaults.StandardUserDefaults.SetString(DeviceToken, "PushDeviceToken");
 
 		}
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)

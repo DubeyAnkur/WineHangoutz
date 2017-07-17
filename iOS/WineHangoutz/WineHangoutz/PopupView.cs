@@ -275,7 +275,7 @@ namespace WineHangoutz
 
 				await sw.InsertUpdateReview(review);
 				//NavController.DismissViewController(true, null);
-				BTProgressHUD.ShowSuccessWithStatus("Thank you!!!", 10000);
+				BTProgressHUD.ShowSuccessWithStatus("Thank you!!!", 2000);
 				((IPopupParent)parent).RefreshParent();
 			}
 			catch (Exception ex)

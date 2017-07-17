@@ -35,9 +35,9 @@ namespace WineHangoutz {
 		[Export ("initWithFrame:")]
 		public APLCollectionViewCell (CGRect frame) : base (frame)
 		{
-			//NavigationController.NavigationBar.TopItem.Title = "List";
 			try
 			{
+				BTProgressHUD.Show("Please wait...");
 				CGRect box = new CGRect(Bounds.Location, Bounds.Size);
 				box.X = 0;
 				box.Y = 0;
