@@ -142,6 +142,7 @@ namespace WineHangoutz
 		UIButton ReadMore;
 		UIButton btnLike;
 		UIButton btnItemname;
+		UIButton btnBack;
 		Item myItem;
 		public UINavigationController NavController;
 		public UIViewController Parent;
@@ -153,6 +154,9 @@ namespace WineHangoutz
 		{
 			try
 			{
+				btnBack = new UIButton();
+				btnBack.BackgroundColor = UIColor.FromRGB(63, 63, 63);
+				btnBack.UserInteractionEnabled = false;
 				SelectionStyle = UITableViewCellSelectionStyle.Gray;
 				imageView = new UIButton();
 				imageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
@@ -314,7 +318,7 @@ namespace WineHangoutz
 					}
 				};
 				WineIdLabel = new UILabel();
-				ContentView.AddSubviews(new UIView[] { btnItemname,ReadMore, ReviewDate, Comments, stars, imageView, Vintage,separator, btnEdit, btnDelete,btnLike });
+				ContentView.AddSubviews(new UIView[] { btnBack,btnItemname,ReadMore, ReviewDate, Comments, stars, imageView, Vintage,separator, btnEdit, btnDelete,btnLike });
 			}
 			catch (Exception ex)
 			{
@@ -332,7 +336,7 @@ namespace WineHangoutz
 				Comments.Text = review.RatingText;
 				if (review.RatingText.Length > 97)
 				{
-					ReadMore.Frame = new CGRect(ContentView.Bounds.Width - 80, 150, 75, 20);
+					ReadMore.Frame = new CGRect(ContentView.Bounds.Width - 25, 160, 70, 25);
 					ReadMore.TouchUpInside += delegate {
 						UIAlertView alert = new UIAlertView()
 						{
@@ -389,7 +393,8 @@ namespace WineHangoutz
 				storeid = Convert.ToInt32(review.PlantFinal);
 				WineIdLabel.Text = review.Barcode.ToString();
 				ReadMore.SetTitle("... Read More", UIControlState.Normal);
-				ReadMore.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+				ReadMore.SetTitleColor(UIColor.Black, UIControlState.Normal);
+				ReadMore.BackgroundColor = UIColor.White;
 				stars.AverageRating = Convert.ToDecimal(review.RatingStars);
 			}
 			catch (Exception ex)
@@ -403,7 +408,12 @@ namespace WineHangoutz
 			{
 				base.LayoutSubviews();
 				int imageWidth = 165; // + 10;
-				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
+				imageView.Frame = new CGRect(5, 5, 130, 130);
+				//imageView.Bounds = new CGRect(3, 3, 133, 133);
+				imageView.Layer.ShadowRadius = 10.0f;
+				imageView.Layer.ShadowColor=UIColor.Black.CGColor;
+				imageView.Layer.ShadowOffset=new CGSize(2, 2);
+				//btnBack.Frame = new CGRect(2, 2, 132, 132);
 				btnItemname.Frame=new CGRect(imageWidth - 4, 2, ContentView.Bounds.Width - imageWidth - 60, 60);
 				separator.Frame = new CGRect(imageWidth, 79, btnItemname.Frame.Width-100, 3);
 				ReviewDate.Frame = new CGRect(imageWidth, 85, ContentView.Bounds.Width - imageWidth, 20);

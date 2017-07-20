@@ -6,8 +6,6 @@
 	<string>Wine Hangouts</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.savvyitsol.winehangoutz</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.11</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -40,7 +38,15 @@
 	<string></string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
+	<key>Supported interface orientations (iPhone)</key>
+	<array>
+		<string>Portrait (bottom button)</string>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>3.0</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>CFBundleShortVersionString</key>
+	<string>1.11</string>
 </dict>
 </plist>

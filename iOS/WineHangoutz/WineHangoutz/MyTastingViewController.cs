@@ -132,6 +132,7 @@ namespace WineHangoutz
 		//UILabel Notastings;
 		UILabel ReviewDate;
 		UILabel Vintage;
+		UILabel location;
 		UIImageView separator;
 		UIButton imageView;
 		UIButton heartImage;
@@ -192,6 +193,12 @@ namespace WineHangoutz
 					TextColor = UIColor.FromRGB(127, 51, 100),
 					BackgroundColor = UIColor.Clear
 				};
+				location = new UILabel()
+{
+	Font = UIFont.FromName("Verdana", 10f),
+					TextColor = UIColor.FromRGB(127, 51, 100),
+					BackgroundColor = UIColor.Clear
+				};
 				heartImage = new UIButton();
 				heartImage.ClipsToBounds = true;
 				heartImage.Layer.BorderColor = UIColor.White.CGColor;
@@ -245,7 +252,7 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 					}
 				};
 				WineIdLabel = new UILabel();
-				ContentView.AddSubviews(new UIView[] { btnItemname, ReviewDate, imageView, Vintage, separator,heartImage });
+				ContentView.AddSubviews(new UIView[] { btnItemname, ReviewDate, imageView, Vintage, separator,heartImage,location });
 			}
 			catch (Exception ex)
 			{
@@ -261,6 +268,9 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 					WineName.Text = tasting.Name;
 					ReviewDate.Text = "Tasted on :" + tasting.TastingDate.ToString("MM-dd-yyyy");
 					Vintage.Text = tasting.Vintage.ToString();
+				if (tasting.PlantFinal == 1) {
+					location.Text = "Tasted at : Wall"; }
+				else {location.Text = "Tasted at : Pt. Pleasant Beach"; }
 					WineIdLabel.Text = tasting.Barcode;
 					btnItemname.SetTitle(tasting.Name, UIControlState.Normal);
 					btnItemname.LineBreakMode = UILineBreakMode.WordWrap;
@@ -311,8 +321,9 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				imageView.Frame = new CGRect(5, 5, imageWidth - 10, 155);
 				WineName.Frame = new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
 				Vintage.Frame = new CGRect(imageWidth, 62, ContentView.Bounds.Width - imageWidth, 15);
-				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - imageWidth, 3);
-				ReviewDate.Frame = new CGRect(imageWidth, 100, ContentView.Bounds.Width - imageWidth, 20);
+				separator.Frame = new CGRect(imageWidth, 79, ContentView.Bounds.Width - (imageWidth+150), 3);
+				location.Frame=new CGRect(imageWidth, 110, ContentView.Bounds.Width - imageWidth, 20);
+				ReviewDate.Frame = new CGRect(imageWidth, 90, ContentView.Bounds.Width - imageWidth, 20);
 				heartImage.Frame = new CGRect(ContentView.Bounds.Width - 30,2 , 25, 25);
 				btnItemname.Frame = new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);
 				//Notastings.Frame=new CGRect(imageWidth, 2, ContentView.Bounds.Width - imageWidth, 60);

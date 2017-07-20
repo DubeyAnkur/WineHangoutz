@@ -15,17 +15,19 @@ namespace WineHangoutz
 {
 	public partial class ProfileViewController : UIViewController
 	{
-
 		public UIViewController root;
 		public UIScrollView Scroll;
+		ServiceWrapper svc = new ServiceWrapper();
 		//public UINavigationController nav;
 		private string screenid = "ProfileViewController";
 		public UINavigationController NavCtrl;
 		UIImagePickerController imagePicker;
 		StatePickerDataModel pickerDataModel;
 		StorePickerDataModel StoreDataModel;
+		CustomerResponse cRes = new CustomerResponse();
 		public IntPtr handle;
-		nfloat n;
+		nfloat h = 0;
+		//nfloat n;
 		//static NSCache ProfileImages;
 		public ProfileViewController(UINavigationController navCtrl) : base("ProfileViewController", null)
 		{
@@ -40,6 +42,11 @@ namespace WineHangoutz
 		{
 			try
 			{
+				//this.NavCtrl.NavigationBar.BarStyle = UIBarStyle.BlackTranslucent;
+				//UINavigationBar.Appearance.BackgroundColor = UIColor.Clear;
+				//NavCtrl.NavigationBar.BackgroundColor = UIColor.Clear;
+				nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
+				ScreenHeight = (ScreenHeight - 100) / 3;
 				Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
 				if (internetStatus == false)
 				{
@@ -52,14 +59,20 @@ namespace WineHangoutz
 					alert.AddButton("OK");
 					alert.Show();
 				}
+
+				UIImageView backgroud = new UIImageView();
+				backgroud.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+				backgroud.Image = new UIImage("Images/proback.jpg");
+				//imgProfile.Frame = new CGRect((View.Frame.Width / 2) - 72, 3 * (backgroud.Frame.Height / 3), 144, 152);
 				//UITapGestureRecognizer singleTap = new UITapGestureRecognizer();
 				//singleTap.CancelsTouchesInView = false;
 				//Scroll.AddGestureRecognizer(singleTap);
-				DismissKeyboardOnBackgroundTap();
-				//NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
+				//DismissKeyboardOnBackgroundTap();
+				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
 				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
 				LoggingClass.LogInfo("Entered into Profile View", screenid);
 				pickerDataModel = new StatePickerDataModel();
+				pickerDataModel.Items.Add("---Select your state---");
 				pickerDataModel.Items.Add("AL");
 				pickerDataModel.Items.Add("AK");
 				pickerDataModel.Items.Add("AZ");
@@ -116,6 +129,7 @@ namespace WineHangoutz
 				//statePicker = new UIPickerView(new CGRect(01,01,UIScreen.MainScreen.Bounds.Width,UIScreen.MainScreen.Bounds.Height));
 				//	//UIScreen.MainScreen.Bounds.X-UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width, 180));
 				StoreDataModel = new StorePickerDataModel();
+				StoreDataModel.Items.Add("---Select preffered store---");
 				StoreDataModel.Items.Add("Wall");
 				StoreDataModel.Items.Add("Pt. Pleasant Beach");
 				StoreDataModel.Items.Add("All");
@@ -160,10 +174,9 @@ namespace WineHangoutz
 				else
 				{
 					DownloadAsync();
-					ServiceWrapper sw = new ServiceWrapper();
-					var cRes = sw.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
-					txtFirstName.Text = cRes.customer.FirstName;
-					txtLastName.Text = cRes.customer.LastName;
+					cRes = svc.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
+					//txtFirstName.Text = cRes.customer.FirstName;
+					txtLastName.Text = cRes.customer.FirstName+" "+cRes.customer.LastName;
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
@@ -177,11 +190,11 @@ namespace WineHangoutz
 					int prefStore = cRes.customer.PreferredStore;
 					storePicker.Select(prefStore, 0, false);
 					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2 + cRes.customer.City;
-					txtFirstName.ShouldReturn += (TextField) =>
-				  {
-					  ((UITextField)TextField).ResignFirstResponder();
-					  return true;
-				  };
+					//txtFirstName.ShouldReturn += (TextField) =>
+				 // {
+					//  ((UITextField)TextField).ResignFirstResponder();
+					//  return true;
+				 // };
 					txtLastName.ShouldReturn += (TextField) =>
 				  {
 					  ((UITextField)TextField).ResignFirstResponder();
@@ -208,82 +221,90 @@ namespace WineHangoutz
 					  return true;
 				  };
 					txtZipCode.AccessibilityScroll(UIAccessibilityScrollDirection.Up);
-					btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-					btnEdit.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-					btnUpdate.TouchDown += (sender, e) =>
-					{
-						BTProgressHUD.Show("Updating profile..."); //show spinner + text
-					};
-					btnUpdate.TouchUpInside += async (sender, e) =>
-					{
-						if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
+					//btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+					//btnEdit.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+					//btnUpdate.TouchDown += (sender, e) =>
+					//{
+					//	BTProgressHUD.Show("Updating profile..."); //show spinner + text
+					//};
+					//btnUpdate.TouchUpInside += async (sender, e) =>
+					//{
+					//	if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
+					//	{
+					//		BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
+					//	}
+					//	else if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
+					//	{
+					//		BTProgressHUD.ShowErrorWithStatus("Email is invalid");
+					//	}
+					//	else if ((txtZipCode.Text.Length!=5))
+					//	{
+					//		BTProgressHUD.ShowErrorWithStatus("Zipcode is invalid");
+					//	}
+					//	else
+					//	{
+					//		LoggingClass.LogInfo("Update button into Profile View", screenid);
+					//		Customer cust = new Customer();
+					//		cust.CustomerID = CurrentUser.RetreiveUserId();
+					//		cust.Address1 = txtAddress.Text;
+					//		cust.FirstName = txtFirstName.Text;
+					//		cust.LastName = txtLastName.Text;
+					//		cust.Email = txtEmail.Text;
+					//		cust.PhoneNumber = txtPhone.Text;
+					//		cust.State = pickerDataModel.SelectedItem;
+					//		cust.Zip = txtZipCode.Text;
+					//		cust.PreferredStore = StoreDataModel.SelectedItem;
+					//		CurrentUser.PutStore(StoreDataModel.SelectedItem);
+					//		await svc.UpdateCustomer(cust);
+					//		BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
+					//		//try
+					//		//{
+					//		//	NavCtrl.PopViewController(true);
+					//		//	//NavCtrl.PushViewController(new FirstViewController(handle), false);
+					//		//}
+					//		//catch (Exception exe)
+					//		//{
+					//		//	LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+					//		//}
+					//	}
+					//};
+					//btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+					UIImage imgbtnCam = UIImage.FromFile("cam.png");
+					imgbtnCam = ResizeImage(imgbtnCam, 25, 25);
+					btnPicEdit.SetImage(imgbtnCam,UIControlState.Normal);
+					btnBack.UserInteractionEnabled = false;
+					//btnPicEdit.SetTitle("Edit", UIControlState.Normal);
+					//try
+					//{
+						btnPicEdit.TouchUpInside += (sender, e) =>
 						{
-							BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
-						}
-						else if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
-						{
-							BTProgressHUD.ShowErrorWithStatus("Email is invalid");
-						}
-						else if ((txtZipCode.Text.Length!=5))
-						{
-							BTProgressHUD.ShowErrorWithStatus("Zipcode is invalid");
-						}
-						else
-						{
-							LoggingClass.LogInfo("Update button into Profile View", screenid);
-							Customer cust = new Customer();
-							cust.CustomerID = CurrentUser.RetreiveUserId();
-							cust.Address1 = txtAddress.Text;
-							cust.FirstName = txtFirstName.Text;
-							cust.LastName = txtLastName.Text;
-							cust.Email = txtEmail.Text;
-							cust.PhoneNumber = txtPhone.Text;
-							cust.State = pickerDataModel.SelectedItem;
-							cust.Zip = txtZipCode.Text;
-							cust.PreferredStore = StoreDataModel.SelectedItem;
-							CurrentUser.PutStore(StoreDataModel.SelectedItem);
-							await sw.UpdateCustomer(cust);
-							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-							//try
-							//{
-							//	NavCtrl.PopViewController(true);
-							//	//NavCtrl.PushViewController(new FirstViewController(handle), false);
-							//}
-							//catch (Exception exe)
-							//{
-							//	LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-							//}
-						}
-
-
-					};
-					btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-					btnEdit.TouchUpInside += (sender, e) =>
-					{
-						try
-						{
-							IsCameraAuthorized();
-							imagePicker = new UIImagePickerController();
-							imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-							imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
-
-							imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-							imagePicker.Canceled += Handle_Canceled;
-							NavCtrl.PresentModalViewController(imagePicker, true);
-							//if (IsCameraAuthorized())
-							//{
-							//	this.PresentModalViewController(imagePicker, false);
-							//}
-						}
-						catch (Exception exe)
-						{
-							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
-						}
-					};
+							try
+							{
+								IsCameraAuthorized();
+								imagePicker = new UIImagePickerController();
+								imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+								imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+								imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+								imagePicker.Canceled += Handle_Canceled;
+								NavCtrl.PresentModalViewController(imagePicker, true);
+								//if (IsCameraAuthorized())
+								//{
+								//	this.PresentModalViewController(imagePicker, false);
+								//}
+							}
+							catch (Exception exe)
+							{
+								LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+							}
+						};
+					//}
+					//catch (Exception exe)
+					//{
+					//}
 				}
-				imgEmail.Image = new UIImage("mail.png");
-				imgAddr.Image = new UIImage("add.png");
-				imgPhone.Image = new UIImage("phone1.png");
+				//imgEmail.Image = new UIImage("mail.png");
+				//imgAddr.Image = new UIImage("add.png");
+				//imgPhone.Image = new UIImage("phone1.png");
 				Scroll = new UIScrollView
 				{
 					Frame = new CGRect(0,0, View.Frame.Width, View.Frame.Height),
@@ -296,39 +317,98 @@ namespace WineHangoutz
 				toolbar.TintColor = UIColor.White;
 				toolbar.BarStyle = UIBarStyle.Default;
 				toolbar.Translucent = true;
-
-
-				Scroll.AddSubview(imgAddr);
-				Scroll.AddSubview(imgPhone);
-				Scroll.AddSubview(imgEmail);
+				UITapGestureRecognizer taps = new UITapGestureRecognizer();
+				taps.CancelsTouchesInView = false;
+				taps.AddTarget(() => Scroll.EndEditing(true));
+				Scroll.AddGestureRecognizer(taps);
+				UIImage imgbtnUpdate = UIImage.FromFile("tick.png");
+				imgbtnUpdate = ResizeImage(imgbtnUpdate, 25, 25);
+				var topBtn = new UIBarButtonItem(imgbtnUpdate, UIBarButtonItemStyle.Plain, async delegate
+				{
+					
+					if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
+					{
+						BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
+					}
+					else if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
+					{
+						BTProgressHUD.ShowErrorWithStatus("Email is invalid");
+					}
+					else if ((txtZipCode.Text.Length != 5))
+					{
+						BTProgressHUD.ShowErrorWithStatus("Zipcode is invalid");
+					}
+					else
+					{
+						BTProgressHUD.Show("Updating Profile...");
+						LoggingClass.LogInfo("Update button into Profile View", screenid);
+						Customer cust = new Customer();
+						cust.CustomerID = CurrentUser.RetreiveUserId();
+						cust.Address1 = txtAddress.Text;
+						//cust.FirstName = txtFirstName.Text;
+						cust.LastName = txtLastName.Text;
+						cust.Email = txtEmail.Text;
+						cust.PhoneNumber = txtPhone.Text;
+						if (pickerDataModel.SelectedItem == "---Select your state---")
+						{
+							cust.State = cRes.customer.State;
+						}
+						else
+						{
+							cust.State = pickerDataModel.SelectedItem;
+						}
+						cust.Zip = txtZipCode.Text;
+						if (StoreDataModel.SelectedItem == 0)
+						{
+							cust.PreferredStore = cRes.customer.PreferredStore;
+							CurrentUser.PutStore(cust.PreferredStore);
+						}
+						else
+						{
+							cust.PreferredStore = StoreDataModel.SelectedItem;
+							CurrentUser.PutStore(cust.PreferredStore);
+						}
+						await svc.UpdateCustomer(cust);
+						BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
+					}
+				});
+				imgProfile.ClipsToBounds = true;
+				imgProfile.BackgroundColor = UIColor.White;
+				NavigationController.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+				btnBack.BackgroundColor = UIColor.FromRGB(93, 93, 93);
+				Scroll.AddSubview(backgroud);
+				Scroll.AddSubview(btnBack);
+				//Scroll.AddSubview(imgAddr);
+				//Scroll.AddSubview(imgPhone);
+				//Scroll.AddSubview(imgEmail);
 				Scroll.AddSubview(txtEmail);
 				Scroll.AddSubview(statePicker);
 				Scroll.AddSubview(storePicker);
 				Scroll.AddSubview(txtPhone);
 				Scroll.AddSubview(txtZipCode);
-				Scroll.AddSubview(txtFirstName);
+				//Scroll.AddSubview(txtFirstName);
 				Scroll.AddSubview(txtLastName);
 				Scroll.AddSubview(txtAddress);
 				Scroll.AddSubview(imgProfile);
-				Scroll.AddSubview(btnEdit);
-				Scroll.AddSubview(btnUpdate);
+				Scroll.AddSubview(btnPicEdit);
 				Scroll.AddSubview(lblEmail);
 				Scroll.AddSubview(lblState);
 				Scroll.AddSubview(lblMobile);
 				Scroll.AddSubview(lblAddress);
 				Scroll.AddSubview(lblZipcode);
-				Scroll.AddSubview(lblFirstname);
+				//Scroll.AddSubview(lblFirstname);
 				Scroll.AddSubview(lblLastname);
-				Scroll.AddSubview(lblTitle);
+				//Scroll.AddSubview(lblTitle);
 				Scroll.AddSubview(lblStorePi);
+
 				//View.AddSubview(Scroll);
-				nfloat h = 0;
+
 				for (int i = 0; i<Scroll.Subviews.Length ; i++)
 				{
 					nfloat n = Scroll.Subviews[i].Frame.Size.Height;
 					h = h + n;
 				}
-				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+50);
+				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+70);
 				View = (Scroll);
 			}
 			catch (Exception ex)
@@ -336,31 +416,42 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
 			}
 		}
+		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
+		{
+			UIGraphics.BeginImageContext(new CGSize(width, height));
+			sourceImage.Draw(new CGRect(0, 0, width, height));
+			var resultImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return resultImage;
+		}
 		private void KeyBoardUpNotification(NSNotification notification)
 		{
 			// get the keyboard size
 			CGRect r = UIKeyboard.BoundsFromNotification(notification);
 			CGRect viewFrame = View.Bounds;
 			// get new height of the content view
-			nfloat currentViewHeight = viewFrame.Height + r.Height;
+			nfloat currentViewHeight = viewFrame.Height - r.Height;
 			// update scrollViewFrame
-			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, currentViewHeight);
-			Scroll.ContentOffset = new CGPoint(0, 100);
+			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, currentViewHeight);
+			Scroll.ContentOffset = new CGPoint(0, 120);
 		}
-		//private void KeyBoardDownNotification(NSNotification notification)
-		//{
-		//	// Get bounds of parent view
-		//	CGRect viewFrame = View.Bounds;
-		//	Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
-		//	Scroll.ContentOffset = new CGPoint(0,0);
-		//}
-		protected void DismissKeyboardOnBackgroundTap()
+		private void KeyBoardDownNotification(NSNotification notification)
 		{
-			var tap = new UITapGestureRecognizer 
-			{ CancelsTouchesInView = false };
-			tap.AddTarget(() => View.EndEditing(true));
-			View.AddGestureRecognizer(tap);
+			// Get bounds of parent view
+			CGRect viewFrame = View.Bounds;
+			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
+			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+50);
+			Scroll.ContentOffset = new CGPoint(0,0);
 		}
+		//protected void DismissKeyboardOnBackgroundTap()
+		//{
+		//	var tap = new UITapGestureRecognizer 
+		//	{ 
+		//		CancelsTouchesInView = false 
+		//	};
+		//	tap.AddTarget(() => View.EndEditing(true));
+		//	View.AddGestureRecognizer(tap);
+		//}
 		void Handle_Canceled(object sender, EventArgs e)
 		{
 			imagePicker.DismissModalViewController(true);

@@ -38,8 +38,7 @@ namespace WineHangoutz
 		{	
 			try
 			{
-				//                    this.NavigationItem.SetRightBarButtonItem(
-
+				//   this.NavigationItem.SetRightBarButtonItem(
 				//	new UIBarButtonItem(UIBarButtonSystemItem.Action, (sender, args) => {
 				//       // button was clicked
 				//})
@@ -157,15 +156,75 @@ namespace WineHangoutz
 				cell.lblRegPrice.Text = myData.ItemList[index].RegPrice.ToString("C", Cultures.UnitedState);
 				cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.myItem = myData.ItemList[index];
-
+				//Boolean temp;
+				SKULike like = new SKULike();
+				ServiceWrapper sw = new ServiceWrapper();
 				cell.btnItemname.SetTitle(myData.ItemList[index].Name, UIControlState.Normal);
 				if (myData.ItemList[index].IsLike == true)
 				{
 					cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+					//cell.heartImage.TouchUpInside +=async delegate
+					//{
+					//	if (CurrentUser.RetreiveUserId() != 0)
+					//	{
+					//		cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+					//		like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+					//		like.BarCode = cell.WineBarcode;
+					//		like.Liked = false;
+					//		await sw.InsertUpdateLike(like);
+					//	}
+					//	else
+					//	{
+					//		UIAlertView alert = new UIAlertView()
+					//		{
+					//			Title = "This feature is allowed only for VIP Card holders",
+					//			//Message = "Coming Soon..."
+					//		};
+					//		alert.AddButton("OK");
+					//		alert.AddButton("Know more");
+					//		alert.Clicked += (senderalert, buttonArgs) =>
+					//		{
+					//			if (buttonArgs.ButtonIndex == 1)
+					//			{
+					//				UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+					//			}
+					//		};
+					//		alert.Show();
+					//	}
+					//};
 				}
 				else
 				{
 					cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+					//cell.heartImage.TouchUpInside +=async delegate
+					//{
+					//	if (CurrentUser.RetreiveUserId() != 0)
+					//	{
+					//		cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+					//		like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+					//		like.BarCode = cell.WineBarcode;
+					//		like.Liked = true;
+					//		await sw.InsertUpdateLike(like);
+					//	}
+					//	else
+					//	{
+					//		UIAlertView alert = new UIAlertView()
+					//		{
+					//			Title = "This feature is allowed only for VIP Card holders",
+					//			//Message = "Coming Soon..."
+					//		};
+					//		alert.AddButton("OK");
+					//		alert.AddButton("Know more");
+					//		alert.Clicked += (senderalert, buttonArgs) =>
+					//		{
+					//			if (buttonArgs.ButtonIndex == 1)
+					//			{
+					//				UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+					//			}
+					//		};
+					//		alert.Show();
+					//	}
+					//};
 				}
 				//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
 				UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].Barcode.ToString(), cell.btlImage.Bounds, cell.storeId.ToString());

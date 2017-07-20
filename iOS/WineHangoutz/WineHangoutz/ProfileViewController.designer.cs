@@ -16,7 +16,11 @@ namespace WineHangoutz
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        WineHangoutz.UIBotton btnEdit { get; set; }
+        UIKit.UIButton btnBack { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton btnPicEdit { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -25,18 +29,6 @@ namespace WineHangoutz
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton btnUpdateNotWorking { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView imgAddr { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView imgEmail { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView imgPhone { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -52,10 +44,6 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblFirstname { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblLastname { get; set; }
 
         [Outlet]
@@ -68,15 +56,7 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblStore { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblStorePi { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblTitle { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -100,10 +80,6 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField txtFirstName { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtLastName { get; set; }
 
         [Outlet]
@@ -114,11 +90,20 @@ namespace WineHangoutz
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtZipCode { get; set; }
 
+        [Action ("BtnBack_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void BtnBack_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
-            if (btnEdit != null) {
-                btnEdit.Dispose ();
-                btnEdit = null;
+            if (btnBack != null) {
+                btnBack.Dispose ();
+                btnBack = null;
+            }
+
+            if (btnPicEdit != null) {
+                btnPicEdit.Dispose ();
+                btnPicEdit = null;
             }
 
             if (btnUpdate != null) {
@@ -129,21 +114,6 @@ namespace WineHangoutz
             if (btnUpdateNotWorking != null) {
                 btnUpdateNotWorking.Dispose ();
                 btnUpdateNotWorking = null;
-            }
-
-            if (imgAddr != null) {
-                imgAddr.Dispose ();
-                imgAddr = null;
-            }
-
-            if (imgEmail != null) {
-                imgEmail.Dispose ();
-                imgEmail = null;
-            }
-
-            if (imgPhone != null) {
-                imgPhone.Dispose ();
-                imgPhone = null;
             }
 
             if (imgProfile != null) {
@@ -161,11 +131,6 @@ namespace WineHangoutz
                 lblEmail = null;
             }
 
-            if (lblFirstname != null) {
-                lblFirstname.Dispose ();
-                lblFirstname = null;
-            }
-
             if (lblLastname != null) {
                 lblLastname.Dispose ();
                 lblLastname = null;
@@ -181,19 +146,9 @@ namespace WineHangoutz
                 lblState = null;
             }
 
-            if (lblStore != null) {
-                lblStore.Dispose ();
-                lblStore = null;
-            }
-
             if (lblStorePi != null) {
                 lblStorePi.Dispose ();
                 lblStorePi = null;
-            }
-
-            if (lblTitle != null) {
-                lblTitle.Dispose ();
-                lblTitle = null;
             }
 
             if (lblZipcode != null) {
@@ -219,11 +174,6 @@ namespace WineHangoutz
             if (txtEmail != null) {
                 txtEmail.Dispose ();
                 txtEmail = null;
-            }
-
-            if (txtFirstName != null) {
-                txtFirstName.Dispose ();
-                txtFirstName = null;
             }
 
             if (txtLastName != null) {

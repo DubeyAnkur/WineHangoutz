@@ -24,13 +24,20 @@ namespace WineHangoutz
 		}
 		public bool RestrictRotation { get; set; }
 
-		public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
-		{
-			if (this.RestrictRotation)
-				return UIInterfaceOrientationMask.Portrait;
-			else
-				return UIInterfaceOrientationMask.All;
-		}  
+		//public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+		//{
+		//	if (this.RestrictRotation)
+		//		return UIInterfaceOrientationMask.Portrait;
+		//	else
+		//		return UIInterfaceOrientationMask.All;
+		//} 
+public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+
+{
+
+	return UIInterfaceOrientationMask.AllButUpsideDown;
+
+}
 
 		UINavigationController nav;
 
@@ -41,9 +48,9 @@ namespace WineHangoutz
 			// If not required for your application you can safely delete this method
 			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 			//CurrentUser.Clear();
-			CurrentUser.Store("3", "sumanth");
+			CurrentUser.Store("1", "Soumik");
 			//for direct log in
-			CurrentUser.PutCardNumber("8902519310330");
+			//CurrentUser.PutCardNumber("8902519310330");
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
 

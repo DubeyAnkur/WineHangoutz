@@ -275,6 +275,7 @@
     <Compile Include="Reachability.cs" />
     <Compile Include="MyFavController.cs" />
     <Compile Include="MyfavView.cs" />
+    <Compile Include="baseclass.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
@@ -285,7 +286,6 @@
     <BundleResource Include="Stars\chosen.png" />
     <BundleResource Include="Stars\empty.png" />
     <BundleResource Include="Stars\filled.png" />
-    <BundleResource Include="Resources\user.png" />
     <BundleResource Include="Resources\Close.png" />
     <BundleResource Include="Resources\wine_review.png" />
     <BundleResource Include="Resources\shop.png" />
@@ -334,7 +334,6 @@
     <BundleResource Include="Resources\mail.png" />
     <BundleResource Include="Resources\city.png" />
     <BundleResource Include="Resources\state.png" />
-    <BundleResource Include="Resources\phone.png" />
     <BundleResource Include="Resources\Info.png" />
     <BundleResource Include="Resources\add.png" />
     <BundleResource Include="Resources\City1.png" />
@@ -351,6 +350,11 @@
     <BundleResource Include="Resources\card-icon.png" />
     <BundleResource Include="Resources\FavIns.png" />
     <BundleResource Include="Resources\ReviewIns.png" />
+    <BundleResource Include="Resources\tick.png" />
+    <BundleResource Include="Images\proback.jpg" />
+    <BundleResource Include="Resources\cam.png" />
+    <BundleResource Include="Resources\infoico.png" />
+    <BundleResource Include="Resources\proico.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

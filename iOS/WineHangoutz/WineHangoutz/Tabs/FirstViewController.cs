@@ -16,29 +16,33 @@ namespace WineHangoutz
 		}
 		private string screen = "FirstViewController";
 
-		public override bool ShouldAutorotate()
-		{
-		return false;
-		}
+		//public override bool ShouldAutorotate()
+		//{
+		//return false;
+		//}
 
-		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
-		{
-		return UIInterfaceOrientationMask.Portrait;
-		}
+		//public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+		//{
+		//return UIInterfaceOrientationMask.Portrait;
+		//}
 
-		public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
-		{
-		return UIInterfaceOrientation.Portrait;
-		}
-		void RestrictRotation(bool restriction)
-		{
-			AppDelegate app = (AppDelegate)UIApplication.SharedApplication.Delegate;
-			app.RestrictRotation = restriction;
-		}
+		//public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
+		//{
+		//return UIInterfaceOrientation.Portrait;
+		//}
+		//void RestrictRotation(bool restriction)
+		//{
+		//	AppDelegate app = (AppDelegate)UIApplication.SharedApplication.Delegate;
+		//	app.RestrictRotation = restriction;
+		//}
 		public override void ViewDidLoad()
 		{
 			try
 			{
+				//PreferredInterfaceOrientationForPresentation();
+    			this.RestrictRotation(true); 
+				//UIInterfaceOrientation ui=UIInterfaceOrientation.Portrait;
+
 				nfloat width = UIScreen.MainScreen.Bounds.Width;
 				width = width / 2 - 15;
 				UICollectionViewFlowLayout flowLayout;
@@ -49,13 +53,13 @@ namespace WineHangoutz
 									ScrollDirection = UICollectionViewScrollDirection.Vertical
 				} ;
                 TokenUpdate();
-				if (CurrentUser.GetStore() == 0)
+				if (CurrentUser.GetStore() == 1)
 				{
 					BTProgressHUD.Show("Please wait...");
 					this.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 				}
-				else if (CurrentUser.GetStore() == 1)
+				else if (CurrentUser.GetStore() == 2)
 				{
 					BTProgressHUD.Show("Please wait...");
                     this.Title = "Locations";
@@ -69,7 +73,7 @@ namespace WineHangoutz
 			//AboutController1.ViewDidLoad(base);
 			// Perform any additional setup after loading the view, typically from a nib.
 			//LoggingClass.UploadErrorLogs();
-			this.RestrictRotation(false);
+			//this.RestrictRotation(false);
 			nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 			ScreenHeight = (ScreenHeight - 100) / 3;
 			nfloat margin = 1;
@@ -93,6 +97,21 @@ namespace WineHangoutz
 
 			BindClicks(btnMan, btnSec, btnPP, View);
 		}
+public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+{
+return UIInterfaceOrientationMask.Portrait;
+}
+
+public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
+{
+return UIInterfaceOrientation.Portrait;
+}
+
+void RestrictRotation(bool restriction)
+{
+	AppDelegate app = (AppDelegate)UIApplication.SharedApplication.Delegate;
+	app.RestrictRotation = restriction;
+}  
 		public void TokenUpdate()
 		{
 			try

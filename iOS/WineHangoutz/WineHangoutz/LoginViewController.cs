@@ -99,14 +99,14 @@ namespace WineHangoutz
 
 
 					lblIns.TextAlignment = UITextAlignment.Center;
-					lblIns.TextColor = UIColor.White;
+					lblIns.TextColor = UIColor.Black;
 
 					lblInfo = new UILabel();
 					lblInfo.Frame = new CGRect(0, 300, View.Frame.Width, h);
 					lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 					lblInfo.Lines = 0;
 					lblInfo.TextAlignment = UITextAlignment.Center;
-					lblInfo.TextColor = UIColor.White;
+					lblInfo.TextColor = UIColor.Black;
 
 					lblContactus = new UILabel();
 					lblContactus.TextColor = UIColor.Red;
@@ -115,7 +115,7 @@ namespace WineHangoutz
 
 					nfloat hei = 180 + lblIns.Frame.Height + 10;
 					UIButton btnCardScanner = new UIButton();
-					btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 75, hei, 150, 100);
+					btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 72, hei, 144, 152);
 					btnCardScanner.SetBackgroundImage(new UIImage("card-icon.png"), UIControlState.Normal);
 					start = hei + btnCardScanner.Frame.Height + 10;
 					//btnCardScanner.SetTitle("Touch here to scan", UIControlState.Normal);
@@ -143,7 +143,7 @@ namespace WineHangoutz
 					lblGuest.Text = "Not a VIP Member?";
 					lblGuest.TextAlignment = UITextAlignment.Left;
 					lblGuest.Font = UIFont.ItalicSystemFontOfSize(17);
-					lblGuest.TextColor = UIColor.White;
+					lblGuest.TextColor = UIColor.Black;
 
 					btnGuestLogin = new UIButton(new CGRect(180, View.Frame.Height - 100, 120, 30));
 					btnGuestLogin.SetTitle("Guest Log In", UIControlState.Normal);
@@ -187,7 +187,7 @@ namespace WineHangoutz
 					View.AddSubview(lblInfo);
 					View.AddSubview(lblGuest);
 					View.AddSubview(lblContactus);
-					View.BackgroundColor = UIColor.FromRGB(70, 179, 252);
+					View.BackgroundColor = UIColor.White;
 				
 			}
 			catch (Exception exe)

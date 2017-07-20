@@ -107,7 +107,6 @@ namespace WineHangoutz {
 						like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
 						like.BarCode = WineBarcode;
 						like.Liked = Convert.ToBoolean(temp.Tag);
-
 						ServiceWrapper sw = new ServiceWrapper();
 						await sw.InsertUpdateLike(like);
 					}
@@ -118,7 +117,6 @@ namespace WineHangoutz {
 							Title = "This feature is allowed only for VIP Card holders",
 							//Message = "Coming Soon..."
 						};
-
 						alert.AddButton("OK");
 						alert.AddButton("Know more");
 						alert.Clicked += (senderalert, buttonArgs) =>
@@ -131,7 +129,6 @@ namespace WineHangoutz {
 						alert.Show();
 					}
 				};
-
 				CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
 				lower.Y = 50; //lower.Y + (ratio)*(Bounds.Height);
 				btnItemname = new UIButton(lower);
