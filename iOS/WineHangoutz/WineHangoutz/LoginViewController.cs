@@ -115,7 +115,7 @@ namespace WineHangoutz
 
 					nfloat hei = 180 + lblIns.Frame.Height + 10;
 					UIButton btnCardScanner = new UIButton();
-					btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 72, hei, 144, 152);
+					btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 100, hei, 200, 152);
 					btnCardScanner.SetBackgroundImage(new UIImage("card-icon.png"), UIControlState.Normal);
 					start = hei + btnCardScanner.Frame.Height + 10;
 					//btnCardScanner.SetTitle("Touch here to scan", UIControlState.Normal);
@@ -139,13 +139,13 @@ namespace WineHangoutz
 					};
 					//nfloat strtguest = strtbtn + btnLogin.Frame.Height + 10;
 					UILabel lblGuest = new UILabel();
-					lblGuest.Frame = new CGRect(20, View.Frame.Height - 100, View.Frame.Width, h);
+					lblGuest.Frame = new CGRect(20, View.Frame.Height - 70, View.Frame.Width, h);
 					lblGuest.Text = "Not a VIP Member?";
 					lblGuest.TextAlignment = UITextAlignment.Left;
 					lblGuest.Font = UIFont.ItalicSystemFontOfSize(17);
 					lblGuest.TextColor = UIColor.Black;
 
-					btnGuestLogin = new UIButton(new CGRect(180, View.Frame.Height - 100, 120, 30));
+					btnGuestLogin = new UIButton(new CGRect(180, View.Frame.Height - 70, 120, 30));
 					btnGuestLogin.SetTitle("Guest Log In", UIControlState.Normal);
 					btnGuestLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 					btnGuestLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
@@ -157,29 +157,28 @@ namespace WineHangoutz
 					btnVerify.SetTitle("Verify", UIControlState.Normal);
 					btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 					btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
-					btnGuestLogin.TouchDown += async (sender, e) =>
-				   	{
-						   CurrentUser.Store("0", "Guest");
-						   if (RootTabs == null || _window == null)
-						   {
-							   _window = CurrentUser.window;
-							   RootTabs = CurrentUser.RootTabs;
-							   nav = new UINavigationController(RootTabs);
+				btnGuestLogin.TouchDown += async (sender, e) =>
+				   {
+					   CurrentUser.Store("0", "Guest");
+					   if (RootTabs == null || _window == null)
+					   {
+						   _window = CurrentUser.window;
+						   RootTabs = CurrentUser.RootTabs;
+						   nav = new UINavigationController(RootTabs);
 							   //AddNavigationButtons(nav);
 							   _window.RootViewController = nav;
 							   //nav.DismissViewController(true);
 						   }
-						   nav = new UINavigationController(RootTabs);
-						   AddNavigationButtons(nav);
-						   CurrentUser.RootTabs = RootTabs;
-						   _window.RootViewController = nav;
-						   CurrentUser.window = _window;
-							await svc.InsertUpdateGuest("Didn't get the token");
+					   nav = new UINavigationController(RootTabs);
+					   AddNavigationButtons(nav);
+					   CurrentUser.RootTabs = RootTabs;
+					   _window.RootViewController = nav;
+					   CurrentUser.window = _window;
+					   await svc.InsertUpdateGuest("Didn't get the token");
 
 						   //this.NavigationController.PopToRootViewController (true);
 
 					   };
-					View.BackgroundColor = UIColor.White;
 					View.AddSubview(imgLogo);
 					View.AddSubview(btnGuestLogin);
 					View.AddSubview(lblIns);
@@ -261,7 +260,7 @@ namespace WineHangoutz
 							sTemp = lblInfo.SizeThatFits(sTemp);
 							lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
 							lblInfo.TextAlignment = UITextAlignment.Left;
-							lblInfo.TextColor = UIColor.White;
+							lblInfo.TextColor = UIColor.Black;
 							CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 
 							var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
@@ -318,6 +317,15 @@ namespace WineHangoutz
 						{
 							lblInfo.Text = cr.ErrorDescription;
 							lblInfo.TextColor = UIColor.Red;
+						try
+						{
+							btnLogin.Hidden = true;
+							btnResend.Hidden = true;
+						}
+						catch (Exception exe)
+						{
+							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+						}
 							sTemp = lblInfo.SizeThatFits(sTemp);
 							lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
 							BTProgressHUD.Dismiss();
@@ -328,14 +336,17 @@ namespace WineHangoutz
 					
 						lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
 						lblInfo.TextColor = UIColor.Red;
+						lblInfo.TextAlignment = UITextAlignment.Center;
 						sTemp = lblInfo.SizeThatFits(sTemp);
 						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
 							try
 							{
 								if (btnLogin != null || btnResend != null)
 								{
-										btnLogin.Hidden = true;
-										btnResend.Hidden = true;
+									btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+									btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
+									btnLogin.BackgroundColor = UIColor.White;
+									btnResend.BackgroundColor = UIColor.White;
 								}
 							}
 							catch (Exception ex)
@@ -368,6 +379,7 @@ namespace WineHangoutz
 					if (Dt.VerificationStatus == 1)
 					{
 						CurrentUser.Store(cr.customer.CustomerID.ToString(), cr.customer.FirstName + cr.customer.LastName);
+						CurrentUser.PutStore(cr.customer.PreferredStore);
 						if (RootTabs == null || _window == null)
 						{
 							RootTabs = CurrentUser.RootTabs;

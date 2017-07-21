@@ -355,6 +355,7 @@
     <BundleResource Include="Resources\cam.png" />
     <BundleResource Include="Resources\infoico.png" />
     <BundleResource Include="Resources\proico.png" />
+    <BundleResource Include="Images\aboutus.jpg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

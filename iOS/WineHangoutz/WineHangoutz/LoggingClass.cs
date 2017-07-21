@@ -26,7 +26,7 @@ namespace WineHangoutz
 			csv.AppendLine(newLine);
 			//File.AppendAllText(LogPath, csv.ToString());
 			string logg = csv.ToString();
-			//UploadAsyncLogs(logg);
+			UploadAsyncLogs(logg);
 		}
 		public static void LogServiceInfo(string Info, string servicename)
 		{
@@ -35,7 +35,7 @@ namespace WineHangoutz
 			csv.AppendLine(newLine);
 			//File.AppendAllText(LogPath, csv.ToString());
 			string logg = csv.ToString();
-			//UploadAsyncLogs(logg);
+			UploadAsyncLogs(logg);
 		}
 
 		public static async void UploadAsyncLogs(string log)
@@ -50,7 +50,14 @@ namespace WineHangoutz
 				string userid = CurrentUser.RetreiveUserId().ToString();
 				if (userid == "0")
 				{
-					userid ="g_"+CurrentUser.GuestId;
+					if (CurrentUser.GuestId == "0" || CurrentUser.GuestId == null)
+					{
+						userid = "DefaultLogs";
+					}
+					else 
+					{
+						userid = "g_" + CurrentUser.GuestId;
+					}
 				}
 				CloudAppendBlob append = container.GetAppendBlobReference(userid+".csv");
 				if (!await append.ExistsAsync())

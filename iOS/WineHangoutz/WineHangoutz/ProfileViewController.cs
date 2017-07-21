@@ -17,6 +17,7 @@ namespace WineHangoutz
 	{
 		public UIViewController root;
 		public UIScrollView Scroll;
+		public string name;
 		ServiceWrapper svc = new ServiceWrapper();
 		//public UINavigationController nav;
 		private string screenid = "ProfileViewController";
@@ -176,7 +177,9 @@ namespace WineHangoutz
 					DownloadAsync();
 					cRes = svc.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
 					//txtFirstName.Text = cRes.customer.FirstName;
-					txtLastName.Text = cRes.customer.FirstName+" "+cRes.customer.LastName;
+					name = cRes.customer.FirstName + " " + cRes.customer.LastName;
+					name = name.Trim();
+					txtLastName.Text = name;//cRes.customer.FirstName+" "+cRes.customer.LastName;
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
@@ -280,27 +283,49 @@ namespace WineHangoutz
 						{
 							try
 							{
-								IsCameraAuthorized();
-								imagePicker = new UIImagePickerController();
-								imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-								imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
-								imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-								imagePicker.Canceled += Handle_Canceled;
-								NavCtrl.PresentModalViewController(imagePicker, true);
-								//if (IsCameraAuthorized())
-								//{
-								//	this.PresentModalViewController(imagePicker, false);
-								//}
+								
+								UIAlertView alert = new UIAlertView()
+								{
+									//Title = "This feature is allowed only for VIP Card holders",
+									//Message = "Coming Soon..."
+								};
+								alert.AddButton("Camera");
+								alert.AddButton("Gallery");
+								alert.Clicked += (senderalert, buttonArgs) =>
+								{
+									//if (buttonArgs.ButtonIndex == 0)
+									//{
+         							// IsCameraAuthorized();
+									//	imagePicker = new UIImagePickerController();
+									//	imagePicker.SourceType = UIImagePickerControllerSourceType.Camera;
+									//	imagePicker.Delegate = new CameraDelegate();
+									//}
+								};
+								alert.Clicked += (senderalert, buttonArgs) =>
+								{
+									if (buttonArgs.ButtonIndex == 1)
+									{
+										//imagePicker = new UIImagePickerController();
+										//imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+										//imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+										//imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+										//imagePicker.Canceled += Handle_Canceled;
+										//NavCtrl.PresentModalViewController(imagePicker, true);
+									}
+								};
+								//alert.Show();
+										imagePicker = new UIImagePickerController();
+										imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+										imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+										imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+										imagePicker.Canceled += Handle_Canceled;
+										NavCtrl.PresentModalViewController(imagePicker, true);
 							}
 							catch (Exception exe)
 							{
 								LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 							}
 						};
-					//}
-					//catch (Exception exe)
-					//{
-					//}
 				}
 				//imgEmail.Image = new UIImage("mail.png");
 				//imgAddr.Image = new UIImage("add.png");
@@ -346,7 +371,26 @@ namespace WineHangoutz
 						cust.CustomerID = CurrentUser.RetreiveUserId();
 						cust.Address1 = txtAddress.Text;
 						//cust.FirstName = txtFirstName.Text;
-						cust.LastName = txtLastName.Text;
+						name = txtLastName.Text;
+						name = name.Trim();
+						try
+						{
+							string[] str1 = name.Split(' ');
+							if (str1.Length == 2)
+							{
+								cust.FirstName = str1[0];
+								cust.LastName = str1[1];
+							}
+							else
+							{
+								cust.FirstName = str1[0] + str1[1];
+								cust.LastName = str1[2];
+							}
+						}
+						catch (Exception exe)
+						{
+							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+						}
 						cust.Email = txtEmail.Text;
 						cust.PhoneNumber = txtPhone.Text;
 						if (pickerDataModel.SelectedItem == "---Select your state---")
