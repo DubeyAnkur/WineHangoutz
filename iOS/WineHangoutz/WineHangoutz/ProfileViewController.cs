@@ -224,7 +224,7 @@ namespace WineHangoutz
 					  return true;
 				  };
 					txtZipCode.AccessibilityScroll(UIAccessibilityScrollDirection.Up);
-					//btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+					btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 					//btnEdit.SetTitleColor(UIColor.Purple, UIControlState.Normal);
 					//btnUpdate.TouchDown += (sender, e) =>
 					//{
@@ -250,8 +250,26 @@ namespace WineHangoutz
 					//		Customer cust = new Customer();
 					//		cust.CustomerID = CurrentUser.RetreiveUserId();
 					//		cust.Address1 = txtAddress.Text;
-					//		cust.FirstName = txtFirstName.Text;
-					//		cust.LastName = txtLastName.Text;
+					//		name = txtLastName.Text;
+					//	name = name.Trim();
+					//	try
+					//	{
+					//		string[] str1 = name.Split(' ');
+					//		if (str1.Length == 2)
+					//		{
+					//			cust.FirstName = str1[0];
+					//			cust.LastName = str1[1];
+					//		}
+					//		else
+					//		{
+					//			cust.FirstName = str1[0] + str1[1];
+					//			cust.LastName = str1[2];
+					//		}
+					//	}
+					//	catch (Exception exe)
+					//	{
+					//		LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+					//	}
 					//		cust.Email = txtEmail.Text;
 					//		cust.PhoneNumber = txtPhone.Text;
 					//		cust.State = pickerDataModel.SelectedItem;
@@ -271,7 +289,7 @@ namespace WineHangoutz
 					//		//}
 					//	}
 					//};
-					//btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+					btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 					UIImage imgbtnCam = UIImage.FromFile("cam.png");
 					imgbtnCam = ResizeImage(imgbtnCam, 25, 25);
 					btnPicEdit.SetImage(imgbtnCam,UIControlState.Normal);
@@ -348,9 +366,11 @@ namespace WineHangoutz
 				Scroll.AddGestureRecognizer(taps);
 				UIImage imgbtnUpdate = UIImage.FromFile("tick.png");
 				imgbtnUpdate = ResizeImage(imgbtnUpdate, 25, 25);
-				var topBtn = new UIBarButtonItem(imgbtnUpdate, UIBarButtonItemStyle.Plain, async delegate
+				//var topBtn = new UIBarButtonItem(imgbtnUpdate, UIBarButtonItemStyle.Plain, async delegate
+				//{
+				btnUpdate.TouchUpInside +=async delegate 
 				{
-					
+
 					if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
 					{
 						BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
@@ -415,10 +435,10 @@ namespace WineHangoutz
 						await svc.UpdateCustomer(cust);
 						BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
 					}
-				});
+				};
 				imgProfile.ClipsToBounds = true;
 				imgProfile.BackgroundColor = UIColor.White;
-				NavigationController.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
+				//NavigationController.NavigationBar.TopItem.SetRightBarButtonItem(topBtn, true);
 				btnBack.BackgroundColor = UIColor.FromRGB(93, 93, 93);
 				Scroll.AddSubview(backgroud);
 				Scroll.AddSubview(btnBack);
@@ -442,7 +462,7 @@ namespace WineHangoutz
 				Scroll.AddSubview(lblZipcode);
 				//Scroll.AddSubview(lblFirstname);
 				Scroll.AddSubview(lblLastname);
-				//Scroll.AddSubview(lblTitle);
+				Scroll.AddSubview(btnUpdate);
 				Scroll.AddSubview(lblStorePi);
 
 				//View.AddSubview(Scroll);

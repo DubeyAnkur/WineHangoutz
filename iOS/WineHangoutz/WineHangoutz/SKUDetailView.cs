@@ -157,7 +157,15 @@ namespace WineHangoutz
 					case 3:
 						var lblVintage = new UILabel();
 						lblVintage.Frame = new CGRect(0, 0, this.Width, 20);
-						lblVintage.Text = data.Vintage.ToString();
+						double l = Math.Floor(Math.Log10(data.Vintage) + 1);
+						if (l>4)
+						{
+							lblVintage.Text = "";
+						}
+						else
+						{
+							lblVintage.Text = data.Vintage.ToString();
+						}
 						lblVintage.Font = UIFont.FromName("Verdana", 12f);
 						lblVintage.TextAlignment = UITextAlignment.Center;
 						lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("line123.png"));

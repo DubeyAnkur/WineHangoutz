@@ -24,6 +24,7 @@ namespace WineHangoutz
 
 		public DetailViewController(string WineId, string storeid, Boolean notification) : base ()
 		{
+			BTProgressHUD.Show("Loading...");
 			_wineId =WineId;
 			_storeId = Convert.ToInt32(storeid);
             this.Title = "Wine Details";
@@ -75,7 +76,15 @@ namespace WineHangoutz
 
 					var lblVintage = new UILabel();
 					lblVintage.Frame = new CGRect(View.Frame.Width / 2 - 10, 40, 40, 20);
-					lblVintage.Text = data.Vintage.ToString();
+					double l=Math.Floor(Math.Log10(data.Vintage) + 1);
+  					if (l<4)
+					{
+						lblVintage.Text = " ";
+					}
+					else
+					{
+						lblVintage.Text = data.Vintage.ToString();
+					}
 					lblVintage.Font = UIFont.FromName("Verdana", 12f);
 					lblVintage.TextAlignment = UITextAlignment.Center;
 					lblVintage.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("line123.png"));

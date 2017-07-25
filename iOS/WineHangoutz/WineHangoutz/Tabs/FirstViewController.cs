@@ -4,6 +4,7 @@ using UIKit;
 using Foundation;
 using System.Threading.Tasks;
 using BigTed;
+using System.Threading;
 
 
 namespace WineHangoutz
@@ -131,12 +132,14 @@ void RestrictRotation(bool restriction)
 				btnMan.TouchDown += (sender, e) =>
 			   {
 					
-				   BTProgressHUD.Show("Loading...",500); //show spinner + text
-
+				   BTProgressHUD.Show("Loading...");
+					BTProgressHUD.Dismiss();//show spinner + text
 			   };
 				btnPP.TouchDown += (sender, e) =>
 				{
-					BTProgressHUD.Show("Loading..."); //show spinner + text
+					BTProgressHUD.Show("Loading...");
+
+					BTProgressHUD.Dismiss();//show spinner + text
 				};
 				btnMan.TouchUpInside += (sender, e) =>
 				{
@@ -171,6 +174,7 @@ void RestrictRotation(bool restriction)
 
 				btnPP.TouchUpInside += (sender, e) =>
 				{
+					BTProgressHUD.Show("Loading...",2000);
 					//async (sender, e)
 					//ServiceWrapper svc = new ServiceWrapper();
 					//string ret = await svc.GetDataAsync();
@@ -202,6 +206,7 @@ void RestrictRotation(bool restriction)
 				LoggingClass.LogError (ex.ToString(), screen,ex.StackTrace);
 				}
 		}
+
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
@@ -232,6 +237,5 @@ void RestrictRotation(bool restriction)
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
-
 	}
 }

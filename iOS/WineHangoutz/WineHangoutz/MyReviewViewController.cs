@@ -273,14 +273,6 @@ namespace WineHangoutz
 				btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				btnLike.Tag = 0;
 				myItem = new Item();
-				bool count =Convert.ToBoolean( myItem.IsLike);
-				if (count == true)
-				{
-				btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);}
-				else
-				{ 
-					btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
-				}
 				btnLike.TouchUpInside += async(object sender, EventArgs e) =>
 				{
 					
@@ -331,7 +323,14 @@ namespace WineHangoutz
 			{
 				imageView.SetImage(BlobWrapper.GetResizedImage(review.Barcode, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
-				btnItemname.SetTitle(review.Name + " " + review.Vintage,UIControlState.Normal);
+				if (review.Vintage.Length>4)
+				{
+					btnItemname.SetTitle(review.Name + " ", UIControlState.Normal);
+				}
+				else
+				{
+					btnItemname.SetTitle(review.Name + " " + review.Vintage, UIControlState.Normal);
+				}
 				ReviewDate.Text = review.Date.ToString("MM-dd-yyyy");
 				Comments.Text = review.RatingText;
 				if (review.RatingText.Length > 97)

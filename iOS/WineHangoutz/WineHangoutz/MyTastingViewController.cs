@@ -267,10 +267,23 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 					separator.Image = UIImage.FromFile("separator.png");
 					WineName.Text = tasting.Name;
 					ReviewDate.Text = "Tasted on :" + tasting.TastingDate.ToString("MM-dd-yyyy");
+				double l = Math.Floor(Math.Log10(tasting.Vintage) + 1);
+				if (l>4)
+				{
+					Vintage.Text ="";
+				}
+				else
+				{
 					Vintage.Text = tasting.Vintage.ToString();
-				if (tasting.PlantFinal == 1) {
-					location.Text = "Tasted at : Wall"; }
-				else {location.Text = "Tasted at : Pt. Pleasant Beach"; }
+				}
+				if (tasting.PlantFinal == 1)
+				{
+					location.Text = "Tasted at : Wall";
+				}
+				else 
+				{
+					location.Text = "Tasted at : Pt. Pleasant Beach";
+				}
 					WineIdLabel.Text = tasting.Barcode;
 					btnItemname.SetTitle(tasting.Name, UIControlState.Normal);
 					btnItemname.LineBreakMode = UILineBreakMode.WordWrap;
@@ -279,7 +292,7 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 					if (tasting.IsLike == true)
 					{ 
 						heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
-//					heartImage.TouchUpInside +=async delegate {
+//						heartImage.TouchUpInside +=async delegate {
 //						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 //							SKULike like = new SKULike();
 //							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
@@ -287,16 +300,12 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 //							like.Liked = Convert.ToBoolean(0);
 //							myItem.IsLike = Convert.ToBoolean(0);
 //							ServiceWrapper sw = new ServiceWrapper();
-//await sw.InsertUpdateLike(like);
-
+//							await sw.InsertUpdateLike(like);
 //					};
 					}
 				else
 					{
 						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
-
-
-
 					}
 				}
 				catch (Exception ex)

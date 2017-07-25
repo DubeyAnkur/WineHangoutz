@@ -124,7 +124,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40" customClass="UIButton" adjustsImageWhenDisabled="NO">
-                    <rect key="frame" x="161" y="721" width="95" height="30"/>
+                    <rect key="frame" x="160" y="686" width="95" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17" weight="heavy"/>
                     <state key="normal" title="Update"/>
@@ -264,6 +264,7 @@
         <image name="cam.png" width="1600" height="1600"/>
         <image name="infoico.png" width="1600" height="1600"/>
         <image name="proico.png" width="512" height="512"/>
+        <image name="Images/aboutus.jpg" width="3438" height="3024"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedScreenMetrics key="destination" type="retina47"/>

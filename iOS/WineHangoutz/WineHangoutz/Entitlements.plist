@@ -8,7 +8,7 @@
 	<string>development</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>com.savvyitsol.wineoutlet</string>
+		<string>$(AppIdentifierPrefix)com.savvyitsol.winehangoutz</string>
 	</array>
 </dict>
 </plist>

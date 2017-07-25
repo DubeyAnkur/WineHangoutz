@@ -145,11 +145,19 @@ namespace WineHangoutz
 				//Data from Model
 				//cell.WineName = myData.ItemList[index].Name;
 				//cell.AmountLeft.SetProgress(Convert.ToSingle(myData.ItemList[index].AvailableVolume),true);
-				cell.Vintage = myData.ItemList[index].Vintage.ToString();
+				double l = Math.Floor(Math.Log10(myData.ItemList[index].Vintage) + 1);
+				if (l<4)
+				{
+					cell.lblYear.Text = " ";
+				}
+				else
+				{
+					cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
+				}
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.lblName.Text = myData.ItemList[index].Name;
-				cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
+				//cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
 				cell.lblRegPrice.Text = myData.ItemList[index].SalePrice.ToString("C", Cultures.UnitedState);
 				cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.myItem = myData.ItemList[index];

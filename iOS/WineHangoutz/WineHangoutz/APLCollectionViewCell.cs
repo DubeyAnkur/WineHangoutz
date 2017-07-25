@@ -25,6 +25,7 @@ namespace WineHangoutz {
 		public Item myItem;
 		public UIView parent;
 		public UITextView AmountLeft;
+		public UIButton btnBack;
 
 		//public void Dowork()
 		//{
@@ -37,12 +38,18 @@ namespace WineHangoutz {
 		{
 			try
 			{
-				BTProgressHUD.Show("Please wait...");
+				//BTProgressHUD.Show("Please wait...");
 				CGRect box = new CGRect(Bounds.Location, Bounds.Size);
 				box.X = 0;
 				box.Y = 0;
 				box.Height = box.Height - 140;
 				BackgroundColor = UIColor.White;
+
+				btnBack = new UIButton();
+				btnBack.BackgroundColor = UIColor.Black;
+				btnBack.Frame = new CGRect(2, 2, Bounds.Width + 1, box.Height-139);
+				btnBack.UserInteractionEnabled = false;
+
 				ImageView = new UIButton(box);
 				ImageView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
 				ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
@@ -67,9 +74,9 @@ namespace WineHangoutz {
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
+					//BTProgressHUD.Dismiss();
 					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
 					LoggingClass.LogInfo("Clicked on " + WineBarcode+ " to enter into Details", screen);
-
 				};
 
 				box.Height = 25;
@@ -139,6 +146,7 @@ namespace WineHangoutz {
 				btnItemname.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
+					//BTProgressHUD.Dismiss();
 					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
 					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screen);
 				};
@@ -198,7 +206,7 @@ namespace WineHangoutz {
 				//AmountLeft.ProgressTintColor = UIColor.Blue;
 				//AmountLeft.SetProgress(1, true);
 				//AmountLeft.Progress = 30f;
-
+				ContentView.AddSubview(btnBack);
 				ContentView.AddSubview(ImageView);
 				ContentView.InsertSubviewAbove(btlImage, ImageView);
 				ContentView.AddSubview(AmountLeft);
@@ -209,6 +217,7 @@ namespace WineHangoutz {
 				ContentView.AddSubview(lblYear);
 				ContentView.AddSubview(lblRegPrice);
 				ContentView.AddSubview(ratingView);
+				//
 
 			}
 			catch (Exception ex)

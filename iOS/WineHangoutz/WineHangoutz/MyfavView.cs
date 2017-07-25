@@ -147,7 +147,6 @@ namespace WineHangoutz
 				lblName.LineBreakMode = UILineBreakMode.WordWrap;
 				lblName.Lines = 0;
 
-
 				lower.Y = 245;
 				lower.Height = 1;
 				lower.Width = lower.Width - 20;
