@@ -273,6 +273,14 @@ namespace WineHangoutz
 				btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				btnLike.Tag = 0;
 				myItem = new Item();
+				//bool count =Convert.ToBoolean( myItem.IsLike);
+				//if (count == true)
+				//{
+				//btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);}
+				//else
+				//{ 
+				//	btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+				//}
 				btnLike.TouchUpInside += async(object sender, EventArgs e) =>
 				{
 					

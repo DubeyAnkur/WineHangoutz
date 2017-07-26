@@ -10,6 +10,10 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using CoreGraphics;
+using AssetsLibrary;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace WineHangoutz
 {
@@ -311,33 +315,50 @@ namespace WineHangoutz
 								alert.AddButton("Gallery");
 								alert.Clicked += (senderalert, buttonArgs) =>
 								{
-									//if (buttonArgs.ButtonIndex == 0)
-									//{
-         							// IsCameraAuthorized();
-									//	imagePicker = new UIImagePickerController();
-									//	imagePicker.SourceType = UIImagePickerControllerSourceType.Camera;
-									//	imagePicker.Delegate = new CameraDelegate();
-									//}
+									if (buttonArgs.ButtonIndex == 0)
+									{
+										try
+										{
+											IsCameraAuthorized();
+											TweetStation.Camera.TakePicture(this, (obj) =>
+											{
+												var photo = obj.ValueForKey(new NSString("UIImagePickerControllerOriginalImage")) as UIImage;
+												var meta = obj.ValueForKey(new NSString("UIImagePickerControllerMediaMetadata")) as NSDictionary;
+												UploadProfilePic(photo);
+												//ALAssetsLibrary library = new ALAssetsLibrary();
+												//library.WriteImageToSavedPhotosAlbum(photo.CGImage, meta, (assetUrl, error) =>
+												//{
+												//	UploadProfilePic(assetUrl.ToString());
+												//	//Console.WriteLine("assetUrl:" + assetUrl);
+												//});
+												//var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+											});
+										}
+										catch (Exception exe)
+										{
+											LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+										}
+									}
 								};
 								alert.Clicked += (senderalert, buttonArgs) =>
 								{
 									if (buttonArgs.ButtonIndex == 1)
 									{
+										imagePicker = new UIImagePickerController();
+										imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+										imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
+										imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
+										imagePicker.Canceled += Handle_Canceled;
+										 NavCtrl.PresentModalViewController(imagePicker, true);
+									}
+								};
+								alert.Show();
 										//imagePicker = new UIImagePickerController();
 										//imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
 										//imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
 										//imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
 										//imagePicker.Canceled += Handle_Canceled;
 										//NavCtrl.PresentModalViewController(imagePicker, true);
-									}
-								};
-								//alert.Show();
-										imagePicker = new UIImagePickerController();
-										imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-										imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
-										imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
-										imagePicker.Canceled += Handle_Canceled;
-										NavCtrl.PresentModalViewController(imagePicker, true);
 							}
 							catch (Exception exe)
 							{
@@ -690,6 +711,21 @@ namespace WineHangoutz
 		//		this.PresentModalViewController(yourController, false);
 		//	}
 		//}
+		public async void UploadProfilePic(UIImage originalImage)
+		{
+			if(originalImage != null)
+			{
+				imgProfile.Image = originalImage; // display
+				using (NSData imagedata = originalImage.AsJPEG())
+				{
+						byte[] myByteArray = new byte[imagedata.Length];
+						System.Runtime.InteropServices.Marshal.Copy(imagedata.Bytes, myByteArray, 0, Convert.ToInt32(imagedata.Length));
+						byte[] img = BlobWrapper.ResizeImageIOS(myByteArray, 250, 300);
+						int i = img.Length;
+						await BlobWrapper.UploadProfilePic(img, i);
+				}
+			}
+		}
 	}
 	public class StatePickerDataModel : UIPickerViewModel
 

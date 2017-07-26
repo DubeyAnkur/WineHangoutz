@@ -206,7 +206,7 @@ namespace WineHangoutz {
 				//AmountLeft.ProgressTintColor = UIColor.Blue;
 				//AmountLeft.SetProgress(1, true);
 				//AmountLeft.Progress = 30f;
-				ContentView.AddSubview(btnBack);
+				//ContentView.AddSubview(btnBack);
 				ContentView.AddSubview(ImageView);
 				ContentView.InsertSubviewAbove(btlImage, ImageView);
 				ContentView.AddSubview(AmountLeft);

@@ -276,6 +276,7 @@
     <Compile Include="MyFavController.cs" />
     <Compile Include="MyfavView.cs" />
     <Compile Include="baseclass.cs" />
+    <Compile Include="Camera.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpeg" />
