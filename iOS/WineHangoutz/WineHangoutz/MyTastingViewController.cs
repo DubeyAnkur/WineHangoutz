@@ -268,9 +268,9 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 					WineName.Text = tasting.Name;
 					ReviewDate.Text = "Tasted on :" + tasting.TastingDate.ToString("MM-dd-yyyy");
 				double l = Math.Floor(Math.Log10(tasting.Vintage) + 1);
-				if (l>4)
+				if (l<4)
 				{
-					Vintage.Text ="";
+					Vintage.Text =" ";
 				}
 				else
 				{

@@ -331,7 +331,7 @@ namespace WineHangoutz
 			{
 				imageView.SetImage(BlobWrapper.GetResizedImage(review.Barcode, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
-				if (review.Vintage.Length>4)
+				if (review.Vintage.Length<4)
 				{
 					btnItemname.SetTitle(review.Name + " ", UIControlState.Normal);
 				}

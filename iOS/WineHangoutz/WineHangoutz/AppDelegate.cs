@@ -23,7 +23,6 @@ namespace WineHangoutz
 			set;
 		}
 		public bool RestrictRotation { get; set; }
-
 		//public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
 		//{
 		//	if (this.RestrictRotation)

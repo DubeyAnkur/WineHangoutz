@@ -308,7 +308,7 @@ namespace WineHangoutz
 								
 								UIAlertView alert = new UIAlertView()
 								{
-									//Title = "This feature is allowed only for VIP Card holders",
+									Title = "Please choose an option to upload profile picture",
 									//Message = "Coming Soon..."
 								};
 								alert.AddButton("Camera");

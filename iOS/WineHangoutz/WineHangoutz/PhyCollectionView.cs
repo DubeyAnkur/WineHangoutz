@@ -160,7 +160,14 @@ namespace WineHangoutz
 					cell.storeId = storeId.ToString();
 				}
 				cell.lblName.Text = myData.ItemList[index].Name;
-				cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
+				if (myData.ItemList[index].Vintage.ToString().Length < 4)
+				{
+					cell.lblYear.Text = " ";
+				}
+				else
+				{
+					cell.lblYear.Text = myData.ItemList[index].Vintage.ToString();
+				}
 				cell.lblRegPrice.Text = myData.ItemList[index].RegPrice.ToString("C", Cultures.UnitedState);
 				cell.ratingView.AverageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.myItem = myData.ItemList[index];
