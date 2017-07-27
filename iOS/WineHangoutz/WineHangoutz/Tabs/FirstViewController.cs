@@ -133,13 +133,13 @@ void RestrictRotation(bool restriction)
 			   {
 					
 				   BTProgressHUD.Show("Loading...");
-					BTProgressHUD.Dismiss();//show spinner + text
+					//BTProgressHUD.Dismiss();//show spinner + text
 			   };
 				btnPP.TouchDown += (sender, e) =>
 				{
 					BTProgressHUD.Show("Loading...");
 
-					BTProgressHUD.Dismiss();//show spinner + text
+					//BTProgressHUD.Dismiss();//show spinner + text
 				};
 				btnMan.TouchUpInside += (sender, e) =>
 				{
@@ -174,7 +174,7 @@ void RestrictRotation(bool restriction)
 
 				btnPP.TouchUpInside += (sender, e) =>
 				{
-					BTProgressHUD.Show("Loading...",2000);
+					BTProgressHUD.Show("Loading...");
 					//async (sender, e)
 					//ServiceWrapper svc = new ServiceWrapper();
 					//string ret = await svc.GetDataAsync();

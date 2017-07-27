@@ -68,6 +68,8 @@ namespace WineHangoutz
 				UIImageView backgroud = new UIImageView();
 				backgroud.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				backgroud.Image = new UIImage("Images/proback.jpg");
+				backgroud.UserInteractionEnabled = false;
+				btnBack.UserInteractionEnabled = false;
 				//imgProfile.Frame = new CGRect((View.Frame.Width / 2) - 72, 3 * (backgroud.Frame.Height / 3), 144, 152);
 				//UITapGestureRecognizer singleTap = new UITapGestureRecognizer();
 				//singleTap.CancelsTouchesInView = false;
@@ -175,6 +177,16 @@ namespace WineHangoutz
 							}
 						};
 					alert.Show();
+					btnUpdate.UserInteractionEnabled = false;
+					txtLastName.UserInteractionEnabled = false;
+					txtPhone.UserInteractionEnabled = false;
+					txtAddress.UserInteractionEnabled = false;
+					txtZipCode.UserInteractionEnabled = false;
+					txtEmail.UserInteractionEnabled = false;
+					statePicker.UserInteractionEnabled = false;
+					storePicker.UserInteractionEnabled = false;
+					imgProfile.UserInteractionEnabled = false;
+					btnPicEdit.UserInteractionEnabled = false;
 				}
 				else
 				{
