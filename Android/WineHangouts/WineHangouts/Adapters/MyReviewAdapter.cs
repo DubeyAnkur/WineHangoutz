@@ -144,7 +144,7 @@ namespace WineHangouts
 					var filePath = System.IO.Path.Combine(path + "/" + myItems[position].Barcode + ".jpg");
 
 
-					bool count = true;//Convert.ToBoolean(myItems[position].IsLike);
+					bool count = Convert.ToBoolean(myItems[position].Liked);
 					if (count == true)
 					{
 						heartImg.SetImageResource(Resource.Drawable.HeartFull);

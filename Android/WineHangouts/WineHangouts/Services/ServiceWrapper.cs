@@ -408,7 +408,6 @@ namespace WineHangouts
 			int output = 0;
 			try
 			{
-
 				var uri = new Uri(ServiceURL + "ResendEmail/" + CardNumber);
 				//var content = JsonConvert.SerializeObject(token);
 				//var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
