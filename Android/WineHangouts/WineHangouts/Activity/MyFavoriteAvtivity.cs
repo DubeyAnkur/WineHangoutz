@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-	[Activity(Label = "My Favorites")]
+	[Activity(Label = "My Favorites", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class MyFavoriteAvtivity : Activity
 	{
 		public string StoreName = "";

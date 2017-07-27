@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "My Tastings")]
+    [Activity(Label = "My Tastings", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MyTastingActivity : Activity, IPopupParent
     {
         public int customerid;

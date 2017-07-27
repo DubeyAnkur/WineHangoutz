@@ -14,7 +14,7 @@ using Hangout.Models;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Verification")]
+    [Activity(Label = "Verification", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class VerificationActivity : Activity
     {
         ServiceWrapper sc = new ServiceWrapper();

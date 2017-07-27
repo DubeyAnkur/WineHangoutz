@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout")]
+    [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@style/Base.Widget.Design.TabLayout", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class TabActivity : Activity
     {
 		Stopwatch st;

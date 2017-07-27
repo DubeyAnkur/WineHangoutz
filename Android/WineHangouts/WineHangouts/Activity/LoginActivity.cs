@@ -19,7 +19,7 @@ namespace WineHangouts
 
 {
 
-	[Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/logo5")]
+	[Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/logo5", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class LoginActivity : Activity
 	{
 		public string otp = "";
@@ -151,26 +151,38 @@ namespace WineHangouts
 			{
 				if (authen.customer.Email != "" && authen.customer.Email != null)
 				{
-					TxtScanresult.Text = " Hi " + authen.customer.FirstName + authen.customer.LastName + ",\n We have sent an email at  " + authen.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
-					BtnResend.Visibility = ViewStates.Visible;
+
+                    TxtScanresult.Text = " Hi " + authen.customer.FirstName + authen.customer.LastName + ",\n We have sent an email at  " + authen.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+                   
+                    TxtScanresult.SetTextColor(Android.Graphics.Color.Black);
+                    BtnResend.Visibility = ViewStates.Visible;
 					BtnLogin.Visibility = ViewStates.Visible;
 					BtnResend.Click += async delegate
-					{
-						AndHUD.Shared.Show(this, "Status Message", Convert.ToInt32(MaskType.Clear));
-						//	ProgressIndicator.Show(this);
-						//BTProgressHUD.Show("Sending verification email to" + authen.customer.Email);
-						if (Cardnumber != null)
-						{
-							await svc.ResendEMail(Cardnumber);
-						}
-						else
-						{
-							await svc.ResendEMail(CurrentUser.GetCardNumber());
-						}
-						//BTProgressHUD.ShowSuccessWithStatus("Sent");
-						ProgressIndicator.Hide();
-					};
-					BtnLogin.Click += delegate
+                    {
+                        //ProgressIndicator.Show(this);
+                        try
+                        {
+                            AndHUD.Shared.Show(this, "Sending Email", Convert.ToInt32(MaskType.Clear));
+                           
+                            //BTProgressHUD.Show("Sending verification email to" + authen.customer.Email);
+                            if (Cardnumber != null)
+                            {
+                                await svc.ResendEMail(Cardnumber);
+                                AndHUD.Shared.ShowSuccess(Parent, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
+                            }
+                            else
+                            {
+                                await svc.ResendEMail(CurrentUser.GetCardNumber());
+                                AndHUD.Shared.ShowSuccess(Parent, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
+                            }
+                            //BTProgressHUD.ShowSuccessWithStatus("Sent");
+                            AndHUD.Shared.ShowSuccess(Parent, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
+                        }
+                        catch (Exception ex)
+                        { }
+                        ProgressIndicator.Hide();
+                    };
+                    BtnLogin.Click += delegate
 					{
 						ProgressIndicator.Show(this);
 						EmailVerification();
@@ -178,13 +190,16 @@ namespace WineHangouts
 				}
 				else
 				{
-					TxtScanresult.Text = authen.ErrorDescription;
+                    TxtScanresult.Text = authen.ErrorDescription;  
 				}
 			}
 			else
 			{
 				TxtScanresult.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
-			}
+                BtnResend.Visibility = ViewStates.Invisible;
+                BtnLogin.Visibility = ViewStates.Invisible;
+                TxtScanresult.SetTextColor(Android.Graphics.Color.Red);
+            }
 		}
 		Boolean isValidEmail(String email)
 		{

@@ -13,7 +13,7 @@ using Android.Util;
 using Hangout.Models;
 namespace WineHangouts
 {
-    [Activity(Label = "MyTastingActivity", MainLauncher = false)]
+    [Activity(Label = "MyTastingActivity", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class PotraitActivity : Activity
     {
         public int uid;

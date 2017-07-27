@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@android:style/Theme.Dialog")]
+    [Activity(Label = "@string/ApplicationName", MainLauncher = false, Theme = "@android:style/Theme.Dialog", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ProfilePictureGallery : Activity
     {
         public string path;

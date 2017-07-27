@@ -21,7 +21,7 @@ using System.Net;
 namespace WineHangouts
 {
 
-    [Activity(Label = "Available Wines", MainLauncher = false)]
+    [Activity(Label = "Available Wines", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class GridViewActivity : Android.Support.V4.App.FragmentActivity
     {
        // bool loading;

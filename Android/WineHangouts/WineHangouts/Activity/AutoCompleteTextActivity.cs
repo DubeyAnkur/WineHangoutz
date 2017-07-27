@@ -8,7 +8,7 @@ using Android.Views;
 
 namespace WineHangouts
 {
-    [Activity(Label = "Search Helper", MainLauncher = false, Icon = "@drawable/logo5")]
+    [Activity(Label = "Search Helper", MainLauncher = false, Icon = "@drawable/logo5", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class AutoCompleteTextActivity : Activity {
         protected override void OnCreate (Bundle bundle)
         {

@@ -20,7 +20,7 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-	[Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/logo5")]
+	[Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/logo5", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class DetailViewActivity : Activity, IPopupParent
 	{
 		public int sku;
@@ -121,8 +121,24 @@ namespace WineHangouts
 					edit.RatingText = tempReview.RatingText;
 				ReviewPopup editPopup = new ReviewPopup(this, edit);
 				RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
+                if (CurrentUser.getUserId() == null)
+                {
+                    AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
+                    aler.SetTitle("Sorry");
+                    aler.SetMessage("This Feature is available for VIP Users only");
+                    aler.SetNegativeButton("Ok", delegate
+                    {
+                        LoggingClass.LogInfo("Closed PoPup", screenid);
+                    });
+                    Dialog dialog1 = aler.Create();
+                    dialog1.Show();
+                }
+                else
 
-				RatingInput.RatingBarChange += editPopup.CreatePopup;
+                {
+
+                    RatingInput.RatingBarChange += editPopup.CreatePopup;
+                }
 				var metrics = Resources.DisplayMetrics;
 				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
 				var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);

@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace WineHangouts
 {
-    [Activity(Label = "My Reviews")]
+    [Activity(Label = "My Reviews", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MyReviewActivity : Activity, IPopupParent
     {
         public int uid;
@@ -44,8 +44,7 @@ namespace WineHangouts
 					//aler.SetTitle("No Reviews Avalilable");
 					aler.SetMessage("Sorry you haven't Reviewed our wines");
 					aler.SetNegativeButton("Ok", delegate {
-						Finish();
-						
+						Finish();	
 					});
 					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
 					Dialog dialog = aler.Create();

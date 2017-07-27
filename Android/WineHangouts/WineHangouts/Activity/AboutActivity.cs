@@ -10,11 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Diagnostics;
-
+using Android.Content.PM;
 
 namespace WineHangouts
 {
-    [Activity(Label = "About Us")]
+    [Activity(Label = "About Us" ,ScreenOrientation = ScreenOrientation.Portrait)]
     public class AboutActivity : Activity
     {
 		Stopwatch sw;

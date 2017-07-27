@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace WineHangouts
 {
-	[Activity(Label = "My Profile")]
+	[Activity(Label = "My Profile", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class ProfileActivity : Activity, IPopupParent
 	{
 		Stopwatch st;
