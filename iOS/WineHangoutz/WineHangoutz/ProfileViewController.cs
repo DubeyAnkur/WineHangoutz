@@ -668,7 +668,7 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.StackTrace);
+				//Console.WriteLine(ex.StackTrace);
 				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace.ToString());
 			}
 			WebClient webClient = new WebClient();

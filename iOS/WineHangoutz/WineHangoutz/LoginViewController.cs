@@ -60,7 +60,7 @@ namespace WineHangoutz
 					//checking is cust is scanned card or not
 						if (CurrentUser.RetreiveUserId() != 0)
 						{
-					nav = new UINavigationController(RootTabs);
+								nav = new UINavigationController(RootTabs);
 								AddNavigationButtons(nav);
 								_window.RootViewController = nav;
 								LoggingClass.LogInfo(CurrentUser.RetreiveUserName() + " Logged in", screenid);

@@ -16,6 +16,7 @@ namespace WineHangoutz
 	{
 		protected string deviceToken = string.Empty;
 		protected string screen = "App Delegate";
+		public UIWindow _window;
 		public string DeviceToken {get { return deviceToken; } }
 		public override UIWindow Window
 		{
@@ -50,23 +51,51 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 			//CurrentUser.Store("3", "Development Simulator");
 			//for direct log in
 			//CurrentUser.PutCardNumber("7207589007");
-
+			Console.WriteLine(DateTime.Now + " App opened");
 			UIImage profile = UIImage.FromFile("profile.png");
 			profile = ResizeImage(profile, 25, 25);
-
+			_window = Window;
 			UIImage info = UIImage.FromFile("Info.png");
 			info = ResizeImage(info, 25, 25);
+			try
+			{
 
+				if (CurrentUser.RetreiveUserId() != 0)
+				{
+					//ManageTabBar(RootTab);
+					Console.WriteLine(DateTime.Now + " App opened");
+					nav = new UINavigationController(RootTab);
+					//Window.RootViewController = RootTab;
+					//AddNavigationButtons(nav);
+					Window.RootViewController = nav;
+				}
+				else
+				{
+                    ManageTabBar(RootTab);
+					var login = new LoginViewController();
+					login.RootTabs = Window.RootViewController;
+					login._window = Window;
 
-			ManageTabBar(RootTab);
-			var login = new LoginViewController();
-			login.RootTabs = Window.RootViewController;
-			login._window = Window;
+					nav = new UINavigationController(login);
+					//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
+					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
+					Window.RootViewController = nav;
+				}
+			}
+			catch (Exception exe)
+			{
+				LoggingClass.LogError(exe.Message, screen, exe.StackTrace);
+				Console.WriteLine(exe.Message +"--->"+ exe.StackTrace+" App delegate error");
+			}
+			//ManageTabBar(RootTab);
+			//var login = new LoginViewController();
+			//login.RootTabs = Window.RootViewController;
+			//login._window = Window;
 
-			nav = new UINavigationController(login);
-			//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
-			UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
-			Window.RootViewController = nav;
+			//nav = new UINavigationController(login);
+			////nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
+			//UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
+			//Window.RootViewController = nav;
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
 			{
@@ -82,8 +111,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 				UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
 				UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
 			}
-
-
 			return true;
 		}
 

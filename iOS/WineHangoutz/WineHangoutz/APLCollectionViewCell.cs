@@ -38,6 +38,7 @@ namespace WineHangoutz {
 		{
 			try
 			{
+				Console.WriteLine(DateTime.Now+" Store view");
 				//BTProgressHUD.Show("Please wait...");
 				CGRect box = new CGRect(Bounds.Location, Bounds.Size);
 				box.X = 0;

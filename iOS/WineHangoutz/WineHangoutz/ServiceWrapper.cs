@@ -79,15 +79,12 @@ namespace WineHangoutz
 			ItemListResponse output = null;
 			try
 			{
-
 				var uri = new Uri(ServiceURL + "GetItemLists/" + storeId + "/user/" + userId);
 				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
-
-
 			}
 			catch (Exception ex)
 			{
@@ -97,7 +94,6 @@ namespace WineHangoutz
 			LoggingClass.LogServiceInfo("GetItemList service Time Elapsed"+sw.Elapsed.TotalSeconds, "ItemList");
 			return output;  
 		}
-
 
    //     public async Task<ItemDetailsResponse> GetItemDetails(int wineid,int storeid)
    //     {

@@ -40,6 +40,7 @@ namespace WineHangoutz
 		{
 			try
 			{
+				Console.WriteLine(DateTime.Now);
 				//PreferredInterfaceOrientationForPresentation();
     			this.RestrictRotation(true); 
 				//UIInterfaceOrientation ui=UIInterfaceOrientation.Portrait;
