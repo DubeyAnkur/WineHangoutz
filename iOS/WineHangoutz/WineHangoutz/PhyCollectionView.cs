@@ -57,7 +57,7 @@ namespace WineHangoutz
 					this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 					this.CollectionView.BackgroundColor = UIColor.White;
 					CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
-				
+
 			}
 			catch (Exception ex)
 			{

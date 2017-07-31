@@ -448,6 +448,11 @@ namespace WineHangoutz
 						cust.PhoneNumber = txtPhone.Text;
 						if (pickerDataModel.SelectedItem == "---Select your state---")
 						{
+							if (pickerDataModel.Items.Contains(cRes.customer.State))
+							{
+							int i = pickerDataModel.Items.FindIndex(x => x == cRes.customer.State);
+							statePicker.Select(i, 0, false);
+							}
 							cust.State = cRes.customer.State;
 						}
 						else
@@ -458,6 +463,7 @@ namespace WineHangoutz
 						if (StoreDataModel.SelectedItem == 0)
 						{
 							cust.PreferredStore = cRes.customer.PreferredStore;
+							storePicker.Select(cRes.customer.PreferredStore, 0, false);
 							CurrentUser.PutStore(cust.PreferredStore);
 						}
 						else

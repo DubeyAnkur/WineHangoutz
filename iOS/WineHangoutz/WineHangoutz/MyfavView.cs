@@ -61,7 +61,7 @@ namespace WineHangoutz
 				btlImage.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
+					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false,true), false);
 					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screen);
 
 				};
@@ -136,7 +136,7 @@ namespace WineHangoutz
 				btnItemname.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
+					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false,true), false);
 					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screen);
 				};
 				lblName = new UILabel(lower);

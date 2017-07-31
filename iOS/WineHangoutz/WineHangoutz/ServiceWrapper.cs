@@ -79,12 +79,15 @@ namespace WineHangoutz
 			ItemListResponse output = null;
 			try
 			{
+				
 				var uri = new Uri(ServiceURL + "GetItemLists/" + storeId + "/user/" + userId);
 				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				//Console.WriteLine(DateTime.Now+" Got responce object");
 				output = JsonConvert.DeserializeObject<ItemListResponse>(response);
+				//Console.WriteLine(DateTime.Now+" Deserialization Done");
 			}
 			catch (Exception ex)
 			{

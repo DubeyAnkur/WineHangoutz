@@ -21,8 +21,9 @@ namespace WineHangoutz
 		{
 			try
 			{
+				
 				base.ViewDidLoad();
-
+				//LoggingClass.UploadLogs();
 				LoggingClass.LogInfo("Entered into About View ", screen);
 				nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 				ScreenHeight = (ScreenHeight - 100) / 3;

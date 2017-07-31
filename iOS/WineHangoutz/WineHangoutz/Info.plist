@@ -41,10 +41,10 @@
 		<string>Portrait (bottom button)</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5.0</string>
+	<string>3.0</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.12</string>
+	<string>1.13</string>
 </dict>
 </plist>

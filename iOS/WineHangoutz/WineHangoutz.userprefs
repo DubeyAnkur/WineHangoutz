@@ -1,11 +1,17 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="WineHangoutz/Info.plist" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ReSendEmailController.cs" relfile="WineHangoutz/ReSendEmailController.cs" line="106" column="9" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyReviewViewController.cs" relfile="WineHangoutz/MyReviewViewController.cs" line="83" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="513" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/ProfileViewController.cs" relfile="WineHangoutz/ProfileViewController.cs" line="519" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PhyCollectionView.cs" relfile="WineHangoutz/PhyCollectionView.cs" line="64" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/PhyCollectionView.cs" relfile="WineHangoutz/PhyCollectionView.cs" line="251" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoggingClass.cs" relfile="WineHangoutz/LoggingClass.cs" line="64" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

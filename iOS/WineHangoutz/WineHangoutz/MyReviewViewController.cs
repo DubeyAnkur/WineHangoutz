@@ -8,6 +8,7 @@ using Hangout.Models;
 using System.Linq;
 using BigTed;
 using CoreAnimation;
+using System.Diagnostics;
 
 namespace WineHangoutz
 {
@@ -18,7 +19,6 @@ namespace WineHangoutz
 		public UILabel Noreviews;
 		public UIImageView ImgIns;
 		ServiceWrapper sw = new ServiceWrapper();
-
 		public MyReviewViewController(IntPtr handle) : base(handle)
 		{
 
@@ -169,7 +169,7 @@ namespace WineHangoutz
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
 					BTProgressHUD.Show("Loading...");
-					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false,true), false);
 				};
 				Review review = new Review();
 				separator = new UIImageView();
@@ -183,7 +183,7 @@ namespace WineHangoutz
 				btnItemname.TouchUpInside += delegate
 				{
 					BTProgressHUD.Show("Loading...");
-					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false,true), false);
 				};
 				ReviewDate = new UILabel()
 				{

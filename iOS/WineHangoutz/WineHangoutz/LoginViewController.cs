@@ -220,8 +220,6 @@ namespace WineHangoutz
 
 			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
 			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
-
-
 		}
 		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
 		{

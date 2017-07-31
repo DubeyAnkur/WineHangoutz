@@ -19,14 +19,16 @@ namespace WineHangoutz
 		public int _storeId;
 		private string screen = "DetailView Controller";
 		public UILabel nd;
+		Boolean _fav;
 		NSData HighImgData = null;
 		ServiceWrapper svc = new ServiceWrapper();
 
-		public DetailViewController(string WineId, string storeid, Boolean notification) : base ()
+		public DetailViewController(string WineId, string storeid, Boolean notification, Boolean fav) : base ()
 		{
 			BTProgressHUD.Show("Loading...");
 			_wineId =WineId;
 			_storeId = Convert.ToInt32(storeid);
+			_fav = fav;
             this.Title = "Wine Details";
 		}
 		UIScrollView scrollView;
@@ -56,7 +58,6 @@ namespace WineHangoutz
 				LoggingClass.LogInfo("Entered into detail view of " + _wineId, screen);
 				//BTProgressHUD.Show();
 				nfloat width = View.Frame.Width;
-
 				ItemDetailsResponse mydata = svc.GetItemDetailsBarcode(_wineId, _storeId).Result;
 				//ItemReviewResponse rv = svc.GetItemReviewUID(CurrentUser.RetreiveUserId()).Result;
 				var data = mydata.ItemDetails;
@@ -106,10 +107,10 @@ namespace WineHangoutz
 					DownloadAsync(data.Barcode, _storeId, btlImage, boxHeight, 70);
 					nfloat Y1 = 90 + View.Frame.Width;
 
-					UITextView uip = new UITextView(new CGRect(0, Y1 + 10, width, 40));
-					uip.Text = "Wine left in bottle: "+data.AvailableVolume.ToString() + ".ml";
-					uip.TextAlignment = UITextAlignment.Center;
-					uip.Editable = false;
+					UITextView txtWineleft = new UITextView(new CGRect(0, Y1 + 10, width, 40));
+					txtWineleft.Text = "Wine left in bottle: "+data.AvailableVolume.ToString() + ".ml";
+						txtWineleft.TextAlignment = UITextAlignment.Center;
+						txtWineleft.Editable = false;
 					//uip.SetProgress(Convert.ToSingle(data.AvailableVolume), false);
 					//uip.ProgressTintColor = UIColor.Green;
 					//uip.TintColor = UIColor.Gray;
@@ -276,12 +277,16 @@ namespace WineHangoutz
 						BackgroundColor = UIColor.White,
 						AutoresizingMask = UIViewAutoresizing.FlexibleHeight
 					};
+					if (_fav != true)
+					{
+						scrollView.AddSubview(txtWineleft);
+					}
 					//When making it async the Frame.Y is messing up by image Y. So changing it to 70. Ideally it should be 0.
 					//Same will apply to ContentSize.Y
 					View.AddSubview(scrollView);
 					//View.AddSubview(NoReviews);
 					scrollView.AddSubview(lblName);
-					scrollView.AddSubview(uip);
+					//scrollView.AddSubview(txtWineleft);
 					scrollView.AddSubview(lblVintage);
 					scrollView.AddSubview(btlImage);
 					scrollView.AddSubview(ratingView);

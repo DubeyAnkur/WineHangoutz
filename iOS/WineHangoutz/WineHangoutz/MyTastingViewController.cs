@@ -160,7 +160,7 @@ namespace WineHangoutz
 				{
 					
 					BTProgressHUD.Show("Loading...");
-					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false,true), false);
 				};
 				separator = new UIImageView();
 				btnItemname = new UIButton();
@@ -171,7 +171,7 @@ namespace WineHangoutz
 				btnItemname.TouchUpInside +=delegate
 				{
 					BTProgressHUD.Show("Loading...");
-					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false), false);
+					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false,true), false);
 				};
 				WineName = new UILabel()
 				{

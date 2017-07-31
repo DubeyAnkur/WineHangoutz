@@ -62,11 +62,11 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 
 				if (CurrentUser.RetreiveUserId() != 0)
 				{
-					//ManageTabBar(RootTab);
+					ManageTabBar(RootTab);
 					Console.WriteLine(DateTime.Now + " App opened");
 					nav = new UINavigationController(RootTab);
 					//Window.RootViewController = RootTab;
-					//AddNavigationButtons(nav);
+					AddNavigationButtons(nav);
 					Window.RootViewController = nav;
 				}
 				else
@@ -75,7 +75,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 					var login = new LoginViewController();
 					login.RootTabs = Window.RootViewController;
 					login._window = Window;
-
 					nav = new UINavigationController(login);
 					//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
 					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
@@ -113,7 +112,32 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 			}
 			return true;
 		}
+		public void AddNavigationButtons(UINavigationController nav)
+		{
+			UIImage profile = UIImage.FromFile("profile.png");
+			profile = ResizeImage(profile, 25, 25);
 
+			UIImage info = UIImage.FromFile("Info.png");
+			info = ResizeImage(info, 25, 25);
+
+			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
+				{
+					BTProgressHUD.Show("Loading,,,");
+					nav.PushViewController(new ProfileViewController(nav), false);
+					nav.NavigationBar.TopItem.Title = "Profile";
+					BTProgressHUD.Dismiss();
+				});
+			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
+			{
+				BTProgressHUD.Show("Loading,,,");
+				nav.PushViewController(new AboutController1(nav), false);
+				nav.NavigationBar.TopItem.Title = "About Us";
+				BTProgressHUD.Dismiss();
+			});
+
+			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
+			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
+		}
 		public override async void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 		{
 			try
@@ -127,13 +151,25 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 				}
 				ServiceWrapper svc = new ServiceWrapper();
 				await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
-				// Get previous device token
+					LoggingClass.LogInfo("Device Token " + DeviceToken, screen);
+					UIAlertView alert1 = new UIAlertView()
+					{
+					Title = DeviceToken,
+					};
+					alert1.AddButton("OK");
+					alert1.Show();
 				var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
 
 				// Has the token changed?
 				if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
 				{
-					//TODO: Put your own logic here to notify your server that the device token has changed/been created!
+					await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = DeviceToken,
+					};
+					alert.AddButton("OK");
+					alert.Show();
 				}
 
 				// Save new device token 
@@ -182,7 +218,7 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 						else
 						{
 								LoggingClass.LogInfo(wineid + " got notification ",screen);
-								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, true), false);
+								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, true, false), false);
 						}
 					}
 				}

@@ -38,7 +38,7 @@ namespace WineHangoutz {
 		{
 			try
 			{
-				Console.WriteLine(DateTime.Now+" Store view");
+				
 				//BTProgressHUD.Show("Please wait...");
 				CGRect box = new CGRect(Bounds.Location, Bounds.Size);
 				box.X = 0;
@@ -76,7 +76,7 @@ namespace WineHangoutz {
 				{
 					BTProgressHUD.Show("Loading...");
 					//BTProgressHUD.Dismiss();
-					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
+					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false, false), false);
 					LoggingClass.LogInfo("Clicked on " + WineBarcode+ " to enter into Details", screen);
 				};
 
@@ -148,7 +148,7 @@ namespace WineHangoutz {
 				{
 					BTProgressHUD.Show("Loading...");
 					//BTProgressHUD.Dismiss();
-					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false), false);
+					NavigationController.PushViewController(new DetailViewController(WineBarcode, storeId, false, false), false);
 					LoggingClass.LogInfo("Clicked on " + WineBarcode + " to enter into Details", screen);
 				};
 				lblName = new UILabel(lower);
