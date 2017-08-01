@@ -4,11 +4,13 @@
 <dict>
 	<key>ServiceData</key>
 	<string>True</string>
-	<key>aps-environment</key>
-	<string>development</string>
+	<key></key>
+	<false/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>com.savvyitsol.winehangoutz</string>
+		<string>$(AppIdentifierPrefix)com.savvyitsol.winehangoutz</string>
 	</array>
+	<key>aps-environment</key>
+	<string>development</string>
 </dict>
 </plist>

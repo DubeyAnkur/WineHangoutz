@@ -44,7 +44,7 @@ namespace WineHangoutz
 			//{ 
 			//}
 			string logg = csv.ToString();
-			//UploadAsyncLogs(logg);
+			UploadAsyncLogs(logg);
 			
 		}
 		public static void LogInfo(string info, string screen)
@@ -105,6 +105,7 @@ namespace WineHangoutz
 				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
 				CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
 				//await container.CreateIfNotExistsAsync();
+				//File.AppendAllText(LogPath, log);
 				CloudAppendBlob append = container.GetAppendBlobReference(userid+".csv");
 				if (!await append.ExistsAsync())
 				{
@@ -133,11 +134,10 @@ namespace WineHangoutz
 				CloudBlockBlob blob = container.GetBlockBlobReference(userid + ".csv");
 				//LoggingClass.LogInfo("Updated profile picture",screenid);
 				using (var fs = System.IO.File.Open(LogPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-				            {
-
-				                await blob.UploadFromStreamAsync(fs);
+				 {
+			              await blob.UploadFromStreamAsync(fs);
 				//LoggingClass.LogInfo("Profile picture uploaded into blob",screenid);
-            }
+           		 }
 
 			}
 			catch (Exception ex)

@@ -43,22 +43,23 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			BlobWrapper.DownloadAllImages();
-			// Override point for customization after application launch.
-			// If not required for your application you can safely delete this method
-			UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-			//CurrentUser.Clear();
-			//CurrentUser.Store("3", "Development Simulator");
-			//for direct log in
-			//CurrentUser.PutCardNumber("7207589007");
-			Console.WriteLine(DateTime.Now + " App opened");
-			UIImage profile = UIImage.FromFile("profile.png");
-			profile = ResizeImage(profile, 25, 25);
-			_window = Window;
-			UIImage info = UIImage.FromFile("Info.png");
-			info = ResizeImage(info, 25, 25);
 			try
 			{
+				BlobWrapper.DownloadAllImages();
+				// Override point for customization after application launch.
+				// If not required for your application you can safely delete this method
+				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
+				CurrentUser.Clear();
+				//CurrentUser.Store("3", "Development Simulator");
+				//for direct log in
+				CurrentUser.PutCardNumber("7207589007");
+				//Console.WriteLine(DateTime.Now + " App opened");
+				UIImage profile = UIImage.FromFile("profile.png");
+				profile = ResizeImage(profile, 25, 25);
+				_window = Window;
+				UIImage info = UIImage.FromFile("Info.png");
+				info = ResizeImage(info, 25, 25);
+
 
 				if (CurrentUser.RetreiveUserId() != 0)
 				{
@@ -152,24 +153,24 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 				ServiceWrapper svc = new ServiceWrapper();
 				await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
 					LoggingClass.LogInfo("Device Token " + DeviceToken, screen);
-					UIAlertView alert1 = new UIAlertView()
-					{
-					Title = DeviceToken,
-					};
-					alert1.AddButton("OK");
-					alert1.Show();
+					//UIAlertView alert1 = new UIAlertView()
+					//{
+					//Title = DeviceToken,
+					//};
+					//alert1.AddButton("OK");
+					//alert1.Show();
 				var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
 
 				// Has the token changed?
 				if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
 				{
 					await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
-					UIAlertView alert = new UIAlertView()
-					{
-						Title = DeviceToken,
-					};
-					alert.AddButton("OK");
-					alert.Show();
+					//UIAlertView alert = new UIAlertView()
+					//{
+					//	Title = DeviceToken,
+					//};
+					//alert.AddButton("OK");
+					//alert.Show();
 				}
 
 				// Save new device token 
