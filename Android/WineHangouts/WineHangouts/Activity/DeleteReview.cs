@@ -45,17 +45,19 @@ namespace WineHangouts
             {
                 Delete.Click += async delegate
                 {
+                    AndHUD.Shared.Show(Parent, "Deleting  Review...", Convert.ToInt32(MaskType.Clear));
                     review.Barcode = WineBarcode;
-                    ProgressIndicator.Show(Parent);
+                   // ProgressIndicator.Show(Parent);
                     review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
 					
 					await sw.DeleteReview(review);
                     ((IPopupParent)Parent).RefreshParent();
                     ProgressIndicator.Hide();
                     myDialog.Dismiss();
-					AndHUD.Shared.ShowSuccess(Parent, "It Worked!", MaskType.Clear, TimeSpan.FromSeconds(2));
-					
-					LoggingClass.LogInfoEx("User deleted winereview" + WineBarcode + "from "+review.PlantFinal+"st Store", screenid);
+                    AndHUD.Shared.Dismiss();
+                    AndHUD.Shared.ShowSuccess(Parent, "Sucessfully Deleted", MaskType.Clear, TimeSpan.FromSeconds(2));
+
+                    LoggingClass.LogInfoEx("User deleted winereview" + WineBarcode + "from "+review.PlantFinal+"st Store", screenid);
 
 
 				};

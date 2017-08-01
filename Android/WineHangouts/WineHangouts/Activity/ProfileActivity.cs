@@ -13,18 +13,22 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Felipecsl.GifImageViewLibrary;
+using AndroidHUD;
 //using System.Drawing.Drawing2D;
 
 namespace WineHangouts
 {
 	[Activity(Label = "My Profile", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class ProfileActivity : Activity, IPopupParent
-	{
+    {
 		Stopwatch st;
 		ImageView propicimage;
 		WebClient webClient;
 		private int screenid = 8;
-		protected override void OnCreate(Bundle bundle)
+        GifImageView gifImageView;
+
+        protected override void OnCreate(Bundle bundle)
 		{
 			CheckInternetConnection();
 			base.OnCreate(bundle);
@@ -102,13 +106,13 @@ namespace WineHangouts
 				string Addres2 = output.customer.Address2;
 				string Addres1 = output.customer.Address1;
 				Address.Text = string.Concat(Addres1, Addres2);
-				EditText City = FindViewById<EditText>(Resource.Id.txtCity);
-				City.Text = output.customer.CardNumber;
-				if (CurrentUser.getUserId() != null)
-				{
-					City.Enabled = false;
-				}
-				else { City.Enabled = true; }
+				//EditText City = FindViewById<EditText>(Resource.Id.txtCity);
+				//City.Text = output.customer.CardNumber;
+				//if (CurrentUser.getUserId() != null)
+				//{
+				//	City.Enabled = false;
+				//}
+				//else { City.Enabled = true; }
 				EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
                 PinCode.Text = output.customer.Zip;
 				Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
@@ -123,9 +127,10 @@ namespace WineHangouts
 				storelist.Add("Wall");
 				storelist.Add("PointPleasent");
 				storelist.Add("Both");
-				
-				
-				List<string> StateList = new List<string>();
+                 gifImageView = FindViewById<GifImageView>(Resource.Id.gifImageView1);
+                gifImageView.StartAnimation();
+            
+                List<string> StateList = new List<string>();
 				StateList.Add("AL");
 				StateList.Add("AK");
 				StateList.Add("AZ");
@@ -198,9 +203,10 @@ namespace WineHangouts
 				{
 					updatebtn.Click += async delegate
 					{
-						//int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
-						//Prefered.SetSelection(p);
-						Customer customer = new Customer()
+                        AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
+                        //int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
+                        //Prefered.SetSelection(p);
+                        Customer customer = new Customer()
 						{
 							FirstName = Firstname.Text,
 							LastName = Lastname.Text,
@@ -212,9 +218,10 @@ namespace WineHangouts
 							State = spn.SelectedItem.ToString(),
 							
 							//City = City.Text
-							CardNumber = City.Text,
+							//CardNumber = City.Text,
 							Zip=PinCode.Text,
 							PreferredStore=Convert.ToInt32( Prefered.SelectedItemId)
+
 							
 
 					};
@@ -225,8 +232,10 @@ namespace WineHangouts
 						{
 							Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
 						}
-						var intent = new Intent(this, typeof(TabActivity));
-						StartActivity(intent);
+                        AndHUD.Shared.Dismiss();
+                        AndHUD.Shared.ShowSuccess(this, "Profile Updated", MaskType.Clear, TimeSpan.FromSeconds(2));
+      //                  var intent = new Intent(this, typeof(TabActivity));
+						//StartActivity(intent);
 
 					};
 
@@ -246,8 +255,19 @@ namespace WineHangouts
 			//LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
 			ProgressIndicator.Hide();
 		}
-	
-		public bool CheckInternetConnection()
+        protected override void OnStop()
+        {
+            base.OnStop();
+            gifImageView.StopAnimation();
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            gifImageView.StartAnimation();
+        }
+      
+        public bool CheckInternetConnection()
 		{
 
 			string CheckUrl = "http://google.com";
@@ -377,12 +397,13 @@ namespace WineHangouts
 			var output = svc.GetCustomerDetails(userId).Result;
 			Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
 		}
+
 		public Bitmap ResizeAndRotate(Bitmap image, int width, int height)
 		{
 			var matrix = new Matrix();
 			var scaleWidth = ((float)width) / image.Width;
 			var scaleHeight = ((float)height) / image.Height;
-			matrix.PostRotate(270);
+			matrix.PostRotate(90);
 			matrix.PreScale(scaleWidth, scaleHeight);
 			return Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
 		}

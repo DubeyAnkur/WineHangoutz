@@ -95,6 +95,7 @@ namespace WineHangouts
 			if (CurrentUser.getUserName() == null ||
 				CurrentUser.getUserName() == "")
 			{
+                	SendRegistrationToAppServer(CurrentUser.getToken());
 				if (CurrentUser.GetCardNumber() != null)
 				{
 					ShowInfo(CurrentUser.GetCardNumber());
@@ -123,8 +124,10 @@ namespace WineHangouts
 					ProgressIndicator.Show(this);
 					StartActivity(intent);
 				}
+                //cFPtPgzgg1o,APA91bFt7Tp1mb1dthhHQVqDkbQHUapp - O1xrk9rKiLdLbJGJltq32smRjNE1lihbnN7sf5j8Fnjii2 - o_MlDap - GB - IyqXBtZkJc4h0XxZzWFGRtOmyT9VUEig58T5fuFi9ifboBxij
 
-			}
+
+            }
 			var telephonyDeviceID = string.Empty;
 			var telephonySIMSerialNumber = string.Empty;
 			TelephonyManager telephonyManager = (TelephonyManager)this.ApplicationContext.GetSystemService(Context.TelephonyService);
@@ -141,66 +144,84 @@ namespace WineHangouts
 			CurrentUser.SaveDeviceID(DeviceID);
 		}
 		public async void ShowInfo(string Cardnumber)
-		{
-			authen = await svc.AuthencateUser("test", Cardnumber, CurrentUser.GetDeviceID());
-			if (Cardnumber != null)
-			{ CurrentUser.SaveCardNumber(Cardnumber); }
+        {
+            AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
 
-			//if (authen.customer.CustomerID != 0)
-			if (authen != null)
-			{
-				if (authen.customer.Email != "" && authen.customer.Email != null)
-				{
 
-                    TxtScanresult.Text = " Hi " + authen.customer.FirstName + authen.customer.LastName + ",\n We have sent an email at  " + authen.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
-                   
-                    TxtScanresult.SetTextColor(Android.Graphics.Color.Black);
-                    BtnResend.Visibility = ViewStates.Visible;
-					BtnLogin.Visibility = ViewStates.Visible;
-					BtnResend.Click += async delegate
+            try
+            {
+                authen = await svc.AuthencateUser("test", Cardnumber, CurrentUser.GetDeviceID());
+                if (Cardnumber != null)
+                { CurrentUser.SaveCardNumber(Cardnumber); }
+
+                //if (authen.customer.CustomerID != 0)
+                if (authen != null)
+                {
+                    if (authen.customer.Email != "" && authen.customer.Email != null)
                     {
-                        //ProgressIndicator.Show(this);
-                        try
+                        TxtScanresult.Text = " Hi " + authen.customer.FirstName + authen.customer.LastName + ",\n We have sent an email at  " + authen.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+
+                        TxtScanresult.SetTextColor(Android.Graphics.Color.Black);
+                        BtnResend.Visibility = ViewStates.Visible;
+                        BtnLogin.Visibility = ViewStates.Visible;
+                        BtnResend.Click += async delegate
                         {
-                            AndHUD.Shared.Show(this, "Sending Email", Convert.ToInt32(MaskType.Clear));
+                            //ProgressIndicator.Show(this);
+                            try
+                            {
+                                AndHUD.Shared.Show(this, "Sending verification email to" + authen.customer.Email, Convert.ToInt32(MaskType.Clear));
+
+                                //BTProgressHUD.Show("Sending verification email to" + authen.customer.Email);
+                                if (Cardnumber != null)
+                                {
+                                    await svc.ResendEMail(Cardnumber);
+
+                                }
+                                else
+                                {
+                                    await svc.ResendEMail(CurrentUser.GetCardNumber());
+
+                                }
+                                //BTProgressHUD.ShowSuccessWithStatus("Sent");
+                                AndHUD.Shared.Dismiss();
+                                AndHUD.Shared.ShowSuccess(this, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
+                            }
+                            catch (Exception ex) { }
                            
-                            //BTProgressHUD.Show("Sending verification email to" + authen.customer.Email);
-                            if (Cardnumber != null)
-                            {
-                                await svc.ResendEMail(Cardnumber);
-                                AndHUD.Shared.ShowSuccess(Parent, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
-                            }
-                            else
-                            {
-                                await svc.ResendEMail(CurrentUser.GetCardNumber());
-                                AndHUD.Shared.ShowSuccess(Parent, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
-                            }
-                            //BTProgressHUD.ShowSuccessWithStatus("Sent");
-                            AndHUD.Shared.ShowSuccess(Parent, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
-                        }
-                        catch (Exception ex)
-                        { }
-                        ProgressIndicator.Hide();
-                    };
-                    BtnLogin.Click += delegate
-					{
-						ProgressIndicator.Show(this);
-						EmailVerification();
-					};
-				}
-				else
-				{
-                    TxtScanresult.Text = authen.ErrorDescription;  
-				}
-			}
-			else
-			{
-				TxtScanresult.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
-                BtnResend.Visibility = ViewStates.Invisible;
-                BtnLogin.Visibility = ViewStates.Invisible;
-                TxtScanresult.SetTextColor(Android.Graphics.Color.Red);
+                            //ProgressIndicator.Hide();
+                        };
+                        BtnLogin.Click += delegate
+                        {
+                            //ProgressIndicator.Show(this);
+                          
+                            
+                                AndHUD.Shared.Show(this, "Checking Email Verification", Convert.ToInt32(MaskType.Clear));
+                                EmailVerification();
+                          
+                            
+                        };
+
+                    }
+                    else
+                    {
+                        TxtScanresult.Text = authen.ErrorDescription;
+                        TxtScanresult.SetTextColor(Android.Graphics.Color.Red);
+                    }
+                }
+                else
+                {
+                    TxtScanresult.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
+                    BtnResend.Visibility = ViewStates.Invisible;
+                    BtnLogin.Visibility = ViewStates.Invisible;
+                    TxtScanresult.SetTextColor(Android.Graphics.Color.Red);
+                    AndHUD.Shared.Dismiss();
+                }
+                AndHUD.Shared.Dismiss();
             }
-		}
+            catch(Exception ex ) {
+            }
+            AndHUD.Shared.Dismiss();
+        }
 		Boolean isValidEmail(String email)
 		{
 			return Android.Util.Patterns.EmailAddress.Matcher(email).Matches();
@@ -219,8 +240,9 @@ namespace WineHangouts
 
 		}
 		public async void EmailVerification()
-		{
-			authen = await svc.AuthencateUser("test", CurrentUser.GetCardNumber(), CurrentUser.GetDeviceID());
+        {
+            AndHUD.Shared.Show(this, "Checking Email Verification", Convert.ToInt32(MaskType.Clear));
+            authen = await svc.AuthencateUser("test", CurrentUser.GetCardNumber(), CurrentUser.GetDeviceID());
 			DeviceToken DO = new DeviceToken();
 			try
 			{
@@ -256,35 +278,39 @@ namespace WineHangouts
 							StartActivity(intent);
 						}
 						LoggingClass.LogInfoEx("User verified and Logging" + "---->" + CurrentUser.GetCardNumber(), screenid);
-					}
-					else
+                        AndHUD.Shared.Dismiss();
+                        AndHUD.Shared.ShowSuccess(Parent, "Success!", MaskType.Clear, TimeSpan.FromSeconds(2));
+                    }
+                    else
 					{
-						AlertDialog.Builder aler = new AlertDialog.Builder(this);
-						aler.SetTitle("Sorry");
-						aler.SetMessage("You entered wrong details or authentication failed");
-						aler.SetNegativeButton("Ok", delegate { });
-						Dialog dialog1 = aler.Create();
-						dialog1.Show();
-					};
+                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                        aler.SetTitle("Sorry");
+                        aler.SetMessage("You entered wrong details or authentication failed");
+                        aler.SetNegativeButton("Ok", delegate { });
+                        Dialog dialog1 = aler.Create();
+                        dialog1.Show();
+                      };
 				}
 				else
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this);
-					aler.SetTitle("Sorry");
-					aler.SetMessage("Your email is not verified plesase check email and verify.");
-					aler.SetNegativeButton("Verify", delegate { });
-					Dialog dialog = aler.Create();
-					dialog.Show();
-				}
-				ProgressIndicator.Hide();
-			}
+                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                    aler.SetTitle("Sorry");
+                    aler.SetMessage("Your email is not verified plesase check email and verify.");
+                    aler.SetNegativeButton("Ok", delegate { });
+                    Dialog dialog = aler.Create();
+                    dialog.Show();
+                   }
+                //ProgressIndicator.Hide();
+                AndHUD.Shared.Dismiss();
+               
+            }
 
 			catch (Exception exe)
 			{
 				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
 			}
-
-		}
+            AndHUD.Shared.Dismiss();
+        }
 		private bool IsPlayServicesAvailable()
 		{
 			int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);

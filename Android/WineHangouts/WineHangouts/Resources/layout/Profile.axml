@@ -3,12 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/abc_input_method_navigation_guard">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/background_light">
+        android:background="#ffffff">
+        <RelativeLayout
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout1">
+            <com.felipecsl.gifimageview.library.GifImageView
+                android:id="@+id/gifImageView1"
+                android:src="@drawable/sfondo_nuoverecensioni"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitXY" />
+            <refractored.controls.CircleImageView
+                android:layout_width="230.0dp"
+                android:layout_height="150.5dp"
+                android:id="@+id/propicview"
+                android:src="@drawable/profileempty"
+                app:civ_border_width="0.3dp"
+                app:civ_border_color="#808080"
+                android:layout_marginTop="115dp"
+                android:layout_centerHorizontal="true" />
+            <ImageButton
+                android:src="@android:drawable/ic_menu_camera"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btnChangePropic"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="240dp" />
+        </RelativeLayout>
         <RelativeLayout
             android:minWidth="25px"
             android:minHeight="25px"
@@ -23,15 +56,15 @@
                 android:id="@+id/propicview"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center" />  -->
-            <refractored.controls.CircleImageView
+        <!--<refractored.controls.CircleImageView
                 android:paddingTop="16dp"
                 android:layout_width="100dp"
                 android:layout_height="100.5dp"
                 android:id="@+id/propicview"
                 android:src="@drawable/profileempty"
                 app:civ_border_width="0.3dp"
-                app:civ_border_color="#808080" />
-            <ImageButton
+                app:civ_border_color="#808080" />-->
+        <!--<ImageButton
                 android:src="@android:drawable/ic_menu_camera"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -40,7 +73,7 @@
                 android:layout_marginLeft="80dp"
                 android:scaleType="fitCenter"
                 android:layout_marginBottom="-5dp"
-                android:layout_alignBottom="@+id/propicview" />
+                android:layout_alignBottom="@+id/propicview" />-->
             <RelativeLayout
                 android:id="@+id/relativeLayout2"
                 android:layout_width="wrap_content"
@@ -55,14 +88,14 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
                         <TextView
-                            android:text="First Name"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="First Name :"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:id="@+id/textView10"
                             android:layout_width="match_parent"
-                            android:layout_marginLeft="16dp"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/propicview"
-                            android:textColor="@android:color/black" />
+                            android:textColor="@android:color/black"
+                            android:textSize="20dp" />
                     </TableRow>
                     <TableRow
                         android:id="@+id/tableRow3"
@@ -72,13 +105,13 @@
                             android:id="@+id/txtFirstName"
                             android:inputType="text"
                             android:layout_height="wrap_content"
-                            android:layout_width="200.0dp"
+                            android:layout_width="271.0dp"
                             android:textColor="@android:color/black"
                             android:textSize="15dp"
                             android:typeface="sans"
                             android:layout_alignBottom="@+id/textView10"
                             android:textColorHint="#aaa"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginLeft="50dp"
                             android:background="@android:drawable/editbox_background" />
                     </TableRow>
                     <TableRow
@@ -86,12 +119,13 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content">
                         <TextView
-                            android:text="Last Name"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Last Name :"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:id="@+id/textView12"
+                            android:textSize="20dp"
                             android:layout_alignBottom="@+id/txtFirstName"
                             android:layout_marginLeft="16dp" />
                     </TableRow>
@@ -109,13 +143,13 @@
                             android:typeface="sans"
                             android:layout_alignBottom="@+id/textView12"
                             android:textColorHint="#aaa"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginLeft="50dp"
                             android:background="@android:drawable/editbox_background" />
                     </TableRow>
                 </TableLayout>
             </RelativeLayout>
         </RelativeLayout>
-        <TableLayout
+    <!--<TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TableRow
@@ -132,7 +166,7 @@
                     android:id="@+id/textView14"
                     android:gravity="center" />
             </TableRow>
-        </TableLayout>
+        </TableLayout>-->
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,34 +176,36 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            <!--<ImageView
                     android:src="@drawable/ic_action_email"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
                 <TextView
-                    android:text="E-Mail"
+                    android:text="E-Mail :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
+                    android:textSize="20dp"
                     android:id="@+id/textView14"
                     android:layout_gravity="left"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="16dp" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow4"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="left">
-                <TextView />
                 <EditText
                     android:id="@+id/txtEmail"
                     android:inputType="textEmailAddress"
                     android:layout_height="wrap_content"
-                    android:layout_width="270.0dp"
+                    android:layout_width="273.5dp"
                     android:textSize="15dp"
+                    android:layout_marginLeft="50dp"
                     android:textColor="@android:color/black"
                     android:typeface="sans"
                     android:textColorHint="#aaa"
@@ -180,20 +216,22 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            <!--<ImageView
                     android:src="@android:drawable/ic_menu_call"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
                 <TextView
-                    android:text="Mobile Number"
+                    android:text="Mobile Number :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView14"
-                    android:layout_gravity="left" />
+                    android:textSize="20dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="16dp" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow4"
@@ -201,7 +239,6 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="left">
-                <TextView />
                 <EditText
                     android:id="@+id/txtMobileNumber"
                     android:inputType="phone"
@@ -210,6 +247,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
                     android:typeface="sans"
+                    android:layout_marginLeft="50dp"
                     android:textColorHint="#aaa"
                     android:layout_span="2"
                     android:background="@android:drawable/editbox_background"
@@ -221,20 +259,22 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            <!--<ImageView
                     android:src="@android:drawable/ic_menu_mapmode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
                 <TextView
-                    android:text="Address"
+                    android:text="Address :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView14"
-                    android:layout_gravity="left" />
+                    android:textSize="20dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="16dp" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow4"
@@ -242,7 +282,6 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="left">
-                <TextView />
                 <EditText
                     android:id="@+id/txtAddress"
                     android:inputType="textMultiLine"
@@ -252,30 +291,34 @@
                     android:layout_width="270dp"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
+                    android:layout_marginLeft="50dp"
                     android:maxLines="5"
                     android:typeface="sans"
                     android:textColorHint="#aaa"
                     android:layout_span="2"
                     android:background="@android:drawable/editbox_background" />
             </TableRow>
-            <TableRow
+        <!--<TableRow
                 android:id="@+id/tableRow5"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            -->
+        <!--<ImageView
                     android:src="@drawable/card"
                     android:layout_width="17.5dp"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
+        <!--
                 <TextView
                     android:text="Card Number"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
                     android:id="@+id/textView17"
+                    android:layout_marginLeft="16dp"
                     android:layout_gravity="left" />
             </TableRow>
             <TableRow
@@ -284,12 +327,12 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="left">
-                <TextView />
                 <EditText
                     android:id="@+id/txtCity"
                     android:inputType="text"
                     android:layout_height="wrap_content"
                     android:layout_width="270dp"
+                    android:layout_marginLeft="33.5dp"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"
                     android:maxLines="5"
@@ -297,7 +340,7 @@
                     android:textColorHint="#aaa"
                     android:layout_span="2"
                     android:background="@android:drawable/editbox_background" />
-            </TableRow>
+            </TableRow>-->
         <!--<TableRow
                 android:id="@+id/tableRow5"
                 android:layout_height="wrap_content"
@@ -343,19 +386,21 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            <!--<ImageView
                     android:src="@drawable/ic_action_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
                 <TextView
-                    android:text="State"
+                    android:text="State :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
+                    android:layout_marginLeft="16dp"
                     android:id="@+id/textView17"
+                    android:textSize="20dp"
                     android:layout_gravity="left" />
             </TableRow>
             <TableRow
@@ -365,12 +410,12 @@
                 android:layout_margin="5dp"
                 android:background="@android:color/background_light"
                 android:layout_gravity="left">
-                <TextView />
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="#000000"
+                    android:layout_marginLeft="50dp"
                     android:textColor="@android:color/black"
                     android:entries="@array/dropdown_arrays" />
             </TableRow>
@@ -379,19 +424,21 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            <!--<ImageView
                     android:src="@drawable/ic_action_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
                 <TextView
-                    android:text="Prefered Store"
+                    android:text="Prefered Store :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
+                    android:layout_marginLeft="16dp"
                     android:id="@+id/textView17"
+                    android:textSize="20dp"
                     android:layout_gravity="left" />
             </TableRow>
             <TableRow
@@ -401,11 +448,11 @@
                 android:layout_margin="5dp"
                 android:background="@android:color/background_light"
                 android:layout_gravity="left">
-                <TextView />
                 <Spinner
                     android:id="@+id/spinner1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
                     android:background="#000000"
                     android:textColor="@android:color/black"
                     android:entries="@array/dropdown_array" />
@@ -415,18 +462,20 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp">
-                <ImageView
+            <!--<ImageView
                     android:src="@drawable/ic_action_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView1"
                     android:scaleType="fitStart"
                     android:cropToPadding="true"
-                    android:layout_gravity="left" />
+                    android:layout_gravity="left" />-->
                 <TextView
-                    android:text="ZipCode"
+                    android:text="ZipCode :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20dp"
                     android:id="@+id/textView17"
                     android:layout_gravity="left" />
             </TableRow>
@@ -436,7 +485,6 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="left">
-                <TextView />
                 <EditText
                     android:id="@+id/txtZip"
                     android:inputType="text"
@@ -446,6 +494,7 @@
                     android:textSize="15dp"
                     android:maxLines="5"
                     android:typeface="sans"
+                    android:layout_marginLeft="50dp"
                     android:textColorHint="#aaa"
                     android:layout_span="2"
                     android:background="@android:drawable/editbox_background" />
@@ -466,7 +515,6 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="#800080"
-            android:background="@null"
-            android:layout_marginLeft="88.5dp" />
+            android:background="@null" />
     </LinearLayout>
 </ScrollView>

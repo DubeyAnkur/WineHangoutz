@@ -264,7 +264,7 @@ namespace WineHangoutz
 							var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
 							tap.AddTarget(() =>
 							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://www.wineoutlet.com/main.asp?request=CONTACTUS"));
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("	"));
 							});
 							lblInfo.UserInteractionEnabled = true;
 							lblInfo.AddGestureRecognizer(tap);

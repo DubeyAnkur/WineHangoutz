@@ -19,7 +19,7 @@
             android:minHeight="25px"
             android:id="@+id/tableRow88"
             android:layout_rowSpan="2"
-            android:layout_width="355.5dp">
+            android:layout_width="358.0dp">
         <!--     <ImageButton
                 android:layout_column="0"
                 android:id="@+id/imageButton2"
@@ -58,7 +58,7 @@
                 <TableRow
                     android:id="@+id/tableRow95"
                     android:paddingLeft="30px"
-                    android:layout_width="320.0dp">
+                    android:layout_width="268.0dp">
                     <View
                         android:id="@+id/topDivider"
                         android:layout_width="180.0dp"
@@ -77,20 +77,20 @@
                     <RatingBar
                         android:id="@+id/rtbProductRating"
                         style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_height="33.0dp"
-                        android:layout_width="187.5dp"
+                        android:layout_height="36.0dp"
+                        android:layout_width="45.0dp"
                         android:layout_gravity="left"
                         android:numStars="5"
                         android:rating="2.5"
                         android:stepSize="0.1"
-                        android:scaleX="0.45"
-                        android:scaleY="0.45"
+                        android:scaleX="0.35"
+                        android:scaleY="0.35"
                         android:progressTint="#800080"
                         android:progressBackgroundTint="#808080"
                         android:isIndicator="true"
                         android:layout_span="3"
                         android:transformPivotX="0dp"
-                        android:layout_marginBottom="-17dp" />
+                        android:layout_marginBottom="-23dp" />
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow90"
@@ -101,7 +101,7 @@
                         android:text="Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_column="0"
-                        android:textSize="35px"
+                        android:textSize="25px"
                         android:id="@+id/textView67"
                         android:textColor="@android:color/holo_blue_bright"
                         android:layout_margin="2dp" />
@@ -110,7 +110,8 @@
                     android:id="@+id/tableRow90"
                     android:minWidth="25px"
                     android:minHeight="25px"
-                    android:paddingLeft="30px">
+                    android:paddingLeft="30px"
+                    android:layout_width="268.0dp">
                     <TextView
                         android:text="Wine description"
                         android:singleLine="false"

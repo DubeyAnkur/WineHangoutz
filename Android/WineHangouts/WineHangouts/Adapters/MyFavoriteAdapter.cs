@@ -223,7 +223,7 @@ namespace WineHangouts
 			View row = convertView;
 			if (row == null)
 			
-				row = LayoutInflater.From(myContext).Inflate(Resource.Layout.cell, null, false);
+				row = LayoutInflater.From(myContext).Inflate(Resource.Layout.MyFavorite, null, false);
 				//else
 				//	return row;
 
@@ -233,13 +233,14 @@ namespace WineHangouts
 
 				TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
 				ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-
-				ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
+         
+            ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imgHeart);
 				RatingBar rating = row.FindViewById<RatingBar>(Resource.Id.rtbProductRating);
 				rating.Rating = (float)myItems[position].AverageRating;
 				txtName.Text = myItems[position].Name;
 				txtPrice.Text = myItems[position].SalePrice.ToString("C", Cultures.UnitedState);
-				txtVintage.Text = myItems[position].Vintage.ToString();
+         
+            txtVintage.Text = myItems[position].Vintage.ToString();
 				heartImg.SetImageResource(Resource.Drawable.Heart_emp);
 				var heartLP = new FrameLayout.LayoutParams(80, 80);
 				var metrics = myContext.Resources.DisplayMetrics;
@@ -325,8 +326,8 @@ namespace WineHangouts
 				}
 
 				txtName.Focusable = false;
-
-				txtVintage.Focusable = false;
+           
+            txtVintage.Focusable = false;
 				txtPrice.Focusable = false;
 				imgWine.Focusable = false;
 				imgWine.Dispose();

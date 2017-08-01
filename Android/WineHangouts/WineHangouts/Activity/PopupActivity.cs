@@ -13,6 +13,7 @@ using Android.Graphics;
 using Android.Util;
 using System.Diagnostics;
 using Hangout.Models;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -97,7 +98,8 @@ namespace WineHangouts
                 };
                 btnSubmitReview.Click += async delegate
                 {
-					if (CurrentUser.getUserId() == null)
+                    AndHUD.Shared.Show(Parent, "Saving Review...", Convert.ToInt32(MaskType.Clear));
+                    if (CurrentUser.getUserId() == null)
 					{
 						AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
 						aler.SetTitle("Sorry");
@@ -111,7 +113,7 @@ namespace WineHangouts
 					}
 					else
 					{
-						ProgressIndicator.Show(Parent);
+						//ProgressIndicator.Show(Parent);
 						review.ReviewDate = DateTime.Now;
 						review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
 						review.Username = CurrentUser.getUserName();
@@ -123,9 +125,11 @@ namespace WineHangouts
 						LoggingClass.LogInfo("Submitted review---->" + review.RatingStars + " ---->" + review.RatingText + "---->" + review.PlantFinal + "---->" + review.Barcode, screenid);
 						await sw.InsertUpdateReview(review);
 						((IPopupParent)Parent).RefreshParent();
-						ProgressIndicator.Hide();
+						//ProgressIndicator.Hide();
 						editDialog.Dismiss();
 					}
+                    AndHUD.Shared.Dismiss();
+                    AndHUD.Shared.ShowSuccess(Parent, "Sucessfully Saved", MaskType.Clear, TimeSpan.FromSeconds(2));
 
                 };
             }
@@ -173,8 +177,9 @@ namespace WineHangouts
                 };
                 btnSubmitReview.Click += async delegate
                 {
-					
-                    ProgressIndicator.Show(Parent);
+                    AndHUD.Shared.Show(Parent, "Saving Review...", Convert.ToInt32(MaskType.Clear));
+
+                   // ProgressIndicator.Show(Parent);
                     review.ReviewDate = DateTime.Now;
                     review.ReviewUserId = Convert.ToInt32(CurrentUser.getUserId());
                     review.RatingText = Comments.Text;
@@ -193,8 +198,11 @@ namespace WineHangouts
                         LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
                     }
                     ((IPopupParent)Parent).RefreshParent();
-                    ProgressIndicator.Hide();
+                    // ProgressIndicator.Hide();
+                    AndHUD.Shared.Dismiss();
+                    AndHUD.Shared.ShowSuccess(Parent, "Sucessfully Saved", MaskType.Clear, TimeSpan.FromSeconds(2));
                     editDialog.Dismiss();
+               
                 };
             }
             catch (Exception exe)
@@ -208,6 +216,7 @@ namespace WineHangouts
 
     public interface IPopupParent
     {
+       
         void RefreshParent();
     }
 }

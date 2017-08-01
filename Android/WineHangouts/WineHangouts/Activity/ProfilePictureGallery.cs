@@ -17,10 +17,10 @@ namespace WineHangouts
     {
         public string path;
         private int screenid = 13;
-		Stopwatch st;
+		//Stopwatch st;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
-			st.Start();
+			//st.Start();
             base.OnActivityResult(requestCode, resultCode, data);
             LoggingClass.LogInfo("Entered into ProfilePictureGallery", screenid);
             if (resultCode == Result.Ok)
@@ -33,7 +33,7 @@ namespace WineHangouts
                     string dir_path = pppd.CreateDirectoryForPictures();
                     dir_path = dir_path + "/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg";
                     ProfileActivity pa = new ProfileActivity();
-                    Bitmap resized = pa.Resize(propic, 450, 450);
+                    Bitmap resized = pa.Resize(propic, 400, 400);
                     var filePath = System.IO.Path.Combine(dir_path);
                     var stream = new FileStream(filePath, FileMode.Create);
                     resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
@@ -52,8 +52,8 @@ namespace WineHangouts
                 }
 				
 			}
-			st.Stop();
-			LoggingClass.LogTime("profile pic gall time", st.Elapsed.TotalSeconds.ToString());
+			//st.Stop();
+			//LoggingClass.LogTime("profile pic gall time", st.Elapsed.TotalSeconds.ToString());
         }
 
         protected override void OnCreate(Bundle bundle)

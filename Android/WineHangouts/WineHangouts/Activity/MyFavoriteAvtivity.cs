@@ -58,15 +58,29 @@ namespace WineHangouts
 					gridview.SetNumColumns(2);
 					gridview.Adapter = adapter;
 					gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-					{
-						string WineBarcode = myArr[args.Position].Barcode;
-                        int storeid = myArr[args.Position].PlantFinal;
-						ProgressIndicator.Show(this);
-						var intent = new Intent(this, typeof(DetailViewActivity));
-						LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details", screenid);
-						intent.PutExtra("WineBarcode", WineBarcode);
-						intent.PutExtra("storeid", storeid);
-						StartActivity(intent);
+                    {
+                        try
+                        {
+                            string WineBarcode = myArr[args.Position].Barcode;
+                            int storeid = myArr[args.Position].PlantFinal;
+                            ProgressIndicator.Show(this);
+                            var intent = new Intent(this, typeof(DetailViewActivity));
+                            LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details", screenid);
+                            intent.PutExtra("WineBarcode", WineBarcode);
+                            intent.PutExtra("storeid", storeid);
+                            StartActivity(intent);
+                        }
+                        catch (Exception)
+                        {
+                            string WineBarcode = myArr[args.Position].Barcode;
+                            int storeid = myArr[args.Position].PlantFinal;
+                            ProgressIndicator.Show(this);
+                            var intent = new Intent(this, typeof(DetailViewActivity));
+                            LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details", screenid);
+                            intent.PutExtra("WineBarcode", WineBarcode);
+                            intent.PutExtra("storeid", storeid);
+                            StartActivity(intent);
+                        }
 					};
 
 					LoggingClass.LogInfo("Entered into My Favorites Activity", screenid);

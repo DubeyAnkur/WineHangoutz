@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Android.Support;
 using System.Diagnostics;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -121,24 +122,7 @@ namespace WineHangouts
 					edit.RatingText = tempReview.RatingText;
 				ReviewPopup editPopup = new ReviewPopup(this, edit);
 				RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
-                if (CurrentUser.getUserId() == null)
-                {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("This Feature is available for VIP Users only");
-                    aler.SetNegativeButton("Ok", delegate
-                    {
-                        LoggingClass.LogInfo("Closed PoPup", screenid);
-                    });
-                    Dialog dialog1 = aler.Create();
-                    dialog1.Show();
-                }
-                else
-
-                {
-
                     RatingInput.RatingBarChange += editPopup.CreatePopup;
-                }
 				var metrics = Resources.DisplayMetrics;
 				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
 				var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
@@ -322,14 +306,16 @@ namespace WineHangouts
 		}
 		public void RefreshParent()
 		{
-			ServiceWrapper svc = new ServiceWrapper();
+          
+            ServiceWrapper svc = new ServiceWrapper();
 			//int wineid = Intent.GetIntExtra("WineID", 138);
 			ItemDetailsResponse myData = svc.GetItemDetails(WineBarcode, storeid).Result;
 			var SkuRating = svc.GetItemReviewsByWineBarcode(WineBarcode).Result;
 			comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
             commentsview.Adapter = comments;
 			comments.NotifyDataSetChanged();
-		}
+         
+        }
 
 		public async void DownloadAsync(object sender, System.EventArgs ea, string WineBarcode)
 		{

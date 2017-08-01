@@ -106,19 +106,7 @@ namespace WineHangouts
 				heartLP.TopMargin = 5;
 				heartImg.LayoutParameters = heartLP;
 				heartImg.Layout(50, 50, 50, 50);
-            if (CurrentUser.getUserId() == null)
-            {
-                AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
-                aler.SetTitle("Sorry");
-                aler.SetMessage("This Feature is available for VIP Users only");
-                aler.SetNegativeButton("Ok", delegate {
-                    LoggingClass.LogInfo("Closed PoPup", screenid);
-                });
-                Dialog dialog1 = aler.Create();
-                dialog1.Show();
-            }
-            else
-            { 
+          
                 bool count = Convert.ToBoolean(myItems[position].IsLike);
                 if (count == true)
                 {
@@ -130,7 +118,21 @@ namespace WineHangouts
                 }
                 heartImg.Tag = position;
 
-                if (convertView == null)
+            if (convertView == null)
+            {
+                if (CurrentUser.getUserId() == null)
+                {
+                    AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
+                    aler.SetTitle("Sorry");
+                    aler.SetMessage("This Feature is available for VIP Users only");
+                    aler.SetNegativeButton("Ok", delegate
+                    {
+                        LoggingClass.LogInfo("Closed PoPup", screenid);
+                    });
+                    Dialog dialog1 = aler.Create();
+                    dialog1.Show();
+                }
+                else
                 {
                     heartImg.Click += async delegate
                     {
@@ -162,6 +164,7 @@ namespace WineHangouts
                     };
                 }
             }
+            
 
 				Bitmap imageBitmap;
 				imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, storeid);
