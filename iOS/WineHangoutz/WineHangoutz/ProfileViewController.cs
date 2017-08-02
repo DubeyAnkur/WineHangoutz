@@ -173,7 +173,7 @@ namespace WineHangoutz
 						{
 							if (buttonArgs.ButtonIndex == 2)
 							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 							}
 						};
 					alert.Show();
@@ -511,7 +511,8 @@ namespace WineHangoutz
 					nfloat n = Scroll.Subviews[i].Frame.Size.Height;
 					h = h + n;
 				}
-				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+70);
+				Console.WriteLine(h);
+				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-300);
 				View = (Scroll);
 			}
 			catch (Exception ex)
@@ -543,7 +544,7 @@ namespace WineHangoutz
 			// Get bounds of parent view
 			CGRect viewFrame = View.Bounds;
 			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
-			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+50);
+			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-300);
 			Scroll.ContentOffset = new CGPoint(0,0);
 		}
 		//protected void DismissKeyboardOnBackgroundTap()
@@ -568,7 +569,7 @@ namespace WineHangoutz
 				switch (e.Info[UIImagePickerController.MediaType].ToString())
 				{
 					case "public.image":
-						Console.WriteLine("Image selected");
+						//Console.WriteLine("Image selected");
 						isImage = true;
 						break;
 					case "public.video":

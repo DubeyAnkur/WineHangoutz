@@ -20,6 +20,9 @@ namespace WineHangoutz
 		private string screen = "DetailView Controller";
 		public UILabel nd;
 		Boolean _fav;
+		Boolean _noreviews;
+		UITableView reviewTable = new UITableView();
+		Boolean _notif;
 		NSData HighImgData = null;
 		ServiceWrapper svc = new ServiceWrapper();
 
@@ -29,6 +32,7 @@ namespace WineHangoutz
 			_wineId =WineId;
 			_storeId = Convert.ToInt32(storeid);
 			_fav = fav;
+			_notif = notification;
             this.Title = "Wine Details";
 		}
 		UIScrollView scrollView;
@@ -223,9 +227,11 @@ namespace WineHangoutz
 					NoReviews.Hidden = true;
 					if (data.Reviews.Count == 0)
 					{
+						_noreviews = true;
+						reviewTable.SeparatorColor = UIColor.Clear;
 						NoReviews.Text = ratings.ErrorDescription;
 						sTemp = NoReviews.SizeThatFits(sTemp);
-						NoReviews.Frame = new CGRect(0, Y, width, 40);
+						NoReviews.Frame = new CGRect(0, Y-50, width, 40);
 						NoReviews.Editable = false;
 						NoReviews.TextAlignment = UITextAlignment.Center;
 						NoReviews.Hidden = false;
@@ -236,6 +242,49 @@ namespace WineHangoutz
 					if (currentReview != null)
 					{
 						currComments = currentReview.RatingText;
+					}
+					if (_notif == true)
+					{
+						//ratingViewSelect.RatingChosen += (sender, e) =>
+						//{
+							//if (CurrentUser.RetreiveUserId() == 0)
+							//{
+							//	UIAlertView alert = new UIAlertView()
+							//	{
+							//		Title = "This feature is allowed only for VIP Card holders",
+							//		//Message = "Coming Soon..."
+							//	};
+							//		alert.AddButton("OK");
+							//	alert.AddButton("Know more");
+							//	alert.Clicked += (senderalert, buttonArgs) =>
+							//	{
+							//		if (buttonArgs.ButtonIndex == 1)
+							//		{
+							//			UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
+							//		}
+							//	};
+							//	alert.Show();
+							//	ratingViewSelect.ChosenRating = 0;
+							//}
+							//else
+							//{
+							try
+							{
+								LoggingClass.LogInfo("Came from notifications and giving rating for " + data.Barcode, screen);
+								PopupView yourController = new PopupView(data.Barcode, _storeId);
+								yourController.NavController = NavigationController;
+								yourController.parent = that;
+								yourController.StartsSelected = 5;
+								yourController.Comments = currComments;
+								yourController.ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext;
+								that.PresentModalViewController(yourController, false);
+							}
+							catch (Exception exe)
+							{
+								LoggingClass.LogError(exe.Message, screen, exe.StackTrace);
+							}
+							//}
+						//};	
 					}
 					ratingViewSelect.RatingChosen += (sender, e) =>
 					{
@@ -252,7 +301,7 @@ namespace WineHangoutz
 							{
 								if (buttonArgs.ButtonIndex == 1)
 								{
-									UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+									UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 								}
 							};
 							alert.Show();
@@ -270,13 +319,19 @@ namespace WineHangoutz
 							that.PresentModalViewController(yourController, false);
 						}
 					};
-					scrollView = new UIScrollView
+					scrollView = new UIScrollView();
+					scrollView.Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height);
+					if (_noreviews == true)
 					{
-						Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height),
-						ContentSize = new CGSize(View.Frame.Width, Y+ 70+40),
-						BackgroundColor = UIColor.White,
-						AutoresizingMask = UIViewAutoresizing.FlexibleHeight
-					};
+						scrollView.ContentSize = new CGSize(View.Frame.Width, Y + 70);
+					}
+					else
+					{
+						scrollView.ContentSize = new CGSize(View.Frame.Width, Y+20);
+					}
+					scrollView.BackgroundColor = UIColor.White;
+					scrollView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
+					//};
 					if (_fav != true)
 					{
 						scrollView.AddSubview(txtWineleft);
@@ -326,7 +381,7 @@ namespace WineHangoutz
 
 		public UITableView LoadReviews(ItemDetails data, nfloat Y, nfloat width)
 		{
-				var reviewTable = new UITableView();
+				//reviewTable.SeparatorColor = UIColor.Clear;
 				reviewTable.Frame = new CGRect(0, Y, width, (data.Reviews.Count * 90) + 90);
 				reviewTable.Source = new ReviewTableSource(data.Reviews);//,NavigationController,this);
 				reviewTable.AllowsSelection = false;

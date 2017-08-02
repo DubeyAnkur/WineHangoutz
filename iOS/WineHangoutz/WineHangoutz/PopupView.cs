@@ -13,8 +13,6 @@ namespace WineHangoutz
 	{
 		public UINavigationController NavController;
 		public UIViewController parent;
-
-		//Possible Inputss
 		public decimal StartsSelected;
 		public string Comments="";
 		public string WineId;
@@ -29,9 +27,6 @@ namespace WineHangoutz
 			this.Title = "Popup";
 			WineId = Wine;
 			storeid = storeiD;
-			//storeid = storeId;
-
-			//this.TabBarItem.Image = UIImage.FromBundle("Images/first");
 		}
 		public override void ViewDidLoad()
 		{
@@ -151,7 +146,7 @@ namespace WineHangoutz
 						{
 							if (buttonArgs.ButtonIndex == 1)
 							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 							}
 						};
 						alert.Show();
@@ -178,7 +173,7 @@ namespace WineHangoutz
 						{
 							if (buttonArgs.ButtonIndex == 1)
 							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 							}
 						};
 						alert.Show();
@@ -228,7 +223,7 @@ namespace WineHangoutz
 									{
 										if (buttonArgs.ButtonIndex == 1)
 										{
-											UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+											UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 										}
 									};
 									alert1.Show();

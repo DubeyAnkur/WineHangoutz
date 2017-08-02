@@ -131,7 +131,7 @@ namespace WineHangoutz {
 						{
 							if (buttonArgs.ButtonIndex == 1)
 							{
-								UIApplication.SharedApplication.OpenUrl(new NSUrl("http://savvyitdev.com/winehangouts/"));
+								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 							}
 						};
 						alert.Show();

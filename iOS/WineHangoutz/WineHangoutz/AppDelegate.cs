@@ -49,25 +49,24 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 				// Override point for customization after application launch.
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-				CurrentUser.Clear();
-				//CurrentUser.Store("3", "Development Simulator");
+				//CurrentUser.Clear();
+				//CurrentUser.Store("12", "Lokesh Simulator");
 				//for direct log in
-				CurrentUser.PutCardNumber("7207589007");
+				//CurrentUser.PutCardNumber("7207589007");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
 				_window = Window;
 				UIImage info = UIImage.FromFile("Info.png");
 				info = ResizeImage(info, 25, 25);
-
-
 				if (CurrentUser.RetreiveUserId() != 0)
 				{
 					ManageTabBar(RootTab);
-					Console.WriteLine(DateTime.Now + " App opened");
+					//Console.WriteLine(DateTime.Now + " App opened");
 					nav = new UINavigationController(RootTab);
 					//Window.RootViewController = RootTab;
 					AddNavigationButtons(nav);
+					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(128,0,128);
 					Window.RootViewController = nav;
 				}
 				else
@@ -78,14 +77,14 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 					login._window = Window;
 					nav = new UINavigationController(login);
 					//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
-					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
+					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(128,0,128);
 					Window.RootViewController = nav;
 				}
 			}
 			catch (Exception exe)
 			{
 				LoggingClass.LogError(exe.Message, screen, exe.StackTrace);
-				Console.WriteLine(exe.Message +"--->"+ exe.StackTrace+" App delegate error");
+				//Console.WriteLine(exe.Message +"--->"+ exe.StackTrace+" App delegate error");
 			}
 			//ManageTabBar(RootTab);
 			//var login = new LoginViewController();
@@ -153,6 +152,7 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 				ServiceWrapper svc = new ServiceWrapper();
 				await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
 					LoggingClass.LogInfo("Device Token " + DeviceToken, screen);
+					//CurrentUser.PutDeviceToken(DeviceToken);
 					//UIAlertView alert1 = new UIAlertView()
 					//{
 					//Title = DeviceToken,

@@ -72,7 +72,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("GetItemList service Time Elapsed"+sw.Elapsed.TotalSeconds, "ItemList");
-			Console.WriteLine("GetItemList service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetItemList service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;  
 		}
 		public async Task<ItemDetailsResponse> GetItemDetailsBarcode(string wineid, int storeid)
@@ -96,7 +96,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemDetails");
-			Console.WriteLine("GetItemDetails service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetItemDetails service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
 		}
 
@@ -124,7 +124,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateLike");
-			Console.WriteLine("InsertUpdateLike service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("InsertUpdateLike service Time Elapsed"+sw.Elapsed.TotalSeconds);
             return 1;
         }
 
@@ -154,7 +154,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "Authencate Card and sending mail");
-			Console.WriteLine("Authencate Card and sending mail service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("Authencate Card and sending mail service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
         }
 		public async Task<DeviceToken> VerifyMail(string Uid)
@@ -173,7 +173,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "Verify");
-			Console.WriteLine("Verify mail service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("Verify mail service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return  output;
 		}
 
@@ -195,7 +195,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemReviewsByWineID");
-			Console.WriteLine("GetItemReviewsByWineID service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetItemReviewsByWineID service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
         }
 
@@ -216,7 +216,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemReviewUID");
-			Console.WriteLine("GetItemReviewUID service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetItemReviewUID service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
 
         }
@@ -240,7 +240,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateReview");
-			Console.WriteLine("InsertUpdateReview service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("InsertUpdateReview service Time Elapsed"+sw.Elapsed.TotalSeconds);
             return 1;
         }
         public async Task<int> DeleteReview(Review review)
@@ -263,7 +263,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "DeleteReview");
-			Console.WriteLine("DeleteReview service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("DeleteReview service Time Elapsed"+sw.Elapsed.TotalSeconds);
             return 1;
         }
         public async Task<int> UpdateCustomer(Customer customer)
@@ -287,7 +287,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "UpdateCustomer");
-			Console.WriteLine("UpdateCustomer service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("UpdateCustomer service Time Elapsed"+sw.Elapsed.TotalSeconds);
             return 1;
         }
 		public async Task<int> InsertUpdateToken(string token,string user_id)
@@ -310,7 +310,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateToken");
-			Console.WriteLine("InsertUpdateToken service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("InsertUpdateToken service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return 1;
 		}
         public async Task<ItemListResponse> GetItemFavsUID(int userId)
@@ -330,7 +330,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetItemFavUID");
-			Console.WriteLine("GetItemFavUID service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetItemFavUID service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
         }
         public async Task<CustomerResponse> GetCustomerDetails(int userID)
@@ -350,7 +350,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetCustomerDetails");
-			Console.WriteLine("GetCustomerDetails service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetCustomerDetails service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
         }
         public async Task<TastingListResponse> GetMyTastingsList(int customerid)
@@ -369,7 +369,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "GetMyTastingsList");
-			Console.WriteLine("GetMyTastingsList service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("GetMyTastingsList service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
         }
 		public async Task<CustomerResponse> InsertUpdateGuest(string token)
@@ -392,7 +392,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Guest Service");
-			Console.WriteLine("Guest service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("Guest service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
 		}
 		public async Task<int> ResendEMail(string CardNumber)
@@ -414,7 +414,7 @@ namespace WineHangoutz
 			}
 			sw.Stop();
 			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Resend Email Service");
-			Console.WriteLine("Resend Email service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			//Console.WriteLine("Resend Email service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
 		}
 
