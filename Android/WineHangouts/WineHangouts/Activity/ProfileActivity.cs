@@ -44,7 +44,7 @@ namespace WineHangouts
 				int userId = Convert.ToInt32(CurrentUser.getUserId());
 				ServiceWrapper sw = new ServiceWrapper();
 				var output = sw.GetCustomerDetails(userId).Result;
-				propicimage = FindViewById<ImageView>(Resource.Id.propicview);
+				propicimage = FindViewById<ImageView>(Resource.Id.propic);
 				DownloadAsync(this, System.EventArgs.Empty);
 				//ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 				//string path = pppd.CreateDirectoryForPictures();
