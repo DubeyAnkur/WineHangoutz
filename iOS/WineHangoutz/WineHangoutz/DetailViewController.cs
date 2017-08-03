@@ -178,7 +178,7 @@ namespace WineHangoutz
 					}
 					else
 					{
-						lblDescText.Text = data.Description;
+						lblDescText.Text = data.Description.Trim();
 					}
 					lblDescText.TextAlignment = UITextAlignment.Justified;
 					CGSize sTemp = new CGSize(width, 100);
@@ -208,7 +208,7 @@ namespace WineHangoutz
 					}
 					else
 					{
-						lblProducerText.Text = data.Producer;
+						lblProducerText.Text = data.Producer.Trim();
 					}
 					lblProducerText.TextAlignment = UITextAlignment.Justified;
 					sTemp = new CGSize(width, 100);

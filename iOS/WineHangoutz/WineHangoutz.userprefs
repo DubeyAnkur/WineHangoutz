@@ -1,9 +1,11 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/LoginViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/RatingCellView.cs">
     <Files>
       <File FileName="WineHangoutz/AppDelegate.cs" Line="6" Column="30" />
-      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="367" Column="43" />
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="142" Column="1" />
+      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="20" Column="5" />
+      <File FileName="WineHangoutz/LoginViewController.cs" Line="153" Column="25" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="386" Column="32" />
+      <File FileName="WineHangoutz/RatingCellView.cs" Line="138" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,7 +13,7 @@
           <Node name="WineHangoutz" expanded="True">
             <Node name="WineHangoutz" expanded="True">
               <Node name="Tabs" expanded="True" />
-              <Node name="LoginViewController.cs" selected="True" />
+              <Node name="RatingCellView.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -28,7 +30,8 @@
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoggingClass.cs" relfile="WineHangoutz/LoggingClass.cs" line="80" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/DetailViewController.cs" relfile="WineHangoutz/DetailViewController.cs" line="33" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyfavView.cs" relfile="WineHangoutz/MyfavView.cs" line="139" column="88" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoginViewController.cs" relfile="WineHangoutz/LoginViewController.cs" line="130" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyReviewViewController.cs" relfile="WineHangoutz/MyReviewViewController.cs" line="366" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyReviewViewController.cs" relfile="WineHangoutz/MyReviewViewController.cs" line="416" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
