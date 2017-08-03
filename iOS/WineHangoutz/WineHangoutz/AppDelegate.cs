@@ -31,16 +31,13 @@ namespace WineHangoutz
 		//	else
 		//		return UIInterfaceOrientationMask.All;
 		//} 
-public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+		public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+		{
 
-{
+			return UIInterfaceOrientationMask.AllButUpsideDown;
 
-	return UIInterfaceOrientationMask.AllButUpsideDown;
-
-}
-
+		}
 		UINavigationController nav;
-
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			try
@@ -90,12 +87,10 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 			//var login = new LoginViewController();
 			//login.RootTabs = Window.RootViewController;
 			//login._window = Window;
-
 			//nav = new UINavigationController(login);
-			////nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
+			//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
 			//UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
 			//Window.RootViewController = nav;
-
 			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
 			{
 				var pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
@@ -229,7 +224,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 				}
 			}
 		}
-
 		private void ManageTabBar(UITabBarController RootTab)
 		{
 			UITabBar tabBar = RootTab.TabBar;
@@ -261,7 +255,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 
 
 		}
-
 		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
 		{
 			UIGraphics.BeginImageContext(new CGSize(width, height));
@@ -270,7 +263,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 			UIGraphics.EndImageContext();
 			return resultImage;
 		}
-
 		//public override string UniqueID
 		//{
 		//	get
@@ -278,7 +270,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 		//		var query = new SecRecord(SecKind.GenericPassword);
 		//		query.Service = NSBundle.MainBundle.BundleIdentifier;
 		//		query.Account = "UniqueID";
-
 		//		NSData uniqueId = SecKeyChain.QueryAsData(query);
 		//		if (uniqueId == null)
 		//		{
@@ -286,7 +277,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 		//			var err = SecKeyChain.Add(query);
 		//			if (err != SecStatusCode.Success && err != SecStatusCode.DuplicateItem)
 		//				throw new Exception("Cannot store Unique ID");
-
 		//			return query.ValueData.ToString();
 		//		}
 		//		else
@@ -295,7 +285,6 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 		//		}
 		//	}
 		//}
-
 		public override void OnResignActivation(UIApplication application)
 		{
 			// Invoked when the application is about to move from active to inactive state.

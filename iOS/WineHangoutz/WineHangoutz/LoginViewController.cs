@@ -11,7 +11,7 @@ namespace WineHangoutz
 
 	public class LoginViewController : UIViewController
 	{
-		public Boolean internetStatus = Reachability.IsHostReachable("http://mylogicpvtltd.com/Quotes/");
+		public Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
 		public UIViewController root;
 		public UINavigationController nav;
 		public UIButton btnGuestLogin;
