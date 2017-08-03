@@ -10,6 +10,13 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:background="#ffffff">
+        <ImageView
+            android:id="@+id/gifImageView1"
+            android:src="@drawable/aboutus"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY" />
         <TextView
             android:text="Wine Hangouts"
             android:textAppearance="?android:attr/textAppearanceLarge"

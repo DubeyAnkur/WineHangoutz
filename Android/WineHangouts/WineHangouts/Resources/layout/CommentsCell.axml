@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="25px"
-    android:minHeight="25px">
+    android:minHeight="25px"
+    android:minWidth="25px">
     <TableLayout
         android:minWidth="25px"
         android:paddingLeft="25px"
         android:gravity="left"
-        android:layout_width="350.0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout3"
         android:background="@null">
@@ -19,7 +19,7 @@
             android:minHeight="25px"
             android:id="@+id/tableRow88"
             android:layout_rowSpan="2"
-            android:layout_width="358.0dp">
+            android:layout_width="match_parent">
         <!--     <ImageButton
                 android:layout_column="0"
                 android:id="@+id/imageButton2"
@@ -35,7 +35,8 @@
                 android:id="@+id/imageButton2"
                 android:src="@drawable/ic_action_person"
                 app:civ_border_width="0.1dp"
-                app:civ_border_color="#808080" />
+                app:civ_border_color="#808080"
+                android:layout_marginTop="4.0dp" />
             <TableLayout
                 android:minWidth="25px"
                 android:minHeight="25px"
@@ -58,7 +59,7 @@
                 <TableRow
                     android:id="@+id/tableRow95"
                     android:paddingLeft="30px"
-                    android:layout_width="268.0dp">
+                    android:layout_width="match_parent">
                     <View
                         android:id="@+id/topDivider"
                         android:layout_width="180.0dp"
@@ -73,7 +74,7 @@
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:paddingLeft="30px"
-                    android:layout_width="200dp">
+                    android:layout_width="match_parent">
                     <RatingBar
                         android:id="@+id/rtbProductRating"
                         style="?android:attr/ratingBarStyleIndicator"
@@ -101,7 +102,7 @@
                         android:text="Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_column="0"
-                        android:textSize="25px"
+                        android:textSize="20px"
                         android:id="@+id/textView67"
                         android:textColor="@android:color/holo_blue_bright"
                         android:layout_margin="2dp" />
@@ -111,14 +112,14 @@
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:paddingLeft="30px"
-                    android:layout_width="268.0dp">
+                    android:layout_width="match_parent">
                     <TextView
                         android:text="Wine description"
                         android:singleLine="false"
                         android:inputType="textFilter|textMultiLine|textNoSuggestions"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_column="0"
-                        android:textSize="35px"
+                        android:textSize="25px"
                         android:id="@+id/textView66"
                         android:textColor="@android:color/holo_green_dark"
                         android:layout_margin="2dp"
@@ -152,7 +153,7 @@
         <View
             android:id="@+id/topDivider"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
+            android:layout_height="0.6dp"
             android:background="#000000"
             android:paddingLeft="0.4px"
             android:layout_gravity="fill_horizontal" />

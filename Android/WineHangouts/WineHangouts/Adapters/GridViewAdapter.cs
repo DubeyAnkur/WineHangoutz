@@ -120,49 +120,51 @@ namespace WineHangouts
 
             if (convertView == null)
             {
-                if (CurrentUser.getUserId() == null)
-                {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("This Feature is available for VIP Users only");
-                    aler.SetNegativeButton("Ok", delegate
-                    {
-                        LoggingClass.LogInfo("Closed PoPup", screenid);
-                    });
-                    Dialog dialog1 = aler.Create();
-                    dialog1.Show();
-                }
-                else
-                {
+               
                     heartImg.Click += async delegate
                     {
-                        int actualPosition = Convert.ToInt32(heartImg.Tag);
-                        bool x;
-                        if (count == false)
+                        if (CurrentUser.getUserId() == null)
                         {
-                            heartImg.SetImageResource(Resource.Drawable.HeartFull);
-                            LoggingClass.LogInfoEx("Liked an item------>" + myItems[position].Barcode, screenid);
-                            x = true;
-                            count = true;
+                            AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
+                            aler.SetTitle("Sorry");
+                            aler.SetMessage("This Feature is available for VIP Users only");
+                            aler.SetNegativeButton("Ok", delegate
+                            {
+                                LoggingClass.LogInfo("Closed PoPup", screenid);
+                            });
+                            Dialog dialog1 = aler.Create();
+                            dialog1.Show();
                         }
                         else
                         {
-                            heartImg.SetImageResource(Resource.Drawable.Heart_emp);
-                            LoggingClass.LogInfoEx("UnLiked an item" + "----->" + myItems[position].Barcode, screenid);
-                            x = false;
-                            count = false;
+                            int actualPosition = Convert.ToInt32(heartImg.Tag);
+                            bool x;
+                            if (count == false)
+                            {
+                                heartImg.SetImageResource(Resource.Drawable.HeartFull);
+                                LoggingClass.LogInfoEx("Liked an item------>" + myItems[position].Barcode, screenid);
+                                x = true;
+                                count = true;
+                            }
+                            else
+                            {
+                                heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+                                LoggingClass.LogInfoEx("UnLiked an item" + "----->" + myItems[position].Barcode, screenid);
+                                x = false;
+                                count = false;
+                            }
+                            SKULike like = new SKULike();
+                            like.UserID = Convert.ToInt32(CurrentUser.getUserId());
+                            like.SKU = Convert.ToInt32(myItems[actualPosition].SKU);
+                            like.Liked = x;
+                            myItems[actualPosition].IsLike = x;
+                            like.BarCode = myItems[actualPosition].Barcode;
+                            LoggingClass.LogInfo("Liked an item", screenid);
+                            ServiceWrapper sw = new ServiceWrapper();
+                            await sw.InsertUpdateLike(like);
                         }
-                        SKULike like = new SKULike();
-                        like.UserID = Convert.ToInt32(CurrentUser.getUserId());
-                        like.SKU = Convert.ToInt32(myItems[actualPosition].SKU);
-                        like.Liked = x;
-                        myItems[actualPosition].IsLike = x;
-                        like.BarCode = myItems[actualPosition].Barcode;
-                        LoggingClass.LogInfo("Liked an item", screenid);
-                        ServiceWrapper sw = new ServiceWrapper();
-                        await sw.InsertUpdateLike(like);
                     };
-                }
+               // }
             }
             
 

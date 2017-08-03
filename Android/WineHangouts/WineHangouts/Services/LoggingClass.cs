@@ -20,10 +20,21 @@ namespace WineHangouts
 		public static CloudBlobClient blobClient;
 		public static CloudBlobContainer container;
 		public static CloudAppendBlob append;
-
-
+        public static string userid=CurrentUser.getUserId();
+        public static void pathcre()
+        {
+            if (userid == "0"||userid==null)
+            {
+                userid =CurrentUser.GuestId;
+                if (userid == "0"|| userid == null)
+                {
+                    userid = "DefaultLogs";
+                }
+            }
+        }
 		public static async void UploadErrorLogs()
 		{
+            pathcre();
 			try
 			{
 
@@ -39,14 +50,14 @@ namespace WineHangouts
 
 				await container.CreateIfNotExistsAsync();
 				//CloudBlockBlob blob = container.GetBlockBlobReference(CurrentUser.getUserId() + ".csv"); //(path);
-				if (CurrentUser.getUserId() == null)
-				{
-					append = container.GetAppendBlobReference("0.csv");
-				}
-				else
-				{
-					append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
-				}
+				//if (CurrentUser.getUserId() == null)
+				//{
+					append = container.GetAppendBlobReference(userid+".csv");
+				//}
+				//else
+				//{
+				//	append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
+				//}
 				if (!await append.ExistsAsync())
 				{
 					await append.CreateOrReplaceAsync();
@@ -89,10 +100,11 @@ namespace WineHangouts
   //      }
         public static void LogInfo(string info,int screenid)
 		{
-			try
+            pathcre();
+            try
 			{
 				
-				append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
+				append = container.GetAppendBlobReference(userid + ".csv");
 				DateTime date1 = DateTime.UtcNow;
 			
 			append.AppendTextAsync(string.Format("{0},{1},{2},{3}", "Info", date1.ToString("MM/dd/yyyy hh:mm:ss.fff"), info, screenid + "\n"));
@@ -106,12 +118,12 @@ namespace WineHangouts
 		}
 		public static  void LogInfoEx(string info,int screenid)
 		{
-			
-			try
+            pathcre();
+            try
 			{
 				
 				DateTime date = DateTime.UtcNow;
-				append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
+				append = container.GetAppendBlobReference(userid + ".csv");
 				var tasks = new Task[1];
 				for (int i = 0; i < 1; i++)
 
@@ -127,10 +139,11 @@ namespace WineHangouts
 		}
 		public static void LogServiceInfo(string info, string servicename)
         {
+            pathcre();
             try
             {
 				UploadErrorLogs();
-			//	append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
+		        append = container.GetAppendBlobReference(userid + ".csv");
 				DateTime date1 = DateTime.UtcNow;
 				var tasks = new Task[1];
 				for (int i = 0; i < 1; i++)
@@ -151,9 +164,10 @@ namespace WineHangouts
         }
         public static void LogError(string error,int screenid,string lineno)
         {
+            pathcre();
             try
             {
-				append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
+				append = container.GetAppendBlobReference(userid+ ".csv");
 				DateTime date2 = DateTime.UtcNow;
 				append.AppendTextAsync(string.Format("{0},{1},{2},{3},{4}", "Exception", date2.ToString("MM/dd/yyyy hh:mm:ss.fff"), error, lineno, screenid + "\n"));
 				//var csv = new StringBuilder();
@@ -169,7 +183,8 @@ namespace WineHangouts
         }
 		public static void LogTime(string info,string time)
 		{
-			try
+            pathcre();
+            try
 			{
 				append = container.GetAppendBlobReference(CurrentUser.getUserId() + ".csv");
 				DateTime date2 = DateTime.UtcNow;
@@ -185,8 +200,5 @@ namespace WineHangouts
 				Log.Error("Error", exe.Message);
 			}
 		}
-		
-
-
 	}
 }

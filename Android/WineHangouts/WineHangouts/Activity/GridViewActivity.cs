@@ -17,6 +17,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -123,7 +124,8 @@ namespace WineHangouts
                 gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
                 {
                     WineBarcode = myArr[args.Position].Barcode;
-                    ProgressIndicator.Show(this);
+                    // ProgressIndicator.Show(this);
+                    AndHUD.Shared.Show(this, "Loading...", Convert.ToInt32(MaskType.Clear));
                     var intent = new Intent(this, typeof(DetailViewActivity));
                     LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details",screenid);
                     intent.PutExtra("WineBarcode", WineBarcode);

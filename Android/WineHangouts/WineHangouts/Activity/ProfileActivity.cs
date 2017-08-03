@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
-using Felipecsl.GifImageViewLibrary;
+
 using AndroidHUD;
 //using System.Drawing.Drawing2D;
 
@@ -26,7 +26,7 @@ namespace WineHangouts
 		ImageView propicimage;
 		WebClient webClient;
 		private int screenid = 8;
-        GifImageView gifImageView;
+        ImageView gifImageView;
 
         protected override void OnCreate(Bundle bundle)
 		{
@@ -94,14 +94,18 @@ namespace WineHangouts
 				EditText Mobilenumber = FindViewById<EditText>(Resource.Id.txtMobileNumber);
 				string phno1 = output.customer.PhoneNumber;
 				string phno2 = output.customer.Phone2;
-				if (phno1 != null)
-				{
-					Mobilenumber.Text = phno1;
-				}
-				else
-					Mobilenumber.Text = phno2;
+                if (phno1 != null)
+                {
+                    Mobilenumber.Text = phno1;
+                }
+                else
+                {
+                    Mobilenumber.Text = phno2;
+                }
 				EditText Email = FindViewById<EditText>(Resource.Id.txtEmail);
-				Email.Text = output.customer.Email;
+               
+                    Email.Text = output.customer.Email;
+              
 				EditText Address = FindViewById<EditText>(Resource.Id.txtAddress);
 				string Addres2 = output.customer.Address2;
 				string Addres1 = output.customer.Address1;
@@ -114,7 +118,24 @@ namespace WineHangouts
 				//}
 				//else { City.Enabled = true; }
 				EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
-                PinCode.Text = output.customer.Zip;
+               
+                if (PinCode.Text.Length == 5 || PinCode.Text.Length < 5)
+                {
+                    PinCode.Text = output.customer.Zip;
+
+                }
+                else
+                {
+                    AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+                    aler.SetTitle("Invaid Pincode");
+                    aler.SetMessage("Enter a valid Valid Pincode");
+                    aler.SetNegativeButton("Ok", delegate
+                    {
+
+                    });
+                    Dialog dialog1 = aler.Create();
+                    dialog1.Show();
+                }
 				Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
 				Spinner spn = FindViewById<Spinner>(Resource.Id.spinner);
 				Spinner Prefered = FindViewById<Spinner>(Resource.Id.spinner1);
@@ -127,8 +148,8 @@ namespace WineHangouts
 				storelist.Add("Wall");
 				storelist.Add("PointPleasent");
 				storelist.Add("Both");
-                 gifImageView = FindViewById<GifImageView>(Resource.Id.gifImageView1);
-                gifImageView.StartAnimation();
+                 gifImageView = FindViewById<ImageView>(Resource.Id.gifImageView1);
+                //gifImageView.StartAnimation();
             
                 List<string> StateList = new List<string>();
 				StateList.Add("AL");
@@ -255,17 +276,17 @@ namespace WineHangouts
 			//LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
 			ProgressIndicator.Hide();
 		}
-        protected override void OnStop()
-        {
-            base.OnStop();
-            gifImageView.StopAnimation();
-        }
+        //protected override void OnStop()
+        //{
+        //    base.OnStop();
+        //    gifImageView.StopAnimation();
+        //}
 
-        protected override void OnStart()
-        {
-            base.OnStart();
-            gifImageView.StartAnimation();
-        }
+        //protected override void OnStart()
+        //{
+        //    base.OnStart();
+        //    gifImageView.StartAnimation();
+        //}
       
         public bool CheckInternetConnection()
 		{
@@ -374,7 +395,11 @@ namespace WineHangouts
 				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
 			}
 		}
-		public override bool OnOptionsItemSelected(IMenuItem item)
+        Boolean isValidEmail(String email)
+        {
+            return Android.Util.Patterns.EmailAddress.Matcher(email).Matches();
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
 		{
 			if (item.ItemId == Android.Resource.Id.Home)
 			{

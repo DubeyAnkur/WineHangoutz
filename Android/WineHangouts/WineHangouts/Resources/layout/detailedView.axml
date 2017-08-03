@@ -194,6 +194,7 @@
                     android:max="5"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
+                    android:isIndicator="true"
                     android:progressTint="#800080"
                     android:layout_gravity="center_horizontal"
                     android:progressBackgroundTint="#808080" />
@@ -206,7 +207,7 @@
                 <View
                     android:id="@+id/topDivider"
                     android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
+                    android:layout_height="0.7dp"
                     android:background="#000000"
                     android:paddingLeft="0.5px"
                     android:layout_gravity="fill_horizontal" />
@@ -230,7 +231,7 @@
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/txtWineDescription"
-                    android:layout_margin="10px"
+                   
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"
@@ -256,7 +257,7 @@
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/txtProducer"
-                    android:layout_margin="10px"
+                   
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"
@@ -290,13 +291,13 @@
             <TableRow
                 android:id="@+id/tableRow9"
                 android:gravity="left"
-                android:layout_margin="5dp">
+                android:layout_margin="2dp">
                 <ListView
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:layout_column="0"
                     android:id="@+id/listView2"
-                    android:layout_width="329.0dp" />
+                    android:layout_width="match_parent" />
             <!--  android:divider="#FFCC00"
                     android:dividerHeight="4px"-->
                 <TextView

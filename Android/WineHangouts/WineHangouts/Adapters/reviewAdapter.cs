@@ -54,8 +54,7 @@ namespace WineHangouts
 
 			View row = convertView;
 
-			if (myItems.Count != 0)
-			{
+			
 				if (row == null)
 					row = LayoutInflater.From(myContext).Inflate(Resource.Layout.CommentsCell, null, false);
 				TextView Name = row.FindViewById<TextView>(Resource.Id.textView64);
@@ -106,31 +105,15 @@ namespace WineHangouts
 				date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
 				rb.Rating = myItems[position].RatingStars;
 
-				//Image.SetImageBitmap(imageBitmap);
+            //Image.SetImageBitmap(imageBitmap);
+
+            return row;
 
 
-
-
-			}
-			else
-			{
-				//AlertDialog.Builder aler = new AlertDialog.Builder(myContext, Resource.Style.MyDialogTheme);
-				//aler.SetTitle("No Reviews");
-				//aler.SetMessage("Be the first one to Review");
-				//aler.SetNegativeButton("Ok", delegate { });
-
-				//Dialog dialog = aler.Create();
-				//dialog.Show();
-				if (row == null)
-					row = LayoutInflater.From(myContext).Inflate(Resource.Layout.Dummy, null, false);
-				TextView Error = row.FindViewById<TextView>(Resource.Id.Error);
-				ServiceWrapper svc = new ServiceWrapper();
-				ItemDetailsResponse myData = new ItemDetailsResponse();
-				Error.Text = myData.ErrorDescription;
-
-			}
-			return row;
-		}
+        }
+			
+			
+		
 
 
 	}

@@ -10,6 +10,7 @@ using Android.Widget;
 using Android.Util;
 using Hangout.Models;
 using System.Diagnostics;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -47,7 +48,7 @@ namespace WineHangouts
 						Finish();	
 					});
 					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-					Dialog dialog = aler.Create();
+					Dialog dialog = aler.Create();   
 					dialog.Show();
 				}
 				else
@@ -64,8 +65,9 @@ namespace WineHangouts
 						string WineBarcode = myArr1[args.Position].Barcode;
 						int storeID = Convert.ToInt32(myArr1[args.Position].PlantFinal);
 						LoggingClass.LogInfoEx("Clicked on " + myArr1[args.Position].Barcode + " to enter into wine details From ReviewAct", screenid);
-						ProgressIndicator.Show(this);
-						var intent = new Intent(this, typeof(DetailViewActivity));
+                        //ProgressIndicator.Show(this);
+                        AndHUD.Shared.Show(this, "Loading...", Convert.ToInt32(MaskType.Clear));
+                        var intent = new Intent(this, typeof(DetailViewActivity));
 						intent.PutExtra("WineBarcode", WineBarcode);
 						intent.PutExtra("storeid", storeID);
 						StartActivity(intent);
@@ -73,13 +75,15 @@ namespace WineHangouts
 					
 					LoggingClass.LogInfo("Entered into My Review", screenid);
 				}
-				ProgressIndicator.Hide();
-			}
+                ProgressIndicator.Hide();
+                AndHUD.Shared.Dismiss();
+            }
             catch (Exception exe)
             {
                 LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+                AndHUD.Shared.Dismiss();
                 ProgressIndicator.Hide();
-				AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
                 aler.SetTitle("Sorry");
                 aler.SetMessage("We're under maintainence");
                 aler.SetNegativeButton("Ok", delegate { });
@@ -108,6 +112,7 @@ namespace WineHangouts
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
+                //base.OnBackPressed();
                 LoggingClass.LogInfo("Exited from My Review", screenid);
                 return false;
             }

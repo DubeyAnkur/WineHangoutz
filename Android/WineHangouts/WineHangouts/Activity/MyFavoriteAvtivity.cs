@@ -10,6 +10,7 @@ using Hangout.Models;
 using System.Linq;
 using Android.Util;
 using System.Diagnostics;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -32,7 +33,7 @@ namespace WineHangouts
 				if (StoreName == "")
 					StoreName = Intent.GetStringExtra("MyData");
 				this.Title = StoreName;
-				int userId = Convert.ToInt32(CurrentUser.getUserId());
+                int userId = Convert.ToInt32(CurrentUser.getUserId());
 				ServiceWrapper sw = new ServiceWrapper();
 				ItemListResponse output = new ItemListResponse();
 				output = sw.GetItemFavsUID(userId).Result;
@@ -62,8 +63,9 @@ namespace WineHangouts
                         try
                         {
                             string WineBarcode = myArr[args.Position].Barcode;
-                            int storeid = myArr[args.Position].PlantFinal;
-                            ProgressIndicator.Show(this);
+                            int storeid =1;// myArr[args.Position].PlantFinal;
+                            //ProgressIndicator.Show(this);
+                            AndHUD.Shared.Show(this, "Loading...", Convert.ToInt32(MaskType.Clear));
                             var intent = new Intent(this, typeof(DetailViewActivity));
                             LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details", screenid);
                             intent.PutExtra("WineBarcode", WineBarcode);
@@ -75,6 +77,7 @@ namespace WineHangouts
                             string WineBarcode = myArr[args.Position].Barcode;
                             int storeid = myArr[args.Position].PlantFinal;
                             ProgressIndicator.Show(this);
+                            AndHUD.Shared.Dismiss();
                             var intent = new Intent(this, typeof(DetailViewActivity));
                             LoggingClass.LogInfo("Clicked on " + myArr[args.Position].Barcode + " to enter into wine details", screenid);
                             intent.PutExtra("WineBarcode", WineBarcode);

@@ -122,7 +122,7 @@ namespace WineHangouts
 					edit.RatingText = tempReview.RatingText;
 				ReviewPopup editPopup = new ReviewPopup(this, edit);
 				RatingBar RatingInput = FindViewById<RatingBar>(Resource.Id.ratingInput);//Taking rating stars input
-                    RatingInput.RatingBarChange += editPopup.CreatePopup;
+                   RatingInput.RatingBarChange += editPopup.CreatePopup;
 				var metrics = Resources.DisplayMetrics;
 				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
 				var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
@@ -228,7 +228,8 @@ namespace WineHangouts
 			if (item.ItemId == Android.Resource.Id.Home)
 			{
 				base.OnBackPressed();
-				LoggingClass.LogInfo("Exited from Detail View", screenid);
+                AndHUD.Shared.Dismiss();
+                LoggingClass.LogInfo("Exited from Detail View", screenid);
 				//TokenModel devInfo = new TokenModel();
 				//var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
 

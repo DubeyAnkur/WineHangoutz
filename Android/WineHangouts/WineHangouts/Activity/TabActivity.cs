@@ -8,6 +8,7 @@ using Android.Util;
 using Android.Graphics;
 using System.IO;
 using System.Diagnostics;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -212,8 +213,9 @@ namespace WineHangouts
 						{
 							Top.Click += (sender, e) =>
 							{
-								ProgressIndicator.Show(_parent);
-								LoggingClass.LogInfo("Clicked on My Reviews", screenid);
+                                ProgressIndicator.Show(_parent);
+                               // AndHUD.Shared.Show(_parent, "Loading...", Convert.ToInt32(MaskType.Clear));
+                                LoggingClass.LogInfo("Clicked on My Reviews", screenid);
 								var intent = new Intent(Activity, typeof(MyReviewActivity));
 								intent.PutExtra("MyData", "My Reviews");
 								StartActivity(intent);

@@ -23,7 +23,8 @@ namespace WineHangouts
 		private List<Item> myItems;
 		private Context myContext;
         private int screenid = 16;
-		public override Item this[int position]
+        public int storeid;
+        public override Item this[int position]
 		{
 			get
 			{
@@ -34,8 +35,8 @@ namespace WineHangouts
 		public MyFavoriteAdapter(Context con, List<Item> strArr)
 		{
 
-			
-			myContext = con;
+           
+            myContext = con;
 			myItems = strArr;
 		}
 		public override int Count
@@ -290,12 +291,14 @@ namespace WineHangouts
 						myItems[actualPosition].IsLike = x;
 						like.BarCode = myItems[actualPosition].Barcode;
 						LoggingClass.LogInfo("Liked an item", screenid);
-						ServiceWrapper sw = new ServiceWrapper();
+                        //myItems[position].pl
+
+                        ServiceWrapper sw = new ServiceWrapper();
 						await sw.InsertUpdateLike(like);
 					};
 				}
 				Bitmap imageBitmap;
-				imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, myItems[position].Vintage);
+				imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, storeid);
 				var place = new FrameLayout.LayoutParams(650, 650);
 
 				//-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;

@@ -48,8 +48,8 @@ namespace WineHangouts
 			TaskA.Start();
 			ImageButton BtnScanner = FindViewById<ImageButton>(Resource.Id.btnScanner);
 			Button BtnGuestLogin = FindViewById<Button>(Resource.Id.btnGuestLogin);
-
-			BtnScanner.Click += async delegate
+            LoggingClass.LogInfo("Opened the app", screenid);
+            BtnScanner.Click += async delegate
 			{
 				try
 				{
@@ -59,7 +59,7 @@ namespace WineHangouts
 					var result = await scanner.Scan();
 					if (result.Text != null)
 					{
-						LoggingClass.LogInfo("User Tried to login with " + result.Text + " Card id", screenid);
+						LoggingClass.LogInfo("User Tried to login with " + result.Text , screenid);
 						ShowInfo(result.Text);
 						CurrentUser.SaveCardNumber(result.Text);
 					}
@@ -72,11 +72,12 @@ namespace WineHangouts
 			BtnGuestLogin.Click += async delegate
 			{
 				//await svc.InsertUpdateGuest(CurrentUser.getToken());
-				//CurrentUser.SaveUserName("Guest", null);
+				CurrentUser.SaveUserName("Guest", null);
 				Intent intent = new Intent(this, typeof(TabActivity));
 				ProgressIndicator.Show(this);
-				StartActivity(intent);
-				await svc.InsertUpdateGuest(CurrentUser.getToken());
+                LoggingClass.LogInfo("User Tried to login with Guest Login " , screenid);
+                StartActivity(intent);
+				await svc.InsertUpdateGuest("Didn't get the token");
 			};
 			TxtScanresult = FindViewById<TextView>(Resource.Id.txtScanresult);
 			BtnLogin = FindViewById<Button>(Resource.Id.btnLogin);
@@ -151,6 +152,7 @@ namespace WineHangouts
             try
             {
                 authen = await svc.AuthencateUser("test", Cardnumber, CurrentUser.GetDeviceID());
+                LoggingClass.LogInfo("User Tried to login with " + Cardnumber , screenid);
                 if (Cardnumber != null)
                 { CurrentUser.SaveCardNumber(Cardnumber); }
 
@@ -174,6 +176,7 @@ namespace WineHangouts
                                 //BTProgressHUD.Show("Sending verification email to" + authen.customer.Email);
                                 if (Cardnumber != null)
                                 {
+                                    LoggingClass.LogInfo("Resend email " + authen.customer.Email, screenid);
                                     await svc.ResendEMail(Cardnumber);
 
                                 }
@@ -193,9 +196,9 @@ namespace WineHangouts
                         BtnLogin.Click += delegate
                         {
                             //ProgressIndicator.Show(this);
-                          
-                            
-                                AndHUD.Shared.Show(this, "Checking Email Verification", Convert.ToInt32(MaskType.Clear));
+
+                            LoggingClass.LogInfo("Clicked on Login "+Cardnumber, screenid);
+                            AndHUD.Shared.Show(this, "Checking Email Verification", Convert.ToInt32(MaskType.Clear));
                                 EmailVerification();
                           
                             
@@ -219,6 +222,8 @@ namespace WineHangouts
                 AndHUD.Shared.Dismiss();
             }
             catch(Exception ex ) {
+                LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+
             }
             AndHUD.Shared.Dismiss();
         }
@@ -252,7 +257,8 @@ namespace WineHangouts
 				{
 					if (authen.customer != null && authen.customer.CustomerID != 0)
 					{
-						CurrentUser.SaveUserName(authen.customer.FirstName + authen.customer.LastName, authen.customer.CustomerID.ToString());
+                        LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.getUserId(), screenid);
+                        CurrentUser.SaveUserName(authen.customer.FirstName + authen.customer.LastName, authen.customer.CustomerID.ToString());
 						SendRegistrationToAppServer(CurrentUser.getToken());
 						int storename = Convert.ToInt32(CurrentUser.GetPrefered());
 						if (storename == 1)
