@@ -49,7 +49,7 @@ namespace WineHangoutz
 				//CurrentUser.Clear();
 				//CurrentUser.Store("44206", "Lokesh Simulator");
 				//for direct log in
-				CurrentUser.PutCardNumber("7207589007");
+				//CurrentUser.PutCardNumber("7207589007");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);

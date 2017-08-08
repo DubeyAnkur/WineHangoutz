@@ -280,7 +280,7 @@ namespace WineHangoutz
 					//EmailVerification();
 					if (cr.customer.Email != "" && cr.customer.Email != null)
 					{
-						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at\n " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
@@ -289,55 +289,22 @@ namespace WineHangoutz
 						lblInfo.TextColor = UIColor.Black;
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 
-						//var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
-						//tap.AddTarget(() =>
-						//{
-						//	UIApplication.SharedApplication.OpenUrl(new NSUrl("	"));
-						//});
-						//lblInfo.UserInteractionEnabled = true;
-						//lblInfo.AddGestureRecognizer(tap);
 						try
 						{
-							//BtnTest1 = CurrentUser.btnU;
-							//BtnTest2 = CurrentUser.btnC;
 							BtnTest1.Hidden = true;
 							BtnTest2.Hidden = true;
-							//if (BtnTest1 != null || BtnTest2 != null)
-							//{
-							//	BtnTest1.SetTitleColor(UIColor.White, UIControlState.Normal);
-							//	BtnTest2.SetTitleColor(UIColor.White, UIControlState.Normal);
-							//	BtnTest1.BackgroundColor = UIColor.White;
-							//	BtnTest2.BackgroundColor = UIColor.White;
-							//	BtnTest1.UserInteractionEnabled = false;
-							//	BtnTest2.UserInteractionEnabled = false;
-							//}
 
 						}
 						catch(Exception exe) 
 						{
 						}
-
-						//BtnUpdate.SetTitle("Test", UIControlState.Focused);
 						strtbtn = start + lblInfo.Frame.Height + 10;
 						btnLogin.Frame=new CGRect(180, strtbtn, 120, 30);
 						btnResend.Frame = new CGRect(30, strtbtn, 120, 30);
-						//btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
-						//btnLogin.SetTitle("Log In", UIControlState.Normal);
-						//btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-						//btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
-						//btnLogin.BackgroundColor = UIColor.Purple;
 
-						//btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
-						//btnResend.SetTitle("Resend Email", UIControlState.Normal);
-						//btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-						//btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
-						//btnResend.BackgroundColor = UIColor.Purple;
-
-						//View.AddSubview(btnResend);
-						//View.AddSubview(btnLogin);
 						btnResend.TouchUpInside += async (send, eve) =>
 						{
-							BTProgressHUD.Show("Sending verification email to" + cr.customer.Email);
+							BTProgressHUD.Show("Sending verification email to " + cr.customer.Email);
 							if (CardNumber != null)
 							{
 								await svc.ResendEMail(CardNumber);
@@ -352,7 +319,7 @@ namespace WineHangoutz
 						{
 							try
 							{
-								BTProgressHUD.Show("Checking email verifification");
+								BTProgressHUD.Show("Checking email verification");
 								EmailVerification();
 							}
 							catch (Exception ex)
@@ -497,7 +464,7 @@ namespace WineHangoutz
 				{
 					if (cr.customer.Email != null || cr.customer.Email != "")
 					{
-						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are goint to send an verification email at  " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
@@ -510,21 +477,19 @@ namespace WineHangoutz
 						BtnTest1.Frame = new CGRect(200, strtbtn, 120, 30);
 						BtnTest2.Frame = new CGRect(30, strtbtn, 140, 30);
 
-						BtnTest1.TouchUpInside += delegate 
+						BtnTest1.TouchUpInside += delegate
 						{
 							ShowInfo(CurrentUser.GetCardNumber());
-							//BtnTest1.Hidden = true;
 						};
 						BtnTest2.TouchDown += delegate
 						{
 							UpdateEmail("Please enter your new E-mail Id");
-							//BtnTest2.Hidden = true;
 						};
 					}
-					//else 
-					//{
-					//	UpdateEmail("Please provide your mail id");
-					//}
+					else
+					{
+						UpdateEmail("Please enter E-Mail Id");
+					}
 				}
 				BTProgressHUD.Dismiss();
 			}
