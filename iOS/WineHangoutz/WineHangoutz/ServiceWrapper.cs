@@ -34,8 +34,7 @@ namespace WineHangoutz
                 string host = "https://hangoutz.azurewebsites.net/";
                 return host + "api/Item/";
             }
-
-        }
+		}
         public async Task<string> GetDataAsync()
         {
 			
@@ -99,7 +98,6 @@ namespace WineHangoutz
 			//Console.WriteLine("GetItemDetails service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
 		}
-
         public async Task<int> InsertUpdateLike(SKULike skuLike)
         {
 			sw.Start();
@@ -127,7 +125,6 @@ namespace WineHangoutz
 			//Console.WriteLine("InsertUpdateLike service Time Elapsed"+sw.Elapsed.TotalSeconds);
             return 1;
         }
-
 		public async Task<CustomerResponse> AuthencateUser(string Email,string CardId,string uid)
         {
 			sw.Start();
@@ -176,7 +173,6 @@ namespace WineHangoutz
 			//Console.WriteLine("Verify mail service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return  output;
 		}
-
 		public async Task<ItemReviewResponse> GetItemReviewsByWineID(string WineID)
         {
 			sw.Start();
@@ -198,7 +194,6 @@ namespace WineHangoutz
 			//Console.WriteLine("GetItemReviewsByWineID service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
         }
-
         public async Task<ItemReviewResponse> GetItemReviewUID(int userId)
         {
 			sw.Start();
@@ -220,7 +215,6 @@ namespace WineHangoutz
 			return output;
 
         }
-
         public async Task<int> InsertUpdateReview(Review review)
         {
 			sw.Start();
@@ -417,6 +411,59 @@ namespace WineHangoutz
 			//Console.WriteLine("Resend Email service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return output;
 		}
+		public async Task<CustomerResponse> UpdateMail(string email,string userid)
+		{
+			sw.Start();
+			CustomerResponse output = null;
+			try
+			{
 
-    }
+				var uri = new Uri(ServiceURL + "UpdateEmailAddress/"+email+"/user/"+userid);
+				var content = JsonConvert.SerializeObject(email);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
+			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Guest Service");
+			return output;
+		}
+		public async Task<CustomerResponse> ContinueService(CustomerResponse customer)
+		{
+			sw.Start();
+			CustomerResponse output = null;
+			try
+			{
+				var uri = new Uri(ServiceURL + "ContinueClick/");
+				var content = JsonConvert.SerializeObject(customer);
+				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+				string Token = CurrentUser.GetAuthToken();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+				var response = await client.PostAsync(uri,cont).ConfigureAwait(false);
+				if (response.IsSuccessStatusCode)
+				{
+					var tokenJson = await response.Content.ReadAsStringAsync();
+					output = JsonConvert.DeserializeObject<CustomerResponse>(tokenJson);
+				}
+				//var result = response.Content.ReadAsStringAsync().Result;
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
+			}
+			sw.Stop();
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "UpdateCustomer");
+			//Console.WriteLine("UpdateCustomer service Time Elapsed"+sw.Elapsed.TotalSeconds);
+			return output;  
+			}
+
+	}
 }

@@ -257,14 +257,14 @@ namespace WineHangoutz
 			UIGraphics.EndImageContext();
 			return resultImage;
 		}
-		public async void ShowInfo(string CardNumber)
+		public async void ShowInfo(CustomerResponse cr,Boolean Continue)
 		{
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			try
 			{
 				BTProgressHUD.Show("Please wait...");
 
-				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
+				//cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 				if (CardNumber != null)
 				{
 					CurrentUser.PutCardNumber(CardNumber);
@@ -280,7 +280,14 @@ namespace WineHangoutz
 					//EmailVerification();
 					if (cr.customer.Email != "" && cr.customer.Email != null)
 					{
-						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at\n " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						if (Continue == true)
+						{
+							lblInfo.Text=" Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at\n " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						}
+						else
+						{
+							lblInfo.Text = cr.ErrorDescription;// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at\n " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						}
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
@@ -288,7 +295,6 @@ namespace WineHangoutz
 						lblInfo.TextAlignment = UITextAlignment.Left;
 						lblInfo.TextColor = UIColor.Black;
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-
 						try
 						{
 							BtnTest1.Hidden = true;
@@ -439,13 +445,14 @@ namespace WineHangoutz
 			BtnTest2.Hidden = true;
 			UIAlertView alert = new UIAlertView()
 			{
-				Title = Message,
+				Title = cr.ErrorDescription,
 				//Message = Message
 			};
-			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com"; 			alert.AddButton("OK"); 			alert.Clicked += (senderalert, buttonArgs) => 			{ 				if (buttonArgs.ButtonIndex == 0) 				{ 					CurrentUser.PutEmail(alert.GetTextField(0).Text);
+			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com"; 			alert.AddButton("Update"); 			alert.Clicked += async (senderalert, buttonArgs) => 			{ 				if (buttonArgs.ButtonIndex == 0) 				{ 					CurrentUser.PutEmail(alert.GetTextField(0).Text);
 					//Console.WriteLine(updatedEmail);
 					//Update service;
-					ShowInfo(CurrentUser.GetCardNumber());
+					cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
+					ShowInfo(cr, false);
 					//alert.CancelButtonIndex = 0; 				} 			} ;
 			//alert.DismissWithClickedButtonIndex(0, true); 			//alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.Show();
 		}
@@ -464,7 +471,7 @@ namespace WineHangoutz
 				{
 					if (cr.customer.Email != null || cr.customer.Email != "")
 					{
-						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						lblInfo.Text = cr.ErrorDescription;// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
@@ -477,9 +484,11 @@ namespace WineHangoutz
 						BtnTest1.Frame = new CGRect(200, strtbtn, 120, 30);
 						BtnTest2.Frame = new CGRect(30, strtbtn, 140, 30);
 
-						BtnTest1.TouchUpInside += delegate
+						BtnTest1.TouchUpInside +=async delegate
 						{
-							ShowInfo(CurrentUser.GetCardNumber());
+							cr=await svc.ContinueService(cr);
+							//await svc.ResendEMail(CurrentUser.GetCardNumber());
+							ShowInfo(cr, false);
 						};
 						BtnTest2.TouchDown += delegate
 						{
