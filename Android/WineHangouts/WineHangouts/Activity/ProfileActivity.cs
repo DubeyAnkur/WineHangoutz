@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 
 using AndroidHUD;
+using Android.Views.InputMethods;
 //using System.Drawing.Drawing2D;
 
 namespace WineHangouts
@@ -46,40 +47,42 @@ namespace WineHangouts
 				var output = sw.GetCustomerDetails(userId).Result;
 				propicimage = FindViewById<ImageView>(Resource.Id.propic);
 				DownloadAsync(this, System.EventArgs.Empty);
-				//ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-				//string path = pppd.CreateDirectoryForPictures();
-				//string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                //string path = pppd.CreateDirectoryForPictures();
+                //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-				//var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
-				//if (System.IO.File.Exists(filePath))
-				//{
+                //var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
+                //if (System.IO.File.Exists(filePath))
+                //{
 
-				//    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-				//    if (imageBitmap == null)
-				//    {
-				//        propicimage.SetImageResource(Resource.Drawable.user1);
-				//        propicimage.Dispose();
-				//    }
-				//    else
-				//    {
-				//        propicimage.SetImageBitmap(imageBitmap);
-				//        propicimage.Dispose();
-				//    }
-				//}
-				//else
-				//{
-				//    Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
-				//    if (imageBitmap == null)
-				//    {
-				//        propicimage.SetImageResource(Resource.Drawable.user1);
-				//    }
-				//    else
-				//    {
-				//        propicimage.SetImageBitmap(imageBitmap);
-				//    }
-				//}
+                //    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
+                //    if (imageBitmap == null)
+                //    {
+                //        propicimage.SetImageResource(Resource.Drawable.user1);
+                //        propicimage.Dispose();
+                //    }
+                //    else
+                //    {
+                //        propicimage.SetImageBitmap(imageBitmap);
+                //        propicimage.Dispose();
+                //    }
+                //}
+                //else
+                //{
+                //    Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
+                //    if (imageBitmap == null)
+                //    {
+                //        propicimage.SetImageResource(Resource.Drawable.user1);
+                //    }
+                //    else
+                //    {
+                //        propicimage.SetImageBitmap(imageBitmap);
+                //    }
+                //}
+                InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
 
-				ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
+               
+                ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
 				changepropic.Click += delegate
 				{
 					LoggingClass.LogInfo("Clicked on change propic", screenid);
@@ -119,23 +122,13 @@ namespace WineHangouts
 				//else { City.Enabled = true; }
 				EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
                
-                if (PinCode.Text.Length == 5 || PinCode.Text.Length < 5)
-                {
+              
                     PinCode.Text = output.customer.Zip;
 
-                }
-                else
-                {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
-                    aler.SetTitle("Invaid Pincode");
-                    aler.SetMessage("Enter a valid Valid Pincode");
-                    aler.SetNegativeButton("Ok", delegate
-                    {
-
-                    });
-                    Dialog dialog1 = aler.Create();
-                    dialog1.Show();
-                }
+               
+               
+                    
+               
 				Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
 				Spinner spn = FindViewById<Spinner>(Resource.Id.spinner);
 				Spinner Prefered = FindViewById<Spinner>(Resource.Id.spinner1);
@@ -206,8 +199,13 @@ namespace WineHangouts
 				spn.SetSelection(i);
 				//int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
 				Prefered.SetSelection(Preferedstore);
-				
-				if (CurrentUser.getUserId() == null)
+                inputManager.HideSoftInputFromWindow(Firstname.WindowToken, 0);
+                inputManager.HideSoftInputFromWindow(Lastname.WindowToken, 0);
+
+                inputManager.HideSoftInputFromWindow(Address.WindowToken, 0);
+                inputManager.HideSoftInputFromWindow(PinCode.WindowToken, 0);
+                inputManager.HideSoftInputFromWindow(Email.WindowToken, 0);
+                if (CurrentUser.getUserId() == null)
 				{
 					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
 					aler.SetTitle("Sorry");
@@ -224,41 +222,51 @@ namespace WineHangouts
 				{
 					updatebtn.Click += async delegate
 					{
-                        AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
-                        //int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
-                        //Prefered.SetSelection(p);
-                        Customer customer = new Customer()
-						{
-							FirstName = Firstname.Text,
-							LastName = Lastname.Text,
-							PhoneNumber = Mobilenumber.Text,
-							Address1 = Address.Text,
-							Email = Email.Text,
-							CustomerID = userId,
-							//State = State.Text,
-							State = spn.SelectedItem.ToString(),
-							
-							//City = City.Text
-							//CardNumber = City.Text,
-							Zip=PinCode.Text,
-							PreferredStore=Convert.ToInt32( Prefered.SelectedItemId)
+                        if ((Email.Text.Contains("@")) == false || (Email.Text.Contains(".")) == false)
+                        {
+                            AndHUD.Shared.ShowErrorWithStatus(this, "Email is invalid", MaskType.Clear, TimeSpan.FromSeconds(2));
+                        }
+                        else if ((PinCode.Text.Length != 5))
+                        {
+                            AndHUD.Shared.ShowErrorWithStatus(this, "Zipcode is invalid", MaskType.Clear, TimeSpan.FromSeconds(2));
+                        }
+                        else
+                        {
+                            AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
+                            //int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
+                            //Prefered.SetSelection(p);
+                            Customer customer = new Customer()
+                            {
+                                FirstName = Firstname.Text,
+                                LastName = Lastname.Text,
+                                PhoneNumber = Mobilenumber.Text,
+                                Address1 = Address.Text,
+                                Email = Email.Text,
+                                CustomerID = userId,
+                                //State = State.Text,
+                                State = spn.SelectedItem.ToString(),
 
-							
+                                //City = City.Text
+                                //CardNumber = City.Text,
+                                Zip = PinCode.Text,
+                                PreferredStore = Convert.ToInt32(Prefered.SelectedItemId)
 
-					};
-						CurrentUser.SavePrefered(Convert.ToInt32(Prefered.SelectedItemId));
-						LoggingClass.LogInfo("Clicked on update info", screenid);
-						var x = await sw.UpdateCustomer(customer);
-						if (x == 1)
-						{
-							Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
-						}
-                        AndHUD.Shared.Dismiss();
-                        AndHUD.Shared.ShowSuccess(this, "Profile Updated", MaskType.Clear, TimeSpan.FromSeconds(2));
-      //                  var intent = new Intent(this, typeof(TabActivity));
-						//StartActivity(intent);
 
-					};
+
+                            };
+                            CurrentUser.SavePrefered(Convert.ToInt32(Prefered.SelectedItemId));
+                            LoggingClass.LogInfo("Clicked on update info", screenid);
+                            var x = await sw.UpdateCustomer(customer);
+                            if (x == 1)
+                            {
+                                Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
+                            }
+                            AndHUD.Shared.Dismiss();
+                            AndHUD.Shared.ShowSuccess(this, "Profile Updated", MaskType.Clear, TimeSpan.FromSeconds(2));
+                            //                  var intent = new Intent(this, typeof(TabActivity));
+                            //StartActivity(intent);
+                        }
+                    }; 
 
 				}
 			}
@@ -287,7 +295,8 @@ namespace WineHangouts
         //    base.OnStart();
         //    gifImageView.StartAnimation();
         //}
-      
+        
+
         public bool CheckInternetConnection()
 		{
 

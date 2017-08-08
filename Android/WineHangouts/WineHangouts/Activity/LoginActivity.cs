@@ -38,7 +38,7 @@ namespace WineHangouts
 			st.Start();
 			//for direct login
 			//CurrentUser.SaveUserName("Lokesh Android","1");
-			//ShowInfo(8019808172.ToString());
+			ShowInfo(7207589007.ToString());
 			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.login);
 			var TaskA = new System.Threading.Tasks.Task(() =>
@@ -295,7 +295,9 @@ namespace WineHangouts
                         aler.SetNegativeButton("Ok", delegate { });
                         Dialog dialog1 = aler.Create();
                         dialog1.Show();
-                      };
+                        //   AndHUD.Shared.ShowErrorWithStatus(this, "You entered wrong details or authentication failed", MaskType.Clear, TimeSpan.FromSeconds(2));
+
+                    };
 				}
 				else
 				{
@@ -305,7 +307,8 @@ namespace WineHangouts
                     aler.SetNegativeButton("Ok", delegate { });
                     Dialog dialog = aler.Create();
                     dialog.Show();
-                   }
+                    //  AndHUD.Shared.ShowErrorWithStatus(this, "Your email is not verified plesase check email and verify.", MaskType.Clear, TimeSpan.FromSeconds(2));
+                }
                 //ProgressIndicator.Hide();
                 AndHUD.Shared.Dismiss();
                

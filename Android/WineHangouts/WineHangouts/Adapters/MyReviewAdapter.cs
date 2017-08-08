@@ -84,8 +84,12 @@ namespace WineHangouts
 					//TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
 					ImageButton edit = row.FindViewById<ImageButton>(Resource.Id.imageButton3);
 					ImageButton delete = row.FindViewById<ImageButton>(Resource.Id.imageButton4);
-					ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
-					RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
+                    ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
+                    var metrics = myContext.Resources.DisplayMetrics;
+                    var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
+                    var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
+                   
+                    RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
 					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton44);
 					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
 					//edit.SetScaleType(ImageView.ScaleType.Center);
@@ -230,7 +234,11 @@ namespace WineHangouts
             dr.Show(((Activity)myContext).FragmentManager, "");
 			
         }
+        private int ConvertPixelsToDp(float pixelValue)
+        {
+            var dp = (int)((pixelValue) / myContext.Resources.DisplayMetrics.Density);
+            return dp;
+        }
 
-       
     }
 }

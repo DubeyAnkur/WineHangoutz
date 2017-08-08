@@ -128,7 +128,7 @@
                     android:layout_height="42.5dp"
                     style="?android:attr/ratingBarStyleIndicator"
                     android:id="@+id/avgrating"
-                    android:isIndicator="false"
+                    android:isIndicator="true"
                     android:stepSize="1"
                     android:numStars="5"
                     android:max="5"
@@ -142,7 +142,8 @@
                     android:transformPivotY="2dp"
                     android:translationX="45dp"
                     android:backgroundTint="#00000000"
-                    android:rating="3" />
+                    android:rating="3"
+                    android:clickable="false" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow6"
@@ -194,7 +195,6 @@
                     android:max="5"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
-                    android:isIndicator="true"
                     android:progressTint="#800080"
                     android:layout_gravity="center_horizontal"
                     android:progressBackgroundTint="#808080" />
@@ -231,7 +231,6 @@
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/txtWineDescription"
-                   
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"
@@ -257,7 +256,6 @@
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/txtProducer"
-                   
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"

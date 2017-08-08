@@ -18,7 +18,7 @@
             android:id="@+id/relativeLayout1">
             <ImageView
                 android:id="@+id/gifImageView1"
-                android:src="@drawable/sfondo_nuoverecensioni"
+                android:src="@drawable/proback"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
@@ -34,12 +34,12 @@
                 android:layout_centerHorizontal="true"
                 app:civ_fill_color="#ff0000ff" />-->
             <refractored.controls.CircleImageView
-                android:layout_width="230.0dp"
-                android:layout_height="150.5dp"
+                android:layout_width="268.0dp"
+                android:layout_height="168.0dp"
                 android:id="@+id/propic"
                 android:src="@drawable/ic_action_person"
                 app:civ_border_width="3dp"
-                android:layout_marginTop="115dp"
+                android:layout_marginTop="95.5dp"
                 android:layout_centerHorizontal="true"
                 app:civ_border_color="#ff99b4d1"
                 app:civ_border_overlay="false"
@@ -51,8 +51,8 @@
                 android:id="@+id/btnChangePropic"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="240dp" />
+                android:layout_marginTop="230dp"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
         <RelativeLayout
             android:minWidth="25px"
@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginBottom="10dp">
                         <TextView
-                            android:text="First Name :"
+                            android:text="First Name "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:id="@+id/textView10"
                             android:layout_width="110.5dp"
@@ -113,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginBottom="10dp">
                         <TextView
-                            android:text="Last Name :"
+                            android:text="Last Name "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                     android:cropToPadding="true"
                     android:layout_gravity="left" />-->
                         <TextView
-                            android:text="E-Mail :"
+                            android:text="E-Mail "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:textSize="20dp"
@@ -201,7 +201,7 @@
                     android:cropToPadding="true"
                     android:layout_gravity="left" />-->
                         <TextView
-                            android:text="Mobile Number :"
+                            android:text="Mobile Number "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:id="@+id/textView14"
@@ -237,7 +237,7 @@
                     android:cropToPadding="true"
                     android:layout_gravity="left" />-->
                         <TextView
-                            android:text="Address :"
+                            android:text="Address "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:id="@+id/textView14"
@@ -357,7 +357,7 @@
                     android:cropToPadding="true"
                     android:layout_gravity="left" />-->
                         <TextView
-                            android:text="State :"
+                            android:text="State "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:layout_marginLeft="0.0dp"
@@ -388,7 +388,7 @@
                     android:cropToPadding="true"
                     android:layout_gravity="left" />-->
                         <TextView
-                            android:text="Prefered Store :"
+                            android:text="Prefered Store "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:layout_marginLeft="0.0dp"
@@ -418,7 +418,7 @@
                     android:cropToPadding="true"
                     android:layout_gravity="left" />-->
                         <TextView
-                            android:text="ZipCode :"
+                            android:text="ZipCode "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:textSize="20dp"
@@ -426,7 +426,7 @@
                             android:layout_gravity="left" />
                         <EditText
                             android:id="@+id/txtZip"
-                            android:inputType="phone"
+                            android:inputType="number"
                             android:layout_height="wrap_content"
                             android:layout_width="270dp"
                             android:textColor="@android:color/black"
