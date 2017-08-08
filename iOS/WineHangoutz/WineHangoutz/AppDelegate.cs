@@ -66,6 +66,17 @@ namespace WineHangoutz
 					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(128,0,128);
 					Window.RootViewController = nav;
 				}
+				else if(CurrentUser.GetGuestId()!="0" && CurrentUser.GetGuestId()!=null)
+				{
+					 CurrentUser.Store("0", "Guest");
+    			  	ManageTabBar(RootTab);
+					//Console.WriteLine(DateTime.Now + " App opened");
+					nav = new UINavigationController(RootTab);
+					//Window.RootViewController = RootTab;
+					AddNavigationButtons(nav);
+					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(128,0,128);
+					Window.RootViewController = nav;
+				}
 				else
 				{
                     ManageTabBar(RootTab);

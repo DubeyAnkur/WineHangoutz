@@ -16,13 +16,13 @@ namespace WineHangoutz
 				userid=CurrentUser.RetreiveUserId().ToString();
 				if (userid == "0")
 				{
-					if (CurrentUser.GuestId == "0" || CurrentUser.GuestId == null)
+					if (CurrentUser.GetGuestId() == "0" || CurrentUser.GetGuestId() == null)
 					{
 						userid = "DefaultLogs";
 					}
 					else 
 					{
-						userid = "g_" + CurrentUser.GuestId;
+					userid = "g_" + CurrentUser.GetGuestId();
 					}
 				}
 				var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

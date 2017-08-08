@@ -117,6 +117,22 @@ namespace WineHangoutz
 				p6.TextAlignment = UITextAlignment.Justified;
 				//p6.TextAlignment = UITextAlignment.Left;
 
+				UITextView VersionText = new UITextView();
+				VersionText.Frame = new CGRect(5, ScreenHeight+930, UIScreen.MainScreen.Bounds.Width-20, UIScreen.MainScreen.Bounds.Height);
+				VersionText.Text = "Version 1.14(1.0).\nAll rights reserved.\n Reach us at";
+				VersionText.TextColor = UIColor.Black;
+				VersionText.Font=UIFont.FromName("Verdana", 18f);
+				VersionText.Editable = false;
+				VersionText.TextAlignment = UITextAlignment.Center;
+
+				UITextView ContactUsText = new UITextView();
+				ContactUsText.Frame = new CGRect(5, ScreenHeight+1020, UIScreen.MainScreen.Bounds.Width-20, UIScreen.MainScreen.Bounds.Height);
+				ContactUsText.Text = "support@winehangouts.com";
+				ContactUsText.TextColor = UIColor.Purple;
+				ContactUsText.Font=UIFont.FromName("Verdana", 18f);
+				ContactUsText.Editable = false;
+				ContactUsText.TextAlignment = UITextAlignment.Center;
+
 				nfloat h = 0;
 
 				scrollView = new UIScrollView
@@ -126,6 +142,8 @@ namespace WineHangoutz
 					BackgroundColor = UIColor.White,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight
 				};
+
+
 				scrollView.AddSubview(backgroud);
 				scrollView.AddSubview(Title1);
 				scrollView.AddSubview(Heading1);
@@ -137,6 +155,9 @@ namespace WineHangoutz
 				scrollView.AddSubview(p4);
 				scrollView.AddSubview(p5);
 				scrollView.AddSubview(p6);
+				scrollView.AddSubview(VersionText);
+				scrollView.AddSubview(ContactUsText);
+
 				for (int i = 0; i<scrollView.Subviews.Length ; i++)
 				{
 					h = scrollView.Subviews[i].Frame.Size.Height+330+ScreenHeight;

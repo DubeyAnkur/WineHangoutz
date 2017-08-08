@@ -533,13 +533,19 @@ namespace WineHangoutz
 		}
 		public static UIViewController RootTabs { get; set; }
 		public static UIWindow window { get; set; }
-		public static UIBotton btnC { get; set;}
-		public static UIBotton btnU { get; set;}
 		public static void StoreId(string id)
 		{
 			plist.SetString(id, "id");
 		}
-		public static string GuestId { get; set; }
+		public static void PutGuestId(string GuestId)
+		{
+			plist.SetString(GuestId, "GuestId");
+		}
+		public static string GetGuestId()
+		{
+			string GuestId = plist.StringForKey("GuestId");
+			return GuestId;
+		}
 		public static string GetId()
 		{
 			string id = plist.StringForKey("id");
