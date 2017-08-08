@@ -134,6 +134,8 @@ namespace WineHangoutz {
 								UIApplication.SharedApplication.OpenUrl(new NSUrl("https://hangoutz.azurewebsites.net/index.html"));
 							}
 						};
+						//alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
+
 						alert.Show();
 					}
 				};

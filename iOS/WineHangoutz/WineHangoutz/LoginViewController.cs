@@ -17,6 +17,8 @@ namespace WineHangoutz
 		public UIButton btnGuestLogin;
 		public UILabel lblIns;
 		public UILabel lblContactus;
+		public UIButton BtnTest1;
+		public UIButton BtnTest2;
 		public UIButton btnResend;
 		public UILabel lblInfo;
 		public UIButton btnVerify;
@@ -54,22 +56,22 @@ namespace WineHangoutz
 				}
 				if (CurrentUser.GetCardNumber() != null)
 				{
-					ShowInfo(CurrentUser.GetCardNumber());
+					PreInfo(CurrentUser.GetCardNumber());
 				}
 				CGSize sTemp = new CGSize(View.Frame.Width, 100);
 				//checking is cust is scanned card or not
-				if (CurrentUser.RetreiveUserId() != 0)
-				{
-					nav = new UINavigationController(RootTabs);
-					AddNavigationButtons(nav);
-					_window.RootViewController = nav;
-					LoggingClass.LogInfo(CurrentUser.RetreiveUserName() + " Logged in", screenid);
-					//}
-				}
-				if (CurrentUser.GetCardNumber() != null)
-				{
-					ShowInfo(CurrentUser.GetCardNumber());
-				}
+				//if (CurrentUser.RetreiveUserId() != 0)
+				//{
+				//	nav = new UINavigationController(RootTabs);
+				//	AddNavigationButtons(nav);
+				//	_window.RootViewController = nav;
+				//	LoggingClass.LogInfo(CurrentUser.RetreiveUserName() + " Logged in", screenid);
+				//	//}
+				//}
+				//if (CurrentUser.GetCardNumber() != null)
+				//{
+				//	PreInfo(CurrentUser.GetCardNumber());
+				//}
 				//Checking user is logged in or not
 				//catch (Exception ex)
 				//{
@@ -129,7 +131,7 @@ namespace WineHangoutz
 						if (result != null)
 						{
 							LoggingClass.LogInfo("User tried to login with" + result.Text, screenid);
-							ShowInfo(result.Text);
+							PreInfo(result.Text);
 						}
 					}
 					catch (Exception exe)
@@ -152,6 +154,29 @@ namespace WineHangoutz
 				btnGuestLogin.BackgroundColor = UIColor.Purple;
 				//btnGuestLogin.SetImage(UIImage.FromFile ("Images/gl.png"), UIControlState.Normal);
 
+				btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
+				btnLogin.SetTitle("Log In", UIControlState.Normal);
+				btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+				btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+				btnLogin.BackgroundColor = UIColor.Purple;
+
+				btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
+				btnResend.SetTitle("Resend Email", UIControlState.Normal);
+				btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+				btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
+				btnResend.BackgroundColor = UIColor.Purple;
+
+				BtnTest1 = new UIButton(new CGRect(200, strtbtn, 120, 30));
+				BtnTest1.SetTitle("Continue", UIControlState.Normal);
+				BtnTest1.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+				BtnTest1.SetTitleColor(UIColor.White, UIControlState.Normal);
+				BtnTest1.BackgroundColor = UIColor.Purple;
+
+				BtnTest2 = new UIButton(new CGRect(30, strtbtn, 140, 30));
+				BtnTest2.SetTitle("Update E-Mail Id", UIControlState.Normal);
+				BtnTest2.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+				BtnTest2.SetTitleColor(UIColor.White, UIControlState.Normal);
+				BtnTest2.BackgroundColor = UIColor.Purple;
 
 				btnVerify = new UIButton(new CGRect(24, imageSize + 270, 240, 20));
 				btnVerify.SetTitle("Verify", UIControlState.Normal);
@@ -179,6 +204,10 @@ namespace WineHangoutz
 					   //this.NavigationController.PopToRootViewController (true);
 
 				   };
+				View.AddSubview(BtnTest1);
+				View.AddSubview(BtnTest2);
+				View.AddSubview(btnResend);
+				View.AddSubview(btnLogin);
 				View.AddSubview(imgLogo);
 				View.AddSubview(btnGuestLogin);
 				View.AddSubview(lblIns);
@@ -217,7 +246,6 @@ namespace WineHangoutz
 				nav.NavigationBar.TopItem.Title = "About Us";
 				BTProgressHUD.Dismiss();
 			});
-
 			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
 			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
 		}
@@ -252,7 +280,7 @@ namespace WineHangoutz
 					//EmailVerification();
 					if (cr.customer.Email != "" && cr.customer.Email != null)
 					{
-						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at  " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
@@ -261,28 +289,52 @@ namespace WineHangoutz
 						lblInfo.TextColor = UIColor.Black;
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 
-						var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
-						tap.AddTarget(() =>
+						//var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+						//tap.AddTarget(() =>
+						//{
+						//	UIApplication.SharedApplication.OpenUrl(new NSUrl("	"));
+						//});
+						//lblInfo.UserInteractionEnabled = true;
+						//lblInfo.AddGestureRecognizer(tap);
+						try
 						{
-							UIApplication.SharedApplication.OpenUrl(new NSUrl("	"));
-						});
-						lblInfo.UserInteractionEnabled = true;
-						lblInfo.AddGestureRecognizer(tap);
+							//BtnTest1 = CurrentUser.btnU;
+							//BtnTest2 = CurrentUser.btnC;
+							BtnTest1.Hidden = true;
+							BtnTest2.Hidden = true;
+							//if (BtnTest1 != null || BtnTest2 != null)
+							//{
+							//	BtnTest1.SetTitleColor(UIColor.White, UIControlState.Normal);
+							//	BtnTest2.SetTitleColor(UIColor.White, UIControlState.Normal);
+							//	BtnTest1.BackgroundColor = UIColor.White;
+							//	BtnTest2.BackgroundColor = UIColor.White;
+							//	BtnTest1.UserInteractionEnabled = false;
+							//	BtnTest2.UserInteractionEnabled = false;
+							//}
 
+						}
+						catch(Exception exe) 
+						{
+						}
+
+						//BtnUpdate.SetTitle("Test", UIControlState.Focused);
 						strtbtn = start + lblInfo.Frame.Height + 10;
-						btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
-						btnLogin.SetTitle("Log In", UIControlState.Normal);
-						btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-						btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
-						btnLogin.BackgroundColor = UIColor.Purple;
+						btnLogin.Frame=new CGRect(180, strtbtn, 120, 30);
+						btnResend.Frame = new CGRect(30, strtbtn, 120, 30);
+						//btnLogin = new UIButton(new CGRect(180, strtbtn, 120, 30));
+						//btnLogin.SetTitle("Log In", UIControlState.Normal);
+						//btnLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+						//btnLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
+						//btnLogin.BackgroundColor = UIColor.Purple;
 
-						btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
-						btnResend.SetTitle("Resend Email", UIControlState.Normal);
-						btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-						btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
-						btnResend.BackgroundColor = UIColor.Purple;
-						View.AddSubview(btnResend);
-						View.AddSubview(btnLogin);
+						//btnResend = new UIButton(new CGRect(30, strtbtn, 120, 30));
+						//btnResend.SetTitle("Resend Email", UIControlState.Normal);
+						//btnResend.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+						//btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
+						//btnResend.BackgroundColor = UIColor.Purple;
+
+						//View.AddSubview(btnResend);
+						//View.AddSubview(btnLogin);
 						btnResend.TouchUpInside += async (send, eve) =>
 						{
 							BTProgressHUD.Show("Sending verification email to" + cr.customer.Email);
@@ -414,6 +466,72 @@ namespace WineHangoutz
 				LoggingClass.LogError(Exe.Message, screenid, Exe.StackTrace);
 			}
 		}
+		public void UpdateEmail(string Message)
+		{
+			BtnTest1.Hidden = true;
+			BtnTest2.Hidden = true;
+			UIAlertView alert = new UIAlertView()
+			{
+				Title = Message,
+				//Message = Message
+			};
+			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com"; 			alert.AddButton("OK"); 			alert.Clicked += (senderalert, buttonArgs) => 			{ 				if (buttonArgs.ButtonIndex == 0) 				{ 					CurrentUser.PutEmail(alert.GetTextField(0).Text);
+					//Console.WriteLine(updatedEmail);
+					//Update service;
+					ShowInfo(CurrentUser.GetCardNumber());
+					//alert.CancelButtonIndex = 0; 				} 			} ;
+			//alert.DismissWithClickedButtonIndex(0, true); 			//alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.Show();
+		}
+		public async void PreInfo(string CardNumber)
+		{
+			CGSize sTemp = new CGSize(View.Frame.Width, 100);
+			try
+			{
+				BTProgressHUD.Show("Please wait...");
+				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
+				if (CardNumber != null)
+				{
+					CurrentUser.PutCardNumber(CardNumber);
+				}
+				if (cr != null)
+				{
+					if (cr.customer.Email != null || cr.customer.Email != "")
+					{
+						lblInfo.Text = " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are goint to send an verification email at  " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
+						lblInfo.Lines = 0;
+						sTemp = lblInfo.SizeThatFits(sTemp);
+						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+						lblInfo.TextAlignment = UITextAlignment.Left;
+						lblInfo.TextColor = UIColor.Black;
+						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+						strtbtn = start + lblInfo.Frame.Height + 10;
+
+						BtnTest1.Frame = new CGRect(200, strtbtn, 120, 30);
+						BtnTest2.Frame = new CGRect(30, strtbtn, 140, 30);
+
+						BtnTest1.TouchUpInside += delegate 
+						{
+							ShowInfo(CurrentUser.GetCardNumber());
+							//BtnTest1.Hidden = true;
+						};
+						BtnTest2.TouchDown += delegate
+						{
+							UpdateEmail("Please enter your new E-mail Id");
+							//BtnTest2.Hidden = true;
+						};
+					}
+					//else 
+					//{
+					//	UpdateEmail("Please provide your mail id");
+					//}
+				}
+				BTProgressHUD.Dismiss();
+			}
+			catch (Exception ex)
+			{ 
+			}
+		}
 	}
 	public static class CurrentUser //: ISecuredDataProvider
 	{
@@ -450,6 +568,8 @@ namespace WineHangoutz
 		}
 		public static UIViewController RootTabs { get; set; }
 		public static UIWindow window { get; set; }
+		public static UIBotton btnC { get; set;}
+		public static UIBotton btnU { get; set;}
 		public static void StoreId(string id)
 		{
 			plist.SetString(id, "id");
@@ -510,5 +630,13 @@ namespace WineHangoutz
 		//	string token = plist.StringForKey("DeviceToken");
 		//	return token;
 		//}
+		public static void PutEmail(string Email)
+		{
+		plist.SetString(Email, "Email");
+		}
+		public static string GetEmail()
+		{
+			string Email = plist.StringForKey("Email");
+			return Email; 		}
 	}
 }

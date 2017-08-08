@@ -1,24 +1,14 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/RatingCellView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/LoginViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="6" Column="30" />
-      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="20" Column="5" />
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="153" Column="25" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="386" Column="32" />
-      <File FileName="WineHangoutz/RatingCellView.cs" Line="138" Column="10" />
+      <File FileName="WineHangoutz/LoginViewController.cs" Line="311" Column="77" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="54" Column="8" />
+      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="141" Column="1" />
+      <File FileName="WineHangoutz/DummyViewController.cs" Line="24" Column="24" />
+      <File FileName="WineHangoutz/AboutController.cs" Line="28" Column="27" />
+      <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="51" Column="72" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="WineHangoutz" expanded="True">
-            <Node name="WineHangoutz" expanded="True">
-              <Node name="Tabs" expanded="True" />
-              <Node name="RatingCellView.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -27,17 +17,17 @@
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/BlobWrapper.cs" relfile="WineHangoutz/BlobWrapper.cs" line="272" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/BlobWrapper.cs" relfile="WineHangoutz/BlobWrapper.cs" line="351" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/BlobWrapper.cs" relfile="WineHangoutz/BlobWrapper.cs" line="80" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoggingClass.cs" relfile="WineHangoutz/LoggingClass.cs" line="80" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/DetailViewController.cs" relfile="WineHangoutz/DetailViewController.cs" line="33" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyfavView.cs" relfile="WineHangoutz/MyfavView.cs" line="139" column="88" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyReviewViewController.cs" relfile="WineHangoutz/MyReviewViewController.cs" line="366" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyReviewViewController.cs" relfile="WineHangoutz/MyReviewViewController.cs" line="416" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoginViewController.cs" relfile="WineHangoutz/LoginViewController.cs" line="428" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="WineHangoutz/AppDelegate.cs" line="31" offsetX="602" offsetY="450" expression="identifier" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385">
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget">
     <MonoDevelop.MacDev.AppleDevelopmentTeam DeveloperId="K42GE8TJ7L" TeamId="Z9J6KHH443" />
   </MonoDevelop.Ide.ItemProperties.WineHangoutz>
   <MultiItemStartupConfigurations />
