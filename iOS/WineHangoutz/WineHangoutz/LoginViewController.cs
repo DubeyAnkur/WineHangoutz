@@ -299,7 +299,8 @@ namespace WineHangoutz
 						{
 							BtnTest1.Hidden = true;
 							BtnTest2.Hidden = true;
-
+							btnLogin.Hidden = false;
+							btnResend.Hidden = false;
 						}
 						catch(Exception exe) 
 						{
@@ -483,13 +484,20 @@ namespace WineHangoutz
 
 						BtnTest1.Frame = new CGRect(200, strtbtn, 120, 30);
 						BtnTest2.Frame = new CGRect(30, strtbtn, 140, 30);
-
-						BtnTest1.TouchUpInside +=async delegate
+						try
 						{
-							cr=await svc.ContinueService(cr);
+							BtnTest1.Hidden = false;
+							BtnTest2.Hidden = false;
+						}
+						catch (Exception ex)
+						{ 
+						}
+						BtnTest1.TouchUpInside += async delegate
+						 {
+							 cr = await svc.ContinueService(cr);
 							//await svc.ResendEMail(CurrentUser.GetCardNumber());
 							ShowInfo(cr, false);
-						};
+						 };
 						BtnTest2.TouchDown += delegate
 						{
 							UpdateEmail("Please enter your new E-mail Id");
@@ -499,8 +507,27 @@ namespace WineHangoutz
 					{
 						UpdateEmail("Please enter E-Mail Id");
 					}
+					BTProgressHUD.Dismiss();
 				}
-				BTProgressHUD.Dismiss();
+				else
+				{
+					try
+					{
+						BtnTest2.Hidden = true;
+						BtnTest1.Hidden = true;
+						btnLogin.Hidden = true;
+						btnResend.Hidden = true;
+					}
+					catch (Exception ex)
+					{ 
+					}
+					lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
+					lblInfo.TextColor = UIColor.Red;
+					lblInfo.TextAlignment = UITextAlignment.Center;
+					sTemp = lblInfo.SizeThatFits(sTemp);
+					lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+					BTProgressHUD.Dismiss();
+				}
 			}
 			catch (Exception ex)
 			{ 
