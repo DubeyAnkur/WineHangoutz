@@ -621,6 +621,7 @@ namespace WineHangoutz
 			plist.RemoveObject("userId");
 			plist.RemoveObject("email");
 			plist.RemoveObject("CardNumber");
+			plist.RemoveObject("GuestId");
 		}
 		public static string RetreiveUserName()
 		{

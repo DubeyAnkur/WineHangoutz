@@ -40,20 +40,22 @@ namespace WineHangoutz
 		{
 			try
 			{
+				//DownloadAllImages() for downloading all wine images
 				BlobWrapper.DownloadAllImages();
 				// Override point for customization after application launch.
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-				CurrentUser.Clear();
+				//CurrentUser.Clear();
 				//CurrentUser.Store("12", "Lokesh Simulator");
 				//for direct log in
-				//CurrentUser.PutCardNumber("900497313457");
+				//CurrentUser.PutCardNumber("7207589007");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
 				_window = Window;
 				UIImage info = UIImage.FromFile("Info.png");
 				info = ResizeImage(info, 25, 25);
+				//Checking the user already logged in or not 
 				if (CurrentUser.RetreiveUserId() != 0)
 				{
 					ManageTabBar(RootTab);
@@ -64,6 +66,7 @@ namespace WineHangoutz
 					UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(128,0,128);
 					Window.RootViewController = nav;
 				}
+				//Checking Guest logged in or not
 				else if(CurrentUser.GetGuestId()!="0" && CurrentUser.GetGuestId()!=null)
 				{
 					 CurrentUser.Store("0", "Guest");
@@ -90,16 +93,8 @@ namespace WineHangoutz
 			catch (Exception exe)
 			{
 				LoggingClass.LogError(exe.Message, screen, exe.StackTrace);
-				//Console.WriteLine(exe.Message +"--->"+ exe.StackTrace+" App delegate error");
 			}
-			//ManageTabBar(RootTab);
-			//var login = new LoginViewController();
-			//login.RootTabs = Window.RootViewController;
-			//login._window = Window;
-			//nav = new UINavigationController(login);
-			//nav.NavigationBar.BackgroundColor = UIColor.FromRGB(97, 100, 142);
-			//UIBarButtonItem.Appearance.TintColor = UIColor.FromRGB(97, 100, 142);
-			//Window.RootViewController = nav;
+			//Notification Settings
 			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
 			{
 				var pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
@@ -116,6 +111,7 @@ namespace WineHangoutz
 			}
 			return true;
 		}
+		//Adding Navigation buttons to the Header
 		public void AddNavigationButtons(UINavigationController nav)
 		{
 			UIImage profile = UIImage.FromFile("profile.png");
@@ -142,6 +138,7 @@ namespace WineHangoutz
 			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
 			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
 		}
+		//Registering for remote notifications
 		public override async void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 		{
 			try
@@ -186,17 +183,19 @@ namespace WineHangoutz
 			}
 
 		}
+		//Receiving Notification
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 		{
-			LoggingClass.LogInfo("ReceivedRemoteNotification Got notification ",screen);
 			ProcessNotification(userInfo, false);
 		}
+		//Processing the notification
 		void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
 		{
 			if (null != options && options.ContainsKey(new NSString("aps")))
 			{
 				try
 				{
+					//getting barcode,storeid 
 					string wine = options.ObjectForKey(new NSString("barcode")).ToString();
 					string storeid=options.ObjectForKey(new NSString("storeid")).ToString();
 					NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
@@ -222,6 +221,7 @@ namespace WineHangoutz
 						}
 						else
 						{
+								//
 								LoggingClass.LogInfo(wineid + " got notification ",screen);
 								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, true, false), false);
 						}
@@ -233,11 +233,10 @@ namespace WineHangoutz
 				}
 			}
 		}
+		//Tab settings manager
 		private void ManageTabBar(UITabBarController RootTab)
 		{
 			UITabBar tabBar = RootTab.TabBar;
-			//UITabBar.Appearance.BackgroundColor = UIColor.Red;
-			//UITabBar.Appearance.BackgroundImage = UIImage.FromFile("Star4.png");
 			UITabBarItem t0 = tabBar.Items[0];
 			t0.Title = "Shop";
 			UIImage shop = UIImage.FromFile("shop.png");
@@ -264,6 +263,7 @@ namespace WineHangoutz
 
 
 		}
+		//Resiging images for navigation bar
 		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
 		{
 			UIGraphics.BeginImageContext(new CGSize(width, height));
@@ -272,28 +272,6 @@ namespace WineHangoutz
 			UIGraphics.EndImageContext();
 			return resultImage;
 		}
-		//public override string UniqueID
-		//{
-		//	get
-		//	{
-		//		var query = new SecRecord(SecKind.GenericPassword);
-		//		query.Service = NSBundle.MainBundle.BundleIdentifier;
-		//		query.Account = "UniqueID";
-		//		NSData uniqueId = SecKeyChain.QueryAsData(query);
-		//		if (uniqueId == null)
-		//		{
-		//			query.ValueData = NSData.FromString(System.Guid.NewGuid().ToString());
-		//			var err = SecKeyChain.Add(query);
-		//			if (err != SecStatusCode.Success && err != SecStatusCode.DuplicateItem)
-		//				throw new Exception("Cannot store Unique ID");
-		//			return query.ValueData.ToString();
-		//		}
-		//		else
-		//		{
-		//			return uniqueId.ToString();
-		//		}
-		//	}
-		//}
 		public override void OnResignActivation(UIApplication application)
 		{
 			// Invoked when the application is about to move from active to inactive state.

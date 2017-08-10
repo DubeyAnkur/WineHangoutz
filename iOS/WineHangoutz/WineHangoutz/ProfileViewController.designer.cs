@@ -40,6 +40,10 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblCardNumber { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblEmail { get; set; }
 
         [Outlet]
@@ -73,6 +77,10 @@ namespace WineHangoutz
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtAddress { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel txtCardnumber { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -126,6 +134,11 @@ namespace WineHangoutz
                 lblAddress = null;
             }
 
+            if (lblCardNumber != null) {
+                lblCardNumber.Dispose ();
+                lblCardNumber = null;
+            }
+
             if (lblEmail != null) {
                 lblEmail.Dispose ();
                 lblEmail = null;
@@ -169,6 +182,11 @@ namespace WineHangoutz
             if (txtAddress != null) {
                 txtAddress.Dispose ();
                 txtAddress = null;
+            }
+
+            if (txtCardnumber != null) {
+                txtCardnumber.Dispose ();
+                txtCardnumber = null;
             }
 
             if (txtEmail != null) {
