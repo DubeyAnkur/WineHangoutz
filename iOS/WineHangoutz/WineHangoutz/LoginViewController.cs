@@ -442,18 +442,34 @@ namespace WineHangoutz
 		}
 		public void UpdateEmail(string Message)
 		{
+			string Email;
 			BtnTest1.Hidden = true;
 			BtnTest2.Hidden = true;
 			UIAlertView alert = new UIAlertView()
 			{
-				Title = cr.ErrorDescription,
+				Title = Message,
 				//Message = Message
 			};
-			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com"; 			alert.AddButton("Update"); 			alert.Clicked += async (senderalert, buttonArgs) => 			{ 				if (buttonArgs.ButtonIndex == 0) 				{ 					CurrentUser.PutEmail(alert.GetTextField(0).Text);
+			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com"; 			alert.AddButton("Update"); 			alert.Clicked += async (senderalert, buttonArgs) => 			{ 				if (buttonArgs.ButtonIndex == 0) 				{
+					Email = alert.GetTextField(0).Text;
+					if (Email == null && Email == "")
+					{
+						//BTProgressHUD.ShowErrorWithStatus("Email is invalid",3000);
+						UpdateEmail("Entered email id is invalid,Please enter again");
+					}
+					else if (Email.Contains("@") != true && Email.Contains(".") != true)
+					{
+                        UpdateEmail("Entered email id is invalid,Please enter again");
+					}
+					else
+					{
+						//BTProgressHUD.ShowSuccessWithStatus("We're sending mail to the updated mail");
+						CurrentUser.PutEmail(Email);
+						cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
+						ShowInfo(cr, false);
+					} 
 					//Console.WriteLine(updatedEmail);
 					//Update service;
-					cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
-					ShowInfo(cr, false);
 					//alert.CancelButtonIndex = 0; 				} 			} ;
 			//alert.DismissWithClickedButtonIndex(0, true); 			//alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.Show();
 		}
@@ -470,7 +486,7 @@ namespace WineHangoutz
 				}
 				if (cr != null)
 				{
-					if (cr.customer.Email != null || cr.customer.Email != "")
+					if (cr.customer.Email != null && cr.customer.Email != "")
 					{
 						lblInfo.Text = cr.ErrorDescription;// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
@@ -505,7 +521,7 @@ namespace WineHangoutz
 					}
 					else
 					{
-						UpdateEmail("Please enter E-Mail Id");
+						UpdateEmail(cr.ErrorDescription);
 					}
 					BTProgressHUD.Dismiss();
 				}
