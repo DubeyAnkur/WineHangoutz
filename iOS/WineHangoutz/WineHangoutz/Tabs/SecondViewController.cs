@@ -20,7 +20,7 @@ namespace WineHangoutz
 			try
 			{
 				nfloat ScreenHeight = UIScreen.MainScreen.Bounds.Height;
-				ScreenHeight = (ScreenHeight - 100) / 3;
+				ScreenHeight = (ScreenHeight - 100) / 4;
 				nfloat margin = 1;
 				nfloat start = 50;
 				UIButton btnReviews = new UIButton();
@@ -233,16 +233,45 @@ namespace WineHangoutz
 					};
 				btnMyStore.TouchUpInside += (sender, e) =>
 				{
-						var MyReview = new MyReviewViewController();
-						NavigationController.PushViewController(MyReview, false);
-						LoggingClass.LogInfo("Entered into My Reviews", screen);
-						BTProgressHUD.Dismiss();
-						NavigationController.NavigationBar.TopItem.Title = "My Store";
+						nfloat width = UIScreen.MainScreen.Bounds.Width;
+						width = width / 2 - 15;
+										UICollectionViewFlowLayout flowLayout;
+						flowLayout = new UICollectionViewFlowLayout()
+						{
+							ItemSize = new CGSize(width, 325.0f),
+							SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+							ScrollDirection = UICollectionViewScrollDirection.Vertical
+						};
+					if (CurrentUser.GetStore() == 1)
+					{
+						BTProgressHUD.Show("Please wait...");
+						NavigationController.Title = "Locations";
+						NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
+					}
+					else if (CurrentUser.GetStore() == 2)
+					{
+						BTProgressHUD.Show("Please wait...");
+						NavigationController.Title = "Locations";
+						NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
+					}
+					else 
+					{
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "Please choose your preferred store in profile.",
+							//Message = "Coming Soon..."
+						};
+							alert.AddButton("OK");
+
+						alert.Show();
+
+					}
+					NavigationController.NavigationBar.TopItem.Title = "My Store";
 				};
+				View.AddSubview(btnMyStore);
 				View.AddSubview(btnReviews);
 				View.AddSubview(btnTastings);
 				View.AddSubview(btnFavourites);
-				//View.AddSubview(btnMyStore);
 			}
 			catch (Exception ex)
 			{

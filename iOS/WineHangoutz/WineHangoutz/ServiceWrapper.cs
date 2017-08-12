@@ -131,7 +131,7 @@ namespace WineHangoutz
 			CustomerResponse output = null;
 			try
 			{
-				var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardId + "/email/" + Email + "/DeviceId/" + uid);
+				var uri = new Uri(ServiceURL + "AuthenticateUserBeta/" + CardId + "/email/" + Email + "/DeviceId/" + uid);
 				var byteArray = new UTF8Encoding().GetBytes(CardId + ":password");
 				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));

@@ -12,7 +12,7 @@ namespace WineHangoutz
 {
 	public partial class PhyCollectionView : UICollectionViewController
 	{
-		
+				
 		private string screen = "Gridview Controller";
 		public ItemListResponse myData;
 		public int storeId = 2;
@@ -178,6 +178,7 @@ namespace WineHangoutz
 				if (myData.ItemList[index].IsLike == true)
 				{
 					cell.heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
+					cell.heartImage.Tag = 1;
 					//cell.heartImage.TouchUpInside +=async delegate
 					//{
 					//	if (CurrentUser.RetreiveUserId() != 0)
@@ -211,6 +212,7 @@ namespace WineHangoutz
 				else
 				{
 					cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+					cell.heartImage.Tag = 0;
 					//cell.heartImage.TouchUpInside +=async delegate
 					//{
 					//	if (CurrentUser.RetreiveUserId() != 0)

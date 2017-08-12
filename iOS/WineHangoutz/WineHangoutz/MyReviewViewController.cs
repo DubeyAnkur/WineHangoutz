@@ -358,20 +358,22 @@ namespace WineHangoutz
 				if (review.Liked ==1)
 				{
 					btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
-					btnLike.TouchUpInside +=async delegate {
-						btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
-							SKULike like = new SKULike();
-							like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
-							like.BarCode = WineIdLabel.Text;
-							like.Liked = Convert.ToBoolean(0);
+					//btnLike.TouchUpInside +=async delegate {
+					//	btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+					//		SKULike like = new SKULike();
+					//		like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
+					//		like.BarCode = WineIdLabel.Text;
+					//		like.Liked = Convert.ToBoolean(0);
 
-							myItem.IsLike = Convert.ToBoolean(0);
-							await sw.InsertUpdateLike(like);
-					};
+					//		myItem.IsLike = Convert.ToBoolean(0);
+					//		await sw.InsertUpdateLike(like);
+					//};
+					btnLike.Tag = 1;
 				}
 				else
 				{
 					btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+					btnLike.Tag = 0;
 				}
 				//if (review.  == true)
 				//	{ 
