@@ -364,7 +364,6 @@ namespace WineHangoutz
 					//		like.UserID = Convert.ToInt32(CurrentUser.RetreiveUserId());
 					//		like.BarCode = WineIdLabel.Text;
 					//		like.Liked = Convert.ToBoolean(0);
-
 					//		myItem.IsLike = Convert.ToBoolean(0);
 					//		await sw.InsertUpdateLike(like);
 					//};
