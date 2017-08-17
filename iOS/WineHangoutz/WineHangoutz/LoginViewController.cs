@@ -237,7 +237,7 @@ namespace WineHangoutz
 					BTProgressHUD.Show("Loading,,,");
 					nav.PushViewController(new ProfileViewController(nav), false);
 					nav.NavigationBar.TopItem.Title = "Profile";
-					BTProgressHUD.Dismiss();
+					//BTProgressHUD.Dismiss();
 				});
 			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
 			{

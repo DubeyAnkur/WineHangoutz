@@ -40,7 +40,8 @@ namespace WineHangoutz
 
 		public void RefreshParent()
 		{
-			Internal_ViewDidLoad();	
+			Internal_ViewDidLoad(true);
+			reviewTable.ReloadData();
 		}
 
 		public override void ViewDidLoad()
@@ -50,12 +51,12 @@ namespace WineHangoutz
 			Task.Factory.StartNew(() =>
 			{
                  InvokeOnMainThread( () => {	
-				 	Internal_ViewDidLoad();
+					Internal_ViewDidLoad(false);
 				});
 			});
 		}
 
-		public void Internal_ViewDidLoad()
+		public void Internal_ViewDidLoad(Boolean refresh)
 		{
 			try
 			{
@@ -323,12 +324,25 @@ namespace WineHangoutz
 					scrollView.Frame = new CGRect(0, 70, View.Frame.Width, View.Frame.Height);
 					if (_noreviews == true)
 					{
-						scrollView.ContentSize = new CGSize(View.Frame.Width, Y + 70);
+						scrollView.ContentSize = new CGSize(View.Frame.Width, Y+ 70);
 					}
 					else
 					{
 						scrollView.ContentSize = new CGSize(View.Frame.Width, Y+20);
 					}
+					if (refresh == true)
+					{
+						//scrollView.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, 70);
+						scrollView.ContentOffset = new CGPoint(0,  300);
+						var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+						tap.AddTarget(() =>
+						{
+							scrollView.ContentSize = new CGSize(View.Frame.Width, Y+ 70);
+							scrollView.ContentOffset = new CGPoint(0, 0);
+						});
+					}
+				
+								
 					scrollView.BackgroundColor = UIColor.White;
 					scrollView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
 					//};

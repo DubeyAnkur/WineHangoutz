@@ -278,11 +278,11 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				}
 				if (tasting.PlantFinal == 1)
 				{
-					location.Text = "Tasted at : Wall";
+					location.Text = "Tasted at : "+LoggingClass.txtstore1;
 				}
 				else 
 				{
-					location.Text = "Tasted at : Pt. Pleasant Beach";
+					location.Text = "Tasted at : "+LoggingClass.txtstore2;
 				}
 					WineIdLabel.Text = tasting.Barcode;
 					btnItemname.SetTitle(tasting.Name, UIControlState.Normal);

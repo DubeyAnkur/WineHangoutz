@@ -168,7 +168,7 @@ namespace WineHangoutz
 				//};
 				imageView.TouchUpInside += (object sender, EventArgs e) =>
 				{
-					BTProgressHUD.Show("Loading...");
+					BTProgressHUD.Show(LoggingClass.txtloading);
 					NavController.PushViewController(new DetailViewController(WineIdLabel.Text, storeid.ToString(), false,true), false);
 				};
 				Review review = new Review();
@@ -243,7 +243,7 @@ namespace WineHangoutz
 					UIAlertView alert = new UIAlertView()
 					{
 						Title = "Delete Review ",
-						Message = "Do you want to delete this review?"
+						Message = LoggingClass.txtdeletereview,
 					};
 					alert.AddButton("Yes");
 					alert.AddButton("No");

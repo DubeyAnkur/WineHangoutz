@@ -9,8 +9,22 @@ namespace WineHangoutz
 {
 	public static class LoggingClass
 	{
+		//constants among the app
+		public static string txtstore1 = "Wall";
+		public static string txtstore2 = "Pt. Pleasant Beach";
+		public static string txtstore3 = "Secaucus";
+		public static string txtdeletereview = "Do you want to delete this review ?";
+		public static string txtsavereview = "Do you want save the review ?";
+		public static string txtloading = "Loading...";
+		public static string txtpleasewait = "Please wait...";
+		public static string txtnotallowed = "This feature is allowed only for VIP Card holders";
+		public static string txtservicedown = "Something went wrong,We're on it.";
+		//public static string 
+
 		public static string LogPath;
 		public static string userid;
+
+		//filename creation
 		public static void pathcre()
 		{
 				userid=CurrentUser.RetreiveUserId().ToString();

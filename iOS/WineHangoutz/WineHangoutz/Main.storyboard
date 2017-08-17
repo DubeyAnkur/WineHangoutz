@@ -179,7 +179,6 @@
         <image name="Stars/chosen.png" width="200" height="190"/>
         <image name="Stars/empty.png" width="200" height="190"/>
         <image name="Stars/filled.png" width="200" height="190"/>
-        <image name="user.png" width="193" height="192"/>
         <image name="Close.png" width="56" height="56"/>
         <image name="wine_review.png" width="320" height="320"/>
         <image name="shop.png" width="512" height="512"/>
@@ -228,7 +227,6 @@
         <image name="mail.png" width="128" height="128"/>
         <image name="city.png" width="160" height="160"/>
         <image name="state.png" width="230" height="220"/>
-        <image name="phone.png" width="225" height="225"/>
         <image name="Info.png" width="256" height="256"/>
         <image name="add.png" width="200" height="200"/>
         <image name="City1.png" width="512" height="512"/>
@@ -239,5 +237,17 @@
         <image name="logo5.jpg" width="1000" height="1000"/>
         <image name="user1.png" width="500" height="466"/>
         <image name="Wines/bottle.jpg" width="750" height="750"/>
+        <image name="Images/loadin.png" width="512" height="512"/>
+        <image name="Images/gl.png" width="250" height="150"/>
+        <image name="card.png" width="512" height="512"/>
+        <image name="card-icon.png" width="966" height="834"/>
+        <image name="FavIns.png" width="202" height="381"/>
+        <image name="ReviewIns.png" width="708" height="543"/>
+        <image name="tick.png" width="128" height="128"/>
+        <image name="Images/proback.jpg" width="1215" height="766"/>
+        <image name="cam.png" width="1600" height="1600"/>
+        <image name="infoico.png" width="1600" height="1600"/>
+        <image name="proico.png" width="512" height="512"/>
+        <image name="Images/aboutus.jpg" width="3438" height="3024"/>
     </resources>
 </document>

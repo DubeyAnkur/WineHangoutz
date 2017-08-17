@@ -45,10 +45,10 @@ namespace WineHangoutz
 				// Override point for customization after application launch.
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-				//CurrentUser.Clear();
-				//CurrentUser.Store("12", "Lokesh Simulator");
+				CurrentUser.Clear();
+				CurrentUser.Store("1", "Lokesh Simulator");
 				//for direct log in
-				//CurrentUser.PutCardNumber("7207589007");
+				CurrentUser.PutCardNumber("7207589007");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
@@ -125,7 +125,7 @@ namespace WineHangoutz
 					BTProgressHUD.Show("Loading,,,");
 					nav.PushViewController(new ProfileViewController(nav), false);
 					nav.NavigationBar.TopItem.Title = "Profile";
-					BTProgressHUD.Dismiss();
+					//BTProgressHUD.Dismiss();
 				});
 			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
 			{

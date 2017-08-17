@@ -64,10 +64,10 @@ namespace WineHangoutz
 					alert.AddButton("OK");
 					alert.Show();
 				}
-
+				BTProgressHUD.Dismiss();
 				UIImageView backgroud = new UIImageView();
-				backgroud.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-				backgroud.Image = new UIImage("Images/proback.jpg");
+				backgroud.Frame = new CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, ScreenHeight-20);
+				backgroud.Image = new UIImage("proback.png");
 				backgroud.UserInteractionEnabled = false;
 				btnBack.UserInteractionEnabled = false;
 				//imgProfile.Frame = new CGRect((View.Frame.Width / 2) - 72, 3 * (backgroud.Frame.Height / 3), 144, 152);

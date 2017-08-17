@@ -22,16 +22,21 @@ namespace WineHangoutz
 		public bool FaviouriteView = false;
 		public PhyCollectionView(UICollectionViewLayout layout, int StoreId, bool favView = false) : base(layout)
 		{
-				if (StoreId == 1)
-				{
-					this.Title = "Wall";
-					storeId = StoreId;
-				}
-				else if (StoreId == 2)
-				{
-					this.Title = "Pt. Pleasant Beach";
-					storeId = StoreId;
-				}
+			if (StoreId == 1)
+			{
+				this.Title = LoggingClass.txtstore1;
+				storeId = StoreId;
+			}
+			else if (StoreId == 2)
+			{
+				this.Title = LoggingClass.txtstore2;
+				storeId = StoreId;
+			}
+			else if (StoreId == 3)
+			{
+				this.Title = LoggingClass.txtstore3;
+				storeId = 2;
+			}
 
 		}
 		public override void ViewDidLoad()

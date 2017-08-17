@@ -32,14 +32,14 @@ namespace WineHangoutz
 				};
 				if (CurrentUser.GetStore() == 1)
 				{
-					BTProgressHUD.Show("Please wait...");
-					NavigationController.Title = "Locations";
+					//BTProgressHUD.Show("Please wait...");
+					//NavigationController.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
 				}
 				else if (CurrentUser.GetStore() == 2)
 				{
-					BTProgressHUD.Show("Please wait...");
-					NavigationController.Title = "Locations";
+					//BTProgressHUD.Show("Please wait...");
+					//NavigationController.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
 				}
 			}
@@ -57,9 +57,9 @@ namespace WineHangoutz
 			btnMan.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnPP.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnSec.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnMan.SetTitle("Wall",UIControlState.Normal);
-			btnSec.SetTitle("Secaucus",UIControlState.Normal);
-			btnPP.SetTitle("Pt. Pleasant Beach", UIControlState.Normal);
+			btnMan.SetTitle(LoggingClass.txtstore1,UIControlState.Normal);
+			btnSec.SetTitle(LoggingClass.txtstore3,UIControlState.Normal);
+			btnPP.SetTitle(LoggingClass.txtstore2, UIControlState.Normal);
 			btnMan.SetBackgroundImage(new UIImage("Images/city.jpg"), UIControlState.Normal);
 			btnSec.SetBackgroundImage(new UIImage("Images/city1.jpg"), UIControlState.Normal);
 			btnPP.SetBackgroundImage(new UIImage("Images/beach.jpg"), UIControlState.Normal);
@@ -92,10 +92,14 @@ namespace WineHangoutz
 			   };
 				btnPP.TouchDown += (sender, e) =>
 				{
-					BTProgressHUD.Show("Loading...");
+					BTProgressHUD.Show(LoggingClass.txtloading);
 
 					//BTProgressHUD.Dismiss();//show spinner + text
 				};
+				//btnSec.TouchDown += (sender, e) => 
+				//{
+				//	BTProgressHUD.Show(LoggingClass.txtloading);
+				//};
 				btnMan.TouchUpInside += (sender, e) =>
 				{
 					nfloat width = UIScreen.MainScreen.Bounds.Width;
@@ -110,21 +114,36 @@ namespace WineHangoutz
 					};
 					NavigationController.NavigationBar.TopItem.Title = "Locations";
 					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
-					LoggingClass.LogInfo("Entered into Wall", screen);
+					LoggingClass.LogInfo("Entered into "+LoggingClass.txtstore1, screen);
 					BTProgressHUD.Dismiss();
 				};
 				btnSec.TouchUpInside += (sender, e) =>
 				{
 					UIAlertView alert = new UIAlertView()
 					{
-						Title = "Secaucus Store",
+						Title = LoggingClass.txtstore3+" Store",
 						Message = "Coming Soon..."
 					};
-					LoggingClass.LogInfo("Clicked on seacuces", screen);
+					LoggingClass.LogInfo("Clicked on "+LoggingClass.txtstore3, screen);
 
 
 					alert.AddButton("OK");
 					alert.Show();
+					//nfloat width = UIScreen.MainScreen.Bounds.Width;
+					//width = width / 2 - 15;
+
+					//					UICollectionViewFlowLayout flowLayout;
+					//flowLayout = new UICollectionViewFlowLayout()
+					//{
+					//	ItemSize = new CGSize(width, 325.0f),
+					//						SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+					//						ScrollDirection = UICollectionViewScrollDirection.Vertical
+					//					};
+					//NavigationController.NavigationBar.TopItem.Title = "Locations";
+					//NavigationController.PushViewController(new PhyCollectionView(flowLayout, 3), false);
+					//LoggingClass.LogInfo("Entered into "+LoggingClass.txtstore3, screen);
+					//BTProgressHUD.Dismiss();
+
 				};
 
 				btnPP.TouchUpInside += (sender, e) =>

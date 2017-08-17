@@ -351,11 +351,11 @@
     <BundleResource Include="Resources\FavIns.png" />
     <BundleResource Include="Resources\ReviewIns.png" />
     <BundleResource Include="Resources\tick.png" />
-    <BundleResource Include="Images\proback.jpg" />
     <BundleResource Include="Resources\cam.png" />
     <BundleResource Include="Resources\infoico.png" />
     <BundleResource Include="Resources\proico.png" />
     <BundleResource Include="Images\aboutus.jpg" />
+    <BundleResource Include="Resources\proback.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

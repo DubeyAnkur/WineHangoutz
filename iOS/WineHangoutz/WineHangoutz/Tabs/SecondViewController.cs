@@ -8,7 +8,7 @@ namespace WineHangoutz
 {
 	public partial class SecondViewController : UIViewController
 	{
-		protected SecondViewController(IntPtr handle) : base(handle)
+		public SecondViewController(IntPtr handle) : base(handle)
 		{
 			this.Title = "My Hangouts";
 		}
@@ -129,7 +129,10 @@ namespace WineHangoutz
 					{
 						BTProgressHUD.Show("Loading..."); //show spinner + text
 						};
-
+					btnMyStore.TouchDown += (sender, e) =>
+					{
+						BTProgressHUD.Show("Loading...");
+					};
 					btnReviews.TouchUpInside += (sender, e) =>
 					{
 						if (CurrentUser.RetreiveUserId() != 0)
@@ -244,15 +247,17 @@ namespace WineHangoutz
 						};
 					if (CurrentUser.GetStore() == 1)
 					{
-						BTProgressHUD.Show("Please wait...");
+						//BTProgressHUD.Show("Please wait...");
 						NavigationController.Title = "Locations";
 						NavigationController.PushViewController(new PhyCollectionView(flowLayout, 1), false);
+						NavigationController.NavigationBar.TopItem.Title = "My Store  ("+LoggingClass.txtstore1+")";
 					}
 					else if (CurrentUser.GetStore() == 2)
 					{
-						BTProgressHUD.Show("Please wait...");
+						//BTProgressHUD.Show("Please wait...");
 						NavigationController.Title = "Locations";
 						NavigationController.PushViewController(new PhyCollectionView(flowLayout, 2), false);
+						NavigationController.NavigationBar.TopItem.Title = "My Store ("+LoggingClass.txtstore2+")";
 					}
 					else 
 					{
@@ -262,11 +267,11 @@ namespace WineHangoutz
 							//Message = "Coming Soon..."
 						};
 							alert.AddButton("OK");
-
+						BTProgressHUD.Dismiss();
 						alert.Show();
 
 					}
-					NavigationController.NavigationBar.TopItem.Title = "My Store";
+
 				};
 				View.AddSubview(btnMyStore);
 				View.AddSubview(btnReviews);
