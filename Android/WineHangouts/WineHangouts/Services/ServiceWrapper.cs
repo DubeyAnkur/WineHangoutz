@@ -102,7 +102,7 @@ namespace WineHangouts
             {
                 LoggingClass.LogServiceInfo("service called", "InsertUpdateLike");
                 var uri = new Uri(ServiceURL + "InsertUpdateLike/");
-				string Token = CurrentUser.GetServiceToken();
+				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var content = JsonConvert.SerializeObject(skuLike);
@@ -152,7 +152,7 @@ namespace WineHangouts
             LoggingClass.LogServiceInfo("Service Call", "AuthencateUser");
             try
             {
-                var uri = new Uri(ServiceURL + "AuthenticateUser/" + CardId + "/email/" + Email + "/DeviceId/" + uid);
+                var uri = new Uri(ServiceURL + "AuthenticateUserBeta/" + CardId + "/email/" + Email + "/DeviceId/" + uid);
 				var byteArray = new UTF8Encoding().GetBytes(CardId + ":password");
 				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -160,7 +160,7 @@ namespace WineHangouts
 				if (response.IsSuccessStatusCode)
 				{
 					string Token = response.RequestMessage.Headers.Authorization.Parameter;
-					CurrentUser.SaveToken(Token);
+					CurrentUser.SaveAuthToken(Token);
 					output = JsonConvert.DeserializeObject<CustomerResponse>(response.Content.ReadAsStringAsync().Result);
 					LoggingClass.LogServiceInfo("Service Response", "AuthencateUser");
 				}
@@ -178,6 +178,38 @@ namespace WineHangouts
             LoggingClass.LogServiceInfo("Service responce "+sw.Elapsed.TotalSeconds, "AuthencateUser");
             return output;
         }
+
+        public async Task<CustomerResponse> ContinueService(CustomerResponse customer)
+        {
+            sw.Start();
+
+            CustomerResponse output = null;
+            try
+            {
+                var uri = new Uri(ServiceURL + "ContinueClick/");
+                var content = JsonConvert.SerializeObject(customer);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                string Token = CurrentUser.GetAuthToken();
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+                var response = await client.PostAsync(uri, cont).ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    var tokenJson = await response.Content.ReadAsStringAsync();
+                    output = JsonConvert.DeserializeObject<CustomerResponse>(tokenJson);
+                }
+                //var result = response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                LoggingClass.LogError(ex.ToString(),screenid , ex.StackTrace);
+            }
+            sw.Stop();
+            LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Continue Service");
+            //Console.WriteLine("UpdateCustomer service Time Elapsed"+sw.Elapsed.TotalSeconds);
+            return output;
+        }
+
         public async Task<CustomerResponse> AuthencateUser1(string email)
         {
 			sw.Start();
@@ -222,7 +254,6 @@ namespace WineHangouts
 
 			return output;
         }
-
 		public async Task<int> InsertUpdateToken1(TokenModel token)
 		{
 			sw.Start();
@@ -231,7 +262,7 @@ namespace WineHangouts
 				LoggingClass.LogServiceInfo("service called", "InsertUpdateToken1");
 				var uri = new Uri(ServiceURL + "UpdateDeviceToken1/" + token.User_id + "/token/" + token.DeviceToken.Replace(":", ",") + "/DeviceType/" + token.DeviceType);
 				var content = JsonConvert.SerializeObject(token);
-				string Token = CurrentUser.GetServiceToken();
+				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
@@ -288,7 +319,7 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "InsertUpdateReview/");
                 var content = JsonConvert.SerializeObject(review);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				string Token = CurrentUser.GetServiceToken();
+				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.PostAsync(uri, cont);
@@ -315,7 +346,7 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "DeleteReview/");
                 var content = JsonConvert.SerializeObject(review);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				string Token = CurrentUser.GetServiceToken();
+				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
@@ -341,7 +372,7 @@ namespace WineHangouts
                 var uri = new Uri(ServiceURL + "UpdateCustomer/");
                 var content = JsonConvert.SerializeObject(customer);
                 var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
-				string Token = CurrentUser.GetServiceToken();
+				string Token = CurrentUser.GetAuthToken();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.PostAsync(uri, cont); // In debug mode it do not work, Else it works
@@ -422,5 +453,29 @@ namespace WineHangouts
 			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Resend Email Service");
 			return output;
 		}
-	}
+        public async Task<CustomerResponse> UpdateMail(string email, string userid)
+        {
+            sw.Start();
+            CustomerResponse output = null;
+            try
+            {
+
+                var uri = new Uri(ServiceURL + "UpdateEmailAddress/" + email + "/user/" + userid);
+                var content = JsonConvert.SerializeObject(email);
+                var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
+                string Token = CurrentUser.GetAuthToken();
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
+                var response = await client.GetStringAsync(uri).ConfigureAwait(false);
+                output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+            }
+            catch (Exception ex)
+            {
+                LoggingClass.LogError(ex.ToString(), screenid, ex.StackTrace);
+            }
+            sw.Stop();
+            LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Email Update Service");
+            return output;
+        }
+    }
 }

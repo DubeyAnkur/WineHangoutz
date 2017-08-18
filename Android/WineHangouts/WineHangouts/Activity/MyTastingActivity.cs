@@ -26,7 +26,7 @@ namespace WineHangouts
 			st.Start();
 			base.OnCreate(bundle);
             customerid = Convert.ToInt32(CurrentUser.getUserId());
-            SetContentView(Resource.Layout.MyTasting);
+          
             try
             {
                 LoggingClass.LogInfo("Entered into My Tasting", screenid);
@@ -39,18 +39,21 @@ namespace WineHangouts
                 myArr1 = MYtastings.TastingList.ToList();
 				if (MYtastings.TastingList.Count == 0)
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
-					//aler.SetTitle("No Reviews Avalilable");
-					aler.SetMessage("Sorry you haven't Tasted our wines");
-					LoggingClass.LogInfo("Sorry you haven't Tasted our wines alert", screenid);
-					aler.SetNegativeButton("Ok", delegate { Finish(); });
-					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-					Dialog dialog = aler.Create();
-					dialog.Show();
-				}
+                    SetContentView(Resource.Layout.EmptyTaste);
+                    TextView te = FindViewById<TextView>(Resource.Id.textView123a);
+                    //AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+                    ////aler.SetTitle("No Reviews Avalilable");
+                    //aler.SetMessage("Sorry you haven't Tasted our wines");
+                    //LoggingClass.LogInfo("Sorry you haven't Tasted our wines alert", screenid);
+                    //aler.SetNegativeButton("Ok", delegate { Finish(); });
+                    //LoggingClass.LogInfo("Clicked on Secaucus", screenid);
+                    //Dialog dialog = aler.Create();
+                    //dialog.Show();
+                }
 				else
 				{
-					ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
+                    SetContentView(Resource.Layout.MyTasting);
+                    ListView wineList = FindViewById<ListView>(Resource.Id.MyTasting);
 
 					MyTastingAdapter adapter = new MyTastingAdapter(this, MYtastings.TastingList.ToList());
 					wineList.Adapter = adapter;

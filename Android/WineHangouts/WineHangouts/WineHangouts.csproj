@@ -207,73 +207,44 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="packages.config" />
-    <AndroidResource Include="Resources\layout\login.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\Profile.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\ProfilePickLayout.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\MyTastingView.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\MyTasting.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\Potrait.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\PotraitListView.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\Landscape.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\LandscapeCell.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\Dummy.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\AutoCompleteTextLayout.axml" />
-    <AndroidResource Include="Resources\layout\OtpReceiverLayout.axml" />
-    <AndroidResource Include="Resources\layout\AboutLayout.axml" />
-    <AndroidResource Include="Resources\layout\MyFavorite.axml" />
-    <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
-    <AndroidResource Include="Resources\layout\EmailVerificationLayout.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <None Include="Resources\layout\ReviewPopup.axml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\cell.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\CommentsCell.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\detailedView.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\MyReviewsCell.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AboutLayout.axml" />
+    <AndroidResource Include="Resources\layout\AutoCompleteTextLayout.axml" />
+    <AndroidResource Include="Resources\layout\cell.axml" />
+    <AndroidResource Include="Resources\layout\CommentsCell.axml" />
+    <AndroidResource Include="Resources\layout\DeleteReviewPop.axml" />
+    <AndroidResource Include="Resources\layout\detailedView.axml" />
+    <AndroidResource Include="Resources\layout\Dummy.axml" />
+    <AndroidResource Include="Resources\layout\EditReviewPopup.axml" />
+    <AndroidResource Include="Resources\layout\EmailVerificationLayout.axml" />
+    <AndroidResource Include="Resources\layout\FavEmp.axml" />
     <AndroidResource Include="Resources\layout\Fragment.axml" />
-    <AndroidResource Include="Resources\layout\LocationLayout.axml" />
+    <AndroidResource Include="Resources\layout\Fragment1Layout.axml" />
+    <AndroidResource Include="Resources\layout\Landscape.axml" />
+    <AndroidResource Include="Resources\layout\LandscapeCell.axml" />
     <AndroidResource Include="Resources\layout\ListView.axml" />
-    <AndroidResource Include="Resources\layout\EditReviewPopup.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LocationLayout.axml" />
+    <AndroidResource Include="Resources\layout\login.axml" />
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\MyFavorite.axml" />
+    <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
+    <AndroidResource Include="Resources\layout\MyReviewsCell.axml" />
+    <AndroidResource Include="Resources\layout\MyTasting.axml" />
+    <AndroidResource Include="Resources\layout\MyTastingView.axml" />
+    <AndroidResource Include="Resources\layout\OtpReceiverLayout.axml" />
+    <AndroidResource Include="Resources\layout\Potrait.axml" />
+    <AndroidResource Include="Resources\layout\PotraitListView.axml" />
+    <AndroidResource Include="Resources\layout\Profile.axml" />
+    <AndroidResource Include="Resources\layout\ProfileCell.axml" />
+    <AndroidResource Include="Resources\layout\ProfilePickLayout.axml" />
+    <AndroidResource Include="Resources\layout\ReviewEmpty.axml" />
+    <AndroidResource Include="Resources\layout\ReviewPopup.axml" />
     <AndroidResource Include="Resources\layout\Tasting.axml" />
     <AndroidResource Include="Resources\layout\TastingListview.axml" />
     <AndroidResource Include="Resources\layout\WinePropertiesCell.axml" />
-    <AndroidResource Include="Resources\layout\DeleteReviewPop.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml">
+    <AndroidResource Include="Resources\layout\EmptyTaste.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -358,9 +329,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\heart_full.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\border.xml" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
@@ -509,6 +477,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\proback.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ReviewIns.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FavIns.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\border.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

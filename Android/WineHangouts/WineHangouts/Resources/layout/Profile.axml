@@ -91,16 +91,16 @@
                             android:layout_width="110.5dp"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/black"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textStyle="normal"
                             android:typeface="sans" />
                         <EditText
                             android:id="@+id/txtFirstName"
                             android:inputType="text"
                             android:layout_height="wrap_content"
-                            android:layout_width="216.0dp"
+                            android:layout_width="200.0dp"
                             android:textColor="@android:color/black"
-                            android:textSize="15dp"
+                            android:textSize="13dp"
                             android:typeface="sans"
                             android:layout_alignBottom="@+id/textView10"
                             android:textColorHint="#aaa"
@@ -119,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:id="@+id/textView12"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:layout_alignBottom="@+id/txtFirstName"
                             android:layout_marginLeft="0.0dp" />
                         <EditText
@@ -170,7 +170,7 @@
                             android:text="E-Mail "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:id="@+id/textView14"
                             android:layout_gravity="left"
                             android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:id="@+id/textView14"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:layout_gravity="left"
                             android:layout_marginLeft="0.0dp" />
                         <EditText
@@ -214,7 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_width="208.5dp"
                             android:textColor="@android:color/black"
-                            android:textSize="15dp"
+                            android:textSize="13dp"
                             android:typeface="sans"
                             android:layout_marginLeft="0.0dp"
                             android:textColorHint="#aaa"
@@ -241,7 +241,7 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
                             android:id="@+id/textView14"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:layout_gravity="left"
                             android:layout_marginLeft="0.0dp" />
                         <EditText
@@ -252,7 +252,7 @@
                             android:layout_height="48.5dp"
                             android:layout_width="270dp"
                             android:textColor="@android:color/black"
-                            android:textSize="15dp"
+                            android:textSize="13dp"
                             android:layout_marginLeft="0.0dp"
                             android:maxLines="5"
                             android:typeface="sans"
@@ -362,7 +362,7 @@
                             android:textColor="@android:color/black"
                             android:layout_marginLeft="0.0dp"
                             android:id="@+id/textView17"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:layout_gravity="left" />
                         <Spinner
                             android:id="@+id/spinner"
@@ -393,7 +393,7 @@
                             android:textColor="@android:color/black"
                             android:layout_marginLeft="0.0dp"
                             android:id="@+id/textView17"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:layout_gravity="left" />
                         <Spinner
                             android:id="@+id/spinner1"
@@ -421,7 +421,7 @@
                             android:text="ZipCode "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@android:color/black"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:id="@+id/textView17"
                             android:layout_gravity="left" />
                         <EditText
@@ -430,7 +430,7 @@
                             android:layout_height="wrap_content"
                             android:layout_width="270dp"
                             android:textColor="@android:color/black"
-                            android:textSize="15dp"
+                            android:textSize="13dp"
                             android:maxLines="5"
                             android:typeface="sans"
                             android:layout_marginLeft="0.0dp"

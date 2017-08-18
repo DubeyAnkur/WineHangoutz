@@ -52,14 +52,14 @@ namespace WineHangouts
 		}
 
 
-		public static void PutToken(string count)
+		public static void PutDeviceToken(string count)
         {
             _edit.PutString("token", count);
             _edit.Apply();
 
         }
 
-        public static string getToken()
+        public static string getDeviceToken()
         {
             string countVal = _pref.GetString("token", null);
             return countVal;
@@ -81,12 +81,12 @@ namespace WineHangouts
         {
             _edit.Clear();
         }
-		public static void SaveToken(string Token)
+		public static void SaveAuthToken(string Token)
 		{
 			_edit.PutString("Token", Token);
 			_edit.Apply();
 		}
-		public static string GetServiceToken()
+		public static string GetAuthToken()
 		{
 			string Token = _pref.GetString("Token", null);
 			return Token;

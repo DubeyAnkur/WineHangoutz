@@ -176,7 +176,6 @@ namespace WineHangouts
             LoggingClass.LogInfo("Updated profile picture",screenid);
             using (var fs = System.IO.File.Open(path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
             {
-
                 await blob.UploadFromStreamAsync(fs);
                 LoggingClass.LogInfo("Profile picture uploaded into blob",screenid);
             }

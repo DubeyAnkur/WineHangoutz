@@ -60,14 +60,16 @@ namespace WineHangouts
 			if (myItems.Count == 0)
 
 			{
-
-				AlertDialog.Builder aler = new AlertDialog.Builder(myContext);
-				//aler.SetTitle("No Reviews Avalilable");
-				aler.SetMessage("Sorry you haven't Reviewed our wines");
-				aler.SetNegativeButton("Ok", delegate { });
-				LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-				Dialog dialog = aler.Create();
-				dialog.Show();
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.ReviewEmpty, null, false);
+                TextView txtName = row.FindViewById<TextView>(Resource.Id.textView1);
+                ImageView Imag = row.FindViewById<ImageView>(Resource.Id.imageView1);
+    //            AlertDialog.Builder aler = new AlertDialog.Builder(myContext);
+				////aler.SetTitle("No Reviews Avalilable");
+				//aler.SetMessage("Sorry you haven't Reviewed our wines");
+				//aler.SetNegativeButton("Ok", delegate { });
+				//LoggingClass.LogInfo("Clicked on Secaucus", screenid);
+				//Dialog dialog = aler.Create();
+				//dialog.Show();
 			}
 			else
 			{
@@ -138,7 +140,7 @@ namespace WineHangouts
 					// txtPrice.Text= myItems[position].
 					txtYear.Text = myItems[position].Vintage;
 					txtDescription.Text = myItems[position].RatingText;
-					txtDescription.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
+					//txtDescription.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
 					txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
 					rb.Rating = myItems[position].RatingStars;
 					//Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);

@@ -17,7 +17,7 @@ namespace WineHangouts
     [Activity(Label = "About Us" ,ScreenOrientation = ScreenOrientation.Portrait)]
     public class AboutActivity : Activity
     {
-		Stopwatch sw;
+		//Stopwatch sw;
 		
         private int screenid = 11;
         protected override void OnCreate(Bundle savedInstanceState)

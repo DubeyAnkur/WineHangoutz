@@ -26,7 +26,7 @@ namespace WineHangouts
         {
             try
             {
-                Log.Info("RegistrationIntentService", "Calling InstanceID.GetToken");
+                Log.Info("RegistrationIntentService", "Calling InstanceID.GetAuthToken");
                 //FirebaseApp.InitializeApp(this);
                 // Ensure that the request is atomic:
                 lock (this)
@@ -37,7 +37,7 @@ namespace WineHangouts
                     //Toast.MakeText(this, token, ToastLength.Short).Show();
                     // Log the registration token that was returned from GCM:
                     Log.Info("RegistrationIntentService", "GCM Registration Token: " + token);
-                    CurrentUser.PutToken(token);
+                    CurrentUser.PutDeviceToken(token);
                     // Send to the app server (if it requires it):
                     //SendRegistrationToAppServer(token);
                    

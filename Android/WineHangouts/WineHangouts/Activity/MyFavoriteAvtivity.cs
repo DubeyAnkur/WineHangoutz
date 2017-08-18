@@ -27,7 +27,7 @@ namespace WineHangouts
 			base.OnCreate(bundle);
 			try
 			{
-				SetContentView(Resource.Layout.MyFavoriteGridView);
+				//SetContentView(Resource.Layout.MyFavoriteGridView);
 				ActionBar.SetHomeButtonEnabled(true);
 				ActionBar.SetDisplayHomeAsUpEnabled(true);
 				if (StoreName == "")
@@ -41,19 +41,22 @@ namespace WineHangouts
 				myArr = output.ItemList.ToList();
 				if (output.ItemList.Count == 0)
 				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
-					//aler.SetTitle("No Reviews Avalilable");
-					aler.SetMessage("Sorry you didn't tell us your Favourite wines");
-					LoggingClass.LogInfo("Sorry you didn't tell us your Favourite wines", screenid);
-					aler.SetNegativeButton("Ok", delegate { Finish(); });
-					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-					Dialog dialog = aler.Create();
-					dialog.Show();
-				}
+                    SetContentView(Resource.Layout.FavEmp);
+                    TextView txtName = FindViewById<TextView>(Resource.Id.textView1);
+                    ImageView Imag = FindViewById<ImageView>(Resource.Id.imageView1);
+                    //AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
+                    ////aler.SetTitle("No Reviews Avalilable");
+                    //aler.SetMessage("Sorry you didn't tell us your Favourite wines");
+                    //LoggingClass.LogInfo("Sorry you didn't tell us your Favourite wines", screenid);
+                    //aler.SetNegativeButton("Ok", delegate { Finish(); });
+                    //LoggingClass.LogInfo("Clicked on Secaucus", screenid);
+                    //Dialog dialog = aler.Create();
+                    //dialog.Show();
+                }
 				else
 				{
-
-					var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
+                    SetContentView(Resource.Layout.MyFavoriteGridView);
+                    var gridview = FindViewById<GridView>(Resource.Id.gridviewfav);
 					MyFavoriteAdapter adapter = new MyFavoriteAdapter(this, myArr);
 					LoggingClass.LogInfo("Entered into Favourite Adapter", screenid);
 					gridview.SetNumColumns(2);

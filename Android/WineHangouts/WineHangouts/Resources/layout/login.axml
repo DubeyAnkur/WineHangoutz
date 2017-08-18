@@ -4,107 +4,134 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minWidth="25px"
-    android:minHeight="40px"
-    android:background="@android:color/background_light">
-    <ImageView
-        android:src="@drawable/logo5"
-        android:layout_width="wrap_content"
-        android:layout_height="124.5dp"
-        android:id="@+id/imageView1"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="5dp" />
-    <TextView
-        android:text="Please scan your VIP card barcode by touching below card:"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:id="@+id/textView1"
-        android:layout_marginTop="5dp"
-        android:layout_margin="2dp" />
-    <ImageButton
-        android:src="@drawable/card"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/btnScanner"
-        android:scaleType="fitCenter"
-        android:background="@null" />
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtScanresult"
-        android:textColor="@android:color/background_dark"
-        android:layout_margin="2dp"
-        android:autoLink="web"
-        android:linksClickable="true" />
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableLayout1">
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:gravity="center">
-            <Button
-                android:text="Resend Email"
-                android:id="@+id/btnResend"
-                android:layout_column="0"
-                android:background="#800080"
-                android:layout_marginRight="10dp"
-                android:textStyle="italic"
-                android:textColor="@android:color/background_light"
-                android:layout_height="42.5dp"
-                android:textAllCaps="false"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="40px"
+        android:background="@android:color/background_light">
+        <ImageView
+            android:src="@drawable/logo5"
+            android:layout_width="wrap_content"
+            android:layout_height="124.5dp"
+            android:id="@+id/imageView1"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="5dp" />
+        <TextView
+            android:text="Please scan your VIP card barcode by touching below card:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/background_dark"
+            android:id="@+id/textView1"
+            android:layout_marginTop="5dp"
+            android:layout_margin="2dp" />
+        <ImageButton
+            android:src="@drawable/card"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/btnScanner"
+            android:scaleType="fitCenter"
+            android:background="@null" />
+        <TextView
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtScanresult"
+            android:textColor="@android:color/background_dark"
+            android:layout_margin="2dp"
+            android:autoLink="web"
+            android:linksClickable="true" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout1">
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:gravity="center">
+                <Button
+                    android:text="Update Email"
+                    android:id="@+id/btnUpdateEmail"
+                    android:layout_column="0"
+                    android:background="#800080"
+                    android:layout_marginRight="15dp"
+                    android:textStyle="italic"
+                    android:textColor="@android:color/background_light"
+                    android:layout_height="42.5dp"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:theme="@style/Base.DialogWindowTitle.AppCompat" />
+                <Button
+                    android:text="Continue"
+                    android:id="@+id/btnContinue"
+                    android:layout_column="1"
+                    android:background="#800080"
+                    android:textStyle="italic"
+                    android:textColor="@android:color/background_light"
+                    android:layout_height="43.5dp"
+                    android:textAllCaps="false"
+                    android:gravity="center" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow1"
                 android:gravity="center"
-                android:theme="@style/Base.DialogWindowTitle.AppCompat" />
-            <Button
-                android:text="Log In"
-                android:id="@+id/btnLogin"
-                android:layout_column="1"
-                android:background="#800080"
-                android:textStyle="italic"
-                android:textColor="@android:color/background_light"
-                android:layout_height="43.5dp"
-                android:textAllCaps="false"
-                android:gravity="center" />
-        </TableRow>
-    </TableLayout>
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableLayout2"
-        android:layout_marginTop="17.0dp">
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:gravity="center_horizontal"
-            android:layout_margin="20dp"
-            android:layout_height="31.5dp">
-            <TextView
-                android:text="Not a VIP Member ?"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_column="0"
-                android:id="@+id/textView4"
-                android:textColor="@android:color/background_dark"
-                android:layout_marginRight="20dp"
-                android:textStyle="italic"
-                android:textSize="25dp"
-                android:layout_marginTop="5.5dp" />
-            <Button
-                android:text="Guest Log In"
-                android:layout_column="1"
-                android:id="@+id/btnGuestLogin"
-                android:background="#800080"
-                android:textStyle="italic"
-                android:textColor="#ffffff"
-                android:layout_height="42.0dp"
-                android:textAllCaps="false"
-                android:gravity="center" />
-        </TableRow>
-    </TableLayout>
-</LinearLayout>
+                android:layout_marginTop="8dp">
+                <Button
+                    android:text="Resend Email"
+                    android:id="@+id/btnResend"
+                    android:layout_column="0"
+                    android:background="#800080"
+                    android:layout_marginRight="15dp"
+                    android:textStyle="italic"
+                    android:textColor="@android:color/background_light"
+                    android:layout_height="42.5dp"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:theme="@style/Base.DialogWindowTitle.AppCompat" />
+                <Button
+                    android:text="Log In"
+                    android:id="@+id/btnLogin"
+                    android:layout_column="1"
+                    android:background="#800080"
+                    android:textStyle="italic"
+                    android:textColor="@android:color/background_light"
+                    android:layout_height="43.5dp"
+                    android:textAllCaps="false"
+                    android:gravity="center" />
+            </TableRow>
+        </TableLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout2"
+            android:layout_marginTop="17.0dp">
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:layout_height="31.5dp">
+                <TextView
+                    android:text="Not a VIP Member ?"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:id="@+id/textView4"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginRight="20dp"
+                    android:textStyle="italic"
+                    android:textSize="25dp"
+                    android:layout_marginTop="5.5dp" />
+                <Button
+                    android:text="Guest Log In"
+                    android:layout_column="1"
+                    android:id="@+id/btnGuestLogin"
+                    android:background="#800080"
+                    android:textStyle="italic"
+                    android:textColor="#ffffff"
+                    android:layout_height="42.0dp"
+                    android:textAllCaps="false"
+                    android:gravity="center" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 </ScrollView>
