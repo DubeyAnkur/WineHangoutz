@@ -40,7 +40,7 @@ namespace WineHangouts
             Stopwatch st = new Stopwatch();
             st.Start();
             //for direct login
-            CurrentUser.SaveUserName("Lokesh Android","1");
+            //CurrentUser.SaveUserName("Lokesh Android","1");
             //Preinfo("7207589007");
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.login);
@@ -182,9 +182,7 @@ namespace WineHangouts
                         BtnUpdateEmail.Click += delegate
                         {
                             BtnUpdateEmail_Click("please enter your new e-mail id");  
-                        };
-                     
-                        AndHUD.Shared.Dismiss();
+                        };    
                     }
                 }
                 else
@@ -236,12 +234,9 @@ namespace WineHangouts
 
                         //AndHUD.Shared.ShowSuccess(Parent, "Updated!", MaskType.Clear, TimeSpan.FromSeconds(2));
                     }
-
-
                 });
                 aler.SetNegativeButton("Cancel", (senderAlert, args) =>
                 {
-
                     Toast.MakeText(this, "Cancelled!", ToastLength.Short).Show();
                 });
                 Dialog dialog = aler.Create();
