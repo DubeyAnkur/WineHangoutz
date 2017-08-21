@@ -199,6 +199,8 @@ namespace WineHangoutz
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
 					txtPhone.Text = cRes.customer.PhoneNumber;
+					txtCardnumber.Text = cRes.customer.CardNumber;
+					txtExpirydate.Text = cRes.customer.ExpireDate.ToString("MM-dd-yyyy");
 					txtZipCode.Text = cRes.customer.Zip;
 					string state = cRes.customer.State;
 					if (pickerDataModel.Items.Contains(state))
@@ -446,6 +448,7 @@ namespace WineHangoutz
 						}
 						cust.Email = txtEmail.Text;
 						cust.PhoneNumber = txtPhone.Text;
+
 						if (pickerDataModel.SelectedItem == "---Select your state---")
 						{
 							if (pickerDataModel.Items.Contains(cRes.customer.State))
@@ -503,6 +506,10 @@ namespace WineHangoutz
 				Scroll.AddSubview(lblLastname);
 				Scroll.AddSubview(btnUpdate);
 				Scroll.AddSubview(lblStorePi);
+				Scroll.AddSubview(lblExpiryDate);
+				Scroll.AddSubview(txtExpirydate);
+				Scroll.AddSubview(lblcardnumber);
+				Scroll.AddSubview(txtCardnumber);
 
 				//View.AddSubview(Scroll);
 
@@ -512,7 +519,7 @@ namespace WineHangoutz
 					h = h + n;
 				}
 				Console.WriteLine(h);
-				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-300);
+				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-270);
 				View = (Scroll);
 			}
 			catch (Exception ex)

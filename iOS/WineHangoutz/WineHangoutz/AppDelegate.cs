@@ -45,10 +45,10 @@ namespace WineHangoutz
 				// Override point for customization after application launch.
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-				CurrentUser.Clear();
-				CurrentUser.Store("1", "Lokesh Simulator");
+				//CurrentUser.Clear();
+				//CurrentUser.Store("48732", "Mohana Simulator");
 				//for direct log in
-				CurrentUser.PutCardNumber("7207589007");
+				//CurrentUser.PutCardNumber("7207589007");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);

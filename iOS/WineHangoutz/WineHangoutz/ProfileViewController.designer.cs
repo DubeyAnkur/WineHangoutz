@@ -40,7 +40,15 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblcardnumber { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblEmail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblExpiryDate { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -76,7 +84,15 @@ namespace WineHangoutz
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel txtCardnumber { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField txtEmail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel txtExpirydate { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -126,9 +142,19 @@ namespace WineHangoutz
                 lblAddress = null;
             }
 
+            if (lblcardnumber != null) {
+                lblcardnumber.Dispose ();
+                lblcardnumber = null;
+            }
+
             if (lblEmail != null) {
                 lblEmail.Dispose ();
                 lblEmail = null;
+            }
+
+            if (lblExpiryDate != null) {
+                lblExpiryDate.Dispose ();
+                lblExpiryDate = null;
             }
 
             if (lblLastname != null) {
@@ -171,9 +197,19 @@ namespace WineHangoutz
                 txtAddress = null;
             }
 
+            if (txtCardnumber != null) {
+                txtCardnumber.Dispose ();
+                txtCardnumber = null;
+            }
+
             if (txtEmail != null) {
                 txtEmail.Dispose ();
                 txtEmail = null;
+            }
+
+            if (txtExpirydate != null) {
+                txtExpirydate.Dispose ();
+                txtExpirydate = null;
             }
 
             if (txtLastName != null) {

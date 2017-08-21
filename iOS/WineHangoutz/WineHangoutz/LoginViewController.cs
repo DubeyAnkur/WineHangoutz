@@ -443,14 +443,15 @@ namespace WineHangoutz
 		public void UpdateEmail(string Message)
 		{
 			string Email;
-			BtnTest1.Hidden = true;
-			BtnTest2.Hidden = true;
 			UIAlertView alert = new UIAlertView()
 			{
 				Title = Message,
 				//Message = Message
 			};
-			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com"; 			alert.AddButton("Update"); 			alert.Clicked += async (senderalert, buttonArgs) => 			{ 				if (buttonArgs.ButtonIndex == 0) 				{
+			alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.GetTextField(0).Placeholder = "johndie@winehangouts.com";
+			alert.AddButton("Cancel"); 			alert.AddButton("Update"); 			alert.Clicked += async (senderalert, buttonArgs) => 			{
+				 				if (buttonArgs.ButtonIndex == 1) 				{
+					
 					Email = alert.GetTextField(0).Text;
 					if (Email == null && Email == "")
 					{
@@ -464,6 +465,8 @@ namespace WineHangoutz
 					else
 					{
 						//BTProgressHUD.ShowSuccessWithStatus("We're sending mail to the updated mail");
+						BtnTest1.Hidden = true;
+						BtnTest2.Hidden = true;
 						CurrentUser.PutEmail(Email);
 						cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
 						ShowInfo(cr, false);
