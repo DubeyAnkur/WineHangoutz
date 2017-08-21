@@ -325,11 +325,12 @@ namespace WineHangoutz
 									Title = "Please choose an option to upload profile picture",
 									//Message = "Coming Soon..."
 								};
+								alert.AddButton("Cancel");
 								alert.AddButton("Camera");
 								alert.AddButton("Gallery");
 								alert.Clicked += (senderalert, buttonArgs) =>
 								{
-									if (buttonArgs.ButtonIndex == 0)
+									if (buttonArgs.ButtonIndex == 1)
 									{
 										try
 										{
@@ -356,7 +357,7 @@ namespace WineHangoutz
 								};
 								alert.Clicked += (senderalert, buttonArgs) =>
 								{
-									if (buttonArgs.ButtonIndex == 1)
+									if (buttonArgs.ButtonIndex == 2)
 									{
 										imagePicker = new UIImagePickerController();
 										imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
@@ -406,11 +407,11 @@ namespace WineHangoutz
 				btnUpdate.TouchUpInside +=async delegate 
 				{
 
-					if (txtPhone.Text.Length > 10 || txtPhone.Text.Length < 10)
-					{
-						BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
-					}
-					else if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
+					//if (txtPhone.Text.Length!=12)
+					//{
+					//	BTProgressHUD.ShowErrorWithStatus("Phone number is invalid");
+					//}
+					if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
 					{
 						BTProgressHUD.ShowErrorWithStatus("Email is invalid");
 					}
@@ -519,7 +520,7 @@ namespace WineHangoutz
 					h = h + n;
 				}
 				Console.WriteLine(h);
-				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-270);
+				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-200);
 				View = (Scroll);
 			}
 			catch (Exception ex)
@@ -544,14 +545,14 @@ namespace WineHangoutz
 			nfloat currentViewHeight = viewFrame.Height - r.Height;
 			// update scrollViewFrame
 			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, currentViewHeight);
-			Scroll.ContentOffset = new CGPoint(0, 120);
+			Scroll.ContentOffset = new CGPoint(0, 170);
 		}
 		private void KeyBoardDownNotification(NSNotification notification)
 		{
 			// Get bounds of parent view
 			CGRect viewFrame = View.Bounds;
 			Scroll.Frame = new CGRect(Scroll.Frame.X, Scroll.Frame.Y, Scroll.Frame.Width, viewFrame.Height);
-			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-300);
+			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-250);
 			Scroll.ContentOffset = new CGPoint(0,0);
 		}
 		//protected void DismissKeyboardOnBackgroundTap()

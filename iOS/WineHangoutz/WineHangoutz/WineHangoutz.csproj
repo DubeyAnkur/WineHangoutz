@@ -196,12 +196,17 @@
     <InterfaceDefinition Include="ProfileViewController.xib" />
     <InterfaceDefinition Include="AboutController.xib" />
     <InterfaceDefinition Include="DummyViewController.xib" />
+    <InterfaceDefinition Include="proview.xib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProfileViewController.cs" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <Compile Include="proview.cs" />
+    <Compile Include="proview.designer.cs">
+      <DependentUpon>proview.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

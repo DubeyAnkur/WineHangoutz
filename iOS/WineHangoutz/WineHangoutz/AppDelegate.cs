@@ -124,6 +124,7 @@ namespace WineHangoutz
 				{
 					BTProgressHUD.Show("Loading,,,");
 					nav.PushViewController(new ProfileViewController(nav), false);
+					//nav.PushViewController(new proview(), false);
 					nav.NavigationBar.TopItem.Title = "Profile";
 					//BTProgressHUD.Dismiss();
 				});
