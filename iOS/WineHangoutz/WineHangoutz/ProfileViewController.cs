@@ -198,7 +198,11 @@ namespace WineHangoutz
 					txtLastName.Text = name;//cRes.customer.FirstName+" "+cRes.customer.LastName;
 					//txtCity.Text = cRes.customer.City;
 					txtEmail.Text = cRes.customer.Email;
-					txtPhone.Text = cRes.customer.PhoneNumber;
+					if (cRes.customer.PhoneNumber.Length != 10)
+					{
+						//cRes.customer.PhoneNumber
+						txtPhone.Text = cRes.customer.PhoneNumber;	
+					}
 					txtCardnumber.Text = cRes.customer.CardNumber;
 					txtExpirydate.Text = cRes.customer.ExpireDate.ToString("MM-dd-yyyy");
 					txtZipCode.Text = cRes.customer.Zip;
@@ -364,7 +368,7 @@ namespace WineHangoutz
 										imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary);
 										imagePicker.FinishedPickingMedia += Handle_FinishedPickingMedia;
 										imagePicker.Canceled += Handle_Canceled;
-										 NavCtrl.PresentModalViewController(imagePicker, true);
+										NavCtrl.PresentModalViewController(imagePicker, true);
 									}
 								};
 								alert.Show();

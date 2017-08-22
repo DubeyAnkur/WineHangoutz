@@ -14,8 +14,25 @@ namespace WineHangoutz
     [Register ("proview")]
     partial class proview
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIPickerView StorePicker { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIPickerView stpicker { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (StorePicker != null) {
+                StorePicker.Dispose ();
+                StorePicker = null;
+            }
+
+            if (stpicker != null) {
+                stpicker.Dispose ();
+                stpicker = null;
+            }
         }
     }
 }

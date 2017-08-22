@@ -8,7 +8,6 @@ namespace WineHangoutz
 		}
 		public const string ConnectionString = "<Azure connection string>";
 		public const string NotificationHubPath = "<Azure hub path>";
-	
 	}
 }
 

@@ -119,6 +119,7 @@ namespace WineHangoutz
 				cell = new MyReviewCellView(name);
 			cell.NavController = NavController;
 			cell.Parent = Parent;
+			cell.Data = item;
 			cell.UpdateCell(item);
 			cell.SetNeedsDisplay();
 			return cell;
@@ -143,7 +144,9 @@ namespace WineHangoutz
 		UIButton btnLike;
 		UIButton btnItemname;
 		UIButton btnBack;
-		Item myItem;
+
+		//Item myItem;
+		public Review Data;
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		public string wineId;
@@ -272,7 +275,7 @@ namespace WineHangoutz
 				btnLike.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
 				btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				btnLike.Tag = 0;
-				myItem = new Item();
+				//myItem = new Item();
 				//bool count =Convert.ToBoolean( myItem.IsLike);
 				//if (count == true)
 				//{
@@ -291,8 +294,8 @@ namespace WineHangoutz
 							{
 								btnLike.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 								temp.Tag = 1;
-								myItem.IsLike = true;
-
+								Data.Liked = 1;
+								//btnLike.Tag = 1;
 								LoggingClass.LogInfo("Liked Wine " + WineIdLabel.Text, screenid);
 
 							}
@@ -300,7 +303,7 @@ namespace WineHangoutz
 							{
 								btnLike.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 								temp.Tag = 0;
-								myItem.IsLike = false;
+							Data.Liked = 0;
 
 								LoggingClass.LogInfo("Unliked Wine " + WineIdLabel.Text, screenid);
 							}
@@ -309,7 +312,7 @@ namespace WineHangoutz
 							like.BarCode = WineIdLabel.Text;
 							like.Liked = Convert.ToBoolean(temp.Tag);
 
-							myItem.IsLike = Convert.ToBoolean(temp.Tag);
+						Data.Liked =Convert.ToInt32(temp.Tag);
 							await sw.InsertUpdateLike(like);
 					}
 					catch (Exception ex)

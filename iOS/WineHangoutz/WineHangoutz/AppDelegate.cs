@@ -69,7 +69,7 @@ namespace WineHangoutz
 				//Checking Guest logged in or not
 				else if(CurrentUser.GetGuestId()!="0" && CurrentUser.GetGuestId()!=null)
 				{
-					 CurrentUser.Store("0", "Guest");
+					CurrentUser.Store("0", "Guest");
     			  	ManageTabBar(RootTab);
 					//Console.WriteLine(DateTime.Now + " App opened");
 					nav = new UINavigationController(RootTab);
@@ -123,8 +123,9 @@ namespace WineHangoutz
 			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
 				{
 					BTProgressHUD.Show("Loading,,,");
-					nav.PushViewController(new ProfileViewController(nav), false);
-					//nav.PushViewController(new proview(), false);
+					//CurrentUser.Store("0", "");
+					//nav.PushViewController(new ProfileViewController(nav), false);
+					nav.PushViewController(new proview(nav), false);
 					nav.NavigationBar.TopItem.Title = "Profile";
 					//BTProgressHUD.Dismiss();
 				});

@@ -87,7 +87,7 @@ namespace WineHangoutz
 
 				UITextView p3 = new UITextView();
 				p3.Frame = new CGRect(5, ScreenHeight + 535, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
-				p3.Text = "We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:  Pick the Choice: Guest is displayed with all the available wines for tasting.\n My Tasting: See the list of wines you have tasted and choose more from the remaining surprises.\n My Reviews: View your ratings and reviews and let other wine lovers explore it along with you.\n My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting.\n My Profile: Protect your credentials and update it as and when you wish.";
+				p3.Text = "We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:  \n\nPick the Choice: Guest is displayed with all the available wines for tasting.\n\n My Tasting: See the list of wines you have tasted and choose more from the remaining surprises.\n\n My Reviews: View your ratings and reviews and let other wine lovers explore it along with you.\n\n My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting.\n\n My Profile: Protect your credentials and update it as and when you wish.";
 				p3.TextColor = UIColor.Black;
 				p3.TextAlignment = UITextAlignment.Justified;
 				p3.Font = UIFont.FromName("Verdana", 13f);
@@ -98,7 +98,7 @@ namespace WineHangoutz
 				p4.Text = "Rate and Review";
 				p4.TextColor = UIColor.Black;
 				p4.TextAlignment = UITextAlignment.Justified;
-				p4.Font = UIFont.FromName("Verdana", 18f);
+				p4.Font = UIFont.FromName("Verdana-Bold", 20f);
 				p4.Editable = false;
 				p4.TextAlignment = UITextAlignment.Left;
 
@@ -107,21 +107,21 @@ namespace WineHangoutz
 				p5.Text = "Let them also know the best choice of yours.";
 				p5.TextColor = UIColor.Black;
 				p5.TextAlignment = UITextAlignment.Justified;
-				p5.Font = UIFont.FromName("Verdana", 18f);
+				p5.Font = UIFont.FromName("Verdana", 13f);
 				p5.Editable = false;
 				//p5.TextAlignment = UITextAlignment.Left;
 
 				UITextView p6 = new UITextView();
-				p6.Frame = new CGRect(5, ScreenHeight + 900, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
+				p6.Frame = new CGRect(5, ScreenHeight + 880, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
 				p6.Text = "Rate and Review is the spot for rating your favorite wine and Wine Hangouts displays the average rating and the individual rating of the users.";
 				p5.TextColor = UIColor.Black;
-				p6.Font = UIFont.FromName("Verdana", 18f);
+				p6.Font = UIFont.FromName("Verdana", 13f);
 				p6.Editable = false;
 				p6.TextAlignment = UITextAlignment.Justified;
 				//p6.TextAlignment = UITextAlignment.Left;
 
 				UITextView VersionText = new UITextView();
-				VersionText.Frame = new CGRect(5, ScreenHeight + 930, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
+				VersionText.Frame = new CGRect(5, ScreenHeight + 950, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
 				var ver = NSBundle.MainBundle.InfoDictionary["CFBundleVersion"];
 				//MonoTouch.Constants.Version;
 				//Console.WriteLine(ver);
@@ -132,7 +132,7 @@ namespace WineHangoutz
 				VersionText.TextAlignment = UITextAlignment.Center;
 
 				UITextView ContactUsText = new UITextView();
-				ContactUsText.Frame = new CGRect(5, ScreenHeight + 1000, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
+				ContactUsText.Frame = new CGRect(5, ScreenHeight + 1020, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
 				ContactUsText.Text = "savvyitsol@gmail.com";
 				ContactUsText.TextColor = UIColor.Purple;
 				ContactUsText.Font = UIFont.FromName("Verdana", 18f);
@@ -194,7 +194,7 @@ namespace WineHangoutz
 				{
 					h = scrollView.Subviews[i].Frame.Size.Height + 370 + ScreenHeight;
 				}
-				scrollView.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h);
+				scrollView.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+30);
 				View = (scrollView);
 			}
 			catch (Exception ex)
