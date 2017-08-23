@@ -57,12 +57,12 @@ namespace WineHangoutz
 			btnMan.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnPP.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 			btnSec.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-			btnMan.SetTitle(LoggingClass.txtstore1,UIControlState.Normal);
-			btnSec.SetTitle(LoggingClass.txtstore3,UIControlState.Normal);
-			btnPP.SetTitle(LoggingClass.txtstore2, UIControlState.Normal);
-			btnMan.SetBackgroundImage(new UIImage("Images/city.jpg"), UIControlState.Normal);
-			btnSec.SetBackgroundImage(new UIImage("Images/city1.jpg"), UIControlState.Normal);
-			btnPP.SetBackgroundImage(new UIImage("Images/beach.jpg"), UIControlState.Normal);
+			btnMan.SetTitle("",UIControlState.Normal);
+			btnSec.SetTitle("",UIControlState.Normal);
+			btnPP.SetTitle("", UIControlState.Normal);
+			btnMan.SetBackgroundImage(new UIImage("Images/wall1.jpg"), UIControlState.Normal);
+			btnSec.SetBackgroundImage(new UIImage("Images/scacus1.jpg"), UIControlState.Normal);
+			btnPP.SetBackgroundImage(new UIImage("Images/pp1.jpg"), UIControlState.Normal);
 			View.AddSubview(btnMan);
 			View.AddSubview(btnSec);
 			View.AddSubview(btnPP);

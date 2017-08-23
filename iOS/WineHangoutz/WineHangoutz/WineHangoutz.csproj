@@ -361,6 +361,13 @@
     <BundleResource Include="Resources\proico.png" />
     <BundleResource Include="Images\aboutus.jpg" />
     <BundleResource Include="Resources\proback.png" />
+    <BundleResource Include="Images\mf.jpg" />
+    <BundleResource Include="Images\mr.jpg" />
+    <BundleResource Include="Images\ms.jpg" />
+    <BundleResource Include="Images\mt.jpg" />
+    <BundleResource Include="Images\pp1.jpg" />
+    <BundleResource Include="Images\scacus1.jpg" />
+    <BundleResource Include="Images\wall1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

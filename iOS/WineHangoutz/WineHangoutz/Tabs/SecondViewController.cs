@@ -28,20 +28,20 @@ namespace WineHangoutz
 				UIButton btnFavourites = new UIButton();
 				UIButton btnMyStore = new UIButton();
 				LoggingClass.LogInfo("Entered into My Hangouts", screen);
-				btnReviews.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
-				btnTastings.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+				btnReviews.Frame = new CGRect(0, start + ScreenHeight + margin, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
+				btnTastings.Frame = new CGRect(0, start, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				btnFavourites.Frame = new CGRect(0, start + (ScreenHeight + margin) * 2, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 				btnMyStore.Frame = new CGRect(0, start + ((ScreenHeight+ margin) * 3)+1, UIScreen.MainScreen.Bounds.Width, ScreenHeight);
 
-				btnReviews.SetTitle("My Reviews", UIControlState.Normal);
-				btnMyStore.SetTitle("My Store", UIControlState.Normal);
-				btnTastings.SetTitle("My Tastings", UIControlState.Normal);
-				btnFavourites.SetTitle("My Favorites", UIControlState.Normal);
+				btnReviews.SetTitle("", UIControlState.Normal);
+				btnMyStore.SetTitle("", UIControlState.Normal);
+				btnTastings.SetTitle("", UIControlState.Normal);
+				btnFavourites.SetTitle("", UIControlState.Normal);
 
-				btnReviews.SetBackgroundImage(new UIImage("Images/winereviews.jpg"), UIControlState.Normal);
-				btnTastings.SetBackgroundImage(new UIImage("Images/winetasting.jpg"), UIControlState.Normal);
-				btnFavourites.SetBackgroundImage(new UIImage("Images/myfavorate.jpg"), UIControlState.Normal);
-				btnMyStore.SetBackgroundImage(new UIImage("Images/winereviews.jpg"), UIControlState.Normal);
+				btnReviews.SetBackgroundImage(new UIImage("Images/mr.jpg"), UIControlState.Normal);
+				btnTastings.SetBackgroundImage(new UIImage("Images/mt.jpg"), UIControlState.Normal);
+				btnFavourites.SetBackgroundImage(new UIImage("Images/mf.jpg"), UIControlState.Normal);
+				btnMyStore.SetBackgroundImage(new UIImage("Images/ms.jpg"), UIControlState.Normal);
 				//if (CurrentUser.RetreiveUserId() == 0)
 				//{
 				//	UIAlertView alert1 = new UIAlertView()

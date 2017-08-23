@@ -114,7 +114,7 @@ namespace WineHangoutz
 
 			cell.NavController = NavController;
 			cell.Parent = Parent;
-
+			cell.taste = item;
 			cell.UpdateCell(item);
 			cell.SetNeedsDisplay();
 
@@ -140,7 +140,7 @@ namespace WineHangoutz
 		UIButton btnItemname;
 		public Item myItem;
 		ServiceWrapper sw = new ServiceWrapper();
-		Tastings taste = new Tastings();
+		public Tastings taste = new Tastings();
 		public UINavigationController NavController;
 		public UIViewController Parent;
 		private string screen = "MyTasting CellView";
@@ -206,13 +206,13 @@ namespace WineHangoutz
 				heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				heartImage.Tag = 0;
 				myItem = new Item();
-bool count = Convert.ToBoolean(myItem.IsLike);
+				bool count = Convert.ToBoolean(myItem.IsLike);
 				if (count == true)
 				{
-heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);}
+					heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);}
 				else
 				{ 
-heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
+						heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				}
 				heartImage.TouchUpInside += async (object sender, EventArgs e) =>
 				{
@@ -227,6 +227,7 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 								heartImage.SetImage(UIImage.FromFile("heart_full.png"), UIControlState.Normal);
 								temp.Tag = 1;
 								myItem.IsLike = true;
+								taste.IsLike = true;
 								LoggingClass.LogInfo("Liked Wine " + WineIdLabel.Text, screen);
 							}
 							else
@@ -234,6 +235,7 @@ heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 								heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 								temp.Tag = 0;
 								myItem.IsLike = false;
+								taste.IsLike = false;
 								LoggingClass.LogInfo("Unliked Wine " + WineIdLabel.Text, screen);
 							}
 							//NavigationController.PushViewController(new DetailViewController(), false);

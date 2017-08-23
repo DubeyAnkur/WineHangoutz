@@ -29,6 +29,7 @@ namespace WineHangoutz
 		public string DeviceToken { get { return deviceToken; } }
 		private string screenid = "LoginView Controller";
 		public nfloat start;
+		UIButton btnCardScanner;
 		public nfloat strtbtn;
 		public UIViewController RootTabs;
 		public UIWindow _window;
@@ -104,7 +105,7 @@ namespace WineHangoutz
 				lblIns.TextColor = UIColor.Black;
 
 				lblInfo = new UILabel();
-				lblInfo.Frame = new CGRect(0, 300, View.Frame.Width, h);
+				lblInfo.Frame = new CGRect(10, 300, View.Frame.Width, h);
 				lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 				lblInfo.Lines = 0;
 				lblInfo.TextAlignment = UITextAlignment.Center;
@@ -116,7 +117,7 @@ namespace WineHangoutz
 				lblContactus.Hidden = true;
 
 				nfloat hei = 180 + lblIns.Frame.Height + 10;
-				UIButton btnCardScanner = new UIButton();
+				btnCardScanner= new UIButton();
 				btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 100, hei, 200, 152);
 				btnCardScanner.SetBackgroundImage(new UIImage("card-icon.png"), UIControlState.Normal);
 				start = hei + btnCardScanner.Frame.Height + 10;
@@ -235,7 +236,8 @@ namespace WineHangoutz
 			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
 				{
 					BTProgressHUD.Show("Loading,,,");
-					nav.PushViewController(new ProfileViewController(nav), false);
+					//nav.PushViewController(new ProfileViewController(nav), false);
+					nav.PushViewController(new proview(nav), false);
 					nav.NavigationBar.TopItem.Title = "Profile";
 					//BTProgressHUD.Dismiss();
 				});
@@ -340,6 +342,7 @@ namespace WineHangoutz
 					else
 					{
 						lblInfo.Text = cr.ErrorDescription;
+						//lblInfo.TextAlignment = UITextAlignment.Center;
 						lblInfo.TextColor = UIColor.Red;
 						try
 						{
@@ -443,6 +446,7 @@ namespace WineHangoutz
 		public void UpdateEmail(string Message)
 		{
 			string Email;
+			BTProgressHUD.Dismiss();
 			UIAlertView alert = new UIAlertView()
 			{
 				Title = Message,
@@ -481,6 +485,11 @@ namespace WineHangoutz
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			try
 			{
+				if (btnLogin != null && btnResend != null)
+				{
+					btnLogin.Hidden = true;
+					btnResend.Hidden = true;
+				}
 				BTProgressHUD.Show("Please wait...");
 				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 				if (CardNumber != null)
@@ -513,12 +522,15 @@ namespace WineHangoutz
 						}
 						BtnTest1.TouchUpInside += async delegate
 						 {
+							BTProgressHUD.Show(LoggingClass.txtloading);
 							 cr = await svc.ContinueService(cr);
+							 //btnCardScanner.Hidden = true;
 							//await svc.ResendEMail(CurrentUser.GetCardNumber());
 							ShowInfo(cr, false);
 						 };
 						BtnTest2.TouchDown += delegate
 						{
+							BTProgressHUD.Show(LoggingClass.txtloading);
 							UpdateEmail("Please enter your new E-mail Id");
 						};
 					}

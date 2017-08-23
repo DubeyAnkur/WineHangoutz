@@ -82,7 +82,7 @@ namespace WineHangoutz
 				NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
 
 				pickerDataModel = new StatePickerDataModel();
-				pickerDataModel.Items.Add("Select your state");
+				//pickerDataModel.Items.Add("Select your state");
 				pickerDataModel.Items.Add("AL");
 				pickerDataModel.Items.Add("AK");
 				pickerDataModel.Items.Add("AZ");
@@ -135,7 +135,7 @@ namespace WineHangoutz
 				pickerDataModel.Items.Add("WY");
 
 				StoreDataModel = new StorePickerDataModel();
-				StoreDataModel.Items.Add("Select your store");
+				//StoreDataModel.Items.Add("Select your store");
 				StoreDataModel.Items.Add("Wall");
 				StoreDataModel.Items.Add("Pt. Pleasant Beach");
 				StoreDataModel.Items.Add("All");
@@ -341,25 +341,25 @@ namespace WineHangoutz
 				//y = y + Space;
 				UILabel lblCardExpiry = new UILabel
 				{
-					Text="Card Expiry Date:",
-					Frame=new CGRect(10,y,ScreenHeight,ScreenWidth),
+					Text="Expiry:",
+					Frame=new CGRect(UIScreen.MainScreen.Bounds.Width/2,y,ScreenHeight,ScreenWidth),
 					Font = UIFont.FromName("HelveticaNeue-Bold", 16f)
 				};
 				UILabel lblCardDate = new UILabel
 				{
-					Frame = new CGRect(ScreenHeight-100, y, ScreenHeight, ScreenWidth),
+					Frame = new CGRect((UIScreen.MainScreen.Bounds.Width/2)+70, y, ScreenHeight, ScreenWidth),
 					Font = UIFont.FromName("HelveticaNeue", 13f)
 				};
-				y = y + Space;
+				//y = y + Space;
 				UILabel lblcardnumber = new UILabel
 				{
-					Text = "Card Number:",
+					Text = "Card #:",
 					Frame = new CGRect(10, y, ScreenHeight, ScreenWidth),
 					Font = UIFont.FromName("HelveticaNeue-Bold", 16f)
 				};
 				UILabel CardNumer = new UILabel
 				{
-					Frame = new CGRect(ScreenHeight-100,y, ScreenHeight, ScreenWidth),
+					Frame = new CGRect(strtx,y, ScreenHeight, ScreenWidth),
 					Font = UIFont.FromName("HelveticaNeue", 13f)
 				};
 				y = y + Space;
@@ -376,7 +376,9 @@ namespace WineHangoutz
 				btnUpdate = new UIButton();
 				btnUpdate.SetTitle("Update", UIControlState.Normal);
 				btnUpdate.Frame = new CGRect(UIScreen.MainScreen.Bounds.Width/2-25,y,100,50);
-				btnUpdate.SetTitleColor(UIColor.Purple, UIControlState.Normal);
+				btnUpdate.SetTitleColor(UIColor.White, UIControlState.Normal);
+				btnUpdate.BackgroundColor = UIColor.Purple;
+				btnUpdate.Font = UIFont.FromName("HelveticaNeue-Bold", 16f);
 				btnUpdate.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 				StorePicker.Model = StoreDataModel;
 				Scroll = new UIScrollView
@@ -394,6 +396,8 @@ namespace WineHangoutz
 				{
 					Scroll.AddSubview(stpicker);
 					Scroll.AddSubview(StorePicker);
+					StorePicker.UserInteractionEnabled = false;
+					stpicker.UserInteractionEnabled = false;
 					txtName.UserInteractionEnabled = false;
 					txtEmail.UserInteractionEnabled = false;
 					txtFirst3.UserInteractionEnabled = false;
@@ -401,6 +405,8 @@ namespace WineHangoutz
 					txtLast4.UserInteractionEnabled = false;
 					txtAddress.UserInteractionEnabled = false;
 					txtZipcode.UserInteractionEnabled = false;
+					btnChange.UserInteractionEnabled = false;
+					btnUpdate.UserInteractionEnabled = false;
 					UIAlertView alert = new UIAlertView()
 					{
 						Title = "This feature is allowed only for VIP Card holders",
