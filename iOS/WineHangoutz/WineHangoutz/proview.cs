@@ -135,7 +135,7 @@ namespace WineHangoutz
 				pickerDataModel.Items.Add("WY");
 
 				StoreDataModel = new StorePickerDataModel();
-				//StoreDataModel.Items.Add("Select your store");
+				StoreDataModel.Items.Add("Select your store");
 				StoreDataModel.Items.Add("Wall");
 				StoreDataModel.Items.Add("Pt. Pleasant Beach");
 				StoreDataModel.Items.Add("All");
@@ -375,7 +375,7 @@ namespace WineHangoutz
 				y = y + 90;
 				btnUpdate = new UIButton();
 				btnUpdate.SetTitle("Update", UIControlState.Normal);
-				btnUpdate.Frame = new CGRect(UIScreen.MainScreen.Bounds.Width/2-25,y,100,50);
+				btnUpdate.Frame = new CGRect(UIScreen.MainScreen.Bounds.Width/2-25,y,100,30);
 				btnUpdate.SetTitleColor(UIColor.White, UIControlState.Normal);
 				btnUpdate.BackgroundColor = UIColor.Purple;
 				btnUpdate.Font = UIFont.FromName("HelveticaNeue-Bold", 16f);
@@ -571,7 +571,7 @@ namespace WineHangoutz
 							cust.Email = txtEmail.Text;
 							cust.PhoneNumber = txtMobilenumber;
 
-							if (pickerDataModel.SelectedItem == "Select your state")
+							if (pickerDataModel.SelectedItem == "AL")
 							{
 								if (pickerDataModel.Items.Contains(cRes.customer.State))
 								{

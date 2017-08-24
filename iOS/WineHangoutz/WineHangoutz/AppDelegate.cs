@@ -46,9 +46,9 @@ namespace WineHangoutz
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
 				//CurrentUser.Clear();
-				CurrentUser.Store("48732", "Mohana Simulator");
+				//CurrentUser.Store("48732", "Mohana Simulator");
 				//for direct log in
-				//CurrentUser.PutCardNumber("900497354894");
+				CurrentUser.PutCardNumber("900497354894");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
