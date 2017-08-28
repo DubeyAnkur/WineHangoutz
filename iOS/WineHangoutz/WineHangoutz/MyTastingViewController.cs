@@ -11,8 +11,9 @@ using CoreAnimation;
 
 namespace WineHangoutz
 {
-    public partial class MyTastingViewController : UITableViewController, IPopupParent
+	public partial class MyTastingViewController : UITableViewController, IPopupParent
     {
+		public UIRefreshControl refreshControl = new UIRefreshControl();
 		private string screen = "MyTastingView Controller";
 		ServiceWrapper sw = new ServiceWrapper();
         public MyTastingViewController (IntPtr handle) : base (handle)
@@ -28,6 +29,7 @@ namespace WineHangoutz
 				
 
 				int userId = Convert.ToInt32(CurrentUser.RetreiveUserId());
+
 				if (userId == 0)
 				{
 					UIAlertView alert = new UIAlertView()
@@ -61,14 +63,28 @@ namespace WineHangoutz
 						lblNoTastings.Frame = new CGRect(0, 50, View.Bounds.Width, sTemp.Height);
 						TableView.SeparatorColor = UIColor.Clear;
 						View.AddSubview(lblNoTastings);
+						UIButton btnrefresh = new UIButton();
+						btnrefresh.Frame = new CGRect(0, 90, 50, 50);
+						btnrefresh.SetTitle("Swipe down to refresh", UIControlState.Normal);
+						btnrefresh.TouchUpInside += delegate {
+						RefreshParent();
+					
+							};
+						View.AddSubview(btnrefresh);
 					}
+                    this.View.Add(refreshControl);
+					refreshControl.ValueChanged += delegate {
+						RefreshParent();
+					};
 					TableView.AllowsSelection = false;
 					TableView.Source = new MyTastingTableSource(tastingData.TastingList.ToList(), NavigationController, this);
 				}
+
 			}
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.Message, screen, ex.StackTrace);
+				Console.WriteLine(ex.Message);
 			}
 		}
 		public void RefreshParent()
@@ -77,7 +93,7 @@ namespace WineHangoutz
 			var tastingData = sw.GetMyTastingsList(userId).Result;
 			TableView.Source = new MyTastingTableSource(tastingData.TastingList.ToList(), NavigationController, this);
 			TableView.ReloadData();
-			
+			refreshControl.EndRefreshing();	
 		}
     }
 
@@ -194,8 +210,8 @@ namespace WineHangoutz
 					BackgroundColor = UIColor.Clear
 				};
 				location = new UILabel()
-{
-	Font = UIFont.FromName("Verdana", 10f),
+				{
+					Font = UIFont.FromName("Verdana", 10f),
 					TextColor = UIColor.FromRGB(127, 51, 100),
 					BackgroundColor = UIColor.Clear
 				};

@@ -48,7 +48,7 @@ namespace WineHangoutz
 				//CurrentUser.Clear();
 				//CurrentUser.Store("48732", "Mohana Simulator");
 				//for direct log in
-				CurrentUser.PutCardNumber("900497354894");
+				//CurrentUser.PutCardNumber("900497354894");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
@@ -225,7 +225,7 @@ namespace WineHangoutz
 						{
 								//
 								LoggingClass.LogInfo(wineid + " got notification ",screen);
-								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, true, false), false);
+								CurrentUser.navig.PushViewController(new DetailViewController(wineid, storeid, false, false), false);
 						}
 					}
 				}

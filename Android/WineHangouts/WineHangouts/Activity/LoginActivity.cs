@@ -40,7 +40,8 @@ namespace WineHangouts
             Stopwatch st = new Stopwatch();
             st.Start();
             //for direct login
-            //CurrentUser.SaveUserName("Lokesh Android","1");
+            CurrentUser.SaveUserName("Lokesh Android","1");
+			CurrentUser.SaveCardNumber("7207589007");
             //Preinfo("7207589007");
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.login);
