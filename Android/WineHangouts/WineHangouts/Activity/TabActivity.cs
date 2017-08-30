@@ -177,7 +177,7 @@ namespace WineHangouts
                         int height1 = metrics.HeightPixels;
                         height1 = height1 - (int)((360 * metrics.Density) / 4);
                         height1 = height1 / 4;
-                        height1 = height1 - 15;
+                        height1 = height1 - 12;
                         Top.LayoutParameters.Height = height1;
                         Middle.LayoutParameters.Height = height1;
                         Bottom.LayoutParameters.Height = height1;
@@ -278,7 +278,7 @@ namespace WineHangouts
                                 {
                                     AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
                                     aler.SetTitle("Sorry");
-                                    aler.SetMessage("Please Slect the prefered strore");
+                                    aler.SetMessage("Please Select your prefered store!");
                                     aler.SetNegativeButton("Ok", delegate { });
                                     Dialog dialog1 = aler.Create();
                                     dialog1.Show();

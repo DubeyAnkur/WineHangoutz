@@ -150,7 +150,7 @@
                 android:gravity="left"
                 android:layout_margin="10px">
                 <TextView
-                    android:text="Rate The Wine"
+                    android:text="Rate and Review"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:id="@+id/textView19"
                     android:layout_gravity="center_horizontal"
@@ -162,7 +162,7 @@
                 android:gravity="left"
                 android:layout_margin="10px">
                 <TextView
-                    android:text="Slide Your Finger to vote"
+                    android:text="Slide Your Finger to Rate"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_column="0"
                     android:id="@+id/textView20"
@@ -222,7 +222,7 @@
                     android:id="@+id/textView33"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Description Wine :"
+                    android:text="Description :"
                     android:textColor="@android:color/background_dark"
                     android:textAllCaps="true" />
             </TableRow>

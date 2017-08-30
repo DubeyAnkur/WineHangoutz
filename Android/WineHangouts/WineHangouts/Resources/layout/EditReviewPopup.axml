@@ -79,7 +79,7 @@
         android:inputType="textMultiLine"
         android:singleLine="false"
         android:layout_width="match_parent"
-        android:hint="Click here to rate the wine"
+        android:hint="Type your Comments"
         android:textColorHint="#808080"
         android:layout_height="60dp"
         android:id="@+id/txtReviewComments"
@@ -102,7 +102,7 @@
             android:background="#d7dae0">
             <Button
                 android:text="Submit"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnSubmitReview"
                 android:layout_gravity="right"

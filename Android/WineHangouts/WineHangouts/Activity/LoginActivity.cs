@@ -132,9 +132,6 @@ namespace WineHangouts
                     ProgressIndicator.Show(this);
                     StartActivity(intent);
                 }
-                //cFPtPgzgg1o,APA91bFt7Tp1mb1dthhHQVqDkbQHUapp - O1xrk9rKiLdLbJGJltq32smRjNE1lihbnN7sf5j8Fnjii2 - o_MlDap - GB - IyqXBtZkJc4h0XxZzWFGRtOmyT9VUEig58T5fuFi9ifboBxij
-
-
             }
             var telephonyDeviceID = string.Empty;
             var telephonySIMSerialNumber = string.Empty;
@@ -153,7 +150,7 @@ namespace WineHangouts
         }
         public async void Preinfo(string CardNumber)
         {
-            AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
+            AndHUD.Shared.Show(this, "Please Wait...", Convert.ToInt32(MaskType.Clear));
             try
             {
                 BtnLogin.Visibility = ViewStates.Invisible;
@@ -174,14 +171,14 @@ namespace WineHangouts
                         BtnUpdateEmail.Visibility = ViewStates.Visible;
                         BtnContinue.Click += async delegate
                         {
-                            AndHUD.Shared.Show(this, " Please Wait", Convert.ToInt32(MaskType.Clear));
+                            AndHUD.Shared.Show(this, " Please Wait...", Convert.ToInt32(MaskType.Clear));
                             AuthServ = await svc.ContinueService(AuthServ);
                             ShowInfo(AuthServ);
                             AndHUD.Shared.Dismiss();
                         };
                         BtnUpdateEmail.Click += delegate
                         {
-                            BtnUpdateEmail_Click("please enter your new e-mail id");  
+                            BtnUpdateEmail_Click("please enter your new e-mail id.");  
                         };    
                     }
                 }
@@ -225,7 +222,7 @@ namespace WineHangouts
                     }
                     else
                     {
-                        AndHUD.Shared.Show(this, "Updating Please Wait", Convert.ToInt32(MaskType.Clear));
+                        AndHUD.Shared.Show(this, "Updating Please Wait...", Convert.ToInt32(MaskType.Clear));
                         //BTProgressHUD.ShowSuccessWithStatus("We're sending mail to the updated mail");
                         //CurrentUser.PutEmail(txtEmail.Text);
                         AuthServ = await svc.UpdateMail(txtEmail.Text, AuthServ.customer.CustomerID.ToString());
@@ -247,7 +244,7 @@ namespace WineHangouts
         }
         public async void ShowInfo(CustomerResponse AuthServ)
         {
-            AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
+            AndHUD.Shared.Show(this, "Please Wait...", Convert.ToInt32(MaskType.Clear));
             try
             {
                 //    AuthServ = await svc.AuthencateUser("test", Cardnumber, CurrentUser.GetDeviceID());
@@ -271,7 +268,7 @@ namespace WineHangouts
                         {
                             try
                             {
-                                AndHUD.Shared.Show(this, "Sending verification email to" + AuthServ.customer.Email, Convert.ToInt32(MaskType.Clear));
+                                AndHUD.Shared.Show(this, "Sending verification email to " + AuthServ.customer.Email, Convert.ToInt32(MaskType.Clear));
                                  LoggingClass.LogInfo("Resend email " + AuthServ.customer.Email, screenid);
                                     await svc.ResendEMail(CurrentUser.GetCardNumber());
                                     AndHUD.Shared.ShowSuccess(this, "Sent", MaskType.Clear, TimeSpan.FromSeconds(2));
@@ -375,7 +372,7 @@ namespace WineHangouts
                     }
                     else
                     {
-                        AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                        AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
                         aler.SetTitle("Sorry");
                         aler.SetMessage("You entered wrong details or authentication failed");
                         aler.SetNegativeButton("Ok", delegate { });
@@ -387,7 +384,7 @@ namespace WineHangouts
                 }
                 else
                 {
-                    AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                    AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
                     aler.SetTitle("Sorry");
                     aler.SetMessage("Your email is not verified plesase check email and verify.");
                     aler.SetNegativeButton("Ok", delegate { });

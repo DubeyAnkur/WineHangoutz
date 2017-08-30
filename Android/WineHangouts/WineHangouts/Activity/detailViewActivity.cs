@@ -94,7 +94,8 @@ namespace WineHangouts
 				WineName.Text = myData.ItemDetails.Name;
 				WineName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
 				Vintage.Text = myData.ItemDetails.Vintage.ToString();
-				if (myData.ItemDetails.Producer == null || myData.ItemDetails.Producer == "")
+                if (Vintage.Text == null || Vintage.Text == "0") { Vintage.Text = ""; } else { Vintage.Text = myData.ItemDetails.Vintage.ToString(); }
+                if (myData.ItemDetails.Producer == null || myData.ItemDetails.Producer == "")
 				{
 					WineProducer.Text = "Not Available";
 				}
@@ -144,7 +145,7 @@ namespace WineHangouts
 			catch (Exception exe)
 			{
 				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+				AlertDialog.Builder alert = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
 				alert.SetTitle("Sorry");
 				alert.SetMessage("We're under maintainence");
 				alert.SetNegativeButton("Ok", delegate { });
@@ -164,19 +165,6 @@ namespace WineHangouts
 			//catch (Exception e) { }
 			st.Stop();
 			LoggingClass.LogTime("Detail activity", st.Elapsed.TotalSeconds.ToString());
-			TokenModel devInfo = new TokenModel();
-			var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);
-
-			ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-			activityManager.GetMemoryInfo(memInfo);
-
-			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Avail {0} - {1} MB", memInfo.AvailMem, memInfo.AvailMem / 1024 / 1024);
-			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Low {0}", memInfo.LowMemory);
-			System.Diagnostics.Debug.WriteLine("GetDeviceInfo - Total {0} - {1} MB", memInfo.TotalMem, memInfo.TotalMem / 1024 / 1024);
-
-			devInfo.AvailableMainMemory = memInfo.AvailMem;
-			devInfo.IsLowMainMemory = memInfo.LowMemory;
-			devInfo.TotalMainMemory = memInfo.TotalMem;
 		}
 
 		protected override void OnPause()
