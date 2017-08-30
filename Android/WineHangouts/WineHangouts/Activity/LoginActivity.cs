@@ -49,9 +49,9 @@ namespace WineHangouts
                 BlobWrapper.DownloadImages(Convert.ToInt32(CurrentUser.getUserId()));
             });
             TaskA.Start();
-            ImageButton BtnScanner = FindViewById<ImageButton>(Resource.Id.btnScanner);
-            Button BtnGuestLogin = FindViewById<Button>(Resource.Id.btnGuestLogin);
-            LoggingClass.LogInfo("Opened the app", screenid);
+             ImageButton BtnScanner = FindViewById<ImageButton>(Resource.Id.btnScanner);
+             Button BtnGuestLogin = FindViewById<Button>(Resource.Id.btnGuestLogin);
+             LoggingClass.LogInfo("Opened the app", screenid);
             BtnScanner.Click += async delegate
             {
                 try
