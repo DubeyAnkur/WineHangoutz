@@ -24,7 +24,9 @@ namespace WineHangouts
 	[Activity(Label = "Wine Details", MainLauncher = false, Icon = "@drawable/logo5", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class DetailViewActivity : Activity, IPopupParent
 	{
-		public int sku;
+        public RatingBar AvgRating;
+        public ItemDetailsResponse myData;
+        public int sku;
 		private int screenid = 4;
 		private int storeid = 0;
         public ListView commentsview;
@@ -50,7 +52,7 @@ namespace WineHangouts
 			ActionBar.SetHomeButtonEnabled(true);
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
 			ServiceWrapper svc = new ServiceWrapper();
-			ItemDetailsResponse myData = new ItemDetailsResponse();
+            myData = new ItemDetailsResponse();
 			ItemReviewResponse SkuRating = new ItemReviewResponse();
 			this.Title = "Wine Details";
             commentsview = FindViewById<ListView>(Resource.Id.listView2);
@@ -62,7 +64,7 @@ namespace WineHangouts
 			Vintage.Focusable = false;
 			TextView WineDescription = FindViewById<TextView>(Resource.Id.txtWineDescription);
 			WineDescription.Focusable = false;
-			RatingBar AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
+            AvgRating = FindViewById<RatingBar>(Resource.Id.avgrating);
 			AvgRating.Focusable = false;
 			TextView ErrorDescription = FindViewById<TextView>(Resource.Id.Error);
 			ErrorDescription.Focusable = false;
@@ -299,10 +301,12 @@ namespace WineHangouts
             ServiceWrapper svc = new ServiceWrapper();
 			//int wineid = Intent.GetIntExtra("WineID", 138);
 			ItemDetailsResponse myData = svc.GetItemDetails(WineBarcode, storeid).Result;
-			var SkuRating = svc.GetItemReviewsByWineBarcode(WineBarcode).Result;
+            AvgRating.Rating = (float)myData.ItemDetails.AverageRating;
+            var SkuRating = svc.GetItemReviewsByWineBarcode(WineBarcode).Result;
 			comments = new reviewAdapter(this, SkuRating.Reviews.ToList());
             commentsview.Adapter = comments;
 			comments.NotifyDataSetChanged();
+            
          
         }
 

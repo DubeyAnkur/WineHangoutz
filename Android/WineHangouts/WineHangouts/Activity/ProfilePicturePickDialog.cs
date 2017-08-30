@@ -43,7 +43,7 @@ namespace WineHangouts
             if (resultCode.ToString() == "Canceled")
             {
                 LoggingClass.LogInfo("Cancelled from camera",screenid);
-                Intent intent = new Intent(this, typeof(TabActivity));
+                Intent intent = new Intent(this, typeof(ProfileActivity));
                 StartActivity(intent);
             }
             else
@@ -66,10 +66,9 @@ namespace WineHangouts
                 }
                 Resize();
                 UploadProfilePic(path);
-                Intent intent = new Intent(this, typeof(TabActivity));
+                Intent intent = new Intent(this, typeof(ProfileActivity));
                 StartActivity(intent);
                 GC.Collect();
-				
 				//LoggingClass.LogTime("profile  piccture ",st.Elapsed.TotalSeconds.ToString());
             }
         }
@@ -89,7 +88,6 @@ namespace WineHangouts
 				BtnCamera.Click += TakeAPicture;
             }
             ImageButton btnGallery = FindViewById<ImageButton>(Resource.Id.imgbtnGallery);
-
             btnGallery.Click += delegate
             {
                 LoggingClass.LogInfo("Clicked on gallery picking ",screenid);

@@ -39,7 +39,7 @@ namespace WineHangouts
                     resized.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                     stream.Close();
                     pppd.UploadProfilePic(filePath);
-                    Intent intent = new Intent(this, typeof(TabActivity));
+                    Intent intent = new Intent(this, typeof(ProfileActivity));
                     StartActivity(intent);
 					
                     

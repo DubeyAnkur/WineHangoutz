@@ -28,6 +28,7 @@ namespace WineHangouts
 		WebClient webClient;
 		private int screenid = 8;
         ImageView gifImageView;
+        Boolean indirect = true;
 
         protected override void OnCreate(Bundle bundle)
 		{
@@ -46,42 +47,21 @@ namespace WineHangouts
 				ServiceWrapper sw = new ServiceWrapper();
 				var output = sw.GetCustomerDetails(userId).Result;
 				propicimage = FindViewById<ImageView>(Resource.Id.propic);
-				DownloadAsync(this, System.EventArgs.Empty);
-                //ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
-                //string path = pppd.CreateDirectoryForPictures();
-                //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-
-                //var filePath = System.IO.Path.Combine(path + "/" + userId + ".jpg");
-                //if (System.IO.File.Exists(filePath))
-                //{
-
-                //    Bitmap imageBitmap = BitmapFactory.DecodeFile(filePath);
-                //    if (imageBitmap == null)
-                //    {
-                //        propicimage.SetImageResource(Resource.Drawable.user1);
-                //        propicimage.Dispose();
-                //    }
-                //    else
-                //    {
-                //        propicimage.SetImageBitmap(imageBitmap);
-                //        propicimage.Dispose();
-                //    }
-                //}
-                //else
-                //{
-                //    Bitmap imageBitmap = BlobWrapper.ProfileImages(userId);
-                //    if (imageBitmap == null)
-                //    {
-                //        propicimage.SetImageResource(Resource.Drawable.user1);
-                //    }
-                //    else
-                //    {
-                //        propicimage.SetImageBitmap(imageBitmap);
-                //    }
-                //}
+                if (indirect == true)
+                {
+                    System.Threading.Timer timer = null;
+                    timer = new System.Threading.Timer((obj) =>
+                    {
+                        DownloadAsync(this, System.EventArgs.Empty);
+                        timer.Dispose();
+                    },
+                                null, 5000, System.Threading.Timeout.Infinite);
+                }
+                else
+                {
+                    DownloadAsync(this, System.EventArgs.Empty);
+                }
                 InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-
-               
                 ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
 				changepropic.Click += delegate
 				{
@@ -341,14 +321,7 @@ namespace WineHangouts
 		{
 			try
 			{
-				//st.Start();
-				Bitmap img = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
-				if (img != null)
-				{
-					propicimage.SetImageBitmap(img);
-				}
-				else
-				{
+			
 					webClient = new WebClient();
 					var url = new Uri("https://icsintegration.blob.core.windows.net/profileimages/" + Convert.ToInt32(CurrentUser.getUserId()) + ".jpg");
 					byte[] imageBytes = null;
@@ -366,9 +339,7 @@ namespace WineHangouts
 					catch (Exception exe)
 					{
 						LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-						//progressLayout.Visibility = ViewStates.Gone;
-						//downloadButton.Click += downloadAsync;
-						//downloadButton.Text = "Download Image";
+						
 						Bitmap imgWine = BlobWrapper.ProfileImages(Convert.ToInt32(CurrentUser.getUserId()));
 						propicimage.SetImageBitmap(imgWine);
 						return;
@@ -405,7 +376,7 @@ namespace WineHangouts
 					st.Stop();
 					LoggingClass.LogTime("Download aSync image profile", st.Elapsed.TotalSeconds.ToString());
 					propicimage.Dispose();
-				}
+				//}
 			}
 			catch (Exception exe)
 			{
