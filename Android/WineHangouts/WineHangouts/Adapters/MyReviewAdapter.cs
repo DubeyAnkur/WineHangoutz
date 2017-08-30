@@ -10,9 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
+
 using System.Net;
 using Hangout.Models;
 using Java.Util;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -45,10 +47,7 @@ namespace WineHangouts
                 
             }
         }
-        //public EventHandler Edit_Click;
-        //public EventHandler Delete_Click;
-
-       
+ 
         public override long GetItemId(int position)
         {
             return position;
@@ -63,18 +62,12 @@ namespace WineHangouts
                 row = LayoutInflater.From(myContext).Inflate(Resource.Layout.ReviewEmpty, null, false);
                 TextView txtName = row.FindViewById<TextView>(Resource.Id.textView1);
                 ImageView Imag = row.FindViewById<ImageView>(Resource.Id.imageView1);
-    //            AlertDialog.Builder aler = new AlertDialog.Builder(myContext);
-				////aler.SetTitle("No Reviews Avalilable");
-				//aler.SetMessage("Sorry you haven't Reviewed our wines");
-				//aler.SetNegativeButton("Ok", delegate { });
-				//LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-				//Dialog dialog = aler.Create();
-				//dialog.Show();
+
 			}
 			else
 			{
 				if (row == null)
-				{
+				
 					row = LayoutInflater.From(myContext).Inflate(Resource.Layout.MyReviewsCell, null, false);
 					//else
 					//    return convertView;
@@ -90,10 +83,11 @@ namespace WineHangouts
                     var metrics = myContext.Resources.DisplayMetrics;
                     var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
                     var heightInDp = ConvertPixelsToDp(metrics.HeightPixels);
-                   
-                    RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
+               
+               
+                RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
 					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton44);
-					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+					heartImg.SetImageResource(Resource.Drawable.heart_empty);
 					//edit.SetScaleType(ImageView.ScaleType.Center);
 					//delete.SetScaleType(ImageView.ScaleType.Center);
 					//edit.SetImageResource(Resource.Drawable.edit);
@@ -107,32 +101,36 @@ namespace WineHangouts
 					wineimage.Focusable = false;
 					wineimage.FocusableInTouchMode = false;
 					wineimage.Clickable = true;
-					//TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
-					//ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-					//edit.SetTag(1, 5757);
-					edit.Click += (sender, args) =>
-					{
+                //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
+                //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
 
-						string WineBarcode = myItems[position].Barcode;
-						Review _review = new Review();
-						_review.Barcode = WineBarcode;
-						_review.RatingStars = myItems[position].RatingStars;
-						_review.RatingText = myItems[position].RatingText;
+                if (convertView == null)
+                {
+                    //edit.SetTag(1, 5757);
+                    edit.Click += (sender, args) =>
+                    {
+
+                        string WineBarcode = myItems[position].Barcode;
+                        Review _review = new Review();
+                        _review.Barcode = WineBarcode;
+                        _review.RatingStars = myItems[position].RatingStars;
+                        _review.RatingText = myItems[position].RatingText;
                         _review.PlantFinal = myItems[position].PlantFinal;
-						LoggingClass.LogInfo("clicked on edit  an item---->"+ WineBarcode + "----->"+ _review.RatingStars+"---->"+_review.RatingText, screenid);
-						PerformItemClick(sender, args, _review);
-					};
-					//delete.Click += Delete_Click;
-					delete.Click += (sender, args) =>
-					{
-						string WineBarcode = myItems[position].Barcode;
+                        LoggingClass.LogInfo("clicked on edit  an item---->" + WineBarcode + "----->" + _review.RatingStars + "---->" + _review.RatingText, screenid);
+                        PerformItemClick(sender, args, _review);
+                    };
+                    //delete.Click += Delete_Click;
+                    delete.Click += (sender, args) =>
+                    {
+                        string WineBarcode = myItems[position].Barcode;
 
-						Review _review = new Review();
-						_review.Barcode = WineBarcode;
-						LoggingClass.LogInfo("clicked on delete item--->" + WineBarcode, screenid);
-						PerformdeleteClick(sender, args, _review);
+                        Review _review = new Review();
+                        _review.Barcode = WineBarcode;
+                        LoggingClass.LogInfo("clicked on delete item--->" + WineBarcode, screenid);
+                        PerformdeleteClick(sender, args, _review);
 
-					};
+                    };
+                }
 					wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
 					txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
 					txtName.Text = myItems[position].Name;
@@ -153,11 +151,11 @@ namespace WineHangouts
 					bool count = Convert.ToBoolean(myItems[position].Liked);
 					if (count == true)
 					{
-						heartImg.SetImageResource(Resource.Drawable.HeartFull);
+						heartImg.SetImageResource(Resource.Drawable.heart_full);
 					}
 					else
 					{
-						heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+						heartImg.SetImageResource(Resource.Drawable.heart_empty);
 					}
 					heartImg.Tag = position;
 
@@ -169,14 +167,14 @@ namespace WineHangouts
 							bool x;
 							if (count == false)
 							{
-								heartImg.SetImageResource(Resource.Drawable.HeartFull);
+								heartImg.SetImageResource(Resource.Drawable.heart_full);
 								LoggingClass.LogInfoEx("Liked an item------>" + myItems[position].Barcode, screenid);
 								x = true;
 								count = true;
 							}
 							else
 							{
-								heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+								heartImg.SetImageResource(Resource.Drawable.heart_empty);
 								LoggingClass.LogInfoEx("UnLiked an item" + "----->" + myItems[position].Barcode, screenid);
 								x = false;
 								count = false;
@@ -208,7 +206,7 @@ namespace WineHangouts
 					}
 					//wineimage.SetImageBitmap(imageBitmap);
 					//wineimage.SetImageResource(Resource.Drawable.wine7);
-					wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
+					//wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
 
 					txtName.Focusable = false;
 					txtYear.Focusable = false;
@@ -217,7 +215,7 @@ namespace WineHangouts
 
 				}
 				
-			}
+			
 			LoggingClass.LogInfo("Entered into My Review Adapter", screenid);
 			return row;
 			

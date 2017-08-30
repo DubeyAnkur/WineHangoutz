@@ -44,21 +44,11 @@ namespace WineHangouts
                     SetContentView(Resource.Layout.ReviewEmpty);
                     TextView txtName = FindViewById<TextView>(Resource.Id.textView1);
                     ImageView Imag = FindViewById<ImageView>(Resource.Id.imageView1);
-     //               AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
-					////aler.SetTitle("No Reviews Avalilable");
-					//aler.SetMessage("Sorry you haven't Reviewed our wines");
-					//aler.SetNegativeButton("Ok", delegate {
-					//	Finish();	
-					//});
-					//LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-					//Dialog dialog = aler.Create();   
-					//dialog.Show();
 				}
 				else
 				{
                     SetContentView(Resource.Layout.Tasting);
                     var wineList = FindViewById<ListView>(Resource.Id.listView1);
-					// myArr1 = SampleData1();
 					Review edit = new Review();
 					ReviewPopup editPopup = new ReviewPopup(this, edit);
 					MyReviewAdapter adapter = new MyReviewAdapter(this, myArr1);
@@ -109,13 +99,12 @@ namespace WineHangouts
 			base.OnResume();
 			LoggingClass.LogInfo("OnResume state in MyREview activity" , screenid);
 		}
-
-
 		public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
             {
                 Finish();
+
                 //base.OnBackPressed();
                 LoggingClass.LogInfo("Exited from My Review", screenid);
                 return false;
@@ -133,17 +122,13 @@ namespace WineHangouts
             var dp = (int)((pixelValue) / Resources.DisplayMetrics.Density);
             return dp;
         }
-
         private int PixelsToDp(int pixels)
         {
             return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixels, Resources.DisplayMetrics);
-        }
-
-
+        } 
         public void RefreshParent()
         {
             ServiceWrapper svc = new ServiceWrapper();
-
             var uidreviews = svc.GetItemReviewUID(uid).Result;
             ListView wineList = FindViewById<ListView>(Resource.Id.listView1);
             Review edit = new Review();
@@ -154,19 +139,6 @@ namespace WineHangouts
             wineList.Adapter = adapter;
             adapter.NotifyDataSetChanged();
         }
-
-        //void listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        //{
-        //    //Get our item from the list adapter
-        //    int WineID = e.Position;
-        //        //var intent = new Intent(this, typeof(detailViewActivity));
-        //        //intent.PutExtra("WineID", WineID);
-        //        //StartActivity(intent);
-
-        //}
-
-        
     }
-
 }
 

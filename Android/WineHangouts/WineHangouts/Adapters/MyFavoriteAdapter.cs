@@ -242,7 +242,7 @@ namespace WineHangouts
 				txtPrice.Text = myItems[position].SalePrice.ToString("C", Cultures.UnitedState);
          
             txtVintage.Text = myItems[position].Vintage.ToString();
-				heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+				heartImg.SetImageResource(Resource.Drawable.heart_empty);
 				var heartLP = new FrameLayout.LayoutParams(80, 80);
 				var metrics = myContext.Resources.DisplayMetrics;
 				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);
@@ -255,11 +255,11 @@ namespace WineHangouts
 				bool count = Convert.ToBoolean(myItems[position].IsLike);
 				if (count == true)
 				{
-					heartImg.SetImageResource(Resource.Drawable.HeartFull);
+					heartImg.SetImageResource(Resource.Drawable.heart_full);
 				}
 				else
 				{
-					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+					heartImg.SetImageResource(Resource.Drawable.heart_empty);
 				}
 
 				heartImg.Tag = position;
@@ -272,14 +272,14 @@ namespace WineHangouts
 						bool x;
 						if (count == false)
 						{
-							heartImg.SetImageResource(Resource.Drawable.HeartFull);
+							heartImg.SetImageResource(Resource.Drawable.heart_full);
 							LoggingClass.LogInfoEx("Liked an item----->" + myItems[position].Barcode, screenid);
 							x = true;
 							count = true;
 						}
 						else
 						{
-							heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+							heartImg.SetImageResource(Resource.Drawable.heart_empty);
 							LoggingClass.LogInfoEx("UnLiked an item---->" + myItems[position].Barcode, screenid);
 							x = false;
 							count = false;

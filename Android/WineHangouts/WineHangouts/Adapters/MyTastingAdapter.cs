@@ -52,45 +52,49 @@ namespace WineHangouts
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View row = convertView;
-			if (row == null)
-			{
-				row = LayoutInflater.From(myContext).Inflate(Resource.Layout.MyTastingView, null, false);
-				//else
-				//    return convertView;
-				if (myItems.Count == 0)
-				{
-					AlertDialog.Builder aler = new AlertDialog.Builder(myContext);
-					//aler.SetTitle("No Reviews Avalilable");
-					aler.SetMessage("Sorry you haven't Tasted our wines");
-					aler.SetNegativeButton("Ok", delegate { });
-					LoggingClass.LogInfo("Clicked on Secaucus", screenid);
-					Dialog dialog = aler.Create();
-					dialog.Show();
-				}
-				else
-				{
+            if (myItems.Count == 0)
 
-					TextView txtName = row.FindViewById<TextView>(Resource.Id.SkuName);
+            {
+                row = LayoutInflater.From(myContext).Inflate(Resource.Layout.EmptyTaste, null, false);
+                TextView te =row. FindViewById<TextView>(Resource.Id.textView123a);
+
+            }
+            else
+            {
+                if (row == null)
+                    
+                    row = LayoutInflater.From(myContext).Inflate(Resource.Layout.MyTastingView, null, false);
+                    TextView txtName = row.FindViewById<TextView>(Resource.Id.SkuName);
 					TextView txtYear = row.FindViewById<TextView>(Resource.Id.Vintage);
-					TextView txtDescription = row.FindViewById<TextView>(Resource.Id.TastingNotes);
+					//TextView txtDescription = row.FindViewById<TextView>(Resource.Id.TastingNotes);
 					TextView txtDate = row.FindViewById<TextView>(Resource.Id.Date);
 					TextView txtPrice = row.FindViewById<TextView>(Resource.Id.Price);
 					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton4);
 					ImageButton wineimage = row.FindViewById<ImageButton>(Resource.Id.imageButton2);
-					RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.AvgRating);
-
-
-					heartImg.SetImageResource(Resource.Drawable.Heart_emp);
-					txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
-					txtName.Text = myItems[position].Name;
-					txtName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
+					//RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.AvgRating);
+					heartImg.SetImageResource(Resource.Drawable.heart_empty);
+					txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 11);
+                txtPrice.SetTextSize(Android.Util.ComplexUnitType.Dip, 11);
+                txtName.Text = myItems[position].Name;
 					txtYear.Text = myItems[position].Vintage.ToString();
-					txtDescription.Text = myItems[position].Description;
-					txtDate.Text = myItems[position].TastingDate.ToString();
-					txtPrice.Text = myItems[position].SalePrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
-					rb.Rating = (float)myItems[position].AverageRating;
-					//Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
-					ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
+                if(txtYear.Text==null|| txtYear.Text=="0")
+                { txtYear.Text = ""; }
+                else { txtYear.Text = myItems[position].Vintage.ToString(); }
+					//txtDescription.Text = myItems[position].Description;
+					txtDate.Text = "Tasted on :"+ myItems[position].TastingDate.ToString("dd/MM/yyyy");
+                //txtPrice.Text = myItems[position].SalePrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
+                txtPrice.Text = myItems[position].PlantFinal.ToString();
+                if(txtPrice.Text=="1")
+                {
+                    txtPrice.Text = "Tasted at :" + " Wall";
+                }
+                else if(txtPrice.Text == "2")
+                {
+                    txtPrice.Text = "Tasted at :" + " Pt.Pleasant Beach";
+                }
+                //rb.Rating = (float)myItems[position].AverageRating;
+                //Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+                ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 					string path = pppd.CreateDirectoryForPictures();
 					//string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 					var filePath = System.IO.Path.Combine(path + "/" + myItems[position].Barcode + ".jpg");
@@ -98,11 +102,11 @@ namespace WineHangouts
 					bool count = Convert.ToBoolean(myItems[position].IsLike);
 					if (count == true)
 					{
-						heartImg.SetImageResource(Resource.Drawable.HeartFull);
+						heartImg.SetImageResource(Resource.Drawable.heart_full);
 					}
 					else
 					{
-						heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+						heartImg.SetImageResource(Resource.Drawable.heart_empty);
 					}
 					heartImg.Tag = position;
 
@@ -114,14 +118,14 @@ namespace WineHangouts
 							bool x;
 							if (count == false)
 							{
-								heartImg.SetImageResource(Resource.Drawable.HeartFull);
+								heartImg.SetImageResource(Resource.Drawable.heart_full);
 								LoggingClass.LogInfoEx("Liked an item------>" + myItems[position].Barcode, screenid);
 								x = true;
 								count = true;
 							}
 							else
 							{
-								heartImg.SetImageResource(Resource.Drawable.Heart_emp);
+								heartImg.SetImageResource(Resource.Drawable.heart_empty);
 								LoggingClass.LogInfoEx("UnLiked an item" + "----->" + myItems[position].Barcode, screenid);
 								x = false;
 								count = false;
@@ -150,24 +154,26 @@ namespace WineHangouts
 					}
 					else
 					{
-						imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, myItems[position].Vintage);
+						imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, myItems[position].PlantFinal);
 
 						wineimage.SetImageBitmap(imageBitmap);
 					}
-					wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
+                //wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
+                
 
-
-					txtName.Focusable = false;
+                txtName.Focusable = false;
 					txtYear.Focusable = false;
-					txtDescription.Focusable = false;
+					//txtDescription.Focusable = false;
 					txtDate.Focusable = false;
-
-
-
 				}
-			}
+			
 			LoggingClass.LogInfo("Entered into My tastings Adapter", screenid);
 			return row;
+        }
+        private int ConvertPixelsToDp(float pixelValue)
+        {
+            var dp = (int)((pixelValue) / myContext.Resources.DisplayMetrics.Density);
+            return dp;
         }
     }
 }

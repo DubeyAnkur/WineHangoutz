@@ -227,12 +227,18 @@
     <AndroidResource Include="Resources\layout\ListView.axml" />
     <AndroidResource Include="Resources\layout\LocationLayout.axml" />
     <AndroidResource Include="Resources\layout\login.axml" />
-    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\Main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\MyFavorite.axml" />
     <AndroidResource Include="Resources\layout\MyFavoriteGridView.axml" />
-    <AndroidResource Include="Resources\layout\MyReviewsCell.axml" />
+    <AndroidResource Include="Resources\layout\MyReviewsCell.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\MyTasting.axml" />
-    <AndroidResource Include="Resources\layout\MyTastingView.axml" />
+    <AndroidResource Include="Resources\layout\MyTastingView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\OtpReceiverLayout.axml" />
     <AndroidResource Include="Resources\layout\Potrait.axml" />
     <AndroidResource Include="Resources\layout\PotraitListView.axml" />
@@ -245,6 +251,9 @@
     <AndroidResource Include="Resources\layout\TastingListview.axml" />
     <AndroidResource Include="Resources\layout\WinePropertiesCell.axml" />
     <AndroidResource Include="Resources\layout\EmptyTaste.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\About.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -486,6 +495,27 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\proback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\mt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\pp1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\scacus1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\wall1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\mf.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\mr.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ms.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

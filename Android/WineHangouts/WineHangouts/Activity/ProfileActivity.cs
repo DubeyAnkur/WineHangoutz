@@ -92,7 +92,15 @@ namespace WineHangouts
 				changepropic.Dispose();
 				EditText Firstname = FindViewById<EditText>(Resource.Id.txtFirstName);
 				Firstname.Text = output.customer.FirstName;
-				EditText Lastname = FindViewById<EditText>(Resource.Id.txtLastName);
+                TextView card = FindViewById<TextView>(Resource.Id.txtcard1);
+                card.Text = output.customer.CardNumber;
+                TextView exp = FindViewById<TextView>(Resource.Id.txtexp);
+                exp.Text = output.customer.ExpireDate.ToString();
+                if (exp.Text == null || exp.Text == "")
+                { exp.Text = "--"; }
+                else { exp.Text = output.customer.ExpireDate.ToString(); }
+
+                EditText Lastname = FindViewById<EditText>(Resource.Id.txtLastName);
 				Lastname.Text = output.customer.LastName;
 				EditText Mobilenumber = FindViewById<EditText>(Resource.Id.txtMobileNumber);
 				string phno1 = output.customer.PhoneNumber;

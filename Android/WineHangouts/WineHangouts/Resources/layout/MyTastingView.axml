@@ -2,10 +2,127 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:minWidth="25px"
     android:minHeight="25px">
     <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout3"
+        android:layout_weight="0.6">
+        <TableRow
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/tableRow88"
+            android:layout_rowSpan="2"
+            android:background="#ffffff">
+            <ImageButton
+                android:layout_column="0"
+                android:id="@+id/imageButton2"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_width="53.5dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/tes"
+                android:background="@android:color/background_light"
+                android:scaleType="center"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1" />
+            <TableLayout
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_weight="1.5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tableLayout3">
+                <TableRow
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/tableRow88"
+                    android:layout_rowSpan="2"
+                    android:background="#ffffff"
+                    android:layout_height="19.5dp">
+                    <TextView
+                        android:text="NASME"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/SkuName"
+                        android:textColor="#991912"
+                        android:layout_width="200dp"
+                        android:inputType="textFilter|textMultiLine|textNoSuggestions"
+                        android:lines="2"
+                        android:layout_height="22.0dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:src="@drawable/Heart_emp"
+                        android:id="@+id/imageButton4"
+                        android:layout_height="20dp"
+                        android:layout_width="20dp"
+                        android:gravity="right"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:layout_weight="0.5"
+                        android:layout_margin="2dp" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow89"
+                    android:minWidth="25px"
+                    android:minHeight="25px">
+                    <TextView
+                        android:text="Vintage"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/Vintage"
+                        android:textColor="#f90c43"
+                        android:textSize="15dp"
+                        android:layout_weight="1" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow95"
+                    android:layout_width="320.0dp"
+                    android:layout_height="12.5dp">
+                    <View
+                        android:id="@+id/topDivider"
+                        android:layout_width="241.5dp"
+                        android:layout_height="0.2dp"
+                        android:background="#000000"
+                        android:layout_gravity="center" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow90"
+                    android:minWidth="25px"
+                    android:minHeight="25px">
+                    <TextView
+                        android:text="Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/Date"
+                        android:textColor="#af433d"
+                        android:textSize="15dp" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow95"
+                    android:minWidth="25px"
+                    android:minHeight="25px">
+                    <TextView
+                        android:text="Price"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/Price"
+                        android:textColor="#af433d"
+                        android:textSize="15dp"
+                        android:layout_marginTop="12.0dp" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#000000"
+        android:paddingLeft="0.4px"
+        android:layout_gravity="fill_horizontal" />
+<!--<TableLayout
         android:minWidth="25px"
         android:minHeight="25px"
         android:gravity="center"
@@ -47,10 +164,12 @@
                             android:lines="2"
                             android:layout_width="225.0dp"
                             android:layout_height="41.0dp"
-                            android:layout_margin="2dp"/>
-                            <!--android:translationX="12"--> 
-                      <ImageView
-                          android:src="@drawable/Heart_emp"
+                            android:layout_margin="2dp" />
+                    -->
+<!--android:translationX="12"-->
+<!--
+                        <ImageView
+                            android:src="@drawable/Heart_emp"
                             android:id="@+id/imageButton4"
                             android:layout_height="25dp"
                             android:layout_marginBottom="0.0dp"
@@ -156,12 +275,5 @@
                 </TableRow>
             </TableLayout>
         </TableRow>
-    </TableLayout>
-    <View
-        android:id="@+id/topDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#808080"
-        android:layout_gravity="center"
-        android:layout_margin="1dp" />
+    </TableLayout>-->
 </LinearLayout>

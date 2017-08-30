@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+    <!--<ImageView
+            android:src="@drawable/aboutus"
+            android:layout_width="match_parent"
+            android:layout_height="151.0dp"
+            android:id="@+id/imgAbt"
+            android:scaleType="fitXY" />-->
+        <TextView
+            android:text="Wine Hangouts"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="44.0dp"
+            android:id="@+id/textView1"
+            android:textColor="#800080"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginBottom="10.0dp"
+            android:textSize="35dp" />
+        <TextView
+            android:text="Uncork the Merriment"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textColor="#000000"
+            android:layout_marginBottom="12.0dp"
+            android:textStyle="bold" />
+        <TextView
+            android:text="A delicious bottled wine is the way to the perfect blend of joy. Wine Hangouts is thus, developed to facilitate the wine lovers to deliver a complete wine experience through the internationally acclaimed wines and beers. Sticking strict to the quality, Wine Hangouts brings in the best self-serve partners in the industry: Enomatic- The World’s #1Wine Dispenser and Wine Preservation System and iPoruIt – A revolutionary self-serve solution for beers, to elevate the merriment of our guests to the best. "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="15.5dp"
+            android:layout_marginBottom="15.0dp" />
+        <TextView
+            android:text="WHO WE ARE"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="12.0dp" />
+        <TextView
+            android:text="Wine Hangouts ensures the perfect backdrop to relish and to hang out with the wine and beer lovers, through over 24 assorted wines from the world’s best wineries. Each of our wine outlets is assured with one of the largest inventories of wine you can experience in New Jersey. The exclusive opportunity for our privileged customers makes it more enticing by offering FREE tasting of the 24 wines out of our huge collection."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp" />
+        <TextView
+            android:text="WHATWEOFFER"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="12.0dp" />
+        <TextView
+            android:text=" We offer- not just the wines and beers, but an experience of enjoyment.Upon the credential authentication, the mobile application- Wine Hangout takes our privileged customers to the virtual vineyard of savors and flavors, through the following options:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp" />
+        <TextView
+            android:text="Pick the Choice: Guest is displayed with all the available wines for tasting."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text=" My Tasting: See the list of wines you have tasted and choose more from the remaining surprises."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView9"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text=" My Reviews: View your ratings and reviews and let other wine lovers explore it along with you."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView10"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text="My Favorites: Pick your favorites and we save the list to send you customized notifications when there are any discounts or available for wine tasting."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text="My Profile: Protect your credentials and update it as and when you wish."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView12"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text="Rate and Review"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView13"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="12.0dp" />
+        <TextView
+            android:text=" Let them also know the best choice of yours."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView14"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text=" Rate and Review is the spot for rating your favorite wine and Wine Hangouts displays the average rating and the individual rating of the users."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            android:textColor="#594f4f"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="14.0dp"
+            android:layout_marginBottom="6.5dp" />
+        <TextView
+            android:text="Version 1.16"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:gravity="center"
+            android:textColor="#594f4f" />
+        <TextView
+            android:text="All rights reserved"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17"
+            android:gravity="center"
+            android:textColor="#594f4f" />
+        <TextView
+            android:text="Reach us at "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView18"
+            android:gravity="center"
+            android:textColor="#594f4f" />
+        <TextView
+            android:text="savvyitsol@gmail.com"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView19"
+            android:gravity="center"
+            android:textColor="#594f4f" />
+    </LinearLayout>
+</ScrollView>

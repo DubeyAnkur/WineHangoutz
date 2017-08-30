@@ -154,7 +154,8 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:id="@+id/textView19"
                     android:layout_gravity="center_horizontal"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="#800080"
+                    android:textStyle="bold" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow7"
@@ -222,7 +223,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="Description Wine :"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="@android:color/background_dark"
+                    android:textAllCaps="true" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow8"
@@ -247,7 +249,8 @@
                     android:layout_gravity="left"
                     android:text="Producer :"
                     android:layout_span="2"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="@android:color/background_dark"
+                    android:textAllCaps="true" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow8"

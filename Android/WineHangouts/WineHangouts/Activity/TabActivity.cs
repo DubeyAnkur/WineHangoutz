@@ -105,6 +105,7 @@ namespace WineHangouts
                 int height = metrics.HeightPixels;
                 height = height - (int)((360 * metrics.Density) / 3);
                 height = height / 3;
+                height = height + 9;
                 Top.LayoutParameters.Height = height;
                 Middle.LayoutParameters.Height = height;
                 Bottom.LayoutParameters.Height = height;
@@ -117,18 +118,18 @@ namespace WineHangouts
 
 					try
                     {
-                        Top.SetBackgroundResource(Resource.Drawable.city);
-                        Top.Text = "Wall";
-                        Top.SetTextColor(Color.White);
-                        Top.TextSize = 20;
-                        Middle.SetBackgroundResource(Resource.Drawable.beach);
-                        Middle.Text = "Pt. Pleasant Beach";
-                        Middle.SetTextColor(Color.White);
-                        Middle.TextSize = 20;
-                        Bottom.SetBackgroundResource(Resource.Drawable.city1);
-                        Bottom.Text = "Secaucus";
-                        Bottom.SetTextColor(Color.White);
-                        Bottom.TextSize = 20;
+                        Top.SetBackgroundResource(Resource.Drawable.wall1);
+                        //Top.Text = "Wall";
+                        //Top.SetTextColor(Color.White);
+                       // Top.TextSize = 20;
+                        Middle.SetBackgroundResource(Resource.Drawable.pp1);
+                        //Middle.Text = "Pt. Pleasant Beach";
+                        //Middle.SetTextColor(Color.White);
+                       // Middle.TextSize = 20;
+                        Bottom.SetBackgroundResource(Resource.Drawable.scacus1);
+                        //Bottom.Text = "Secaucus";
+                        //Bottom.SetTextColor(Color.White);
+                       // Bottom.TextSize = 20;
 						OnPause();{ }
                         Top.Click += (sender, e) =>
                         {
@@ -171,20 +172,31 @@ namespace WineHangouts
                 {
 					LoggingClass.LogInfo("Clicked on " + tabName, screenid);
 					try
-					{
-						Top.SetBackgroundResource(Resource.Drawable.winereviews);
-						Top.Text = "My Reviews";
-						Top.SetTextColor(Color.White);
-						Top.TextSize = 20;
-						Middle.SetBackgroundResource(Resource.Drawable.winetasting);
-						Middle.Text = "My Tastings";
-						Middle.SetTextColor(Color.White);
-						Middle.TextSize = 20;
-						Bottom.SetBackgroundResource(Resource.Drawable.myfavorate);
-						Bottom.Text = "My Favorites";
-						Bottom.SetTextColor(Color.White);
-						Bottom.TextSize = 20;
-						if (CurrentUser.getUserId() == null)
+                    {
+                        Button Bottom1 = view.FindViewById<Button>(Resource.Id.btnBottom1);
+                        int height1 = metrics.HeightPixels;
+                        height1 = height1 - (int)((360 * metrics.Density) / 4);
+                        height1 = height1 / 4;
+                        height1 = height1 - 15;
+                        Top.LayoutParameters.Height = height1;
+                        Middle.LayoutParameters.Height = height1;
+                        Bottom.LayoutParameters.Height = height1;
+                        Bottom1.LayoutParameters.Height = height1;
+
+                        Top.SetBackgroundResource(Resource.Drawable.mt);
+						//Top.Text = "My Reviews";
+						//Top.SetTextColor(Color.White);
+						//Top.TextSize = 20;
+						Middle.SetBackgroundResource(Resource.Drawable.mr);
+						//Middle.Text = "My Tastings";
+						//Middle.SetTextColor(Color.White);
+						//Middle.TextSize = 20;
+						Bottom.SetBackgroundResource(Resource.Drawable.mf);
+                        Bottom1.SetBackgroundResource(Resource.Drawable.ms);
+                        //Bottom.Text = "My Favorites";
+                        //Bottom.SetTextColor(Color.White);
+                        //Bottom.TextSize = 20;
+                        if (CurrentUser.getUserId() == null)
 						{
 
 							AlertDialog.Builder aler = new AlertDialog.Builder(Activity,Resource.Style.MyDialogTheme);
@@ -208,7 +220,12 @@ namespace WineHangouts
 								Dialog dialog13 = aler.Create();
 								dialog1.Show();
 							};
-						}
+                            Bottom1.Click += (sender, e) => {
+
+                                Dialog dialog13 = aler.Create();
+                                dialog1.Show();
+                            };
+                        }
 						else
 						{
 							Top.Click += (sender, e) =>
@@ -216,7 +233,7 @@ namespace WineHangouts
                                 ProgressIndicator.Show(_parent);
                                // AndHUD.Shared.Show(_parent, "Loading...", Convert.ToInt32(MaskType.Clear));
                                 LoggingClass.LogInfo("Clicked on My Reviews", screenid);
-								var intent = new Intent(Activity, typeof(MyReviewActivity));
+								var intent = new Intent(Activity, typeof(MyTastingActivity));
 								intent.PutExtra("MyData", "My Reviews");
 								StartActivity(intent);
 							};
@@ -224,7 +241,7 @@ namespace WineHangouts
 							{
 								ProgressIndicator.Show(_parent);
 								LoggingClass.LogInfo("Clicked on My Tastings", screenid);
-								var intent = new Intent(Activity, typeof(MyTastingActivity));
+								var intent = new Intent(Activity, typeof(MyReviewActivity));
 								intent.PutExtra("MyData", "My Tastings");
 								StartActivity(intent);
 							};
@@ -236,8 +253,39 @@ namespace WineHangouts
 								intent.PutExtra("MyData", "My Favorites");
 								StartActivity(intent);
 							};
+                            Bottom1.Click += (sender, e) =>
+                            {
+                                ProgressIndicator.Show(_parent);
+                                LoggingClass.LogInfo("Clicked on My Store", screenid);
+                                int storename = Convert.ToInt32(CurrentUser.GetPrefered());
+                                if (storename == 1)
+                                {
+                                    Intent intent = new Intent(Activity, typeof(GridViewActivity));
+                                    intent.PutExtra("MyData", "Wall Store");
+                                    ProgressIndicator.Show(Activity);
 
-						}
+                                    StartActivity(intent);
+                                }
+                                else if (storename == 2)
+                                {
+                                    Intent intent = new Intent(Activity, typeof(GridViewActivity));
+                                    intent.PutExtra("MyData", "Point Pleasant Store");
+
+                                    ProgressIndicator.Show(Activity);
+                                    StartActivity(intent);
+                                }
+                                else
+                                {
+                                    AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
+                                    aler.SetTitle("Sorry");
+                                    aler.SetMessage("Please Slect the prefered strore");
+                                    aler.SetNegativeButton("Ok", delegate { });
+                                    Dialog dialog1 = aler.Create();
+                                    dialog1.Show();
+                                }
+                            };
+
+                        }
 					}
 					catch (Exception exe)
 					{
@@ -389,7 +437,11 @@ namespace WineHangouts
                     break;
                 case Resource.Id.action_settings1:
                     //ProgressIndicator.Show(this);
-                    intent = new Intent(this, typeof(AboutActivity));
+                    try
+                    { intent = new Intent(this, typeof(AboutActivity)); }
+                    catch(Exception ex)
+                    { }
+                   
                     LoggingClass.LogInfo("Clicked on options menu About",screenid);
                     break;
 
