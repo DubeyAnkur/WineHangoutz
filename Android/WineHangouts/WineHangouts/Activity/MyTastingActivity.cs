@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Android.Support.V4.Widget;
 using System.Threading.Tasks;
+using AndroidHUD;
 
 namespace WineHangouts
 {
@@ -107,12 +108,15 @@ namespace WineHangouts
                     string WineBarcode = myArr1[args.Position].Barcode;
                     int storeID = myArr1[args.Position].PlantFinal;
                     LoggingClass.LogInfo("Clicked on " + myArr1[args.Position].Barcode + " to enter into wine from tasting  details", screenid);
-                    ProgressIndicator.Show(this);
+                    // ProgressIndicator.Show(this);
+                    AndHUD.Shared.Show(this, "Loading...", Convert.ToInt32(MaskType.Clear));
                     var intent = new Intent(this, typeof(DetailViewActivity));
                     intent.PutExtra("WineBarcode", WineBarcode);
                     intent.PutExtra("storeid", storeID);
                     StartActivity(intent);
                 };
+                ProgressIndicator.Hide();
+                AndHUD.Shared.Dismiss();
 
                 //TokenModel devInfo = new TokenModel();
                 //var activityManager = (ActivityManager)this.GetSystemService(Context.ActivityService);

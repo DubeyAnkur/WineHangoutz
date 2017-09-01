@@ -49,14 +49,14 @@
                         android:text="NASME"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/SkuName"
-                        android:textColor="#991912"
+                        android:textColor="#7f3300"
                         android:layout_width="200dp"
                         android:inputType="textFilter|textMultiLine|textNoSuggestions"
                         android:lines="2"
-                        android:layout_height="22.0dp"
+                        android:layout_height="20.0dp"
                         android:layout_weight="1" />
                     <ImageView
-                        android:src="@drawable/Heart_emp"
+                        android:src="@drawable/heart_empty"
                         android:id="@+id/imageButton4"
                         android:layout_height="20dp"
                         android:layout_width="20dp"
@@ -74,8 +74,8 @@
                         android:text="Vintage"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/Vintage"
-                        android:textColor="#f90c43"
-                        android:textSize="15dp"
+                        android:textColor="#7f3300"
+                        android:textSize="14dp"
                         android:layout_weight="1" />
                 </TableRow>
                 <TableRow
@@ -97,7 +97,7 @@
                         android:text="Date"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/Date"
-                        android:textColor="#af433d"
+                        android:textColor="#267fc8"
                         android:textSize="15dp" />
                 </TableRow>
                 <TableRow
@@ -108,7 +108,7 @@
                         android:text="Price"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/Price"
-                        android:textColor="#af433d"
+                        android:textColor="#267fc8"
                         android:textSize="15dp"
                         android:layout_marginTop="12.0dp" />
                 </TableRow>

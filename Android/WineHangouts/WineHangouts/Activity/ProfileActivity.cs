@@ -47,6 +47,8 @@ namespace WineHangouts
 				ServiceWrapper sw = new ServiceWrapper();
 				var output = sw.GetCustomerDetails(userId).Result;
 				propicimage = FindViewById<ImageView>(Resource.Id.propic);
+                propicimage.SetImageResource(Resource.Drawable.Loading);
+                RefreshParent();
                 if (indirect == true)
                 {
                     System.Threading.Timer timer = null;
@@ -55,13 +57,14 @@ namespace WineHangouts
                         DownloadAsync(this, System.EventArgs.Empty);
                         timer.Dispose();
                     },
-                                null, 5000, System.Threading.Timeout.Infinite);
+                                null, 4000, System.Threading.Timeout.Infinite);
                 }
                 else
                 {
                     DownloadAsync(this, System.EventArgs.Empty);
                 }
-                InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+               
+               
                 ImageButton changepropic = FindViewById<ImageButton>(Resource.Id.btnChangePropic);
 				changepropic.Click += delegate
 				{
@@ -72,18 +75,29 @@ namespace WineHangouts
 				changepropic.Dispose();
 				EditText Firstname = FindViewById<EditText>(Resource.Id.txtFirstName);
 				Firstname.Text = output.customer.FirstName;
+                
+                Firstname.FocusableInTouchMode = false;
+                Firstname.Click+= delegate {
+                    Firstname.FocusableInTouchMode = true;
+                };
+                
                 TextView card = FindViewById<TextView>(Resource.Id.txtcard1);
                 card.Text = output.customer.CardNumber;
                 TextView exp = FindViewById<TextView>(Resource.Id.txtexp);
                 exp.Text = output.customer.ExpireDate.ToString();
                 if (exp.Text == null || exp.Text == "")
                 { exp.Text = "--"; }
-                else { exp.Text = output.customer.ExpireDate.ToString(); }
+                else { exp.Text = output.customer.ExpireDate.ToString("yyyy/MM/dd"); }
 
                 EditText Lastname = FindViewById<EditText>(Resource.Id.txtLastName);
 				Lastname.Text = output.customer.LastName;
-				EditText Mobilenumber = FindViewById<EditText>(Resource.Id.txtMobileNumber);
-				string phno1 = output.customer.PhoneNumber;
+                Lastname.FocusableInTouchMode = false;
+                Lastname.Click += delegate {
+                    Lastname.FocusableInTouchMode = true;
+                };
+                EditText Mobilenumber = FindViewById<EditText>(Resource.Id.txtMobileNumber);
+                Mobilenumber.FocusableInTouchMode = false;
+                string phno1 = output.customer.PhoneNumber;
 				string phno2 = output.customer.Phone2;
                 if (phno1 != null)
                 {
@@ -93,31 +107,39 @@ namespace WineHangouts
                 {
                     Mobilenumber.Text = phno2;
                 }
-				EditText Email = FindViewById<EditText>(Resource.Id.txtEmail);
+                Mobilenumber.Click += delegate {
+                    Mobilenumber.FocusableInTouchMode = true;
+                };
+                EditText Email = FindViewById<EditText>(Resource.Id.txtEmail);
                
                     Email.Text = output.customer.Email;
-              
-				EditText Address = FindViewById<EditText>(Resource.Id.txtAddress);
+                Email.FocusableInTouchMode = false;
+                Email.Click += delegate {
+                    Email.FocusableInTouchMode = true;
+                };
+
+                EditText Address = FindViewById<EditText>(Resource.Id.txtAddress);
 				string Addres2 = output.customer.Address2;
 				string Addres1 = output.customer.Address1;
 				Address.Text = string.Concat(Addres1, Addres2);
-				//EditText City = FindViewById<EditText>(Resource.Id.txtCity);
-				//City.Text = output.customer.CardNumber;
-				//if (CurrentUser.getUserId() != null)
-				//{
-				//	City.Enabled = false;
-				//}
-				//else { City.Enabled = true; }
-				EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
-               
-              
-                    PinCode.Text = output.customer.Zip;
-
-               
-               
-                    
-               
-				Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
+                Address.FocusableInTouchMode = false;
+                Address.Click += delegate {
+                    Address.FocusableInTouchMode = true;
+                };
+                //EditText City = FindViewById<EditText>(Resource.Id.txtCity);
+                //City.Text = output.customer.CardNumber;
+                //if (CurrentUser.getUserId() != null)
+                //{
+                //	City.Enabled = false;
+                //}
+                //else { City.Enabled = true; }
+                EditText PinCode = FindViewById<EditText>(Resource.Id.txtZip);
+                PinCode.Text = output.customer.Zip;
+                PinCode.FocusableInTouchMode = false;
+                PinCode.Click += delegate {
+                    PinCode.FocusableInTouchMode = true;
+                };
+                Button updatebtn = FindViewById<Button>(Resource.Id.UpdateButton);
 				Spinner spn = FindViewById<Spinner>(Resource.Id.spinner);
 				Spinner Prefered = FindViewById<Spinner>(Resource.Id.spinner1);
 				//spn.SetSelection(4);
@@ -125,10 +147,10 @@ namespace WineHangouts
 				string state = output.customer.State;
 				int Preferedstore = output.customer.PreferredStore;
 				List<string> storelist = new List<string>();
-				storelist.Add("--select--");
+				storelist.Add("--Select your preferred store--");
 				storelist.Add("Wall");
-				storelist.Add("PointPleasent");
-				storelist.Add("Both");
+				storelist.Add("Point Pleasant");
+				storelist.Add("All");
                  gifImageView = FindViewById<ImageView>(Resource.Id.gifImageView1);
                 //gifImageView.StartAnimation();
             
@@ -187,23 +209,32 @@ namespace WineHangouts
 				spn.SetSelection(i);
 				//int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
 				Prefered.SetSelection(Preferedstore);
-                inputManager.HideSoftInputFromWindow(Firstname.WindowToken, 0);
-                inputManager.HideSoftInputFromWindow(Lastname.WindowToken, 0);
-
-                inputManager.HideSoftInputFromWindow(Address.WindowToken, 0);
-                inputManager.HideSoftInputFromWindow(PinCode.WindowToken, 0);
-                inputManager.HideSoftInputFromWindow(Email.WindowToken, 0);
+               
                 if (CurrentUser.getUserId() == null)
 				{
 					AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
 					aler.SetTitle("Sorry");
 					aler.SetMessage("This feature is available only  for VIP Users");
-					aler.SetNegativeButton("Ok", delegate
+					aler.SetPositiveButton("Login", delegate
 					{
-						var intent = new Intent(this, typeof(TabActivity));
+						var intent = new Intent(this, typeof(LoginActivity));
 						StartActivity(intent);
 					});
-					Dialog dialog1 = aler.Create();
+                    aler.SetNegativeButton("KnowMore", delegate
+                    {
+                        var uri = Android.Net.Uri.Parse("https://hangoutz.azurewebsites.net/index.html");
+                        var intent = new Intent(Intent.ActionView, uri);
+                        StartActivity(intent);
+                        
+
+                    
+                    });
+                    aler.SetNeutralButton("Cancel", delegate
+                    {
+                        var intent = new Intent(this, typeof(TabActivity));
+                        StartActivity(intent);
+                    });
+                    Dialog dialog1 = aler.Create();
 					dialog1.Show();
 				}
 				else
@@ -220,9 +251,8 @@ namespace WineHangouts
                         }
                         else
                         {
-                            AndHUD.Shared.Show(this, "Please Wait", Convert.ToInt32(MaskType.Clear));
-                            //int p = storelist.IndexOf(Prefered.SelectedItem.ToString());
-                            //Prefered.SetSelection(p);
+                            AndHUD.Shared.Show(this, "Please Wait...", Convert.ToInt32(MaskType.Clear));
+                         
                             Customer customer = new Customer()
                             {
                                 FirstName = Firstname.Text,
@@ -247,12 +277,11 @@ namespace WineHangouts
                             var x = await sw.UpdateCustomer(customer);
                             if (x == 1)
                             {
-                                Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
+                               // Toast.MakeText(this, "Thank you your profile is Updated", ToastLength.Short).Show();
                             }
                             AndHUD.Shared.Dismiss();
                             AndHUD.Shared.ShowSuccess(this, "Profile Updated", MaskType.Clear, TimeSpan.FromSeconds(2));
-                            //                  var intent = new Intent(this, typeof(TabActivity));
-                            //StartActivity(intent);
+                          //StartActivity(intent);
                         }
                     }; 
 
@@ -268,22 +297,9 @@ namespace WineHangouts
 				Dialog dialog = aler.Create();
 				dialog.Show();
 			}
-			//st.Stop();
-			//LoggingClass.LogTime("Profile activity", st.Elapsed.TotalSeconds.ToString());
+		
 			ProgressIndicator.Hide();
 		}
-        //protected override void OnStop()
-        //{
-        //    base.OnStop();
-        //    gifImageView.StopAnimation();
-        //}
-
-        //protected override void OnStart()
-        //{
-        //    base.OnStart();
-        //    gifImageView.StartAnimation();
-        //}
-        
 
         public bool CheckInternetConnection()
 		{
@@ -344,39 +360,44 @@ namespace WineHangouts
 						propicimage.SetImageBitmap(imgWine);
 						return;
 					}
+                if (imageBytes != null)
+                {
 
-					try
-					{
-						string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-						string localFilename = "user.png";
-						string localPath = System.IO.Path.Combine(documentsPath, localFilename);
+                    try
+                    {
+                        string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                        string localFilename = "user.png";
+                        string localPath = System.IO.Path.Combine(documentsPath, localFilename);
 
-						FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
-						await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
-						//Console.WriteLine("Saving image in local path: " + localPath);
-						fs.Close();
-						BitmapFactory.Options options = new BitmapFactory.Options()
-						{
-							InJustDecodeBounds = true
-						};
-						await BitmapFactory.DecodeFileAsync(localPath, options);
+                        FileStream fs = new FileStream(localPath, FileMode.OpenOrCreate);
+                        await fs.WriteAsync(imageBytes, 0, imageBytes.Length);
+                        //Console.WriteLine("Saving image in local path: " + localPath);
+                        fs.Close();
+                        BitmapFactory.Options options = new BitmapFactory.Options()
+                        {
+                            InJustDecodeBounds = true
+                        };
+                        await BitmapFactory.DecodeFileAsync(localPath, options);
 
-						Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
-						if (bitmap == null)
-						{
-							propicimage.SetImageResource(Resource.Drawable.user1);
-						}
-						propicimage.SetImageBitmap(bitmap);
+                        Bitmap bitmap = await BitmapFactory.DecodeFileAsync(localPath);
+                        if (bitmap == null)
+                        {
+                            propicimage.SetImageResource(Resource.Drawable.ProfileEmpty);
+                        }
+                        propicimage.SetImageBitmap(bitmap);
 
-					}
-					catch (Exception exe)
-					{
-						LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
-					}
-					st.Stop();
-					LoggingClass.LogTime("Download aSync image profile", st.Elapsed.TotalSeconds.ToString());
-					propicimage.Dispose();
-				//}
+                    }
+                    catch (Exception exe)
+                    {
+                        LoggingClass.LogError(exe.Message, screenid, exe.StackTrace.ToString());
+                    }
+                    st.Stop();
+                    LoggingClass.LogTime("Download aSync image profile", st.Elapsed.TotalSeconds.ToString());
+                    propicimage.Dispose();
+                }else
+                {
+                    propicimage.SetImageResource(Resource.Drawable.ProfileEmpty);
+                }
 			}
 			catch (Exception exe)
 			{
@@ -392,12 +413,12 @@ namespace WineHangouts
 			if (item.ItemId == Android.Resource.Id.Home)
 			{
 				//MoveTaskToBack(true);
-				//Finish();
+				Finish();
 				//LoggingClass.LogInfo("Exited from profile ", screenid);
 				//return false;
-				var intent = new Intent(this, typeof(TabActivity));
+				//var intent = new Intent(this, typeof(TabActivity));
 				LoggingClass.LogInfo("Clicked on options menu About", screenid);
-				StartActivity(intent);
+				//StartActivity(intent);
 
 			}
 			return base.OnOptionsItemSelected(item);

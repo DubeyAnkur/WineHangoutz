@@ -9,6 +9,7 @@ using Android.Graphics;
 using System.IO;
 using System.Diagnostics;
 using AndroidHUD;
+using Hangout.Models;
 
 namespace WineHangouts
 {
@@ -154,7 +155,7 @@ namespace WineHangouts
                         {
                             AlertDialog.Builder aler = new AlertDialog.Builder(Activity);
                             aler.SetTitle("Secaucus Store");
-                            aler.SetMessage("Coming Soon");
+                            aler.SetMessage("Coming Soon!");
                             aler.SetNegativeButton("Ok", delegate { });
                             LoggingClass.LogInfo("Clicked on Secaucus", screenid);
                             Dialog dialog = aler.Create();
@@ -257,7 +258,8 @@ namespace WineHangouts
                             {
                                 ProgressIndicator.Show(_parent);
                                 LoggingClass.LogInfo("Clicked on My Store", screenid);
-                                int storename = Convert.ToInt32(CurrentUser.GetPrefered());
+                                CustomerResponse AuthServ = new CustomerResponse();
+                                int storename =  Convert.ToInt32(CurrentUser.GetPrefered());
                                 if (storename == 1)
                                 {
                                     Intent intent = new Intent(Activity, typeof(GridViewActivity));
@@ -277,8 +279,8 @@ namespace WineHangouts
                                 else
                                 {
                                     AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
-                                    aler.SetTitle("Sorry");
-                                    aler.SetMessage("Please Select your prefered store!");
+                                    //aler.SetTitle("Sorry");
+                                    aler.SetMessage("Please Select your preferred store!");
                                     aler.SetNegativeButton("Ok", delegate { });
                                     Dialog dialog1 = aler.Create();
                                     dialog1.Show();

@@ -25,7 +25,7 @@
                 android:scaleType="centerInside"
                 android:layout_height="40dp" />
             <TextView
-                android:text="Rate And Comment"
+                android:text="Rate And Review"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView1"
                 android:layout_column="1"
@@ -79,7 +79,7 @@
         android:inputType="textMultiLine"
         android:singleLine="false"
         android:layout_width="match_parent"
-        android:hint="Type your Comments"
+        android:hint="Type your Reviews here"
         android:textColorHint="#808080"
         android:layout_height="60dp"
         android:id="@+id/txtReviewComments"

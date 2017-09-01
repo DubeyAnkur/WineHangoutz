@@ -102,7 +102,7 @@ namespace WineHangouts
 				Name.Text = myItems[position].Username;
 				Name.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
 				Comments.Text = myItems[position].RatingText;
-				date.Text = myItems[position].Date.ToString("dd/MM/yyyy");
+				date.Text = myItems[position].Date.ToString("yyyy/MM/dd");
 				rb.Rating = myItems[position].RatingStars;
 
             //Image.SetImageBitmap(imageBitmap);

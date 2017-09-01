@@ -81,7 +81,7 @@ namespace WineHangouts
                 { txtYear.Text = ""; }
                 else { txtYear.Text = myItems[position].Vintage.ToString(); }
 					//txtDescription.Text = myItems[position].Description;
-					txtDate.Text = "Tasted on :"+ myItems[position].TastingDate.ToString("dd/MM/yyyy");
+					txtDate.Text = "Tasted on :"+ myItems[position].TastingDate.ToString("yyyy/MM/dd");
                 //txtPrice.Text = myItems[position].SalePrice.ToString("C", GridViewAdapter.Cultures.UnitedState);
                 txtPrice.Text = myItems[position].PlantFinal.ToString();
                 if(txtPrice.Text=="1")
@@ -165,7 +165,11 @@ namespace WineHangouts
 					txtYear.Focusable = false;
 					//txtDescription.Focusable = false;
 					txtDate.Focusable = false;
-				}
+                txtPrice.Focusable = false;
+                wineimage.Focusable = false;
+                wineimage.FocusableInTouchMode = false;
+                wineimage.Clickable = true;
+            }
 			
 			LoggingClass.LogInfo("Entered into My tastings Adapter", screenid);
 			return row;

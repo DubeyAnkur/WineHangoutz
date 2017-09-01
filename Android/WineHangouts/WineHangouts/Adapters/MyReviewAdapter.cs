@@ -88,25 +88,18 @@ namespace WineHangouts
                 RatingBar rb = row.FindViewById<RatingBar>(Resource.Id.rating);
 					ImageView heartImg = row.FindViewById<ImageView>(Resource.Id.imageButton44);
 					heartImg.SetImageResource(Resource.Drawable.heart_empty);
-					//edit.SetScaleType(ImageView.ScaleType.Center);
-					//delete.SetScaleType(ImageView.ScaleType.Center);
-					//edit.SetImageResource(Resource.Drawable.edit);
-					//delete.SetImageResource(Resource.Drawable.delete);
+					
 					edit.Focusable = false;
-					//edit.FocusableInTouchMode = false;
+					
 					edit.Clickable = true;
 					delete.Focusable = false;
-					//delete.FocusableInTouchMode = false;
+				
 					delete.Clickable = true;
 					wineimage.Focusable = false;
 					wineimage.FocusableInTouchMode = false;
 					wineimage.Clickable = true;
-                //TextView txtPrice = row.FindViewById<TextView>(Resource.Id.txtPrice);
-                //ImageView imgWine = row.FindViewById<ImageView>(Resource.Id.imgWine);
-
                 if (convertView == null)
                 {
-                    //edit.SetTag(1, 5757);
                     edit.Click += (sender, args) =>
                     {
 
@@ -131,20 +124,23 @@ namespace WineHangouts
 
                     };
                 }
+                
 					wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
 					txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
 					txtName.Text = myItems[position].Name;
-					// txtName.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
-					// txtPrice.Text= myItems[position].
+					
 					txtYear.Text = myItems[position].Vintage;
+                if(txtYear.Text==null || txtYear.Text=="0")
+                { txtYear.Text = ""; }
+                else { txtYear.Text = myItems[position].Vintage; }
 					txtDescription.Text = myItems[position].RatingText;
-					//txtDescription.InputType = Android.Text.InputTypes.TextFlagNoSuggestions;
-					txtDate.Text = myItems[position].Date.ToString("dd/MM/yyyy");
+					
+					txtDate.Text = myItems[position].Date.ToString("yyyy/MM/dd");
 					rb.Rating = myItems[position].RatingStars;
-					//Bitmap imageBitmap = bvb.Bottleimages(myItems[position].WineId);
+					
 					ProfilePicturePickDialog pppd = new ProfilePicturePickDialog();
 					string path = pppd.CreateDirectoryForPictures();
-					//string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+				
 					var filePath = System.IO.Path.Combine(path + "/" + myItems[position].Barcode + ".jpg");
 
 
@@ -204,9 +200,7 @@ namespace WineHangouts
 
 						wineimage.SetImageBitmap(imageBitmap);
 					}
-					//wineimage.SetImageBitmap(imageBitmap);
-					//wineimage.SetImageResource(Resource.Drawable.wine7);
-					//wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
+					
 
 					txtName.Focusable = false;
 					txtYear.Focusable = false;

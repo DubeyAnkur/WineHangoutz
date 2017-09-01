@@ -40,7 +40,7 @@ namespace WineHangouts
             Stopwatch st = new Stopwatch();
             st.Start();
             //for direct login
-            //CurrentUser.SaveUserName("Mohana Android","48732");
+           CurrentUser.SaveUserName("Mohana Android","48732");
             //Preinfo("7207589007");
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.login);
@@ -109,9 +109,13 @@ namespace WineHangouts
                     Preinfo(CurrentUser.GetCardNumber());
                 }
             }
+            else if(CurrentUser.getUserName()=="Guest")
+            {
+
+            }
             else
             {
-                int storename = Convert.ToInt32(CurrentUser.GetPrefered());
+                int storename =Convert.ToInt32(CurrentUser.GetPrefered());
                 if (storename == 1)
                 {
                     Intent intent = new Intent(this, typeof(GridViewActivity));
@@ -206,6 +210,7 @@ namespace WineHangouts
                 aler.SetTitle(Message);
                 EditText txtEmail = new EditText(this);
                 txtEmail.SetTextColor(Color.Black);
+                txtEmail.FocusableInTouchMode = true;
                 aler.SetView(txtEmail);
                 aler.SetPositiveButton("Update", async delegate
                 {
@@ -222,7 +227,7 @@ namespace WineHangouts
                     }
                     else
                     {
-                        AndHUD.Shared.Show(this, "Updating Please Wait...", Convert.ToInt32(MaskType.Clear));
+                        AndHUD.Shared.Show(this, "Updating...Please Wait...", Convert.ToInt32(MaskType.Clear));
                         //BTProgressHUD.ShowSuccessWithStatus("We're sending mail to the updated mail");
                         //CurrentUser.PutEmail(txtEmail.Text);
                         AuthServ = await svc.UpdateMail(txtEmail.Text, AuthServ.customer.CustomerID.ToString());
@@ -343,7 +348,8 @@ namespace WineHangouts
                         LoggingClass.LogInfo("The User logged in with user id: " + CurrentUser.getUserId(), screenid);
                         CurrentUser.SaveUserName(AuthServ.customer.FirstName + AuthServ.customer.LastName, AuthServ.customer.CustomerID.ToString());
                         SendRegistrationToAppServer(CurrentUser.getDeviceToken());
-                        int storename = Convert.ToInt32(CurrentUser.GetPrefered());
+                        CurrentUser.SavePrefered(AuthServ.customer.PreferredStore);
+                        int storename = AuthServ.customer.PreferredStore;
                         if (storename == 1)
                         {
                             Intent intent = new Intent(this, typeof(GridViewActivity));
@@ -385,8 +391,8 @@ namespace WineHangouts
                 else
                 {
                     AlertDialog.Builder aler = new AlertDialog.Builder(this, Resource.Style.MyDialogTheme);
-                    aler.SetTitle("Sorry");
-                    aler.SetMessage("Your email is not verified plesase check email and verify.");
+                    //aler.SetTitle("Sorry");
+                    aler.SetMessage("Your email is not verified. please check email and verify.");
                     aler.SetNegativeButton("Ok", delegate { });
                     Dialog dialog = aler.Create();
                     dialog.Show();

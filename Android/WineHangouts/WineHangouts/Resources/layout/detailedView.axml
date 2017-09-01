@@ -215,7 +215,7 @@
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow8"
-                android:layout_margin="10px">
+                android:layout_marginLeft="5dp">
                 <TextView
                     android:textStyle="bold"
                     android:singleLine="false"
@@ -229,7 +229,8 @@
             <TableRow
                 android:id="@+id/tableRow8"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp">
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/txtWineDescription"
@@ -237,11 +238,11 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"
                     android:text="Description Wine"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="#594f4f" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow8"
-                android:layout_margin="10px">
+                android:layout_marginLeft="5dp">
                 <TextView
                     android:textStyle="bold"
                     android:id="@+id/textView36"
@@ -255,7 +256,9 @@
             <TableRow
                 android:id="@+id/tableRow8"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_marginRight="1"
+                android:layout_marginLeft="10dp">
                 <TextView
                     android:singleLine="false"
                     android:id="@+id/txtProducer"
@@ -263,7 +266,7 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"
                     android:text="Producer"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="#594f4f" />
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow8"

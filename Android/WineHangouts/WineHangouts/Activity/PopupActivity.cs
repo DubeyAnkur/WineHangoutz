@@ -38,9 +38,19 @@ namespace WineHangouts
         }
         public void CreatePopup(object sender, RatingBar.RatingBarChangeEventArgs e)
         {
-			
 
-
+            if (CurrentUser.getUserId() == null)
+            {
+                AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
+                aler.SetTitle("Sorry");
+                aler.SetMessage("This Feature is available for VIP Users only");
+                aler.SetNegativeButton("Ok", delegate {
+                   
+                });
+                Dialog dialog1 = aler.Create();
+                dialog1.Show();
+            }
+            else
             try
             {
                 Dialog editDialog = new Dialog(Parent);
@@ -57,37 +67,8 @@ namespace WineHangouts
                 RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
                 custRating.Rating = rat;
                 Comments.Text = _editObj.RatingText;
-                 int screenid = 9;
-        //ImageButton ibs = editDialog.FindViewById<ImageButton>(Resource.Id.ratingimage);
-        //ItemReviewResponse SkuRating = new ItemReviewResponse();
-        //SkuRating = sw.GetItemReviewsByWineID(WineId).Result;
-        //ReviewArray = SkuRating.Reviews.ToList();
-        //for (int i = 0; i < ReviewArray.Count(); i++)
-        //{
-        //    if (Convert.ToInt32(CurrentUser.getUserId()) == ReviewArray[i].ReviewUserId)
-        //    {
-        //        ItemReviewResponse uidreviews = new ItemReviewResponse();
-        //        uidreviews = sw.GetItemReviewUID(Convert.ToInt32(CurrentUser.getUserId())).Result;
-        //        List<Review> myArr1;
-        //        myArr1 = uidreviews.Reviews.ToList();
-        //        for (int j = 0; j < myArr1.Count; j++)
-        //        {
-        //            if (ReviewArray[i].Name == myArr1[i].Name)
-        //                Comments.Text = myArr1[i].RatingText.ToString();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        CreatePopup(sender, e);
-        //    }
-        //}
-
-
-
-        //ibs.SetImageResource(Resource.Drawable.wine_review);
-        //ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-        //close.SetImageResource(Resource.Drawable.Close);
-        close.SetScaleType(ImageView.ScaleType.CenterCrop);
+                int screenid = 9;
+                close.SetScaleType(ImageView.ScaleType.CenterCrop);
                 editDialog.Window.SetBackgroundDrawable(new Android.Graphics.Drawables.ColorDrawable(Android.Graphics.Color.Transparent));
                 editDialog.Show();
                 LoggingClass.LogInfo("Entered into CreatePopup", screenid);
@@ -99,20 +80,20 @@ namespace WineHangouts
                 btnSubmitReview.Click += async delegate
                 {
                    
-                    if (CurrentUser.getUserId() == null)
-					{
-						AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
-						aler.SetTitle("Sorry");
-						aler.SetMessage("This Feature is available for VIP Users only");
-						aler.SetNegativeButton("Ok", delegate {
-							LoggingClass.LogInfo("Closed PoPup", screenid);
-							editDialog.Dismiss();
-						});
-						Dialog dialog1 = aler.Create();
-						dialog1.Show();
-					}
-					else
-					{
+     //               if (CurrentUser.getUserId() == null)
+					//{
+					//	AlertDialog.Builder aler = new AlertDialog.Builder(Parent, Resource.Style.MyDialogTheme);
+					//	aler.SetTitle("Sorry");
+					//	aler.SetMessage("This Feature is available for VIP Users only");
+					//	aler.SetNegativeButton("Ok", delegate {
+					//		LoggingClass.LogInfo("Closed PoPup", screenid);
+					//		editDialog.Dismiss();
+					//	});
+					//	Dialog dialog1 = aler.Create();
+					//	dialog1.Show();
+					//}
+					//else
+					//{
                         AndHUD.Shared.Show(Parent, "Saving Review...", Convert.ToInt32(MaskType.Clear));
                         ProgressIndicator.Show(Parent);
                         review.ReviewDate = DateTime.Now;
@@ -128,9 +109,10 @@ namespace WineHangouts
 						((IPopupParent)Parent).RefreshParent();
 						ProgressIndicator.Hide();
 						editDialog.Dismiss();
-					}
-                    AndHUD.Shared.Dismiss();
-                    AndHUD.Shared.ShowSuccess(Parent, "Sucessfully Saved", MaskType.Clear, TimeSpan.FromSeconds(2));
+                        AndHUD.Shared.Dismiss();
+                        AndHUD.Shared.ShowSuccess(Parent, "Sucessfully Saved", MaskType.Clear, TimeSpan.FromSeconds(2));
+                    //}
+                   
 
                 };
             }
@@ -163,9 +145,7 @@ namespace WineHangouts
                 RatingBar custRating = editDialog.FindViewById<RatingBar>(Resource.Id.rating);
                 Comments.Text = _editObj.RatingText;
                 custRating.Rating = _editObj.RatingStars;
-				//ibs.SetImageResource(Resource.Drawable.wine_review);
-				//ibs.SetScaleType(ImageView.ScaleType.CenterCrop);
-				//close.SetImageResource(Resource.Drawable.Close);
+				
 				LoggingClass.LogInfo("Entered into EditPopup", screenid);
 
 				close.SetScaleType(ImageView.ScaleType.CenterCrop);
@@ -211,7 +191,7 @@ namespace WineHangouts
                 LoggingClass.LogError(exe.Message, ParentScreenId, exe.StackTrace.ToString());
             }
 		
-			//LoggingClass.LogTime("Edit Popup time ", st.Elapsed.TotalSeconds.ToString());
+		
         }
     }
 
