@@ -242,7 +242,15 @@ namespace WineHangouts
 				txtPrice.Text = myItems[position].SalePrice.ToString("C", Cultures.UnitedState);
          
             txtVintage.Text = myItems[position].Vintage.ToString();
-				heartImg.SetImageResource(Resource.Drawable.heart_empty);
+            if (txtVintage.Text == "0" || txtVintage.Text == null)
+            {
+                txtVintage.Text = "";
+            }
+            else
+            {
+                txtVintage.Text = myItems[position].Vintage.ToString();
+            }
+            heartImg.SetImageResource(Resource.Drawable.heart_empty);
 				var heartLP = new FrameLayout.LayoutParams(80, 80);
 				var metrics = myContext.Resources.DisplayMetrics;
 				var widthInDp = ConvertPixelsToDp(metrics.WidthPixels);

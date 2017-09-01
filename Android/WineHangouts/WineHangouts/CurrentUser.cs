@@ -101,7 +101,8 @@ namespace WineHangouts
 			string DeviceID = _pref.GetString("DeviceID", null);
 			return DeviceID;
 		}
-		public static string GuestId { get; set; }
+       
+        public static string GuestId { get; set; }
 	}
 
     public class ProgressIndicator

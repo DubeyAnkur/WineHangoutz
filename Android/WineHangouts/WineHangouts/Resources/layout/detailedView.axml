@@ -257,7 +257,7 @@
                 android:id="@+id/tableRow8"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_marginRight="1"
+                android:layout_marginRight="1dp"
                 android:layout_marginLeft="10dp">
                 <TextView
                     android:singleLine="false"

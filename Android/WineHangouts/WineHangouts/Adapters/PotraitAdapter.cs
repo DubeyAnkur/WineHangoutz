@@ -116,7 +116,7 @@ namespace WineHangouts
             txtDate.Text = myItems[position].RegPrice.ToString();
             txtDate.Text = "$ " + txtDate.Text;
             rb.Rating = (float)myItems[position].AverageRating;
-            wineimage.SetImageResource(Resource.Drawable.wine7);
+            wineimage.SetImageResource(Resource.Drawable.Tes);
             wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
             //txtPrice.Text = myItems[position].Price;
             //imgWine.SetImageURI(new Uri(myItems[position].imageURL));

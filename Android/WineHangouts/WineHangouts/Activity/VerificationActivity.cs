@@ -21,26 +21,26 @@ namespace WineHangouts
         private int screenid = 21;
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.EmailVerificationLayout);
-            EmailVerification();
-            //string Sentotp = Intent.GetStringExtra("otp");//receiving otp from previous activity
-            //string username = Intent.GetStringExtra("username");//receiving username from previous activity
-            //EditText txtreceivedOtp = FindViewById<EditText>(Resource.Id.txtOtp);
-            Button btnVerification = FindViewById<Button>(Resource.Id.btnVerify);
-            Button btnResendMail = FindViewById<Button>(Resource.Id.btnResendMail);
-            EditText editEmail = FindViewById<EditText>(Resource.Id.txtEmail);
-            editEmail.Text = CurrentUser.GetCardNumber();//GetMailId();
+            //base.OnCreate(savedInstanceState);
+            //SetContentView(Resource.Layout.EmailVerificationLayout);
+            //EmailVerification();
+            ////string Sentotp = Intent.GetStringExtra("otp");//receiving otp from previous activity
+            ////string username = Intent.GetStringExtra("username");//receiving username from previous activity
+            ////EditText txtreceivedOtp = FindViewById<EditText>(Resource.Id.txtOtp);
+            //Button btnVerification = FindViewById<Button>(Resource.Id.btnVerify);
+            //Button btnResendMail = FindViewById<Button>(Resource.Id.btnResendMail);
+            //EditText editEmail = FindViewById<EditText>(Resource.Id.txtEmail);
+            //editEmail.Text = CurrentUser.GetCardNumber();//GetMailId();
 
-            btnResendMail.Click += async delegate
-            {
-                CurrentUser.SaveCardNumber(editEmail.Text);
-                await sc.AuthencateUser1(CurrentUser.GetCardNumber());
-            };
-            btnVerification.Click += delegate
-            {
-                EmailVerification();
-            };
+            //btnResendMail.Click += async delegate
+            //{
+            //    CurrentUser.SaveCardNumber(editEmail.Text);
+            //    await sc.AuthencateUser1(CurrentUser.GetCardNumber());
+            //};
+            //btnVerification.Click += delegate
+            //{
+            //    EmailVerification();
+            //};
 
         }
         public async void EmailVerification()

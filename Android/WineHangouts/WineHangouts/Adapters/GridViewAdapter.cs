@@ -97,6 +97,13 @@ namespace WineHangouts
 				txtPrice.Text = myItems[position].SalePrice.ToString("C", Cultures.UnitedState);
 				AmountLeft.Text = "Wine left in bottle: " + myItems[position].AvailableVolume.ToString() + " ml";
 				txtVintage.Text = myItems[position].Vintage.ToString();
+                if(txtVintage.Text=="0"||txtVintage.Text==null)
+            {
+                txtVintage.Text = "";
+            }else
+            {
+                txtVintage.Text = myItems[position].Vintage.ToString();
+            }
 				heartImg.SetImageResource(Resource.Drawable.heart_empty);
 				var heartLP = new FrameLayout.LayoutParams(80, 80);
 				var metrics = myContext.Resources.DisplayMetrics;
@@ -121,7 +128,7 @@ namespace WineHangouts
             if (convertView == null)
             {
                
-                    heartImg.Click += async delegate
+                    heartImg.Click +=  delegate
                     {
                         if (CurrentUser.getUserId() == null)
                         {
@@ -161,7 +168,7 @@ namespace WineHangouts
                             like.BarCode = myItems[actualPosition].Barcode;
                             LoggingClass.LogInfo("Liked an item", screenid);
                             ServiceWrapper sw = new ServiceWrapper();
-                            await sw.InsertUpdateLike(like);
+                            //await sw.InsertUpdateLike(like);
                         }
                     };
                // }

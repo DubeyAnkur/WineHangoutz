@@ -87,6 +87,7 @@ namespace WineHangouts
             {
                 tabName = Name;
                 _parent = parent;
+               
             }
 
             public override void OnViewCreated(View view, Bundle savedInstanceState)
@@ -106,7 +107,7 @@ namespace WineHangouts
                 int height = metrics.HeightPixels;
                 height = height - (int)((360 * metrics.Density) / 3);
                 height = height / 3;
-                height = height + 9;
+                height = height + 4;
                 Top.LayoutParameters.Height = height;
                 Middle.LayoutParameters.Height = height;
                 Bottom.LayoutParameters.Height = height;
@@ -178,7 +179,7 @@ namespace WineHangouts
                         int height1 = metrics.HeightPixels;
                         height1 = height1 - (int)((360 * metrics.Density) / 4);
                         height1 = height1 / 4;
-                        height1 = height1 - 12;
+                        height1 = height1 - 17;
                         Top.LayoutParameters.Height = height1;
                         Middle.LayoutParameters.Height = height1;
                         Bottom.LayoutParameters.Height = height1;
@@ -256,7 +257,7 @@ namespace WineHangouts
 							};
                             Bottom1.Click += (sender, e) =>
                             {
-                                ProgressIndicator.Show(_parent);
+                                //ProgressIndicator.Show(_parent);
                                 LoggingClass.LogInfo("Clicked on My Store", screenid);
                                 CustomerResponse AuthServ = new CustomerResponse();
                                 int storename =  Convert.ToInt32(CurrentUser.GetPrefered());
@@ -302,59 +303,59 @@ namespace WineHangouts
                     try
                     {
 						
-                        Top.SetBackgroundResource(Resource.Drawable.myprofile);
-                        Top.Text = "My Profile";
-                        Top.SetTextColor(Color.White);
-                        Top.TextSize = 20;
-                        Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
-                        Middle.Text = "Wineries/Search Helper";
-                        Middle.TextSize = 20;
-                        Middle.SetTextColor(Color.White);
-                        Bottom.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
-                        Bottom.Text = "Regions";
-                        Bottom.TextSize = 20;
-                        Bottom.SetTextColor(Color.White);
-                        Bottom.SetTextAppearance(Resource.Drawable.abc_btn_borderless_material);
+                        //Top.SetBackgroundResource(Resource.Drawable.myprofile);
+                        //Top.Text = "My Profile";
+                        //Top.SetTextColor(Color.White);
+                        //Top.TextSize = 20;
+                        //Middle.SetBackgroundResource(Resource.Drawable.sfondo_cantine);
+                        //Middle.Text = "Wineries/Search Helper";
+                        //Middle.TextSize = 20;
+                        //Middle.SetTextColor(Color.White);
+                        //Bottom.SetBackgroundResource(Resource.Drawable.sfondo_regioni);
+                        //Bottom.Text = "Regions";
+                        //Bottom.TextSize = 20;
+                        //Bottom.SetTextColor(Color.White);
+                        //Bottom.SetTextAppearance(Resource.Drawable.abc_btn_borderless_material);
 
-                        Top.Click += (sender, e) =>
-                        {
+                        //Top.Click += (sender, e) =>
+                        //{
 							
-                            ProgressIndicator.Show(_parent);
-                            LoggingClass.LogInfo("Clicked on My Profile",screenid);
-                            var intent = new Intent(Activity, typeof(ProfileActivity));
-                            intent.PutExtra("MyData", "My Profile");
-                            StartActivity(intent);
+                        //    ProgressIndicator.Show(_parent);
+                        //    LoggingClass.LogInfo("Clicked on My Profile",screenid);
+                        //    var intent = new Intent(Activity, typeof(ProfileActivity));
+                        //    intent.PutExtra("MyData", "My Profile");
+                        //    StartActivity(intent);
 
-                        };
-                        Middle.Click += (sender, e) =>
-                        {
-                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
-                            aler.SetTitle("Wineries Section");
-                            aler.SetMessage("Coming Soon");
-                            aler.SetNegativeButton("Ok", delegate { });
-                            LoggingClass.LogInfo("Clicked on Wineries",screenid);
-                            Dialog dialog = aler.Create();
-                            dialog.Show();
-                            //var intent = new Intent(Activity, typeof(LandscapeActivity));
-                            //    intent.PutExtra("MyData", "Wineries");
-                            //    StartActivity(intent);
-                            //var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
-                            ////intent.PutExtra("MyData", "Wineries");
-                            //StartActivity(intent);
-                        };
-                        Bottom.Click += (sender, e) =>
-                        {
-                            AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
-                            aler.SetTitle("Regions Section");
-                            aler.SetMessage("Coming Soon");
-                            aler.SetNegativeButton("Ok", delegate { });
-                            LoggingClass.LogInfo("Clicked on Regions",screenid);
-                            Dialog dialog = aler.Create();
-                            dialog.Show();
-                            //var intent = new Intent(Activity, typeof(PotraitActivity));
-                            //intent.PutExtra("MyData", "Regions");
-                            //StartActivity(intent);
-                        };
+                        //};
+                        //Middle.Click += (sender, e) =>
+                        //{
+                        //    AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
+                        //    aler.SetTitle("Wineries Section");
+                        //    aler.SetMessage("Coming Soon");
+                        //    aler.SetNegativeButton("Ok", delegate { });
+                        //    LoggingClass.LogInfo("Clicked on Wineries",screenid);
+                        //    Dialog dialog = aler.Create();
+                        //    dialog.Show();
+                        //    //var intent = new Intent(Activity, typeof(LandscapeActivity));
+                        //    //    intent.PutExtra("MyData", "Wineries");
+                        //    //    StartActivity(intent);
+                        //    //var intent = new Intent(Activity, typeof(AutoCompleteTextActivity));
+                        //    ////intent.PutExtra("MyData", "Wineries");
+                        //    //StartActivity(intent);
+                        //};
+                        //Bottom.Click += (sender, e) =>
+                        //{
+                        //    AlertDialog.Builder aler = new AlertDialog.Builder(Activity, Resource.Style.MyDialogTheme);
+                        //    aler.SetTitle("Regions Section");
+                        //    aler.SetMessage("Coming Soon");
+                        //    aler.SetNegativeButton("Ok", delegate { });
+                        //    LoggingClass.LogInfo("Clicked on Regions",screenid);
+                        //    Dialog dialog = aler.Create();
+                        //    dialog.Show();
+                        //    //var intent = new Intent(Activity, typeof(PotraitActivity));
+                        //    //intent.PutExtra("MyData", "Regions");
+                        //    //StartActivity(intent);
+                        //};
 						
 						
 					}

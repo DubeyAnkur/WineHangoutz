@@ -413,12 +413,12 @@ namespace WineHangouts
 			if (item.ItemId == Android.Resource.Id.Home)
 			{
 				//MoveTaskToBack(true);
-				Finish();
+				//Finish();
 				//LoggingClass.LogInfo("Exited from profile ", screenid);
 				//return false;
-				//var intent = new Intent(this, typeof(TabActivity));
+				var intent = new Intent(this, typeof(TabActivity));
 				LoggingClass.LogInfo("Clicked on options menu About", screenid);
-				//StartActivity(intent);
+				StartActivity(intent);
 
 			}
 			return base.OnOptionsItemSelected(item);
