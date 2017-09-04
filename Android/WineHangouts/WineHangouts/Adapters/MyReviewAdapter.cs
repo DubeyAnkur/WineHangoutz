@@ -99,35 +99,35 @@ namespace WineHangouts
                 wineimage.FocusableInTouchMode = false;
                 wineimage.Clickable = true;
 
-                if (convertView == null)
-                { edit.Tag = position; }
+                //if (convertView == null)
+                //{ edit.Tag = position; }
 
-                if (convertView == null)
-                {
-                    edit.Click += (sender, args) =>
-                    {
-                        int tempPosition = Convert.ToInt32(((ImageButton)sender).Tag);
-                        string WineBarcode = myItems[tempPosition].Barcode;
-                        Review _review = new Review();
-                        _review.Barcode = WineBarcode;
-                        _review.RatingStars = myItems[tempPosition].RatingStars;
-                        _review.RatingText = myItems[tempPosition].RatingText;
-                        _review.PlantFinal = myItems[tempPosition].PlantFinal;
-                        LoggingClass.LogInfo("clicked on edit  an item---->" + WineBarcode + "----->" + _review.RatingStars + "---->" + _review.RatingText, screenid);
-                        PerformItemClick(sender, args, _review);
-                    };
-                    //delete.Click += Delete_Click;
-                    delete.Click += (sender, args) =>
-                    {
-                        string WineBarcode = myItems[position].Barcode;
+                //if (convertView == null)
+                //{
+                //    edit.Click += (sender, args) =>
+                //    {
+                //        int tempPosition = Convert.ToInt32(((ImageButton)sender).Tag);
+                //        string WineBarcode = myItems[tempPosition].Barcode;
+                //        Review _review = new Review();
+                //        _review.Barcode = WineBarcode;
+                //        _review.RatingStars = myItems[tempPosition].RatingStars;
+                //        _review.RatingText = myItems[tempPosition].RatingText;
+                //        _review.PlantFinal = myItems[tempPosition].PlantFinal;
+                //        LoggingClass.LogInfo("clicked on edit  an item---->" + WineBarcode + "----->" + _review.RatingStars + "---->" + _review.RatingText, screenid);
+                //        PerformItemClick(sender, args, _review);
+                //    };
+                //    //delete.Click += Delete_Click;
+                //    delete.Click += (sender, args) =>
+                //    {
+                //        string WineBarcode = myItems[position].Barcode;
 
-                        Review _review = new Review();
-                        _review.Barcode = WineBarcode;
-                        LoggingClass.LogInfo("clicked on delete item--->" + WineBarcode, screenid);
-                        PerformdeleteClick(sender, args, _review);
+                //        Review _review = new Review();
+                //        _review.Barcode = WineBarcode;
+                //        LoggingClass.LogInfo("clicked on delete item--->" + WineBarcode, screenid);
+                //        PerformdeleteClick(sender, args, _review);
 
-                    };
-                }
+                //    };
+                //}
 
                 wineimage.Click += (sender, args) => Console.WriteLine("ImageButton {0} clicked", position);
                 txtDate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
@@ -158,9 +158,34 @@ namespace WineHangouts
                     heartImg.SetImageResource(Resource.Drawable.heart_empty);
                 }
                 heartImg.Tag = position;
-
+                edit.Tag = position;
+               delete.Tag = position;
                 if (convertView == null)
                 {
+                    edit.Click += (sender, args) =>
+                        {
+                            int tempPosition = Convert.ToInt32(edit.Tag);
+                            string WineBarcode = myItems[tempPosition].Barcode;
+                            Review _review = new Review();
+                            _review.Barcode = WineBarcode;
+                            _review.RatingStars = myItems[tempPosition].RatingStars;
+                            _review.RatingText = myItems[tempPosition].RatingText;
+                            _review.PlantFinal = myItems[tempPosition].PlantFinal;
+                            LoggingClass.LogInfo("clicked on edit  an item---->" + WineBarcode + "----->" + _review.RatingStars + "---->" + _review.RatingText, screenid);
+                            PerformItemClick(sender, args, _review);
+                        };
+        
+                    delete.Click += (sender, args) =>
+                    {
+                        int tempPositio1n = Convert.ToInt32(edit.Tag);
+                        string WineBarcode = myItems[tempPositio1n].Barcode;
+
+                        Review _review = new Review();
+                        _review.Barcode = WineBarcode;
+                        LoggingClass.LogInfo("clicked on delete item--->" + WineBarcode, screenid);
+                        PerformdeleteClick(sender, args, _review);
+
+                    };
                     heartImg.Click += async delegate
                     {
                         int actualPosition = Convert.ToInt32(heartImg.Tag);
@@ -216,8 +241,6 @@ namespace WineHangouts
 
             LoggingClass.LogInfo("Entered into My Review Adapter", screenid);
             return row;
-
-
         }
 
         public void PerformItemClick(object sender, EventArgs e, Review edit)
