@@ -176,7 +176,7 @@ namespace WineHangouts
             
 
 				Bitmap imageBitmap;
-				imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, storeid);
+				imageBitmap = BlobWrapper.Bottleimages(myItems[position].SmallImageUrl, storeid);
 				var place = new FrameLayout.LayoutParams(650, 650);
 
 				//-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;

@@ -48,42 +48,39 @@ namespace WineHangouts
             Path = pppd.CreateDirectoryForPictures();
             //string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-            if (wineImages.Contains(storeid + "_" + WineBarcode))
+            if (wineImages.Contains(WineBarcode))
             {
 				
-				return (Bitmap)wineImages[storeid + "_" + WineBarcode];
+				return (Bitmap)wineImages[WineBarcode];
             }
 
-            var filePath = System.IO.Path.Combine(Path + "/" + storeid + "_" + WineBarcode + ".jpg");
+            var filePath = System.IO.Path.Combine(Path + "/" +WineBarcode);
 			if (System.IO.File.Exists(filePath))
 			{
 
 				imageBitmap = BitmapFactory.DecodeFile(filePath);
-				wineImages.Add(storeid + "_" + WineBarcode, imageBitmap);
+				wineImages.Add( WineBarcode, imageBitmap);
 
 			}
 			else if (storeid == 1)
 			{
 
 
-				var uri = new Uri(ServiceURL + "barcodepp/" + WineBarcode + ".jpg");
+				var uri = new Uri(ServiceURL + "barcodepp/" + WineBarcode );
 				LoggingClass.LogInfo(" WineImage is dosent Existing Download"+ WineBarcode + "Wall", screenid);
 
 				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
-				wineImages.Add(storeid + "_" + WineBarcode, imageBitmap);
+				wineImages.Add( WineBarcode, imageBitmap);
 
 			}
 			else
 			{
-				var uri = new Uri(ServiceURL + "barcodepp/" + WineBarcode + ".jpg");
+				var uri = new Uri(ServiceURL + "barcodepp/" + WineBarcode );
 				LoggingClass.LogInfo(" WineImage is dosent Existing Download" + WineBarcode + " PP", screenid);
 
 				imageBitmap = GetImageBitmapFromUrl(uri.ToString());
-				wineImages.Add(storeid + "_" + WineBarcode, imageBitmap);
+				wineImages.Add(WineBarcode, imageBitmap);
 			}
-            //Canvas canvas = new Canvas(imageBitmap);
-            //canvas.DrawColor(Color.White);
-            //canvas.DrawBitmap(imageBitmap, 0, 0, null);
             return imageBitmap;
             
         }
@@ -136,16 +133,16 @@ namespace WineHangouts
                 int y = x.Count;
                 for (int i = 0; i < y; i++)
                 {
-                    bool ispresent = di.GetFiles(x[i].Barcode + ".").Any();
+                    bool ispresent = di.GetFiles(x[i].SmallImageUrl + ".").Any();
 					if (!ispresent)
 					{
 						if (j == 1)
 						{
-							var uri = new Uri(ServiceURL + "barcodepp/" + x[i].Barcode + ".jpg");
+							var uri = new Uri(ServiceURL + "barcodepp/" + x[i].SmallImageUrl);
 							Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
 							try
 							{
-								var filePath = System.IO.Path.Combine(path + "/"+ j + "_"+x[i].Barcode + ".jpg");
+								var filePath = System.IO.Path.Combine(path + "/"+x[i].SmallImageUrl);
 								var stream = new FileStream(filePath, FileMode.Create);
 								bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
 								stream.Close();
@@ -158,11 +155,11 @@ namespace WineHangouts
 						}
 						else if (j == 2)
 						{
-							var uri = new Uri(ServiceURL + "barcodepp/" + x[i].Barcode + ".jpg");
+							var uri = new Uri(ServiceURL + "barcodepp/" + x[i].SmallImageUrl);
 							Bitmap bm = GetImageBitmapFromUrl(uri.ToString());
 							try
 							{
-								var filePath = System.IO.Path.Combine(path + "/"  +j + "_"+ x[i].Barcode + ".jpg");
+								var filePath = System.IO.Path.Combine(path + "/"+ x[i].SmallImageUrl);
 								var stream = new FileStream(filePath, FileMode.Create);
 								bm.Compress(Bitmap.CompressFormat.Webp, 100, stream);
 								stream.Close();
@@ -207,12 +204,6 @@ namespace WineHangouts
         //}
         //async void downloadAsync(object sender, System.EventArgs ea) {
         //}
-
-
-
-
-
-
         public static Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;

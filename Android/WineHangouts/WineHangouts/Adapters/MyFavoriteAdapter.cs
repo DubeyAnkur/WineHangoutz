@@ -306,7 +306,13 @@ namespace WineHangouts
 					};
 				}
 				Bitmap imageBitmap;
-				imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, storeid);
+            string url = myItems[position].SmallImageUrl;
+            if (url == null)
+            {
+                url = myItems[position].Barcode + ".jpg";
+            }
+
+                imageBitmap = BlobWrapper.Bottleimages(url, storeid);
 				var place = new FrameLayout.LayoutParams(650, 650);
 
 				//-650 + (parent.Resources.DisplayMetrics.WidthPixels - imageBitmap.Width) / 2;

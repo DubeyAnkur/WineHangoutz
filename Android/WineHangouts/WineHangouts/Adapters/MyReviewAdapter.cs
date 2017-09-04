@@ -218,18 +218,28 @@ namespace WineHangouts
 
 
                 Bitmap imageBitmap;
-                if (System.IO.File.Exists(filePath))
-                {
-                    imageBitmap = BitmapFactory.DecodeFile(filePath);
-                    wineimage.SetImageBitmap(imageBitmap);
-                }
-                else
-                {
-                    imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, Convert.ToInt32(myItems[position].PlantFinal));
+                //if (System.IO.File.Exists(filePath))
+                //{
+                //    imageBitmap = BitmapFactory.DecodeFile(filePath);
+                //    wineimage.SetImageBitmap(imageBitmap);
+                //}
+                //else
+                //{
+                //    imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, Convert.ToInt32(myItems[position].PlantFinal));
 
-                    wineimage.SetImageBitmap(imageBitmap);
+                //    wineimage.SetImageBitmap(imageBitmap);
+                //}
+                string url = myItems[position].SmallImageURL;
+                if (url == null)
+                {
+                    url = myItems[position].Barcode + ".jpg";
                 }
-
+                imageBitmap = BlobWrapper.Bottleimages(url, Convert.ToInt32(myItems[position].PlantFinal));
+                if (imageBitmap == null)
+                {
+                    wineimage.SetImageResource(Resource.Drawable.bottle);
+                }
+                else { wineimage.SetImageBitmap(imageBitmap); }
 
                 txtName.Focusable = false;
                 txtYear.Focusable = false;

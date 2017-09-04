@@ -147,17 +147,23 @@ namespace WineHangouts
 
 
 					Bitmap imageBitmap;
-					if (System.IO.File.Exists(filePath))
-					{
-						imageBitmap = BitmapFactory.DecodeFile(filePath);
-						wineimage.SetImageBitmap(imageBitmap);
-					}
-					else
-					{
-						imageBitmap = BlobWrapper.Bottleimages(myItems[position].Barcode, myItems[position].PlantFinal);
+                //if (System.IO.File.Exists(filePath))
+                //{
+                //	imageBitmap = BitmapFactory.DecodeFile(filePath);
+                //	wineimage.SetImageBitmap(imageBitmap);
+                //}
+                string url = myItems[position].SmallImageUrl;
+                if (url == null)
+                {
+                    url = myItems[position].Barcode + ".jpg";
+                }
+                imageBitmap = BlobWrapper.Bottleimages(url, myItems[position].PlantFinal);
 
-						wineimage.SetImageBitmap(imageBitmap);
-					}
+                if (imageBitmap == null)
+                {
+                    wineimage.SetImageResource(Resource.Drawable.bottle);
+                }
+                else { wineimage.SetImageBitmap(imageBitmap); }
                 //wineimage.SetScaleType(ImageView.ScaleType.CenterCrop);
                 
 
