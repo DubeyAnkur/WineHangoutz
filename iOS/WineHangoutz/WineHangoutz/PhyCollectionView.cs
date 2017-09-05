@@ -249,9 +249,13 @@ namespace WineHangoutz
 					//};
 				}
 				//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
-				UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].Barcode.ToString(), cell.btlImage.Bounds, cell.storeId.ToString());
+				string url = myData.ItemList[index].SmallImageUrl;
+
+				UIImage image = BlobWrapper.GetResizedImage(url, cell.btlImage.Bounds, cell.storeId.ToString());
 				if (image != null)
 				{
+					
+
 					cell.btlImage.SetImage(image, UIControlState.Normal);
 				}
 				else

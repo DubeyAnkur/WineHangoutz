@@ -281,7 +281,12 @@ namespace WineHangoutz
 		{
 				try
 				{
-					imageView.SetImage(BlobWrapper.GetResizedImage(tasting.Barcode.ToString(), new CGRect(0, 0, 100, 155), tasting.PlantFinal.ToString()), UIControlState.Normal);
+				string url = tasting.SmallImageUrl;
+				if (url == null)
+				{
+					url = tasting.Barcode + ".jpg";
+				}
+				imageView.SetImage(BlobWrapper.GetResizedImage(url, new CGRect(0, 0, 100, 155), tasting.PlantFinal.ToString()), UIControlState.Normal);
 					separator.Image = UIImage.FromFile("separator.png");
 					WineName.Text = tasting.Name;
 					ReviewDate.Text = "Tasted on :" + tasting.TastingDate.ToString("MM-dd-yyyy");

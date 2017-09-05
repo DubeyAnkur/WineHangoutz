@@ -31,7 +31,9 @@ namespace WineHangoutz
 
 		public static UIImage GetResizedImage(string wineId, CGRect bounds,string storeid)
 		{
+			
 			UIImage image = BlobWrapper.GetImageBitmapFromWineId(wineId);
+
 			if (image != null)
 			{
 				nfloat boxHeight = bounds.Height;
@@ -57,7 +59,7 @@ namespace WineHangoutz
 				imageData = ReadPhysicalCache(WineBarcode);
 				if (imageData == null)
 				{
-					url = baseurl + "/barcodepp/" + WineBarcode + ".jpg";
+					url = baseurl + "/barcodepp/" + WineBarcode;
 						imageURL = new NSUrl(url);
 						imageData = NSData.FromUrl(imageURL);
 						CachedImagePhysically(imageData, WineBarcode);
@@ -144,7 +146,7 @@ namespace WineHangoutz
 			{
 				var documents=Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				//var cache = Path.Combine("Library/Caches/", "WineHangoutz");
-				var filename = Path.Combine(documents, wineId + ".jpg");
+				var filename = Path.Combine(documents, wineId );
 
 				if (image != null)
 				{
@@ -173,20 +175,21 @@ namespace WineHangoutz
 
 		public static NSData ReadPhysicalCache(string wineId)
 		{
+			
 			try
 			{
+				
 				var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				//var cache = Path.Combine("Library/Caches/", "WineHangoutz");
 
-				var filename = Path.Combine(documents, wineId + ".jpg");
-
+				var filename = Path.Combine(documents, wineId);
 				byte[] dataBytes = File.ReadAllBytes(filename);
 				return NSData.FromArray(dataBytes);
 
 			}
 			catch (Exception e)
 			{
-
+				string mess = e.ToString();
 				//LoggingClass.LogError(e.Message, screen, e.StackTrace);
 
 				return null;
@@ -199,7 +202,6 @@ namespace WineHangoutz
 			{
 				ServiceWrapper svc = new ServiceWrapper();
 				ItemListResponse myData = svc.GetItemLists(1, CurrentUser.RetreiveUserId()).Result;
-
 				foreach (var wine in myData.ItemList)
 				{
 					GetImageBitmapFromWineId(wine.Barcode);

@@ -187,8 +187,13 @@ namespace WineHangoutz
 				{
 					cell.heartImage.SetImage(UIImage.FromFile("heart_empty.png"), UIControlState.Normal);
 				}
+				string url = myData.ItemList[index].SmallImageUrl;
+				if (url == null)
+				{
+					url = myData.ItemList[index].Barcode + ".jpg";
+				}
 				//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
-				UIImage image = BlobWrapper.GetResizedImage(myData.ItemList[index].Barcode.ToString(), cell.btlImage.Bounds, cell.storeId.ToString());
+				UIImage image = BlobWrapper.GetResizedImage(url, cell.btlImage.Bounds, cell.storeId.ToString());
 				if (image != null)
 				{
 					cell.btlImage.SetImage(image, UIControlState.Normal);

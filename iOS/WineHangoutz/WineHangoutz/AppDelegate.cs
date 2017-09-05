@@ -209,7 +209,7 @@ namespace WineHangoutz
 					wineid = wine;
 					if (!fromFinishedLaunching)
 					{
-						if (wineid == ""||wineid==null)
+						if (wineid == "" || wineid == null)
 						{
 							UIAlertView alert1 = new UIAlertView()
 							{
@@ -221,6 +221,13 @@ namespace WineHangoutz
 
 							alert1.Show();
 						}
+						//else if (wineid == "999999")
+						//{ 
+						//	//var Taste=new MyTastingViewController();
+						//LoggingClass.LogInfo(wineid + " got notification ",screen);
+						//	CurrentUser.navig.PushViewController(new MyTastingViewController(), false);
+					
+						//}
 						else
 						{
 								//

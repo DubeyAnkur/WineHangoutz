@@ -332,7 +332,12 @@ namespace WineHangoutz
 		{
 			try
 			{
-				imageView.SetImage(BlobWrapper.GetResizedImage(review.Barcode, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
+				string url = review.SmallImageURL;
+				if (url == null)
+				{
+					url = review.Barcode + ".jpg";
+				}
+				imageView.SetImage(BlobWrapper.GetResizedImage(url, new CGRect(0, 0, 100, 155), review.PlantFinal), UIControlState.Normal);
 				separator.Image = UIImage.FromFile("separator.png");
 				if (review.Vintage.Length<4)
 				{
