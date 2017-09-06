@@ -26,6 +26,8 @@ namespace WineHangoutz {
 		public UIView parent;
 		public UITextView AmountLeft;
 		public UIButton btnBack;
+		public UIButton btnBuy;
+		public string Sku;
 
 		//public void Dowork()
 		//{
@@ -139,6 +141,21 @@ namespace WineHangoutz {
 						alert.Show();
 					}
 				};
+
+				//for buy button
+				box.Height = 50;
+				box.Width = 75;
+				box.X = (Bounds.Width - 75);
+				box.Y = 40;
+				btnBuy = new UIButton(box);
+				btnBuy.ClipsToBounds = true;
+				btnBuy.Layer.BorderColor = UIColor.White.CGColor;
+				btnBuy.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
+				btnBuy.SetImage(UIImage.FromFile("buynow.png"), UIControlState.Normal);
+				btnBuy.TouchUpInside+= delegate {
+					UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.wineoutlet.com/sku"+Sku+".html"));
+				};
+
 				CGRect lower = new CGRect(Bounds.Location, Bounds.Size);
 				lower.Y = 50; //lower.Y + (ratio)*(Bounds.Height);
 				btnItemname = new UIButton(lower);
@@ -203,6 +220,11 @@ namespace WineHangoutz {
 				ratingView.UserInteractionEnabled = false;
 				//ratingView.BackgroundColor = UIColor.White;
 
+				//if (Sku != null)
+				//{
+					//ContentView.AddSubview(btnBuy);
+				//}
+
 				AmountLeft = new UITextView(new CGRect(0, Bounds.Height-30, Bounds.Width, 20));
 				AmountLeft.TextAlignment = UITextAlignment.Center;
 				AmountLeft.Editable = false;
@@ -220,7 +242,8 @@ namespace WineHangoutz {
 				ContentView.AddSubview(lblYear);
 				ContentView.AddSubview(lblRegPrice);
 				ContentView.AddSubview(ratingView);
-				//
+				//ContentView.AddSubview(btnBuy);
+
 
 			}
 			catch (Exception ex)

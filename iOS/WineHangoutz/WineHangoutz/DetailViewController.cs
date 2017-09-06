@@ -100,6 +100,16 @@ namespace WineHangoutz
 					btlImage.Frame = new CGRect(0, 10, width, width);
 					UIImage image = new UIImage("Images/loadin.png");
 
+					var btnBuy = new UIButton();
+					btnBuy.Frame=new CGRect(UIScreen.MainScreen.Bounds.Width-140, 70 + View.Frame.Width, 130, 70);
+					btnBuy.ClipsToBounds = true;
+					btnBuy.Layer.BorderColor = UIColor.White.CGColor;
+					//btnBuy.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
+					btnBuy.SetImage(UIImage.FromFile("buynow.png"), UIControlState.Normal);
+					btnBuy.TouchUpInside+= delegate {
+						UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.wineoutlet.com/sku"+data.SKU+".html"));
+					};
+
 					CGRect rect = btlImage.Bounds;
 					nfloat boxHeight = rect.Height; // which is = width;
 					//nfloat imgHeight = image.Size.Height;
@@ -354,6 +364,7 @@ namespace WineHangoutz
 					//Same will apply to ContentSize.Y
 					View.AddSubview(scrollView);
 					//View.AddSubview(NoReviews);
+					scrollView.AddSubview(btnBuy);
 					scrollView.AddSubview(lblName);
 					//scrollView.AddSubview(txtWineleft);
 					scrollView.AddSubview(lblVintage);

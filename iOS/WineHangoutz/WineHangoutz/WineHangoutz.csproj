@@ -368,6 +368,7 @@
     <BundleResource Include="Images\pp1.jpg" />
     <BundleResource Include="Images\scacus1.jpg" />
     <BundleResource Include="Images\wall1.jpg" />
+    <BundleResource Include="Resources\buynow.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamarin.auth">

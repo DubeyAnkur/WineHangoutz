@@ -155,6 +155,10 @@ namespace WineHangoutz
 				cell.RegPrice = myData.ItemList[index].SalePrice.ToString();
 				cell.averageRating = (decimal)myData.ItemList[index].AverageRating;
 				cell.WineBarcode = myData.ItemList[index].Barcode;
+				//cell.btnBuy.TouchUpInside+= delegate {
+				//	UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.wineoutlet.com/sku"+myData.ItemList[index].SKU+".html"));
+				//};
+				//cell.Sku = myData.ItemList[index].SKU;
 				if (fav == true)
 				{
 					cell.storeId = myData.ItemList[index].PlantFinal.ToString();

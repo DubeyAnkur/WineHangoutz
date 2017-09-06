@@ -1,31 +1,11 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/ServiceWrapper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/DetailViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/MyfavView.cs" Line="55" Column="34" />
-      <File FileName="WineHangoutz/MyReviewViewController.cs" Line="336" Column="1" />
-      <File FileName="WineHangoutz/MyFavController.cs" Line="54" Column="33" />
-      <File FileName="WineHangoutz/BlobWrapper.cs" Line="32" Column="54" />
-      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="202" Column="73" />
-      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="42" Column="7" />
-      <File FileName="WineHangoutz/MyTastingViewController.cs" Line="280" Column="49" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="51" Column="49" />
-      <File FileName="WineHangoutz/Tabs/SecondViewController.cs" Line="236" Column="1" />
-      <File FileName="WineHangoutz/Main.cs" Line="12" Column="1" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="307" Column="55" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="225" Column="8" />
+      <File FileName="WineHangoutz/PhyCollectionView.cs" Line="159" Column="22" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="22" Column="4" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="WineHangoutz" expanded="True">
-            <Node name="WineHangoutz" expanded="True">
-              <Node name="References" expanded="True" />
-              <Node name="Tabs" expanded="True" />
-              <Node name="ServiceWrapper.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
