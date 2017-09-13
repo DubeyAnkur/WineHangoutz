@@ -143,15 +143,15 @@ namespace WineHangoutz {
 				};
 
 				//for buy button
-				box.Height = 50;
-				box.Width = 75;
-				box.X = (Bounds.Width - 75);
+				box.Height = 35;
+				box.Width = 35;
+				box.X = (Bounds.Width - 40);
 				box.Y = 40;
 				btnBuy = new UIButton(box);
 				btnBuy.ClipsToBounds = true;
 				btnBuy.Layer.BorderColor = UIColor.White.CGColor;
 				btnBuy.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-				btnBuy.SetImage(UIImage.FromFile("buynow.png"), UIControlState.Normal);
+				btnBuy.SetImage(UIImage.FromFile("buy.png"), UIControlState.Normal);
 				btnBuy.TouchUpInside+= delegate {
 					UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.wineoutlet.com/sku"+Sku+".html"));
 				};
@@ -242,7 +242,7 @@ namespace WineHangoutz {
 				ContentView.AddSubview(lblYear);
 				ContentView.AddSubview(lblRegPrice);
 				ContentView.AddSubview(ratingView);
-				//ContentView.AddSubview(btnBuy);
+				ContentView.AddSubview(btnBuy);
 
 
 			}
@@ -261,7 +261,14 @@ namespace WineHangoutz {
         public UILabel lblYear { get; private set; }
 		public UILabel lblRegPrice { get; private set; }
         public PDRatingView ratingView { get; private set; }
-
+		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
+		{
+			UIGraphics.BeginImageContext(new CGSize(width, height));
+			sourceImage.Draw(new CGRect(0, 0, width, height));
+			var resultImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return resultImage;
+		}
 		private void NavigateToDetail()
 		{
 			

@@ -1,8 +1,10 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/DetailViewController.cs">
     <Files>
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="10" Column="23" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="19" Column="14" />
       <File FileName="WineHangoutz/Info.plist" />
+      <File FileName="WineHangoutz/APLCollectionViewCell.cs" Line="154" Column="42" />
+      <File FileName="WineHangoutz/DetailViewController.cs" Line="108" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
@@ -21,6 +23,6 @@
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.64cbab6ee22e783cf9cf9ef1b8dfa840d8aa5385" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MultiItemStartupConfigurations />
 </Properties>

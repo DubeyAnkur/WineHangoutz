@@ -105,7 +105,7 @@ namespace WineHangoutz
 					btnBuy.ClipsToBounds = true;
 					btnBuy.Layer.BorderColor = UIColor.White.CGColor;
 					//btnBuy.Layer.EdgeAntialiasingMask = CAEdgeAntialiasingMask.LeftEdge | CAEdgeAntialiasingMask.RightEdge | CAEdgeAntialiasingMask.BottomEdge | CAEdgeAntialiasingMask.TopEdge;
-					btnBuy.SetImage(UIImage.FromFile("buynow.png"), UIControlState.Normal);
+					btnBuy.SetImage(UIImage.FromFile("buy.png"), UIControlState.Normal);
 					btnBuy.TouchUpInside+= delegate {
 						UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.wineoutlet.com/sku"+data.SKU+".html"));
 					};
