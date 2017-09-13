@@ -442,38 +442,43 @@ namespace WineHangoutz
 					Scroll.AddSubview(StorePicker);
 					DownloadAsync();
 					cRes = svc.GetCustomerDetails(CurrentUser.RetreiveUserId()).Result;
-					name = cRes.customer.FirstName + " " + cRes.customer.LastName;
-					name = name.Trim();
-					txtName.Text = name;
-					txtEmail.Text = cRes.customer.Email;
-					//if (cRes.customer.PhoneNumber.Length != 10)
-					//{
-						//Console.WriteLine(cRes.customer.PhoneNumber);
-						txtFirst3.Text = cRes.customer.PhoneNumber.Substring(0,3);
-						//Console.WriteLine(cRes.customer.PhoneNumber.Substring(0, 3));
-						txtSecond3.Text = cRes.customer.PhoneNumber.Substring(3, 3);
-						//Console.WriteLine(cRes.customer.PhoneNumber.Substring(3, 3));
-						txtLast4.Text = cRes.customer.PhoneNumber.Substring(6);
-						//Console.WriteLine(cRes.customer.PhoneNumber.Substring(6));
-					//}
-					CardNumer.Text = cRes.customer.CardNumber;
-					lblCardDate.Text = cRes.customer.ExpireDate.ToString("MM-dd-yyyy");
-					txtZipcode.Text = cRes.customer.Zip;
-					string state = cRes.customer.State;
-					if (pickerDataModel.Items.Contains(state))
+					if (cRes.customer.CardNumber != null && cRes.customer.CardNumber != "")
 					{
-						int i = pickerDataModel.Items.FindIndex(n => n == state);
-						stpicker.Select(i, 0, false);
-					}
-					int prefStore = cRes.customer.PreferredStore;
-					StorePicker.Select(prefStore, 0, false);
-					txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2 + cRes.customer.City;
-					txtZipcode.AccessibilityScroll(UIAccessibilityScrollDirection.Up);
+						name = cRes.customer.FirstName + " " + cRes.customer.LastName;
+						name = name.Trim();
+						txtName.Text = name;
+						txtEmail.Text = cRes.customer.Email;
+						if (cRes.customer.PhoneNumber != null && cRes.customer.PhoneNumber != "")
+						{
+							//if (cRes.customer.PhoneNumber.Length != 10)
+							//{
+							//Console.WriteLine(cRes.customer.PhoneNumber);
+							txtFirst3.Text = cRes.customer.PhoneNumber.Substring(0, 3);
+							//Console.WriteLine(cRes.customer.PhoneNumber.Substring(0, 3));
+							txtSecond3.Text = cRes.customer.PhoneNumber.Substring(3, 3);
+							//Console.WriteLine(cRes.customer.PhoneNumber.Substring(3, 3));
+							txtLast4.Text = cRes.customer.PhoneNumber.Substring(6);
+							//Console.WriteLine(cRes.customer.PhoneNumber.Substring(6));
+							//}
+						}
+						CardNumer.Text = cRes.customer.CardNumber;
+						lblCardDate.Text = cRes.customer.ExpireDate.ToString("MM-dd-yyyy");
+						txtZipcode.Text = cRes.customer.Zip;
+						string state = cRes.customer.State;
+						if (pickerDataModel.Items.Contains(state))
+						{
+							int i = pickerDataModel.Items.FindIndex(n => n == state);
+							stpicker.Select(i, 0, false);
+						}
+						int prefStore = cRes.customer.PreferredStore;
+						StorePicker.Select(prefStore, 0, false);
+						txtAddress.Text = cRes.customer.Address1 + cRes.customer.Address2 + cRes.customer.City;
+						txtZipcode.AccessibilityScroll(UIAccessibilityScrollDirection.Up);
 						btnChange.TouchUpInside += (sender, e) =>
 						{
 							try
 							{
-								
+
 								UIAlertView alert = new UIAlertView()
 								{
 									Title = "Please choose an option to upload profile picture",
@@ -491,11 +496,11 @@ namespace WineHangoutz
 											IsCameraAuthorized();
 											TweetStation.Camera.TakePicture(this, (obj) =>
 																						{
-												var photo = obj.ValueForKey(new NSString("UIImagePickerControllerOriginalImage")) as UIImage;
-												var meta = obj.ValueForKey(new NSString("UIImagePickerControllerMediaMetadata")) as NSDictionary;
-												UploadProfilePic(photo);
-											});
-											}
+																							var photo = obj.ValueForKey(new NSString("UIImagePickerControllerOriginalImage")) as UIImage;
+																							var meta = obj.ValueForKey(new NSString("UIImagePickerControllerMediaMetadata")) as NSDictionary;
+																							UploadProfilePic(photo);
+																						});
+										}
 										catch (Exception exe)
 										{
 											LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
@@ -524,82 +529,95 @@ namespace WineHangoutz
 
 						btnUpdate.TouchUpInside += async delegate
 						{
-						string txtMobilenumber = txtFirst3.Text + txtSecond3.Text + txtLast4.Text;
-						if (txtMobilenumber.Length!=10)
-						{
-							BTProgressHUD.ShowErrorWithStatus("Phone number is invalid",3000);
-						}
-						if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
-						{
-							BTProgressHUD.ShowErrorWithStatus("Email is invalid",3000);
-						}
-						else if ((txtZipcode.Text.Length != 5))
-						{
-							BTProgressHUD.ShowErrorWithStatus("Zipcode is invalid",3000);
-						}
-						else if (txtFirst3.Text.Length != 3 || txtSecond3.Text.Length != 3 || txtLast4.Text.Length != 4)
-						{
-								BTProgressHUD.ShowErrorWithStatus("Phone number is invalid", 3000);
-						}
-						else
-						{
-							BTProgressHUD.Show("Updating Profile...");
-							LoggingClass.LogInfo("Update button into Profile View", screenid);
-							Customer cust = new Customer();
-							cust.CustomerID = CurrentUser.RetreiveUserId();
-							cust.Address1 = txtAddress.Text;
-							name = txtName.Text;
-							name = name.Trim();
-							try
+							string txtMobilenumber = txtFirst3.Text + txtSecond3.Text + txtLast4.Text;
+							if (txtMobilenumber.Length != 10)
 							{
-								string[] str1 = name.Split(' ');
-								if (str1.Length == 2)
+								BTProgressHUD.ShowErrorWithStatus("Phone number is invalid", 3000);
+							}
+							if ((txtEmail.Text.Contains("@")) == false || (txtEmail.Text.Contains(".")) == false)
+							{
+								BTProgressHUD.ShowErrorWithStatus("Email is invalid", 3000);
+							}
+							else if ((txtZipcode.Text.Length != 5))
+							{
+								BTProgressHUD.ShowErrorWithStatus("Zipcode is invalid", 3000);
+							}
+							else if (txtFirst3.Text.Length != 3 || txtSecond3.Text.Length != 3 || txtLast4.Text.Length != 4)
+							{
+								BTProgressHUD.ShowErrorWithStatus("Phone number is invalid", 3000);
+							}
+							else
+							{
+								BTProgressHUD.Show("Updating Profile...");
+								LoggingClass.LogInfo("Update button into Profile View", screenid);
+								Customer cust = new Customer();
+								cust.CustomerID = CurrentUser.RetreiveUserId();
+								cust.Address1 = txtAddress.Text;
+								name = txtName.Text;
+								name = name.Trim();
+								try
 								{
-									cust.FirstName = str1[0];
-									cust.LastName = str1[1];
+									string[] str1 = name.Split(' ');
+									if (str1.Length == 2)
+									{
+										cust.FirstName = str1[0];
+										cust.LastName = str1[1];
+									}
+									else
+									{
+										cust.FirstName = str1[0] + str1[1];
+										cust.LastName = str1[2];
+									}
+								}
+								catch (Exception exe)
+								{
+									LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
+								}
+								cust.Email = txtEmail.Text;
+								cust.PhoneNumber = txtMobilenumber;
+
+								if (pickerDataModel.SelectedItem == "AL")
+								{
+									if (pickerDataModel.Items.Contains(cRes.customer.State))
+									{
+										int i = pickerDataModel.Items.FindIndex(n => n == cRes.customer.State);
+										stpicker.Select(i, 0, false);
+									}
+									cust.State = cRes.customer.State;
 								}
 								else
 								{
-									cust.FirstName = str1[0] + str1[1];
-									cust.LastName = str1[2];
+									cust.State = pickerDataModel.SelectedItem;
 								}
-							}
-							catch (Exception exe)
-							{
-								LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
-							}
-							cust.Email = txtEmail.Text;
-							cust.PhoneNumber = txtMobilenumber;
-
-							if (pickerDataModel.SelectedItem == "AL")
-							{
-								if (pickerDataModel.Items.Contains(cRes.customer.State))
+								cust.Zip = txtZipcode.Text;
+								if (StoreDataModel.SelectedItem == 0)
 								{
-								int i = pickerDataModel.Items.FindIndex(n => n == cRes.customer.State);
-								stpicker.Select(i, 0, false);
+									cust.PreferredStore = cRes.customer.PreferredStore;
+									StorePicker.Select(cRes.customer.PreferredStore, 0, false);
+									CurrentUser.PutStore(cust.PreferredStore);
 								}
-								cust.State = cRes.customer.State;
+								else
+								{
+									cust.PreferredStore = StoreDataModel.SelectedItem;
+									CurrentUser.PutStore(cust.PreferredStore);
+								}
+								await svc.UpdateCustomer(cust);
+								BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
 							}
-							else
-							{
-								cust.State = pickerDataModel.SelectedItem;
-							}
-							cust.Zip = txtZipcode.Text;
-							if (StoreDataModel.SelectedItem == 0)
-							{
-								cust.PreferredStore = cRes.customer.PreferredStore;
-								StorePicker.Select(cRes.customer.PreferredStore, 0, false);
-								CurrentUser.PutStore(cust.PreferredStore);
-							}
-							else
-							{
-								cust.PreferredStore = StoreDataModel.SelectedItem;
-								CurrentUser.PutStore(cust.PreferredStore);
-							}
-							await svc.UpdateCustomer(cust);
-							BTProgressHUD.ShowSuccessWithStatus("Profile Updated.");
-						}
-					};
+						};
+
+					}
+					else
+					{
+						UIAlertView alert = new UIAlertView()
+						{
+							Title = "Sorry",
+							Message = "Something went wrong. We are on it"
+						};
+
+						alert.AddButton("OK");
+						alert.Show();
+					}
 				}
 
 				Scroll.AddGestureRecognizer(taps);
@@ -643,7 +661,16 @@ namespace WineHangoutz
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e.Message + "\n" + e.StackTrace);
+					UIAlertView alert = new UIAlertView()
+					{
+						Title = "Sorry",
+						Message = "Something went wrong. We are on it"
+					};
+
+					alert.AddButton("OK");
+					alert.Show();
+				LoggingClass.LogError(e.Message, screenid, e.StackTrace);
+				//Console.WriteLine(e.Message + "\n" + e.StackTrace);
 			}
 		}
 		void Handle_Canceled(object sender, EventArgs e)

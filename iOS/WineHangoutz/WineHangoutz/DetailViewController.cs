@@ -364,7 +364,7 @@ namespace WineHangoutz
 					//Same will apply to ContentSize.Y
 					View.AddSubview(scrollView);
 					//View.AddSubview(NoReviews);
-					scrollView.AddSubview(btnBuy);
+					//scrollView.AddSubview(btnBuy);
 					scrollView.AddSubview(lblName);
 					//scrollView.AddSubview(txtWineleft);
 					scrollView.AddSubview(lblVintage);

@@ -158,7 +158,7 @@ namespace WineHangoutz
 				//cell.btnBuy.TouchUpInside+= delegate {
 				//	UIApplication.SharedApplication.OpenUrl(new NSUrl("http://www.wineoutlet.com/sku"+myData.ItemList[index].SKU+".html"));
 				//};
-				//cell.Sku = myData.ItemList[index].SKU;
+				cell.Sku = myData.ItemList[index].SKU;
 				if (fav == true)
 				{
 					cell.storeId = myData.ItemList[index].PlantFinal.ToString();
@@ -254,7 +254,10 @@ namespace WineHangoutz
 				}
 				//UIImage image = BlobWrapper.GetImageBitmapFromWineId(myData.ItemList[index].WineId.ToString());
 				string url = myData.ItemList[index].SmallImageUrl;
-
+				if (url == null)
+				{
+					url = myData.ItemList[index].Barcode + ".jpg";
+				}
 				UIImage image = BlobWrapper.GetResizedImage(url, cell.btlImage.Bounds, cell.storeId.ToString());
 				if (image != null)
 				{

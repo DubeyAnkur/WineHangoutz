@@ -417,7 +417,7 @@ namespace WineHangoutz
 			CustomerResponse output = null;
 			try
 			{
-
+				BTProgressHUD.Show(LoggingClass.txtpleasewait);
 				var uri = new Uri(ServiceURL + "UpdateEmailAddress/"+email+"/user/"+userid);
 				var content = JsonConvert.SerializeObject(email);
 				var cont = new StringContent(content, System.Text.Encoding.UTF8, "application/json");
@@ -426,6 +426,7 @@ namespace WineHangoutz
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Token);
 				var response = await client.GetStringAsync(uri).ConfigureAwait(false);
 				output = JsonConvert.DeserializeObject<CustomerResponse>(response);
+				BTProgressHUD.Dismiss();
 			}
 			catch (Exception ex)
 			{

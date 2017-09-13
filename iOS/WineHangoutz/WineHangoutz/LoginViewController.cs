@@ -120,10 +120,14 @@ namespace WineHangoutz
 				btnCardScanner= new UIButton();
 				btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 100, hei, 200, 152);
 				btnCardScanner.SetBackgroundImage(new UIImage("card-icon.png"), UIControlState.Normal);
+
+				//height setting for button
 				start = hei + btnCardScanner.Frame.Height + 10;
-				//btnCardScanner.SetTitle("Touch here to scan", UIControlState.Normal);
+
+				//Scanning Button Click event
 				btnCardScanner.TouchUpInside += async (sender, e) =>
 				{
+					
 					try
 					{
 						scanner.UseCustomOverlay = false;
@@ -261,11 +265,10 @@ namespace WineHangoutz
 		}
 		public async void ShowInfo(CustomerResponse cr,Boolean Continue)
 		{
+			BTProgressHUD.Show("Please wait...");
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			try
 			{
-				BTProgressHUD.Show("Please wait...");
-
 				//cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 				if (CardNumber != null)
 				{
@@ -473,6 +476,7 @@ namespace WineHangoutz
 						BtnTest2.Hidden = true;
 						CurrentUser.PutEmail(Email);
 						cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
+						BTProgressHUD.Show("Loading...");
 						ShowInfo(cr, false);
 					} 
 					//Console.WriteLine(updatedEmail);
@@ -490,7 +494,7 @@ namespace WineHangoutz
 					btnLogin.Hidden = true;
 					btnResend.Hidden = true;
 				}
-				BTProgressHUD.Show("Please wait...");
+				BTProgressHUD.Show(LoggingClass.txtpleasewait);
 				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 				if (CardNumber != null)
 				{
@@ -498,6 +502,7 @@ namespace WineHangoutz
 				}
 				if (cr != null)
 				{
+					CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 					if (cr.customer.Email != null && cr.customer.Email != "")
 					{
 						lblInfo.Text = cr.ErrorDescription;// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";

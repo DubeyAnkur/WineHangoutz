@@ -219,7 +219,7 @@ namespace WineHangoutz {
 				ratingView = new PDRatingView(new CGRect(Bounds.Width * 1 / 4, Bounds.Height - 40, Bounds.Width / 2, 14f), ratingConfig, averageRating);
 				ratingView.UserInteractionEnabled = false;
 				//ratingView.BackgroundColor = UIColor.White;
-
+				//Console.WriteLine(Sku);
 				//if (Sku != null)
 				//{
 					//ContentView.AddSubview(btnBuy);

@@ -72,12 +72,20 @@ namespace WineHangoutz
 							};
 						View.AddSubview(btnrefresh);
 					}
+					//UIAlertView alert = new UIAlertView()
+					//{
+					//	Title = "Please swipe down to get your new tastings.",
+					//	//Message = "Coming Soon..."
+					//};
+					//alert.AddButton("OK");
+					//alert.Show();
                     this.View.Add(refreshControl);
 					refreshControl.ValueChanged += delegate {
 						RefreshParent();
 					};
 					TableView.AllowsSelection = false;
 					TableView.Source = new MyTastingTableSource(tastingData.TastingList.ToList(), NavigationController, this);
+					//BTProgressHUD.Dismiss();
 				}
 
 			}
