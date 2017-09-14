@@ -84,7 +84,7 @@ namespace WineHangoutz
 				{
 					img = new UIImage("Wines/bottle.jpg");
 				}
-				LoggingClass.LogError(e.Message, screen, e.StackTrace.ToString());
+				//LoggingClass.LogError(e.Message, screen, e.StackTrace.ToString());
 			}
 			return img;
 		}
@@ -161,13 +161,13 @@ namespace WineHangoutz
 				}
 				else
 				{
-					LoggingClass.LogError(wineId+"wine image not exist in blob", screen, "no line number");
+					//LoggingClass.LogError(wineId+"wine image not exist in blob", screen, "no line number");
 				}
 			}
 			catch (Exception e)
 			{
 
-				LoggingClass.LogError(e.ToString(), screen, e.StackTrace);
+				//LoggingClass.LogError(e.ToString(), screen, e.StackTrace);
 
 				//ignore the error. Download it next time.
 			}
@@ -243,7 +243,7 @@ namespace WineHangoutz
 			catch (Exception e)
 			{
 
-				LoggingClass.LogError(e.ToString(), screen, e.StackTrace);
+				//LoggingClass.LogError(e.ToString(), screen, e.StackTrace);
 
 				return null;
 			}
@@ -272,7 +272,7 @@ namespace WineHangoutz
 				await blob.UploadFromByteArrayAsync(myByteArray, 0, i);
 			}catch (Exception ex)
 			{
-				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
+				//LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 
 		}
@@ -331,7 +331,7 @@ namespace WineHangoutz
 					catch (Exception e)
 					{
 						//Console.WriteLine("Image load failed: " + e.Message);
-					LoggingClass.LogError(e.ToString(), screen, e.StackTrace);
+						//LoggingClass.LogError(e.ToString(), screen, e.StackTrace);
 			
 						return null;
 					}
@@ -351,7 +351,7 @@ namespace WineHangoutz
 			}
 			catch (Exception exe)
 			{
-				LoggingClass.LogError(exe.Message, screen, exe.StackTrace.ToString());
+				//LoggingClass.LogError(exe.Message, screen, exe.StackTrace.ToString());
 			}
 			return img;
 		}

@@ -13,6 +13,7 @@ namespace WineHangoutz
 	{
 		public Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
 		public UIViewController root;
+		nfloat screenheight = UIScreen.MainScreen.Bounds.Height;
 		public UINavigationController nav;
 		public UIButton btnGuestLogin;
 		public UILabel lblIns;
@@ -34,6 +35,7 @@ namespace WineHangoutz
 		public UIViewController RootTabs;
 		public UIWindow _window;
 		public UIButton btnLogin;
+		public nfloat y = 0;
 		string uid_device = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 		public LoginViewController() : base()
 		{
@@ -43,6 +45,9 @@ namespace WineHangoutz
 		{
 			try
 			{
+				nfloat starty = 70;
+
+				//nfloat screenheight = UIScreen.MainScreen.Bounds.Height;
 				nfloat width = UIScreen.MainScreen.Bounds.Width;
 				width = width / 2 - 15; 				if (internetStatus == false)
 				{
@@ -59,7 +64,7 @@ namespace WineHangoutz
 				{
 					PreInfo(CurrentUser.GetCardNumber());
 				}
-				CGSize sTemp = new CGSize(View.Frame.Width, 100);
+				CGSize sTemp = new CGSize(View.Frame.Width-10, 100);
 				//checking is cust is scanned card or not
 				//if (CurrentUser.RetreiveUserId() != 0)
 				//{
@@ -86,26 +91,25 @@ namespace WineHangoutz
 				MobileBarcodeScanner scanner = new MobileBarcodeScanner();
 				nfloat h = 31.0f;
 				nfloat w = View.Bounds.Width;
-				nfloat imageSize = 50;
-
+				nfloat imageheight = screenheight/5;
+				nfloat imagewidth = UIScreen.MainScreen.Bounds.Width;
 				var imgLogo = new UIImageView();
-				imgLogo.Frame = new CGRect((View.Frame.Width / 2) - 50, 70, 100, 100);
-
+				imgLogo.Frame = new CGRect(((imagewidth/2)-(imageheight/2)), starty, imageheight, imageheight);
 				imgLogo.Image = UIImage.FromFile("logo5.png");
-
+				y = starty + imageheight;
 				lblIns = new UILabel();
 				lblIns.Text = "Please scan your VIP card barcode by touching below card:";
 				lblIns.LineBreakMode = UILineBreakMode.WordWrap;
 				lblIns.Lines = 0;
 				sTemp = lblIns.SizeThatFits(sTemp);
-				lblIns.Frame = new CGRect(0, 180, View.Frame.Width, sTemp.Height);
-
-
+				lblIns.Frame = new CGRect(0, y, View.Frame.Width-10, sTemp.Height);
 				lblIns.TextAlignment = UITextAlignment.Center;
 				lblIns.TextColor = UIColor.Black;
+				//Console.WriteLine(y+"\n"+sTemp.Height);
 
+				y = y+sTemp.Height;
 				lblInfo = new UILabel();
-				lblInfo.Frame = new CGRect(10, 300, View.Frame.Width, h);
+				lblInfo.Frame = new CGRect(20, y, View.Frame.Width-10, h);
 				lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 				lblInfo.Lines = 0;
 				lblInfo.TextAlignment = UITextAlignment.Center;
@@ -118,12 +122,23 @@ namespace WineHangoutz
 
 				nfloat hei = 180 + lblIns.Frame.Height + 10;
 				btnCardScanner= new UIButton();
-				btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 100, hei, 200, 152);
+				if (screenheight <= 568)
+				{
+					btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 100, y, 200, 122);
+				}
+				else
+				{
+					btnCardScanner.Frame = new CGRect((View.Frame.Width / 2) - 100, y, 200, 152);
+				}
 				btnCardScanner.SetBackgroundImage(new UIImage("card-icon.png"), UIControlState.Normal);
 
 				//height setting for button
 				start = hei + btnCardScanner.Frame.Height + 10;
-
+				//Console.WriteLine(hei);
+				//Console.WriteLine(btnCardScanner.Frame.Height);
+				//Console.WriteLine(start);
+				//Console.WriteLine(View.Frame.Height);
+				//568
 				//Scanning Button Click event
 				btnCardScanner.TouchUpInside += async (sender, e) =>
 				{
@@ -144,15 +159,16 @@ namespace WineHangoutz
 						LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 					}
 				};
+				y = y + 200;
 				//nfloat strtguest = strtbtn + btnLogin.Frame.Height + 10;
 				UILabel lblGuest = new UILabel();
-				lblGuest.Frame = new CGRect(20, View.Frame.Height - 70, View.Frame.Width, h);
+				lblGuest.Frame = new CGRect(20, View.Frame.Height - 50, View.Frame.Width, h);
 				lblGuest.Text = "Not a VIP Member?";
 				lblGuest.TextAlignment = UITextAlignment.Left;
 				lblGuest.Font = UIFont.ItalicSystemFontOfSize(17);
 				lblGuest.TextColor = UIColor.Black;
 
-				btnGuestLogin = new UIButton(new CGRect(180, View.Frame.Height - 70, 120, 30));
+				btnGuestLogin = new UIButton(new CGRect(180, View.Frame.Height - 50, 120, 30));
 				btnGuestLogin.SetTitle("Guest Log In", UIControlState.Normal);
 				btnGuestLogin.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 				btnGuestLogin.SetTitleColor(UIColor.White, UIControlState.Normal);
@@ -171,7 +187,7 @@ namespace WineHangoutz
 				btnResend.SetTitleColor(UIColor.White, UIControlState.Normal);
 				btnResend.BackgroundColor = UIColor.Purple;
 
-				BtnTest1 = new UIButton(new CGRect(200, strtbtn, 120, 30));
+				BtnTest1 = new UIButton(new CGRect(200, strtbtn, 100, 30));
 				BtnTest1.SetTitle("Continue", UIControlState.Normal);
 				BtnTest1.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 				BtnTest1.SetTitleColor(UIColor.White, UIControlState.Normal);
@@ -183,7 +199,7 @@ namespace WineHangoutz
 				BtnTest2.SetTitleColor(UIColor.White, UIControlState.Normal);
 				BtnTest2.BackgroundColor = UIColor.Purple;
 
-				btnVerify = new UIButton(new CGRect(24, imageSize + 270, 240, 20));
+				btnVerify = new UIButton(new CGRect(24, imageheight + 270, 240, 20));
 				btnVerify.SetTitle("Verify", UIControlState.Normal);
 				btnVerify.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
 				btnVerify.SetTitleColor(UIColor.Purple, UIControlState.Normal);
@@ -285,18 +301,25 @@ namespace WineHangoutz
 					//EmailVerification();
 					if (cr.customer.Email != "" && cr.customer.Email != null)
 					{
-						if (Continue == true)
+						//if (screenheight <= 568)
+						//{
+						//	y = y - 80;
+						//}
+						if (cr.ErrorDescription== null && cr.ErrorDescription=="")
 						{
-							lblInfo.Text=" Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at\n " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+							lblInfo.Text= "Hi " + cr.customer.FirstName + " " +
+								cr.customer.LastName + ",\nWe have sent you a verification link to "
+								+cr.customer.Email+". Please click on the activation link to activate the account.";
 						}
 						else
 						{
-							lblInfo.Text = cr.ErrorDescription;// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We have sent an email at\n " + cr.customer.Email + ".\n Please verify email to continue login. ";//\n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+							lblInfo.Text = cr.ErrorDescription;
 						}
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
-						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+						Console.WriteLine("Show info "+y);
+						lblInfo.Frame = new CGRect(10, y, View.Frame.Width, sTemp.Height);
 						lblInfo.TextAlignment = UITextAlignment.Left;
 						lblInfo.TextColor = UIColor.Black;
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
@@ -310,9 +333,11 @@ namespace WineHangoutz
 						catch(Exception exe) 
 						{
 						}
-						strtbtn = start + lblInfo.Frame.Height + 10;
-						btnLogin.Frame=new CGRect(180, strtbtn, 120, 30);
-						btnResend.Frame = new CGRect(30, strtbtn, 120, 30);
+
+						start = 0;
+						start = y + lblInfo.Frame.Height + 10;
+						btnLogin.Frame=new CGRect(180, start, 120, 30);
+						btnResend.Frame = new CGRect(30, start, 120, 30);
 
 						btnResend.TouchUpInside += async (send, eve) =>
 						{
@@ -476,7 +501,12 @@ namespace WineHangoutz
 						BtnTest2.Hidden = true;
 						CurrentUser.PutEmail(Email);
 						cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
-						BTProgressHUD.Show("Loading...");
+						LoggingClass.LogInfo(CurrentUser.GetCardNumber() + " Updated mail id to" + Email, screenid);
+						BTProgressHUD.Show(LoggingClass.txtpleasewait);
+						if (screenheight <= 568)
+						{
+							y = y - 80;
+						}
 						ShowInfo(cr, false);
 					} 
 					//Console.WriteLine(updatedEmail);
@@ -486,6 +516,7 @@ namespace WineHangoutz
 		}
 		public async void PreInfo(string CardNumber)
 		{
+			//Console.WriteLine("Preinfo with"+CardNumber);
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			try
 			{
@@ -495,35 +526,71 @@ namespace WineHangoutz
 					btnResend.Hidden = true;
 				}
 				BTProgressHUD.Show(LoggingClass.txtpleasewait);
+				//Console.WriteLine("AuthencateUser Calling");
 				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
+				//Console.WriteLine("AuthencateUser Called");
 				if (CardNumber != null)
 				{
 					CurrentUser.PutCardNumber(CardNumber);
 				}
 				if (cr != null)
 				{
+					Console.WriteLine("Customer Response" + cr.customer.Email);
+					var TaskA = new System.Threading.Tasks.Task(() =>
+					{
+						updatetoken(cr);	
+					});
+					TaskA.Start();
+					//Storing customerid and updating the device tokens
 					CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 					if (cr.customer.Email != null && cr.customer.Email != "")
 					{
-						lblInfo.Text = cr.ErrorDescription;// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
+						if (cr.ErrorDescription == null && cr.ErrorDescription == "")
+						{
+							lblInfo.Text ="Hi " + cr.customer.FirstName 
+								+ " " + cr.customer.LastName +
+								", \nWe are sending a verification email to " + 
+								cr.customer.Email + 
+								" . To proceed press continue.\nTo change your emailAddress click on Update.";
+						}
+						else
+						{
+							lblInfo.Text = cr.ErrorDescription;
+						}
+						//Console.WriteLine("Email id is therr"+cr.customer.Email);
+						// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
+						lblInfo.TextAlignment = UITextAlignment.Justified;
 						lblInfo.Lines = 0;
+						//lblInfo.te
 						sTemp = lblInfo.SizeThatFits(sTemp);
-						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+						if (screenheight <= 568)
+						{
+							y = y - 80;
+							lblInfo.Frame = new CGRect(10, y, View.Frame.Width-10, sTemp.Height);
+						}
+						else
+						{
+							lblInfo.Frame = new CGRect(10, y, View.Frame.Width-10, sTemp.Height);
+						}
+						Console.WriteLine("Preinfo info "+y);
 						lblInfo.TextAlignment = UITextAlignment.Left;
 						lblInfo.TextColor = UIColor.Black;
+						lblInfo.Font=UIFont.FromName("HelveticaNeue", 15f);
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-						strtbtn = start + lblInfo.Frame.Height + 10;
-
-						BtnTest1.Frame = new CGRect(200, strtbtn, 120, 30);
-						BtnTest2.Frame = new CGRect(30, strtbtn, 140, 30);
+						start = 0;
+						start = y + lblInfo.Frame.Height + 10;
+						Console.WriteLine("Error "+cr.ErrorDescription);
+						BtnTest1.Frame = new CGRect(180, start, 120, 30);
+						BtnTest2.Frame = new CGRect(30, start, 140, 30);
 						try
 						{
 							BtnTest1.Hidden = false;
 							BtnTest2.Hidden = false;
 						}
 						catch (Exception ex)
-						{ 
+						{
+							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 						}
 						BtnTest1.TouchUpInside += async delegate
 						 {
@@ -541,9 +608,18 @@ namespace WineHangoutz
 					}
 					else
 					{
-						UpdateEmail(cr.ErrorDescription);
+						if (cr.ErrorDescription == null && cr.ErrorDescription == "")
+						{
+							UpdateEmail("Hi " + cr.customer.FirstName + cr.customer.LastName +
+										", \nIt seems we do not have your email address! Please update it so we can send you a verification link that will activate your account.");
+						}
+						else
+						{
+							UpdateEmail(cr.ErrorDescription);
+						}
 					}
 					BTProgressHUD.Dismiss();
+
 				}
 				else
 				{
@@ -555,18 +631,35 @@ namespace WineHangoutz
 						btnResend.Hidden = true;
 					}
 					catch (Exception ex)
-					{ 
+					{
+						Console.WriteLine(ex.Message);
 					}
 					lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
 					lblInfo.TextColor = UIColor.Red;
 					lblInfo.TextAlignment = UITextAlignment.Center;
 					sTemp = lblInfo.SizeThatFits(sTemp);
-					lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+					lblInfo.Frame = new CGRect(0, y, View.Frame.Width-10, sTemp.Height);
 					BTProgressHUD.Dismiss();
 				}
 			}
 			catch (Exception ex)
-			{ 
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
+		public async void updatetoken(CustomerResponse cr)
+		{
+			try
+			{
+				if (CurrentUser.GetDeviceToken() != null)
+				{
+					ServiceWrapper svc = new ServiceWrapper();
+					await svc.InsertUpdateToken(CurrentUser.GetDeviceToken(), cr.customer.CustomerID.ToString());
+				}
+			}
+			catch (Exception ex)
+			{
+				LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
 			}
 		}
 	}
@@ -665,15 +758,15 @@ namespace WineHangoutz
 			string token = plist.StringForKey("Authtoken");
 			return token;
 		}
-		//public static void PutDeviceToken(string DeviceToken)
-		//{
-		//	plist.SetString(DeviceToken, "DeviceToken");
-		//}
-		//public static string GetDeviceToken()
-		//{
-		//	string token = plist.StringForKey("DeviceToken");
-		//	return token;
-		//}
+		public static void PutDeviceToken(string DeviceToken)
+		{
+			plist.SetString(DeviceToken, "DeviceToken");
+		}
+		public static string GetDeviceToken()
+		{
+			string token = plist.StringForKey("DeviceToken");
+			return token;
+		}
 		public static void PutEmail(string Email)
 		{
 		plist.SetString(Email, "Email");
@@ -683,4 +776,5 @@ namespace WineHangoutz
 			string Email = plist.StringForKey("Email");
 			return Email; 		}
 	}
+
 }

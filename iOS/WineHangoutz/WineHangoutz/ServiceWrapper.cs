@@ -303,6 +303,7 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
+			LoggingClass.LogServiceInfo(CurrentUser.GetCardNumber()+" User Device token "+token.Replace(" ", ""), "InsertUpdateToken");
 			LoggingClass.LogServiceInfo("Service "+sw.Elapsed.TotalSeconds, "InsertUpdateToken");
 			//Console.WriteLine("InsertUpdateToken service Time Elapsed"+sw.Elapsed.TotalSeconds);
 			return 1;
@@ -433,7 +434,8 @@ namespace WineHangoutz
 				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
 			}
 			sw.Stop();
-			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Guest Service");
+			LoggingClass.LogServiceInfo(userid+"user updated Service,"+email,"Email Service,");
+			LoggingClass.LogServiceInfo("Service " + sw.Elapsed.TotalSeconds, "Email Service,");
 			return output;
 		}
 		public async Task<CustomerResponse> ContinueService(CustomerResponse customer)

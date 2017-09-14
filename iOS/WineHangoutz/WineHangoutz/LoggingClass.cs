@@ -48,7 +48,7 @@ namespace WineHangoutz
 		{
 			//pathcre();
 			var csv = new StringBuilder();
-			var newLine = string.Format("{0},{1},{2}", "Time", time, screen);
+			var newLine = string.Format("{0},{1},{2},{3}", "Time", time, screen,"Ios");
 			csv.AppendLine(newLine);
 			//try
 			//{
@@ -65,7 +65,7 @@ namespace WineHangoutz
 		{
 			//pathcre();
 			var csv = new StringBuilder();
-			var newLine = string.Format("{0},{1},{2},{3}", "Information", DateTime.Now, info, screen);
+			var newLine = string.Format("{0},{1},{2},{3},{4}", "Information", DateTime.Now, info, screen,"Ios");
 			csv.AppendLine(newLine);
 			//try
 			//{
@@ -81,15 +81,8 @@ namespace WineHangoutz
 		{
             //pathcre();
 			var csv = new StringBuilder();
-			var newLine = string.Format("{0},{1},{2},{3}", "Exception", DateTime.Now, error, screen);
+			var newLine = string.Format("{0},{1},{2},{3},{4}", "Exception", DateTime.Now, error, screen,"Ios");
 			csv.AppendLine(newLine);
-			//try
-			//{
-			//	File.AppendAllText(LogPath, csv.ToString());
-			//}
-			//catch (Exception ex)
-			//{ 
-			//}
 			string logg = csv.ToString();
 			UploadAsyncLogs(logg);
 		}
@@ -97,15 +90,8 @@ namespace WineHangoutz
 		{
             //pathcre();
 			var csv = new StringBuilder();
-			var newLine = string.Format("{0},{1},{2},{3}", "service", DateTime.Now, Info, servicename);
+			var newLine = string.Format("{0},{1},{2},{3},{4}", "service", DateTime.Now, Info, servicename,"Ios");
 			csv.AppendLine(newLine);
-			//try
-			//{
-			//	File.AppendAllText(LogPath, csv.ToString());
-			//}
-			//catch (Exception ex)
-			//{ 
-			//}
 			string logg = csv.ToString();
 			UploadAsyncLogs(logg);
 		}
@@ -118,8 +104,6 @@ namespace WineHangoutz
 				CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
 				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
 				CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
-				//await container.CreateIfNotExistsAsync();
-				//File.AppendAllText(LogPath, log);
 				CloudAppendBlob append = container.GetAppendBlobReference(userid+".csv");
 				if (!await append.ExistsAsync())
 				{

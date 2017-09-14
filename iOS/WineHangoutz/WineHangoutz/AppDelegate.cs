@@ -18,11 +18,7 @@ namespace WineHangoutz
 		protected string screen = "App Delegate";
 		public UIWindow _window;
 		public string DeviceToken {get { return deviceToken; } }
-		public override UIWindow Window
-		{
-			get;
-			set;
-		}
+		public override UIWindow Window {	get;	set; }
 		public bool RestrictRotation { get; set; }
 		//public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
 		//{
@@ -40,15 +36,15 @@ namespace WineHangoutz
 		{
 			try
 			{
-				//DownloadAllImages() for downloading all wine images
+				//downloading all wine images
 				BlobWrapper.DownloadAllImages();
 				// Override point for customization after application launch.
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-				//CurrentUser.Clear();
-				CurrentUser.Store("48732", "Mohana Simulator");
+				CurrentUser.Clear();
+				//CurrentUser.Store("48732", "Mohana Simulator");
 				//for direct log in
-				CurrentUser.PutCardNumber("900497322152");
+				CurrentUser.PutCardNumber("900497312429");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
@@ -59,7 +55,7 @@ namespace WineHangoutz
 				if (CurrentUser.RetreiveUserId() != 0)
 				{
 					ManageTabBar(RootTab);
-					//Console.WriteLine(DateTime.Now + " App opened");
+					LoggingClass.LogInfo("App opened " + CurrentUser.RetreiveUserId(), screen);
 					nav = new UINavigationController(RootTab);
 					//Window.RootViewController = RootTab;
 					AddNavigationButtons(nav);
@@ -151,10 +147,12 @@ namespace WineHangoutz
 				if (!string.IsNullOrWhiteSpace(DeviceToken))
 				{
 					DeviceToken = DeviceToken.Trim('<').Trim('>');
+					CurrentUser.PutDeviceToken(DeviceToken);
 				}
 				ServiceWrapper svc = new ServiceWrapper();
 				await svc.InsertUpdateToken(DeviceToken, CurrentUser.RetreiveUserId().ToString());
 					LoggingClass.LogInfo("Device Token " + DeviceToken, screen);
+					
 					//CurrentUser.PutDeviceToken(DeviceToken);
 					//UIAlertView alert1 = new UIAlertView()
 					//{
@@ -189,6 +187,7 @@ namespace WineHangoutz
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 		{
 			ProcessNotification(userInfo, false);
+			LoggingClass.LogInfo("Notification Received", screen);
 		}
 		//Processing the notification
 		void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
@@ -198,6 +197,7 @@ namespace WineHangoutz
 				try
 				{
 					//getting barcode,storeid 
+					LoggingClass.LogInfo("Notification Received", screen);
 					string wine = options.ObjectForKey(new NSString("barcode")).ToString();
 					string storeid=options.ObjectForKey(new NSString("storeid")).ToString();
 					NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
