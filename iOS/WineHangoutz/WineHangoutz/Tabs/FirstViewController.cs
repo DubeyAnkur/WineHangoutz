@@ -96,10 +96,10 @@ namespace WineHangoutz
 
 					//BTProgressHUD.Dismiss();//show spinner + text
 				};
-				//btnSec.TouchDown += (sender, e) => 
-				//{
-				//	BTProgressHUD.Show(LoggingClass.txtloading);
-				//};
+				btnSec.TouchDown += (sender, e) => 
+				{
+					BTProgressHUD.Show(LoggingClass.txtloading);
+				};
 				btnMan.TouchUpInside += (sender, e) =>
 				{
 					nfloat width = UIScreen.MainScreen.Bounds.Width;
@@ -119,19 +119,30 @@ namespace WineHangoutz
 				};
 				btnSec.TouchUpInside += (sender, e) =>
 				{
-					UIAlertView alert = new UIAlertView()
+					nfloat width = UIScreen.MainScreen.Bounds.Width;
+					width = width / 2 - 15;
+
+					UICollectionViewFlowLayout flowLayout;
+					flowLayout = new UICollectionViewFlowLayout()
 					{
-						Title = LoggingClass.txtstore3+" Store",
-						Message = "Coming Soon..."
+						ItemSize = new CGSize(width, 325.0f),
+											SectionInset = new UIEdgeInsets(10.0f, 10.0f, 10.0f, 10.0f),
+											ScrollDirection = UICollectionViewScrollDirection.Vertical
 					};
-					LoggingClass.LogInfo("Clicked on "+LoggingClass.txtstore3, screen);
-
-
-					alert.AddButton("OK");
-					alert.Show();
+					NavigationController.NavigationBar.TopItem.Title = "Locations";
+					NavigationController.PushViewController(new PhyCollectionView(flowLayout, 3), false);
+					LoggingClass.LogInfo("Entered into "+LoggingClass.txtstore3, screen);
+					BTProgressHUD.Dismiss();
+					//UIAlertView alert = new UIAlertView()
+					//{
+					//	Title = LoggingClass.txtstore3+" Store",
+					//	Message = "Coming Soon..."
+					//};
+					//LoggingClass.LogInfo("Clicked on "+LoggingClass.txtstore3, screen);
+					//alert.AddButton("OK");
+					//alert.Show();
 					//nfloat width = UIScreen.MainScreen.Bounds.Width;
 					//width = width / 2 - 15;
-
 					//					UICollectionViewFlowLayout flowLayout;
 					//flowLayout = new UICollectionViewFlowLayout()
 					//{

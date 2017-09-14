@@ -11,8 +11,9 @@ namespace WineHangoutz
 
 	public class LoginViewController : UIViewController
 	{
-		public Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
+		//public Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
 		public UIViewController root;
+		public Boolean emailnotpresent;
 		nfloat screenheight = UIScreen.MainScreen.Bounds.Height;
 		public UINavigationController nav;
 		public UIButton btnGuestLogin;
@@ -49,7 +50,7 @@ namespace WineHangoutz
 
 				//nfloat screenheight = UIScreen.MainScreen.Bounds.Height;
 				nfloat width = UIScreen.MainScreen.Bounds.Width;
-				width = width / 2 - 15; 				if (internetStatus == false)
+				width = width / 2 - 15; 				if (Reachability.IsHostReachable("https://www.google.com") == false)
 				{
 					UIAlertView alert = new UIAlertView()
 					{
@@ -305,8 +306,10 @@ namespace WineHangoutz
 						//{
 						//	y = y - 80;
 						//}
-						if (cr.ErrorDescription== null && cr.ErrorDescription=="")
+						Console.WriteLine("Error Discription before if \n in showinfo"+cr.ErrorDescription);
+						if ((cr.ErrorDescription == null && cr.ErrorDescription == "" )||cr.customer.CustomerID!=0)
 						{
+							Console.WriteLine("Error Discription in if\n in showinfo"+cr.ErrorDescription);
 							lblInfo.Text= "Hi " + cr.customer.FirstName + " " +
 								cr.customer.LastName + ",\nWe have sent you a verification link to "
 								+cr.customer.Email+". Please click on the activation link to activate the account.";
@@ -318,8 +321,8 @@ namespace WineHangoutz
 						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
-						Console.WriteLine("Show info "+y);
-						lblInfo.Frame = new CGRect(10, y, View.Frame.Width, sTemp.Height);
+						//Console.WriteLine("Show info "+y);
+						lblInfo.Frame = new CGRect(10, y, View.Frame.Width-10, sTemp.Height);
 						lblInfo.TextAlignment = UITextAlignment.Left;
 						lblInfo.TextColor = UIColor.Black;
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
@@ -382,7 +385,7 @@ namespace WineHangoutz
 							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 						}
 						sTemp = lblInfo.SizeThatFits(sTemp);
-						lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+						lblInfo.Frame = new CGRect(0, start, View.Frame.Width-10, sTemp.Height);
 						BTProgressHUD.Dismiss();
 					}
 				}
@@ -393,7 +396,7 @@ namespace WineHangoutz
 					lblInfo.TextColor = UIColor.Red;
 					lblInfo.TextAlignment = UITextAlignment.Center;
 					sTemp = lblInfo.SizeThatFits(sTemp);
-					lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+					lblInfo.Frame = new CGRect(0, start, View.Frame.Width-10, sTemp.Height);
 					try
 					{
 						if (btnLogin != null || btnResend != null)
@@ -417,7 +420,7 @@ namespace WineHangoutz
 				lblInfo.Text = "Something went wrong.We're on it.";
 				lblInfo.TextColor = UIColor.Red;
 				sTemp = lblInfo.SizeThatFits(sTemp);
-				lblInfo.Frame = new CGRect(0, start, View.Frame.Width, sTemp.Height);
+				lblInfo.Frame = new CGRect(0, start, View.Frame.Width-10, sTemp.Height);
 				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 			}
 			BTProgressHUD.Dismiss();
@@ -500,13 +503,17 @@ namespace WineHangoutz
 						BtnTest1.Hidden = true;
 						BtnTest2.Hidden = true;
 						CurrentUser.PutEmail(Email);
+						if (emailnotpresent)
+						{
+							if (screenheight <= 568)
+							{
+								y = y - 80;
+							}
+						}
 						cr=await svc.UpdateMail(alert.GetTextField(0).Text, CurrentUser.GetId());
 						LoggingClass.LogInfo(CurrentUser.GetCardNumber() + " Updated mail id to" + Email, screenid);
 						BTProgressHUD.Show(LoggingClass.txtpleasewait);
-						if (screenheight <= 568)
-						{
-							y = y - 80;
-						}
+						//Console.WriteLine(y);
 						ShowInfo(cr, false);
 					} 
 					//Console.WriteLine(updatedEmail);
@@ -535,18 +542,21 @@ namespace WineHangoutz
 				}
 				if (cr != null)
 				{
-					Console.WriteLine("Customer Response" + cr.customer.Email);
+					Console.WriteLine(cr.customer.CustomerID);
 					var TaskA = new System.Threading.Tasks.Task(() =>
 					{
 						updatetoken(cr);	
 					});
 					TaskA.Start();
+					//Console.WriteLine("Error Discription "+cr.ErrorDescription);
 					//Storing customerid and updating the device tokens
 					CurrentUser.StoreId(cr.customer.CustomerID.ToString());
 					if (cr.customer.Email != null && cr.customer.Email != "")
 					{
-						if (cr.ErrorDescription == null && cr.ErrorDescription == "")
+						Console.WriteLine("Error Discription "+cr.ErrorDescription);
+						if ((cr.ErrorDescription == null && cr.ErrorDescription == "" )||cr.customer.CustomerID!=0)
 						{
+							Console.WriteLine("Error Description is not there");
 							lblInfo.Text ="Hi " + cr.customer.FirstName 
 								+ " " + cr.customer.LastName +
 								", \nWe are sending a verification email to " + 
@@ -600,16 +610,24 @@ namespace WineHangoutz
 							//await svc.ResendEMail(CurrentUser.GetCardNumber());
 							ShowInfo(cr, false);
 						 };
-						BtnTest2.TouchDown += delegate
+						BtnTest2.TouchUpInside += delegate
 						{
+							//if (screenheight <= 568)
+							//{
+							//	y = y +160;
+							//}
+							Console.WriteLine(y);
 							BTProgressHUD.Show(LoggingClass.txtloading);
 							UpdateEmail("Please enter your new E-mail Id");
 						};
 					}
 					else
 					{
-						if (cr.ErrorDescription == null && cr.ErrorDescription == "")
+						emailnotpresent = true;
+						Console.WriteLine("Error Discription before if "+cr.ErrorDescription);
+						if ((cr.ErrorDescription == null && cr.ErrorDescription == "" )||cr.customer.CustomerID!=0)
 						{
+							Console.WriteLine("Error Discription in if "+cr.ErrorDescription);
 							UpdateEmail("Hi " + cr.customer.FirstName + cr.customer.LastName +
 										", \nIt seems we do not have your email address! Please update it so we can send you a verification link that will activate your account.");
 						}

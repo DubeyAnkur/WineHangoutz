@@ -1,14 +1,8 @@
 ﻿<Properties StartupConfiguration="{19967747-2AC6-49DA-8AE0-0DB0454C4F52}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WineHangoutz/AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="WineHangoutz/AboutController.cs" Line="224" Column="37" />
-      <File FileName="WineHangoutz/DetailViewController.cs" Line="196" Column="46" />
-      <File FileName="WineHangoutz/AppDelegate.cs" Line="57" Column="28" />
-      <File FileName="WineHangoutz/LoginViewController.cs" Line="141" Column="23" />
       <File FileName="WineHangoutz/Info.plist" />
-      <File FileName="WineHangoutz/LoggingClass.cs" Line="78" Column="1" />
-      <File FileName="WineHangoutz/ServiceWrapper.cs" Line="292" Column="3" />
-      <File FileName="WineHangoutz/BlobWrapper.cs" Line="87" Column="19" />
+      <File FileName="WineHangoutz/AppDelegate.cs" Line="48" Column="55" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
@@ -23,13 +17,10 @@
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyFavController.cs" relfile="WineHangoutz/MyFavController.cs" line="173" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/MyFavController.cs" relfile="WineHangoutz/MyFavController.cs" line="189" column="1" />
       <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/proview.cs" relfile="WineHangoutz/proview.cs" line="452" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoginViewController.cs" relfile="WineHangoutz/LoginViewController.cs" line="508" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoginViewController.cs" relfile="WineHangoutz/LoginViewController.cs" line="597" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoginViewController.cs" relfile="WineHangoutz/LoginViewController.cs" line="523" column="1" />
-      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoginViewController.cs" relfile="WineHangoutz/LoginViewController.cs" line="533" column="1" />
+      <Breakpoint file="/Users/ankurdubey/Projects/WineHangoutz/iOS/WineHangoutz/WineHangoutz/LoggingClass.cs" relfile="WineHangoutz/LoggingClass.cs" line="112" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.d274a2116992a9790c9c481a79f9ce9a52d51f2c" />
+  <MonoDevelop.Ide.ItemProperties.WineHangoutz PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MultiItemStartupConfigurations />
 </Properties>

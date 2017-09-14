@@ -242,9 +242,7 @@ namespace WineHangoutz {
 				ContentView.AddSubview(lblYear);
 				ContentView.AddSubview(lblRegPrice);
 				ContentView.AddSubview(ratingView);
-				ContentView.AddSubview(btnBuy);
-
-
+				//ContentView.AddSubview(btnBuy);
 			}
 			catch (Exception ex)
 			{

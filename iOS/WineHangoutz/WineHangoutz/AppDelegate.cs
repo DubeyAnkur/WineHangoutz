@@ -41,10 +41,10 @@ namespace WineHangoutz
 				// Override point for customization after application launch.
 				// If not required for your application you can safely delete this method
 				UITabBarController RootTab = (UITabBarController)Window.RootViewController;
-				CurrentUser.Clear();
-				//CurrentUser.Store("48732", "Mohana Simulator");
+				//CurrentUser.Clear();
+				//CurrentUser.Store("49140", "user Simulator");
 				//for direct log in
-				CurrentUser.PutCardNumber("900497312429");
+				//CurrentUser.PutCardNumber("900497312429");
 				//Console.WriteLine(DateTime.Now + " App opened");
 				UIImage profile = UIImage.FromFile("profile.png");
 				profile = ResizeImage(profile, 25, 25);
@@ -186,6 +186,7 @@ namespace WineHangoutz
 		//Receiving Notification
 		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 		{
+			
 			ProcessNotification(userInfo, false);
 			LoggingClass.LogInfo("Notification Received", screen);
 		}

@@ -35,7 +35,7 @@ namespace WineHangoutz
 			else if (StoreId == 3)
 			{
 				this.Title = LoggingClass.txtstore3;
-				storeId = 2;
+				storeId = StoreId;
 			}
 
 		}
@@ -48,20 +48,41 @@ namespace WineHangoutz
 				//       // button was clicked
 				//})
 				//, true);
-					ServiceWrapper svc = new ServiceWrapper();
-					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+				ServiceWrapper svc = new ServiceWrapper();
+				myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+				if (myData.ItemList.Count != 0)
+				{
 					this.CollectionView.Add(refreshControl);
 					refreshControl.ValueChanged += (rcSender, e) =>
 					{
-					//Refresh this view
-					myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
-					CollectionView.ReloadData();
-					refreshControl.EndRefreshing();
+						//Refresh this view
+						myData = svc.GetItemLists(storeId, CurrentUser.RetreiveUserId()).Result;
+						CollectionView.ReloadData();
+						refreshControl.EndRefreshing();
 					};
 					BTProgressHUD.Dismiss();
 					this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
 					this.CollectionView.BackgroundColor = UIColor.White;
 					CollectionView.RegisterClassForCell(typeof(APLCollectionViewCell), APLCollectionViewCell.Key);
+				}
+				else
+				{
+                    this.View.BackgroundColor = new UIColor(256, 256, 256, 0.8f);
+                    this.CollectionView.BackgroundColor = UIColor.White;
+					string _name=null;
+					if (storeId == 3)
+					{
+						_name = LoggingClass.txtstore3;	
+					}
+					UIAlertView alert = new UIAlertView()
+					{
+						
+						Title =  _name+ " Store",
+						Message = "Coming Soon"
+					};
+					alert.AddButton("OK");
+					alert.Show();
+				}
 
 			}
 			catch (Exception ex)
