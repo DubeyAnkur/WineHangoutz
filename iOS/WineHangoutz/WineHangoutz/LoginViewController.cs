@@ -47,8 +47,6 @@ namespace WineHangoutz
 			try
 			{
 				nfloat starty = 70;
-
-				//nfloat screenheight = UIScreen.MainScreen.Bounds.Height;
 				nfloat width = UIScreen.MainScreen.Bounds.Width;
 				width = width / 2 - 15; 				if (Reachability.IsHostReachable("https://www.google.com") == false)
 				{
@@ -66,28 +64,7 @@ namespace WineHangoutz
 					PreInfo(CurrentUser.GetCardNumber());
 				}
 				CGSize sTemp = new CGSize(View.Frame.Width-10, 100);
-				//checking is cust is scanned card or not
-				//if (CurrentUser.RetreiveUserId() != 0)
-				//{
-				//	nav = new UINavigationController(RootTabs);
-				//	AddNavigationButtons(nav);
-				//	_window.RootViewController = nav;
-				//	LoggingClass.LogInfo(CurrentUser.RetreiveUserName() + " Logged in", screenid);
-				//	//}
-				//}
-				//if (CurrentUser.GetCardNumber() != null)
-				//{
-				//	PreInfo(CurrentUser.GetCardNumber());
-				//}
-				//Checking user is logged in or not
-				//catch (Exception ex)
-				//{
-				//	LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
-				//}
-				//for backgroud
-				//var bGround = new UIImageView(UIImage.FromBundle("Info.png"));
-				//bGround.Frame = new CGRect(0,0,View.Frame.Width, View.Frame.Height);
-				//this.View.InsertSubview (bGround,9000);
+
 
 				MobileBarcodeScanner scanner = new MobileBarcodeScanner();
 				nfloat h = 31.0f;
@@ -246,73 +223,154 @@ namespace WineHangoutz
 			}
 
 		}
-		public void AddNavigationButtons(UINavigationController nav)
+		public async void PreInfo(string CardNumber)
 		{
-			UIImage profile = UIImage.FromFile("profile.png");
-			profile = ResizeImage(profile, 25, 25);
-
-			UIImage info = UIImage.FromFile("Info.png");
-			info = ResizeImage(info, 25, 25);
-
-			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
-				{
-					BTProgressHUD.Show("Loading,,,");
-					//nav.PushViewController(new ProfileViewController(nav), false);
-					nav.PushViewController(new proview(nav), false);
-					nav.NavigationBar.TopItem.Title = "Profile";
-					//BTProgressHUD.Dismiss();
-				});
-			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
+			CGSize sTemp = new CGSize(View.Frame.Width, 100);
+			try
 			{
-				BTProgressHUD.Show("Loading,,,");
-				nav.PushViewController(new AboutController1(nav), false);
-				nav.NavigationBar.TopItem.Title = "About Us";
-				BTProgressHUD.Dismiss();
-			});
-			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
-			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
+				if (btnLogin != null && btnResend != null)
+				{
+					btnLogin.Hidden = true;
+					btnResend.Hidden = true;
+				}
+				BTProgressHUD.Show(LoggingClass.txtpleasewait);
+				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
+				if (CardNumber != null)
+				{
+					CurrentUser.PutCardNumber(CardNumber);
+				}
+				if (cr != null)
+				{
+					//Updating device token in different thread
+					var TaskA = new System.Threading.Tasks.Task(() =>
+					{
+						updatetoken(cr);
+					});
+					TaskA.Start();
+					//Storing customerid and updating the device tokens
+					CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+					if (cr.customer.Email != null && cr.customer.Email != "")
+					{
+						if ((cr.ErrorDescription == null && cr.ErrorDescription == "") && cr.customer.CustomerID != 0)
+						{
+							//Console.WriteLine("Error Description is not there");
+							lblInfo.Text = "Hi " + cr.customer.FirstName
+								+ " " + cr.customer.LastName +
+								", \nWe are sending a verification email to " +
+								cr.customer.Email +
+								" . To proceed press continue.\nTo change your emailAddress click on Update.";
+						}
+						else
+						{
+							lblInfo.Text = cr.ErrorDescription;
+						}
+						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
+						lblInfo.TextAlignment = UITextAlignment.Justified;
+						lblInfo.Lines = 0;
+						sTemp = lblInfo.SizeThatFits(sTemp);
+						if (screenheight <= 568)
+						{
+							y = y - 80;
+							lblInfo.Frame = new CGRect(10, y, View.Frame.Width - 10, sTemp.Height);
+						}
+						else
+						{
+							lblInfo.Frame = new CGRect(10, y, View.Frame.Width - 10, sTemp.Height);
+						}
+						lblInfo.TextAlignment = UITextAlignment.Left;
+						lblInfo.TextColor = UIColor.Black;
+						lblInfo.Font = UIFont.FromName("HelveticaNeue", 15f);
+						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
+						start = 0;
+						start = y + lblInfo.Frame.Height + 10;
+						//Console.WriteLine("Error " + cr.ErrorDescription);
+						BtnTest1.Frame = new CGRect(180, start, 120, 30);
+						BtnTest2.Frame = new CGRect(30, start, 140, 30);
+						try
+						{
+							BtnTest1.Hidden = false;
+							BtnTest2.Hidden = false;
+						}
+						catch (Exception ex)
+						{
+							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
+						}
+						BtnTest1.TouchUpInside += async delegate
+						 {
+							 BTProgressHUD.Show(LoggingClass.txtloading);
+							 cr = await svc.ContinueService(cr);
+							 ShowInfo(cr, false);
+						 };
+						BtnTest2.TouchUpInside += delegate
+						{
+							BTProgressHUD.Show(LoggingClass.txtloading);
+							UpdateEmail("Please enter your new E-mail Id");
+						};
+					}
+					else
+					{
+						emailnotpresent = true;
+						//Console.WriteLine("Error Discription before if " + cr.ErrorDescription);
+						if ((cr.ErrorDescription == null && cr.ErrorDescription == "") || cr.customer.CustomerID != 0)
+						{
+							//Console.WriteLine("Error Discription in if " + cr.ErrorDescription);
+							UpdateEmail("Hi " + cr.customer.FirstName + cr.customer.LastName +
+										", \nIt seems we do not have your email address! Please update it so we can send you a verification link that will activate your account.");
+						}
+						else
+						{
+							UpdateEmail(cr.ErrorDescription);
+						}
+					}
+					BTProgressHUD.Dismiss();
+
+				}
+				else
+				{
+					try
+					{
+						BtnTest2.Hidden = true;
+						BtnTest1.Hidden = true;
+						btnLogin.Hidden = true;
+						btnResend.Hidden = true;
+					}
+					catch (Exception ex)
+					{
+						//Console.WriteLine(ex.Message);
+					}
+					lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
+					lblInfo.TextColor = UIColor.Red;
+					lblInfo.TextAlignment = UITextAlignment.Center;
+					sTemp = lblInfo.SizeThatFits(sTemp);
+					lblInfo.Frame = new CGRect(0, y, View.Frame.Width - 10, sTemp.Height);
+					BTProgressHUD.Dismiss();
+				}
+			}
+			catch (Exception ex)
+			{
+				//Console.WriteLine(ex.Message);
+			}
 		}
-		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
-		{
-			UIGraphics.BeginImageContext(new CGSize(width, height));
-			sourceImage.Draw(new CGRect(0, 0, width, height));
-			var resultImage = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-			return resultImage;
-		}
-		public async void ShowInfo(CustomerResponse cr,Boolean Continue)
+		public async void ShowInfo(CustomerResponse cr, Boolean Continue)
 		{
 			BTProgressHUD.Show("Please wait...");
 			CGSize sTemp = new CGSize(View.Frame.Width, 100);
 			try
 			{
-				//cr = await svc.AuthencateUser("email", CardNumber, uid_device);
 				if (CardNumber != null)
 				{
 					CurrentUser.PutCardNumber(CardNumber);
 				}
-				//if (cr != null)
-				//{
-				//	CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-				// EmailVerification();
-				//}
 				if (cr != null)
 				{
-					//CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-					//EmailVerification();
+
 					if (cr.customer.Email != "" && cr.customer.Email != null)
 					{
-						//if (screenheight <= 568)
-						//{
-						//	y = y - 80;
-						//}
-						Console.WriteLine("Error Discription before if \n in showinfo"+cr.ErrorDescription);
-						if ((cr.ErrorDescription == null && cr.ErrorDescription == "" )||cr.customer.CustomerID!=0)
+						if ((cr.ErrorDescription == null && cr.ErrorDescription == "") || cr.customer.CustomerID != 0)
 						{
-							Console.WriteLine("Error Discription in if\n in showinfo"+cr.ErrorDescription);
-							lblInfo.Text= "Hi " + cr.customer.FirstName + " " +
+							lblInfo.Text = "Hi " + cr.customer.FirstName + " " +
 								cr.customer.LastName + ",\nWe have sent you a verification link to "
-								+cr.customer.Email+". Please click on the activation link to activate the account.";
+								+ cr.customer.Email + ". Please click on the activation link to activate the account.";
 						}
 						else
 						{
@@ -322,7 +380,7 @@ namespace WineHangoutz
 						lblInfo.Lines = 0;
 						sTemp = lblInfo.SizeThatFits(sTemp);
 						//Console.WriteLine("Show info "+y);
-						lblInfo.Frame = new CGRect(10, y, View.Frame.Width-10, sTemp.Height);
+						lblInfo.Frame = new CGRect(10, y, View.Frame.Width - 10, sTemp.Height);
 						lblInfo.TextAlignment = UITextAlignment.Left;
 						lblInfo.TextColor = UIColor.Black;
 						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
@@ -333,13 +391,14 @@ namespace WineHangoutz
 							btnLogin.Hidden = false;
 							btnResend.Hidden = false;
 						}
-						catch(Exception exe) 
+						catch (Exception exe)
 						{
+							//Console.WriteLine(exe.Message);
 						}
 
 						start = 0;
 						start = y + lblInfo.Frame.Height + 10;
-						btnLogin.Frame=new CGRect(180, start, 120, 30);
+						btnLogin.Frame = new CGRect(180, start, 120, 30);
 						btnResend.Frame = new CGRect(30, start, 120, 30);
 
 						btnResend.TouchUpInside += async (send, eve) =>
@@ -385,7 +444,7 @@ namespace WineHangoutz
 							LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 						}
 						sTemp = lblInfo.SizeThatFits(sTemp);
-						lblInfo.Frame = new CGRect(0, start, View.Frame.Width-10, sTemp.Height);
+						lblInfo.Frame = new CGRect(0, start, View.Frame.Width - 10, sTemp.Height);
 						BTProgressHUD.Dismiss();
 					}
 				}
@@ -396,7 +455,7 @@ namespace WineHangoutz
 					lblInfo.TextColor = UIColor.Red;
 					lblInfo.TextAlignment = UITextAlignment.Center;
 					sTemp = lblInfo.SizeThatFits(sTemp);
-					lblInfo.Frame = new CGRect(0, start, View.Frame.Width-10, sTemp.Height);
+					lblInfo.Frame = new CGRect(0, start, View.Frame.Width - 10, sTemp.Height);
 					try
 					{
 						if (btnLogin != null || btnResend != null)
@@ -420,10 +479,44 @@ namespace WineHangoutz
 				lblInfo.Text = "Something went wrong.We're on it.";
 				lblInfo.TextColor = UIColor.Red;
 				sTemp = lblInfo.SizeThatFits(sTemp);
-				lblInfo.Frame = new CGRect(0, start, View.Frame.Width-10, sTemp.Height);
+				lblInfo.Frame = new CGRect(0, start, View.Frame.Width - 10, sTemp.Height);
 				LoggingClass.LogError(exe.Message, screenid, exe.StackTrace);
 			}
 			BTProgressHUD.Dismiss();
+		}
+		public void AddNavigationButtons(UINavigationController nav)
+		{
+			UIImage profile = UIImage.FromFile("profile.png");
+			profile = ResizeImage(profile, 25, 25);
+
+			UIImage info = UIImage.FromFile("Info.png");
+			info = ResizeImage(info, 25, 25);
+
+			var topBtn = new UIBarButtonItem(profile, UIBarButtonItemStyle.Plain, (sender, args) =>
+				{
+					BTProgressHUD.Show("Loading,,,");
+					//nav.PushViewController(new ProfileViewController(nav), false);
+					nav.PushViewController(new proview(nav), false);
+					nav.NavigationBar.TopItem.Title = "Profile";
+					//BTProgressHUD.Dismiss();
+				});
+			var optbtn = new UIBarButtonItem(info, UIBarButtonItemStyle.Plain, (sender, args) =>
+			{
+				BTProgressHUD.Show("Loading,,,");
+				nav.PushViewController(new AboutController1(nav), false);
+				nav.NavigationBar.TopItem.Title = "About Us";
+				BTProgressHUD.Dismiss();
+			});
+			nav.NavigationBar.TopItem.SetRightBarButtonItem(optbtn, true);
+			nav.NavigationBar.TopItem.SetLeftBarButtonItem(topBtn, true);
+		}
+		public UIImage ResizeImage(UIImage sourceImage, float width, float height)
+		{
+			UIGraphics.BeginImageContext(new CGSize(width, height));
+			sourceImage.Draw(new CGRect(0, 0, width, height));
+			var resultImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return resultImage;
 		}
 		public async void EmailVerification()
 		{
@@ -520,150 +613,6 @@ namespace WineHangoutz
 					//Update service;
 					//alert.CancelButtonIndex = 0; 				} 			} ;
 			//alert.DismissWithClickedButtonIndex(0, true); 			//alert.AlertViewStyle = UIAlertViewStyle.PlainTextInput; 			alert.Show();
-		}
-		public async void PreInfo(string CardNumber)
-		{
-			//Console.WriteLine("Preinfo with"+CardNumber);
-			CGSize sTemp = new CGSize(View.Frame.Width, 100);
-			try
-			{
-				if (btnLogin != null && btnResend != null)
-				{
-					btnLogin.Hidden = true;
-					btnResend.Hidden = true;
-				}
-				BTProgressHUD.Show(LoggingClass.txtpleasewait);
-				//Console.WriteLine("AuthencateUser Calling");
-				cr = await svc.AuthencateUser("email", CardNumber, uid_device);
-				//Console.WriteLine("AuthencateUser Called");
-				if (CardNumber != null)
-				{
-					CurrentUser.PutCardNumber(CardNumber);
-				}
-				if (cr != null)
-				{
-					Console.WriteLine(cr.customer.CustomerID);
-					var TaskA = new System.Threading.Tasks.Task(() =>
-					{
-						updatetoken(cr);	
-					});
-					TaskA.Start();
-					//Console.WriteLine("Error Discription "+cr.ErrorDescription);
-					//Storing customerid and updating the device tokens
-					CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-					if (cr.customer.Email != null && cr.customer.Email != "")
-					{
-						Console.WriteLine("Error Discription "+cr.ErrorDescription);
-						if ((cr.ErrorDescription == null && cr.ErrorDescription == "" )||cr.customer.CustomerID!=0)
-						{
-							Console.WriteLine("Error Description is not there");
-							lblInfo.Text ="Hi " + cr.customer.FirstName 
-								+ " " + cr.customer.LastName +
-								", \nWe are sending a verification email to " + 
-								cr.customer.Email + 
-								" . To proceed press continue.\nTo change your emailAddress click on Update.";
-						}
-						else
-						{
-							lblInfo.Text = cr.ErrorDescription;
-						}
-						//Console.WriteLine("Email id is therr"+cr.customer.Email);
-						// " Hi " + cr.customer.FirstName + " " + cr.customer.LastName + ",\n We are going to send an verification email at\n " + cr.customer.Email;//+ ".\n Please verify email to continue login. \n If you have not received email Click Resend Email.\n To get Email Id changed, contact store.";
-						lblInfo.LineBreakMode = UILineBreakMode.WordWrap;
-						lblInfo.TextAlignment = UITextAlignment.Justified;
-						lblInfo.Lines = 0;
-						//lblInfo.te
-						sTemp = lblInfo.SizeThatFits(sTemp);
-						if (screenheight <= 568)
-						{
-							y = y - 80;
-							lblInfo.Frame = new CGRect(10, y, View.Frame.Width-10, sTemp.Height);
-						}
-						else
-						{
-							lblInfo.Frame = new CGRect(10, y, View.Frame.Width-10, sTemp.Height);
-						}
-						Console.WriteLine("Preinfo info "+y);
-						lblInfo.TextAlignment = UITextAlignment.Left;
-						lblInfo.TextColor = UIColor.Black;
-						lblInfo.Font=UIFont.FromName("HelveticaNeue", 15f);
-						CurrentUser.StoreId(cr.customer.CustomerID.ToString());
-						start = 0;
-						start = y + lblInfo.Frame.Height + 10;
-						Console.WriteLine("Error "+cr.ErrorDescription);
-						BtnTest1.Frame = new CGRect(180, start, 120, 30);
-						BtnTest2.Frame = new CGRect(30, start, 140, 30);
-						try
-						{
-							BtnTest1.Hidden = false;
-							BtnTest2.Hidden = false;
-						}
-						catch (Exception ex)
-						{
-							LoggingClass.LogError(ex.Message, screenid, ex.StackTrace);
-						}
-						BtnTest1.TouchUpInside += async delegate
-						 {
-							BTProgressHUD.Show(LoggingClass.txtloading);
-							 cr = await svc.ContinueService(cr);
-							 //btnCardScanner.Hidden = true;
-							//await svc.ResendEMail(CurrentUser.GetCardNumber());
-							ShowInfo(cr, false);
-						 };
-						BtnTest2.TouchUpInside += delegate
-						{
-							//if (screenheight <= 568)
-							//{
-							//	y = y +160;
-							//}
-							Console.WriteLine(y);
-							BTProgressHUD.Show(LoggingClass.txtloading);
-							UpdateEmail("Please enter your new E-mail Id");
-						};
-					}
-					else
-					{
-						emailnotpresent = true;
-						Console.WriteLine("Error Discription before if "+cr.ErrorDescription);
-						if ((cr.ErrorDescription == null && cr.ErrorDescription == "" )||cr.customer.CustomerID!=0)
-						{
-							Console.WriteLine("Error Discription in if "+cr.ErrorDescription);
-							UpdateEmail("Hi " + cr.customer.FirstName + cr.customer.LastName +
-										", \nIt seems we do not have your email address! Please update it so we can send you a verification link that will activate your account.");
-						}
-						else
-						{
-							UpdateEmail(cr.ErrorDescription);
-						}
-					}
-					BTProgressHUD.Dismiss();
-
-				}
-				else
-				{
-					try
-					{
-						BtnTest2.Hidden = true;
-						BtnTest1.Hidden = true;
-						btnLogin.Hidden = true;
-						btnResend.Hidden = true;
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(ex.Message);
-					}
-					lblInfo.Text = "Sorry. Your Card number is not matching our records.\n Please re-scan Or Try app as Guest Log In.";
-					lblInfo.TextColor = UIColor.Red;
-					lblInfo.TextAlignment = UITextAlignment.Center;
-					sTemp = lblInfo.SizeThatFits(sTemp);
-					lblInfo.Frame = new CGRect(0, y, View.Frame.Width-10, sTemp.Height);
-					BTProgressHUD.Dismiss();
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
 		}
 		public async void updatetoken(CustomerResponse cr)
 		{

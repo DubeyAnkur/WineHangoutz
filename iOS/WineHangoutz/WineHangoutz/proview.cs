@@ -33,38 +33,24 @@ namespace WineHangoutz
 		public UIButton btnChange;
 		UIImagePickerController imagePicker;
 		CustomerResponse cRes = new CustomerResponse();
-
-			public proview(UINavigationController navCtrl) : base("proview", null)
+		public proview(UINavigationController navCtrl) : base("proview", null)
+		{
+			NavCtrl = navCtrl;
+			BTProgressHUD.Show("Loading...");
+			this.Title = "Profile";
+		}
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+			View.BackgroundColor = UIColor.White;
+			Task.Factory.StartNew(() =>
 			{
-				NavCtrl = navCtrl;
-				Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
-				if (internetStatus == false)
-				{
-					UIAlertView alert = new UIAlertView()
-					{
-						Title = "Sorry",
-						Message = "Not connected to internet.Please connect and retry."
-					};
-					alert.AddButton("OK");
-					alert.Show();
-				}
-				BTProgressHUD.Show("Loading...");
-	            this.Title = "Profile";
-			}
-
-			public override void ViewDidLoad()
-			{
-				base.ViewDidLoad();
-				View.BackgroundColor = UIColor.White;
-				Task.Factory.StartNew(() =>
-				{
-	                 InvokeOnMainThread( () => {	
-						Internal_ViewDidLoad(false);
-					});
+	            InvokeOnMainThread( () => 
+				{	
+					Internal_ViewDidLoad(false);
 				});
-				// Perform any additional setup after loading the view, typically from a nib.
-			}
-
+			});
+		}
 		void Internal_ViewDidLoad(bool v)
 		{
 			try
@@ -669,7 +655,7 @@ namespace WineHangoutz
 
 					alert.AddButton("OK");
 					alert.Show();
-				LoggingClass.LogError(e.Message, screenid, e.StackTrace);
+					LoggingClass.LogError(e.Message, screenid, e.StackTrace);
 				//Console.WriteLine(e.Message + "\n" + e.StackTrace);
 			}
 		}
@@ -681,7 +667,7 @@ namespace WineHangoutz
 		{
 			try
 			{
-				Console.WriteLine("Enterd into Gallery pick");
+				//Console.WriteLine("Enterd into Gallery pick");
 				// determine what was selected, video or image
 				bool isImage = false;
 				switch (e.Info[UIImagePickerController.MediaType].ToString())
@@ -773,7 +759,7 @@ namespace WineHangoutz
 			//nfloat currentViewHeight = viewFrame.Height - r.Height;
 			// update scrollViewFrame
 			Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h+r.Height);
-			Console.WriteLine(r.Height);
+			//Console.WriteLine(r.Height);
 			Scroll.ContentOffset = new CGPoint(0, 230);
 		}
 		private void KeyBoardDownNotification(NSNotification notification)
@@ -799,7 +785,6 @@ namespace WineHangoutz
 		}
 		public async void DownloadAsync()
 		{
-			//Boolean internetStatus = Reachability.IsHostReachable("https://www.google.com");
 			NSData HighImgData = null;
 			//UIImage HighresImg = null;
 			try

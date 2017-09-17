@@ -22,9 +22,6 @@ namespace WineHangoutz
 		{
 			try
 			{
-				
-				//mailController = new MFMailComposeViewController ();
-
 				base.ViewDidLoad();
 				//LoggingClass.UploadLogs();
 				CGSize sTemp = new CGSize(UIScreen.MainScreen.Bounds.Width, 100);
@@ -141,7 +138,7 @@ namespace WineHangoutz
 				y = y + sTemp.Height-20;
 				UITextView p5 = new UITextView();
 				p5.Frame = new CGRect(5, y, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
-				p5.Text = "Let them also know the best choice of yours.";
+				p5.Text = "Please provide rating and review for your favorite wine. Wine Hangouts app displays the average rating and the individual rating of the users.";
 				p5.TextColor = UIColor.Black;
 				p5.TextAlignment = UITextAlignment.Justified;
 				p5.Font = UIFont.FromName("Verdana", 13f);
@@ -149,16 +146,16 @@ namespace WineHangoutz
 				sTemp = p5.SizeThatFits(sTemp);
 				p5.Frame = new CGRect(5, y, UIScreen.MainScreen.Bounds.Width - 20, sTemp.Height);
 
-				y = y + sTemp.Height-10;
-				UITextView p6 = new UITextView();
-				p6.Frame = new CGRect(5, y, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
-				p6.Text = "Rate and Review is the spot for rating your favorite wine and Wine Hangouts displays the average rating and the individual rating of the users.";
-				p5.TextColor = UIColor.Black;
-				p6.Font = UIFont.FromName("Verdana", 13f);
-				p6.Editable = false;
-				p6.TextAlignment = UITextAlignment.Justified;
-				sTemp = p6.SizeThatFits(sTemp);
-				p6.Frame = new CGRect(5, y, UIScreen.MainScreen.Bounds.Width - 20, sTemp.Height);
+				//y = y + sTemp.Height-10;
+				//UITextView p6 = new UITextView();
+				//p6.Frame = new CGRect(5, y, UIScreen.MainScreen.Bounds.Width - 20, UIScreen.MainScreen.Bounds.Height);
+				//p6.Text = "Rate and Review is the spot for rating your favorite wine and Wine Hangouts displays the average rating and the individual rating of the users.";
+				//p5.TextColor = UIColor.Black;
+				//p6.Font = UIFont.FromName("Verdana", 13f);
+				//p6.Editable = false;
+				//p6.TextAlignment = UITextAlignment.Justified;
+				//sTemp = p6.SizeThatFits(sTemp);
+				//p6.Frame = new CGRect(5, y, UIScreen.MainScreen.Bounds.Width - 20, sTemp.Height);
 
 				y = y + sTemp.Height-100;
 				UITextView VersionText = new UITextView();
@@ -232,7 +229,7 @@ namespace WineHangoutz
 				scrollView.AddSubview(p3);
 				scrollView.AddSubview(p4);
 				scrollView.AddSubview(p5);
-				scrollView.AddSubview(p6);
+				//scrollView.AddSubview(p6);
 				scrollView.AddSubview(VersionText);
 				scrollView.AddSubview(ContactUsText);
 
@@ -246,7 +243,7 @@ namespace WineHangoutz
 			catch (Exception ex)
 			{
 				LoggingClass.LogError(ex.ToString(), screen, ex.StackTrace);
-				Console.WriteLine(ex.Message);
+				//Console.WriteLine(ex.Message);
 			}
 		}
 }

@@ -348,7 +348,7 @@ namespace WineHangoutz
 												//library.WriteImageToSavedPhotosAlbum(photo.CGImage, meta, (assetUrl, error) =>
 												//{
 												//	UploadProfilePic(assetUrl.ToString());
-												//	//Console.WriteLine("assetUrl:" + assetUrl);
+												//	Console.WriteLine("assetUrl:" + assetUrl);
 												//});
 												//var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 											});
@@ -523,7 +523,7 @@ namespace WineHangoutz
 					nfloat n = Scroll.Subviews[i].Frame.Size.Height;
 					h = h + n;
 				}
-				Console.WriteLine(h);
+				//Console.WriteLine(h);
 				Scroll.ContentSize = new CGSize(UIScreen.MainScreen.Bounds.Width, h-200);
 				View = (Scroll);
 			}

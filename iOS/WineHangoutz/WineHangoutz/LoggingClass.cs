@@ -19,61 +19,32 @@ namespace WineHangoutz
 		public static string txtpleasewait = "Please wait...";
 		public static string txtnotallowed = "This feature is allowed only for VIP Card holders";
 		public static string txtservicedown = "Something went wrong,We're on it.";
-		//public static string 
-
 		public static string LogPath;
-		public static string userid;
-
-		//filename creation
-		public static void pathcre()
-		{
-				userid=CurrentUser.RetreiveUserId().ToString();
-				if (userid == "0")
-				{
-					if (CurrentUser.GetGuestId() == "0" || CurrentUser.GetGuestId() == null)
-					{
-						userid = "DefaultLogs";
-					}
-					else 
-					{
-					userid = "g_" + CurrentUser.GetGuestId();
-					}
-				}
-				var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+		public static StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+		public static CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+		public static CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+		public static CloudBlobContainer container = blobClient.GetContainerReference("detaileduserlogs");
+		public static string userid = CurrentUser.RetreiveUserId().ToString();
+	
+				//var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				//var cache = Path.Combine("Library/Caches/", "WineHangoutz");
-				var filename = Path.Combine(documents, userid+".csv");
-				LogPath = filename;
-		}
+				//var filename = Path.Combine(documents, userid+".csv");
+				//LogPath = filename;
 		public static void Logtime(string time,string screen)
 		{
-			//pathcre();
+			
 			var csv = new StringBuilder();
 			var newLine = string.Format("{0},{1},{2},{3}", "Time", time, screen,"Ios");
 			csv.AppendLine(newLine);
-			//try
-			//{
-			//	File.AppendAllText(LogPath, csv.ToString());
-			//}
-			//catch (Exception ex)
-			//{ 
-			//}
 			string logg = csv.ToString();
 			UploadAsyncLogs(logg);
 			
 		}
 		public static void LogInfo(string info, string screen)
 		{
-			//pathcre();
 			var csv = new StringBuilder();
 			var newLine = string.Format("{0},{1},{2},{3},{4}", "Information", DateTime.Now, info, screen,"Ios");
 			csv.AppendLine(newLine);
-			//try
-			//{
-			//	File.AppendAllText(LogPath, csv.ToString());
-			//}
-			//catch (Exception ex)
-			//{ 
-			//}
 			string logg = csv.ToString();
 			UploadAsyncLogs(logg);
 		}
@@ -99,12 +70,21 @@ namespace WineHangoutz
 		{
 			try
 			{
-				pathcre();
-				StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-				CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-				CloudBlobContainer container = blobClient.GetContainerReference("userlogs");
+				//pathcre();
+				if (userid == "0" || userid=="DefaultLogs")
+				{
+					if (CurrentUser.GetGuestId() == "0" || CurrentUser.GetGuestId() == null)
+					{
+						userid = "DefaultLogs";
+					}
+					else 
+					{
+					userid = "g_" + CurrentUser.GetGuestId();
+					}
+				}
 				CloudAppendBlob append = container.GetAppendBlobReference(userid+".csv");
+				Console.WriteLine("User id "+userid+" ");
+				Console.WriteLine(log);
 				if (!await append.ExistsAsync())
 				{
 					await append.CreateOrReplaceAsync();
@@ -113,39 +93,29 @@ namespace WineHangoutz
 			}
 			catch (Exception ex)
 			{
-				//var csv = new StringBuilder();
-				//var newLine = string.Format("{0},{1},{2},{3}", "Exception", DateTime.Now, ex.Message, "Logging class");
-				//csv.AppendLine(newLine);
-				//File.AppendAllText(LogPath, csv.ToString());
-				//LoggingClass.LogError(ex.Message, "Upload Log Blobs", ex.StackTrace);
+				//Console.WriteLine(ex.Message);
 			}
 		}
-		public static async void UploadLogs()
-		{
-			try
-			{
-				StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
-				CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
-				CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
-				CloudBlobContainer container = blobClient.GetContainerReference("detaileduserlogs");
-				await container.CreateIfNotExistsAsync();
-				CloudBlockBlob blob = container.GetBlockBlobReference(userid + ".csv");
-				//LoggingClass.LogInfo("Updated profile picture",screenid);
-				using (var fs = System.IO.File.Open(LogPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
-				 {
-			              await blob.UploadFromStreamAsync(fs);
-				//LoggingClass.LogInfo("Profile picture uploaded into blob",screenid);
-           		 }
-
-			}
-			catch (Exception ex)
-			{
-				//var csv = new StringBuilder();
-				//var newLine = string.Format("{0},{1},{2},{3}", "Exception", DateTime.Now, ex.Message, "Logging class");
-				//csv.AppendLine(newLine);
-				//File.AppendAllText(LogPath, csv.ToString());
-				//LoggingClass.LogError(ex.Message, "Upload Log Blobs", ex.StackTrace);
-			}
-		}
+		//public static async void UploadLogs()
+		//{
+		//	try
+		//	{
+		//		StorageCredentials sc = new StorageCredentials("icsintegration", "+7UyQSwTkIfrL1BvEbw5+GF2Pcqh3Fsmkyj/cEqvMbZlFJ5rBuUgPiRR2yTR75s2Xkw5Hh9scRbIrb68GRCIXA==");
+		//		CloudStorageAccount storageaccount = new CloudStorageAccount(sc, true);
+		//		CloudBlobClient blobClient = storageaccount.CreateCloudBlobClient();
+		//		CloudBlobContainer container = blobClient.GetContainerReference("detaileduserlogs");
+		//		await container.CreateIfNotExistsAsync();
+		//		CloudBlockBlob blob = container.GetBlockBlobReference(userid + ".csv");
+		//		Console.WriteLine("User id"+userid);
+		//		using (var fs = System.IO.File.Open(LogPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.None))
+		//		{
+		//	              await blob.UploadFromStreamAsync(fs);
+  		//        }
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		//Console.WriteLine(ex.Message);
+		//	}
+		//}
 	}
 }
