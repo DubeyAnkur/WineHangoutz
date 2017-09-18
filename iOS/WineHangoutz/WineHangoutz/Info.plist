@@ -43,7 +43,7 @@
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.18</string>
+	<string>1.17</string>
 	<key>CFBundleVersion</key>
 	<string>5.0</string>
 </dict>
